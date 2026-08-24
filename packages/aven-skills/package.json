@@ -1,0 +1,21 @@
+{
+	"name": "@myavenceo/aven-skills",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"description": "The skill catalog — one entry per skill, shared by the website and the app.",
+	"license": "GPL-3.0-only",
+	"sideEffects": false,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"test": "bun test ./tests"
+	}
+}
