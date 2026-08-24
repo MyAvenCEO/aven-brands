@@ -1,0 +1,1 @@
+import{C as e,S as t,V as n,f as r,h as i,nt as a,x as o}from"../chunks/WsY5ahp_.js";import"../chunks/xihTtKlq.js";var s=a({prerender:()=>!0,trailingSlash:()=>c}),c=`always`,l=e(`<link rel="icon" href="/aven-logo.svg" type="image/svg+xml"/>`);function u(e,a){var s=t();r(`12qhfyh`,e=>{var t=l();o(e,t)});var c=n(s);i(c,()=>a.children),o(e,s)}export{u as component,s as universal};
