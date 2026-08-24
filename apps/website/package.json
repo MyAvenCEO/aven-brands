@@ -1,0 +1,36 @@
+{
+	"name": "@myavenceo/website",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --env-file=../../.env x --bun vite dev --port 1421 --strictPort",
+		"build": "bun x --bun vite build",
+		"audit:build": "bun ./scripts/audit-static-build.ts",
+		"preview": "bun x --bun vite preview --port 1421 --strictPort",
+		"prepare": "bunx --bun svelte-kit sync || echo ''",
+		"check": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.6",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.57.0",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@tailwindcss/vite": "^4.2.4",
+		"@types/node": "^24.10.13",
+		"svelte": "^5.55.2",
+		"svelte-check": "^4.4.6",
+		"tailwindcss": "^4.2.4",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.7",
+		"vite-plugin-singlefile": "^2.3.0"
+	},
+	"dependencies": {
+		"@myavenceo/aven-brand": "workspace:*",
+		"@myavenceo/aven-skills": "workspace:*"
+	}
+}

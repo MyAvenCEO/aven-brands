@@ -1,0 +1,39 @@
+{
+	"name": "@myavenceo/aven-brand",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "The brand's single source of truth shared by every surface: company facts, the legal documents built from them, and the website hosts they live on.",
+	"license": "GPL-3.0-only",
+	"sideEffects": false,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./pricing": {
+			"types": "./dist/pricing.d.ts",
+			"import": "./dist/pricing.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"prepack": "bun run build"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MyAvenCEO/avenCEO.git",
+		"directory": "packages/aven-brand"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}
