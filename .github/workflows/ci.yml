@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, next, production]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun run test
+      - name: Build and audit next
+        run: bun run build:next
+      - name: Build and audit production
+        run: bun run build:production
+      - name: Verify publishable brand package
+        working-directory: packages/aven-brand
+        run: npm pack --dry-run
