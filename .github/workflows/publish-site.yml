@@ -32,10 +32,12 @@ jobs:
             next)
               environment=next
               deploy_branch=deploy/next
+              host=next.aven.ceo
               ;;
             production)
               environment=production
               deploy_branch=deploy/production
+              host=aven.ceo
               ;;
             *)
               echo "::error::Unsupported source branch: $GITHUB_REF_NAME"
@@ -44,6 +46,7 @@ jobs:
           esac
           echo "environment=$environment" >> "$GITHUB_OUTPUT"
           echo "deploy_branch=$deploy_branch" >> "$GITHUB_OUTPUT"
+          echo "host=$host" >> "$GITHUB_OUTPUT"
 
       - name: Build and audit complete static site
         run: bun run "build:${{ steps.target.outputs.environment }}"
@@ -55,6 +58,17 @@ jobs:
           test -f apps/website/dist/index.html
           printf '%s\n' "$GITHUB_SHA" > apps/website/dist/.source-revision
           printf '%s\n' "${{ steps.target.outputs.environment }}" > apps/website/dist/.environment
+
+      - name: Stamp the custom-domain markers
+        # Carried over from avenOS's retired deploy-website job. The domain differs
+        # per environment, so it is written here rather than committed as a static
+        # file: one repo, two hosts. `.nojekyll` keeps Pages from eating `_app/`.
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s\n' "${{ steps.target.outputs.host }}" > apps/website/dist/CNAME
+          touch apps/website/dist/.nojekyll
+          test "$(cat apps/website/dist/CNAME)" = "${{ steps.target.outputs.host }}"
 
       - name: Publish dist to deployment branch
         env:
