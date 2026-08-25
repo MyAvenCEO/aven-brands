@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
-import { CATALOG, reconcile, skillById, skillBySlug, slugOf } from '../src/index'
+import { CATALOG, reconcile, skillById, skillBySlug, slugOf } from '../src/skills'
 
 /**
  * The catalog is only a single source of truth if something notices when a

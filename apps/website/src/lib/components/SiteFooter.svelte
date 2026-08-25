@@ -1,5 +1,5 @@
 <script lang="ts">
-import { legalPath } from '@myavenceo/aven-brand'
+import { legalPath } from '@myavenceo/aven-ceo'
 import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick } from '$lib/i18n'
 import { common } from '$lib/i18n/common'

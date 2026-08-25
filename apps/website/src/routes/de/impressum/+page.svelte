@@ -1,5 +1,5 @@
 <script lang="ts">
-import { IMPRESSUM_DE } from '@myavenceo/aven-brand'
+import { IMPRESSUM_DE } from '@myavenceo/aven-ceo'
 import LegalDoc from '$lib/pages/LegalDoc.svelte'
 </script>
 

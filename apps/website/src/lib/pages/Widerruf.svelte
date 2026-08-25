@@ -3,7 +3,7 @@
      (EGBGB Anlage 1 / EU model instruction) below for people who came to
      read, and the button once more at the bottom so nobody scrolls back up. -->
 <script lang="ts">
-import { legalDocument, REVOCATION_WIDGET } from '@myavenceo/aven-brand'
+import { legalDocument, REVOCATION_WIDGET } from '@myavenceo/aven-ceo'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import type { Lang } from '$lib/i18n'

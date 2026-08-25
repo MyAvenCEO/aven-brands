@@ -1,7 +1,7 @@
 /**
  * The English face of the pricing SSOT, applied at render time. The TEXTS —
  * German originals and their English translations — live in the brand
- * package (`@myavenceo/aven-brand/pricing`, re-exported via `$lib/pricing/plans`)
+ * package (`@myavenceo/aven-ceo/pricing`, re-exported via `$lib/pricing/plans`)
  * so the id service seeds its Polar products from the same words; this file
  * keeps only the render-time adapters: ids, prices and skill slugs never
  * change, only the words around them. German delegates to the original
