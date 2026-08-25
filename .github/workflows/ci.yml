@@ -24,6 +24,15 @@ jobs:
         run: bun run build:next
       - name: Build and audit production
         run: bun run build:production
-      - name: Verify publishable brand package
-        working-directory: packages/aven-brand
+      - run: bun run lint
+      - name: Verify generated brand files are in sync
+        # tokens.ts is the only place a hex is spelled; every theme, favicon and
+        # icon primitive is generated from it and committed. If someone edits a
+        # generated file directly, regenerating restores it and the tree goes
+        # dirty — this is where that gets caught, before it can be published.
+        run: |
+          bun run brand:generate
+          git diff --exit-code
+      - name: Verify publishable package
+        working-directory: packages/aven-ceo
         run: npm pack --dry-run

@@ -1,7 +1,7 @@
-<!-- One renderer for every legal document from @myavenceo/aven-brand — the
+<!-- One renderer for every legal document from @myavenceo/aven-ceo — the
      content is data, the markup lives exactly once, here. -->
 <script lang="ts">
-import type { LegalBlock, LegalDocument } from '@myavenceo/aven-brand'
+import type { LegalBlock, LegalDocument } from '@myavenceo/aven-ceo'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import type { Lang } from '$lib/i18n'

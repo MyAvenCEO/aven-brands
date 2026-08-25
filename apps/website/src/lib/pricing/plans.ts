@@ -1,6 +1,6 @@
 /**
  * SvelteKit-facing surface of the pricing SSOT. The data and the pure
- * helpers live in `@myavenceo/aven-brand/pricing` (re-exported via
+ * helpers live in `@myavenceo/aven-ceo/pricing` (re-exported via
  * plans-data.ts); this file re-exports them and adds only what needs `$lib`.
  */
 

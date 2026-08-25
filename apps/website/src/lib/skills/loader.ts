@@ -1,4 +1,4 @@
-import { skillBySlug } from '@myavenceo/aven-skills'
+import { skillBySlug } from '@myavenceo/aven-ceo/skills'
 import { localeHref } from '$lib/i18n'
 import { PLANS, type Plan, type PlanId, plan as planById, planIncludes } from '$lib/pricing/plans'
 import deBlogWriter from './content/de/blog-writer.json'

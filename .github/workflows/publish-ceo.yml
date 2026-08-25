@@ -1,0 +1,45 @@
+name: Publish aven-ceo
+
+on:
+  push:
+    tags: [aven-ceo-v*]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.13
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: '@myavenceo'
+      - run: bun install --frozen-lockfile
+      - name: Require tag and package versions to match
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_version=$(node -p "require('./packages/aven-ceo/package.json').version")
+          test "$GITHUB_REF_NAME" = "aven-ceo-v$package_version"
+      - name: Refuse to publish generated files that drifted
+        # The package ships committed, generated assets (the icon primitives) and
+        # the theme its consumers regenerate from. If a hex was edited anywhere but
+        # tokens.ts, regenerating restores it and the tree goes dirty — so this is
+        # the one place that has to notice, before a stale artifact reaches anyone.
+        run: |
+          set -euo pipefail
+          bun run brand:generate
+          git diff --exit-code
+      - run: bun run --cwd packages/aven-ceo build
+      - name: Publish compiled package
+        working-directory: packages/aven-ceo
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish

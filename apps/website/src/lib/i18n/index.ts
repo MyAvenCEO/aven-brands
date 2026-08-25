@@ -11,11 +11,11 @@
  * fails the build, not the reader.
  *
  * The legal pages come in pairs with their own slugs per language
- * (`/impressum` ↔ `/en/site-notice`) — the pairs live in @myavenceo/aven-brand,
+ * (`/impressum` ↔ `/en/site-notice`) — the pairs live in @myavenceo/aven-ceo,
  * so the switcher below maps them without a second list. AGB and Widerruf
  * are still German-only and simply stay put.
  */
-import { type LegalSlug, legalPath } from '@myavenceo/aven-brand'
+import { type LegalSlug, legalPath } from '@myavenceo/aven-ceo'
 
 export type Lang = 'de' | 'en'
 

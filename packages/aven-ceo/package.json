@@ -1,0 +1,55 @@
+{
+	"name": "@myavenceo/aven-ceo",
+	"version": "0.2.0",
+	"type": "module",
+	"description": "Everything every avenCEO surface shares: company facts, the legal documents built from them, the plans, the skill catalog, the design tokens and the brand assets.",
+	"license": "GPL-3.0-only",
+	"sideEffects": false,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./pricing": {
+			"types": "./dist/pricing.d.ts",
+			"import": "./dist/pricing.js"
+		},
+		"./skills": {
+			"types": "./dist/skills.d.ts",
+			"import": "./dist/skills.js"
+		},
+		"./tokens": {
+			"types": "./dist/tokens.d.ts",
+			"import": "./dist/tokens.js"
+		},
+		"./generate": {
+			"types": "./dist/generate.d.ts",
+			"import": "./dist/generate.js"
+		},
+		"./assets/*": "./assets/*"
+	},
+	"files": [
+		"dist",
+		"assets",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"generate": "bun ./scripts/generate.ts",
+		"test": "bun test ./tests",
+		"prepack": "bun run build"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MyAvenCEO/avenCEO.git",
+		"directory": "packages/aven-ceo"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

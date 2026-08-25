@@ -3,7 +3,7 @@
  * Icons are the Iconify Phosphor duotone set (ph:*-logo-duotone), inlined so
  * the static site ships no icon dependency. Each icon is two paths on a
  * 256×256 viewBox: `dim` (the 20 %-opacity duotone fill) and `solid`.
- * Keep the URLs in sync with the privacy list in @myavenceo/aven-brand
+ * Keep the URLs in sync with the privacy list in @myavenceo/aven-ceo
  * social-media.ts.
  */
 export type SocialProfile = {
