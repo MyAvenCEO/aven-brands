@@ -1,5 +1,5 @@
 <script lang="ts">
-import { SOCIAL_MEDIA_EN } from '@myavenceo/aven-brand'
+import { SOCIAL_MEDIA_EN } from '@myavenceo/aven-ceo'
 import LegalDoc from '$lib/pages/LegalDoc.svelte'
 </script>
 

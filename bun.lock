@@ -13,8 +13,7 @@
       "name": "@myavenceo/website",
       "version": "0.1.0",
       "dependencies": {
-        "@myavenceo/aven-brand": "workspace:*",
-        "@myavenceo/aven-skills": "workspace:*",
+        "@myavenceo/aven-ceo": "workspace:*",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.5.6",
@@ -31,12 +30,8 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
-    "packages/aven-brand": {
-      "name": "@myavenceo/aven-brand",
-      "version": "0.2.0",
-    },
-    "packages/aven-skills": {
-      "name": "@myavenceo/aven-skills",
+    "packages/aven-ceo": {
+      "name": "@myavenceo/aven-ceo",
       "version": "0.2.0",
     },
   },
@@ -69,9 +64,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@myavenceo/aven-brand": ["@myavenceo/aven-brand@workspace:packages/aven-brand"],
-
-    "@myavenceo/aven-skills": ["@myavenceo/aven-skills@workspace:packages/aven-skills"],
+    "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:packages/aven-ceo"],
 
     "@myavenceo/website": ["@myavenceo/website@workspace:apps/website"],
 

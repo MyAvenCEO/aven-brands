@@ -5,4 +5,4 @@
  * internal `./plans-data` imports keep working.
  */
 
-export * from '@myavenceo/aven-brand/pricing'
+export * from '@myavenceo/aven-ceo/pricing'

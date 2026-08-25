@@ -6,7 +6,7 @@
  *
  * Writes the two icon primitives the package owns, then the website's theme and
  * favicon. avenOS runs its own thin script against the same exported generators
- * (`@myavenceo/aven-brand/generate`) so both repos emit identical shapes.
+ * (`@myavenceo/aven-ceo/generate`) so both repos emit identical shapes.
  *
  * Everything written here is committed. `git status` staying clean after a run
  * IS the proof that no surface has drifted from the palette.

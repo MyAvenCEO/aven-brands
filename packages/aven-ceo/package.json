@@ -1,8 +1,8 @@
 {
-	"name": "@myavenceo/aven-brand",
+	"name": "@myavenceo/aven-ceo",
 	"version": "0.2.0",
 	"type": "module",
-	"description": "The brand's single source of truth shared by every surface: company facts, the legal documents built from them, and the website hosts they live on.",
+	"description": "Everything every avenCEO surface shares: company facts, the legal documents built from them, the plans, the skill catalog, the design tokens and the brand assets.",
 	"license": "GPL-3.0-only",
 	"sideEffects": false,
 	"main": "./dist/index.js",
@@ -15,6 +15,10 @@
 		"./pricing": {
 			"types": "./dist/pricing.d.ts",
 			"import": "./dist/pricing.js"
+		},
+		"./skills": {
+			"types": "./dist/skills.d.ts",
+			"import": "./dist/skills.js"
 		},
 		"./tokens": {
 			"types": "./dist/tokens.d.ts",
@@ -33,8 +37,9 @@
 	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
-		"prepack": "bun run build",
-		"generate": "bun ./scripts/generate.ts"
+		"generate": "bun ./scripts/generate.ts",
+		"test": "bun test ./tests",
+		"prepack": "bun run build"
 	},
 	"publishConfig": {
 		"registry": "https://npm.pkg.github.com"
@@ -42,7 +47,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/MyAvenCEO/avenCEO.git",
-		"directory": "packages/aven-brand"
+		"directory": "packages/aven-ceo"
 	},
 	"engines": {
 		"node": ">=20"

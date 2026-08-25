@@ -5,13 +5,13 @@
  * THE MARKETING SITE'S THEME.
  *
  * The palette is no longer here. Every tone, surface and role now comes from
- * `@myavenceo/aven-brand`'s `tokens.ts` via the generated `brand-theme.css`
+ * `@myavenceo/aven-ceo`'s `tokens.ts` via the generated `brand-theme.css`
  * imported above — the same file the app and the id service generate from.
  * This header used to instruct a human to "copy blocks 1-3 across" whenever
  * the app's palette moved; that copy step is what let the vibe layer drift a
  * typeface and two tones behind.
  *
- * To re-theme: edit `packages/aven-brand/src/tokens.ts`, run
+ * To re-theme: edit `packages/aven-ceo/src/tokens.ts`, run
  * `bun run brand:generate`, commit the regenerated files.
  *
  * What stays here is what only the SITE has: its base layer and the two

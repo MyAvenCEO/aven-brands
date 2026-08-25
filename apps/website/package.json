@@ -30,7 +30,6 @@
 		"vite-plugin-singlefile": "^2.3.0"
 	},
 	"dependencies": {
-		"@myavenceo/aven-brand": "workspace:*",
-		"@myavenceo/aven-skills": "workspace:*"
+		"@myavenceo/aven-ceo": "workspace:*"
 	}
 }

@@ -1,4 +1,4 @@
-# `@myavenceo/aven-brand`
+# `@myavenceo/aven-ceo`
 
 Shared company, legal, pricing, and website-host facts for avenCEO surfaces.
 

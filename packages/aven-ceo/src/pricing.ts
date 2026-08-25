@@ -33,7 +33,7 @@
  * is which plan a skill comes with, not which of us built it.
  *
  * This file is pure data + pure helpers, importable from OUTSIDE SvelteKit —
- * it lives in the brand package (`@myavenceo/aven-brand/pricing`) as the single
+ * it lives in the brand package (`@myavenceo/aven-ceo/pricing`) as the single
  * SSOT: the website renders its product pages from it, the id service syncs
  * its Polar products from it (tier → `metadata.tier`, gross price → the
  * tax-inclusive price amount), and the app's billing pane labels from it.
