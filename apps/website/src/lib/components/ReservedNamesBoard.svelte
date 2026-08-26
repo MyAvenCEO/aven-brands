@@ -25,41 +25,47 @@ const hidden = $derived(taken.length - shown.length)
 </script>
 
 {#if taken.length > 0}
-	<div class="mt-6 border-t border-border/50 pt-5">
-		<p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
+	<div class="mt-6 border-t border-border/25 pt-5">
+		<p
+			class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
+		>
 			{t.eyebrow(nextPosition())}
 		</p>
 		<ol class="mt-3 space-y-1.5">
 			{#each shown as name, i (name.slug)}
-				<li class="flex items-baseline gap-3 text-[13px]">
-					<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-foreground/40">
+				<li class="flex items-baseline gap-3 text-[length:var(--fs-body)]">
+					<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-foreground/35">
 						{i + 1}
 					</span>
 					<span class="font-semibold tracking-tight text-foreground">{name.slug}</span>
-					<span class="text-[11px] text-foreground/45">.aven.ceo</span>
+					<span class="text-[length:var(--fs-eyebrow)] text-foreground/50">.aven.ceo</span>
 					{#if name.holder}
-						<span class="ml-auto text-[11px] text-foreground/40">{name.holder}</span>
+						<span class="ml-auto text-[length:var(--fs-eyebrow)] text-foreground/35"
+							>{name.holder}</span
+						>
 					{/if}
 				</li>
 			{/each}
 			{#if hidden > 0}
-				<li class="flex items-baseline gap-3 text-[12px] text-foreground/45">
+				<li class="flex items-baseline gap-3 text-[length:var(--fs-meta)] text-foreground/50">
 					<span class="w-6 shrink-0 text-right tabular-nums">⋮</span>
 					<span>{t.more(hidden)}</span>
 				</li>
 			{/if}
 			<li
-				class="flex items-baseline gap-3 rounded-lg border border-dashed border-accent/60 bg-accent/8 px-2 py-1.5 text-[13px]"
+				class="flex items-baseline gap-3 rounded-lg border border-dashed border-accent/25 bg-accent/8 px-2 py-1.5 text-[length:var(--fs-body)]"
 			>
 				<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-accent">
 					{nextPosition()}
 				</span>
-				<span class="font-semibold tracking-tight text-foreground/70">{t.yourName}</span>
-				<span class="text-[11px] text-foreground/45">.aven.ceo</span>
-				<span class="ml-auto text-[11px] font-medium text-accent">{t.free}</span>
+				<span class="font-semibold tracking-tight text-foreground/65">{t.yourName}</span>
+				<span class="text-[length:var(--fs-eyebrow)] text-foreground/50">.aven.ceo</span>
+				<span class="ml-auto text-[length:var(--fs-eyebrow)] font-medium text-accent"
+					>{t.free}</span
+				>
 			</li>
 		</ol>
-		<p class="mt-3 text-[11px] leading-snug text-foreground/50">
+		<p class="mt-3 text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50">
 			{t.footnote}
 		</p>
 	</div>

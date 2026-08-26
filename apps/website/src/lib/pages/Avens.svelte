@@ -32,28 +32,38 @@ function handle(a: LiveAven) {
 <div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
 	<MarketingSiteHeader active="avens" maxWidth="6xl" {lang} />
 
-	<section class="border-b border-border/40 px-5 py-20 sm:px-8 sm:py-28">
+	<section class="border-b border-border/25 px-5 py-20 sm:px-8 sm:py-28">
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">{t.eyebrow}</p>
+			<p
+				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
+			>
+				{t.eyebrow}
+			</p>
 			<h1
-				class="mt-4 text-[1.55rem] font-semibold tracking-[-0.03em] text-pretty leading-snug text-foreground sm:text-3xl md:text-[2.35rem] md:leading-[1.15]"
+				class="mt-4 text-[length:var(--fs-amount)] font-semibold tracking-[var(--tracking-tight)] text-pretty leading-snug text-foreground sm:text-3xl md:text-[length:var(--fs-display-lg)] md:leading-[1.15]"
 			>
 				{t.heading}
 			</h1>
-			<p class="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-foreground/70 sm:text-base">
+			<p
+				class="mx-auto mt-6 max-w-2xl text-[length:var(--fs-title)] leading-relaxed text-foreground/65 sm:text-base"
+			>
 				{@html t.introHtml}
 			</p>
 		</div>
 	</section>
 
 	<!-- Company Aven: what the company is FOR, and what it runs. -->
-	<section class="border-b border-border/40 px-5 py-12 sm:px-8 sm:py-14">
+	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-6xl">
 			<header class="max-w-2xl">
-				<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+				<p
+					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
+				>
 					{t.company.label}
 				</p>
-				<p class="mt-2 text-[15px] leading-snug text-foreground/65">{t.company.lead}</p>
+				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground/65">
+					{t.company.lead}
+				</p>
 			</header>
 
 			<div class="mt-6 grid gap-4 lg:grid-cols-2">
@@ -73,34 +83,36 @@ function handle(a: LiveAven) {
 								<div class="flex flex-wrap items-baseline justify-between gap-2">
 									<p class="text-xl font-semibold tracking-tight text-foreground">{a.name}</p>
 									<span
-										class="rounded-full bg-accent/20 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent"
+										class="rounded-full bg-accent/15 px-2.5 py-0.5 text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
 									>
 										{t.kind.company}
 									</span>
 								</div>
-								<p class="mt-0.5 text-[13px] text-foreground/55">
-									<span class="font-medium text-foreground/75">{a.slug}</span>.aven.ceo
+								<p class="mt-0.5 text-[length:var(--fs-body)] text-foreground/50">
+									<span class="font-medium text-foreground/80">{a.slug}</span>.aven.ceo
 								</p>
 							</div>
 						</div>
 
 						{#if profile}
 							<!-- Vision left (2/3), who-and-where right (1/3). -->
-							<div class="mt-5 grid gap-4 border-t border-border/50 pt-4 lg:grid-cols-3 lg:gap-6">
+							<div class="mt-5 grid gap-4 border-t border-border/25 pt-4 lg:grid-cols-3 lg:gap-6">
 								<div class="lg:col-span-2">
-									<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+									<p
+										class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
+									>
 										{t.mission}
 									</p>
-									<p class="mt-2 text-[14px] leading-snug text-foreground/80">
+									<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground/80">
 										{profile.mission}
 									</p>
 								</div>
 								<div
-									class="text-[12px] leading-snug text-foreground/55 lg:border-l lg:border-border/50 lg:pl-5"
+									class="text-[length:var(--fs-meta)] leading-snug text-foreground/50 lg:border-l lg:border-border/25 lg:pl-5"
 								>
 									<p>
 										{t.behind}
-										<span class="block font-medium text-foreground/75">{a.holder}</span>
+										<span class="block font-medium text-foreground/80">{a.holder}</span>
 									</p>
 									{#if a.link}
 										<p class="mt-2">
@@ -108,7 +120,7 @@ function handle(a: LiveAven) {
 												href={a.link.href}
 												target="_blank"
 												rel="noopener noreferrer"
-												class="font-medium text-foreground/70 underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
+												class="font-medium text-foreground/65 underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
 											>
 												{a.link.label}
 												↗
@@ -125,18 +137,24 @@ function handle(a: LiveAven) {
 	</section>
 
 	<!-- Personal Aven: a registry line, nothing more. A personal Aven is private. -->
-	<section class="border-b border-border/40 px-5 py-12 sm:px-8 sm:py-14">
+	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-6xl">
 			<header class="max-w-2xl">
-				<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+				<p
+					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
+				>
 					{t.person.label}
 				</p>
-				<p class="mt-2 text-[15px] leading-snug text-foreground/65">{t.person.lead}</p>
-				<p class="mt-1 text-[12px] leading-snug text-foreground/45">{t.activationNote}</p>
+				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground/65">
+					{t.person.lead}
+				</p>
+				<p class="mt-1 text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+					{t.activationNote}
+				</p>
 			</header>
 
 			<ul
-				class="mt-6 divide-y divide-border/50 overflow-hidden rounded-2xl border border-foreground/8 bg-surface-raised"
+				class="mt-6 divide-y divide-border/25 overflow-hidden rounded-2xl border border-foreground/8 bg-surface-raised"
 			>
 				{#each people as a (a.slug)}
 					<li class="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4">
@@ -147,10 +165,14 @@ function handle(a: LiveAven) {
 							{@html beamAvatarSvg(a.name, palettePerson, 40, `aven-${a.slug}`)}
 						</div>
 						<div class="min-w-0 flex-1">
-							<p class="text-[15px] font-semibold tracking-tight text-foreground">{a.name}</p>
-							<p class="text-[12px] text-foreground/50">{handle(a)}</p>
+							<p class="text-[length:var(--fs-title)] font-semibold tracking-tight text-foreground">
+								{a.name}
+							</p>
+							<p class="text-[length:var(--fs-meta)] text-foreground/50">{handle(a)}</p>
 							{#if t.bios[a.slug] || a.link}
-								<p class="mt-1 max-w-xl text-[12px] leading-snug text-foreground/60">
+								<p
+									class="mt-1 max-w-xl text-[length:var(--fs-meta)] leading-snug text-foreground/65"
+								>
 									{#if t.bios[a.slug]}
 										{t.bios[a.slug]}
 									{/if}
@@ -159,7 +181,7 @@ function handle(a: LiveAven) {
 											href={a.link.href}
 											target="_blank"
 											rel="noopener noreferrer"
-											class="font-medium text-foreground/70 underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
+											class="font-medium text-foreground/65 underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
 										>
 											{a.link.label}
 											↗
@@ -168,11 +190,13 @@ function handle(a: LiveAven) {
 								</p>
 							{/if}
 						</div>
-						<p class="ml-auto text-right text-[12px] leading-snug text-foreground/55">
+						<p
+							class="ml-auto text-right text-[length:var(--fs-meta)] leading-snug text-foreground/50"
+						>
 							{t.behind}
-							<span class="font-medium text-foreground/75">{a.holder}</span>
+							<span class="font-medium text-foreground/80">{a.holder}</span>
 							{#if a.worksOn}
-								<span class="block text-foreground/45">{t.worksOn} {a.worksOn}</span>
+								<span class="block text-foreground/50">{t.worksOn} {a.worksOn}</span>
 							{/if}
 						</p>
 					</li>
@@ -181,9 +205,11 @@ function handle(a: LiveAven) {
 		</div>
 	</section>
 
-	<section class="border-b border-border/40 px-5 py-14 sm:px-8 sm:py-16">
+	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
-			<p class="mb-4 text-center text-[15px] font-medium text-foreground/75">{t.cta}</p>
+			<p class="mb-4 text-center text-[length:var(--fs-title)] font-medium text-foreground/80">
+				{t.cta}
+			</p>
 			<AvenIdCheckCta variant="banner" {lang} />
 		</div>
 	</section>

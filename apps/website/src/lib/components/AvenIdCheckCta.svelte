@@ -33,25 +33,31 @@ function submit(e: SubmitEvent) {
 
 const wrapperClass = $derived(
 	variant === 'banner'
-		? 'rounded-2xl border border-border/45 bg-surface-raised px-5 py-8 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-10 sm:py-10'
-		: 'rounded-2xl border border-border/40 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
+		? 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-8 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-10 sm:py-10'
+		: 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
 )
 </script>
 
 <form onsubmit={submit} class={wrapperClass} aria-label={t.formLabel}>
-	<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">{t.eyebrow}</p>
+	<p
+		class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
+	>
+		{t.eyebrow}
+	</p>
 	<h3
-		class="mt-2 text-xl font-semibold tracking-tight text-pretty text-foreground sm:text-2xl md:text-[1.65rem]"
+		class="mt-2 text-xl font-semibold tracking-tight text-pretty text-foreground sm:text-2xl md:text-[length:var(--fs-amount)]"
 	>
 		{t.title(euro(avenId.eurPrice))}
 	</h3>
 	<!-- Our own static copy with inline emphasis — not user content. -->
-	<p class="mt-3 max-w-2xl text-[14px] leading-snug text-foreground/68 sm:text-[15px]">
+	<p
+		class="mt-3 max-w-2xl text-[length:var(--fs-section)] leading-snug text-foreground/65 sm:text-[length:var(--fs-title)]"
+	>
 		{@html t.bodyHtml}
 	</p>
 	<div class="mt-6 flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
 		<label
-			class="flex min-h-12 flex-1 items-center gap-2 rounded-full border border-border/60 bg-surface-raised px-4"
+			class="flex min-h-12 flex-1 items-center gap-2 rounded-full border border-border/25 bg-surface-raised px-4"
 		>
 			<input
 				bind:value={name}
@@ -60,21 +66,21 @@ const wrapperClass = $derived(
 				autocomplete="off"
 				spellcheck="false"
 				placeholder={t.placeholder}
-				class="min-w-0 flex-1 bg-transparent py-3 text-[15px] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
+				class="min-w-0 flex-1 bg-transparent py-3 text-[length:var(--fs-title)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
 			>
-			<span class="shrink-0 text-[13px] text-foreground/55">.aven.ceo</span>
+			<span class="shrink-0 text-[length:var(--fs-body)] text-foreground/50">.aven.ceo</span>
 		</label>
 		<button
 			type="submit"
 			disabled={!slug}
-			class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-primary px-7 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40 sm:px-8"
+			class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-primary px-7 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40 sm:px-8"
 		>
 			{t.button}
 		</button>
 	</div>
-	<p class="mt-3 text-[12px] leading-snug text-foreground/55">
-		{t.exampleLabel} <strong class="font-semibold text-foreground/75">maia.aven.ceo</strong>
-		<span class="text-foreground/45"> · </span>
+	<p class="mt-3 text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+		{t.exampleLabel} <strong class="font-semibold text-foreground/80">maia.aven.ceo</strong>
+		<span class="text-foreground/50"> · </span>
 		{t.priceNote(euro(avenId.eurPrice))}
 	</p>
 	<ReservedNamesBoard {lang} />
