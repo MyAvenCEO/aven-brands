@@ -20,20 +20,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.13
-      - name: Authenticate to GitHub Packages
-        shell: bash
-        # The PROJECT .npmrc, because that is where the token is KNOWN to work.
-        # $HOME/.npmrc 401s every install in Actions for reasons that are not
-        # established — bun demonstrably reads it locally. See the long note in
-        # avenOS's .github/actions/bun-install.
-        #
-        # `skip-worktree` is what keeps it out of a commit — git treats the file
-        # as unchanged, so `git add -A` cannot stage it.
-        run: |
-          set -euo pipefail
-          printf '//npm.pkg.github.com/:_authToken=%s\n' '${{ secrets.GITHUB_TOKEN }}' >> .npmrc
-          git update-index --skip-worktree .npmrc
-      - run: bun install --frozen-lockfile
+      - uses: ./.github/actions/bun-install
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - run: bun run check
       - run: bun run test
       - name: Build and audit next
