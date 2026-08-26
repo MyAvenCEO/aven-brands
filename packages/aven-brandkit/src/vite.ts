@@ -22,7 +22,7 @@
  *   avenUtilities({ brand: avenCeo, content: ['src'] })
  */
 
-import { type Dirent, existsSync, readFileSync, readdirSync } from 'node:fs'
+import { type Dirent, existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { scanCandidates, scanDeclaredClasses, scanSource } from './scan.js'
 import { type Brand, pieceNames } from './types.js'
@@ -130,11 +130,7 @@ function* walk(dir: string): Generator<string> {
  * lines of longhand, and because rewriting every one of them by hand is a
  * chance to change a value by accident.
  */
-export function expandApply(
-	brand: Brand,
-	css: string,
-	onUnknown: (name: string) => void
-): string {
+export function expandApply(brand: Brand, css: string, onUnknown: (name: string) => void): string {
 	const { appliedDecl } = createUtilities(brand)
 	return css.replace(/@apply\s+([^;}]+);/g, (_, list: string) => {
 		const out: string[] = []

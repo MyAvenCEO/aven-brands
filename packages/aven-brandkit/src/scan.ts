@@ -135,7 +135,8 @@ function fromExpression(expression: string, file: string, found: ClassUse[]): vo
 		   with templates and ternaries, never with `.includes`. */
 		if (dataArrays.some(([from, to]) => at > from && at < to)) continue
 		const text = (literal[1] ?? literal[2] ?? literal[3] ?? '').replace(/\$\{[^}]*\}/g, ' ')
-		for (const token of text.split(/\s+/)) if (token && plausible(token)) found.push({ name: token, file, certain: true })
+		for (const token of text.split(/\s+/))
+			if (token && plausible(token)) found.push({ name: token, file, certain: true })
 	}
 }
 
@@ -151,11 +152,10 @@ export function scanSource(input: string, file = ''): ClassUse[] {
 	/* Comments first. A prose comment that happens to contain the word `class`
 	   followed by an equals sign is not markup, and reading it as markup put the
 	   word `standing` into the unknown list off the back of a tooltip note. */
-	const source = input
-		.replace(/<!--[\s\S]*?-->/g, '')
-		.replace(/\/\*[\s\S]*?\*\//g, '')
+	const source = input.replace(/<!--[\s\S]*?-->/g, '').replace(/\/\*[\s\S]*?\*\//g, '')
 
-	for (const match of source.matchAll(DIRECTIVE)) found.push({ name: match[1], file, certain: true })
+	for (const match of source.matchAll(DIRECTIVE))
+		found.push({ name: match[1], file, certain: true })
 
 	for (const match of source.matchAll(ATTR)) {
 		const at = match.index + match[0].length

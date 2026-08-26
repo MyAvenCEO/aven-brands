@@ -78,9 +78,6 @@
 	--color-info: var(--color-calm);
 	--color-info-foreground: #ffffff;
 	--color-info-ink: var(--color-blue);
-	--color-gradient-band: linear-gradient(100deg, #3a86b4 0%, #4fb1ad 34%, #e08bb0 68%, var(--color-pink) 100%);
-	--color-gradient-rule: linear-gradient(90deg, var(--color-turquoise) 0%, var(--color-blue) 100%);
-	--color-gradient-hero: radial-gradient(70% 60% at 6% 0%, #f3ecfb 0%, transparent 55%), radial-gradient(55% 60% at 2% 92%, #e9f6f1 0%, transparent 60%), linear-gradient(180deg, #fdfbff 0%, #fcf7fb 100%);
 
 	--radius-sm: 12px;
 	--radius-md: 20px;

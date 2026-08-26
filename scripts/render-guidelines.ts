@@ -19,8 +19,8 @@
 import { writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { type ViewDef, renderViewToString } from '@myavenceo/aven-vibes'
 import { createGenerator, createKitchenSink } from '@myavenceo/aven-brandkit'
+import { renderViewToString, type ViewDef } from '@myavenceo/aven-vibes'
 import { avenCeo } from '../packages/aven-ceo/dist/brand.js'
 import { avenYma } from '../packages/aven-yma/dist/brand.js'
 
@@ -30,7 +30,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const evaluate = (expression: unknown) => expression
 
 for (const [brand, out, fontLink] of [
-	[avenCeo, 'packages/aven-ceo/kitchen-sink.html', '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">'],
+	[
+		avenCeo,
+		'packages/aven-ceo/kitchen-sink.html',
+		'<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">'
+	],
 	[
 		avenYma,
 		'packages/aven-yma/kitchen-sink.html',

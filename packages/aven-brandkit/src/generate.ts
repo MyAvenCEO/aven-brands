@@ -10,7 +10,7 @@
  * hex is edited anywhere but `tokens.ts`, re-running the generator restores it
  * and `git status` is dirty, so drift fails a check instead of shipping.
  */
-import { type Audience, type Brand, type Decl, assertNoShadowedTokens } from './types.js'
+import { type Audience, assertNoShadowedTokens, type Brand } from './types.js'
 
 /**
  * Build this brand's stylesheet generators.

@@ -1,31 +1,31 @@
 <script lang="ts">
-	/**
-	 * yma.one — the whole page.
-	 *
-	 * Every visible decision here is a CLASS from `@myavenceo/aven-yma`: `display`
-	 * for a heading, `card` for a card, `btn btn-teal` for the turquoise button,
-	 * `eyebrow` for the gradient-filled lockup. Where a one-off is genuinely
-	 * one-off, it is a utility generated from the same brand's scales.
-	 *
-	 * There is no stylesheet in this file, which is the test. The original was a
-	 * 270-line `<style>` block in the document head, where `.btn.blue`,
-	 * `.btn.teal` and `.btn.outline` shared nothing and every heading repeated
-	 * the same four declarations. If any of that had to come back here to make
-	 * the page look right, the brand package would not be a design system.
-	 */
-	import { JOURNEY, LEGAL, NAV, OFFERS, THEMES, VALUES, VAT_NOTE } from '$lib/content.js'
+/**
+ * yma.one — the whole page.
+ *
+ * Every visible decision here is a CLASS from `@myavenceo/aven-yma`: `display`
+ * for a heading, `card` for a card, `btn btn-teal` for the turquoise button,
+ * `eyebrow` for the gradient-filled lockup. Where a one-off is genuinely
+ * one-off, it is a utility generated from the same brand's scales.
+ *
+ * There is no stylesheet in this file, which is the test. The original was a
+ * 270-line `<style>` block in the document head, where `.btn.blue`,
+ * `.btn.teal` and `.btn.outline` shared nothing and every heading repeated
+ * the same four declarations. If any of that had to come back here to make
+ * the page look right, the brand package would not be a design system.
+ */
+import { JOURNEY, LEGAL, NAV, OFFERS, THEMES, VALUES, VAT_NOTE } from '$lib/content.js'
 
-	/*
-	 * One tone, three places it shows up: the kicker above a card, the wash
-	 * behind its closing line, and the ink on top of that wash. Kept together so
-	 * a card cannot be teal in one spot and pink in another — which is exactly
-	 * what `.card:nth-child(2) .cat` was one edit away from at all times.
-	 */
-	const TONE = {
-		teal: { kicker: 'kicker kicker-teal', together: 'bg-secondary/8 text-secondary-ink' },
-		blue: { kicker: 'kicker', together: 'bg-quiet/8 text-quiet' },
-		pink: { kicker: 'kicker kicker-pink', together: 'bg-accent/8 text-accent' }
-	} as const
+/*
+ * One tone, three places it shows up: the kicker above a card, the wash
+ * behind its closing line, and the ink on top of that wash. Kept together so
+ * a card cannot be teal in one spot and pink in another — which is exactly
+ * what `.card:nth-child(2) .cat` was one edit away from at all times.
+ */
+const TONE = {
+	teal: { kicker: 'kicker kicker-teal', together: 'bg-secondary/8 text-secondary-ink' },
+	blue: { kicker: 'kicker', together: 'bg-quiet/8 text-quiet' },
+	pink: { kicker: 'kicker kicker-pink', together: 'bg-accent/8 text-accent' }
+} as const
 </script>
 
 <svelte:head>
@@ -33,7 +33,7 @@
 	<meta
 		name="description"
 		content="Wieder Ruhe spüren, bei Dir ankommen und in Deinem Rhythmus leben. Begleitung von Yvonne Müller-Andert."
-	/>
+	>
 </svelte:head>
 
 <!-- ── header ─────────────────────────────────────────────────────────────── -->
@@ -42,7 +42,7 @@
 >
 	<div class="wrap flex h-20 items-center gap-6">
 		<a href="/" aria-label="yma">
-			<img src="/images/yma_logo.svg" alt="yma" class="w-[140px]" />
+			<img src="/images/yma_logo.svg" alt="yma" class="w-[140px]">
 		</a>
 		<nav class="ml-auto hidden gap-8 text-[length:var(--fs-meta)] font-medium lg:flex">
 			{#each NAV as item (item.href)}
@@ -73,7 +73,7 @@
 			</div>
 		</div>
 		<div class="overflow-hidden rounded-[var(--radius-xl)] shadow-floating">
-			<img src="/images/yvonne.jpg" alt="Yvonne Müller-Andert" class="h-full w-full object-cover" />
+			<img src="/images/yvonne.jpg" alt="Yvonne Müller-Andert" class="h-full w-full object-cover">
 		</div>
 	</div>
 </section>
@@ -89,7 +89,8 @@
 				class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)]"
 				class:text-quiet={i === 0}
 				class:text-secondary-ink={i === 1 || i === 2}
-				class:text-accent={i === 3}>{value}</span
+				class:text-accent={i === 3}
+				>{value}</span
 			>
 		{/each}
 	</div>
@@ -102,7 +103,8 @@
 			<div class="prose stack-center" style="--measure: 640px">
 				<p class="kicker">Ich begleite Dich</p>
 				<h2 class="display rule-under text-[length:var(--fs-display)]">
-					Kennst Du das Gefühl, <span class="em">nur noch zu funktionieren</span> statt wirklich zu leben?
+					Kennst Du das Gefühl, <span class="em">nur noch zu funktionieren</span> statt wirklich zu
+					leben?
 				</h2>
 				<p class="text-muted-foreground">
 					Ständig im Außen, im Denken, im Organisieren — und dabei immer weiter von Dir selbst
@@ -114,7 +116,7 @@
 		<div class="grid-auto">
 			{#each THEMES as theme (theme.title)}
 				<article class="card">
-					<img src="/images/{theme.image}" alt="" class="h-[200px] w-full object-cover" />
+					<img src="/images/{theme.image}" alt="" class="h-[200px] w-full object-cover">
 					<div class="card-body">
 						<p class="{TONE[theme.tone].kicker} mb-2.5">{theme.kicker}</p>
 						<h3 class="display mb-3 text-[length:var(--fs-card-title)]">{theme.title}</h3>
@@ -166,25 +168,26 @@
 			src="/images/waterdrop.jpg"
 			alt=""
 			class="aspect-[4/5] w-full rounded-[var(--radius-xl)] object-cover shadow-floating"
-		/>
+		>
 		<div>
 			<p class="kicker kicker-pink">Meine Motivation</p>
-			<h2 class="display rule-under my-4 text-[length:var(--fs-section)]">Darum begleite ich Dich</h2>
+			<h2 class="display rule-under my-4 text-[length:var(--fs-section)]">
+				Darum begleite ich Dich
+			</h2>
 			<div class="quote stack" style="--gap: 1rem">
 				<p>
 					Weil ich selbst erlebt habe, wie schmerzhaft es sein kann, den Kontakt zu sich selbst zu
-					verlieren — und wie viel sich verändert, wenn man wieder <em class="em">bei sich ankommt</em
-					>.
+					verlieren — und wie viel sich verändert, wenn man wieder
+					<em class="em">bei sich ankommt</em>.
 				</p>
 				<p>Weil ich weiß, was möglich ist, wenn innere Ruhe &amp; Vertrauen zurückkehren.</p>
 				<p>
-					Und weil ich daran glaube, dass jeder Mensch <em class="em">seinen eigenen Rhythmus</em> in
-					sich trägt.
+					Und weil ich daran glaube, dass jeder Mensch
+					<em class="em">seinen eigenen Rhythmus</em>
+					in sich trägt.
 				</p>
 			</div>
-			<p class="mt-5 font-display text-[length:var(--fs-title)] italic text-quiet">
-				Yvonne
-			</p>
+			<p class="mt-5 font-display text-[length:var(--fs-title)] italic text-quiet">Yvonne</p>
 		</div>
 	</div>
 </section>
@@ -266,7 +269,7 @@
 <footer class="border-border border-t py-14">
 	<div class="wrap grid gap-10 sm:grid-cols-3">
 		<div>
-			<img src="/images/yma_logo.svg" alt="yma" class="mb-4 w-[150px]" />
+			<img src="/images/yma_logo.svg" alt="yma" class="mb-4 w-[150px]">
 			<p class="text-[length:var(--fs-meta)] text-muted-foreground">
 				yma — von beschäftigt zu erfüllt
 			</p>
