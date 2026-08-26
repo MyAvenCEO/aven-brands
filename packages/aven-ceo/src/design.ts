@@ -435,17 +435,6 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		boxShadow: 'var(--shadow-raised)'
 	},
 	/**
-	 * The stack a page card holds: centred, evenly spaced, full-width children.
-	 * `.panel .stack` is the id service's `panel auth` pairing, named for what
-	 * it does rather than for the one screen it started on.
-	 */
-	stack: {
-		display: 'grid',
-		gap: 'var(--space-comfortable)',
-		justifyItems: 'center',
-		textAlign: 'center'
-	},
-	/**
 	 * A framed region INSIDE a card — an inset, not a card of its own.
 	 *
 	 * This is the id service's `.code` box: the thing the passkey-linking screen
@@ -534,6 +523,91 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		color: 'color-mix(in srgb, var(--color-foreground) 50%, transparent)'
 	}
 }
+
+/* ══ 7 · THE LAYOUT PRIMITIVES ═════════════════════════════════════════════
+ * The seven shapes almost every layout is made of.
+ *
+ * These exist so that one-off layout markup has somewhere to go that is not a
+ * utility soup. An audit found 57% of class attributes used exactly once —
+ * per-instance composition like `mt-3 max-w-2xl`, which cannot become
+ * components (naming 700 single-use classes is worse than utilities) but also
+ * should not need 684 utility classes to express.
+ *
+ * Each one is a single idea, parameterised by a custom property so a call site
+ * can tune it without a new class: `<div class="stack" style="--gap: 2rem">`.
+ * That is the native answer to `gap-2 gap-4 gap-6 gap-8` as separate classes.
+ *
+ * Container queries rather than viewport breakpoints throughout: a switcher
+ * inside a narrow pane should behave like a narrow switcher even on a wide
+ * screen, which viewport media queries cannot express.
+ */
+export const PRIMITIVES: Record<string, Record<string, unknown>> = {
+	/** Vertical rhythm. Everything in a column, one gap between each. */
+	stack: {
+		display: 'grid',
+		gap: 'var(--gap, var(--space-comfortable))'
+	},
+	/** The centred variant: contents and text both centred. */
+	'stack-center': {
+		justifyItems: 'center',
+		textAlign: 'center'
+	},
+	/** A horizontal group that wraps rather than overflows. */
+	cluster: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: 'var(--gap, var(--space-tight))',
+		alignItems: 'var(--align, center)'
+	},
+	/** A measure: centred, never wider than it should be read at. */
+	center: {
+		boxSizing: 'content-box',
+		maxInlineSize: 'var(--measure, 34rem)',
+		marginInline: 'auto',
+		paddingInline: 'var(--gutter, 0)'
+	},
+	/** As many columns as fit, each at least `--min` wide. No breakpoints. */
+	'grid-auto': {
+		display: 'grid',
+		gap: 'var(--gap, var(--space-loose))',
+		gridTemplateColumns: 'repeat(auto-fit, minmax(min(var(--min, 16rem), 100%), 1fr))'
+	},
+	/**
+	 * Two columns where one is content-sized and the other takes the rest —
+	 * and which stack once the container can no longer give the main column
+	 * its minimum.
+	 */
+	sidebar: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: 'var(--gap, var(--space-loose))',
+		'& > :first-child': { flexBasis: 'var(--side, 16rem)', flexGrow: '1' },
+		'& > :last-child': { flexBasis: '0', flexGrow: '999', minInlineSize: 'var(--min, 50%)' }
+	},
+	/**
+	 * Equal columns that become rows below a threshold — the honest version of
+	 * `flex-col sm:flex-row`, asking the container instead of the window.
+	 */
+	switcher: {
+		containerType: 'inline-size',
+		display: 'flex',
+		flexWrap: 'wrap',
+		gap: 'var(--gap, var(--space-loose))',
+		'& > *': { flexGrow: '1', flexBasis: 'calc((var(--threshold, 30rem) - 100%) * 999)' }
+	},
+	/** A box that keeps its shape and crops what is inside it. */
+	frame: {
+		aspectRatio: 'var(--ratio, 16 / 9)',
+		overflow: 'hidden',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		'& > *': { inlineSize: '100%', blockSize: '100%', objectFit: 'cover' }
+	}
+}
+
+/** Primitive names, so a consumer can assert the set it renders. */
+export const PRIMITIVE_NAMES = Object.keys(PRIMITIVES)
 
 /** The component names, so a consumer can assert the set it renders. */
 export const COMPONENT_NAMES = Object.keys(COMPONENTS)

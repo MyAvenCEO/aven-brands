@@ -144,6 +144,83 @@
  * nothing here needs `!important`. Order is the priority order. */
 @layer tokens, primitives, components, utilities;
 
+@layer primitives {
+	/* The shapes almost every layout is made of. Each is one idea, tuned
+	 * at the call site through a custom property rather than by adding a
+	 * class per value — the native answer to gap-2/gap-4/gap-6. */
+	.stack {
+		display: grid;
+		gap: var(--gap, var(--space-comfortable));
+	}
+
+	.stack-center {
+		justify-items: center;
+		text-align: center;
+	}
+
+	.cluster {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--gap, var(--space-tight));
+		align-items: var(--align, center);
+	}
+
+	.center {
+		box-sizing: content-box;
+		max-inline-size: var(--measure, 34rem);
+		margin-inline: auto;
+		padding-inline: var(--gutter, 0);
+	}
+
+	.grid-auto {
+		display: grid;
+		gap: var(--gap, var(--space-loose));
+		grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 16rem), 100%), 1fr));
+	}
+
+	.sidebar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--gap, var(--space-loose));
+
+		& > :first-child {
+			flex-basis: var(--side, 16rem);
+			flex-grow: 1;
+		}
+		& > :last-child {
+			flex-basis: 0;
+			flex-grow: 999;
+			min-inline-size: var(--min, 50%);
+		}
+	}
+
+	.switcher {
+		container-type: inline-size;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--gap, var(--space-loose));
+
+		& > * {
+			flex-grow: 1;
+			flex-basis: calc((var(--threshold, 30rem) - 100%) * 999);
+		}
+	}
+
+	.frame {
+		aspect-ratio: var(--ratio, 16 / 9);
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		& > * {
+			inline-size: 100%;
+			block-size: 100%;
+			object-fit: cover;
+		}
+	}
+}
+
 
 	.card {
 		border-radius: var(--radius-card);
@@ -319,13 +396,6 @@
 		box-shadow: var(--shadow-raised);
 	}
 
-	.stack {
-		display: grid;
-		gap: var(--space-comfortable);
-		justify-items: center;
-		text-align: center;
-	}
-
 	.well {
 		padding: var(--space-comfortable);
 		border: 1px solid var(--color-border);
@@ -426,7 +496,7 @@ em { font-style: normal; color: color-mix(in srgb, var(--color-ink) 50%, transpa
   <p class="eyebrow">@myavenceo/aven-ceo</p>
   <h1>Kitchen sink</h1>
   <p>Generated from the design definitions. 14 colours ·
-     12 type steps · 28 components.</p>
+     12 type steps · 27 components.</p>
 </header>
 
 <section><p class="eyebrow">Colour · tones</p><div class="swatches"><figure><span class="sw" style="background:#1e293b"></span><figcaption>marine<em>#1e293b</em></figcaption></figure><figure><span class="sw" style="background:#57789e"></span><figcaption>anchor<em>#57789e</em></figcaption></figure><figure><span class="sw" style="background:#2489a0"></span><figcaption>tidal-blue<em>#2489a0</em></figcaption></figure><figure><span class="sw" style="background:#449c94"></span><figcaption>paradise-water<em>#449c94</em></figcaption></figure><figure><span class="sw" style="background:#c15b40"></span><figcaption>terracotta<em>#c15b40</em></figcaption></figure><figure><span class="sw" style="background:#d2a24a"></span><figcaption>sunflower<em>#d2a24a</em></figcaption></figure><figure><span class="sw" style="background:#d4a373"></span><figcaption>earth<em>#d4a373</em></figcaption></figure><figure><span class="sw" style="background:#f3e7c6"></span><figcaption>sand<em>#f3e7c6</em></figcaption></figure><figure><span class="sw" style="background:#f8fafc"></span><figcaption>chalk<em>#f8fafc</em></figcaption></figure><figure><span class="sw" style="background:#1f2a3d"></span><figcaption>ink<em>#1f2a3d</em></figcaption></figure></div>
@@ -454,8 +524,8 @@ em { font-style: normal; color: color-mix(in srgb, var(--color-ink) 50%, transpa
 <div style="display:flex;align-items:center;gap:.75rem;margin:.4rem 0"><span style="display:block;height:1rem;width:var(--space-tight);background:var(--color-anchor);border-radius:2px"></span><em>space-tight · 0.5rem</em></div><div style="display:flex;align-items:center;gap:.75rem;margin:.4rem 0"><span style="display:block;height:1rem;width:var(--space-snug);background:var(--color-anchor);border-radius:2px"></span><em>space-snug · 0.75rem</em></div><div style="display:flex;align-items:center;gap:.75rem;margin:.4rem 0"><span style="display:block;height:1rem;width:var(--space-comfortable);background:var(--color-anchor);border-radius:2px"></span><em>space-comfortable · 1rem</em></div><div style="display:flex;align-items:center;gap:.75rem;margin:.4rem 0"><span style="display:block;height:1rem;width:var(--space-loose);background:var(--color-anchor);border-radius:2px"></span><em>space-loose · 1.5rem</em></div><div style="display:flex;align-items:center;gap:.75rem;margin:.4rem 0"><span style="display:block;height:1rem;width:var(--space-section);background:var(--color-anchor);border-radius:2px"></span><em>space-section · 2.5rem</em></div>
 </section>
 
-<section><p class="eyebrow">Components · 28</p>
-<div class="names"><code>.card</code><code>.card-sm</code><code>.eyebrow</code><code>.eyebrow-accent</code><code>.eyebrow-quiet</code><code>.section-title</code><code>.section-band</code><code>.app-shell</code><code>.mono-meta</code><code>.bullet</code><code>.title</code><code>.lede</code><code>.label</code><code>.btn</code><code>.btn-secondary</code><code>.chip</code><code>.panel</code><code>.stack</code><code>.well</code><code>.mark</code><code>.digits</code><code>.alert</code><code>.steps</code><code>.step</code><code>.step-done</code><code>.field</code><code>.ghost</code><code>.meta</code></div>
+<section><p class="eyebrow">Components · 27</p>
+<div class="names"><code>.card</code><code>.card-sm</code><code>.eyebrow</code><code>.eyebrow-accent</code><code>.eyebrow-quiet</code><code>.section-title</code><code>.section-band</code><code>.app-shell</code><code>.mono-meta</code><code>.bullet</code><code>.title</code><code>.lede</code><code>.label</code><code>.btn</code><code>.btn-secondary</code><code>.chip</code><code>.panel</code><code>.well</code><code>.mark</code><code>.digits</code><code>.alert</code><code>.steps</code><code>.step</code><code>.step-done</code><code>.field</code><code>.ghost</code><code>.meta</code></div>
 
 <div class="panel stack" style="margin-top:1.5rem">
   <p class="eyebrow">The page card</p>

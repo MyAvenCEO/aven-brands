@@ -14,6 +14,7 @@ import {
 	COMPONENTS,
 	ELEVATION_SCALE,
 	INK_SCALE,
+	PRIMITIVES,
 	RADIUS_SCALE,
 	SCALE_TOKENS,
 	SPACE_SCALE,
@@ -163,6 +164,15 @@ export function componentCss(): string {
 		'/* Cascade layers, so a component never has to out-specify a utility and',
 		' * nothing here needs `!important`. Order is the priority order. */',
 		'@layer tokens, primitives, components, utilities;',
+		'',
+		'@layer primitives {',
+		'\t/* The shapes almost every layout is made of. Each is one idea, tuned',
+		'\t * at the call site through a custom property rather than by adding a',
+		'\t * class per value — the native answer to gap-2/gap-4/gap-6. */',
+		Object.entries(PRIMITIVES)
+			.map(([name, decls]) => emitRule(`.${name}`, decls as Record<string, unknown>))
+			.join('\n\n'),
+		'}',
 		'',
 		'@layer components {',
 		Object.entries(COMPONENTS)
