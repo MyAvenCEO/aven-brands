@@ -121,22 +121,52 @@ export function themeCss(variant: ThemeVariant): string {
  * the only way a card can be guaranteed to look the same in the app, the id
  * service and the website.
  */
-export function componentCss(): string {
-	const rule = (name: string, decls: Record<string, unknown>): string => {
-		const body = Object.entries(decls)
-			.map(([prop, value]) => {
-				const kebab = prop.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)
-				return `\t\t${kebab}: ${String(value)};`
-			})
-			.join('\n')
-		return `\t.${name} {\n${body}\n\t}`
+/**
+ * Turn one config entry into CSS, following nesting wherever it goes.
+ *
+ * A key that starts with `&` or `@` opens a NESTED rule rather than setting a
+ * property — `&:hover`, `&:has(> img)`, `@container (width < 20rem)`, `@media
+ * print`. That is what lets the config express what modern CSS can express;
+ * without it the emitter could only produce flat property bags, and anything
+ * with a state or a query had to be hand-written as a string literal beside the
+ * generated output. There was exactly one such literal (`button:hover`) and it
+ * is now config like everything else.
+ *
+ * Emitted as native nesting rather than flattened selectors, because the whole
+ * point is to stop generating a 2019 stylesheet on a platform that reads the
+ * nested form directly.
+ */
+function emitRule(selector: string, decls: Record<string, unknown>, depth = 1): string {
+	const pad = '\t'.repeat(depth)
+	const inner = '\t'.repeat(depth + 1)
+	const lines: string[] = []
+	const nested: string[] = []
+
+	for (const [key, value] of Object.entries(decls)) {
+		if (value && typeof value === 'object' && !Array.isArray(value)) {
+			// `&:hover` / `@container …` — a rule, not a declaration.
+			nested.push(emitRule(key, value as Record<string, unknown>, depth + 1))
+			continue
+		}
+		const property = key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)
+		lines.push(`${inner}${property}: ${String(value)};`)
 	}
+
+	const body = [...lines, ...(nested.length ? ['', ...nested] : [])].join('\n')
+	return `${pad}${selector} {\n${body}\n${pad}}`
+}
+
+export function componentCss(): string {
 	return [
 		BANNER,
 		'',
+		'/* Cascade layers, so a component never has to out-specify a utility and',
+		' * nothing here needs `!important`. Order is the priority order. */',
+		'@layer tokens, primitives, components, utilities;',
+		'',
 		'@layer components {',
 		Object.entries(COMPONENTS)
-			.map(([name, decls]) => rule(name, decls))
+			.map(([name, decls]) => emitRule(`.${name}`, decls as Record<string, unknown>))
 			.join('\n\n'),
 		'}',
 		''
@@ -297,28 +327,15 @@ export function elementCss(): string {
 		['button', 'btn'],
 		['label', 'label']
 	]
-	const rule = ([selector, component]: [string, string]): string => {
-		const decls = COMPONENTS[component]
-		const body = Object.entries(decls)
-			.map(
-				([prop, value]) =>
-					`\t${prop.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}: ${String(value)};`
-			)
-			.join('\n')
-		return `${selector} {\n${body}\n}`
-	}
 	return [
 		BANNER,
 		'',
-		...pairs.map(rule),
-		'',
-		'button:hover:not(:disabled) {',
-		'\topacity: 0.9;',
-		'}',
-		'',
-		'button:disabled {',
-		'\tcursor: default;',
-		'\topacity: 0.55;',
+		'@layer components {',
+		pairs
+			.map(([selector, component]) =>
+				emitRule(selector, COMPONENTS[component] as Record<string, unknown>)
+			)
+			.join('\n\n'),
 		'}',
 		''
 	].join('\n')

@@ -363,7 +363,20 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		fontSize: 'var(--fs-section)',
 		fontWeight: '600',
 		cursor: 'pointer',
-		transition: 'opacity 0.15s ease'
+		transition: 'opacity 0.15s ease',
+		/* States belong with the component, not in a string literal beside the
+		 * generated file. A key opening with `&` is a nested rule. */
+		'&:hover:not(:disabled)': { opacity: '0.9' },
+		'&:disabled': { cursor: 'default', opacity: '0.55' },
+		/* Below a narrow container the action takes the full width rather than
+		 * sitting orphaned — a container query, so it answers to the card it is
+		 * in and not to the viewport, which may be a phone or a wide desktop
+		 * showing a narrow pane.
+		 *
+		 * 22rem, not some rounder number: the page card is `min(100%, 34rem)`
+		 * and the narrowest supported layout floors it near 20rem, so a smaller
+		 * threshold would parse, sit in the cascade, and never once fire. */
+		'@container (width < 22rem)': { width: '100%' }
 	},
 	'btn-secondary': {
 		display: 'inline-flex',
@@ -380,7 +393,10 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		fontSize: 'var(--fs-section)',
 		fontWeight: '600',
 		cursor: 'pointer',
-		transition: 'opacity 0.15s ease'
+		transition: 'opacity 0.15s ease',
+		'&:hover:not(:disabled)': { opacity: '0.9' },
+		'&:disabled': { cursor: 'default', opacity: '0.55' },
+		'@container (width < 22rem)': { width: '100%' }
 	},
 	/** A small rounded token: a type badge, a count, a status. */
 	chip: {
@@ -407,6 +423,9 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 	 * border, and the lightest lift off the page.
 	 */
 	panel: {
+		/* Establishes the container its contents query against, so a card in a
+		 * narrow pane lays out like a narrow card wherever the window is. */
+		containerType: 'inline-size',
 		width: 'min(100%, 34rem)',
 		marginInline: 'auto',
 		padding: '2.5rem 2rem',
