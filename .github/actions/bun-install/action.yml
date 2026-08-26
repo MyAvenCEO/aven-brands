@@ -34,9 +34,14 @@ runs:
       #     not merely ignored, it is replaced by nonsense.
       #
       #   $HOME/.npmrc
-      #     works on a laptop, 401s in Actions, for reasons nobody has
-      #     established. bun does read the file: verified in 1.3.13 and 1.4.0,
-      #     merged with a project file, on the frozen path, last-duplicate-wins.
+      #     bun does not read it under Actions. Not the token — the whole
+      #     file. Pointing a scope's registry at a dead host from $HOME and
+      #     watching bun go to npm.pkg.github.com anyway is how that was
+      #     settled. On a laptop it reads the file perfectly (1.3.13 and
+      #     1.4.0, merged with a project file, on the frozen path,
+      #     last-duplicate-wins), which is exactly why this cost four failed
+      #     runs: the step writes the file, reports success, and the install
+      #     then fails with a 401 that reads like a permissions problem.
       #
       # `skip-worktree` is what keeps the token out of a commit — git treats
       # the file as unchanged, so `git add -A` cannot stage it. That, not the
