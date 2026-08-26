@@ -37,6 +37,11 @@ jobs:
           set -euo pipefail
           bun run brand:generate
           git diff --exit-code
+      - name: The public surface must be intact before publishing
+        # 0.4.0 shipped without elementCss -- deleted as collateral when a
+        # neighbouring function was removed -- and the failure surfaced in
+        # another repository's build. Cheaper to catch here.
+        run: bun run test
       - run: bun run --cwd packages/aven-ceo build
       - name: Publish compiled package
         working-directory: packages/aven-ceo
