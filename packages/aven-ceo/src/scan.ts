@@ -10,14 +10,41 @@
  * surface, and the unknown list it feeds means something.
  */
 
-/** Where a class name came from — useful when reporting a violation. */
+/**
+ * Where a class name came from, and how sure we are that it IS one.
+ *
+ * `certain` marks a name read from a `class` attribute or a `class:` directive.
+ * Those must resolve — a `class="bg-nonsense"` is a bug and the build should
+ * say so. Everything else is a CANDIDATE: a string literal somewhere else in
+ * the file that merely looks like a class.
+ *
+ * The distinction is not pedantry. Half the app's state colours live in
+ * script-level maps —
+ *
+ *   const ACCENT = { running: { edge: 'border-l-progress' }, … }
+ *
+ * — and a scanner that only reads markup never sees them, so those rules are
+ * never generated and every state accent silently falls back to the default
+ * border. But a scanner that treats every string as a class would fail the
+ * build on `'application/pdf'`. Candidates are generated when they resolve and
+ * ignored when they do not, which is the only honest thing to do with a guess.
+ */
 export interface ClassUse {
 	name: string
 	file: string
+	certain: boolean
 }
 
-/** A plausible class name: an identifier, optional variants, optional alpha. */
-const PLAUSIBLE = /^[A-Za-z_][A-Za-z0-9_-]*(?::[A-Za-z0-9_-]+)*$/
+/**
+ * A plausible class name: an identifier, optional variants, optional alpha.
+ *
+ * The leading `-` is not decoration. `-left-[13px]` and `-translate-x-1/2` are
+ * classes, and requiring a letter first made the scanner skip them — which meant
+ * the generator never saw them, the build never failed, and eight negative
+ * offsets went missing from the layout with nothing to say so. A filter meant to
+ * cut noise had started cutting evidence.
+ */
+const PLAUSIBLE = /^-?[A-Za-z_][A-Za-z0-9_-]*(?::[A-Za-z0-9_-]+)*$/
 
 /** Class attributes in all four spellings, quoted or braced. */
 const ATTR = /\bclass\s*=\s*(?=["'{])/g
@@ -43,7 +70,7 @@ function maskArbitrary(token: string): string {
  */
 function plausible(token: string): boolean {
 	const masked = maskArbitrary(token)
-	if (masked.includes('\u00a7')) return /^[A-Za-z_][A-Za-z0-9_:-]*\u00a7$/.test(masked)
+	if (masked.includes('\u00a7')) return /^-?[A-Za-z_][A-Za-z0-9_:-]*\u00a7$/.test(masked)
 	const [base, alpha, ...extra] = masked.split('/')
 	if (extra.length) return false
 	if (alpha !== undefined && !/^\d+$/.test(alpha)) return false
@@ -97,7 +124,7 @@ function fromExpression(expression: string, file: string, found: ClassUse[]): vo
 		   with templates and ternaries, never with `.includes`. */
 		if (dataArrays.some(([from, to]) => at > from && at < to)) continue
 		const text = (literal[1] ?? literal[2] ?? literal[3] ?? '').replace(/\$\{[^}]*\}/g, ' ')
-		for (const token of text.split(/\s+/)) if (token && plausible(token)) found.push({ name: token, file })
+		for (const token of text.split(/\s+/)) if (token && plausible(token)) found.push({ name: token, file, certain: true })
 	}
 }
 
@@ -117,7 +144,7 @@ export function scanSource(input: string, file = ''): ClassUse[] {
 		.replace(/<!--[\s\S]*?-->/g, '')
 		.replace(/\/\*[\s\S]*?\*\//g, '')
 
-	for (const match of source.matchAll(DIRECTIVE)) found.push({ name: match[1], file })
+	for (const match of source.matchAll(DIRECTIVE)) found.push({ name: match[1], file, certain: true })
 
 	for (const match of source.matchAll(ATTR)) {
 		const at = match.index + match[0].length
@@ -133,7 +160,7 @@ export function scanSource(input: string, file = ''): ClassUse[] {
 			const hole = value.indexOf('{', cursor)
 			const text = value.slice(cursor, hole === -1 ? undefined : hole)
 			for (const token of text.split(/\s+/))
-				if (token && plausible(token)) found.push({ name: token, file })
+				if (token && plausible(token)) found.push({ name: token, file, certain: true })
 			if (hole === -1) break
 			const { end } = readValue(value, hole)
 			fromExpression(value.slice(hole + 1, end - 1), file, found)
@@ -141,6 +168,32 @@ export function scanSource(input: string, file = ''): ClassUse[] {
 		}
 	}
 
+	return found
+}
+
+/*
+ * Regions a candidate string must NOT come from: an import specifier, or a URL.
+ * Both are full of slashes and dashes and would otherwise read as classes.
+ */
+const NON_CLASS_CONTEXT = /\bfrom\s*$|\bimport\s*\(\s*$|https?:$|url\(\s*$/
+
+/**
+ * String literals anywhere in the file that could be classes.
+ *
+ * Deliberately generous — resolution decides. A candidate that means nothing to
+ * the generator costs nothing; a candidate that resolves is a rule that would
+ * otherwise have gone missing.
+ */
+export function scanCandidates(input: string, file = ''): ClassUse[] {
+	const source = input.replace(/<!--[\s\S]*?-->/g, '').replace(/\/\*[\s\S]*?\*\//g, '')
+	const found: ClassUse[] = []
+	for (const literal of source.matchAll(STRINGS)) {
+		const at = literal.index as number
+		if (NON_CLASS_CONTEXT.test(source.slice(Math.max(0, at - 12), at))) continue
+		const text = (literal[1] ?? literal[2] ?? literal[3] ?? '').replace(/\$\{[^}]*\}/g, ' ')
+		for (const token of text.split(/\s+/))
+			if (token && plausible(token)) found.push({ name: token, file, certain: false })
+	}
 	return found
 }
 

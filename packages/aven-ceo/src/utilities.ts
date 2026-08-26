@@ -102,7 +102,31 @@ function colourValue(spec: string): string | null {
 	if (!alpha) return token
 	const pct = alpha.startsWith('[') ? alpha.slice(1, -1) : `${alpha}%`
 	const numeric = pct.endsWith('%') ? pct : `${Number(pct) * 100}%`
-	return `color-mix(in srgb, ${token} ${numeric}, transparent)`
+	/*
+	 * oklab, not sRGB. Mixing toward transparent in sRGB darkens and dulls the
+	 * result — a 15% tint of the marine came out visibly greyer than the same
+	 * class did before, on roughly forty surfaces at once. Perceptual space is
+	 * what the eye expects a "15% of this colour" to mean.
+	 */
+	return `color-mix(in oklab, ${token} ${numeric}, transparent)`
+}
+
+/**
+ * Flip a length. Plain numbers get a sign; anything else goes through calc.
+ *
+ * PER COMPONENT, because a value can be a list: `translate: 50% 0` has to become
+ * `-50% 0`, and negating the string as a whole produced `calc(50% 0 * -1)` —
+ * invalid, dropped, and the centring it was doing quietly lost.
+ */
+function negate(value: string): string {
+	return value.split(' ').map(negatePart).join(' ')
+}
+
+function negatePart(value: string): string {
+	if (value === '0' || value === '0px') return value
+	if (value.startsWith('-')) return value.slice(1)
+	if (/^[\d.]+(px|rem|em|%|vh|vw|dvh|dvw|ch|ex|deg|turn|rad)?$/.test(value)) return `-${value}`
+	return `calc(${value} * -1)`
 }
 
 /** Arbitrary values: `w-[420px]`, `text-[length:var(--fs-body)]`. */
@@ -343,8 +367,8 @@ const GRADIENT_DIRECTION: Record<string, string> = {
 const BLUR: Record<string, string> = {
 	'': '8px',
 	none: '0',
-	xs: '2px',
-	sm: '4px',
+	xs: '4px',
+	sm: '8px',
 	md: '12px',
 	lg: '16px',
 	xl: '24px',
@@ -376,6 +400,24 @@ const KEYFRAMES: Record<string, string> = {
 export function declarationsFor(name: string): Decl | null {
 	if (STATIC[name]) return STATIC[name]
 
+	/*
+	 * `-left-[13px]`, `-translate-x-1/2`.
+	 *
+	 * Resolved as the positive class and then negated, so a negative utility can
+	 * never drift from its positive twin — and so adding a family gets its
+	 * negative form for free rather than as a second thing to remember.
+	 */
+	if (name.startsWith('-')) {
+		const positive = declarationsFor(name.slice(1))
+		if (!positive) return null
+		return Object.fromEntries(
+			Object.entries(positive).map(([property, value]) => [
+				property,
+				typeof value === 'string' ? negate(value) : value
+			])
+		)
+	}
+
 	// Longest-prefix match so `gap-x-2` beats `gap`.
 	for (const prefix of Object.keys(SIDES).sort((a, b) => b.length - a.length)) {
 		if (!name.startsWith(`${prefix}-`)) continue
@@ -393,22 +435,31 @@ export function declarationsFor(name: string): Decl | null {
 			const arb = arbitrary(rest)
 			if (arb) return /^\d|rem|px|em|%|var\(--fs/.test(arb) ? { 'font-size': arb } : { color: arb }
 			if (rest in TYPE_SCALE) return { 'font-size': `var(--${rest})` }
-			const named: Record<string, string> = {
-				xs: '0.75rem',
-				sm: '0.875rem',
-				base: '1rem',
-				lg: '1.125rem',
-				xl: '1.25rem',
-				'2xl': '1.5rem',
-				'3xl': '1.875rem',
-				'4xl': '2.25rem',
-				'5xl': '3rem',
-				'6xl': '3.75rem',
-				'7xl': '4.5rem',
-				'8xl': '6rem',
-				'9xl': '8rem'
+			/*
+			 * Each step carries its LINE HEIGHT as well as its size.
+			 *
+			 * Dropping the pairing looks harmless and is not: line-height then falls
+			 * to whatever the surface inherits, and every `text-xs` label in the app
+			 * grows from 16px of leading to 18px. Multiplied across a dense UI that
+			 * is a different design.
+			 */
+			const named: Record<string, [string, string]> = {
+				xs: ['0.75rem', 'calc(1 / 0.75)'],
+				sm: ['0.875rem', 'calc(1.25 / 0.875)'],
+				base: ['1rem', 'calc(1.5 / 1)'],
+				lg: ['1.125rem', 'calc(1.75 / 1.125)'],
+				xl: ['1.25rem', 'calc(1.75 / 1.25)'],
+				'2xl': ['1.5rem', 'calc(2 / 1.5)'],
+				'3xl': ['1.875rem', 'calc(2.25 / 1.875)'],
+				'4xl': ['2.25rem', 'calc(2.5 / 2.25)'],
+				'5xl': ['3rem', '1'],
+				'6xl': ['3.75rem', '1'],
+				'7xl': ['4.5rem', '1'],
+				'8xl': ['6rem', '1'],
+				'9xl': ['8rem', '1']
 			}
-			if (named[rest]) return { 'font-size': named[rest] }
+			if (named[rest])
+				return { 'font-size': named[rest][0], 'line-height': named[rest][1] }
 			const colour = colourValue(rest)
 			return colour ? { color: colour } : null
 		}
@@ -418,7 +469,7 @@ export function declarationsFor(name: string): Decl | null {
 				const direction = GRADIENT_DIRECTION[restParts[2] ?? '']
 				if (restParts[1] === 'to' && direction)
 					return {
-						'background-image': `linear-gradient(${direction}, var(--gradient-stops, var(--gradient-from, transparent), var(--gradient-to, transparent)))`
+						'background-image': `linear-gradient(${direction} in oklab, var(--gradient-stops, var(--gradient-from, transparent), var(--gradient-to, transparent)))`
 					}
 				return null
 			}
@@ -484,6 +535,15 @@ export function declarationsFor(name: string): Decl | null {
 			const value = arbitrary(rest) ?? (/^-?\d+$/.test(rest) ? `${rest}deg` : null)
 			return value ? { rotate: value } : null
 		}
+		case 'translate': {
+			const axis = restParts[0]
+			const raw = restParts.slice(1).join('-')
+			const value = arbitrary(raw) ?? space(raw)
+			if (!value) return null
+			if (axis === 'x') return { translate: `${value} 0` }
+			if (axis === 'y') return { translate: `0 ${value}` }
+			return null
+		}
 		case 'scale': {
 			const value = arbitrary(rest) ?? (/^\d+$/.test(rest) ? String(Number(rest) / 100) : null)
 			return value ? { scale: value } : null
@@ -499,8 +559,20 @@ export function declarationsFor(name: string): Decl | null {
 				y: 'border-block-color'
 			}
 			if (restParts.length > 1 && sideColour[restParts[0]]) {
-				const colour =
-					arbitrary(restParts.slice(1).join('-')) ?? colourValue(restParts.slice(1).join('-'))
+				const raw = restParts.slice(1).join('-')
+				/*
+				 * A side takes a WIDTH or a COLOUR, and telling them apart matters:
+				 * reading `border-l-[4px]` as a colour set `border-inline-start-color:
+				 * 4px`, which is invalid, so the declaration was dropped and the 4px
+				 * accent down the side of every intent card simply stopped existing.
+				 */
+				const width = arbitrary(raw) ?? (/^\d+$/.test(raw) ? `${raw}px` : null)
+				if (width && /^[\d.]/.test(width))
+					return {
+						[sideColour[restParts[0]].replace('-color', '-width')]: width,
+						[sideColour[restParts[0]].replace('-color', '-style')]: 'solid'
+					}
+				const colour = arbitrary(raw) ?? colourValue(raw)
 				if (colour) return { [sideColour[restParts[0]]]: colour }
 			}
 			const arb = arbitrary(rest)
@@ -532,7 +604,8 @@ export function declarationsFor(name: string): Decl | null {
 			if (`radius-${rest}` in RADIUS_SCALE) return { 'border-radius': `var(--radius-${rest})` }
 			const named: Record<string, string> = {
 				none: '0',
-				sm: '0.125rem',
+				xs: '0.125rem',
+				sm: '0.25rem',
 				md: '0.375rem',
 				lg: 'var(--radius-lg)',
 				xl: 'var(--radius-xl)',
@@ -624,6 +697,7 @@ export function declarationsFor(name: string): Decl | null {
 		case 'max': {
 			const [axis, ...v] = restParts
 			const raw = v.join('-')
+			if (!raw) return null
 			const prop = `${head}-${axis === 'w' ? 'inline' : 'block'}-size`
 			const arb = arbitrary(raw)
 			if (arb) return { [prop]: arb }
@@ -668,7 +742,14 @@ export function declarationsFor(name: string): Decl | null {
 			const axis = restParts[0]
 			const value = arbitrary(restParts.slice(1).join('-')) ?? space(restParts.slice(1).join('-'))
 			if (!value || (axis !== 'x' && axis !== 'y')) return null
-			return { [axis === 'y' ? 'margin-block-start' : 'margin-inline-start']: value }
+			/*
+			 * On the CHILDREN. Written flat, `space-y-3` put the margin on the
+			 * container itself — pushing the whole block down and leaving its
+			 * children touching, which is both halves of the intent wrong.
+			 */
+			return {
+				'& > * + *': { [axis === 'y' ? 'margin-block-start' : 'margin-inline-start']: value }
+			}
 		}
 		default:
 			return null
@@ -881,7 +962,17 @@ export function resetCss(): string {
 		box-sizing: border-box;
 		border-width: 0;
 		border-style: solid;
-		border-color: var(--color-border, currentColor);
+		/*
+		 * currentColor, NOT the brand's border token.
+		 *
+		 * Tempting to default this to the brand's border token, and wrong: a bare
+		 * "border" with no colour beside it has always meant a border in the text
+		 * colour,
+		 * and quietly redefining it repaints every such element two shades fainter
+		 * across three surfaces. The default is inherited behaviour, not a design
+		 * decision to revisit.
+		 */
+		border-color: currentColor;
 	}
 
 	html {
@@ -889,6 +980,15 @@ export function resetCss(): string {
 		-moz-tab-size: 4;
 		tab-size: 4;
 		line-height: 1.5;
+		/*
+		 * The document's typeface belongs to the reset.
+		 *
+		 * Without it, anything the surface's own body rule does not cover falls
+		 * back to the browser's serif — an iframe, a portal, a print stylesheet,
+		 * or simply a surface that forgot. Preflight set this and its absence was
+		 * invisible only because every current surface happens to set body itself.
+		 */
+		font-family: var(--font-sans, ui-sans-serif, system-ui, -apple-system, sans-serif);
 	}
 
 	body {
