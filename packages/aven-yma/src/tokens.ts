@@ -135,17 +135,25 @@ export const ROLES: Record<string, string> = {
 export const GRADIENTS: Record<string, string> = {
 	'gradient-band':
 		'linear-gradient(100deg, #3a86b4 0%, #4fb1ad 34%, #e08bb0 68%, var(--color-pink) 100%)',
-	'gradient-rule':
-		'linear-gradient(90deg, var(--color-turquoise) 0%, var(--color-blue) 100%)',
+	'gradient-rule': 'linear-gradient(90deg, var(--color-turquoise) 0%, var(--color-blue) 100%)',
 	'gradient-hero':
 		'radial-gradient(70% 60% at 6% 0%, #f3ecfb 0%, transparent 55%), radial-gradient(55% 60% at 2% 92%, #e9f6f1 0%, transparent 60%), linear-gradient(180deg, #fdfbff 0%, #fcf7fb 100%)'
 }
 
-/** Roles a marketing site has and an application does not. */
-export const SITE_ROLES: Record<string, string> = { ...GRADIENTS }
+/*
+ * The gradients are NOT roles.
+ *
+ * They were, briefly, and the generator emitted them twice — once as
+ * `--color-gradient-band` from the roles and once as `--gradient-band` from the
+ * scales, which is two names for one value and a coin toss over which a reader
+ * reaches for. They are scale tokens; a role is a colour.
+ */
 
-/** Roles an application has. avenYMA is a site; the slot stays honest and empty. */
-export const APP_ROLES: Record<string, string> = { ...GRADIENTS }
+/** Roles a marketing site has and an application does not. avenYMA is a site. */
+export const SITE_ROLES: Record<string, string> = {}
+
+/** Roles an application has. avenYMA has no application yet. */
+export const APP_ROLES: Record<string, string> = {}
 
 /**
  * Two typefaces, and they do different jobs.

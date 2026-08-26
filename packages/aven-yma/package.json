@@ -48,7 +48,7 @@
 		"build": "tsc -p tsconfig.json"
 	},
 	"dependencies": {
-		"@myavenceo/aven-brandkit": "workspace:*"
+		"@myavenceo/aven-brandkit": "^0.1.0"
 	},
 	"devDependencies": {
 		"@types/node": "^26.3.0"

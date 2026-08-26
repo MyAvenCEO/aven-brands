@@ -8,12 +8,7 @@
 import type { Brand } from './types.js'
 
 export function createKitchenSink(brand: Brand) {
-	const {
-		components: COMPONENTS,
-		primitives: PRIMITIVES,
-		tones: TONES,
-		creams: CREAMS
-	} = brand
+	const { components: COMPONENTS, primitives: PRIMITIVES, tones: TONES, creams: CREAMS } = brand
 	const COMPONENT_NAMES = Object.keys(COMPONENTS)
 	const PRIMITIVE_NAMES = Object.keys(PRIMITIVES)
 	const {

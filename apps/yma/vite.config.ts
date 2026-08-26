@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { sveltekit } from '@sveltejs/kit/vite'
 import { avenUtilities } from '@myavenceo/aven-yma/vite'
+import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig, loadEnv } from 'vite'
 
 const __filename = fileURLToPath(import.meta.url)

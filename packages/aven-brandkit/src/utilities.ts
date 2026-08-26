@@ -35,14 +35,14 @@ export interface UtilityResult {
 }
 
 export function createUtilities(brand: Brand) {
-	const { TONES, CREAMS } = { TONES: brand.tones, CREAMS: brand.creams }
-	const { TYPE_SCALE, TRACKING_SCALE, RADIUS_SCALE, INK_SCALE, TINT_SCALE } = {
-		TYPE_SCALE: brand.scales.type,
-		TRACKING_SCALE: brand.scales.tracking,
-		RADIUS_SCALE: brand.scales.radius,
-		INK_SCALE: brand.scales.ink,
-		TINT_SCALE: brand.scales.tint
-	}
+	const TONES = brand.tones
+	const CREAMS = brand.creams
+	/* Only the scales a CLASS can name. Ink and tint are set through custom
+	   properties on a component, never through a utility, so binding them here
+	   would be three unused names pretending to be part of the contract. */
+	const TYPE_SCALE = brand.scales.type
+	const TRACKING_SCALE = brand.scales.tracking
+	const RADIUS_SCALE = brand.scales.radius
 	const SURFACES = brand.surfaces
 	const ROLES = brand.roles
 	const APP_ROLES = brand.appRoles
@@ -167,8 +167,6 @@ export function createUtilities(brand: Brand) {
 		return value.replace(/_/g, ' ')
 	}
 
-
-
 	/** Static utilities: a name maps straight to declarations. */
 	const STATIC: Record<string, Decl> = {
 		flex: { display: 'flex' },
@@ -232,7 +230,10 @@ export function createUtilities(brand: Brand) {
 		'text-pretty': { 'text-wrap': 'pretty' },
 		'text-balance': { 'text-wrap': 'balance' },
 		'tabular-nums': { 'font-variant-numeric': 'tabular-nums' },
-		antialiased: { '-webkit-font-smoothing': 'antialiased', '-moz-osx-font-smoothing': 'grayscale' },
+		antialiased: {
+			'-webkit-font-smoothing': 'antialiased',
+			'-moz-osx-font-smoothing': 'grayscale'
+		},
 
 		'font-sans': { 'font-family': 'var(--font-sans)' },
 		'font-mono': { 'font-family': 'var(--font-mono)' },
@@ -317,7 +318,8 @@ export function createUtilities(brand: Brand) {
 		'my-auto': { 'margin-block': 'auto' },
 		'inset-0': { inset: '0' },
 		transition: {
-			'transition-property': 'color, background-color, border-color, opacity, box-shadow, transform',
+			'transition-property':
+				'color, background-color, border-color, opacity, box-shadow, transform',
 			'transition-duration': '150ms',
 			'transition-timing-function': 'cubic-bezier(0.4, 0, 0.2, 1)'
 		},
@@ -481,7 +483,8 @@ export function createUtilities(brand: Brand) {
 		switch (head) {
 			case 'text': {
 				const arb = arbitrary(rest)
-				if (arb) return /^\d|rem|px|em|%|var\(--fs/.test(arb) ? { 'font-size': arb } : { color: arb }
+				if (arb)
+					return /^\d|rem|px|em|%|var\(--fs/.test(arb) ? { 'font-size': arb } : { color: arb }
 				if (rest in TYPE_SCALE) return { 'font-size': `var(--${rest})` }
 				/*
 				 * Each step carries its LINE HEIGHT as well as its size.
@@ -506,8 +509,7 @@ export function createUtilities(brand: Brand) {
 					'8xl': ['6rem', '1'],
 					'9xl': ['8rem', '1']
 				}
-				if (named[rest])
-					return { 'font-size': named[rest][0], 'line-height': named[rest][1] }
+				if (named[rest]) return { 'font-size': named[rest][0], 'line-height': named[rest][1] }
 				const colour = colourValue(rest)
 				return colour ? { color: colour } : null
 			}
@@ -560,7 +562,9 @@ export function createUtilities(brand: Brand) {
 				if (restParts[0] !== 'blur') return null
 				const raw = restParts.slice(1).join('-')
 				const value = arbitrary(raw) ?? BLUR[raw]
-				return value ? { 'backdrop-filter': `blur(${value})`, '-webkit-backdrop-filter': `blur(${value})` } : null
+				return value
+					? { 'backdrop-filter': `blur(${value})`, '-webkit-backdrop-filter': `blur(${value})` }
+					: null
 			}
 			case 'decoration': {
 				if (/^\d+$/.test(rest)) return { 'text-decoration-thickness': `${rest}px` }
@@ -570,7 +574,8 @@ export function createUtilities(brand: Brand) {
 			case 'underline': {
 				if (restParts[0] !== 'offset') return null
 				const raw = restParts.slice(1).join('-')
-				const value = arbitrary(raw) ?? (/^\d+$/.test(raw) ? `${raw}px` : raw === 'auto' ? 'auto' : null)
+				const value =
+					arbitrary(raw) ?? (/^\d+$/.test(raw) ? `${raw}px` : raw === 'auto' ? 'auto' : null)
 				return value ? { 'text-underline-offset': value } : null
 			}
 			case 'divide': {
@@ -911,11 +916,13 @@ export function createUtilities(brand: Brand) {
 		for (const v of segments) {
 			const variant = variantFor(v)
 			if (!variant) return null
-			out = variant.kind === 'selector' ? { [variant.value]: out } : { [`@media ${variant.value}`]: out }
+			out =
+				variant.kind === 'selector'
+					? { [variant.value]: out }
+					: { [`@media ${variant.value}`]: out }
 		}
 		return out
 	}
-
 
 	/**
 	 * Emit CSS for exactly the classes given.

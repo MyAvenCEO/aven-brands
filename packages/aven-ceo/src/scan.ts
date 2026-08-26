@@ -3,9 +3,9 @@
  * because consumers already import it from this package.
  */
 export {
+	type ClassUse,
 	scanCandidates,
 	scanDeclaredClasses,
 	scanFiles,
-	scanSource,
-	type ClassUse
+	scanSource
 } from '@myavenceo/aven-brandkit'

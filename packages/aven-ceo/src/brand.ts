@@ -11,12 +11,12 @@
 import type { Brand } from '@myavenceo/aven-brandkit'
 import {
 	COMPONENTS,
+	ELEVATION_SCALE,
 	INK_SCALE,
 	PRIMITIVES,
 	RADIUS_SCALE,
 	SCALE_TOKENS,
 	SPACE_SCALE,
-	ELEVATION_SCALE,
 	TINT_SCALE,
 	TRACKING_SCALE,
 	TYPE_SCALE
