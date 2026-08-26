@@ -22,10 +22,10 @@
  *   avenUtilities({ content: ['src', '../libs/aven-city/src'] })
  */
 
-import { type Dirent, readFileSync, readdirSync } from 'node:fs'
+import { type Dirent, existsSync, readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import { COMPONENT_NAMES, PRIMITIVE_NAMES } from './design.js'
-import { scanDeclaredClasses, scanSource } from './scan.js'
+import { scanCandidates, scanDeclaredClasses, scanSource } from './scan.js'
 import { appliedDecl, resetCss, utilityCss } from './utilities.js'
 
 export interface AvenUtilitiesOptions {
@@ -60,20 +60,42 @@ const STYLESHEET = /\.(css|svelte)$/
 
 /** Walk the content directories once and build the surface's stylesheet. */
 export function generate(root: string, options: AvenUtilitiesOptions): GeneratedCss {
-	const used = new Set<string>()
+	/* Two tiers: what the markup SAYS is a class, and what merely looks like one
+	   elsewhere in the file. Only the first tier can fail a build. */
+	const certain = new Set<string>()
+	const candidates = new Set<string>()
 	const declared = new Set(options.known ?? [])
 
 	for (const dir of options.content) {
 		const base = path.resolve(root, dir)
+		/*
+		 * A content directory that is not there is a configuration bug, and a
+		 * silent one: every class used only inside it goes missing with nothing to
+		 * show for it. This app pointed at `libs/aven-city/src` for months after
+		 * that library was deleted.
+		 */
+		if (!existsSync(base)) throw new Error(`aven-utilities: content directory not found — ${base}`)
 		for (const file of walk(base)) {
 			const source = readFileSync(file, 'utf8')
-			if (SCANNABLE.test(file)) for (const use of scanSource(source, file)) used.add(use.name)
+			if (SCANNABLE.test(file)) {
+				for (const use of scanSource(source, file)) certain.add(use.name)
+				for (const use of scanCandidates(source, file)) candidates.add(use.name)
+			}
 			if (STYLESHEET.test(file)) for (const name of scanDeclaredClasses(source)) declared.add(name)
 		}
 	}
+	for (const name of certain) candidates.delete(name)
 
-	const result = utilityCss(used, [...COMPONENT_NAMES, ...PRIMITIVE_NAMES, ...declared])
-	return { css: `${resetCss()}\n${result.css}`, unknown: result.unknown, classes: used.size }
+	const known = [...COMPONENT_NAMES, ...PRIMITIVE_NAMES, ...declared]
+	const result = utilityCss(certain, known)
+	/* Candidates are generated when they resolve; their misses are not errors,
+	   so the unknown list they produce is discarded rather than reported. */
+	const extra = utilityCss(candidates, known)
+	return {
+		css: `${resetCss()}\n${result.css}\n${extra.css}`,
+		unknown: result.unknown,
+		classes: certain.size + (candidates.size - extra.unknown.length)
+	}
 }
 
 function* walk(dir: string): Generator<string> {
