@@ -301,11 +301,71 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		fontSize: 'var(--fs-micro)',
 		padding: '0.125rem 0.375rem'
 	},
-	/** A framed region inside a card — the thing a card is made of. */
+	/**
+	 * THE PAGE CARD — the centred sheet a whole screen sits on.
+	 *
+	 * Taken from the id service, which is where this idiom was already right:
+	 * its sign-in, passkey and purchase screens are all one of these, and they
+	 * read better than anything the app or the website had. So the id service
+	 * is the master source for the card, not the laggard being brought into
+	 * line — it is the definition, promoted.
+	 *
+	 * The measurements are its: a 34rem column that centres itself, generous
+	 * asymmetric padding (more above and below than at the sides, so the
+	 * content breathes without the card growing wide), a hairline rather than a
+	 * border, and the lightest lift off the page.
+	 */
 	panel: {
+		width: 'min(100%, 34rem)',
+		marginInline: 'auto',
+		padding: '2.5rem 2rem',
+		border: '1px solid color-mix(in srgb, var(--color-ink) 8%, transparent)',
+		borderRadius: 'var(--radius-card)',
+		background: 'var(--color-surface-raised)',
+		boxShadow: 'var(--shadow-raised)'
+	},
+	/**
+	 * The stack a page card holds: centred, evenly spaced, full-width children.
+	 * `.panel .stack` is the id service's `panel auth` pairing, named for what
+	 * it does rather than for the one screen it started on.
+	 */
+	stack: {
+		display: 'grid',
+		gap: 'var(--space-comfortable)',
+		justifyItems: 'center',
+		textAlign: 'center'
+	},
+	/** A framed region INSIDE a card — an inset, not a card of its own. */
+	well: {
 		borderRadius: 'var(--radius-inner)',
 		background: 'var(--color-surface-soft)',
 		padding: 'var(--space-comfortable)'
+	},
+	/** A labelled form row: label above control, left aligned, full width. */
+	field: {
+		display: 'grid',
+		gap: 'var(--space-tight)',
+		width: '100%',
+		textAlign: 'left'
+	},
+	/** A quiet button — an outline pill for the secondary action. */
+	ghost: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		minHeight: '2.75rem',
+		padding: '0 1.25rem',
+		border: '1px solid var(--color-border)',
+		borderRadius: 'var(--radius-pill)',
+		background: 'transparent',
+		color: 'color-mix(in srgb, var(--color-foreground) 65%, transparent)',
+		font: 'inherit',
+		fontSize: 'var(--fs-body)',
+		fontWeight: '500',
+		lineHeight: '1',
+		textDecoration: 'none',
+		whiteSpace: 'nowrap',
+		cursor: 'pointer'
 	},
 	/** Meta text: the quiet line under a title. */
 	meta: {
