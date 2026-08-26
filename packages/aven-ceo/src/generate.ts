@@ -278,6 +278,52 @@ ${Object.entries(SPACE_SCALE)
 `
 }
 
+/**
+ * Element defaults for surfaces that write plain HTML.
+ *
+ * The id service styles `h1`, `button` and `label` directly rather than reaching
+ * for a class, which is the right call for a handful of small, mostly-static
+ * screens — and it means the shared type has to arrive at element level or not
+ * at all. Each rule is the component definition of the same name, so a bare
+ * `<h1>` gets `title` and a bare `<button>` gets `btn` without touching markup.
+ *
+ * Emitted separately from `componentCss` because most surfaces do NOT want
+ * this: the app and the website put classes on everything, and element-level
+ * defaults would fight their utilities.
+ */
+export function elementCss(): string {
+	const pairs: Array<[string, string]> = [
+		['h1', 'title'],
+		['button', 'btn'],
+		['label', 'label']
+	]
+	const rule = ([selector, component]: [string, string]): string => {
+		const decls = COMPONENTS[component]
+		const body = Object.entries(decls)
+			.map(
+				([prop, value]) =>
+					`\t${prop.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}: ${String(value)};`
+			)
+			.join('\n')
+		return `${selector} {\n${body}\n}`
+	}
+	return [
+		BANNER,
+		'',
+		...pairs.map(rule),
+		'',
+		'button:hover:not(:disabled) {',
+		'\topacity: 0.9;',
+		'}',
+		'',
+		'button:disabled {',
+		'\tcursor: default;',
+		'\topacity: 0.55;',
+		'}',
+		''
+	].join('\n')
+}
+
 /* ══ ICONS ═════════════════════════════════════════════════════════════════
  * Two primitives, both derived from ONE file: `assets/logo.svg`.
  *

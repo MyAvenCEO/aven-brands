@@ -289,33 +289,72 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		borderRadius: 'var(--radius-pill)',
 		background: 'color-mix(in srgb, var(--color-foreground) 25%, transparent)'
 	},
+	/**
+	 * THE TYPE ON A CARD — taken from the passkey-linking screen.
+	 *
+	 * That screen is where the brand's voice reads best, so its heading, lede
+	 * and button are the definitions rather than one surface's local taste. The
+	 * app and the website each had their own heading sizes and their own button
+	 * padding; these are the id service's, promoted.
+	 */
+	title: {
+		margin: '0',
+		fontSize: 'var(--fs-hero)',
+		fontWeight: '600',
+		letterSpacing: 'var(--tracking-tight)'
+	},
+	/** The one line under a title. Muted, generous leading, never full ink. */
+	lede: {
+		margin: '0',
+		fontSize: 'var(--fs-section)',
+		lineHeight: '1.6',
+		color: 'color-mix(in srgb, var(--color-foreground) 65%, transparent)'
+	},
+	/** A form label: its control sits under it, left aligned. */
+	label: {
+		display: 'grid',
+		gap: '0.4rem',
+		fontWeight: '600',
+		textAlign: 'left'
+	},
+	/**
+	 * The primary action, at the passkey screen's proportions — a tall pill with
+	 * room around the words. The app's version was a third shorter and a step
+	 * smaller, which is why buttons never quite matched between surfaces.
+	 */
 	btn: {
 		display: 'inline-flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		gap: 'var(--space-tight)',
+		minHeight: '2.75rem',
+		padding: '0 1.75rem',
+		border: '0',
 		borderRadius: 'var(--radius-pill)',
 		background: 'var(--color-primary)',
 		color: 'var(--color-primary-foreground)',
-		fontSize: 'var(--fs-meta)',
-		fontWeight: '500',
-		padding: '0.5rem 1rem',
-		border: 'none',
-		cursor: 'pointer'
+		font: 'inherit',
+		fontSize: 'var(--fs-section)',
+		fontWeight: '600',
+		cursor: 'pointer',
+		transition: 'opacity 0.15s ease'
 	},
 	'btn-secondary': {
 		display: 'inline-flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		gap: 'var(--space-tight)',
+		minHeight: '2.75rem',
+		padding: '0 1.75rem',
+		border: '1px solid var(--color-border)',
 		borderRadius: 'var(--radius-pill)',
 		background: 'var(--color-secondary)',
 		color: 'var(--color-secondary-foreground)',
-		fontSize: 'var(--fs-meta)',
-		fontWeight: '500',
-		padding: '0.5rem 1rem',
-		border: '1px solid var(--color-border)',
-		cursor: 'pointer'
+		font: 'inherit',
+		fontSize: 'var(--fs-section)',
+		fontWeight: '600',
+		cursor: 'pointer',
+		transition: 'opacity 0.15s ease'
 	},
 	/** A small rounded token: a type badge, a count, a status. */
 	chip: {
