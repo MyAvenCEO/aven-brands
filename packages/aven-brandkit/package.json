@@ -2,7 +2,7 @@
 	"name": "@myavenceo/aven-brandkit",
 	"version": "0.1.0",
 	"type": "module",
-	"description": "The machinery a brand is rendered by — tokens to CSS, a utility layer generated from the brand's own scales, a class scanner and the Vite step. Holds no colour, no typeface and no component of its own.",
+	"description": "The machinery a brand is rendered by \u2014 tokens to CSS, a utility layer generated from the brand's own scales, a class scanner and the Vite step. Holds no colour, no typeface and no component of its own.",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
@@ -35,7 +35,9 @@
 			"default": "./dist/kitchen-sink.js"
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json"
 	},

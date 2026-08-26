@@ -34,7 +34,11 @@
 			"types": "./dist/vite.d.ts",
 			"default": "./dist/vite.js"
 		},
-		"./assets/*": "./assets/*"
+		"./assets/*": "./assets/*",
+		"./kitchen-sink": {
+			"types": "./dist/kitchen-sink.d.ts",
+			"default": "./dist/kitchen-sink.js"
+		}
 	},
 	"files": [
 		"dist",
