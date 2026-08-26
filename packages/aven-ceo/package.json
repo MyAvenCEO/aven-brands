@@ -1,6 +1,6 @@
 {
 	"name": "@myavenceo/aven-ceo",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"type": "module",
 	"description": "Everything every avenCEO surface shares: company facts, the legal documents built from them, the plans, the skill catalog, the design tokens and the brand assets.",
 	"license": "GPL-3.0-only",
@@ -32,6 +32,10 @@
 		"./design": {
 			"types": "./dist/design.d.ts",
 			"import": "./dist/design.js"
+		},
+		"./kitchen-sink": {
+			"types": "./dist/kitchen-sink.d.ts",
+			"import": "./dist/kitchen-sink.js"
 		}
 	},
 	"files": [
