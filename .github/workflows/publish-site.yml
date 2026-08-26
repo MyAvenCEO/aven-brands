@@ -6,6 +6,9 @@ on:
 
 permissions:
   contents: write
+  # The site's dependencies now include a private package. Without this the
+  # install 401s and nothing deploys.
+  packages: read
 
 concurrency:
   group: static-site-${{ github.ref_name }}
@@ -21,6 +24,19 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.13
+      - name: Authenticate to GitHub Packages
+        shell: bash
+        # This build never needed a registry token: the site used the workspace
+        # copy of aven-ceo, and everything else was public. aven-ceo now depends
+        # on @myavenceo/aven-vibes, which is private, so the install reaches the
+        # registry for the first time.
+        #
+        # The token goes in the project .npmrc, where bun reads it, and
+        # `skip-worktree` keeps git from ever staging it.
+        run: |
+          set -euo pipefail
+          printf '//npm.pkg.github.com/:_authToken=%s\n' '${{ secrets.GITHUB_TOKEN }}' >> .npmrc
+          git update-index --skip-worktree .npmrc
       - run: bun install --frozen-lockfile
 
       - id: target
