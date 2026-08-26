@@ -72,7 +72,17 @@ export const SURFACES: Record<string, string> = {
 	'surface-raised': 'var(--color-porcelain)',
 	'surface-cream': 'var(--color-linen)',
 	'surface-soft': 'var(--color-eggshell)',
-	'surface-card': 'var(--color-ivory)'
+	'surface-card': 'var(--color-ivory)',
+	/* A card the user has chosen. Every list in the app has a selected row, and
+	   none of them could name its colour. */
+	'surface-card-selected': 'var(--color-sand)',
+	/* The page ground, under its role name. It lived as a literal line in the
+	   generator, which put one colour outside the maps the utilities derive from
+	   — so `bg-background` resolved to a variable that was never declared. */
+	background: 'var(--color-surface-cream)',
+	/* A card under the pointer. Its absence is why four screens reached past the
+	   system for a hover tint of their own. */
+	'surface-card-hover': 'var(--color-eggshell)'
 }
 
 /* ══ 3 · THE ROLES ═════════════════════════════════════════════════════════
@@ -157,8 +167,37 @@ export const SITE_ROLES: Record<string, string> = {
  * the sandbox preview host, and a card that is plain white rather than cream.
  */
 export const APP_ROLES: Record<string, string> = {
+	/*
+	 * muted / strong, for every signal rather than only for failure.
+	 *
+	 * `error` had the pair and the others did not, so a screen needing a soft
+	 * success tint had nowhere in the system to get one and reached for
+	 * `bg-emerald-100` instead. A gap in a taxonomy does not stay empty; it gets
+	 * filled from outside.
+	 */
 	'error-muted': 'color-mix(in oklab, var(--color-terracotta) 22%, white)',
 	'error-strong': 'color-mix(in oklab, var(--color-terracotta) 78%, black)',
+	'success-muted': 'color-mix(in oklab, var(--color-paradise-water) 22%, white)',
+	'success-strong': 'color-mix(in oklab, var(--color-paradise-water) 78%, black)',
+	'warning-muted': 'color-mix(in oklab, var(--color-sunflower) 22%, white)',
+	'warning-strong': 'color-mix(in oklab, var(--color-sunflower) 78%, black)',
+	'info-muted': 'color-mix(in oklab, var(--color-earth) 22%, white)',
+	'info-strong': 'color-mix(in oklab, var(--color-earth) 78%, black)',
+
+	/*
+	 * EVIDENCE — where a value came from.
+	 *
+	 * The grounding markers: the box drawn over a region of a scanned invoice,
+	 * the highlight behind a matched span of text, the badge counting the finds.
+	 * It is not a signal — nothing succeeded or failed — so it belongs to none of
+	 * the roles above, which is why four files invented an amber of their own.
+	 *
+	 * Sunflower already carries this job in the palette, where it is described as
+	 * the brand's highlight. This names that use.
+	 */
+	evidence: 'var(--color-sunflower)',
+	'evidence-soft': 'color-mix(in oklab, var(--color-sunflower) 26%, white)',
+	'evidence-ink': 'color-mix(in oklab, var(--color-sunflower) 76%, black)',
 	card: CONTRAST_INK.white,
 	/* Preview host behind the sandbox iframe — slight contrast vs. the card. */
 	'sandbox-host': 'color-mix(in srgb, var(--color-background) 94%, var(--color-foreground))'

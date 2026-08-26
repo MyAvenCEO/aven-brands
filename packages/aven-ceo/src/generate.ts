@@ -48,11 +48,20 @@ function block(title: string, entries: Array<[string, string]>): string {
 export function themeCss(variant: ThemeVariant): string {
 	const font = variant === 'app' ? FONT_STACK.app : FONT_STACK.web
 	const roles = variant === 'web' ? { ...ROLES, ...SITE_ROLES } : { ...ROLES, ...APP_ROLES }
-	// `plain` is for a surface with no Tailwind: same tokens, but `:root` rather
-	// than `@theme`, since there is no utility generator to feed. The id service
-	// is the one of these — it hand-maintained its own copy of the palette until
-	// now, under a third set of names, and the copy had gone stale.
-	const open = variant === 'plain' ? ':root {' : '@theme {'
+	/*
+	 * One `:root`, always.
+	 *
+	 * Two thirds of this used to be wrapped in `@theme`, which was a Tailwind
+	 * directive and is now nothing at all. It cost more than a keyword: Tailwind
+	 * TREE-SHOOK `@theme`, dropping any variable it saw no utility for, which
+	 * silently deleted half the type scale and forced the scales into a second
+	 * `:root` block below to survive. With the dependency gone, the split has no
+	 * reason to exist and the scales come home.
+	 *
+	 * The variant now chooses only what it should ever have chosen: which roles
+	 * this surface gets, and which font stack.
+	 */
+	const open = ':root {'
 
 	const parts = [
 		BANNER,
@@ -73,28 +82,17 @@ export function themeCss(variant: ThemeVariant): string {
 		block('the cream family, lightest to warmest', Object.entries(CREAMS)),
 		'',
 		block('2 · THE SURFACES — which rung each part stands on', Object.entries(SURFACES)),
-		`\t--color-background: var(--color-surface-cream);`,
 		'',
 		block('3 · THE ROLES — what a colour MEANS', Object.entries(roles)),
 		'',
 		...Object.entries(RADII).map(([k, v]) => `\t--${k}: ${v};`),
-		...(variant === 'plain' ? [] : ['}', '']),
-		// In the plain variant these lines sit INSIDE the single `:root` block,
-		// so they carry its indentation; everywhere else they open a new one.
+		'',
 		...[
 			'/* ══ 4 · THE SCALES — type, tracking, emphasis, elevation, geometry ══',
 			' * A value that is not on a scale is not available. Before these, one',
 			' * idiom was written fourteen ways and the type ramp was thirty arbitrary',
-			' * sizes mixing px and rem by eye.',
-			' *',
-			' * Deliberately in `:root` and NOT in `@theme`. Tailwind v4 tree-shakes',
-			' * `@theme` variables it sees no utility for, which silently dropped half',
-			' * of these — a scale that only exists once something already uses it is',
-			' * not a scale, and the next author reaching for `var(--fs-body)` would',
-			' * have got nothing. Colours stay in `@theme` above so Tailwind can still',
-			' * generate `bg-primary` and friends. */'
-		].map((line) => (variant === 'plain' ? `\t${line}` : line)),
-		...(variant === 'plain' ? [] : [':root {']),
+			' * sizes mixing px and rem by eye. */'
+		].map((line) => `\t${line}`),
 		...Object.entries(SCALE_TOKENS).map(([k, v]) => `\t--${k}: ${v};`),
 		'}',
 		''
@@ -151,8 +149,14 @@ export function componentCss(): string {
 		BANNER,
 		'',
 		'/* Cascade layers, so a component never has to out-specify a utility and',
-		' * nothing here needs `!important`. Order is the priority order. */',
-		'@layer tokens, primitives, components, utilities;',
+		' * nothing here needs `!important`. Order is the priority order.',
+		' *',
+		' * `reset` and `base` join the list now that the reset is ours rather than',
+		' * Tailwind preflight. A layer used but never DECLARED here is appended',
+		' * after every declared one, so leaving the reset off this line would have',
+		' * given it the last word over every utility in the codebase — a reset that',
+		' * wins is not a reset. */',
+		'@layer reset, tokens, base, primitives, components, utilities;',
 		'',
 		'@layer primitives {',
 		'\t/* The shapes almost every layout is made of. Each is one idea, tuned',

@@ -180,7 +180,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</p>
 				</div>
 				<div class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-4 ring-1 ring-accent/15">
-					<p class="eyebrow-accent/65">
+					<p class="eyebrow-accent">
 						{t.magic}
 					</p>
 					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
