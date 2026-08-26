@@ -6,8 +6,7 @@
       "name": "@myavenceo/workspace",
       "devDependencies": {
         "@biomejs/biome": "2.5.6",
-        "@myavenceo/aven-brandkit": "workspace:*",
-        "@myavenceo/aven-vibes": "^0.1.0",
+        "@myavenceo/aven-vibes": "^0.2.0",
         "typescript": "6.0.2",
       },
     },
@@ -48,18 +47,11 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
-    "packages/aven-brandkit": {
-      "name": "@myavenceo/aven-brandkit",
-      "version": "0.1.0",
-      "devDependencies": {
-        "@types/node": "^26.3.0",
-      },
-    },
     "packages/aven-ceo": {
       "name": "@myavenceo/aven-ceo",
       "version": "0.6.0",
       "dependencies": {
-        "@myavenceo/aven-brandkit": "^0.1.0",
+        "@myavenceo/aven-vibes": "^0.2.0",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -69,7 +61,7 @@
       "name": "@myavenceo/aven-yma",
       "version": "0.1.0",
       "dependencies": {
-        "@myavenceo/aven-brandkit": "^0.1.0",
+        "@myavenceo/aven-vibes": "^0.2.0",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -105,11 +97,9 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@myavenceo/aven-brandkit": ["@myavenceo/aven-brandkit@workspace:packages/aven-brandkit"],
-
     "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:packages/aven-ceo"],
 
-    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.1.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.1.0/a697786417047c0f54f88c1f6bf0e5d7e5a87d28", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-f3L/gVSUQe1WYaLZA5FPnElqXeCQ/eGAKSEWjXxMvag6FjzxAcQlBUeH+ftv7ZMQ1DSToIozDSiArYJljNcL/g=="],
+    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.2.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.2.0/6d6f76018076160ea4d92a804accf25b7883422b", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-WNsDIOs43nRhw5nc9tUrPanZxn9wVDzTFONq74iSV8bLyExgRJZ/+paEKM11BDkyTGm7R5B5x3XNmSxQDwLxQQ=="],
 
     "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:packages/aven-yma"],
 
