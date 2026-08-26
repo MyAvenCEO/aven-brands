@@ -31,43 +31,45 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<meta name="description" content={skill.oneLineCopy}>
 </svelte:head>
 
-<div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
+<div {lang} class="app-shell">
 	<MarketingSiteHeader active="skills" {lang} />
 
 	<!-- 1. WHY — Daniel scenario -->
-	<section class="border-b border-border/40 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
+	<section class="border-b border-border/25 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+			<p class="eyebrow-accent">
 				{skill.hero.kicker}
 			</p>
 			{#if skill.comingSoon}
 				<p class="mt-3">
 					<span
-						class="inline-flex items-center rounded-full border border-quiet/40 bg-quiet/12 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-quiet-ink"
+						class="inline-flex items-center rounded-full border border-quiet/25 bg-quiet/15 px-3 py-1 text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-quiet-ink"
 					>
 						{t.comingSoon}
 					</span>
 				</p>
 			{/if}
 			<h1
-				class="mt-4 text-[1.55rem] font-semibold tracking-[-0.03em] text-pretty leading-snug text-foreground sm:text-3xl md:text-[2.35rem] md:leading-[1.15]"
+				class="mt-4 text-[length:var(--fs-amount)] font-semibold tracking-[var(--tracking-tight)] text-pretty leading-snug text-foreground sm:text-3xl md:text-[length:var(--fs-display-lg)] md:leading-[1.15]"
 			>
 				{skill.hero.headlineMain}
 				<span
-					class="mt-2 block text-[clamp(1.25rem,3.85vw,2.05rem)] font-light leading-[1.08] tracking-tight text-foreground/88"
+					class="mt-2 block text-[clamp(1.25rem,3.85vw,2.05rem)] font-light leading-[1.08] tracking-tight text-foreground/90"
 				>
 					{skill.hero.headlineSerifLead}
 				</span>
 			</h1>
 			<div class="mx-auto mt-8 max-w-xl">
 				<div
-					class="rounded-2xl border border-border/35 bg-surface-raised px-5 py-5 text-left sm:px-6 sm:py-6"
+					class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-5 text-left sm:px-6 sm:py-6"
 				>
-					<p class="text-[9px] font-bold uppercase tracking-[0.26em] text-foreground/38">
+					<p class="eyebrow-quiet">
 						{skill.founderScenario.timestamp}
 						{t.fromRealLife}
 					</p>
-					<p class="mt-3 text-[15px] italic leading-relaxed text-foreground/75 sm:text-[16px]">
+					<p
+						class="mt-3 text-[length:var(--fs-title)] italic leading-relaxed text-foreground/80 sm:text-[length:var(--fs-title)]"
+					>
 						"{skill.founderScenario.story}"
 					</p>
 					<div class="mt-4 flex items-center gap-2 border-t border-border/25 pt-3">
@@ -77,8 +79,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						>
 							{@html beamAvatarSvg(AVEN, paletteKi, 32, `skill-aven-${skill.slug}`)}
 						</div>
-						<p class="text-[9px] font-bold tracking-[0.14em] text-accent">{t.yourAven}</p>
-						<p class="text-[9px] text-foreground/40">{t.solvesIt}</p>
+						<p
+							class="text-[length:var(--fs-nano)] font-bold tracking-[var(--tracking-wider)] text-accent"
+						>
+							{t.yourAven}
+						</p>
+						<p class="text-[length:var(--fs-nano)] text-foreground/35">{t.solvesIt}</p>
 					</div>
 				</div>
 			</div>
@@ -87,24 +93,28 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 2. WAS DU GEWINNST — benefits first -->
 	<section
-		class="border-b border-border/40 bg-linear-to-b from-white/18 via-white/6 to-transparent px-5 py-14 sm:px-8 sm:py-20"
+		class="border-b border-border/25 bg-linear-to-b from-white/15 via-white/8 to-transparent px-5 py-14 sm:px-8 sm:py-20"
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
-				<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">{t.gainEyebrow}</p>
+				<p class="eyebrow-accent">
+					{t.gainEyebrow}
+				</p>
 				<h2
 					class="mt-3 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
 				>
 					{t.gainHeading(skillLabel(skill.slug))}
 				</h2>
 				<p
-					class="mx-auto mt-3 max-w-md text-[11px] font-bold uppercase tracking-[0.18em] text-accent"
+					class="mx-auto mt-3 max-w-md text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent"
 				>
 					{skill.hero.promiseHoursPerWeek}
 					{t.perWeekBack}
 				</p>
 			</div>
-			<ul class="mt-8 space-y-3 text-[14px] leading-snug text-foreground/76 sm:text-[15px]">
+			<ul
+				class="mt-8 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/80 sm:text-[length:var(--fs-title)]"
+			>
 				{#each skill.benefits as benefit (benefit)}
 					<li class="flex gap-3">
 						<span class="mt-1.5 size-2 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
@@ -116,9 +126,9 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- 3. HOW — plain-language steps -->
-	<section class="border-b border-border/40 px-5 py-14 sm:px-8 sm:py-20">
+	<section class="section-band sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl text-center">
-			<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+			<p class="eyebrow-accent">
 				{t.howEyebrow}
 			</p>
 			<h2
@@ -128,13 +138,15 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</h2>
 			<ol class="mt-10 mx-auto max-w-xl list-none space-y-0 p-0">
 				{#each skill.howSteps as step, i (step)}
-					<li class="border-b border-border/35 py-6 first:border-t first:border-border/45">
+					<li class="border-b border-border/25 py-6 first:border-t first:border-border/25">
 						<div class="flex flex-col items-center gap-2 sm:gap-2.5">
-							<span class="text-[11px] font-bold tabular-nums tracking-[0.08em] text-foreground/38">
+							<span
+								class="text-[length:var(--fs-eyebrow)] font-bold tabular-nums tracking-[var(--tracking-wide)] text-foreground/35"
+							>
 								{String(i + 1).padStart(2, '0')}
 							</span>
 							<p
-								class="max-w-md text-[15px] font-medium leading-snug text-foreground/86 sm:text-[1.02rem]"
+								class="max-w-md text-[length:var(--fs-title)] font-medium leading-snug text-foreground/90 sm:text-[length:var(--fs-lead)]"
 							>
 								{step}
 							</p>
@@ -147,39 +159,39 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 4. WHAT — honest mechanics -->
 	<section
-		class="border-b border-border/40 bg-gradient-to-b from-transparent via-white/20 to-transparent px-5 py-14 sm:px-8 sm:py-20"
+		class="border-b border-border/25 bg-gradient-to-b from-transparent via-white/15 to-transparent px-5 py-14 sm:px-8 sm:py-20"
 	>
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
-				<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+				<p class="eyebrow-accent">
 					{t.mechanicsEyebrow}
 				</p>
-				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+				<h2 class="section-title mt-3 sm:text-3xl">
 					{t.mechanicsHeading}
 				</h2>
 			</div>
 			<div class="mt-8 grid gap-3 sm:grid-cols-3">
-				<div class="rounded-xl border border-border/35 bg-surface-raised px-4 py-4">
-					<p class="text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40">
+				<div class="rounded-xl border border-border/25 bg-surface-raised px-4 py-4">
+					<p class="eyebrow-quiet">
 						{t.input}
 					</p>
-					<p class="mt-2 text-[13px] leading-snug text-foreground/78">
+					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
 						{skill.whatMechanics.input}
 					</p>
 				</div>
-				<div
-					class="rounded-xl border border-accent/30 bg-accent/10 px-4 py-4 ring-1 ring-accent/20"
-				>
-					<p class="text-[9px] font-bold uppercase tracking-[0.22em] text-accent/70">{t.magic}</p>
-					<p class="mt-2 text-[13px] leading-snug text-foreground/78">
+				<div class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-4 ring-1 ring-accent/15">
+					<p class="eyebrow-accent/65">
+						{t.magic}
+					</p>
+					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
 						{skill.whatMechanics.magic}
 					</p>
 				</div>
-				<div class="rounded-xl border border-border/35 bg-surface-raised px-4 py-4">
-					<p class="text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40">
+				<div class="rounded-xl border border-border/25 bg-surface-raised px-4 py-4">
+					<p class="eyebrow-quiet">
 						{t.output}
 					</p>
-					<p class="mt-2 text-[13px] leading-snug text-foreground/78">
+					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
 						{skill.whatMechanics.output}
 					</p>
 				</div>
@@ -188,10 +200,10 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- 5. PLAYS WELL WITH -->
-	<section class="border-b border-border/40 px-5 py-12 sm:px-8 sm:py-16">
+	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
-				<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+				<p class="eyebrow-accent">
 					{t.playsEyebrow}
 				</p>
 				<h2 class="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -203,14 +215,18 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<li>
 						<a
 							href={skillDetailHref(slug, lang)}
-							class="flex items-start gap-3 rounded-xl border border-border/35 bg-surface-raised px-4 py-3 transition-colors hover:border-border/65 hover:bg-surface-soft"
+							class="flex items-start gap-3 rounded-xl border border-border/25 bg-surface-raised px-4 py-3 transition-colors hover:border-border/25 hover:bg-surface-soft"
 						>
-							<span class="mt-0.5 text-[11px] font-bold text-accent">→</span>
+							<span class="mt-0.5 text-[length:var(--fs-eyebrow)] font-bold text-accent">→</span>
 							<div>
-								<p class="text-[11px] font-bold tracking-[0.1em] text-foreground/80">
+								<p
+									class="text-[length:var(--fs-eyebrow)] font-bold tracking-[var(--tracking-wide)] text-foreground/80"
+								>
 									{skillLabel(slug)}
 								</p>
-								<p class="mt-0.5 text-[12px] leading-snug text-foreground/55">{relation}</p>
+								<p class="mt-0.5 text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+									{relation}
+								</p>
 							</div>
 						</a>
 					</li>
@@ -221,36 +237,37 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 6. VALUE STACK (Hormozi) -->
 	<section
-		class="border-b border-border/40 bg-linear-to-b from-transparent via-white/12 to-transparent px-5 py-14 sm:px-8 sm:py-20"
+		class="border-b border-border/25 bg-linear-to-b from-transparent via-white/15 to-transparent px-5 py-14 sm:px-8 sm:py-20"
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
-				<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">
+				<p class="eyebrow-accent">
 					{t.valueEyebrow}
 				</p>
-				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+				<h2 class="section-title mt-3 sm:text-3xl">
 					{t.valueHeading}
 				</h2>
 			</div>
-			<div class="mt-8 rounded-2xl border border-border/40 bg-surface-raised p-5 sm:p-7">
-				<p class="text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40">
+			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-7">
+				<p class="eyebrow-quiet">
 					{t.standalone}
 				</p>
 				<ul class="mt-4 space-y-2">
 					{#each skill.valueStack.standaloneAlternatives as alt (alt.label)}
 						<li class="flex items-baseline justify-between gap-3">
-							<span class="text-[13px] text-foreground/65 line-through decoration-foreground/30"
+							<span
+								class="text-[length:var(--fs-body)] text-foreground/65 line-through decoration-foreground/30"
 								>{alt.label}</span
 							>
 							{#if alt.eurPerMonth > 0}
 								<span
-									class="shrink-0 text-[13px] font-bold tabular-nums text-foreground/55 line-through decoration-foreground/30"
+									class="shrink-0 text-[length:var(--fs-body)] font-bold tabular-nums text-foreground/50 line-through decoration-foreground/30"
 								>
 									{alt.eurPerMonth}&nbsp;€/m
 								</span>
 							{:else}
 								<span
-									class="shrink-0 text-[11px] font-bold uppercase tracking-[0.12em] text-foreground/40"
+									class="shrink-0 text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground/35"
 								>
 									{t.notAvailable}
 								</span>
@@ -258,45 +275,51 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						</li>
 					{/each}
 				</ul>
-				<div class="mt-5 flex items-baseline justify-between border-t border-border/30 pt-4">
-					<span class="text-[14px] font-semibold text-foreground/70">{t.standaloneTotal}</span>
+				<div class="mt-5 flex items-baseline justify-between border-t border-border/25 pt-4">
+					<span class="text-[length:var(--fs-section)] font-semibold text-foreground/65"
+						>{t.standaloneTotal}</span
+					>
 					<span
 						class="text-xl font-bold tabular-nums text-foreground line-through decoration-foreground/40"
 					>
 						≈ {skill.valueStack.standaloneTotalEurPerMonth}&nbsp;€/m
 					</span>
 				</div>
-				<div class="mt-4 rounded-xl border border-accent/40 bg-accent/15 px-4 py-4">
-					<p class="text-center text-[9px] font-bold uppercase tracking-[0.22em] text-accent">
+				<div class="mt-4 rounded-xl border border-accent/25 bg-accent/15 px-4 py-4">
+					<p class="text-center eyebrow-accent">
 						{t.included}
 					</p>
-					<p class="mt-2 text-center text-[15px] font-bold text-foreground">{t.noSurcharge}</p>
-					<p class="mt-1 text-center text-[12px] text-foreground/60">
+					<p class="mt-2 text-center text-[length:var(--fs-title)] font-bold text-foreground">
+						{t.noSurcharge}
+					</p>
+					<p class="mt-1 text-center text-[length:var(--fs-meta)] text-foreground/65">
 						{t.noLockIn}
 					</p>
 				</div>
 				<div class="mt-5 grid gap-3 border-t border-border/25 pt-5 sm:grid-cols-3">
 					<div>
-						<p class="text-[9px] font-bold uppercase tracking-[0.2em] text-foreground/38">
+						<p class="eyebrow-quiet">
 							{t.firstRelief}
 						</p>
-						<p class="mt-1 text-[13px] font-medium text-foreground/78">
+						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
 							{skill.valueStack.timeDelayToValue}
 						</p>
 					</div>
 					<div>
-						<p class="text-[9px] font-bold uppercase tracking-[0.2em] text-foreground/38">
+						<p class="eyebrow-quiet">
 							{t.setupEffort}
 						</p>
-						<p class="mt-1 text-[13px] font-medium text-foreground/78">
+						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
 							{skill.valueStack.effortToInstall}
 						</p>
 					</div>
 					<div>
-						<p class="text-[9px] font-bold uppercase tracking-[0.2em] text-foreground/38">
+						<p class="eyebrow-quiet">
 							{t.proof}
 						</p>
-						<p class="mt-1 text-[13px] font-medium text-foreground/78">{skill.valueStack.proof}</p>
+						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
+							{skill.valueStack.proof}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -304,24 +327,28 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- 7. BONUSES + GUARANTEE + SCARCITY -->
-	<section class="border-b border-border/40 px-5 py-12 sm:px-8 sm:py-16">
+	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl space-y-6">
-			<div class="rounded-2xl border border-border/40 bg-surface-raised p-5 sm:p-6">
-				<p class="text-[9px] font-bold uppercase tracking-[0.22em] text-foreground/40">
+			<div class="rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-6">
+				<p class="eyebrow-quiet">
 					{t.bonuses}
 				</p>
 				<ul class="mt-3 space-y-2">
 					{#each skill.bonuses as bonus (bonus)}
-						<li class="flex gap-3 text-[13px] leading-snug text-foreground/76 sm:text-[14px]">
+						<li
+							class="flex gap-3 text-[length:var(--fs-body)] leading-snug text-foreground/80 sm:text-[length:var(--fs-section)]"
+						>
 							<span class="mt-1 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
 							<span>{bonus}</span>
 						</li>
 					{/each}
 				</ul>
 			</div>
-			<div class="rounded-xl border border-accent/35 bg-accent/12 px-5 py-4">
-				<p class="text-[9px] font-bold uppercase tracking-[0.22em] text-accent">{t.availability}</p>
-				<p class="mt-1.5 text-[13px] leading-snug text-foreground/75">
+			<div class="rounded-xl border border-accent/25 bg-accent/15 px-5 py-4">
+				<p class="eyebrow-accent">
+					{t.availability}
+				</p>
+				<p class="mt-1.5 text-[length:var(--fs-body)] leading-snug text-foreground/80">
 					{availabilityNote(skill, lang)}
 				</p>
 			</div>
@@ -330,11 +357,11 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 8. LETTER FROM AVENOS -->
 	<section
-		class="border-b border-border/40 bg-linear-to-b from-white/18 via-white/6 to-transparent px-5 py-12 sm:px-8 sm:py-16"
+		class="border-b border-border/25 bg-linear-to-b from-white/15 via-white/8 to-transparent px-5 py-12 sm:px-8 sm:py-16"
 	>
 		<div class="mx-auto max-w-2xl">
 			<div
-				class="rounded-2xl border border-border/40 bg-surface-raised px-5 py-7 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-8 sm:py-9"
+				class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-8 sm:py-9"
 			>
 				<header class="flex items-end justify-between gap-4 border-b border-foreground/[0.06] pb-5">
 					<div class="flex items-center gap-3">
@@ -345,39 +372,49 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							{@html beamAvatarSvg(AVEN, paletteKi, 48, `letter-${skill.slug}`)}
 						</div>
 						<div>
-							<p class="text-[8px] font-bold uppercase tracking-[0.24em] text-accent">
+							<p class="eyebrow-accent">
 								{t.writtenBy}
 							</p>
-							<p class="mt-0.5 text-[13px] font-bold tracking-[0.1em] text-accent">{AVEN}</p>
+							<p
+								class="mt-0.5 text-[length:var(--fs-body)] font-bold tracking-[var(--tracking-wide)] text-accent"
+							>
+								{AVEN}
+							</p>
 						</div>
 					</div>
-					<p class="text-[9px] font-bold uppercase tracking-[0.18em] text-foreground/38">
+					<p
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground/35"
+					>
 						{skillLabel(skill.slug)}
 					</p>
 				</header>
 				<p
-					class="mt-6 text-[15px] italic leading-relaxed text-foreground/73 sm:text-[16px] sm:leading-[1.65]"
+					class="mt-6 text-[length:var(--fs-title)] italic leading-relaxed text-foreground/80 sm:text-[length:var(--fs-title)] sm:leading-[1.65]"
 				>
 					{skill.letterFromPublisher}
 				</p>
 				<footer class="mt-8 border-t border-foreground/[0.06] pt-6">
-					<p class="text-[8px] font-bold uppercase tracking-[0.24em] text-foreground/40">
+					<p class="eyebrow-quiet">
 						{t.signOff}
 					</p>
-					<p class="mt-1.5 text-[13px] font-bold tracking-[0.1em] text-accent">{AVEN}</p>
+					<p
+						class="mt-1.5 text-[length:var(--fs-body)] font-bold tracking-[var(--tracking-wide)] text-accent"
+					>
+						{AVEN}
+					</p>
 				</footer>
 			</div>
 		</div>
 	</section>
 
 	<!-- 9. CTA -->
-	<section class="border-b border-border/40 px-5 py-14 sm:px-8 sm:py-20">
+	<section class="section-band sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
 			<AvenIdCheckCta variant="banner" {lang} />
 			<div class="mt-6 text-center">
 				<a
 					href={localeHref(lang, '/skills')}
-					class="text-[12px] font-semibold uppercase tracking-[0.14em] text-foreground/50 transition-opacity hover:text-foreground/80"
+					class="text-[length:var(--fs-meta)] font-semibold uppercase tracking-[var(--tracking-wider)] text-foreground/50 transition-opacity hover:text-foreground/80"
 				>
 					{t.backToAll}
 				</a>

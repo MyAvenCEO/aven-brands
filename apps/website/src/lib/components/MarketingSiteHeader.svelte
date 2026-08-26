@@ -31,7 +31,7 @@ function linkCls(isActive: boolean) {
 const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 </script>
 
-<header class="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
+<header class="sticky top-0 z-50 border-b border-border/25 bg-background/25 backdrop-blur-md">
 	<!-- Below lg (phone + tablet): four centered lines — logo · social icons · nav+DE|EN · CTA. lg+: one row. -->
 	<div
 		class="mx-auto flex {maxW} flex-col items-center gap-y-3 px-5 py-5 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-x-10 lg:gap-y-2 lg:px-8"
@@ -39,7 +39,9 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 		<div class="flex flex-col items-center gap-3 lg:flex-row lg:gap-4">
 			<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
 				<img src="/aven-logo.svg" alt="" class="size-7 shrink-0" width="28" height="28">
-				<span class="text-[17px] font-semibold tracking-tight text-foreground">avenCEO</span>
+				<span class="text-[length:var(--fs-lead)] font-semibold tracking-tight text-foreground"
+					>avenCEO</span
+				>
 			</a>
 			<span class="flex items-center gap-4 lg:gap-3" aria-label={t.footer.socialLabel}>
 				{#each SOCIAL_PROFILES as profile (profile.href)}
@@ -48,7 +50,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label={profile.name}
-						class="text-foreground/60 transition-colors hover:text-foreground"
+						class="text-foreground/65 transition-colors hover:text-foreground"
 					>
 						<SocialIcon {profile} class="size-5 lg:size-4" />
 					</a>
@@ -56,7 +58,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 			</span>
 		</div>
 		<nav
-			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
+			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
 		>
 			<a href={localeHref(lang, '/skills')} class={linkCls(active === 'skills')}>{t.nav.skills}</a>
 			<a href={localeHref(lang, '/avens')} class={linkCls(active === 'avens')}>{t.nav.avens}</a>

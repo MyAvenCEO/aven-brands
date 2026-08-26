@@ -9,7 +9,15 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!!**/bun.lock", "!!**/*.svg"]
+		"includes": [
+			"**",
+			"!!**/bun.lock",
+			"!!**/*.svg",
+			"// The kitchen sink is GENERATED from the design definitions by",
+			"// `bun run brand:generate` — it documents the system rather than being",
+			"// authored, and formatting it by hand would be undone on the next run.",
+			"!!packages/aven-ceo/kitchen-sink.html"
+		]
 	},
 	"formatter": {
 		"enabled": true,

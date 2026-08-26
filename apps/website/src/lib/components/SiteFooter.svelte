@@ -34,18 +34,25 @@ const nav = $derived([
 const year = 2026
 </script>
 
-<footer class="border-t border-border/40 px-5 py-10 sm:px-8">
+<footer class="border-t border-border/25 px-5 py-10 sm:px-8">
 	<div class="mx-auto flex max-w-6xl flex-col gap-8">
 		<div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
 			<div>
 				<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
 					<img src="/aven-logo.svg" alt="" class="size-7" width="28" height="28">
-					<span class="text-[15px] font-semibold tracking-tight text-foreground">avenCEO</span>
+					<span class="text-[length:var(--fs-title)] font-semibold tracking-tight text-foreground"
+						>avenCEO</span
+					>
 				</a>
-				<p class="mt-2 max-w-xs text-[12px] leading-snug text-foreground/55">{t.footer.tagline}</p>
+				<p class="mt-2 max-w-xs text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+					{t.footer.tagline}
+				</p>
 			</div>
 
-			<nav class="flex flex-col gap-2 text-[13px]" aria-label={t.footer.pagesLabel}>
+			<nav
+				class="flex flex-col gap-2 text-[length:var(--fs-body)]"
+				aria-label={t.footer.pagesLabel}
+			>
 				{#each nav as item (item.href)}
 					<a href={item.href} class="text-foreground/65 transition-colors hover:text-foreground">
 						{item.label}
@@ -53,7 +60,10 @@ const year = 2026
 				{/each}
 			</nav>
 
-			<nav class="flex flex-col gap-2 text-[13px]" aria-label={t.footer.legalLabel}>
+			<nav
+				class="flex flex-col gap-2 text-[length:var(--fs-body)]"
+				aria-label={t.footer.legalLabel}
+			>
 				{#each legal as item (item.href)}
 					<a href={item.href} class="text-foreground/65 transition-colors hover:text-foreground">
 						{item.label}
@@ -61,7 +71,10 @@ const year = 2026
 				{/each}
 			</nav>
 
-			<nav class="flex flex-col gap-2 text-[13px]" aria-label={t.footer.socialLabel}>
+			<nav
+				class="flex flex-col gap-2 text-[length:var(--fs-body)]"
+				aria-label={t.footer.socialLabel}
+			>
 				{#each SOCIAL_PROFILES as profile (profile.href)}
 					<a
 						href={profile.href}
@@ -77,7 +90,7 @@ const year = 2026
 		</div>
 
 		<div
-			class="flex flex-col gap-2 border-t border-border/40 pt-6 text-[11px] text-foreground/40 sm:flex-row sm:items-center sm:justify-between"
+			class="flex flex-col gap-2 border-t border-border/25 pt-6 text-[length:var(--fs-eyebrow)] text-foreground/35 sm:flex-row sm:items-center sm:justify-between"
 		>
 			<p>© {year} {t.footer.copyright}</p>
 		</div>

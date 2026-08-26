@@ -14,7 +14,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { appIconSvg, faviconSvg, themeCss } from '../src/generate.js'
+import { appIconSvg, componentCss, faviconSvg, kitchenSinkHtml, themeCss } from '../src/generate.js'
 
 const pkgDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const repoRoot = path.resolve(pkgDir, '../..')
@@ -33,8 +33,10 @@ const logo = readFileSync(path.join(assets, 'logo.svg'), 'utf8')
  */
 const outputs: Array<[string, string]> = [
 	[path.join(assets, 'app-icon.svg'), appIconSvg(logo)],
+	[path.join(pkgDir, 'kitchen-sink.html'), kitchenSinkHtml()],
 	[path.join(assets, 'favicon.svg'), faviconSvg(logo)],
 	[path.join(repoRoot, 'apps/website/src/brand-theme.css'), themeCss('web')],
+	[path.join(repoRoot, 'apps/website/src/brand-components.css'), componentCss()],
 	[path.join(repoRoot, 'apps/website/static/favicon.svg'), faviconSvg(logo)],
 	[path.join(repoRoot, 'apps/website/static/aven-logo.svg'), logo]
 ]

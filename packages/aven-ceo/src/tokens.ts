@@ -39,10 +39,17 @@ export const TONES = {
 	ink: '#1f2a3d' // dark slate-blue — body copy, never pure black
 } as const
 
-/** The cream family, lightest to warmest. Four rungs, four names. */
+/**
+ * The cream family, lightest to warmest. Four rungs, four names.
+ *
+ * `linen` — the page ground — was `#f8f6ef` and read as cream rather than sand.
+ * Lifted to `#faf9f4`: +2 on red and green, +5 on blue. The blue channel rising
+ * faster is what takes the yellow out, so the page lightens and cools slightly
+ * without leaving the warm family the rest of the ladder belongs to.
+ */
 export const CREAMS = {
 	porcelain: '#fffdf7', // the raised card — lightest, lifts off the page
-	linen: '#f8f6ef', // the page ground everything rests on
+	linen: '#faf9f4', // the page ground everything rests on
 	eggshell: '#f6f3e8', // one step warmer — panels, hover
 	ivory: '#f6f1e2' // warmest — cards at rest, and selection
 } as const
