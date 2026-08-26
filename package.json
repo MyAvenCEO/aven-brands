@@ -10,7 +10,7 @@
 	"scripts": {
 		"dev": "bun run build:packages && bun run --cwd apps/website dev",
 		"check": "bun run build:packages && bun run --cwd apps/website check",
-		"test": "bun run --cwd packages/aven-ceo test",
+		"test": "bun test packages/aven-ceo/tests",
 		"build:packages": "bun run brand:generate && bun run --cwd packages/aven-ceo build",
 		"build:next": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.next.aven.ceo bun run --cwd apps/website build && bun run --cwd apps/website audit:build next",
 		"build:production": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.aven.ceo bun run --cwd apps/website build && bun run --cwd apps/website audit:build production",

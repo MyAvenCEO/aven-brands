@@ -103,7 +103,6 @@ const DEMONSTRATED = new Set([
 	'title',
 	'lede',
 	'meta',
-	'mark',
 	'card',
 	'card-sm',
 	'mono-meta',

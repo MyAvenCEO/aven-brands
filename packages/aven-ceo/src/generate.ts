@@ -172,6 +172,39 @@ export function componentCss(): string {
 	].join('\n')
 }
 
+/**
+ * Element defaults for surfaces that write plain HTML.
+ *
+ * The id service styles `h1`, `button` and `label` directly rather than reaching
+ * for a class, which is the right call for a handful of small, mostly-static
+ * screens — and it means the shared type has to arrive at element level or not
+ * at all. Each rule is the component definition of the same name, so a bare
+ * `<h1>` gets `title` and a bare `<button>` gets `btn` without touching markup.
+ *
+ * Emitted separately from `componentCss` because most surfaces do NOT want
+ * this: the app and the website put classes on everything, and element-level
+ * defaults would fight their utilities.
+ */
+export function elementCss(): string {
+	const pairs: Array<[string, string]> = [
+		['h1', 'title'],
+		['button', 'btn'],
+		['label', 'label']
+	]
+	return [
+		BANNER,
+		'',
+		'@layer components {',
+		pairs
+			.map(([selector, component]) =>
+				emitRule(selector, COMPONENTS[component] as Record<string, unknown>)
+			)
+			.join('\n\n'),
+		'}',
+		''
+	].join('\n')
+}
+
 /* ══ ICONS ═════════════════════════════════════════════════════════════════
  * Two primitives, both derived from ONE file: `assets/logo.svg`.
  *
