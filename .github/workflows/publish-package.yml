@@ -1,0 +1,84 @@
+name: Publish a brand package
+
+# One workflow for every package in the repo. The tag names which one:
+#   aven-ceo-v0.6.0   a brand
+#   aven-yma-v0.1.0   a brand
+#
+# The machinery is not here. It lives in avenVIBES, beside the runtime it is
+# half of, and publishes from that repo.
+#
+# It used to be hardcoded to aven-ceo, which was fine while that was the only
+# package and would have meant a copy of this file per brand from now on.
+
+on:
+  push:
+    tags:
+      - aven-ceo-v*
+      - aven-yma-v*
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.13
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: '@myavenceo'
+      - name: Authenticate to GitHub Packages
+        shell: bash
+        # The PROJECT .npmrc, because that is where the token is KNOWN to work.
+        # $HOME/.npmrc 401s every install in Actions for reasons that are not
+        # established — bun demonstrably reads it locally. See the long note in
+        # avenOS's .github/actions/bun-install.
+        #
+        # `skip-worktree` is what keeps it out of a commit — git treats the file
+        # as unchanged, so `git add -A` cannot stage it.
+        run: |
+          set -euo pipefail
+          printf '//npm.pkg.github.com/:_authToken=%s\n' '${{ secrets.GITHUB_TOKEN }}' >> .npmrc
+          git update-index --skip-worktree .npmrc
+      - run: bun install --frozen-lockfile
+      - name: Work out which package the tag names
+        id: pkg
+        shell: bash
+        run: |
+          set -euo pipefail
+          name="${GITHUB_REF_NAME%-v*}"
+          test -d "packages/$name" || { echo "no such package: $name"; exit 1; }
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+      - name: Require tag and package versions to match
+        shell: bash
+        run: |
+          set -euo pipefail
+          name='${{ steps.pkg.outputs.name }}'
+          package_version=$(node -p "require('./packages/$name/package.json').version")
+          test "$GITHUB_REF_NAME" = "$name-v$package_version"
+      - name: Refuse to publish generated files that drifted
+        # The package ships committed, generated assets (the icon primitives) and
+        # the theme its consumers regenerate from. If a hex was edited anywhere but
+        # tokens.ts, regenerating restores it and the tree goes dirty — so this is
+        # the one place that has to notice, before a stale artifact reaches anyone.
+        run: |
+          set -euo pipefail
+          bun run build:packages
+          bun run guidelines
+          git diff --exit-code
+      - name: The public surface must be intact before publishing
+        # 0.4.0 shipped without elementCss -- deleted as collateral when a
+        # neighbouring function was removed -- and the failure surfaced in
+        # another repository's build. Cheaper to catch here.
+        run: bun run test
+      - name: Publish compiled package
+        working-directory: packages/${{ steps.pkg.outputs.name }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish

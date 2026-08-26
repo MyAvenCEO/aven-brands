@@ -84,7 +84,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
      another, and it has to split or stack by its OWN width. -->
 {#snippet pricePanel(p: Plan)}
 	{@const discounted = betaPrice(p)}
-	<div class="@container mt-5 overflow-hidden rounded-2xl border border-border/50 bg-surface-card">
+	<div class="@container mt-5 overflow-hidden rounded-2xl border border-border/25 bg-surface-card">
 		<div class="flex flex-col @md:flex-row @md:items-stretch">
 			<!-- With no share cell beside it (avenID), the lone price stays
 			     centred instead of clinging to the left edge of a wide panel. -->
@@ -100,7 +100,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				>
 					<p
 						class="text-3xl font-semibold tabular-nums tracking-tight {discounted !== null
-							? 'text-foreground/40 line-through decoration-offer/60 decoration-2'
+							? 'text-foreground/35 line-through decoration-offer/60 decoration-2'
 							: 'text-foreground'}"
 					>
 						{euro(p.eurPrice)}&nbsp;€
@@ -109,13 +109,13 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						<!-- Tilted on purpose: a sticker slapped over the price, not
 						     another number in the same row. -->
 						<span
-							class="-rotate-3 rounded-full bg-offer px-3 py-1 text-[15px] font-bold tabular-nums tracking-tight text-offer-foreground shadow-sm"
+							class="-rotate-3 rounded-full bg-offer px-3 py-1 text-[length:var(--fs-title)] font-bold tabular-nums tracking-tight text-offer-foreground shadow-sm"
 						>
 							{money(discounted, lang)}&nbsp;€/m
 						</span>
 					{/if}
 				</div>
-				<p class="mt-1 text-[12px] font-medium leading-snug text-foreground/55">
+				<p class="mt-1 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/50">
 					{priceSuffix(p, lang)}
 				</p>
 			</div>
@@ -124,13 +124,15 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				     vertically centred so it sits level with the price, however
 				     tall the discount sticker makes that cell. -->
 				<div
-					class="flex min-w-0 flex-col justify-center border-t border-border/50 px-5 py-4 text-center @md:basis-[12rem] @md:border-t-0 @md:border-l"
+					class="flex min-w-0 flex-col justify-center border-t border-border/25 px-5 py-4 text-center @md:basis-[12rem] @md:border-t-0 @md:border-l"
 				>
 					<span class="block text-base font-semibold tabular-nums text-foreground/80">
 						{t.pct(p.revenueSharePct)}
 					</span>
-					<span class="block text-[10px] leading-snug text-foreground/45">{t.ofRevenue}</span>
-					<span class="mt-0.5 block text-[10px] leading-snug text-foreground/40">
+					<span class="block text-[length:var(--fs-micro)] leading-snug text-foreground/50"
+						>{t.ofRevenue}</span
+					>
+					<span class="mt-0.5 block text-[length:var(--fs-micro)] leading-snug text-foreground/35">
 						{shareNote(p, lang) ?? t.inclFees}
 					</span>
 				</div>
@@ -141,14 +143,16 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 			     one", the burnt orange says "this window closes". -->
 			<div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 bg-offer px-5 py-3">
 				<span
-					class="rounded-full bg-offer-foreground/18 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.16em] text-offer-foreground"
+					class="rounded-full bg-offer-foreground/15 px-2 py-0.5 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wider)] text-offer-foreground"
 				>
 					{t.beta.badge}
 				</span>
-				<span class="text-[15px] font-bold tabular-nums tracking-tight text-offer-foreground">
+				<span
+					class="text-[length:var(--fs-title)] font-bold tabular-nums tracking-tight text-offer-foreground"
+				>
 					{t.beta.headline(p.beta.discountPct)}
 				</span>
-				<span class="text-[12px] leading-snug text-offer-foreground/85">
+				<span class="text-[length:var(--fs-meta)] leading-snug text-offer-foreground/80">
 					{t.beta.note(p.beta.months, money(p.eurPrice, lang))}
 				</span>
 			</div>
@@ -160,7 +164,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
      brand's turquoise — the settled, bright note — and drops the bullet
      dot: this is a statement, not a list item. -->
 {#snippet sovereigntyBullet()}
-	<li class="rounded-lg bg-success/10 px-3 py-2">
+	<li class="rounded-lg bg-success/8 px-3 py-2">
 		<span class="leading-snug text-foreground/80">
 			<strong class="font-semibold text-success-ink">{t.sovereignty.lead}</strong>
 			{t.sovereignty.text}
@@ -173,7 +177,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
      trust with numbers, this line earns the wish. -->
 {#snippet pitchLine(p: Plan)}
 	<p
-		class="mx-auto mt-4 max-w-md text-center text-[13.5px] leading-relaxed text-foreground/72 italic"
+		class="mx-auto mt-4 max-w-md text-center text-[length:var(--fs-body)] leading-relaxed text-foreground/65 italic"
 	>
 		{p.pitch}
 	</p>
@@ -183,15 +187,15 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
      an Aven can DO is the first question, the price is the last one. -->
 {#snippet runtimeCard(p: Plan)}
 	{#if p.runtime}
-		<div class="mt-4 rounded-xl border border-border/60 bg-surface-card px-4 py-3 text-left">
-			<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+		<div class="mt-4 rounded-xl border border-border/25 bg-surface-card px-4 py-3 text-left">
+			<p class="eyebrow-accent">
 				{t.runtime}
 			</p>
-			<p class="mt-1 text-[13px] font-medium leading-snug text-foreground/85">
+			<p class="mt-1 text-[length:var(--fs-body)] font-medium leading-snug text-foreground/80">
 				{t.runtimeHours(p.runtime.hoursPerDay)}
-				<span class="font-normal text-foreground/55">{t.fairUse}</span>
+				<span class="font-normal text-foreground/50">{t.fairUse}</span>
 			</p>
-			<p class="mt-0.5 text-[12px] leading-snug text-foreground/55">
+			<p class="mt-0.5 text-[length:var(--fs-meta)] leading-snug text-foreground/50">
 				{t.extraMinute(p.runtime.centsPerExtraMinute)}
 			</p>
 		</div>
@@ -204,8 +208,8 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
      the border line behind it. -->
 {#snippet edgeBadge(label: string, highlight: boolean)}
 	<span
-		class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border bg-surface-raised px-3 py-1 text-[10px] font-semibold whitespace-nowrap uppercase tracking-[0.12em] {highlight
-			? 'border-accent/60 text-accent'
+		class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border bg-surface-raised px-3 py-1 text-[length:var(--fs-micro)] font-semibold whitespace-nowrap uppercase tracking-[var(--tracking-wider)] {highlight
+			? 'border-accent/25 text-accent'
 			: 'border-border text-quiet-ink'}"
 	>
 		{label}
@@ -213,7 +217,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 {/snippet}
 
 {#snippet skillList(items: SkillFeature[])}
-	<ul class="mt-2 space-y-2 text-[13px] leading-snug">
+	<ul class="mt-2 space-y-2 text-[length:var(--fs-body)] leading-snug">
 		{#each items.slice(0, SKILL_CAP) as feature (feature.skill)}
 			{@const soon = loadSkill(feature.skill, lang)?.comingSoon}
 			<li class={soon ? 'opacity-70' : ''}>
@@ -227,12 +231,12 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				</a>
 				{#if soon}
 					<span
-						class="ml-1 rounded-full border border-quiet/45 bg-quiet/12 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-quiet-ink"
+						class="ml-1 rounded-full border border-quiet/25 bg-quiet/15 px-1.5 py-0.5 text-[length:var(--fs-nano)] font-semibold uppercase tracking-[var(--tracking-wide)] text-quiet-ink"
 						>{t.soon}</span
 					>
 				{/if}
-				<span class={soon ? 'text-foreground/45' : 'text-foreground/55'}>· {feature.title}</span>
-				<span class="block text-[12px] leading-snug text-foreground/50">
+				<span class={soon ? 'text-foreground/50' : 'text-foreground/50'}>· {feature.title}</span>
+				<span class="block text-[length:var(--fs-meta)] leading-snug text-foreground/50">
 					{feature.description}
 				</span>
 			</li>
@@ -240,25 +244,33 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 	</ul>
 {/snippet}
 
-<div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
+<div {lang} class="app-shell">
 	<MarketingSiteHeader active="pricing" maxWidth="6xl" {lang} />
 
 	<section
 		id="pricing-plans"
-		class="scroll-mt-28 border-b border-border/40 px-5 py-14 sm:px-8 sm:py-16"
+		class="scroll-mt-28 border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16"
 	>
 		<div class="mx-auto max-w-6xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p class="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">{t.eyebrow}</p>
-				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+				<p
+					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
+				>
+					{t.eyebrow}
+				</p>
+				<h2 class="section-title mt-3 sm:text-3xl">
 					{t.heading}
 				</h2>
 				<!-- The wish first, the three facts after — same order as on the cards. -->
-				<p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-foreground/75">
+				<p
+					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-relaxed text-foreground/80"
+				>
 					{t.lead}
 				</p>
 				<!-- {@html}: our own static copy, carries <strong> emphasis. -->
-				<p class="mx-auto mt-5 max-w-xl text-[14px] leading-snug text-foreground/60">
+				<p
+					class="mx-auto mt-5 max-w-xl text-[length:var(--fs-section)] leading-snug text-foreground/65"
+				>
 					{@html t.introHtml}
 				</p>
 			</div>
@@ -269,18 +281,20 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 			     product. -->
 			<div
 				id={avenId.id}
-				class="relative mt-12 scroll-mt-28 rounded-2xl border border-accent/45 bg-surface-card p-6 pt-8 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:p-7 sm:pt-8"
+				class="relative mt-12 scroll-mt-28 rounded-2xl border border-accent/25 bg-surface-card p-6 pt-8 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:p-7 sm:pt-8"
 			>
 				{@render edgeBadge(t.idEyebrow, true)}
 				<p class="text-center text-xl font-semibold tracking-tight text-foreground">
 					{avenId.name}
 				</p>
-				<p class="mt-1 text-center text-[12px] leading-snug text-foreground/55">{avenId.role}</p>
+				<p class="mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+					{avenId.role}
+				</p>
 
 				{@render pitchLine(avenId)}
 
 				{#if claimedName}
-					<p class="mt-4 text-center text-[13px] text-foreground/70">
+					<p class="mt-4 text-center text-[length:var(--fs-body)] text-foreground/65">
 						{t.yourChoice}
 						<strong class="font-semibold text-accent">{claimedName}</strong>.aven.ceo —
 						{t.availability}
@@ -288,7 +302,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				{/if}
 
 				<ul
-					class="mx-auto mt-5 grid max-w-3xl gap-x-8 gap-y-2 border-t border-border/50 pt-5 text-[13px] leading-snug text-foreground/75 sm:grid-cols-2"
+					class="mx-auto mt-5 grid max-w-3xl gap-x-8 gap-y-2 border-t border-border/25 pt-5 text-[length:var(--fs-body)] leading-snug text-foreground/80 sm:grid-cols-2"
 				>
 					{#each avenId.features as feature (feature.title)}
 						<li class="flex gap-2">
@@ -297,8 +311,8 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"
 							></span>
 							<span>
-								<span class="font-medium text-foreground/85">{feature.title}</span>
-								<span class="block text-[12px] leading-snug text-foreground/50">
+								<span class="font-medium text-foreground/80">{feature.title}</span>
+								<span class="block text-[length:var(--fs-meta)] leading-snug text-foreground/50">
 									{feature.description}
 								</span>
 							</span>
@@ -311,7 +325,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				<div class="mt-4">
 					<a
 						href={claimedName ? idFunnelHref('avenid', claimedName) : ctaHref(avenId)}
-						class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-8 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+						class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
 					>
 						{ctaLabel(avenId, lang)}
 					</a>
@@ -328,7 +342,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 					<div
 						id={p.id}
 						class="relative flex min-w-0 scroll-mt-28 flex-col rounded-2xl p-6 pt-8 shadow-[0_1px_3px_rgba(30,41,59,0.05)] {p.highlight
-							? 'border-2 border-accent/60 bg-surface-raised'
+							? 'border-2 border-accent/25 bg-surface-raised'
 							: 'border border-foreground/8 bg-surface-raised'}"
 					>
 						{#if per}
@@ -336,15 +350,21 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						{/if}
 						<!-- No `uppercase`: the brand is spelled avenME, not AVENME. -->
 						<p class="text-center text-xl font-semibold tracking-tight text-foreground">{p.name}</p>
-						<p class="mt-1 text-center text-[12px] leading-snug text-foreground/55">{p.role}</p>
+						<p
+							class="mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground/50"
+						>
+							{p.role}
+						</p>
 
 						{@render pitchLine(p)}
 
 						{@render pricePanel(p)}
 
-						<div class="mt-4 flex-1 border-t border-border/50">
+						<div class="mt-4 flex-1 border-t border-border/25">
 							{@render runtimeCard(p)}
-							<ul class="mt-4 space-y-2 text-left text-[13px] leading-snug text-foreground/75">
+							<ul
+								class="mt-4 space-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground/80"
+							>
 								{@render sovereigntyBullet()}
 								{#each plain as feature (feature.title)}
 									<li class="flex gap-2">
@@ -366,9 +386,11 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 													→
 												</a>
 											{:else}
-												<span class="font-medium text-foreground/85">{feature.title}</span>
+												<span class="font-medium text-foreground/80">{feature.title}</span>
 											{/if}
-											<span class="block text-[12px] leading-snug text-foreground/50">
+											<span
+												class="block text-[length:var(--fs-meta)] leading-snug text-foreground/50"
+											>
 												{feature.description}
 											</span>
 										</span>
@@ -380,16 +402,16 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						<!-- Skills are their own category, not more bullets: a feature is
 						     something the tier does, a skill is a thing you can go read. -->
 						{#if skills.length > 0 || skillCount > 0}
-							<div class="mt-4 border-t border-border/50 pt-4 text-left">
-								<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+							<div class="mt-4 border-t border-border/25 pt-4 text-left">
+								<p class="eyebrow-accent">
 									{t.skills}
 								</p>
 								{@render skillList(skills)}
 								{#if skillCount > 0}
-									<p class="mt-2 text-[12px] text-foreground/50">
+									<p class="mt-2 text-[length:var(--fs-meta)] text-foreground/50">
 										<a
 											href={`${localeHref(lang, '/skills')}?plan=${p.id}`}
-											class="underline underline-offset-4 hover:text-foreground/75"
+											class="underline underline-offset-4 hover:text-foreground/80"
 										>
 											{t.allSkills(skillCount)}
 										</a>
@@ -401,11 +423,13 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						<div class="mt-4">
 							<a
 								href={ctaHref(p)}
-								class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-8 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+								class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
 							>
 								{ctaLabel(p, lang)}
 							</a>
-							<p class="mt-2 text-center text-[11px] leading-snug text-foreground/50">
+							<p
+								class="mt-2 text-center text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50"
+							>
 								{t.bundleNote(avenId.name, euro(avenId.eurPrice), p.per)}
 							</p>
 						</div>
@@ -426,23 +450,24 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 					<p class="text-center text-xl font-semibold tracking-tight text-foreground">
 						{coop.name}
 					</p>
-					<p class="mt-1 text-center text-[12px] leading-snug text-foreground/55">{coop.role}</p>
+					<p class="mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+						{coop.role}
+					</p>
 
 					{@render pitchLine(coop)}
 
 					{@render pricePanel(coop)}
 
-					<div class="mt-4 grid gap-8 border-t border-border/50 lg:grid-cols-[1fr_15rem] lg:gap-8">
+					<div class="mt-4 grid gap-8 border-t border-border/25 lg:grid-cols-[1fr_15rem] lg:gap-8">
 						<div>
 							{@render runtimeCard(coop)}
-							<ul class="mt-4 space-y-2 text-left text-[13px] leading-snug text-foreground/75">
+							<ul
+								class="mt-4 space-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground/80"
+							>
 								{@render sovereigntyBullet()}
 								{#each coop.features as feature (feature.title)}
 									<li class="flex gap-2">
-										<span
-											aria-hidden="true"
-											class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-										></span>
+										<span aria-hidden="true" class="bullet"></span>
 										<span>
 											{#if feature.href}
 												<a
@@ -461,11 +486,13 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 												>
 													{skillLabel(feature.skill)}
 												</a>
-												<span class="text-foreground/55">· {feature.title}</span>
+												<span class="text-foreground/50">· {feature.title}</span>
 											{:else}
-												<span class="font-medium text-foreground/85">{feature.title}</span>
+												<span class="font-medium text-foreground/80">{feature.title}</span>
 											{/if}
-											<span class="block text-[12px] leading-snug text-foreground/50">
+											<span
+												class="block text-[length:var(--fs-meta)] leading-snug text-foreground/50"
+											>
 												{feature.description}
 											</span>
 										</span>
@@ -475,15 +502,15 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						</div>
 
 						{#if coopSkillCount > 0}
-							<div class="pt-4 text-left lg:border-l lg:border-border/50 lg:pl-8">
-								<p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">
+							<div class="pt-4 text-left lg:border-l lg:border-border/25 lg:pl-8">
+								<p class="eyebrow-accent">
 									{t.skills}
 								</p>
 								{@render skillList(skillFeatures(coop))}
-								<p class="mt-2 text-[12px] text-foreground/50">
+								<p class="mt-2 text-[length:var(--fs-meta)] text-foreground/50">
 									<a
 										href={`${localeHref(lang, '/skills')}?plan=${coop.id}`}
-										class="underline underline-offset-4 hover:text-foreground/75"
+										class="underline underline-offset-4 hover:text-foreground/80"
 									>
 										{t.allSkills(coopSkillCount)}
 									</a>
@@ -495,7 +522,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 					<div class="mt-4">
 						<a
 							href={ctaHref(coop)}
-							class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-10 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+							class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-10 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
 						>
 							{ctaLabel(coop, lang)}
 						</a>
@@ -511,12 +538,12 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 					<p class="text-center text-xl font-semibold tracking-tight text-foreground">
 						{t.os.title}
 					</p>
-					<p class="mt-1 text-center text-[12px] leading-snug text-foreground/55">
+					<p class="mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground/50">
 						{t.os.subtitle}
 					</p>
 
 					<div
-						class="mt-5 rounded-2xl border border-border/50 bg-surface-card px-5 py-4 text-center"
+						class="mt-5 rounded-2xl border border-border/25 bg-surface-card px-5 py-4 text-center"
 					>
 						<p class="text-3xl font-semibold tabular-nums tracking-tight text-foreground">
 							0&nbsp;€
@@ -524,43 +551,31 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 					</div>
 
 					<ul
-						class="mt-4 space-y-2 border-t border-border/50 pt-4 text-left text-[13px] leading-snug text-foreground/72"
+						class="mt-4 space-y-2 border-t border-border/25 pt-4 text-left text-[length:var(--fs-body)] leading-snug text-foreground/65"
 						aria-label={t.os.listLabel}
 					>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span><span>{t.os.sync}</span>
+							<span aria-hidden="true" class="bullet"></span><span>{t.os.sync}</span>
 						</li>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span><span>{t.os.byok}</span>
+							<span aria-hidden="true" class="bullet"></span><span>{t.os.byok}</span>
 						</li>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span>
+							<span aria-hidden="true" class="bullet"></span>
 							<span
 								>{t.os.noBackups}
-								<span class="text-foreground/55"> {t.os.noBackupsNote}</span></span
+								<span class="text-foreground/50"> {t.os.noBackupsNote}</span></span
 							>
 						</li>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span><span>{t.os.support}</span>
+							<span aria-hidden="true" class="bullet"></span><span>{t.os.support}</span>
 						</li>
 					</ul>
 
 					<div
-						class="mt-4 flex-1 space-y-3 border-t border-border/50 pt-4 text-left text-[12px] leading-relaxed text-foreground/65"
+						class="mt-4 flex-1 space-y-3 border-t border-border/25 pt-4 text-left text-[length:var(--fs-meta)] leading-relaxed text-foreground/65"
 					>
-						<p class="font-light italic text-foreground/75">{t.os.quote}</p>
+						<p class="font-light italic text-foreground/80">{t.os.quote}</p>
 						<p>{t.os.noTrap}</p>
 						<!-- {@html}: our own static copy, carries <strong> emphasis. -->
 						<p>{@html t.os.selfHostingHtml}</p>
@@ -571,7 +586,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 							href={openSourceGithubHref}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-8 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+							class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-primary px-8 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
 						>
 							{t.os.github}</a
 						>
@@ -579,11 +594,13 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				</div>
 			</div>
 
-			<p class="mt-6 text-center text-[12px] text-foreground/50">{vatNote(lang)}</p>
+			<p class="mt-6 text-center text-[length:var(--fs-meta)] text-foreground/50">
+				{vatNote(lang)}
+			</p>
 		</div>
 	</section>
 
-	<section class="border-b border-border/40 px-5 py-14 sm:px-8 sm:py-16" id="aven-id">
+	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16" id="aven-id">
 		<div class="mx-auto max-w-2xl">
 			<AvenIdCheckCta variant="banner" {lang} />
 		</div>
