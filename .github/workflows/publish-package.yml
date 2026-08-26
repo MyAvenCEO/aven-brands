@@ -1,8 +1,19 @@
-name: Publish aven-ceo
+name: Publish a brand package
+
+# One workflow for every package in the repo. The tag names which one:
+#   aven-brandkit-v0.2.0   the machinery
+#   aven-ceo-v0.6.0        a brand
+#   aven-yma-v0.1.0        a brand
+#
+# It used to be hardcoded to aven-ceo, which was fine while that was the only
+# package and would have meant a copy of this file per brand from now on.
 
 on:
   push:
-    tags: [aven-ceo-v*]
+    tags:
+      - aven-brandkit-v*
+      - aven-ceo-v*
+      - aven-yma-v*
 
 permissions:
   contents: read
@@ -22,12 +33,21 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@myavenceo'
       - run: bun install --frozen-lockfile
+      - name: Work out which package the tag names
+        id: pkg
+        shell: bash
+        run: |
+          set -euo pipefail
+          name="${GITHUB_REF_NAME%-v*}"
+          test -d "packages/$name" || { echo "no such package: $name"; exit 1; }
+          echo "name=$name" >> "$GITHUB_OUTPUT"
       - name: Require tag and package versions to match
         shell: bash
         run: |
           set -euo pipefail
-          package_version=$(node -p "require('./packages/aven-ceo/package.json').version")
-          test "$GITHUB_REF_NAME" = "aven-ceo-v$package_version"
+          name='${{ steps.pkg.outputs.name }}'
+          package_version=$(node -p "require('./packages/$name/package.json').version")
+          test "$GITHUB_REF_NAME" = "$name-v$package_version"
       - name: Refuse to publish generated files that drifted
         # The package ships committed, generated assets (the icon primitives) and
         # the theme its consumers regenerate from. If a hex was edited anywhere but
@@ -35,16 +55,15 @@ jobs:
         # the one place that has to notice, before a stale artifact reaches anyone.
         run: |
           set -euo pipefail
-          bun run brand:generate
+          bun run build:packages
           git diff --exit-code
       - name: The public surface must be intact before publishing
         # 0.4.0 shipped without elementCss -- deleted as collateral when a
         # neighbouring function was removed -- and the failure surfaced in
         # another repository's build. Cheaper to catch here.
         run: bun run test
-      - run: bun run --cwd packages/aven-ceo build
       - name: Publish compiled package
-        working-directory: packages/aven-ceo
+        working-directory: packages/${{ steps.pkg.outputs.name }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish
