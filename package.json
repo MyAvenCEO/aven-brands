@@ -18,11 +18,14 @@
 		"format": "bunx biome format --write .",
 		"brand:generate": "bun run --cwd packages/aven-ceo generate && bun run --cwd apps/yma brand:generate",
 		"dev:yma": "bun run build:packages && bun run --cwd apps/yma dev",
-		"build:yma": "bun run build:packages && bun run --cwd apps/yma build"
+		"build:yma": "bun run build:packages && bun run --cwd apps/yma build",
+		"guidelines": "bun run build:packages && bun ./scripts/render-guidelines.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.6",
-		"typescript": "6.0.2"
+		"@myavenceo/aven-vibes": "^0.1.0",
+		"typescript": "6.0.2",
+		"@myavenceo/aven-brandkit": "workspace:*"
 	},
 	"engines": {
 		"bun": ">=1.3.13"
