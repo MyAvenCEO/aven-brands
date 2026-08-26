@@ -22,10 +22,17 @@ jobs:
           bun-version: 1.3.13
       - name: Authenticate to GitHub Packages
         shell: bash
-        # Written to the RUNNER'S HOME, never into the checkout. A token in a
-        # tracked file gets swept up by `git add -A` and pushed; this repo's
-        # sibling learned that the expensive way.
-        run: printf '//npm.pkg.github.com/:_authToken=%s\n' '${{ secrets.GITHUB_TOKEN }}' >> "$HOME/.npmrc"
+        # The PROJECT .npmrc, because that is the only file bun reads a token
+        # from. $HOME/.npmrc looks strictly safer and is not: bun ignores it and
+        # every install 401s, which reads as a permissions problem for as long
+        # as it takes someone to notice the file location changed.
+        #
+        # `skip-worktree` is what keeps it out of a commit — git treats the file
+        # as unchanged, so `git add -A` cannot stage it.
+        run: |
+          set -euo pipefail
+          printf '//npm.pkg.github.com/:_authToken=%s\n' '${{ secrets.GITHUB_TOKEN }}' >> .npmrc
+          git update-index --skip-worktree .npmrc
       - run: bun install --frozen-lockfile
       - run: bun run check
       - run: bun run test
