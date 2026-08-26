@@ -8,4 +8,4 @@ export {
 	scanDeclaredClasses,
 	scanFiles,
 	scanSource
-} from '@myavenceo/aven-brandkit'
+} from '@myavenceo/aven-vibes/brand'

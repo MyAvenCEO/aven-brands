@@ -11,7 +11,7 @@
 		"dev": "bun run build:packages && bun run --cwd apps/website dev",
 		"check": "bun run build:packages && bun run --cwd apps/website check",
 		"test": "bun test packages/aven-ceo/tests packages/aven-brandkit/tests",
-		"build:packages": "bun run --cwd packages/aven-brandkit build && bun run --cwd packages/aven-ceo build && bun run --cwd packages/aven-yma build && bun run brand:generate",
+		"build:packages": "bun run --cwd packages/aven-ceo build && bun run --cwd packages/aven-yma build && bun run brand:generate",
 		"build:next": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.next.aven.ceo bun run --cwd apps/website build && bun run --cwd apps/website audit:build next",
 		"build:production": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.aven.ceo bun run --cwd apps/website build && bun run --cwd apps/website audit:build production",
 		"lint": "bunx biome check .",
@@ -23,9 +23,8 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.6",
-		"@myavenceo/aven-vibes": "^0.1.0",
-		"typescript": "6.0.2",
-		"@myavenceo/aven-brandkit": "workspace:*"
+		"@myavenceo/aven-vibes": "^0.2.0",
+		"typescript": "6.0.2"
 	},
 	"engines": {
 		"bun": ">=1.3.13"

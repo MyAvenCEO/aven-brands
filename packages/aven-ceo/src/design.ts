@@ -20,7 +20,7 @@
  * so the conversion is a rounding, not a redesign.
  */
 
-import type { Decl } from '@myavenceo/aven-brandkit'
+import type { Decl } from '@myavenceo/aven-vibes/brand'
 
 /* ══ 1 · THE TYPE RAMP ═════════════════════════════════════════════════════
  * Twelve steps covering the 7px–38px range actually in use. Named by role at

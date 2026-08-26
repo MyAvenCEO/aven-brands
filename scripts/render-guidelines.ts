@@ -6,7 +6,7 @@
  *
  * The architecture running on its own documentation, twice:
  *
- *   Brand (config) ──→ aven-brandkit ──→ aven-vibes ──→ CSS + HTML
+ *   Brand (config) ──→ aven-vibes ──→ CSS + HTML
  *
  * Neither page is hand-written HTML, which is the point. A showcase written by
  * hand drifts from the system the moment someone adds a component and forgets
@@ -19,8 +19,8 @@
 import { writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createGenerator, createKitchenSink } from '@myavenceo/aven-brandkit'
-import { renderViewToString, type ViewDef } from '@myavenceo/aven-vibes'
+import { renderViewToString } from '@myavenceo/aven-vibes'
+import { createGenerator, createKitchenSink } from '@myavenceo/aven-vibes/brand'
 import { avenCeo } from '../packages/aven-ceo/dist/brand.js'
 import { avenYma } from '../packages/aven-yma/dist/brand.js'
 
@@ -43,7 +43,10 @@ for (const [brand, out, fontLink] of [
 ] as const) {
 	const { themeCss, componentCss } = createGenerator(brand)
 	const { kitchenSinkView, kitchenSinkCss } = createKitchenSink(brand)
-	const body = await renderViewToString(kitchenSinkView() as ViewDef, {}, { evaluate })
+	/* No cast. The kitchen sink returns a ViewDef and says so now that it lives
+	   beside the renderer — the two used to be in packages that could not name
+	   each other's types, so this line asserted what neither could state. */
+	const body = await renderViewToString(kitchenSinkView(), {}, { evaluate })
 
 	const html = `<!doctype html>
 <meta charset="utf-8">

@@ -5,7 +5,7 @@
  * the proof the architecture works: a third-party brand needs no change to the
  * kit, no fork of the generator, and no permission — only this file.
  */
-import type { Brand } from '@myavenceo/aven-brandkit'
+import type { Brand } from '@myavenceo/aven-vibes/brand'
 import {
 	COMPONENTS,
 	ELEVATION_SCALE,

@@ -5,7 +5,7 @@
  *
  *   avenUtilities({ content: ['src'] })
  */
-import { type AvenUtilitiesOptions, avenUtilities as plugin } from '@myavenceo/aven-brandkit'
+import { type AvenUtilitiesOptions, avenUtilities as plugin } from '@myavenceo/aven-vibes/vite'
 import { avenCeo } from './brand.js'
 
 export type AvenCeoUtilitiesOptions = Omit<AvenUtilitiesOptions, 'brand'>

@@ -8,7 +8,7 @@
  * logic, that logic would be avenCEO's alone and the next brand would not get
  * it.
  */
-import type { Brand } from '@myavenceo/aven-brandkit'
+import type { Brand } from '@myavenceo/aven-vibes/brand'
 import {
 	COMPONENTS,
 	ELEVATION_SCALE,
