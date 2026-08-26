@@ -229,9 +229,25 @@ export function createGenerator(brand: Brand) {
 
 	/** The square frame both derived icons are drawn in. */
 	const FRAME = 800
-	/** The logo's own intrinsic box, read from its `viewBox`. */
-	const LOGO_W = 486
-	const LOGO_H = 450
+	/**
+	 * The logo's own intrinsic box — read from the file, not remembered.
+	 *
+	 * These were constants, 486 by 450, which are avenCEO's numbers. A brand
+	 * whose mark is a different shape got it centred against someone else's
+	 * dimensions and hanging off the frame. The SVG already states its size;
+	 * a second copy of that fact could only ever be wrong.
+	 */
+	function logoBox(logoSvg: string): { width: number; height: number } {
+		const viewBox = logoSvg.match(/viewBox="([\d.\s-]+)"/)
+		if (viewBox) {
+			const [, , width, height] = viewBox[1].trim().split(/\s+/).map(Number)
+			if (width > 0 && height > 0) return { width, height }
+		}
+		const width = Number(logoSvg.match(/\bwidth="(\d+(?:\.\d+)?)"/)?.[1])
+		const height = Number(logoSvg.match(/\bheight="(\d+(?:\.\d+)?)"/)?.[1])
+		if (!(width > 0 && height > 0)) throw new Error('logo.svg states no viewBox or size')
+		return { width, height }
+	}
 
 	/** Strip the outer `<svg …>` wrapper, keeping just the drawable children. */
 	function logoBody(logoSvg: string): string {
@@ -241,11 +257,34 @@ export function createGenerator(brand: Brand) {
 		return logoSvg.slice(opened + 1, closed).trim()
 	}
 
-	/** Centre the logo in the square frame — the offsets the old copy hard-coded. */
+	/**
+	 * Fit the logo to the square frame and centre it.
+	 *
+	 * Scaled as well as centred, because a mark twice the frame's width cannot be
+	 * translated into view. `PADDING` keeps it off the edges at small sizes,
+	 * where a favicon that touches its own border reads as a smudge.
+	 */
+	/** Drop trailing zeros, so an untouched icon stays byte-identical. */
+	function trim(value: number, places = 2): string {
+		return Number(value.toFixed(places)).toString()
+	}
+
+	const PADDING = 0.82
 	function centred(logoSvg: string): string {
-		const dx = (FRAME - LOGO_W) / 2
-		const dy = (FRAME - LOGO_H) / 2
-		return `\t<g transform="translate(${dx}, ${dy})">\n\t\t${logoBody(logoSvg)}\n\t</g>`
+		const { width, height } = logoBox(logoSvg)
+		/*
+		 * Never ENLARGES. Fitting is about a mark that would overflow the frame,
+		 * and scaling a smaller one up to fill it is a different decision — one
+		 * that silently redrew avenCEO's favicon 35% bigger the first time this
+		 * ran. A brand that wants its mark to fill the plate says so by drawing
+		 * it that way.
+		 */
+		const scale = Math.min(1, (FRAME / Math.max(width, height)) * PADDING)
+		const dx = (FRAME - width * scale) / 2
+		const dy = (FRAME - height * scale) / 2
+		const move = `translate(${trim(dx)}, ${trim(dy)})`
+		const transform = scale === 1 ? move : `${move} scale(${trim(scale, 4)})`
+		return `\t<g transform="${transform}">\n\t\t${logoBody(logoSvg)}\n\t</g>`
 	}
 
 	/**
@@ -274,7 +313,7 @@ export function createGenerator(brand: Brand) {
 		return [
 			`<svg width="${FRAME}" height="${FRAME}" viewBox="0 0 ${FRAME} ${FRAME}" fill="none" xmlns="http://www.w3.org/2000/svg">`,
 			`\t<!-- GENERATED from assets/logo.svg by ${brand.name} — do not edit. -->`,
-			`\t<title>aven</title>`,
+			`\t<title>${brand.name}</title>`,
 			centred(logoSvg),
 			'</svg>',
 			''

@@ -8,6 +8,9 @@ on:
 
 permissions:
   contents: read
+  # The guideline pages are rendered by @myavenceo/aven-vibes, which is private.
+  # Without this the install 401s and every run is red.
+  packages: read
 
 jobs:
   validate:
@@ -17,6 +20,12 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.13
+      - name: Authenticate to GitHub Packages
+        shell: bash
+        # Written to the RUNNER'S HOME, never into the checkout. A token in a
+        # tracked file gets swept up by `git add -A` and pushed; this repo's
+        # sibling learned that the expensive way.
+        run: printf '//npm.pkg.github.com/:_authToken=%s\n' '${{ secrets.GITHUB_TOKEN }}' >> "$HOME/.npmrc"
       - run: bun install --frozen-lockfile
       - run: bun run check
       - run: bun run test
@@ -26,13 +35,23 @@ jobs:
         run: bun run build:production
       - run: bun run lint
       - name: Verify generated brand files are in sync
-        # tokens.ts is the only place a hex is spelled; every theme, favicon and
-        # icon primitive is generated from it and committed. If someone edits a
-        # generated file directly, regenerating restores it and the tree goes
-        # dirty — this is where that gets caught, before it can be published.
+        # A brand definition is the only place a hex is spelled; every theme,
+        # favicon, icon primitive and guideline page is generated from one and
+        # committed. If someone edits a generated file directly, regenerating
+        # restores it and the tree goes dirty — this is where that gets caught,
+        # before it can be published.
+        #
+        # `guidelines` is included because it was not, briefly, and a brand could
+        # have changed while its own documentation kept describing the old one.
         run: |
-          bun run brand:generate
+          bun run build:packages
+          bun run guidelines
           git diff --exit-code
-      - name: Verify publishable package
-        working-directory: packages/aven-ceo
-        run: npm pack --dry-run
+      - name: Verify every package is publishable
+        # All three, not just the one that used to be the only one.
+        run: |
+          set -euo pipefail
+          for pkg in packages/*/; do
+            echo "── $pkg"
+            (cd "$pkg" && npm pack --dry-run)
+          done
