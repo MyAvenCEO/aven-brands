@@ -44,7 +44,7 @@ export interface ClassUse {
  * offsets went missing from the layout with nothing to say so. A filter meant to
  * cut noise had started cutting evidence.
  */
-const PLAUSIBLE = /^-?[A-Za-z_][A-Za-z0-9_-]*(?::[A-Za-z0-9_-]+)*$/
+const PLAUSIBLE = /^-?[A-Za-z_][A-Za-z0-9_.-]*(?::[A-Za-z0-9_.-]+)*$/
 
 /** Class attributes in all four spellings, quoted or braced. */
 const ATTR = /\bclass\s*=\s*(?=["'{])/g
@@ -70,6 +70,17 @@ function maskArbitrary(token: string): string {
  */
 function plausible(token: string): boolean {
 	const masked = maskArbitrary(token)
+	/*
+	 * A dot is only ever part of a NUMBER in a class name — `py-1.5`, `gap-2.5`.
+	 * Anywhere else it means a property access that got picked up from an
+	 * expression, like `stage.key`.
+	 *
+	 * Rejecting the dot outright was simpler and silently deleted every half-step
+	 * in the spacing scale: 150-odd `py-0.5`, `gap-1.5`, `size-3.5` classes across
+	 * the app and the site, which is most of the vertical rhythm in a dense UI.
+	 * The buttons that lost their padding are how it surfaced.
+	 */
+	if (masked.replace(/\d\.\d/g, '').includes('.')) return false
 	if (masked.includes('\u00a7')) return /^-?[A-Za-z_][A-Za-z0-9_:-]*\u00a7$/.test(masked)
 	const [base, alpha, ...extra] = masked.split('/')
 	if (extra.length) return false
