@@ -58,11 +58,19 @@ export function createKitchenSink(brand: Brand) {
 		text: value
 	})
 
-	/** A labelled section, so every block on the page reads the same way. */
+	/**
+	 * A labelled section, so every block on the page reads the same way.
+	 *
+	 * The chrome wears `ks-` classes, NEVER the brand's own. It used to use
+	 * `eyebrow-accent` and `meta`, which are components avenCEO happens to have —
+	 * so on the first brand that did not, the page's own headings and ledes
+	 * rendered unstyled. A guideline page cannot be written in the vocabulary of
+	 * the thing it documents.
+	 */
 	function section(eyebrow: string, lede: string | null, body: Node[]): Node {
 		return el('section', 'ks-section', [
-			text('p', 'eyebrow-accent', eyebrow),
-			...(lede ? [text('p', 'meta', lede)] : []),
+			text('p', 'ks-eyebrow', eyebrow),
+			...(lede ? [text('p', 'ks-lede', lede)] : []),
 			...body
 		])
 	}
@@ -72,7 +80,7 @@ export function createKitchenSink(brand: Brand) {
 		return el('div', 'ks-swatch', [
 			el('div', `ks-chip ks-chip-${name}`, []),
 			text('p', 'ks-swatch-name', name),
-			text('p', 'mono-meta', value)
+			text('p', 'ks-mono', value)
 		])
 	}
 
@@ -80,121 +88,82 @@ export function createKitchenSink(brand: Brand) {
 	function specimen(cls: string, label: string, value: string, sample: string): Node {
 		return el('div', 'ks-row', [
 			text('span', cls, sample),
-			el('span', 'ks-row-meta', [text('span', 'mono-meta', `${label} · ${value}`)])
+			el('span', 'ks-row-meta', [text('span', 'ks-mono', `${label} · ${value}`)])
 		])
 	}
 
 	/**
 	 * Every component, rendered as itself.
 	 *
-	 * The ones with a natural demonstration get one; the rest are listed by name
-	 * with their own class applied, so even a component nobody thought to
-	 * illustrate still appears wearing its own styles.
+	 * DERIVED from the brand. This was a hand-composed showcase — a panel holding
+	 * an eyebrow, a title and a lede, then buttons, then a card — which read
+	 * beautifully and described exactly one brand. Every class in it was
+	 * avenCEO's, so avenYMA's page showed a gallery of components it does not
+	 * have and none of the twenty it does.
+	 *
+	 * A specimen apiece is less charming and true for every brand, which is the
+	 * trade a guideline page has to make. Nothing here can go stale: add a
+	 * component and it appears, remove one and it goes.
 	 */
-	const DEMONSTRATED = new Set([
-		'panel',
-		'stack',
-		'stack-center',
-		'well',
-		'eyebrow',
-		'eyebrow-accent',
-		'digits',
-		'btn',
-		'btn-secondary',
-		'ghost',
-		'chip',
-		'alert',
-		'steps',
-		'step',
-		'step-done',
-		'title',
-		'lede',
-		'meta',
-		'card',
-		'card-sm',
-		'mono-meta',
-		'bullet'
-	])
-
 	function componentGallery(): Node[] {
-		const showcase = el('div', 'panel stack stack-center', [
-			text('p', 'eyebrow', 'eyebrow'),
-			text('h2', 'title', 'title — the heading on a card'),
-			text('p', 'lede', 'lede — the one line under a title, muted and generous.'),
-			el('div', 'well ks-full', [
-				text('p', 'eyebrow', 'well + eyebrow + digits'),
-				text('p', 'digits', 'samuel.aven')
-			]),
-			el('div', 'steps ks-full', [el('span', 'step step-done', []), el('span', 'step', [])]),
-			text('div', 'alert ks-full', 'alert — said in the failure tone, without shouting.'),
-			el('div', 'cluster', [
-				text('button', 'btn', 'btn'),
-				text('button', 'btn-secondary', 'btn-secondary'),
-				text('button', 'ghost', 'ghost'),
-				text('span', 'chip', 'chip')
-			]),
-			text('p', 'meta', 'meta — the quiet line under a title.')
-		])
-
-		const card = el('div', 'card', [
-			text('p', 'eyebrow-quiet', 'eyebrow-quiet'),
-			text('p', undefined, 'card — the general raised panel.'),
-			text('p', 'mono-meta', 'mono-meta · 7eafc029-bf23-419c'),
-			el('p', 'cluster', [
-				text('span', 'bullet', ''),
-				text('span', undefined, 'bullet — opens a list item.')
-			])
-		])
-
-		const remaining = COMPONENT_NAMES.filter((n) => !DEMONSTRATED.has(n))
-
 		return [
-			showcase,
-			card,
-			text('div', 'card-sm', 'card-sm'),
-			...(remaining.length
-				? [
-						text('p', 'eyebrow', 'also defined'),
-						el(
-							'div',
-							'cluster',
-							remaining.map((n) => text('span', `chip ${n}`, `.${n}`))
-						)
-					]
-				: [])
+			el(
+				'div',
+				'stack',
+				COMPONENT_NAMES.map((name) => {
+					/* A button-ish component is shown as a button so its states work;
+					   everything else is a block, which is what most of them are. */
+					const isButton = /(^|-)btn(-|$)|button/.test(name)
+					return el('div', 'ks-row', [
+						isButton
+							? text('button', name, name)
+							: text('div', `ks-specimen ${name}`, sampleFor(name)),
+						el('span', 'ks-row-meta', [text('span', 'ks-mono', `.${name}`)])
+					])
+				})
+			)
 		]
 	}
 
-	/** The layout primitives, each shown doing the one thing it does. */
+	/**
+	 * What to put inside a specimen.
+	 *
+	 * A component that shapes TEXT needs words to shape; one that draws a box
+	 * needs to be seen as a box. Guessing from the name is crude and beats both
+	 * alternatives: an empty div shows nothing, and a hardcoded sample per
+	 * component is the hand-composed gallery all over again.
+	 */
+	function sampleFor(name: string): string {
+		if (/quote|invitation|lede|prose|legal/.test(name))
+			return 'The quick brown fox jumps over the lazy dog.'
+		if (/eyebrow|kicker|meta|label|chip|badge|digits|mono/.test(name)) return name.toUpperCase()
+		if (/display|title|heading/.test(name)) return 'A heading, set as itself'
+		return name
+	}
+
+	/**
+	 * The layout primitives, each shown doing the one thing it does.
+	 *
+	 * Also derived. The demonstrations named `switcher`, `sidebar` and `frame`
+	 * whether or not the brand had them.
+	 */
 	function primitiveGallery(): Node[] {
 		const box = (label: string) => text('div', 'ks-box', label)
-		return [
-			text('p', 'eyebrow', 'stack — vertical rhythm'),
-			el('div', 'stack ks-demo', [box('one'), box('two'), box('three')]),
-			text('p', 'eyebrow', 'cluster — wraps instead of overflowing'),
-			el('div', 'cluster ks-demo', [box('a'), box('b'), box('c'), box('d'), box('e')]),
-			text('p', 'eyebrow', 'grid-auto — as many columns as fit'),
-			el('div', 'grid-auto ks-demo', [box('1'), box('2'), box('3'), box('4')]),
-			text('p', 'eyebrow', 'switcher — columns become rows by container width'),
-			el('div', 'switcher ks-demo', [box('left'), box('right')]),
-			text('p', 'eyebrow', 'sidebar — one fixed, one takes the rest'),
-			el('div', 'sidebar ks-demo', [box('side'), box('main')]),
-			text('p', 'eyebrow', 'frame — keeps its shape'),
-			el('div', 'frame ks-demo ks-frame', [box('16 / 9')]),
-			text('p', 'eyebrow', 'center — a measure'),
-			el('div', 'center ks-demo', [box('centred to a readable width')])
-		]
+		return PRIMITIVE_NAMES.flatMap((name) => [
+			text('p', 'ks-eyebrow', name),
+			el(`div`, `${name} ks-demo`, [box('one'), box('two'), box('three')])
+		])
 	}
 
 	/** The whole page, as one view. */
 	function kitchenSinkView(): Node {
 		return el('main', 'ks', [
 			el('header', 'ks-header', [
-				text('p', 'eyebrow-accent', `@myavenceo/${brand.slug}`),
+				text('p', 'ks-eyebrow', `@myavenceo/${brand.slug}`),
 				text('h1', 'ks-title', 'Design system'),
 				text(
 					'p',
-					'lede',
+					'ks-lede',
 					`Rendered by aven-ui from the configs themselves — ${
 						Object.keys(TONES).length + Object.keys(CREAMS).length
 					} colours, ${Object.keys(TYPE_SCALE).length} type steps, ${PRIMITIVE_NAMES.length} primitives, ${
@@ -252,7 +221,7 @@ export function createKitchenSink(brand: Brand) {
 					Object.entries(TINT_SCALE).map(([n, v]) =>
 						el('div', 'ks-row', [
 							el('span', `ks-tint ks-${n}`, []),
-							text('span', 'mono-meta', `${n} · ${v}`)
+							text('span', 'ks-mono', `${n} · ${v}`)
 						])
 					)
 				)
@@ -278,7 +247,7 @@ export function createKitchenSink(brand: Brand) {
 					Object.entries(SPACE_SCALE).map(([n, v]) =>
 						el('div', 'ks-row', [
 							el('span', `ks-space ks-${n}`, []),
-							text('span', 'mono-meta', `${n} · ${v}`)
+							text('span', 'ks-mono', `${n} · ${v}`)
 						])
 					)
 				)
@@ -337,7 +306,15 @@ export function createKitchenSink(brand: Brand) {
 			"\t/* The page's own furniture. Everything else on it is the system. */",
 			'\t.ks { max-inline-size: 62rem; margin-inline: auto; padding: 3rem 1.5rem 6rem; }',
 			'\t.ks-header { margin-block-end: 3rem; }',
-			'\t.ks-title { font-size: var(--fs-display); margin: .25rem 0 .5rem; letter-spacing: var(--tracking-tight); }',
+			/* The chrome's own type. It borrowed the brand's `eyebrow-accent`, `lede`,
+			   `meta` and `mono-meta` until the first brand that had none of them. */
+			'\t.ks-eyebrow { font-size: var(--fs-micro); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: color-mix(in oklab, var(--color-foreground) 55%, transparent); margin: 0; }',
+			'\t.ks-lede { font-size: var(--fs-meta); color: color-mix(in oklab, var(--color-foreground) 72%, transparent); margin: 0; max-inline-size: 60ch; }',
+			'\t.ks-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--fs-nano); color: color-mix(in oklab, var(--color-foreground) 55%, transparent); }',
+			/* A specimen shows a component AS ITSELF, so it must add nothing of its
+			   own beyond room to be seen. */
+			'\t.ks-specimen { min-inline-size: 0; }',
+			'\t.ks-title { font-family: var(--font-display); font-size: var(--fs-display); margin: .25rem 0 .5rem; letter-spacing: var(--tracking-tight); }',
 			'\t.ks-section { margin-block-end: 3.5rem; display: grid; gap: var(--space-comfortable); }',
 			'\t.ks-swatches { display: flex; flex-wrap: wrap; gap: var(--space-snug); }',
 			'\t.ks-swatch { inline-size: 7rem; }',
