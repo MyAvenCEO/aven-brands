@@ -58,7 +58,7 @@ const t = $derived(
 			<p class="eyebrow-accent">
 				{t.eyebrow}
 			</p>
-			<h1 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+			<h1 class="section-title mt-3 sm:text-3xl">
 				{doc.title}
 			</h1>
 

@@ -26,9 +26,7 @@ const hidden = $derived(taken.length - shown.length)
 
 {#if taken.length > 0}
 	<div class="mt-6 border-t border-border/25 pt-5">
-		<p
-			class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
-		>
+		<p class="eyebrow-accent">
 			{t.eyebrow(nextPosition())}
 		</p>
 		<ol class="mt-3 space-y-1.5">

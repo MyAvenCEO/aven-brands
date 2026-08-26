@@ -29,7 +29,7 @@ function handle(a: LiveAven) {
 </svelte:head>
 
 <!-- The {@html} below renders our own static copy from $lib/i18n — never user content. -->
-<div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
+<div {lang} class="app-shell">
 	<MarketingSiteHeader active="avens" maxWidth="6xl" {lang} />
 
 	<section class="border-b border-border/25 px-5 py-20 sm:px-8 sm:py-28">
@@ -78,9 +78,7 @@ function handle(a: LiveAven) {
 							<div class="min-w-0 flex-1">
 								<div class="flex flex-wrap items-baseline justify-between gap-2">
 									<p class="text-xl font-semibold tracking-tight text-foreground">{a.name}</p>
-									<span
-										class="rounded-full bg-accent/15 px-2.5 py-0.5 text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
-									>
+									<span class="rounded-full bg-accent/15 px-2.5 py-0.5 eyebrow-accent">
 										{t.kind.company}
 									</span>
 								</div>
@@ -94,9 +92,7 @@ function handle(a: LiveAven) {
 							<!-- Vision left (2/3), who-and-where right (1/3). -->
 							<div class="mt-5 grid gap-4 border-t border-border/25 pt-4 lg:grid-cols-3 lg:gap-6">
 								<div class="lg:col-span-2">
-									<p
-										class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
-									>
+									<p class="eyebrow-accent">
 										{t.mission}
 									</p>
 									<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground/80">

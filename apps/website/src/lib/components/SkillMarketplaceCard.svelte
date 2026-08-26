@@ -75,9 +75,7 @@ const cardClass = $derived.by(() =>
 
 	<div class="mt-5 flex items-center justify-between border-t border-border/25 pt-4">
 		<div>
-			<p
-				class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{skill.hero.promiseHoursPerWeek}
 				{t.saved}
 			</p>

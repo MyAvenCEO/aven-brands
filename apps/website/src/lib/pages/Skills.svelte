@@ -48,7 +48,7 @@ const chainSteps = $derived(t.chain.steps)
 	<meta name="description" content={t.description}>
 </svelte:head>
 
-<div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
+<div {lang} class="app-shell">
 	<MarketingSiteHeader active="skills" maxWidth="6xl" {lang} />
 
 	<!-- Hero -->
@@ -210,7 +210,7 @@ const chainSteps = $derived(t.chain.steps)
 				<p class="eyebrow-accent">
 					{t.chain.eyebrow}
 				</p>
-				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+				<h2 class="section-title mt-3 sm:text-3xl">
 					{t.chain.heading}
 				</h2>
 				<p
@@ -251,9 +251,7 @@ const chainSteps = $derived(t.chain.steps)
 			<div
 				class="mx-auto mt-6 max-w-sm rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-center ring-1 ring-accent/15"
 			>
-				<p
-					class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.chain.hitlLabel}
 				</p>
 				<a
@@ -295,7 +293,7 @@ const chainSteps = $derived(t.chain.steps)
 	</section>
 
 	<!-- CTA -->
-	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-20">
+	<section class="section-band sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
 			<AvenIdCheckCta variant="banner" {lang} />
 		</div>

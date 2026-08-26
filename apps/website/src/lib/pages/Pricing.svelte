@@ -188,9 +188,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 {#snippet runtimeCard(p: Plan)}
 	{#if p.runtime}
 		<div class="mt-4 rounded-xl border border-border/25 bg-surface-card px-4 py-3 text-left">
-			<p
-				class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{t.runtime}
 			</p>
 			<p class="mt-1 text-[length:var(--fs-body)] font-medium leading-snug text-foreground/80">
@@ -246,7 +244,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 	</ul>
 {/snippet}
 
-<div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
+<div {lang} class="app-shell">
 	<MarketingSiteHeader active="pricing" maxWidth="6xl" {lang} />
 
 	<section
@@ -260,7 +258,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 				>
 					{t.eyebrow}
 				</p>
-				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+				<h2 class="section-title mt-3 sm:text-3xl">
 					{t.heading}
 				</h2>
 				<!-- The wish first, the three facts after — same order as on the cards. -->
@@ -405,9 +403,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						     something the tier does, a skill is a thing you can go read. -->
 						{#if skills.length > 0 || skillCount > 0}
 							<div class="mt-4 border-t border-border/25 pt-4 text-left">
-								<p
-									class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
-								>
+								<p class="eyebrow-accent">
 									{t.skills}
 								</p>
 								{@render skillList(skills)}
@@ -507,9 +503,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 
 						{#if coopSkillCount > 0}
 							<div class="pt-4 text-left lg:border-l lg:border-border/25 lg:pl-8">
-								<p
-									class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
-								>
+								<p class="eyebrow-accent">
 									{t.skills}
 								</p>
 								{@render skillList(skillFeatures(coop))}

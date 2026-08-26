@@ -26,7 +26,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 </svelte:head>
 
 <!-- All {@html} below renders our own static copy from $lib/i18n/home.ts — never user content. -->
-<div {lang} class="min-h-screen bg-background text-foreground font-sans antialiased">
+<div {lang} class="app-shell">
 	<MarketingSiteHeader {lang} />
 
 	<section
@@ -57,10 +57,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- The shift: the FOMO that is simply true — post-AGI touches everyone. -->
-	<section
-		class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-20"
-		aria-labelledby="shift-heading"
-	>
+	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="shift-heading">
 		<div class="mx-auto max-w-4xl">
 			<div class="mx-auto max-w-2xl text-center">
 				<p class="eyebrow-accent">
@@ -188,10 +185,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- The pitch in one picture: an Aven is something you OWN, and you end up
 	     owning several. Three rungs, not prose — the ladder is the argument. -->
-	<section
-		class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-20"
-		aria-labelledby="own-heading"
-	>
+	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="own-heading">
 		<div class="mx-auto max-w-4xl">
 			<div class="mx-auto max-w-2xl text-center">
 				<p class="eyebrow-accent">
@@ -243,9 +237,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-5xl">
 			<header class="mx-auto max-w-2xl text-center">
-				<p
-					class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.founders.eyebrow}
 				</p>
 				<h2
@@ -375,10 +367,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- Skills preview: what an Aven can already do, straight from the marketplace. -->
-	<section
-		class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-20"
-		aria-labelledby="skills-preview-heading"
-	>
+	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="skills-preview-heading">
 		<div class="mx-auto max-w-5xl">
 			<div class="mx-auto max-w-2xl text-center">
 				<p class="eyebrow-accent">

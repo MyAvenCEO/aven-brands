@@ -274,6 +274,32 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		letterSpacing: 'var(--tracking-widest)',
 		color: 'color-mix(in srgb, var(--color-foreground) 35%, transparent)'
 	},
+	/**
+	 * A section's heading on the marketing site — the line that opens a band.
+	 * Steps up on wider screens, which is the one place the ramp is responsive.
+	 */
+	'section-title': {
+		fontSize: 'var(--fs-amount)',
+		fontWeight: '600',
+		letterSpacing: 'var(--tracking-tight)',
+		color: 'var(--color-foreground)'
+	},
+	/**
+	 * A full-width band: the website is a stack of these, each separated by a
+	 * hairline and breathing more at wider viewports.
+	 */
+	'section-band': {
+		borderBottom: '1px solid color-mix(in srgb, var(--color-ink) 25%, transparent)',
+		padding: '3.5rem 1.25rem'
+	},
+	/** The page ground an app surface fills — set once, on the outermost element. */
+	'app-shell': {
+		minHeight: '100vh',
+		background: 'var(--color-background)',
+		color: 'var(--color-foreground)',
+		fontFamily: 'var(--font-sans)',
+		WebkitFontSmoothing: 'antialiased'
+	},
 	/** An id, a hash, a timestamp — monospaced and deliberately recessive. */
 	'mono-meta': {
 		fontFamily: 'var(--font-mono)',

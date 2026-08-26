@@ -17,9 +17,7 @@ import SiteFooter from '$lib/components/SiteFooter.svelte'
 	<section class="flex-1 px-5 py-16 sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
 			<p class="eyebrow-accent">Rechtliches</p>
-			<h1 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-				Allgemeine Geschäftsbedingungen
-			</h1>
+			<h1 class="section-title mt-3 sm:text-3xl">Allgemeine Geschäftsbedingungen</h1>
 			<p class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground/65">
 				Die Bedingungen, unter denen wir liefern.
 			</p>
