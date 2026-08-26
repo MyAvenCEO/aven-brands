@@ -1,7 +1,7 @@
 /**
  * @myavenceo/aven-yma — Yvonne Müller-Andert's brand.
  *
- * A config. Everything that renders it lives in `@myavenceo/aven-brandkit`.
+ * A config. Everything that renders it lives in `@myavenceo/aven-vibes/brand`.
  */
 export { avenYma, default } from './brand.js'
 export * from './design.js'

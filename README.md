@@ -3,7 +3,6 @@
 Every brand the company renders, and the one kit that renders them.
 
 ```
-packages/aven-brandkit    the machinery — no colour, no typeface, no component
 packages/aven-ceo         a brand: avenCEO, plus its pricing, skills and legal
 packages/aven-yma         a brand: avenYMA
 apps/website              avenCEO's marketing site
@@ -12,10 +11,12 @@ apps/yma                  avenYMA's site
 
 ## What a brand is
 
-One interface, `Brand`, in `aven-brandkit/src/types.ts`: colours, roles, scales,
-primitives, components. A brand is DATA. The generator, the utility layer, the
-class scanner and the Vite step are written against that type and know nothing
-about any particular brand.
+One interface, `Brand`, in `@myavenceo/aven-vibes/brand`: colours, roles,
+scales, primitives, components. A brand is DATA. The generator, the utility
+layer, the class scanner and the Vite step are written against that type and
+know nothing about any particular brand. They live in avenVIBES, beside the
+runtime — a brand's guideline page IS a `ViewDef`, so the two halves belong in
+one package rather than in two that cannot name each other's types.
 
 That split is newer than it looks, and it exists because it had to. The
 generator used to import avenCEO's palette directly — invisible while there was
@@ -53,7 +54,7 @@ Nothing else. No Tailwind, no config file, no theme block.
 
 ```sh
 bun install
-bun run build:packages     # build the kit and both brands, regenerate every CSS file
+bun run build:packages     # build both brands, regenerate every CSS file
 bun run dev                # avenCEO's site
 bun run dev:yma            # avenYMA's site
 bun run test

@@ -1,9 +1,11 @@
 name: Publish a brand package
 
 # One workflow for every package in the repo. The tag names which one:
-#   aven-brandkit-v0.2.0   the machinery
-#   aven-ceo-v0.6.0        a brand
-#   aven-yma-v0.1.0        a brand
+#   aven-ceo-v0.6.0   a brand
+#   aven-yma-v0.1.0   a brand
+#
+# The machinery is not here. It lives in avenVIBES, beside the runtime it is
+# half of, and publishes from that repo.
 #
 # It used to be hardcoded to aven-ceo, which was fine while that was the only
 # package and would have meant a copy of this file per brand from now on.
@@ -11,7 +13,6 @@ name: Publish a brand package
 on:
   push:
     tags:
-      - aven-brandkit-v*
       - aven-ceo-v*
       - aven-yma-v*
 

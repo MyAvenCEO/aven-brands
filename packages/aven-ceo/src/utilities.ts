@@ -3,10 +3,10 @@
  *
  * Same reason as `generate.ts`: the machinery is shared, the values are not.
  */
-import { createUtilities } from '@myavenceo/aven-brandkit'
+import { createUtilities } from '@myavenceo/aven-vibes/brand'
 import { avenCeo } from './brand.js'
 
-export type { UtilityResult } from '@myavenceo/aven-brandkit'
+export type { UtilityResult } from '@myavenceo/aven-vibes/brand'
 
 const utilities = createUtilities(avenCeo)
 

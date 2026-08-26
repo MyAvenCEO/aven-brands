@@ -6,7 +6,7 @@
  * desktop becomes 2.8rem on a phone without a breakpoint, and freezing them to
  * steps would have changed the design in the act of systematising it.
  */
-import type { Decl } from '@myavenceo/aven-brandkit'
+import type { Decl } from '@myavenceo/aven-vibes/brand'
 import { GRADIENTS } from './tokens.js'
 
 /**
