@@ -471,10 +471,7 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 								{@render sovereigntyBullet()}
 								{#each coop.features as feature (feature.title)}
 									<li class="flex gap-2">
-										<span
-											aria-hidden="true"
-											class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-										></span>
+										<span aria-hidden="true" class="bullet"></span>
 										<span>
 											{#if feature.href}
 												<a
@@ -564,32 +561,20 @@ const claimedName = $derived(browser ? ($page.url.searchParams.get('name') ?? ''
 						aria-label={t.os.listLabel}
 					>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span><span>{t.os.sync}</span>
+							<span aria-hidden="true" class="bullet"></span><span>{t.os.sync}</span>
 						</li>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span><span>{t.os.byok}</span>
+							<span aria-hidden="true" class="bullet"></span><span>{t.os.byok}</span>
 						</li>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span>
+							<span aria-hidden="true" class="bullet"></span>
 							<span
 								>{t.os.noBackups}
 								<span class="text-foreground/50"> {t.os.noBackupsNote}</span></span
 							>
 						</li>
 						<li class="flex gap-2">
-							<span
-								aria-hidden="true"
-								class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-							></span><span>{t.os.support}</span>
+							<span aria-hidden="true" class="bullet"></span><span>{t.os.support}</span>
 						</li>
 					</ul>
 

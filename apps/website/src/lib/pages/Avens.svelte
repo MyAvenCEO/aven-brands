@@ -34,9 +34,7 @@ function handle(a: LiveAven) {
 
 	<section class="border-b border-border/25 px-5 py-20 sm:px-8 sm:py-28">
 		<div class="mx-auto max-w-3xl text-center">
-			<p
-				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{t.eyebrow}
 			</p>
 			<h1
@@ -56,9 +54,7 @@ function handle(a: LiveAven) {
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-6xl">
 			<header class="max-w-2xl">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.company.label}
 				</p>
 				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground/65">
@@ -140,9 +136,7 @@ function handle(a: LiveAven) {
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-6xl">
 			<header class="max-w-2xl">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.person.label}
 				</p>
 				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground/65">

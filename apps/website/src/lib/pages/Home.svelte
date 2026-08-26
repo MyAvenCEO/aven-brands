@@ -63,9 +63,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-4xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.shift.eyebrow}
 				</p>
 				<h2
@@ -130,10 +128,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					>
 						{#each t.shift.with.items as item, i (i)}
 							<li class="flex gap-2.5">
-								<span
-									class="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground/25"
-									aria-hidden="true"
-								></span>
+								<span class="bullet" aria-hidden="true"></span>
 								<span>{item}</span>
 							</li>
 						{/each}
@@ -161,9 +156,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		aria-labelledby="company-heading"
 	>
 		<div class="mx-auto max-w-3xl text-center">
-			<p
-				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{t.company.eyebrow}
 			</p>
 			<h2
@@ -201,9 +194,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-4xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.own.eyebrow}
 				</p>
 				<h2
@@ -293,9 +284,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 								decoding="async"
 							>
 						</div>
-						<p
-							class="mt-2 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-						>
+						<p class="mt-2 eyebrow-quiet">
 							{t.founders.samuel.role}
 						</p>
 						<p
@@ -331,9 +320,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 								decoding="async"
 							>
 						</div>
-						<p
-							class="mt-2 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-						>
+						<p class="mt-2 eyebrow-quiet">
 							{t.founders.daniel.role}
 						</p>
 						<p
@@ -363,9 +350,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						>
 							{@html beamAvatarSvg('avenCEO', paletteKi, 64, 'fnd-k-ceo')}
 						</div>
-						<p
-							class="mt-2 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-						>
+						<p class="mt-2 eyebrow-quiet">
 							{t.founders.ceo.role}
 						</p>
 						<p
@@ -396,9 +381,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-5xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.skills.eyebrow}
 				</p>
 				<h2
@@ -434,9 +417,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
 			<div class="pb-6 text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.start.eyebrow}
 				</p>
 				<h2

@@ -54,9 +54,7 @@ const chainSteps = $derived(t.chain.steps)
 	<!-- Hero -->
 	<section class="border-b border-border/25 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
 		<div class="mx-auto max-w-3xl text-center">
-			<p
-				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{t.hero.eyebrow}
 			</p>
 			<h1
@@ -82,9 +80,7 @@ const chainSteps = $derived(t.chain.steps)
 		<div class="mx-auto flex max-w-6xl flex-col gap-10 lg:flex-row lg:gap-12">
 			<!-- Filters -->
 			<aside class="lg:w-56 lg:shrink-0">
-				<p
-					class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-				>
+				<p class="eyebrow-quiet">
 					{t.filter.label}
 				</p>
 				<p
@@ -211,9 +207,7 @@ const chainSteps = $derived(t.chain.steps)
 	>
 		<div class="mx-auto max-w-4xl">
 			<div class="text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.chain.eyebrow}
 				</p>
 				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
@@ -278,9 +272,7 @@ const chainSteps = $derived(t.chain.steps)
 	<!-- Bundled-pricing band -->
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-3xl text-center">
-			<p
-				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{t.pricing.eyebrow}
 			</p>
 			<h2 class="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">

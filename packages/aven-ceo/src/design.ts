@@ -263,6 +263,32 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		letterSpacing: 'var(--tracking-widest)',
 		color: 'var(--color-accent, var(--color-sunflower))'
 	},
+	/**
+	 * The quiet eyebrow: the same idiom in ink rather than gold, one step
+	 * smaller. The website uses it for column headings above lists.
+	 */
+	'eyebrow-quiet': {
+		fontSize: 'var(--fs-nano)',
+		fontWeight: '700',
+		textTransform: 'uppercase',
+		letterSpacing: 'var(--tracking-widest)',
+		color: 'color-mix(in srgb, var(--color-foreground) 35%, transparent)'
+	},
+	/** An id, a hash, a timestamp — monospaced and deliberately recessive. */
+	'mono-meta': {
+		fontFamily: 'var(--font-mono)',
+		fontSize: 'var(--fs-micro)',
+		color: 'color-mix(in srgb, var(--color-foreground) 35%, transparent)'
+	},
+	/** The dot that opens a list item, aligned to the first line of text. */
+	bullet: {
+		marginTop: '0.375rem',
+		width: '0.375rem',
+		height: '0.375rem',
+		flexShrink: '0',
+		borderRadius: 'var(--radius-pill)',
+		background: 'color-mix(in srgb, var(--color-foreground) 25%, transparent)'
+	},
 	btn: {
 		display: 'inline-flex',
 		alignItems: 'center',
@@ -335,11 +361,62 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
 		justifyItems: 'center',
 		textAlign: 'center'
 	},
-	/** A framed region INSIDE a card — an inset, not a card of its own. */
+	/**
+	 * A framed region INSIDE a card — an inset, not a card of its own.
+	 *
+	 * This is the id service's `.code` box: the thing the passkey-linking screen
+	 * puts the name in, and the shape the whole purchase flow should echo. It
+	 * carries a hairline, which is what separates it from the surrounding sheet
+	 * without reading as a second card.
+	 */
 	well: {
+		padding: 'var(--space-comfortable)',
+		border: '1px solid var(--color-border)',
 		borderRadius: 'var(--radius-inner)',
-		background: 'var(--color-surface-soft)',
-		padding: 'var(--space-comfortable)'
+		background: 'var(--color-surface-soft)'
+	},
+	/** The brand mark, centred above a card's title. */
+	mark: {
+		width: '3.5rem',
+		height: '3.5rem',
+		marginInline: 'auto'
+	},
+	/**
+	 * The value a `.well` exists to show — a name, a code, an amount. Large,
+	 * tabular, and deliberately quiet in weight so the number does the talking.
+	 */
+	digits: {
+		fontSize: 'var(--fs-amount)',
+		fontWeight: '500',
+		letterSpacing: 'var(--tracking-tight)',
+		fontVariantNumeric: 'tabular-nums'
+	},
+	/** Something went wrong, said in the failure tone without shouting. */
+	alert: {
+		padding: '0.75rem 1rem',
+		border: '1px solid color-mix(in srgb, var(--color-terracotta) 35%, transparent)',
+		borderRadius: 'var(--radius-inner)',
+		background: 'color-mix(in srgb, var(--color-terracotta) 8%, transparent)',
+		color: 'var(--color-terracotta)',
+		fontSize: 'var(--fs-body)',
+		lineHeight: '1.5',
+		textAlign: 'left'
+	},
+	/** A progress rail: one `.step` per stage, filled ones marked `.is-done`. */
+	steps: {
+		display: 'flex',
+		gap: '0.375rem',
+		width: '100%'
+	},
+	step: {
+		flex: '1',
+		height: '3px',
+		borderRadius: 'var(--radius-pill)',
+		background: 'color-mix(in srgb, var(--color-ink) 12%, transparent)'
+	},
+	/** A completed stage on the rail. Applied alongside `step`, never instead. */
+	'step-done': {
+		background: 'var(--color-primary)'
 	},
 	/** A labelled form row: label above control, left aligned, full width. */
 	field: {

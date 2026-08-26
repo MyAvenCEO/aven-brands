@@ -39,9 +39,7 @@ const wrapperClass = $derived(
 </script>
 
 <form onsubmit={submit} class={wrapperClass} aria-label={t.formLabel}>
-	<p
-		class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-	>
+	<p class="eyebrow-accent">
 		{t.eyebrow}
 	</p>
 	<h3

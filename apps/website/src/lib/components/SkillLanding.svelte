@@ -37,9 +37,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<!-- 1. WHY — Daniel scenario -->
 	<section class="border-b border-border/25 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
 		<div class="mx-auto max-w-3xl text-center">
-			<p
-				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{skill.hero.kicker}
 			</p>
 			{#if skill.comingSoon}
@@ -65,9 +63,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<div
 					class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-5 text-left sm:px-6 sm:py-6"
 				>
-					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-					>
+					<p class="eyebrow-quiet">
 						{skill.founderScenario.timestamp}
 						{t.fromRealLife}
 					</p>
@@ -101,9 +97,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.gainEyebrow}
 				</p>
 				<h2
@@ -134,9 +128,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<!-- 3. HOW — plain-language steps -->
 	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl text-center">
-			<p
-				class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-			>
+			<p class="eyebrow-accent">
 				{t.howEyebrow}
 			</p>
 			<h2
@@ -171,9 +163,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.mechanicsEyebrow}
 				</p>
 				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
@@ -182,9 +172,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</div>
 			<div class="mt-8 grid gap-3 sm:grid-cols-3">
 				<div class="rounded-xl border border-border/25 bg-surface-raised px-4 py-4">
-					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-					>
+					<p class="eyebrow-quiet">
 						{t.input}
 					</p>
 					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
@@ -202,9 +190,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</p>
 				</div>
 				<div class="rounded-xl border border-border/25 bg-surface-raised px-4 py-4">
-					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-					>
+					<p class="eyebrow-quiet">
 						{t.output}
 					</p>
 					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
@@ -219,9 +205,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.playsEyebrow}
 				</p>
 				<h2 class="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -259,9 +243,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
-				<p
-					class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
-				>
+				<p class="eyebrow-accent">
 					{t.valueEyebrow}
 				</p>
 				<h2 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
@@ -269,9 +251,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</h2>
 			</div>
 			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-7">
-				<p
-					class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-				>
+				<p class="eyebrow-quiet">
 					{t.standalone}
 				</p>
 				<ul class="mt-4 space-y-2">
@@ -322,9 +302,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</div>
 				<div class="mt-5 grid gap-3 border-t border-border/25 pt-5 sm:grid-cols-3">
 					<div>
-						<p
-							class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-						>
+						<p class="eyebrow-quiet">
 							{t.firstRelief}
 						</p>
 						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
@@ -332,9 +310,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						</p>
 					</div>
 					<div>
-						<p
-							class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-						>
+						<p class="eyebrow-quiet">
 							{t.setupEffort}
 						</p>
 						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
@@ -342,9 +318,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						</p>
 					</div>
 					<div>
-						<p
-							class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-						>
+						<p class="eyebrow-quiet">
 							{t.proof}
 						</p>
 						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
@@ -360,9 +334,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl space-y-6">
 			<div class="rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-6">
-				<p
-					class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-				>
+				<p class="eyebrow-quiet">
 					{t.bonuses}
 				</p>
 				<ul class="mt-3 space-y-2">
@@ -430,9 +402,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{skill.letterFromPublisher}
 				</p>
 				<footer class="mt-8 border-t border-foreground/[0.06] pt-6">
-					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
-					>
+					<p class="eyebrow-quiet">
 						{t.signOff}
 					</p>
 					<p
