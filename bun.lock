@@ -28,9 +28,47 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
+    "apps/yma": {
+      "name": "yma-website",
+      "dependencies": {
+        "@myavenceo/aven-yma": "workspace:*",
+      },
+      "devDependencies": {
+        "@biomejs/biome": "^2.5.6",
+        "@sveltejs/adapter-static": "^3.0.10",
+        "@sveltejs/kit": "^2.57.0",
+        "@sveltejs/vite-plugin-svelte": "^7.0.0",
+        "@types/node": "^24.10.13",
+        "svelte": "^5.55.2",
+        "svelte-check": "^4.4.6",
+        "typescript": "^6.0.2",
+        "vite": "^8.0.7",
+        "vite-plugin-singlefile": "^2.3.0",
+      },
+    },
+    "packages/aven-brandkit": {
+      "name": "@myavenceo/aven-brandkit",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@types/node": "^26.3.0",
+      },
+    },
     "packages/aven-ceo": {
       "name": "@myavenceo/aven-ceo",
       "version": "0.5.0",
+      "dependencies": {
+        "@myavenceo/aven-brandkit": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/node": "^26.3.0",
+      },
+    },
+    "packages/aven-yma": {
+      "name": "@myavenceo/aven-yma",
+      "version": "0.1.0",
+      "dependencies": {
+        "@myavenceo/aven-brandkit": "workspace:*",
+      },
       "devDependencies": {
         "@types/node": "^26.3.0",
       },
@@ -65,7 +103,11 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
+    "@myavenceo/aven-brandkit": ["@myavenceo/aven-brandkit@workspace:packages/aven-brandkit"],
+
     "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:packages/aven-ceo"],
+
+    "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:packages/aven-yma"],
 
     "@myavenceo/website": ["@myavenceo/website@workspace:apps/website"],
 
@@ -237,6 +279,8 @@
 
     "vitefu": ["vitefu@1.1.3", "", { "peerDependencies": { "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["vite"] }, "sha512-ub4okH7Z5KLjb6hDyjqrGXqWtWvoYdU3IGm/NorpgHncKoLTCfRIbvlhBm7r0YstIaQRYlp4yEbFqDcKSzXSSg=="],
 
+    "yma-website": ["yma-website@workspace:apps/yma"],
+
     "zimmerframe": ["zimmerframe@1.1.4", "", {}, "sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ=="],
 
     "@myavenceo/website/@types/node": ["@types/node@24.13.3", "", { "dependencies": { "undici-types": "~7.18.0" } }, "sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q=="],
@@ -245,6 +289,10 @@
 
     "micromatch/picomatch": ["picomatch@2.3.2", "", {}, "sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA=="],
 
+    "yma-website/@types/node": ["@types/node@24.13.3", "", { "dependencies": { "undici-types": "~7.18.0" } }, "sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q=="],
+
     "@myavenceo/website/@types/node/undici-types": ["undici-types@7.18.2", "", {}, "sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w=="],
+
+    "yma-website/@types/node/undici-types": ["undici-types@7.18.2", "", {}, "sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w=="],
   }
 }

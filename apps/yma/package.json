@@ -1,0 +1,31 @@
+{
+	"name": "yma-website",
+	"private": true,
+	"type": "module",
+	"description": "yma.one, rebuilt on the shared brand kit \u2014 the proof that a third-party brand needs only a config.",
+	"scripts": {
+		"dev": "bun --env-file=../../.env x --bun vite dev --port 1421 --strictPort",
+		"build": "bun x --bun vite build",
+		"preview": "bun x --bun vite preview --port 1421 --strictPort",
+		"prepare": "bunx --bun svelte-kit sync || echo ''",
+		"check": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.json",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"brand:generate": "bun ./scripts/generate-brand.ts"
+	},
+	"dependencies": {
+		"@myavenceo/aven-yma": "workspace:*"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.6",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.57.0",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@types/node": "^24.10.13",
+		"svelte": "^5.55.2",
+		"svelte-check": "^4.4.6",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.7",
+		"vite-plugin-singlefile": "^2.3.0"
+	}
+}

@@ -1,0 +1,55 @@
+{
+	"name": "@myavenceo/aven-yma",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "avenYMA's design system \u2014 Yvonne M\u00fcller-Andert's brand, as a config the shared kit renders.",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./brand": {
+			"types": "./dist/brand.d.ts",
+			"default": "./dist/brand.js"
+		},
+		"./tokens": {
+			"types": "./dist/tokens.d.ts",
+			"default": "./dist/tokens.js"
+		},
+		"./design": {
+			"types": "./dist/design.d.ts",
+			"default": "./dist/design.js"
+		},
+		"./generate": {
+			"types": "./dist/generate.d.ts",
+			"default": "./dist/generate.js"
+		},
+		"./utilities": {
+			"types": "./dist/utilities.d.ts",
+			"default": "./dist/utilities.js"
+		},
+		"./vite": {
+			"types": "./dist/vite.d.ts",
+			"default": "./dist/vite.js"
+		},
+		"./assets/*": "./assets/*"
+	},
+	"files": [
+		"dist",
+		"assets"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json"
+	},
+	"dependencies": {
+		"@myavenceo/aven-brandkit": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/node": "^26.3.0"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	}
+}
