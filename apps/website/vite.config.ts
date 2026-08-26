@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { sveltekit } from '@sveltejs/kit/vite'
-import tailwindcss from '@tailwindcss/vite'
+import { avenUtilities } from '@myavenceo/aven-ceo/vite'
 import { defineConfig, loadEnv } from 'vite'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -17,6 +17,6 @@ export default defineConfig(({ mode }) => {
 
 	return {
 		envDir: repoRoot,
-		plugins: [tailwindcss(), sveltekit()]
+		plugins: [avenUtilities({ content: ['src'] }), sveltekit()]
 	}
 })
