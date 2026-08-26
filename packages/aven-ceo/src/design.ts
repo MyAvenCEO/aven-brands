@@ -20,6 +20,8 @@
  * so the conversion is a rounding, not a redesign.
  */
 
+import type { Decl } from '@myavenceo/aven-brandkit'
+
 /* ══ 1 · THE TYPE RAMP ═════════════════════════════════════════════════════
  * Twelve steps covering the 7px–38px range actually in use. Named by role at
  * the small end, where the brand does most of its talking, and by size at the
@@ -232,7 +234,7 @@ export const SCALE_TOKENS: Record<string, string> = {
  * so a component cannot look like one thing in the app and another on the
  * website. Values reference the scale by var, never by number.
  */
-export const COMPONENTS: Record<string, Record<string, unknown>> = {
+export const COMPONENTS: Record<string, Decl> = {
 	/** The raised cream panel everything sits on. */
 	card: {
 		borderRadius: 'var(--radius-card)',
@@ -541,7 +543,7 @@ export const COMPONENTS: Record<string, Record<string, unknown>> = {
  * inside a narrow pane should behave like a narrow switcher even on a wide
  * screen, which viewport media queries cannot express.
  */
-export const PRIMITIVES: Record<string, Record<string, unknown>> = {
+export const PRIMITIVES: Record<string, Decl> = {
 	/** Vertical rhythm. Everything in a column, one gap between each. */
 	stack: {
 		display: 'grid',

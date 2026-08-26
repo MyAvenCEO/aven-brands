@@ -74,5 +74,8 @@
 	},
 	"devDependencies": {
 		"@types/node": "^26.3.0"
+	},
+	"dependencies": {
+		"@myavenceo/aven-brandkit": "workspace:*"
 	}
 }

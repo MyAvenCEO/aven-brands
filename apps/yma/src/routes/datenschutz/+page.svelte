@@ -1,0 +1,134 @@
+<script lang="ts">
+	/* Datenschutz — the text is Yvonne's, unchanged. Only the chrome is new. */
+</script>
+
+<svelte:head>
+	<title>Datenschutz · yma</title>
+	<meta name="robots" content="noindex" />
+</svelte:head>
+
+<article class="wrap legal">
+	<a href="/" class="kicker mb-8 inline-block">← Zurück</a>
+<div>
+        
+        <h1>Datenschutzerklärung</h1>
+
+        <h2>Hinweis zur Sprache</h2>
+        <p>
+          Ich möchte, dass meine Datenschutzerklärung persönlich, verständlich und gut
+          lesbar ist. Deshalb spreche ich Dich in dieser Datenschutzerklärung direkt mit
+          „Du“ an. Diese Ansprache und auch Personenbezeichnungen gelten natürlich für
+          alle Menschen gleichermaßen.
+        </p>
+
+        <h2>1. Datenschutz auf einen Blick</h2>
+
+        <h3>Allgemeine Hinweise</h3>
+        <p>Die folgenden Hinweise geben Dir einen einfachen Überblick darüber, was mit Deinen personenbezogenen Daten passiert, wenn Du diese Website besuchst. Personenbezogene Daten sind alle Daten, mit denen Du persönlich identifiziert werden kannst. Ausführliche Informationen zum Thema Datenschutz findest Du in der nachfolgenden Datenschutzerklärung.</p>
+
+        <h3>Datenerfassung auf dieser Website</h3>
+        <h4>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
+        <p>Die Datenverarbeitung auf dieser Website erfolgt durch mich als Websitebetreiberin. Meine Kontaktdaten findest Du im Abschnitt „Hinweis zur verantwortlichen Stelle“ in dieser Datenschutzerklärung.</p>
+        <h4>Wie erfasse ich Deine Daten?</h4>
+        <p>Deine Daten werden zum einen dadurch erhoben, dass Du sie mir mitteilst. Hierbei kann es sich z. B. um Daten handeln, die Du mir im Rahmen einer Kontaktaufnahme oder Buchung übermittelst.</p>
+        <p>Andere Daten werden automatisch oder nach Deiner Einwilligung beim Besuch der Website durch die eingesetzten IT-Systeme erfasst. Das sind vor allem technische Daten, wie beispielsweise Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs. Die Erfassung dieser Daten erfolgt automatisch, sobald Du diese Website betrittst.</p>
+        <h4>Wofür nutze ich Deine Daten?</h4>
+        <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Sofern über die Website Verträge geschlossen oder angebahnt werden, werden die übermittelten Daten außerdem zur Durchführung vorvertraglicher Maßnahmen, zur Vertragsabwicklung und zur Zahlungsabwicklung verarbeitet.</p>
+        <h4>Welche Rechte hast Du bezüglich Deiner Daten?</h4>
+        <p>Du hast jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Deiner gespeicherten personenbezogenen Daten zu erhalten. Du hast außerdem das Recht, die Berichtigung oder Löschung dieser Daten zu verlangen.</p>
+        <p>Wenn Du eine Einwilligung zur Datenverarbeitung erteilt hast, kannst Du diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Außerdem hast Du das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.</p>
+        <p>Des Weiteren steht Dir ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz kannst Du Dich jederzeit an mich wenden.</p>
+
+        <h2>2. Hosting</h2>
+        <h3>Externes Hosting</h3>
+        <p>Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert. Hierbei kann es sich insbesondere um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten handeln, die über eine Website generiert werden.</p>
+        <p>Das externe Hosting erfolgt zum Zweck der Vertragserfüllung gegenüber potenziellen und bestehenden Kundinnen und Kunden (Art. 6 Abs. 1 lit. b DSGVO) sowie aufgrund meines berechtigten Interesses an einer sicheren, schnellen und effizienten Bereitstellung meines Online-Angebots durch einen professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO).</p>
+        <p>Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen in Deinem Endgerät (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.</p>
+        <p>Der Hoster wird Deine Daten nur insoweit verarbeiten, wie dies zur Erfüllung seiner Leistungspflichten erforderlich ist und meine Weisungen in Bezug auf diese Daten befolgen.</p>
+        <p>Ich setze folgenden Hoster ein:</p>
+        <address>GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA</address>
+
+        <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
+        <h3>Datenschutz</h3>
+        <p>Ich nehme den Schutz Deiner persönlichen Daten sehr ernst. Ich behandle Deine personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+        <p>Wenn Du diese Website benutzt, werden verschiedene personenbezogene Daten verarbeitet. Personenbezogene Daten sind Daten, mit denen Du persönlich identifiziert werden kannst. Die vorliegende Datenschutzerklärung erläutert, welche Daten ich erhebe und wofür ich sie nutze. Sie legt auch dar, wie und zu welchem Zweck die Verarbeitung erfolgt.</p>
+        <p>Ich weise darauf hin, dass die Datenübertragung im Internet, z. B. bei der Kommunikation per E-Mail, Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+
+        <h3>Hinweis zur verantwortlichen Stelle</h3>
+        <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+        <address>
+          Yvonne Müller-Andert<br />
+          Schellingstraße 109a<br />
+          80798 München<br />
+          Telefon: <a href="tel:+498955926086">+49 89 55926086</a><br />
+          E-Mail: <a href="mailto:yvonne@yma.one">yvonne@yma.one</a>
+        </address>
+        <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung personenbezogener Daten (z. B. Namen oder E-Mail-Adressen) entscheidet.</p>
+
+        <h3>Speicherdauer</h3>
+        <p>Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Deine personenbezogenen Daten bei mir, bis der Zweck für die Datenverarbeitung entfällt.</p>
+        <p>Wenn Du ein berechtigtes Löschersuchen geltend machst oder eine Einwilligung zur Datenverarbeitung widerrufst, werden Deine Daten gelöscht, sofern keine anderen rechtlich zulässigen Gründe für die Speicherung Deiner personenbezogenen Daten bestehen, beispielsweise steuer- oder handelsrechtliche Aufbewahrungsfristen. In diesem Fall erfolgt die Löschung nach Wegfall dieser Gründe.</p>
+
+        <h3>Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
+        <p>Sofern Du in die Datenverarbeitung eingewilligt hast, verarbeite ich Deine personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden.</p>
+        <p>Im Falle einer ausdrücklichen Einwilligung in die Übertragung personenbezogener Daten in Drittstaaten erfolgt die Datenverarbeitung außerdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO.</p>
+        <p>Sofern Du in die Speicherung von Cookies oder in den Zugriff auf Informationen in Dein Endgerät (z. B. via Device-Fingerprinting) eingewilligt hast, erfolgt die Datenverarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar.</p>
+        <p>Sind Deine Daten zur Vertragserfüllung oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, verarbeite ich Deine Daten auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. Soweit eine Verarbeitung zur Erfüllung einer rechtlichen Verpflichtung erforderlich ist, erfolgt diese auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO. Die Datenverarbeitung kann ferner auf Grundlage meines berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO erfolgen. Über die jeweils einschlägigen Rechtsgrundlagen wird in den entsprechenden Abschnitten dieser Datenschutzerklärung informiert.</p>
+
+        <h3>Empfänger von personenbezogenen Daten</h3>
+        <p>Im Rahmen meiner Geschäftstätigkeit arbeite ich mit externen Stellen zusammen. Dabei kann eine Übermittlung personenbezogener Daten an diese externen Stellen erforderlich sein.</p>
+        <p>Ich gebe personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist, wenn ich gesetzlich hierzu verpflichtet bin (z. B. Weitergabe von Daten an Steuerbehörden), wenn ich ein berechtigtes Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe habe oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe erlaubt.</p>
+        <p>Beim Einsatz von Auftragsverarbeitern erfolgt die Weitergabe personenbezogener Daten auf Grundlage eines entsprechenden Vertrags zur Auftragsverarbeitung. Im Falle einer gemeinsamen Verarbeitung wird eine Vereinbarung über die gemeinsame Verarbeitung geschlossen.</p>
+
+        <h3>Widerruf Deiner Einwilligung zur Datenverarbeitung</h3>
+        <p>Viele Datenverarbeitungsvorgänge sind nur mit Deiner ausdrücklichen Einwilligung möglich. Du kannst eine bereits erteilte Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+
+        <h3>Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)</h3>
+        <p>WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HAST DU JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS DEINER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG DEINER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF DIESE BESTIMMUNGEN GESTÜTZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DER EINE VERARBEITUNG BERUHT, KANNST DU DIESER DATENSCHUTZERKLÄRUNG ENTNEHMEN. WENN DU WIDERSPRUCH EINLEGST, WERDE ICH DEINE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, ICH KANN ZWINGENDE SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE DEINE INTERESSEN, RECHTE UND FREIHEITEN ÜBERWIEGEN, ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON RECHTSANSPRÜCHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO).</p>
+        <p>WERDEN DEINE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, HAST DU DAS RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG DICH BETREFFENDER PERSONENBEZOGENER DATEN ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH FÜR DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN DU WIDERSPRICHST, WERDEN DEINE PERSONENBEZOGENEN DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).</p>
+
+        <h3>Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
+        <p>Im Falle von Verstößen gegen die DSGVO steht Dir ein Beschwerderecht bei einer Aufsichtsbehörde zu, insbesondere in dem Mitgliedstaat Deines gewöhnlichen Aufenthalts, Deines Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.</p>
+
+        <h3>Recht auf Datenübertragbarkeit</h3>
+        <p>Du hast das Recht, Daten, die ich auf Grundlage Deiner Einwilligung oder zur Erfüllung eines Vertrags automatisiert verarbeite, an Dich oder einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Du die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangst, erfolgt dies nur, soweit dies technisch machbar ist.</p>
+
+        <h3>Auskunft, Berichtigung und Löschung</h3>
+        <p>Du hast im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Deine gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger sowie den Zweck der Datenverarbeitung und gegebenenfalls ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten kannst Du Dich jederzeit an mich wenden.</p>
+
+        <h3>Recht auf Einschränkung der Verarbeitung</h3>
+        <p>Du hast das Recht, die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen. Hierzu kannst Du Dich jederzeit an mich wenden. Das Recht auf Einschränkung der Verarbeitung besteht insbesondere in folgenden Fällen:</p>
+        <ul>
+          <li>Wenn Du die Richtigkeit Deiner bei mir gespeicherten personenbezogenen Daten bestreitest, benötige ich in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung hast Du das Recht, die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.</li>
+          <li>Wenn die Verarbeitung Deiner personenbezogenen Daten unrechtmäßig erfolgt ist oder erfolgt, kannst Du statt der Löschung die Einschränkung der Datenverarbeitung verlangen.</li>
+          <li>Wenn ich Deine personenbezogenen Daten nicht mehr benötige, Du diese jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigst, hast Du das Recht, statt der Löschung die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.</li>
+          <li>Wenn Du Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt hast, muss eine Abwägung zwischen Deinen und meinen Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, hast Du das Recht, die Einschränkung der Verarbeitung Deiner personenbezogenen Daten zu verlangen.</li>
+        </ul>
+        <p>Wenn Du die Verarbeitung Deiner personenbezogenen Daten eingeschränkt hast, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Deiner Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen, zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats verarbeitet werden.</p>
+
+        <h3>SSL- bzw. TLS-Verschlüsselung</h3>
+        <p>Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie beispielsweise Buchungen oder Anfragen, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennst Du daran, dass die Adresszeile Deines Browsers mit „https://“ beginnt und an dem Schloss-Symbol in Deiner Browserzeile.</p>
+        <p>Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Du an mich übermittelst, nicht von Dritten mitgelesen werden.</p>
+
+        <h2>4. Datenerfassung auf dieser Website</h2>
+        <h3>Anfrage per E-Mail oder Telefon</h3>
+        <p>Wenn Du mich per E-Mail oder Telefon kontaktierst, wird Deine Anfrage einschließlich der daraus hervorgehenden personenbezogenen Daten, insbesondere Dein Name und der Inhalt Deiner Anfrage, zum Zweck der Bearbeitung Deines Anliegens bei mir gespeichert und verarbeitet. Diese Daten gebe ich nicht ohne eine entsprechende Rechtsgrundlage an Dritte weiter.</p>
+        <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Deine Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf meinem berechtigten Interesse an der effektiven Bearbeitung der an mich gerichteten Anfragen gemäß Art. 6 Abs. 1 lit. f DSGVO oder auf Deiner Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO, sofern diese abgefragt wurde. Die Einwilligung ist jederzeit mit Wirkung für die Zukunft widerrufbar.</p>
+        <p>Die im Rahmen Deiner Kontaktaufnahme an mich übermittelten Daten verbleiben bei mir, bis Du mich zur Löschung aufforderst, Deine Einwilligung zur Speicherung widerrufst oder der Zweck für die Datenspeicherung entfällt, beispielsweise nach abgeschlossener Bearbeitung Deines Anliegens. Zwingende gesetzliche Bestimmungen, insbesondere gesetzliche Aufbewahrungsfristen, bleiben unberührt.</p>
+
+        <h2>5. Zahlungsabwicklung</h2>
+        <h3>Zahlungsabwicklung über Stripe</h3>
+        <p>Für die Abwicklung von Zahlungen für meine kostenpflichtigen Leistungen nutze ich den Zahlungsdienstleister Stripe. Anbieter für den Europäischen Wirtschaftsraum ist Stripe Payments Europe, Limited, 1 Grand Canal Street Lower, Grand Canal Dock, Dublin, Irland.</p>
+        <p>Wenn Du eine kostenpflichtige Leistung buchst und die Zahlung über Stripe vornimmst, werden die für die Zahlungsabwicklung erforderlichen Daten an Stripe übermittelt. Hierzu können insbesondere Dein Name, Deine E-Mail-Adresse, Rechnungsdaten, Zahlungsinformationen, der Zahlungsbetrag, die gewählte Zahlungsmethode sowie Transaktionsdaten gehören.</p>
+        <p>Die Verarbeitung erfolgt zum Zweck der Durchführung und Abwicklung Deiner Zahlung und damit zur Erfüllung des mit Dir geschlossenen Vertrags gemäß Art. 6 Abs. 1 lit. b DSGVO.</p>
+        <p>Stripe kann personenbezogene Daten darüber hinaus in eigener datenschutzrechtlicher Verantwortlichkeit verarbeiten, insbesondere soweit dies zur Erfüllung gesetzlicher oder regulatorischer Verpflichtungen sowie zur Betrugsprävention und Gewährleistung der Zahlungssicherheit erforderlich ist.</p>
+        <p>Im Rahmen der Verarbeitung durch Stripe kann es zu einer Übermittlung personenbezogener Daten an Unternehmen der Stripe-Gruppe oder andere Empfänger außerhalb der Europäischen Union bzw. des Europäischen Wirtschaftsraums kommen. Stripe verwendet hierfür nach eigenen Angaben die nach den geltenden Datenschutzvorschriften vorgesehenen Übermittlungsmechanismen.</p>
+        <p>Weitere Informationen zur Verarbeitung Deiner personenbezogenen Daten durch Stripe findest Du in der Datenschutzerklärung von Stripe unter: <a href="https://stripe.com/de/privacy" rel="noopener" target="_blank">https://stripe.com/de/privacy</a></p>
+
+        <h2>6. Plugins und Tools</h2>
+        <h3>Google Fonts (lokales Hosting)</h3>
+        <p>Diese Website verwendet zur einheitlichen Darstellung von Schriftarten sogenannte Google Fonts, die von Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Beim Aufruf dieser Website wird daher keine Verbindung zu Servern von Google hergestellt.</p>
+
+        <p>Version 01 · Stand 08/2026</p>
+      </div>
+</article>
