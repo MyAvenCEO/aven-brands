@@ -6,7 +6,7 @@
       "name": "@myavenceo/workspace",
       "devDependencies": {
         "@biomejs/biome": "2.5.6",
-        "@myavenceo/aven-vibes": "^0.2.0",
+        "@myavenceo/aven-vibes": "^0.2.1",
         "typescript": "6.0.2",
       },
     },
@@ -99,7 +99,7 @@
 
     "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:packages/aven-ceo"],
 
-    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.2.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.2.0/6d6f76018076160ea4d92a804accf25b7883422b", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-WNsDIOs43nRhw5nc9tUrPanZxn9wVDzTFONq74iSV8bLyExgRJZ/+paEKM11BDkyTGm7R5B5x3XNmSxQDwLxQQ=="],
+    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.2.1", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.2.1/12a42803c5eb20eb774816f218da1f5964bf261a", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-rWt58kQNrY6dzrk+5kZHxUcJ+9vsVugs6WJQ1i4a94SbG7s7/65+0zEWKig5eKdHJcqAZq1KziuHFNB+broKMw=="],
 
     "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:packages/aven-yma"],
 
