@@ -401,6 +401,32 @@ export function declarationsFor(name: string): Decl | null {
 	if (STATIC[name]) return STATIC[name]
 
 	/*
+	 * `[animation-delay:150ms]` — an arbitrary PROPERTY, not an arbitrary value.
+	 * The whole declaration is written in the class, for the one-off that no
+	 * utility family will ever be worth defining.
+	 */
+	if (name.startsWith('[') && name.endsWith(']') && name.includes(':')) {
+		const body = name.slice(1, -1).replace(/_/g, ' ')
+		const at = body.indexOf(':')
+		return { [body.slice(0, at)]: body.slice(at + 1) }
+	}
+
+	/*
+	 * `!text-[1.7rem]` — the escape hatch, kept because it is occasionally the
+	 * honest answer when a component class and a utility genuinely disagree.
+	 */
+	if (name.startsWith('!')) {
+		const base = declarationsFor(name.slice(1))
+		if (!base) return null
+		return Object.fromEntries(
+			Object.entries(base).map(([property, value]) => [
+				property,
+				typeof value === 'string' ? `${value} !important` : value
+			])
+		)
+	}
+
+	/*
 	 * `-left-[13px]`, `-translate-x-1/2`.
 	 *
 	 * Resolved as the positive class and then negated, so a negative utility can
@@ -791,6 +817,24 @@ function body(decls: Decl, indent = '\t'): string {
 		.join('\n')
 }
 
+/**
+ * What a variant wraps a rule in, including the arbitrary form.
+ *
+ * `[&>*]:pointer-events-auto` writes its own selector, which is the only way to
+ * reach children from a class on the parent — a floating dock that must not
+ * catch clicks except on the cards inside it, for instance.
+ */
+function variantFor(name: string): { kind: 'selector' | 'media'; value: string } | null {
+	if (VARIANTS[name]) return VARIANTS[name]
+	if (name.startsWith('[') && name.endsWith(']')) {
+		const selector = name.slice(1, -1).replace(/_/g, ' ')
+		return selector.startsWith('@')
+			? { kind: 'media', value: selector.replace(/^@media\s*/, '') }
+			: { kind: 'selector', value: selector }
+	}
+	return null
+}
+
 /** CSS needs the colon and brackets escaped in a class selector. */
 function escapeSelector(name: string): string {
 	return name.replace(/([.:/[\]()#%,!])/g, '\\$1')
@@ -813,6 +857,14 @@ function splitVariants(name: string): string[] {
 		if (c === '[' || c === '(') depth++
 		else if (c === ']' || c === ')') depth--
 		else if (c === ':' && depth === 0) {
+			/*
+			 * Depth already tells the two bracket forms apart: in
+			 * `[animation-delay:150ms]` the colon sits INSIDE the brackets and never
+			 * splits, while in `[&>*]:pointer-events-auto` it comes after them and
+			 * does. No extra rule needed — and the one added here first refused to
+			 * split any class that began with a bracket, which quietly killed the
+			 * arbitrary-variant form entirely.
+			 */
 			parts.push(name.slice(start, i))
 			start = i + 1
 		}
@@ -832,10 +884,11 @@ export function appliedDecl(name: string): Decl | null {
 	const segments = splitVariants(name)
 	const base = segments.pop() as string
 	const decls = declarationsFor(base)
-	if (!decls || segments.some((v) => !VARIANTS[v])) return null
+	if (!decls || segments.some((v) => !variantFor(v))) return null
 	let out = decls
 	for (const v of segments) {
-		const variant = VARIANTS[v]
+		const variant = variantFor(v)
+		if (!variant) return null
 		out = variant.kind === 'selector' ? { [variant.value]: out } : { [`@media ${variant.value}`]: out }
 	}
 	return out
@@ -871,7 +924,7 @@ export function utilityCss(classes: Iterable<string>, known: Iterable<string> = 
 			unknown.push(raw)
 			continue
 		}
-		if (segments.some((v) => !VARIANTS[v])) {
+		if (segments.some((v) => !variantFor(v))) {
 			unknown.push(raw)
 			continue
 		}
@@ -890,21 +943,21 @@ export function utilityCss(classes: Iterable<string>, known: Iterable<string> = 
 		 * mean both conditions rather than only the last one written.
 		 */
 		let inner = body(decls, '\t')
-		for (const v of segments.filter((s) => VARIANTS[s].kind === 'selector')) {
-			inner = `\t${VARIANTS[v].value} {\n${inner
+		for (const v of segments.filter((s) => variantFor(s)?.kind === 'selector')) {
+			inner = `\t${variantFor(v)?.value} {\n${inner
 				.split('\n')
 				.map((l) => `\t${l}`)
 				.join('\n')}\n\t}`
 		}
 		const rule = `.${escapeSelector(raw)} {\n${inner}\n}`
 
-		const mediaVariants = segments.filter((v) => VARIANTS[v].kind === 'media')
+		const mediaVariants = segments.filter((v) => variantFor(v)?.kind === 'media')
 		if (mediaVariants.length === 0) {
 			rules.push(rule)
 			continue
 		}
 		// Nested media wrap, narrowest first — the order they were written.
-		const query = mediaVariants.map((v) => VARIANTS[v].value).join(' and ')
+		const query = mediaVariants.map((v) => variantFor(v)?.value).join(' and ')
 		const bucket = media.get(query) ?? []
 		bucket.push(rule)
 		media.set(query, bucket)
