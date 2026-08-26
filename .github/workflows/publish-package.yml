@@ -34,10 +34,10 @@ jobs:
           scope: '@myavenceo'
       - name: Authenticate to GitHub Packages
         shell: bash
-        # The PROJECT .npmrc, because that is the only file bun reads a token
-        # from. $HOME/.npmrc looks strictly safer and is not: bun ignores it and
-        # every install 401s, which reads as a permissions problem for as long
-        # as it takes someone to notice the file location changed.
+        # The PROJECT .npmrc, because that is where the token is KNOWN to work.
+        # $HOME/.npmrc 401s every install in Actions for reasons that are not
+        # established — bun demonstrably reads it locally. See the long note in
+        # avenOS's .github/actions/bun-install.
         #
         # `skip-worktree` is what keeps it out of a commit — git treats the file
         # as unchanged, so `git add -A` cannot stage it.
