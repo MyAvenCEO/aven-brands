@@ -121,13 +121,13 @@ export const home: Record<Lang, HomeMessages> = {
 			rungs: [
 				{
 					count: '1',
-					title: 'avenME',
-					text: 'Dein persönlicher Aven. Dein Leben, dein Wissen, deine Privatsphäre.'
+					title: 'avenCEO',
+					text: 'Dein Aven für dein Leben und deine erste Firma — dein Wissen, deine Bücher, deine Vision.'
 				},
 				{
 					count: '1 pro Idee',
-					title: 'avenFOUNDER',
-					text: 'Jede Firma, jeder Shop, jedes Projekt bekommt seinen eigenen. Fünf Ideen, fünf Avens.'
+					title: 'Ein avenCEO pro Idee',
+					text: 'Jede weitere Firma, jeder Shop, jedes Projekt bekommt seinen eigenen. Fünf Ideen, fünf Avens.'
 				},
 				{
 					count: '5, 10, mehr',
@@ -227,13 +227,13 @@ export const home: Record<Lang, HomeMessages> = {
 			rungs: [
 				{
 					count: '1',
-					title: 'avenME',
-					text: 'Your personal Aven. Your life, your knowledge, your privacy.'
+					title: 'avenCEO',
+					text: 'Your Aven for your life and your first company — your knowledge, your books, your vision.'
 				},
 				{
 					count: '1 per idea',
-					title: 'avenFOUNDER',
-					text: 'Every company, every shop, every project gets its own. Five ideas, five Avens.'
+					title: 'One avenCEO per idea',
+					text: 'Every further company, every shop, every project gets its own. Five ideas, five Avens.'
 				},
 				{
 					count: '5, 10, more',
