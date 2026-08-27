@@ -1,0 +1,1 @@
+import{et as e}from"../chunks/DOz7MO3X.js";import"../chunks/xihTtKlq.js";import{n as t,t as n}from"../chunks/BelWyZaW.js";var r=e({entries:()=>a,load:()=>o}),i={pricing:`/de/preise/`},a=()=>Object.keys(i).map(e=>({path:e})),o=({params:e})=>{let r=i[e.path.replace(/\/+$/,``)];r&&t(308,r),n(404,`Not found`)};function s(e){}export{s as component,r as universal};
