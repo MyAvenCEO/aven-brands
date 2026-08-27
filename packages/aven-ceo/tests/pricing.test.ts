@@ -27,7 +27,7 @@ describe('the catalogue', () => {
 		expect(plan('aven-name').billing).toBe('once')
 
 		expect(plan('aven-ceo').name).toBe('avenCEO')
-		expect(plan('aven-ceo').eurPrice).toBe(377)
+		expect(plan('aven-ceo').eurPrice).toBe(385)
 		expect(plan('aven-ceo').billing).toBe('monthly')
 
 		// avenCOOP is a relationship you apply for, not a product you book.
@@ -81,7 +81,7 @@ describe('how often one account may buy', () => {
 describe('what a buyer reads', () => {
 	test('the one-off never prints a monthly cadence', () => {
 		expect(priceLabel(plan('aven-name'))).toBe('25 € einmalig')
-		expect(priceLabel(plan('aven-ceo'))).toBe('377 €/Monat')
+		expect(priceLabel(plan('aven-ceo'))).toBe('385 €/Monat')
 	})
 
 	test('both languages carry every feature line', () => {

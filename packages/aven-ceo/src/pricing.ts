@@ -183,7 +183,7 @@ export const PLANS: Plan[] = [
 		role: 'Dein AI‑CEO — für dein Leben und deine Firma, in einem.',
 		pitch:
 			'Du hast die Vision — dein avenCEO macht aus der Idee eine Firma, die läuft. Er arbeitet, während du schläfst, und wird jeden Tag besser. So fühlt sich Gründen an, wenn es keine 80‑Stunden‑Woche mehr kostet.',
-		eurPrice: 377,
+		eurPrice: 385,
 		billing: 'monthly',
 		maxPerAccount: 1,
 		beta: { discountPct: 30, months: 3 },
@@ -405,7 +405,7 @@ export function perLabel(p: Plan): string | null {
 
 /** German price formatting: 1.234,50 €, cents only when there are any. */
 export function euro(amount: number): string {
-	// Whole euros stay whole (25 €, 377 €); a half-euro BETA price prints its
+	// Whole euros stay whole (25 €, 385 €); a half-euro BETA price prints its
 	// cents in full (188,50 €), never as a stray "188,5".
 	const cents = Number.isInteger(amount) ? 0 : 2
 	return amount.toLocaleString('de-DE', {
@@ -420,7 +420,7 @@ export function betaPrice(p: Plan): number | null {
 	return Math.round(p.eurPrice * (1 - p.beta.discountPct / 100) * 100) / 100
 }
 
-/** "25 € einmalig" · "377 €/Monat" — the whole price in one string. */
+/** "25 € einmalig" · "385 €/Monat" — the whole price in one string. */
 export function priceLabel(p: Plan): string {
 	return p.billing === 'once' ? `${euro(p.eurPrice)} € einmalig` : `${euro(p.eurPrice)} €/Monat`
 }
