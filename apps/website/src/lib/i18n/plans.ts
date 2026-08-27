@@ -39,7 +39,7 @@ export function priceSuffix(p: Plan, lang: Lang): string {
 	return p.billing === 'once' ? 'one-time · incl. VAT' : '/month · incl. VAT'
 }
 
-/** "25 € one-time" · "377 €/month" */
+/** "25 € one-time" · "385 €/month" */
 export function priceLabel(p: Plan, lang: Lang): string {
 	if (lang === 'de') return priceLabelDe(p)
 	return p.billing === 'once' ? `${euro(p.eurPrice)} € one-time` : `${euro(p.eurPrice)} €/month`

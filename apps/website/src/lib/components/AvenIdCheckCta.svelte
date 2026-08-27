@@ -81,7 +81,7 @@ const wrapperClass = $derived(
 	</ul>
 
 	<!-- The action block, full card width: the voucher hook, the €25 price as
-	     prominently as avenCEO's 377 €, then the name check on one line. -->
+	     prominently as avenCEO's 385 €, then the name check on one line. -->
 	<div class="mt-7 space-y-4">
 		{#if ceoBeta}
 			<div class="mx-auto max-w-sm rounded-xl bg-offer/25 px-4 py-3 text-center">
