@@ -44,7 +44,7 @@ describe('the catalog itself', () => {
 		for (const s of CATALOG) {
 			expect(s.name.length).toBeGreaterThan(0)
 			expect(s.tagline.length).toBeGreaterThan(0)
-			expect(['avenme', 'avenceo']).toContain(s.plan)
+			expect(['avenme', 'aven-ceo']).toContain(s.plan)
 		}
 	})
 })

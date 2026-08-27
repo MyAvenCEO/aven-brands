@@ -17,10 +17,10 @@ let { lang }: { lang: Lang } = $props()
 
 const t = $derived(pick(pricing, lang))
 
-/** avenCEO is the one pricing tier on this page; the name + Testride live in
+/** avenCEO is the one pricing tier on this page; avenNAME lives in
  * the unified CTA band at the bottom. */
-const ceo = $derived(localizedPlan(plan('avenceo'), lang))
-const ceoSkillCount = $derived(skillsIncludedIn('avenceo', lang).length)
+const ceo = $derived(localizedPlan(plan('aven-ceo'), lang))
+const ceoSkillCount = $derived(skillsIncludedIn('aven-ceo', lang).length)
 /** avenCEO's non-skill bullets — skills render in their own column. */
 const ceoPlain = $derived(ceo.features.filter((f) => !f.skill))
 
@@ -34,7 +34,7 @@ type SkillFeature = PlanFeature & { skill: string }
  * skill cascade — everything from the plans it includes.
  */
 function skillFeatures(p: Plan): SkillFeature[] {
-	const cascade: PlanId[] = p.id === 'avencoop' ? ['avenceo'] : []
+	const cascade: PlanId[] = p.id === 'aven-coop' ? ['aven-ceo'] : []
 	return [...p.features, ...cascade.flatMap((id) => localizedPlan(plan(id), lang).features)]
 		.filter((f): f is SkillFeature => typeof f.skill === 'string')
 		.sort(

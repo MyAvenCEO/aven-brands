@@ -67,7 +67,7 @@ export const pricing: Record<Lang, PricingMessages> = {
 	de: {
 		title: 'Preise — aven.ceo · avenCEO',
 		description:
-			'Alles beginnt mit einem Namen: Die Testride (25 € einmalig) sichert dir deinen avenCEO‑Namen für ein Jahr und — nach der Einladung — 30 Minuten Probefahrt im vollen avenCEO. avenCEO (377 €/Monat) ist dein AI‑CEO für dein Leben und deine Firma in einem. Mit avenCOOP baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens — auf Bewerbung.',
+			'Alles beginnt mit einem Namen: avenNAME (25 € einmalig) sichert dir deinen avenCEO‑Namen für ein Jahr und — nach der Einladung — eine Stunde Probefahrt im vollen avenCEO. avenCEO (377 €/Monat) ist dein AI‑CEO für dein Leben und deine Firma in einem. Mit avenCOOP baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens — auf Bewerbung.',
 		eyebrow: 'Pricing',
 		heading: 'Alles beginnt mit einem Namen.',
 		lead: 'Hinter deinem Namen entsteht eine KI, die wirklich dir gehört — sie lernt dein Leben kennen, führt deine Firma und wächst mit jeder Idee, die du ihr anvertraust. Du bringst die Vision. Dein Aven bringt sie ins Laufen.',
@@ -123,7 +123,7 @@ export const pricing: Record<Lang, PricingMessages> = {
 	en: {
 		title: 'Pricing — aven.ceo · avenCEO',
 		description:
-			'It all starts with a name: the Testride (25 € one-time) secures your avenCEO name for a year and — once invited — a 30-minute test ride of the full avenCEO. avenCEO (377 €/month) is your AI‑CEO for your life and your company in one. With avenCOOP you build your own Aven skills and sell them on our Marketplace to other Avens — by application.',
+			'It all starts with a name: avenNAME (25 € one-time) secures your avenCEO name for a year and — once invited — a one-hour test ride of the full avenCEO. avenCEO (377 €/month) is your AI‑CEO for your life and your company in one. With avenCOOP you build your own Aven skills and sell them on our Marketplace to other Avens — by application.',
 		eyebrow: 'Pricing',
 		heading: 'It all starts with a name.',
 		lead: 'Behind your name grows an AI that truly belongs to you — it learns your life, runs your company and grows with every idea you trust it with. You bring the vision. Your Aven sets it in motion.',
