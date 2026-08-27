@@ -13,11 +13,11 @@ type Props = {
 let { variant = 'inline', lang = 'de' }: Props = $props()
 
 const t = $derived(pick(common, lang).idCta)
-const avenId = plan('avenid')
-/** What the €25 actually buys — the Testride's features, in the reader's language. */
+const avenId = plan('aven-name')
+/** What the €25 actually buys — avenNAME's features, in the reader's language. */
 const features = $derived(localizedPlan(avenId, lang).features)
 /** The real hook: securing the name early also unlocks avenCEO's beta discount. */
-const ceoBeta = plan('avenceo').beta
+const ceoBeta = plan('aven-ceo').beta
 
 let name = $state('')
 
@@ -32,7 +32,7 @@ const slug = $derived(
 function submit(e: SubmitEvent) {
 	e.preventDefault()
 	if (!slug) return
-	window.location.href = idFunnelHref('avenid', slug)
+	window.location.href = idFunnelHref('aven-name', slug)
 }
 
 const centered = $derived(variant === 'banner')

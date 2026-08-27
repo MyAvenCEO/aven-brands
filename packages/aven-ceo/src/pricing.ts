@@ -1,9 +1,9 @@
 /**
  * The products — one source of truth for pricing AND the skills marketplace.
  *
- * NOT a ladder. "avenCEO Testride" is the door: you secure your unique
+ * NOT a ladder. avenNAME is the door: you secure your unique
  * avenCEO name for a year, take your place in the waitlist, and — once
- * invited — test‑ride your avenCEO live for 30 minutes. avenCEO is the one
+ * invited — test‑ride your avenCEO live for an hour. avenCEO is the one
  * AI‑CEO for your LIFE and your COMPANY at once: inbox, post, documents and
  * the daily organisation on the personal side; pre‑accounting, finances,
  * website, shop and blog on the company side. There is no longer a split
@@ -15,14 +15,27 @@
  * do. We do not build it for you and we take no equity; the only thing we
  * take is a share of the revenue it makes. You APPLY rather than book.
  *
- * "avenCEO Testride" is a prerequisite, not a part of any plan: every avenCEO
- * has its own name, secured on the Testride before the avenCEO itself opens.
+ * avenNAME is a prerequisite, not a part of any plan: every avenCEO
+ * has its own name, secured with avenNAME before the avenCEO itself opens.
  *
- * The plan id `avenid` and `avenceo` are WIRE KEYS (API tier enum, Polar
- * `metadata.tier`, app billing, skills catalogue) and stay stable; only the
- * `name` shown to humans changed — `avenid` now presents as "avenCEO Testride"
- * and `avenceo` as "avenCEO". The old `avenme` tier is GONE, consolidated into
- * avenCEO: there is one CEO, not a personal one and a company one.
+ * There are exactly TWO things to buy — avenNAME once, avenCEO monthly — and
+ * one of each per account: see `maxPerAccount`.
+ *
+ * The plan ids are WIRE KEYS (API tier enum, Polar `metadata.tier`, our own
+ * `subscriptions.tier` and `name_holds.tier` columns, app billing, skills
+ * catalogue). They were `avenid`/`avenceo`/`avencoop` while the display names
+ * drifted underneath them (avenID → "Secure Name + Testride"; avenFOUNDER →
+ * avenCEO); that gap is now closed — key and name say the same thing, in the
+ * one kebab-case spelling: `aven-name`, `aven-ceo`, `aven-coop`.
+ *
+ * Renaming a wire key means rewriting data that already exists, so every
+ * reader normalises through `planIdOf` and the old spellings live on in
+ * `LEGACY_PLAN_IDS` — a Polar product created as `avenid`, a subscription row
+ * written last month and a `?tier=avenceo` link all still resolve. Nothing
+ * WRITES a legacy key any more.
+ *
+ * The old `avenme` tier is GONE, consolidated into avenCEO: there is one CEO,
+ * not a personal one and a company one.
  *
  * The five-role ladder (avenCOO/CMO/CTO/CPO/CEO) and the "Sparks" are gone:
  * the company of the future is 1 human (vision) + 1 avenCEO (execution),
@@ -40,7 +53,7 @@
  * website's plans.ts.
  */
 
-export type PlanId = 'avenid' | 'avenceo' | 'avencoop'
+export type PlanId = 'aven-name' | 'aven-ceo' | 'aven-coop'
 
 /**
  * A line on a plan card — and a REAL benefit at the payment provider: every
@@ -82,11 +95,21 @@ export interface Plan {
 	per?: 'person' | 'company'
 	/**
 	 * The price in euro, GROSS (incl. VAT) — the number a person pays. Monthly
-	 * for every tier except the Testride, which is billed once — read `billing`
+	 * for every tier except avenNAME, which is billed once — read `billing`
 	 * before you print a `/m`.
 	 */
 	eurPrice: number
 	billing: 'once' | 'monthly'
+	/**
+	 * How many of this product ONE account may ever hold. `1` on every plan
+	 * today: avenNAME is bought once and never again (one name per human),
+	 * and avenCEO is one live subscription — booking a second while the first
+	 * stands is refused, not stacked. This is the single knob that opens
+	 * multi-avenCEO selling later: raise the number here and the surfaces
+	 * that read it (the app's billing pane, the id service's subscribe guard)
+	 * follow, because none of them counts on their own.
+	 */
+	maxPerAccount: number
 	/**
 	 * The share of the revenue your Aven produces that we keep — every payment
 	 * fee (Stripe, Polar & Co.) already INSIDE it, not on top. It is the only
@@ -123,13 +146,14 @@ export interface Plan {
 /** Display order. Plans are NOT cumulative — see `planIncludes`. */
 export const PLANS: Plan[] = [
 	{
-		id: 'avenid',
-		name: 'Secure Name + Testride',
+		id: 'aven-name',
+		name: 'avenNAME',
 		role: 'Sichere dir deinen avenCEO‑Namen — und fahre den vollen avenCEO 1 Stunde Probe, sobald du eingeladen bist.',
 		pitch:
 			'Deinen avenCEO gibt es genau einmal — und er trägt deinen Namen. Sichere ihn dir für ein Jahr, bevor ihn jemand anderes trägt, und fahre ihn nach deiner Einladung eine Stunde Probe.',
 		eurPrice: 25,
 		billing: 'once',
+		maxPerAccount: 1,
 		revenueSharePct: 0,
 		features: [
 			{
@@ -154,13 +178,14 @@ export const PLANS: Plan[] = [
 		]
 	},
 	{
-		id: 'avenceo',
+		id: 'aven-ceo',
 		name: 'avenCEO',
 		role: 'Dein AI‑CEO — für dein Leben und deine Firma, in einem.',
 		pitch:
 			'Du hast die Vision — dein avenCEO macht aus der Idee eine Firma, die läuft. Er arbeitet, während du schläfst, und wird jeden Tag besser. So fühlt sich Gründen an, wenn es keine 80‑Stunden‑Woche mehr kostet.',
 		eurPrice: 377,
 		billing: 'monthly',
+		maxPerAccount: 1,
 		beta: { discountPct: 30, months: 3 },
 		runtime: { hoursPerDay: 4, centsPerExtraMinute: 8 },
 		revenueSharePct: 8.2,
@@ -261,13 +286,14 @@ export const PLANS: Plan[] = [
 		]
 	},
 	{
-		id: 'avencoop',
+		id: 'aven-coop',
 		name: 'avenCOOP',
 		role: 'Hands‑on Unterstützung für dein eigenes souveränes Aven‑Business',
 		pitch:
 			'Du willst nicht nur eine Firma — du willst dein eigenes Aven‑Business. Wir haben die Infrastruktur gebaut und stehen neben dir, bis dein Skillbundle im Marketplace steht. Deine Idee, dein Name, dein Werk.',
 		eurPrice: 987,
 		billing: 'monthly',
+		maxPerAccount: 1,
 		beta: { discountPct: 50, months: 6 },
 		runtime: { hoursPerDay: 12, centsPerExtraMinute: 5 },
 		revenueSharePct: 30,
@@ -303,17 +329,66 @@ export const PLANS: Plan[] = [
 
 export const planOrder: PlanId[] = PLANS.map((p) => p.id)
 
+/**
+ * The wire keys as they were spelled before the kebab-case rename, and the
+ * ids they mean now. Read-only history: they are accepted from stored rows,
+ * provider metadata and inbound links, and never written back.
+ *
+ * `avenme` has no successor — the tier was consolidated into avenCEO and any
+ * row still carrying it is a historical purchase, not a product. It is
+ * deliberately absent, so `planIdOf('avenme')` is `null` rather than a
+ * silent upgrade to something the buyer never bought.
+ */
+export const LEGACY_PLAN_IDS: Readonly<Record<string, PlanId>> = Object.freeze({
+	avenid: 'aven-name',
+	avenceo: 'aven-ceo',
+	avencoop: 'aven-coop'
+})
+
+/**
+ * A plan id from any source — our own current spelling, a legacy spelling out
+ * of the database or the payment provider, or junk. `null` means "no plan we
+ * sell", which callers must handle: an order for a retired tier is still a
+ * real order.
+ */
+export function planIdOf(value: string | null | undefined): PlanId | null {
+	if (!value) return null
+	if (planOrder.includes(value as PlanId)) return value as PlanId
+	return LEGACY_PLAN_IDS[value] ?? null
+}
+
 export function plan(id: PlanId): Plan {
 	// biome-ignore lint/style/noNonNullAssertion: PlanId is closed over PLANS.
 	return PLANS.find((p) => p.id === id)!
 }
 
 /**
+ * Whether an account holding `held` of this plan may buy one more. Every
+ * surface that gates a purchase asks THIS instead of counting for itself —
+ * the app's billing pane hides the booking button by it, the id service
+ * refuses the checkout by it — so raising `maxPerAccount` to sell several
+ * avenCEO subscriptions is a one-number change, not a hunt through three
+ * codebases.
+ *
+ * `held` means what standing means for the plan: names already owned for
+ * avenNAME, subscriptions not in an ended state for avenCEO.
+ */
+export function canBuyMore(id: PlanId, held: number): boolean {
+	return held < plan(id).maxPerAccount
+}
+
+/** `true` where a plan may be held exactly once — the state today for all of
+ * them. Surfaces use it to say "einmalig" rather than to compute a limit. */
+export function isSinglePurchase(id: PlanId): boolean {
+	return plan(id).maxPerAccount === 1
+}
+
+/**
  * Which plan's SKILLS a plan carries. avenCEO is the one product that ships
  * every life‑ and company‑skill; avenCOOP carries everything avenCEO does.
- * The Testride carries nothing.
+ * avenNAME carries nothing.
  */
-const SKILL_CASCADE: PlanId[] = ['avenceo', 'avencoop']
+const SKILL_CASCADE: PlanId[] = ['aven-ceo', 'aven-coop']
 export function planIncludes(selected: PlanId, needed: PlanId): boolean {
 	if (selected === needed) return true
 	const s = SKILL_CASCADE.indexOf(selected)
@@ -390,7 +465,7 @@ export interface PlanTexts {
 
 /** The English translations, keyed like PLANS; features in feature order. */
 const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
-	avenid: {
+	'aven-name': {
 		role: 'Secure your avenCEO name — and test-drive the full avenCEO for 1 hour once you are invited.',
 		pitch:
 			'Your avenCEO exists exactly once — and it carries your name. Secure it for a year before someone else does, and take it for a 1-hour test ride once you are invited.',
@@ -414,7 +489,7 @@ const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 			}
 		]
 	},
-	avenceo: {
+	'aven-ceo': {
 		role: 'Your AI‑CEO — for your life and your company, in one.',
 		pitch:
 			'You bring the vision — your avenCEO turns the idea into a company that runs. It works while you sleep and gets better every day. This is what founding feels like when it no longer costs an 80-hour week.',
@@ -497,7 +572,7 @@ const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 			}
 		]
 	},
-	avencoop: {
+	'aven-coop': {
 		role: 'Hands-on support for your own sovereign Aven business',
 		pitch:
 			'You do not just want a company — you want your own Aven business. We built the infrastructure and stand beside you until your Skillbundle is live in the Marketplace. Your idea, your name, your work.',

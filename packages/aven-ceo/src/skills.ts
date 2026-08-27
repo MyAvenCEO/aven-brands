@@ -23,7 +23,7 @@
  */
 
 /** Which tier a skill first appears in; higher tiers include it. */
-export type SkillPlan = 'avenceo'
+export type SkillPlan = 'aven-ceo'
 
 export interface SkillEntry {
 	/** The canonical id. The app's registry and the website's route both use it. */
@@ -52,41 +52,41 @@ export const CATALOG: SkillEntry[] = [
 		id: 'inbox-router',
 		name: 'Inbox Router',
 		tagline: 'One inbox for everything — and someone deciding what matters now.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'inbox',
 		slug: 'email-manager',
 		name: 'Email Manager',
 		tagline: 'No money-mail ever gets lost — ever.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'docs',
 		slug: 'docs-organizer',
 		name: 'Docs Organizer',
 		tagline: 'No document goes unread — whatever format it comes in.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'brain',
 		slug: 'brain-memorizer',
 		name: 'Brain Memorizer',
 		tagline: 'Your Aven never forgets — who, what, when, how often.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'human-reviewer',
 		name: 'Human Reviewer',
 		tagline: 'You decide. Only when you truly have to.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'todos',
 		slug: 'todo-shuffler',
 		name: 'Todo Shuffler',
 		tagline: 'Your list sorts itself — by what actually matters next.',
-		plan: 'avenceo',
+		plan: 'aven-ceo',
 		comingSoon: true
 	},
 	{
@@ -94,14 +94,14 @@ export const CATALOG: SkillEntry[] = [
 		slug: 'calendar-organizer',
 		name: 'Calendar Organizer',
 		tagline: 'Your calendar plans around your life — not the other way round.',
-		plan: 'avenceo',
+		plan: 'aven-ceo',
 		comingSoon: true
 	},
 	{
 		id: 'bookmark-champion',
 		name: 'Bookmark Champion',
 		tagline: 'Everything you ever saved — findable at last.',
-		plan: 'avenceo',
+		plan: 'aven-ceo',
 		comingSoon: true
 	},
 	{
@@ -109,32 +109,32 @@ export const CATALOG: SkillEntry[] = [
 		slug: 'book-keeper',
 		name: 'Book Keeper',
 		tagline: 'Invoices matched with bank statements. Bookings suggested.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'finance-brain',
 		name: 'Finance Brain',
 		tagline: 'Invoices out, numbers straight — no spreadsheet, no gut feeling.',
-		plan: 'avenceo',
+		plan: 'aven-ceo',
 		comingSoon: true
 	},
 	{
 		id: 'website-creator',
 		name: 'Website Creator',
 		tagline: 'Your website exists — and stays current without you touching it.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'checkout-builder',
 		name: 'Checkout Builder',
 		tagline: 'From offer to paying customer — without a shop project.',
-		plan: 'avenceo'
+		plan: 'aven-ceo'
 	},
 	{
 		id: 'blog-writer',
 		name: 'Blog Writer',
 		tagline: "Your Aven writes. You sign off — when it's good.",
-		plan: 'avenceo',
+		plan: 'aven-ceo',
 		comingSoon: true
 	}
 ]

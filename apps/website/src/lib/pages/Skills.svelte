@@ -28,7 +28,7 @@ const byPlan = $derived(loadSkillsByPlan(lang))
 const fromQuery = $derived(browser ? (page.url.searchParams.get('plan') as PlanId | null) : null)
 let picked = $state<PlanId | null>(null)
 const selected = $derived<PlanId>(
-	picked ?? (fromQuery && PLANS.some((p) => p.id === fromQuery) ? fromQuery : 'avenceo')
+	picked ?? (fromQuery && PLANS.some((p) => p.id === fromQuery) ? fromQuery : 'aven-ceo')
 )
 
 const visibleSkills = $derived(skills.filter((s) => planIncludes(selected, s.plan)))
@@ -91,7 +91,7 @@ const chainSteps = $derived(t.chain.steps)
 				<p class="mt-1 text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50">
 					{t.filter.explainer}
 				</p>
-				<!-- Only plans that actually carry skills: the Testride sat here forever
+				<!-- Only plans that actually carry skills: avenNAME sat here forever
 				     showing an empty catalogue, which is a filter that can only
 				     disappoint. -->
 				<div class="mt-4 space-y-2">
