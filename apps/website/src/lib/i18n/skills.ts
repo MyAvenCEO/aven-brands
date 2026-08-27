@@ -95,7 +95,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 		marketplace: {
 			title: 'Skills Marketplace — aven.ceo · Aven Skills',
 			description:
-				'Skills, die echte Probleme lösen — global für jeden Aven, enthalten in avenME und avenFOUNDER.',
+				'Skills, die echte Probleme lösen — global für jeden Aven, enthalten in avenCEO.',
 			hero: {
 				eyebrow: 'Skill Marketplace · Aven',
 				heading: 'Aven Skills, die echte Probleme lösen.',
@@ -106,7 +106,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 			filter: {
 				label: 'Filter',
 				includedIn: 'Enthalten in',
-				explainer: 'avenFOUNDER enthält alle Skills aus avenME. avenCOOP enthält avenFOUNDER.',
+				explainer: 'avenCEO enthält alle Skills. avenCOOP enthält alles aus avenCEO.',
 				count: (visible, total) => `${visible} von ${total} Skills enthalten`,
 				compare: 'Pläne vergleichen →'
 			},
@@ -134,7 +134,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 			},
 			pricing: {
 				eyebrow: 'Pricing',
-				heading: (total) => `Alle ${total} Skills. In jedem Plan ab avenME enthalten.`,
+				heading: (total) => `Alle ${total} Skills. In avenCEO enthalten.`,
 				paragraph:
 					'Kein Skill‑Marktplatz‑Lock‑in. Kein Abo pro Skill. Kein Vendor, der deine Arbeitsintelligenz hält. Du baust auf einem Stack, der dir gehört.',
 				cta: 'Alle Pläne ansehen →'
@@ -166,7 +166,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 			standaloneTotal: 'Gesamt standalone',
 			included: 'Im Plan enthalten',
 			noSurcharge: '0 € Aufpreis',
-			noLockIn: 'avenME · avenFOUNDER · avenCOOP — kein Skill‑Marktplatz‑Lock‑in',
+			noLockIn: 'avenCEO · avenCOOP — kein Skill‑Marktplatz‑Lock‑in',
 			firstRelief: 'Erste Entlastung',
 			setupEffort: 'Setup‑Aufwand',
 			proof: 'Beweis',
@@ -201,8 +201,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 	en: {
 		marketplace: {
 			title: 'Skills Marketplace — aven.ceo · Aven Skills',
-			description:
-				'Skills that solve real problems — global for every Aven, included in avenME and avenFOUNDER.',
+			description: 'Skills that solve real problems — global for every Aven, included in avenCEO.',
 			hero: {
 				eyebrow: 'Skill Marketplace · Aven',
 				heading: 'Aven Skills that solve real problems.',
@@ -213,7 +212,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 			filter: {
 				label: 'Filter',
 				includedIn: 'Included in',
-				explainer: 'avenFOUNDER includes every avenME skill. avenCOOP includes avenFOUNDER.',
+				explainer: 'avenCEO includes every skill. avenCOOP includes everything in avenCEO.',
 				count: (visible, total) => `${visible} of ${total} skills included`,
 				compare: 'Compare plans →'
 			},
@@ -241,7 +240,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 			},
 			pricing: {
 				eyebrow: 'Pricing',
-				heading: (total) => `All ${total} skills. Included in every plan from avenME up.`,
+				heading: (total) => `All ${total} skills. Included in avenCEO.`,
 				paragraph:
 					'No skill-marketplace lock‑in. No subscription per skill. No vendor holding your working intelligence. You build on a stack that belongs to you.',
 				cta: 'View all plans →'
@@ -273,7 +272,7 @@ export const skills: Record<Lang, SkillsMessages> = {
 			standaloneTotal: 'Standalone total',
 			included: 'Included in your plan',
 			noSurcharge: '0 € surcharge',
-			noLockIn: 'avenME · avenFOUNDER · avenCOOP — no skill-marketplace lock‑in',
+			noLockIn: 'avenCEO · avenCOOP — no skill-marketplace lock‑in',
 			firstRelief: 'First relief',
 			setupEffort: 'Setup effort',
 			proof: 'Proof',

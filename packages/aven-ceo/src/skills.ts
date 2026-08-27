@@ -23,7 +23,7 @@
  */
 
 /** Which tier a skill first appears in; higher tiers include it. */
-export type SkillPlan = 'avenme' | 'avenceo'
+export type SkillPlan = 'avenceo'
 
 export interface SkillEntry {
 	/** The canonical id. The app's registry and the website's route both use it. */
@@ -52,41 +52,41 @@ export const CATALOG: SkillEntry[] = [
 		id: 'inbox-router',
 		name: 'Inbox Router',
 		tagline: 'One inbox for everything — and someone deciding what matters now.',
-		plan: 'avenme'
+		plan: 'avenceo'
 	},
 	{
 		id: 'inbox',
 		slug: 'email-manager',
 		name: 'Email Manager',
 		tagline: 'No money-mail ever gets lost — ever.',
-		plan: 'avenme'
+		plan: 'avenceo'
 	},
 	{
 		id: 'docs',
 		slug: 'docs-organizer',
 		name: 'Docs Organizer',
 		tagline: 'No document goes unread — whatever format it comes in.',
-		plan: 'avenme'
+		plan: 'avenceo'
 	},
 	{
 		id: 'brain',
 		slug: 'brain-memorizer',
 		name: 'Brain Memorizer',
 		tagline: 'Your Aven never forgets — who, what, when, how often.',
-		plan: 'avenme'
+		plan: 'avenceo'
 	},
 	{
 		id: 'human-reviewer',
 		name: 'Human Reviewer',
 		tagline: 'You decide. Only when you truly have to.',
-		plan: 'avenme'
+		plan: 'avenceo'
 	},
 	{
 		id: 'todos',
 		slug: 'todo-shuffler',
 		name: 'Todo Shuffler',
 		tagline: 'Your list sorts itself — by what actually matters next.',
-		plan: 'avenme',
+		plan: 'avenceo',
 		comingSoon: true
 	},
 	{
@@ -94,14 +94,14 @@ export const CATALOG: SkillEntry[] = [
 		slug: 'calendar-organizer',
 		name: 'Calendar Organizer',
 		tagline: 'Your calendar plans around your life — not the other way round.',
-		plan: 'avenme',
+		plan: 'avenceo',
 		comingSoon: true
 	},
 	{
 		id: 'bookmark-champion',
 		name: 'Bookmark Champion',
 		tagline: 'Everything you ever saved — findable at last.',
-		plan: 'avenme',
+		plan: 'avenceo',
 		comingSoon: true
 	},
 	{

@@ -19,7 +19,7 @@ export interface LiveAven {
 	/** The human or the company behind it. */
 	holder: string
 	/** Which product it runs on. */
-	plan: 'avenme' | 'avenceo'
+	plan: 'avenceo'
 	/** ISO date it went live. */
 	since: string
 	/** Personal Aven only: the company Aven this human builds toward. */
@@ -56,7 +56,7 @@ export const LIVE_AVENS: LiveAven[] = [
 		name: 'avenSAM',
 		kind: 'person',
 		holder: 'Samuel Andert',
-		plan: 'avenme',
+		plan: 'avenceo',
 		since: '2026-01-01',
 		worksOn: 'avenCEO',
 		link: { href: 'https://x.com/samuelandert', label: 'x.com/samuelandert' }
@@ -66,7 +66,7 @@ export const LIVE_AVENS: LiveAven[] = [
 		name: 'avenDAN',
 		kind: 'person',
 		holder: 'Daniel Janz',
-		plan: 'avenme',
+		plan: 'avenceo',
 		since: '2026-01-01',
 		worksOn: 'avenCEO'
 	}

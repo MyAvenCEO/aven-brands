@@ -1,29 +1,28 @@
 /**
  * The products — one source of truth for pricing AND the skills marketplace.
  *
- * NOT a ladder. avenID is the door: the name, the waitlist place, a plain
- * account anyone can address and talk to. avenME is the personal AI‑CEO for
- * your LIFE — one per human: inbox, post, documents, the daily organisation,
- * your own knowledge base. avenFOUNDER is the professional AI‑CEO for your
- * COMPANY — one per company: it runs the whole business (pre-accounting,
- * finances, website, shop, blog), is the single point every employee,
- * customer and partner talks to. (Technically that company Aven is
- * "the avenCEO" — avenFOUNDER is
- * the product you buy to get one.) avenME and avenFOUNDER are two different
- * ROLES that live side by side in one shared namespace; neither is an
- * upgrade of the other, and each company needs its own. avenCOOP
- * is not a bigger plan but a different relationship: YOU build your own
- * sovereign Aven BUSINESS — your Skillbundle, sold under your name on our
+ * NOT a ladder. "avenCEO Testride" is the door: you secure your unique
+ * avenCEO name for a year, take your place in the waitlist, and — once
+ * invited — test‑ride your avenCEO live for 30 minutes. avenCEO is the one
+ * AI‑CEO for your LIFE and your COMPANY at once: inbox, post, documents and
+ * the daily organisation on the personal side; pre‑accounting, finances,
+ * website, shop and blog on the company side. There is no longer a split
+ * between a "personal" and a "company" CEO — it is one CEO, one per idea, the
+ * single point every employee, customer and partner talks to. avenCOOP is not
+ * a bigger plan but a different relationship: YOU build your own sovereign
+ * Aven BUSINESS — your Skillbundle, sold under your name on our
  * infrastructure — and we sit next to you with hands-on support while you
  * do. We do not build it for you and we take no equity; the only thing we
  * take is a share of the revenue it makes. You APPLY rather than book.
  *
- * avenID is a prerequisite, not a part of any plan: every human AND every
- * company has its own name, bought alongside avenME or avenFOUNDER as a
- * bundle when it does not exist yet.
+ * "avenCEO Testride" is a prerequisite, not a part of any plan: every avenCEO
+ * has its own name, secured on the Testride before the avenCEO itself opens.
  *
- * The plan id `avenceo` is a WIRE KEY (API tier enum, Polar `metadata.tier`,
- * app billing, skills catalogue) and stays stable; only `name` changed.
+ * The plan id `avenid` and `avenceo` are WIRE KEYS (API tier enum, Polar
+ * `metadata.tier`, app billing, skills catalogue) and stay stable; only the
+ * `name` shown to humans changed — `avenid` now presents as "avenCEO Testride"
+ * and `avenceo` as "avenCEO". The old `avenme` tier is GONE, consolidated into
+ * avenCEO: there is one CEO, not a personal one and a company one.
  *
  * The five-role ladder (avenCOO/CMO/CTO/CPO/CEO) and the "Sparks" are gone:
  * the company of the future is 1 human (vision) + 1 avenCEO (execution),
@@ -41,7 +40,7 @@
  * website's plans.ts.
  */
 
-export type PlanId = 'avenid' | 'avenme' | 'avenceo' | 'avencoop'
+export type PlanId = 'avenid' | 'avenceo' | 'avencoop'
 
 /**
  * A line on a plan card — and a REAL benefit at the payment provider: every
@@ -76,14 +75,14 @@ export interface Plan {
 	 */
 	pitch: string
 	/**
-	 * Who a plan is bought FOR. One avenME per human, one avenFOUNDER per company:
-	 * two roles that coexist, never a tier above the other. Printed on the
-	 * cards so nobody reads 42 → 326 as a ladder.
+	 * Who a plan is bought FOR. One avenCEO per idea — life and company in one.
+	 * Left unset now that the person/company split is gone; kept on the type
+	 * because avenCOOP and future products may still want the badge.
 	 */
 	per?: 'person' | 'company'
 	/**
 	 * The price in euro, GROSS (incl. VAT) — the number a person pays. Monthly
-	 * for every tier except avenID, which is billed once — read `billing`
+	 * for every tier except the Testride, which is billed once — read `billing`
 	 * before you print a `/m`.
 	 */
 	eurPrice: number
@@ -115,7 +114,7 @@ export interface Plan {
 	 * feature bullet where it drifts per tier.
 	 */
 	runtime?: { hoursPerDay: number; centsPerExtraMinute: number }
-	/** What this product does. Skills cascade: avenFOUNDER carries avenME's, avenCOOP carries avenFOUNDER's. */
+	/** What this product does. Skills cascade: avenCOOP carries avenCEO's. */
 	features: PlanFeature[]
 	/** Marks the product we lead with. */
 	highlight?: boolean
@@ -125,25 +124,27 @@ export interface Plan {
 export const PLANS: Plan[] = [
 	{
 		id: 'avenid',
-		name: 'avenID',
-		role: 'Dein Name — ein Konto, das jeder ansprechen kann. Pro Mensch und pro Firma.',
+		name: 'Secure Name + Testride',
+		role: 'Sichere dir deinen avenCEO‑Namen — und fahre den vollen avenCEO 1 Stunde Probe, sobald du eingeladen bist.',
 		pitch:
-			'Dein Name ist der erste Schritt in ein Leben, in dem KI für dich arbeitet — nicht für einen Konzern. Es gibt ihn genau einmal. Sichere ihn dir, bevor ihn jemand anderes trägt.',
+			'Deinen avenCEO gibt es genau einmal — und er trägt deinen Namen. Sichere ihn dir für ein Jahr, bevor ihn jemand anderes trägt, und fahre ihn nach deiner Einladung eine Stunde Probe.',
 		eurPrice: 25,
 		billing: 'once',
 		revenueSharePct: 0,
 		features: [
 			{
-				title: 'Dein avenID‑Name',
-				description: 'Für 1 Jahr für dich gesichert — niemand sonst kann ihn tragen.'
+				title: 'Dein avenCEO‑Name für 1 Jahr',
+				description:
+					'Dein einzigartiger Name ist ein Jahr für dich gesichert — niemand sonst kann ihn tragen.'
+			},
+			{
+				title: '1 Std Testride nach Einladung',
+				description:
+					'Als Early Adopter fährst du nach deiner Einladung den vollen avenCEO eine Stunde Probe — alle Skills außer Postweiterleitung.'
 			},
 			{
 				title: 'Dein Platz auf der Warteliste',
 				description: 'Du stehst fest in der Reihe — sobald wir öffnen, bist du dran.'
-			},
-			{
-				title: '20 Min Test‑Zugang',
-				description: 'Sobald du eingeladen bist, probierst du deinen Aven 20 Minuten live aus.'
 			},
 			{
 				title: 'Dein Profil im aven Marketplace',
@@ -153,23 +154,18 @@ export const PLANS: Plan[] = [
 		]
 	},
 	{
-		id: 'avenme',
-		name: 'avenME',
-		role: 'Dein persönlicher AI‑CEO — für dein Leben',
+		id: 'avenceo',
+		name: 'avenCEO',
+		role: 'Dein AI‑CEO — für dein Leben und deine Firma, in einem.',
 		pitch:
-			'Dein Leben ist voller Ideen, Termine, Projekte und offener Enden — dein avenME hält alles zusammen. Er koordiniert deinen Alltag, fängt jeden Gedanken auf und macht aus losen Konzepten Dinge, die passieren.',
-		per: 'person',
-		eurPrice: 55,
+			'Du hast die Vision — dein avenCEO macht aus der Idee eine Firma, die läuft. Er arbeitet, während du schläfst, und wird jeden Tag besser. So fühlt sich Gründen an, wenn es keine 80‑Stunden‑Woche mehr kostet.',
+		eurPrice: 377,
 		billing: 'monthly',
-		beta: { discountPct: 50, months: 1 },
-		runtime: { hoursPerDay: 1, centsPerExtraMinute: 10 },
-		revenueSharePct: 0,
+		beta: { discountPct: 30, months: 3 },
+		runtime: { hoursPerDay: 4, centsPerExtraMinute: 8 },
+		revenueSharePct: 8.2,
+		highlight: true,
 		features: [
-			{
-				title: 'Persönliche Live‑Organisation',
-				description:
-					'Aufgaben, Termine und Erinnerungen ordnen sich um deinen Tag — nicht umgekehrt.'
-			},
 			{
 				skill: 'inbox-router',
 				title: 'Ein Eingang für alles',
@@ -183,9 +179,15 @@ export const PLANS: Plan[] = [
 					'Dein Aven liest mit, antwortet in deinem Ton und hält deinen Posteingang leer.'
 			},
 			{
-				title: 'Digitaler Briefkasten',
+				skill: 'calendar-organizer',
+				title: 'Dein Kalender denkt mit',
+				description: 'Termine, Wege und Puffer planen sich selbst — du schaust nur noch drauf.'
+			},
+			{
+				skill: 'todo-shuffler',
+				title: 'Deine Liste sortiert sich selbst',
 				description:
-					'Deine Papierpost kommt digitalisiert bei deinem Aven an (exkl. Nachsendeauftrag der Deutschen Post: 31,90 € / 6 Monate, inkl. USt.).'
+					'Was heute zählt, steht oben — dein Aven priorisiert nach dem, was wirklich ansteht.'
 			},
 			{
 				skill: 'docs-organizer',
@@ -200,54 +202,17 @@ export const PLANS: Plan[] = [
 					'Dein Aven merkt sich, wer wer ist und was euch verbindet — nichts geht mehr verloren.'
 			},
 			{
-				skill: 'human-reviewer',
-				title: 'Du entscheidest, wenn es zählt',
-				description:
-					'Bei allem, was wirklich wichtig ist, fragt dein Aven erst dich — du behältst das letzte Wort.'
-			},
-			{
-				skill: 'calendar-organizer',
-				title: 'Dein Kalender denkt mit',
-				description: 'Termine, Wege und Puffer planen sich selbst — du schaust nur noch drauf.'
-			},
-			{
-				skill: 'todo-shuffler',
-				title: 'Deine Liste sortiert sich selbst',
-				description:
-					'Was heute zählt, steht oben — dein Aven priorisiert nach dem, was wirklich ansteht.'
-			},
-			{
 				skill: 'bookmark-champion',
 				title: 'Links und Lesezeichen, wiederfindbar',
 				description:
 					'Alles, was du speicherst, ist in Sekunden wieder da — sortiert und durchsuchbar.'
 			},
 			{
-				title: 'Deine persönliche Wissensbasis',
+				skill: 'human-reviewer',
+				title: 'Du entscheidest, wenn es zählt',
 				description:
-					'Alles, was du lernst und sammelst, bleibt bei deinem Aven — und macht ihn jeden Tag besser.'
+					'Bei allem, was wirklich wichtig ist, fragt dein Aven erst dich — du behältst das letzte Wort.'
 			},
-			{
-				title: 'Trainiert den avenCEO deiner Firma',
-				description:
-					'Dein avenME gibt weiter, was er mit dir lernt — dein Firmen‑Aven startet nie bei null.'
-			}
-		]
-	},
-	{
-		id: 'avenceo',
-		name: 'avenFOUNDER',
-		role: 'Dein professioneller AI‑CEO — für deine Firma',
-		pitch:
-			'Du hast die Vision — dein avenFOUNDER macht daraus eine Firma, die läuft. Er arbeitet, während du schläfst, und wird jeden Tag besser. So fühlt sich Gründen an, wenn es keine 80‑Stunden‑Woche mehr kostet.',
-		per: 'company',
-		eurPrice: 377,
-		billing: 'monthly',
-		beta: { discountPct: 50, months: 3 },
-		runtime: { hoursPerDay: 4, centsPerExtraMinute: 8 },
-		revenueSharePct: 8.2,
-		highlight: true,
-		features: [
 			{
 				skill: 'book-keeper',
 				title: 'Vorbuchhaltung',
@@ -284,19 +249,14 @@ export const PLANS: Plan[] = [
 					'Dein Aven schreibt und veröffentlicht in deinem Ton — deine Geschichte bleibt hörbar.'
 			},
 			{
-				title: 'Digitaler Briefkasten für deine Firma',
+				title: '2 digitale Postadressen incl.*',
 				description:
-					'Die Geschäftspost deiner Firma kommt digitalisiert an (exkl. Nachsendeauftrag der Deutschen Post: 51,90 € / 6 Monate, inkl. USt.).'
+					'Deine Papier‑ und Geschäftspost kommt digitalisiert bei deinem Aven an — je eine Adresse privat und geschäftlich, falls du beide brauchst (exkl. Nachsendeauftrag der Deutschen Post).'
 			},
 			{
 				title: 'Im aven Marketplace gelistet',
 				description:
 					'Deine Firma ist auffindbar für Kunden, Partner und andere Avens — vom ersten Tag an.'
-			},
-			{
-				title: 'Das Gedächtnis deiner Firma',
-				description:
-					'Wissen und Erfahrung sammeln sich über Jahre im avenCEO — das wird dein wertvollstes Asset.'
 			}
 		]
 	},
@@ -349,12 +309,11 @@ export function plan(id: PlanId): Plan {
 }
 
 /**
- * Which plan's SKILLS a plan carries. avenME and avenFOUNDER are separate
- * products for separate roles (person / company) — you buy both if you are
- * both — but the company's Aven has every skill the personal one has, and
- * avenCOOP ships with the company's avenFOUNDER. avenID carries nothing.
+ * Which plan's SKILLS a plan carries. avenCEO is the one product that ships
+ * every life‑ and company‑skill; avenCOOP carries everything avenCEO does.
+ * The Testride carries nothing.
  */
-const SKILL_CASCADE: PlanId[] = ['avenme', 'avenceo', 'avencoop']
+const SKILL_CASCADE: PlanId[] = ['avenceo', 'avencoop']
 export function planIncludes(selected: PlanId, needed: PlanId): boolean {
 	if (selected === needed) return true
 	const s = SKILL_CASCADE.indexOf(selected)
@@ -432,21 +391,22 @@ export interface PlanTexts {
 /** The English translations, keyed like PLANS; features in feature order. */
 const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 	avenid: {
-		role: 'Your name — one account anyone can address. Per human and per company.',
+		role: 'Secure your avenCEO name — and test-drive the full avenCEO for 1 hour once you are invited.',
 		pitch:
-			'Your name is the first step into a life where AI works for you — not for a corporation. It exists exactly once. Claim it before someone else carries it.',
+			'Your avenCEO exists exactly once — and it carries your name. Secure it for a year before someone else does, and take it for a 1-hour test ride once you are invited.',
 		features: [
 			{
-				title: 'Your avenID name',
-				description: 'Reserved for you for 1 year — nobody else can carry it.'
+				title: 'Your avenCEO name for 1 year',
+				description: 'Your unique name is reserved for you for a year — nobody else can carry it.'
+			},
+			{
+				title: '1 h test ride once invited',
+				description:
+					'As an early adopter you test-drive the full avenCEO for 1 hour after your invite — every skill except postal forwarding.'
 			},
 			{
 				title: 'Your place on the waiting list',
 				description: 'Your spot in line is fixed — the moment we open, it is your turn.'
-			},
-			{
-				title: '20 min of trial access',
-				description: 'The moment you are invited, you try your Aven live for 20 minutes.'
 			},
 			{
 				title: 'Your profile in the aven Marketplace',
@@ -454,16 +414,11 @@ const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 			}
 		]
 	},
-	avenme: {
-		role: 'Your personal AI‑CEO — for your life',
+	avenceo: {
+		role: 'Your AI‑CEO — for your life and your company, in one.',
 		pitch:
-			'Your life is full of ideas, appointments, projects and open threads — your avenME holds it all together. It coordinates your day, catches every thought and turns loose concepts into things that happen.',
+			'You bring the vision — your avenCEO turns the idea into a company that runs. It works while you sleep and gets better every day. This is what founding feels like when it no longer costs an 80-hour week.',
 		features: [
-			{
-				title: 'Personal live organisation',
-				description:
-					'Tasks, appointments and reminders arrange themselves around your day — not the other way round.'
-			},
 			{
 				title: 'One inbox for everything',
 				description: 'Email, mail, messages and thoughts land in one place — your Aven sorts them.'
@@ -471,26 +426,6 @@ const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 			{
 				title: 'Email inbox',
 				description: 'Your Aven reads along, replies in your tone and keeps your inbox empty.'
-			},
-			{
-				title: 'Digital mailbox',
-				description:
-					'Your paper mail arrives digitised at your Aven (excl. Deutsche Post mail forwarding: 31.90 € / 6 months, incl. VAT).'
-			},
-			{
-				title: 'Document management',
-				description:
-					'Contracts, invoices, paperwork — filed, named and found again without you searching.'
-			},
-			{
-				title: 'Notes, contacts, relationships',
-				description:
-					'Your Aven remembers who is who and what connects you — nothing gets lost any more.'
-			},
-			{
-				title: 'You decide when it counts',
-				description:
-					'For everything that really matters, your Aven asks you first — you keep the last word.'
 			},
 			{
 				title: 'Your calendar thinks ahead',
@@ -503,26 +438,24 @@ const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 					'What counts today sits on top — your Aven prioritises by what is actually due.'
 			},
 			{
+				title: 'Document management',
+				description:
+					'Contracts, invoices, paperwork — filed, named and found again without you searching.'
+			},
+			{
+				title: 'Notes, contacts, relationships',
+				description:
+					'Your Aven remembers who is who and what connects you — nothing gets lost any more.'
+			},
+			{
 				title: 'Links & bookmarks, findable again',
 				description: 'Everything you save is back in seconds — sorted and searchable.'
 			},
 			{
-				title: 'Your personal knowledge base',
+				title: 'You decide when it counts',
 				description:
-					'Everything you learn and collect stays with your Aven — and makes it better every day.'
+					'For everything that really matters, your Aven asks you first — you keep the last word.'
 			},
-			{
-				title: 'Trains your company’s avenCEO',
-				description:
-					'Your avenME passes on what it learns with you — your company Aven never starts from zero.'
-			}
-		]
-	},
-	avenceo: {
-		role: 'Your professional AI‑CEO — for your company',
-		pitch:
-			'You bring the vision — your avenFOUNDER turns it into a company that runs. It works while you sleep and gets better every day. This is what founding feels like when it no longer costs an 80-hour week.',
-		features: [
 			{
 				title: 'Pre-accounting',
 				description:
@@ -553,19 +486,14 @@ const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 				description: 'Your Aven writes and publishes in your tone — your story stays audible.'
 			},
 			{
-				title: 'Digital mailbox for your company',
+				title: '2 digital postal addresses incl.*',
 				description:
-					'Your company’s business mail arrives digitised (excl. Deutsche Post mail forwarding: 51.90 € / 6 months, incl. VAT).'
+					'Your paper and business mail arrives digitised at your Aven — one address each, personal and business, if you need both (excl. Deutsche Post mail forwarding).'
 			},
 			{
 				title: 'Listed in the aven Marketplace',
 				description:
 					'Your company is findable by customers, partners and other Avens — from day one.'
-			},
-			{
-				title: 'The memory of your company',
-				description:
-					'Knowledge and experience accumulate in the avenCEO over the years — that becomes your most valuable asset.'
 			}
 		]
 	},
