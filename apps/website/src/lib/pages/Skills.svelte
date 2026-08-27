@@ -19,8 +19,8 @@ const byPlan = $derived(loadSkillsByPlan(lang))
 
 /**
  * The marketplace is organized by PRODUCT, not by author: a buyer asks which
- * plan a skill comes with. avenFOUNDER carries every avenME skill, so
- * picking one shows exactly its skills; only avenCOOP also carries avenFOUNDER's.
+ * plan a skill comes with. avenCEO carries every skill, so
+ * picking one shows exactly its skills; only avenCOOP also carries avenCEO's.
  * `?plan=` lets the pricing
  * page link straight into the right selection.
  */
@@ -91,7 +91,7 @@ const chainSteps = $derived(t.chain.steps)
 				<p class="mt-1 text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50">
 					{t.filter.explainer}
 				</p>
-				<!-- Only plans that actually carry skills: avenID sat here forever
+				<!-- Only plans that actually carry skills: the Testride sat here forever
 				     showing an empty catalogue, which is a filter that can only
 				     disappoint. -->
 				<div class="mt-4 space-y-2">

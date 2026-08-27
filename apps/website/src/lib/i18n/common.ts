@@ -1,6 +1,6 @@
 import type { Lang } from './index'
 
-/** Header, footer, the avenID call to action and the waiting list — shared by every page. */
+/** Header, footer, the avenCEO-name call to action and the waiting list — shared by every page. */
 export const common: Record<
 	Lang,
 	{
@@ -23,9 +23,13 @@ export const common: Record<
 		}
 		idCta: {
 			eyebrow: string
-			title: (price: string) => string
+			title: string
 			/** HTML — our own static copy, carries <strong> emphasis. */
 			bodyHtml: string
+			/** The early-adopter perk this €25 unlocks — the real hook, as a bullet. */
+			betaLine: (pct: number, months: number) => string
+			betaPriceLine: (discounted: string, regular: string) => string
+			betaScarcity: string
 			placeholder: string
 			button: string
 			exampleLabel: string
@@ -42,14 +46,14 @@ export const common: Record<
 	}
 > = {
 	de: {
-		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Preise', cta: 'avenID sichern' },
+		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Preise', cta: 'Namen sichern' },
 		switchLabel: 'Sprache',
 		footer: {
 			tagline: 'Deine eigene KI, deine eigene Firma — und das, was du damit baust, gehört dir.',
 			pagesLabel: 'Seiten',
 			legalLabel: 'Rechtliches',
 			socialLabel: 'Social Media',
-			ctaLabel: 'avenID sichern',
+			ctaLabel: 'Namen sichern',
 			copyright: 'avenCEO — Own your life',
 			legal: {
 				impressum: 'Impressum',
@@ -61,14 +65,17 @@ export const common: Record<
 		},
 		idCta: {
 			eyebrow: 'Warteliste · Invite only',
-			title: (price) => `Sichere dir deine avenID für einmalig ${price} €`,
+			title: 'Sichere dir deinen avenCEO‑Namen',
 			bodyHtml:
-				'Wie eine Domain — aber für deinen Aven: <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Sie ist zugleich dein Platz auf der Warteliste: Eingeladen wird der Reihe nach, <strong class="font-medium text-foreground/82">wer zuerst kommt, gründet zuerst</strong>. Der Name ist damit <strong class="font-medium text-foreground/82">für 1 Jahr für dich gesichert</strong> — solange ihn niemand anders hält. Dazu bekommst du <strong class="font-medium text-foreground/82">20 Min Test‑Zugang</strong>, sobald du eingeladen bist.',
+				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
+			betaLine: (pct, months) => `+ ${pct} % Rabatt auf die ersten ${months} Monate avenCEO`,
+			betaPriceLine: (discounted, regular) => `${discounted} €/m statt ${regular} €`,
+			betaScarcity: '1 / 10 vergeben',
 			placeholder: 'maia',
-			button: 'avenID sichern →',
+			button: 'Namen sichern →',
 			exampleLabel: 'Beispiel:',
 			priceNote: (price) => `einmalig ${price} € inkl. USt.`,
-			formLabel: 'avenID sichern'
+			formLabel: 'Namen sichern'
 		},
 		board: {
 			eyebrow: (next) => `Warteliste · Platz ${next} ist frei`,
@@ -79,14 +86,14 @@ export const common: Record<
 		}
 	},
 	en: {
-		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Pricing', cta: 'Claim your avenID' },
+		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Pricing', cta: 'Claim your name' },
 		switchLabel: 'Language',
 		footer: {
 			tagline: 'Your own AI, your own company — and what you build with it belongs to you.',
 			pagesLabel: 'Pages',
 			legalLabel: 'Legal',
 			socialLabel: 'Social media',
-			ctaLabel: 'Claim your avenID',
+			ctaLabel: 'Claim your name',
 			copyright: 'avenCEO — Own your life',
 			legal: {
 				impressum: 'Imprint',
@@ -98,14 +105,17 @@ export const common: Record<
 		},
 		idCta: {
 			eyebrow: 'Waiting list · Invite only',
-			title: (price) => `Claim your avenID for a one-time ${price} €`,
+			title: 'Claim your avenCEO name',
 			bodyHtml:
-				'Like a domain — but for your Aven: <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It is also your place on the waiting list: invitations go out in order, <strong class="font-medium text-foreground/82">first come, first founded</strong>. The name is <strong class="font-medium text-foreground/82">reserved for you for 1 year</strong> — as long as nobody else holds it. On top you get <strong class="font-medium text-foreground/82">20 min of trial access</strong> the moment you are invited.',
+				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
+			betaLine: (pct, months) => `+ ${pct} % off your first ${months} months of avenCEO`,
+			betaPriceLine: (discounted, regular) => `${discounted} €/m instead of ${regular} €`,
+			betaScarcity: '1 / 10 claimed',
 			placeholder: 'maia',
-			button: 'Claim avenID →',
+			button: 'Claim your name →',
 			exampleLabel: 'Example:',
 			priceNote: (price) => `one-time ${price} € incl. VAT`,
-			formLabel: 'Claim your avenID'
+			formLabel: 'Claim your name'
 		},
 		board: {
 			eyebrow: (next) => `Waiting list · place ${next} is open`,

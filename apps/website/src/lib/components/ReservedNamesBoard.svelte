@@ -4,7 +4,7 @@ import { common } from '$lib/i18n/common'
 import { nextPosition, reservedInOrder } from '$lib/reserved-names'
 
 /**
- * The waiting list itself, under every avenID call to action — in order,
+ * The waiting list itself, under every avenCEO-name call to action — in order,
  * because the order IS the offer: whoever stands first, founds first. The
  * open row at the bottom is the reader's place, and it is a real number
  * (one past the last name actually taken), not a countdown dressed up as

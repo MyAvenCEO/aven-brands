@@ -1,7 +1,7 @@
 import * as publicEnv from '$env/static/public'
 
 /**
- * Where the avenID funnel lives.
+ * Where the avenCEO-name funnel lives.
  *
  * The marketing site sells the tiers; the id service takes the money and the
  * name. So every CTA here is a deep link into that service, carrying the tier

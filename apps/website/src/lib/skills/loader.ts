@@ -96,7 +96,7 @@ export function loadSkillsByPlan(
 	return PLANS.map((p) => ({ plan: p, skills: list.filter((s) => s.plan === p.id) }))
 }
 
-/** Everything a plan includes — its own skills, plus avenFOUNDER's for avenCOOP. */
+/** Everything a plan includes — its own skills, plus avenCEO's for avenCOOP. */
 export function skillsIncludedIn(planId: PlanId, lang: SupportedLang = 'de'): AvenosSkill[] {
 	return (registry[lang] ?? registry.en).filter((s) => planIncludes(planId, s.plan))
 }
