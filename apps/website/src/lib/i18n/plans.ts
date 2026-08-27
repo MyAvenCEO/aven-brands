@@ -77,5 +77,5 @@ export function perLabel(p: Plan, lang: Lang): string | null {
 export function ctaLabel(p: Plan, lang: Lang): string {
 	if (lang === 'de') return ctaLabelDe(p)
 	if (p.applyOnly) return 'Apply'
-	return p.id === 'avenid' ? 'Claim your name' : 'Join the waiting list'
+	return p.id === 'aven-name' ? 'Claim your name' : 'Join the waiting list'
 }
