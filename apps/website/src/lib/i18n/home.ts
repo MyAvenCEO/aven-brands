@@ -78,7 +78,7 @@ export const home: Record<Lang, HomeMessages> = {
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
-			headlineHtml: 'avenCEO ist der weltweit erste agentische Co‑Founder.',
+			headlineHtml: 'avenCEO ist der weltweit erste datenschutzwahrende agentische Co‑Founder.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum']
 		},
 		shift: {
@@ -188,7 +188,7 @@ export const home: Record<Lang, HomeMessages> = {
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
-			headlineHtml: 'avenCEO is the world’s first agentic co‑founder.',
+			headlineHtml: 'avenCEO is the world’s 1st privacy‑preserving agentic co‑founder.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership']
 		},
 		shift: {

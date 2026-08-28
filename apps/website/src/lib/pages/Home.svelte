@@ -51,7 +51,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		<div id="home-hero-content" class="mx-auto max-w-3xl text-center">
 			<h1
 				id="home-hero-heading"
-				class="mx-auto max-w-3xl text-[clamp(1.75rem,5vw,2.75rem)] font-light leading-tight tracking-tight text-pretty"
+				class="mx-auto max-w-3xl text-[clamp(2rem,6vw,3.25rem)] font-light leading-tight tracking-tight text-pretty"
 			>
 				{t.hero.headingLine1}
 				<span class="mt-1 block">{t.hero.headingLine2}</span>
@@ -59,7 +59,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<div class="mx-auto mt-8 max-w-2xl">
 				<p
 					id="home-hero-lead"
-					class="text-pretty text-[length:var(--fs-hero)] font-medium leading-snug sm:text-[length:var(--fs-display)]"
+					class="text-pretty text-[length:var(--fs-hero)] font-normal leading-snug sm:text-[length:var(--fs-display)]"
 				>
 					{@html t.hero.transformationHtml}
 				</p>
@@ -73,33 +73,31 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- Proposition band on the marine-blue brand bar: the one-line claim, then
-	     the three 100 % absolutes it rests on — the promise, right under the
-	     hero, before any pitch begins. -->
+	<!-- Proposition band on the marine-blue brand bar, editorial-style: the
+	     claim as a light display headline, then the three 100 % absolutes as
+	     columns split by hairline rules, the figures in paradise blue. -->
 	<section
-		class="bg-primary px-5 py-9 text-center sm:px-8 sm:py-12"
+		class="bg-primary px-5 py-12 text-center sm:px-8 sm:py-16"
 		aria-labelledby="trust-headline"
 	>
 		<div class="mx-auto max-w-4xl text-primary-foreground">
-			<p
+			<h2
 				id="trust-headline"
-				class="text-[length:var(--fs-hero)] font-semibold tracking-tight text-balance sm:text-[length:var(--fs-amount)]"
+				class="mx-auto max-w-2xl text-[length:var(--fs-amount)] font-normal leading-tight tracking-tight text-balance sm:text-[length:var(--fs-display)]"
 			>
 				{@html t.trust.headlineHtml}
-			</p>
+			</h2>
 			<ul
-				class="mt-5 grid grid-cols-3 items-start gap-x-3 sm:mt-8 sm:flex sm:flex-row sm:items-baseline sm:justify-center sm:gap-x-10"
+				class="mx-auto mt-8 grid max-w-3xl grid-cols-3 divide-x divide-primary-foreground/15 sm:mt-11"
 			>
 				{#each t.trust.claims as claim (claim)}
-					<li
-						class="flex flex-col items-center gap-0.5 text-center sm:flex-row sm:items-baseline sm:gap-2"
-					>
+					<li class="flex flex-col items-center gap-1 px-2 sm:gap-2 sm:px-6">
 						<span
-							class="text-[length:var(--fs-body)] font-bold tabular-nums text-success sm:text-[length:var(--fs-lead)]"
-							>100 %</span
+							class="font-display text-[length:var(--fs-hero)] font-medium tabular-nums text-success sm:text-[length:var(--fs-display)]"
+							>100%</span
 						>
 						<span
-							class="text-[length:var(--fs-meta)] font-medium leading-tight text-primary-foreground/85 sm:text-[length:var(--fs-lead)] sm:leading-snug"
+							class="text-[length:var(--fs-micro)] font-medium uppercase leading-tight tracking-[var(--tracking-wide)] text-primary-foreground/60 sm:text-[length:var(--fs-meta)]"
 							>{claim}</span
 						>
 					</li>
@@ -117,7 +115,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 				<h2
 					id="shift-heading"
-					class="mt-4 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
+					class="mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl"
 				>
 					{t.shift.heading}
 				</h2>
@@ -141,7 +139,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					>
 						{t.shift.without.eyebrow}
 					</p>
-					<h3 class="mt-2 text-lg font-semibold tracking-tight text-primary-foreground sm:text-xl">
+					<h3 class="mt-2 text-xl tracking-tight text-primary-foreground sm:text-2xl">
 						{t.shift.without.title}
 					</h3>
 					<ul
@@ -169,7 +167,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					>
 						{t.shift.with.eyebrow}
 					</p>
-					<h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground sm:text-xl">
+					<h3 class="mt-2 text-xl tracking-tight text-foreground sm:text-2xl">
 						{t.shift.with.title}
 					</h3>
 					<ul
@@ -199,37 +197,39 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- The thesis: the company of the future, named. -->
+	<!-- The thesis: the company of the future, named. A dark marine spread —
+	     the page's turning point set against the light sections around it. -->
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-surface-soft/25 to-transparent px-5 py-16 sm:px-8 sm:py-24"
+		class="bg-primary px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow-accent">
+			<p
+				class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-success"
+			>
 				{t.company.eyebrow}
 			</p>
 			<h2
 				id="company-heading"
-				class="mt-5 text-[clamp(1.75rem,5vw,2.75rem)] font-light leading-tight tracking-tight text-foreground"
+				class="mt-5 text-[clamp(2rem,6vw,3.25rem)] font-light leading-tight tracking-tight text-primary-foreground"
 			>
 				{t.company.heading}
 			</h2>
 			<div
-				class="mx-auto mt-8 max-w-2xl space-y-4 text-[length:var(--fs-title)] leading-relaxed text-foreground/65 sm:text-base"
+				id="company-prose"
+				class="mx-auto mt-8 max-w-2xl space-y-4 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/70 sm:text-base"
 			>
 				{#each t.company.paragraphsHtml as paragraph, i (i)}
 					<p class="text-pretty">{@html paragraph}</p>
 				{/each}
 			</div>
 			<p
-				class="mx-auto mt-9 max-w-xl border-t border-border/25 pt-7 text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]"
+				class="mx-auto mt-9 max-w-xl border-t border-primary-foreground/15 pt-7 text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
 			>
 				{t.company.closingLine1}
 				<span class="mt-2 block">
 					{t.company.closingLine2Before}
-					<strong class="font-sans font-semibold text-foreground"
-						>{t.company.closingLine2Strong}</strong
-					>.
+					<strong class="font-sans font-medium text-accent">{t.company.closingLine2Strong}</strong>.
 				</span>
 			</p>
 		</div>
@@ -245,7 +245,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 				<h2
 					id="own-heading"
-					class="mt-4 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
+					class="mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl"
 				>
 					{t.own.headingLine1}
 					<span class="mt-1 block">{t.own.headingLine2}</span>
@@ -267,7 +267,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						>
 							{rung.count}
 						</p>
-						<p class="mt-2 text-lg font-semibold tracking-tight text-foreground">{rung.title}</p>
+						<p class="mt-2 font-display text-xl tracking-tight text-foreground">{rung.title}</p>
 						<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground/65">
 							{rung.text}
 						</p>
@@ -427,7 +427,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 				<h2
 					id="skills-preview-heading"
-					class="mt-4 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
+					class="mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl"
 				>
 					{t.skills.heading}
 				</h2>
@@ -461,9 +461,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<p class="eyebrow-accent">
 					{t.start.eyebrow}
 				</p>
-				<h2
-					class="mt-3 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
-				>
+				<h2 class="mt-3 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl">
 					{t.start.heading}
 				</h2>
 				<p
@@ -480,6 +478,14 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 </div>
 
 <style>
+/* The company thesis sits on marine, but its emphasised words are authored
+   with the light-page tone (text-foreground) — lift them so they read on the
+   dark spread. Keyed off the id so the strict utility plugin ignores it. */
+#company-prose :global(strong) {
+	color: var(--color-primary-foreground);
+	font-weight: 500;
+}
+
 /* The hero is its own dark stage: the video sits behind, a soft scrim
    darkens the bright footage, and the copy goes light on top. Colours and
    the gradient live here (scoped CSS, keyed off ids so the strict utility

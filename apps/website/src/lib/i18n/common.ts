@@ -48,7 +48,7 @@ export const common: Record<
 	de: {
 		nav: {
 			skills: 'Skills',
-			avens: 'Avens',
+			avens: 'Marketplace',
 			pricing: 'Preise',
 			cta: 'Aven einstellen',
 			menu: 'Menü'
@@ -94,7 +94,7 @@ export const common: Record<
 	en: {
 		nav: {
 			skills: 'Skills',
-			avens: 'Avens',
+			avens: 'Marketplace',
 			pricing: 'Pricing',
 			cta: 'Hire your Aven',
 			menu: 'Menu'
