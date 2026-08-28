@@ -20,6 +20,8 @@ export type HomeMessages = {
 		/** The vehicle, as an aside — the Aven is how you get there. */
 		helper: string
 	}
+	/** The trust band under the hero: two absolutes on the marine-blue brand bar. */
+	trust: { encrypted: string; ownership: string }
 	shift: {
 		eyebrow: string
 		heading: string
@@ -69,10 +71,14 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'Tief in deinem Herzen weißt du es:',
-			headingLine2: 'in dir steckt so viel mehr.',
-			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50')} zum ${s('souveränen Gründer von morgen', 'text-accent')}.`,
+			headingLine1: 'A(G)I führt deine Firma,',
+			headingLine2: 'du führst die Vision.',
+			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum<br>${s('souveränen Gründer', 'text-accent')} von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
+		},
+		trust: {
+			encrypted: '100 % Ende‑zu‑Ende verschlüsselte KI',
+			ownership: '100 % Eigentum an deinen Daten'
 		},
 		shift: {
 			eyebrow: 'Post‑AGI · Warum jetzt',
@@ -175,10 +181,14 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'Deep in your heart you know it:',
-			headingLine2: 'there is so much more in you.',
-			transformationHtml: `From ${s('working to survive', 'text-foreground/50')} to the ${s('sovereign founder of tomorrow', 'text-accent')}.`,
-			helper: '— your own avenCEO gets you there —'
+			headingLine1: 'A(G)I runs your company,',
+			headingLine2: 'you lead the vision.',
+			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to<br>${s('sovereign founder', 'text-accent')} of tomorrow.`,
+			helper: '— your avenCEO gets you there —'
+		},
+		trust: {
+			encrypted: '100 % end‑to‑end encrypted AI',
+			ownership: '100 % ownership of your data'
 		},
 		shift: {
 			eyebrow: 'Post‑AGI · Why now',

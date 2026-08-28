@@ -21,8 +21,12 @@ const t = $derived(pick(pricing, lang))
  * the unified CTA band at the bottom. */
 const ceo = $derived(localizedPlan(plan('aven-ceo'), lang))
 const ceoSkillCount = $derived(skillsIncludedIn('aven-ceo', lang).length)
-/** avenCEO's non-skill bullets — skills render in their own column. */
-const ceoPlain = $derived(ceo.features.filter((f) => !f.skill))
+/** avenCEO's non-skill bullets — skills render in their own column. The
+ * digital postal addresses are a Deutsche-Post product, so that bullet (and
+ * its note below) show for Germany only. */
+const ceoPlain = $derived(
+	ceo.features.filter((f) => !f.skill && (lang === 'de' || !/postal/i.test(f.title)))
+)
 
 /** A card shows at most this many skills; the rest sit behind "see all". */
 const SKILL_CAP = 7
@@ -199,9 +203,11 @@ function skillFeatures(p: Plan): SkillFeature[] {
 								</li>
 							{/each}
 						</ul>
-						<p class="mt-4 text-[length:var(--fs-micro)] leading-snug text-foreground/40">
-							{t.postForwardNote}
-						</p>
+						{#if lang === 'de'}
+							<p class="mt-4 text-[length:var(--fs-micro)] leading-snug text-foreground/40">
+								{t.postForwardNote}
+							</p>
+						{/if}
 					</div>
 
 					{#if ceoSkillCount > 0}
