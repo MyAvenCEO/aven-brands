@@ -1,7 +1,7 @@
 /**
  * The English face of the pricing SSOT, applied at render time. The TEXTS —
  * German originals and their English translations — live in the brand
- * package (`@myavenceo/aven-brand/pricing`, re-exported via `$lib/pricing/plans`)
+ * package (`@myavenceo/aven-ceo/pricing`, re-exported via `$lib/pricing/plans`)
  * so the id service seeds its Polar products from the same words; this file
  * keeps only the render-time adapters: ids, prices and skill slugs never
  * change, only the words around them. German delegates to the original
@@ -33,16 +33,20 @@ export function localizedPlan(p: Plan, lang: Lang): Plan {
 	}
 }
 
-/** "/month · incl. VAT" · "one-time · incl. VAT" */
+/** "/week · incl. VAT" · "/month · incl. VAT" · "one-time · incl. VAT" */
 export function priceSuffix(p: Plan, lang: Lang): string {
 	if (lang === 'de') return priceSuffixDe(p)
-	return p.billing === 'once' ? 'one-time · incl. VAT' : '/month · incl. VAT'
+	if (p.billing === 'once') return 'one-time · incl. VAT'
+	if (p.billing === 'weekly') return '/week · incl. VAT'
+	return '/month · incl. VAT'
 }
 
-/** "25 € one-time" · "377 €/month" */
+/** "25 € one-time" · "99 €/week" · "987 €/month" */
 export function priceLabel(p: Plan, lang: Lang): string {
 	if (lang === 'de') return priceLabelDe(p)
-	return p.billing === 'once' ? `${euro(p.eurPrice)} € one-time` : `${euro(p.eurPrice)} €/month`
+	if (p.billing === 'once') return `${euro(p.eurPrice)} € one-time`
+	if (p.billing === 'weekly') return `${euro(p.eurPrice)} €/week`
+	return `${euro(p.eurPrice)} €/month`
 }
 
 /** The share note in the reader's language — the DE string lives in plans-data. */
@@ -77,5 +81,5 @@ export function perLabel(p: Plan, lang: Lang): string | null {
 export function ctaLabel(p: Plan, lang: Lang): string {
 	if (lang === 'de') return ctaLabelDe(p)
 	if (p.applyOnly) return 'Apply'
-	return p.id === 'avenid' ? 'Claim avenID' : 'Join the waiting list'
+	return p.id === 'aven-name' ? 'Claim your name' : 'Join the waiting list'
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { SITE_NOTICE_EN } from '@myavenceo/aven-brand'
+import { SITE_NOTICE_EN } from '@myavenceo/aven-ceo'
 import LegalDoc from '$lib/pages/LegalDoc.svelte'
 </script>
 

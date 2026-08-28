@@ -1,0 +1,81 @@
+{
+	"name": "@myavenceo/aven-ceo",
+	"version": "0.9.0",
+	"type": "module",
+	"description": "Everything every avenCEO surface shares: company facts, the legal documents built from them, the plans, the skill catalog, the design tokens and the brand assets.",
+	"license": "GPL-3.0-only",
+	"sideEffects": false,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./pricing": {
+			"types": "./dist/pricing.d.ts",
+			"import": "./dist/pricing.js"
+		},
+		"./skills": {
+			"types": "./dist/skills.d.ts",
+			"import": "./dist/skills.js"
+		},
+		"./tokens": {
+			"types": "./dist/tokens.d.ts",
+			"import": "./dist/tokens.js"
+		},
+		"./generate": {
+			"types": "./dist/generate.d.ts",
+			"import": "./dist/generate.js"
+		},
+		"./assets/*": "./assets/*",
+		"./design": {
+			"types": "./dist/design.d.ts",
+			"import": "./dist/design.js"
+		},
+		"./kitchen-sink": {
+			"types": "./dist/kitchen-sink.d.ts",
+			"import": "./dist/kitchen-sink.js"
+		},
+		"./utilities": {
+			"types": "./dist/utilities.d.ts",
+			"import": "./dist/utilities.js"
+		},
+		"./scan": {
+			"types": "./dist/scan.d.ts",
+			"default": "./dist/scan.js"
+		},
+		"./vite": {
+			"types": "./dist/vite.d.ts",
+			"default": "./dist/vite.js"
+		}
+	},
+	"files": [
+		"dist",
+		"assets",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"generate": "bun ./scripts/generate.ts",
+		"test": "bun test ./tests",
+		"prepack": "bun run build"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MyAvenCEO/avenCEO.git",
+		"directory": "packages/aven-ceo"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"devDependencies": {
+		"@types/node": "^26.3.0"
+	},
+	"dependencies": {
+		"@myavenceo/aven-vibes": "^0.2.0"
+	}
+}

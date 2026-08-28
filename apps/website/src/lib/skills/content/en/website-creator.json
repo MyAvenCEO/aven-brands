@@ -1,6 +1,6 @@
 {
 	"slug": "website-creator",
-	"plan": "avenceo",
+	"plan": "aven-ceo",
 	"oneLineCopy": "Your website exists — and stays current without you touching it.",
 	"hero": {
 		"kicker": "Skill · website creator",
@@ -69,7 +69,7 @@
 		"proof": "aven.ceo is built with website creator. The page you're reading is the proof."
 	},
 	"bonuses": [
-		"Your own domain and mail under your avenID name",
+		"Your own domain and mail under your avenCEO name",
 		"A landing page per offer without cluttering the main site",
 		"Load times that need no excuse"
 	],

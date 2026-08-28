@@ -8,9 +8,9 @@ export interface PricingMessages {
 	heading: string
 	/** The warm bridge under the heading — the wish, before the three facts. */
 	lead: string
-	/** HTML — our own static copy, carries <strong> emphasis. */
-	introHtml: string
 	idEyebrow: string
+	/** The badge on the avenCEO card — it is the product we lead with. */
+	ceoEyebrow: string
 	yourChoice: string
 	availability: string
 	applyOnly: string
@@ -32,13 +32,19 @@ export interface PricingMessages {
 		note: (months: number, regularPrice: string) => string
 	}
 	skills: string
+	/** Heading over the avenCEO feature list. */
+	included: string
+	/** The one small-print exclusion under the features: the postal-forward fee. */
+	postForwardNote: string
+	/** The avenCEO button — invite-only, so it announces rather than links. */
+	comingSoon: string
 	soon: string
 	allSkills: (n: number) => string
 	runtime: string
-	runtimeHours: (hours: number) => string
-	fairUse: string
-	extraMinute: (cents: number) => string
-	bundleNote: (idName: string, price: string, per: 'person' | 'company' | undefined) => string
+	/** The included MIND credits, weekly (avenCEO) or as a one-off grant (avenNAME). */
+	mindWeekly: (n: number) => string
+	mindOnce: (n: number) => string
+	bundleNote: (idName: string, price: string) => string
 	os: {
 		eyebrow: string
 		title: string
@@ -61,13 +67,12 @@ export const pricing: Record<Lang, PricingMessages> = {
 	de: {
 		title: 'Preise — aven.ceo · avenCEO',
 		description:
-			'Alles beginnt mit einem Namen: avenID 25 € einmalig, avenME 55 €/Monat — der persönliche AI‑CEO für dein Leben, avenFOUNDER 377 €/Monat — der professionelle AI‑CEO für deine Firma. Keine Stufen, zwei Rollen. Mit avenCOOP baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens — auf Bewerbung.',
+			'Alles beginnt mit einem Namen: avenNAME (25 € einmalig) sichert dir deinen avenCEO‑Namen für ein Jahr und — nach der Einladung — 100 MIND Credits zum Testen des vollen avenCEO. avenCEO (99 €/Woche) ist dein AI‑CEO für dein Leben und deine Firma in einem. Mit avenCOOP baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens — auf Bewerbung.',
 		eyebrow: 'Pricing',
 		heading: 'Alles beginnt mit einem Namen.',
 		lead: 'Hinter deinem Namen entsteht eine KI, die wirklich dir gehört — sie lernt dein Leben kennen, führt deine Firma und wächst mit jeder Idee, die du ihr anvertraust. Du bringst die Vision. Dein Aven bringt sie ins Laufen.',
-		introHtml:
-			'<strong class="font-medium text-foreground/85">avenME</strong> ist dein persönlicher AI‑CEO für dein Leben — einer pro Mensch.<br> <strong class="font-medium text-foreground/85">avenFOUNDER</strong> ist der professionelle AI‑CEO für deine Firma — einer pro Firma.<br> Mit <strong class="font-medium text-foreground/85">avenCOOP</strong> baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens.',
-		idEyebrow: 'Der Anfang',
+		idEyebrow: 'Dein Name',
+		ceoEyebrow: 'Empfohlen',
 		yourChoice: 'Deine Wahl:',
 		availability: 'Verfügbarkeit bestätigen wir bei der Buchung.',
 		applyOnly: 'Nur auf Bewerbung',
@@ -85,20 +90,22 @@ export const pricing: Record<Lang, PricingMessages> = {
 				`${months === 1 ? 'den ersten Monat' : `die ersten ${months} Monate`} — danach ${regularPrice} €/Monat.`
 		},
 		skills: 'Skills',
+		included: 'Enthalten',
+		postForwardNote: '*Digitale Postadressen exkl. Postumleitungsgebühr der Deutschen Post.',
+		comingSoon: 'Bald verfügbar',
 		soon: 'bald',
 		allSkills: (n) => `Alle ${n} Skills ansehen →`,
 		runtime: 'KI‑Laufzeit',
-		runtimeHours: (hours) => `Bis zu ${hours} Std/Tag Agent‑Laufzeit`,
-		fairUse: '(Fair Use)',
-		extraMinute: (cents) => `danach ${cents} Cent pro Minute`,
-		bundleNote: (idName, price, per) =>
-			`+ ${idName} (${price} € einmalig) im Bundle, falls ${per === 'company' ? 'deine Firma noch keine hat' : 'du noch keine hast'} — avenID ist nicht enthalten.`,
+		mindWeekly: (n) => `${n} MIND Credits pro Woche inklusive`,
+		mindOnce: (n) => `${n} MIND Credits — für Early-Bird-Tests`,
+		bundleNote: (idName, price) =>
+			`+ ${idName} (${price} € einmalig), falls du deinen Namen noch nicht gesichert hast — nicht im Monatspreis enthalten.`,
 		os: {
 			eyebrow: 'Optional · Eigenes Hosting',
 			title: 'avenOS',
 			subtitle: 'Open‑Source‑Stack zum Selbsthosten',
 			listLabel: 'avenOS Übersicht',
-			sync: 'Self‑hosted Sync‑Service',
+			sync: 'Alles selbst hosten',
 			byok: 'Bring Your Own API Keys',
 			noBackups: 'Keine Backups',
 			noBackupsNote: '— optional selbst bereitstellbar',
@@ -115,13 +122,12 @@ export const pricing: Record<Lang, PricingMessages> = {
 	en: {
 		title: 'Pricing — aven.ceo · avenCEO',
 		description:
-			'It all starts with a name: avenID 25 € one-time, avenME 55 €/month — the personal AI‑CEO for your life, avenFOUNDER 377 €/month — the professional AI‑CEO for your company. No tiers, two roles. With avenCOOP you build your own Aven skills and sell them on our Marketplace to other Avens — by application.',
+			'It all starts with a name: avenNAME (25 € one-time) secures your avenCEO name for a year and — once invited — 100 MIND credits to test-drive the full avenCEO. avenCEO (99 €/week) is your AI‑CEO for your life and your company in one. With avenCOOP you build your own Aven skills and sell them on our Marketplace to other Avens — by application.',
 		eyebrow: 'Pricing',
 		heading: 'It all starts with a name.',
 		lead: 'Behind your name grows an AI that truly belongs to you — it learns your life, runs your company and grows with every idea you trust it with. You bring the vision. Your Aven sets it in motion.',
-		introHtml:
-			'<strong class="font-medium text-foreground/85">avenME</strong> is your personal AI‑CEO for your life — one per human.<br> <strong class="font-medium text-foreground/85">avenFOUNDER</strong> is the professional AI‑CEO for your company — one per company.<br> With <strong class="font-medium text-foreground/85">avenCOOP</strong> you build your own Aven skills and sell them on our Marketplace to other Avens.',
-		idEyebrow: 'The start',
+		idEyebrow: 'Your name',
+		ceoEyebrow: 'Recommended',
 		yourChoice: 'Your choice:',
 		availability: 'We confirm availability at booking.',
 		applyOnly: 'By application only',
@@ -139,20 +145,22 @@ export const pricing: Record<Lang, PricingMessages> = {
 				`${months === 1 ? 'the first month' : `the first ${months} months`} — ${regularPrice} €/month after that.`
 		},
 		skills: 'Skills',
+		included: 'Included',
+		postForwardNote: '*Digital postal addresses exclude Deutsche Post’s mail-forwarding fee.',
+		comingSoon: 'Coming soon',
 		soon: 'soon',
 		allSkills: (n) => `See all ${n} skills →`,
 		runtime: 'AI runtime',
-		runtimeHours: (hours) => `Up to ${hours} h/day of agent runtime`,
-		fairUse: '(fair use)',
-		extraMinute: (cents) => `then ${cents} cents per minute`,
-		bundleNote: (idName, price, per) =>
-			`+ ${idName} (${price} € one-time) as a bundle if ${per === 'company' ? 'your company has none yet' : 'you have none yet'} — avenID is not included.`,
+		mindWeekly: (n) => `${n} MIND credits per week included`,
+		mindOnce: (n) => `${n} MIND credits — for early-bird testing`,
+		bundleNote: (idName, price) =>
+			`+ ${idName} (${price} € one-time) if you have not secured your name yet — not included in the monthly price.`,
 		os: {
 			eyebrow: 'Optional · Self-hosting',
 			title: 'avenOS',
 			subtitle: 'Open-source stack to host yourself',
 			listLabel: 'avenOS overview',
-			sync: 'Self-hosted sync service',
+			sync: 'Self-host everything',
 			byok: 'Bring Your Own API Keys',
 			noBackups: 'No backups',
 			noBackupsNote: '— optionally provide your own',

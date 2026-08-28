@@ -1,9 +1,9 @@
 /**
- * THE reserved avenIDs — the real list, and the only one the site renders.
+ * THE reserved avenCEO names — the real list, and the only one the site renders.
  *
  * Every name here is a name somebody actually holds. Nothing on this page is
  * decoration: a "recently secured" row invented to look busy is fabricated
- * social proof, and the one thing an avenID promises is that a name means
+ * social proof, and the one thing avenNAME promises is that a name means
  * something. So this file stays honest — add an entry when a name is really
  * taken, never to fill the row out.
  *

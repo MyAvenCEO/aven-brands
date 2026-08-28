@@ -1,7 +1,8 @@
 <script lang="ts">
-import ReservedNamesBoard from '$lib/components/ReservedNamesBoard.svelte'
 import { type Lang, pick } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
+import { localizedPlan, priceSuffix } from '$lib/i18n/plans'
+import { pricing } from '$lib/i18n/pricing'
 import { idFunnelHref } from '$lib/id-service'
 import { euro, plan } from '$lib/pricing/plans'
 
@@ -13,7 +14,13 @@ type Props = {
 let { variant = 'inline', lang = 'de' }: Props = $props()
 
 const t = $derived(pick(common, lang).idCta)
-const avenId = plan('avenid')
+/** For the MIND-credits line — shared wording with the pricing page. */
+const tp = $derived(pick(pricing, lang))
+const avenId = plan('aven-name')
+/** What the €25 actually buys — avenNAME's features, in the reader's language. */
+const features = $derived(localizedPlan(avenId, lang).features)
+/** The real hook: securing the name early also unlocks avenCEO's beta discount. */
+const ceoBeta = plan('aven-ceo').beta
 
 let name = $state('')
 
@@ -28,54 +35,118 @@ const slug = $derived(
 function submit(e: SubmitEvent) {
 	e.preventDefault()
 	if (!slug) return
-	window.location.href = idFunnelHref('avenid', slug)
+	window.location.href = idFunnelHref('aven-name', slug)
 }
 
+const centered = $derived(variant === 'banner')
 const wrapperClass = $derived(
 	variant === 'banner'
-		? 'rounded-2xl border border-border/45 bg-surface-raised px-5 py-8 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-10 sm:py-10'
-		: 'rounded-2xl border border-border/40 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
+		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-10 sm:py-11'
+		: 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
 )
 </script>
 
-<form onsubmit={submit} class={wrapperClass} aria-label={t.formLabel}>
-	<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">{t.eyebrow}</p>
+<form
+	onsubmit={submit}
+	class="{wrapperClass} overflow-hidden {centered ? 'text-center' : ''}"
+	aria-label={t.formLabel}
+>
+	<p class="eyebrow-accent">
+		{t.eyebrow}
+	</p>
 	<h3
-		class="mt-2 text-xl font-semibold tracking-tight text-pretty text-foreground sm:text-2xl md:text-[1.65rem]"
+		class="mt-2 text-2xl font-semibold tracking-tight text-balance text-foreground sm:text-3xl md:text-[length:var(--fs-amount)] {centered
+			? 'mx-auto max-w-xl'
+			: ''}"
 	>
-		{t.title(euro(avenId.eurPrice))}
+		{t.title}
 	</h3>
 	<!-- Our own static copy with inline emphasis — not user content. -->
-	<p class="mt-3 max-w-2xl text-[14px] leading-snug text-foreground/68 sm:text-[15px]">
+	<p
+		class="mt-3 text-[length:var(--fs-section)] leading-snug text-foreground/65 sm:text-[length:var(--fs-title)] {centered
+			? 'mx-auto max-w-2xl'
+			: 'max-w-2xl'}"
+	>
 		{@html t.bodyHtml}
 	</p>
-	<div class="mt-6 flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
-		<label
-			class="flex min-h-12 flex-1 items-center gap-2 rounded-full border border-border/60 bg-surface-raised px-4"
-		>
-			<input
-				bind:value={name}
-				type="text"
-				name="aven-name"
-				autocomplete="off"
-				spellcheck="false"
-				placeholder={t.placeholder}
-				class="min-w-0 flex-1 bg-transparent py-3 text-[15px] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
+
+	<!-- The four benefits, styled and sized exactly like avenCEO's ENTHALTEN
+	     bullets: a small accent dot and the title, no sub-copy. -->
+	<ul
+		class="mt-7 grid gap-x-8 gap-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground/80 sm:grid-cols-2"
+	>
+		{#if avenId.runtime}
+			<li class="flex gap-2">
+				<span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"></span>
+				<span class="font-semibold text-foreground/85"
+					>{tp.mindOnce(avenId.runtime.mindCredits)}</span
+				>
+			</li>
+		{/if}
+		{#each features as feature (feature.title)}
+			<li class="flex gap-2">
+				<span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"></span>
+				<span class="font-medium text-foreground/80">{feature.title}</span>
+			</li>
+		{/each}
+	</ul>
+
+	<!-- The action block, full card width: the voucher hook, the €25 price as
+	     prominently as avenCEO's price, then the name check on one line. -->
+	<div class="mt-7 space-y-4">
+		<div class="rounded-2xl border border-border/25 bg-surface-card px-5 py-4 text-center">
+			<p class="flex flex-wrap items-baseline justify-center gap-x-2">
+				<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground">
+					{euro(avenId.eurPrice)}&nbsp;€
+				</span>
+				<span class="text-[length:var(--fs-meta)] font-medium text-foreground/50">
+					{priceSuffix(avenId, lang)}
+				</span>
+			</p>
+		</div>
+		<!-- One field, read as one address: the name types RIGHT-aligned so it
+		     sits flush against the fixed ".aven.ceo" suffix — a divided,
+		     non-editable segment at the SAME size. Field and button share one
+		     height (h-16) so they line up exactly on desktop. -->
+		<div class="flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
+			<label
+				class="flex h-16 flex-1 items-stretch overflow-hidden rounded-full border border-accent/25 bg-surface-cream text-left shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
 			>
-			<span class="shrink-0 text-[13px] text-foreground/55">.aven.ceo</span>
-		</label>
-		<button
-			type="submit"
-			disabled={!slug}
-			class="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-primary px-7 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40 sm:px-8"
-		>
-			{t.button}
-		</button>
+				<input
+					bind:value={name}
+					type="text"
+					name="aven-name"
+					autocomplete="off"
+					spellcheck="false"
+					placeholder={t.placeholder}
+					class="min-w-0 flex-1 bg-transparent pl-6 pr-2 text-right text-[length:var(--fs-hero)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
+				>
+				<span
+					class="flex shrink-0 select-none items-center border-l border-accent/20 bg-surface-soft/60 px-5 text-[length:var(--fs-hero)] font-medium text-foreground/45"
+					>.aven.ceo</span
+				>
+			</label>
+			<button
+				type="submit"
+				disabled={!slug}
+				class="inline-flex h-16 shrink-0 items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-title)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
+			>
+				{t.button}
+			</button>
+		</div>
 	</div>
-	<p class="mt-3 text-[12px] leading-snug text-foreground/55">
-		{t.exampleLabel} <strong class="font-semibold text-foreground/75">maia.aven.ceo</strong>
-		<span class="text-foreground/45"> · </span>
-		{t.priceNote(euro(avenId.eurPrice))}
-	</p>
-	<ReservedNamesBoard {lang} />
+
+	<!-- The early-adopter perk as a full-width footer bar clipped to the card's
+	     rounded corners: negative margins cancel the card padding, overflow-hidden
+	     on the form rounds it off. -->
+	{#if ceoBeta}
+		<div class="-mx-5 -mb-9 mt-8 bg-accent px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10">
+			<p class="font-bold leading-snug text-foreground/90">
+				{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
+			</p>
+			<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/60">
+				{t.betaScarcity}
+			</p>
+		</div>
+	{/if}
 </form>

@@ -1,7 +1,7 @@
-<!-- One renderer for every legal document from @myavenceo/aven-brand — the
+<!-- One renderer for every legal document from @myavenceo/aven-ceo — the
      content is data, the markup lives exactly once, here. -->
 <script lang="ts">
-import type { LegalBlock, LegalDocument } from '@myavenceo/aven-brand'
+import type { LegalBlock, LegalDocument } from '@myavenceo/aven-ceo'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import type { Lang } from '$lib/i18n'
@@ -13,10 +13,10 @@ const eyebrow = $derived(doc.lang === 'de' ? 'Rechtliches' : 'Legal')
 
 /** Heading style per source depth — 2 is a chapter, 5 a fine print label. */
 const HEADING: Record<number, string> = {
-	2: 'mt-12 text-xl font-semibold tracking-tight text-foreground border-b border-border/50 pb-2',
-	3: 'mt-8 text-[17px] font-semibold tracking-tight text-foreground',
-	4: 'mt-6 text-[15px] font-semibold text-foreground',
-	5: 'mt-5 text-[13.5px] font-semibold text-foreground/85'
+	2: 'mt-12 text-xl font-semibold tracking-tight text-foreground border-b border-border/25 pb-2',
+	3: 'mt-8 text-[length:var(--fs-lead)] font-semibold tracking-tight text-foreground',
+	4: 'mt-6 text-[length:var(--fs-title)] font-semibold text-foreground',
+	5: 'mt-5 text-[length:var(--fs-body)] font-semibold text-foreground/80'
 }
 
 function isList(block: LegalBlock): block is { items: string[] } {
@@ -52,8 +52,10 @@ function parts(line: string): { text: string; href?: string }[] {
 
 	<section class="flex-1 px-5 py-16 sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
-			<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">{eyebrow}</p>
-			<h1 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+			<p class="eyebrow-accent">
+				{eyebrow}
+			</p>
+			<h1 class="section-title mt-3 sm:text-3xl">
 				{doc.title}
 			</h1>
 
@@ -65,7 +67,9 @@ function parts(line: string): { text: string; href?: string }[] {
 				{/if}
 				{#each section.blocks as block, i (i)}
 					{#if isList(block)}
-						<ul class="mt-3 space-y-2 text-[15px] leading-relaxed text-foreground/75">
+						<ul
+							class="mt-3 space-y-2 text-[length:var(--fs-title)] leading-relaxed text-foreground/80"
+						>
 							{#each block.items as item, j (j)}
 								<li class="flex gap-2">
 									<span
@@ -91,7 +95,9 @@ function parts(line: string): { text: string; href?: string }[] {
 							{/each}
 						</ul>
 					{:else}
-						<p class="mt-3 text-[15px] leading-relaxed text-foreground/75 break-words">
+						<p
+							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground/80 break-words"
+						>
 							{#if block.lead}
 								<strong class="font-semibold text-foreground/90">{block.lead}</strong><br>
 							{/if}

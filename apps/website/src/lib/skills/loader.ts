@@ -1,4 +1,4 @@
-import { skillBySlug } from '@myavenceo/aven-skills'
+import { skillBySlug } from '@myavenceo/aven-ceo/skills'
 import { localeHref } from '$lib/i18n'
 import { PLANS, type Plan, type PlanId, plan as planById, planIncludes } from '$lib/pricing/plans'
 import deBlogWriter from './content/de/blog-writer.json'
@@ -96,7 +96,7 @@ export function loadSkillsByPlan(
 	return PLANS.map((p) => ({ plan: p, skills: list.filter((s) => s.plan === p.id) }))
 }
 
-/** Everything a plan includes — its own skills, plus avenFOUNDER's for avenCOOP. */
+/** Everything a plan includes — its own skills, plus avenCEO's for avenCOOP. */
 export function skillsIncludedIn(planId: PlanId, lang: SupportedLang = 'de'): AvenosSkill[] {
 	return (registry[lang] ?? registry.en).filter((s) => planIncludes(planId, s.plan))
 }

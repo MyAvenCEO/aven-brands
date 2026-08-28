@@ -3,7 +3,7 @@
      (EGBGB Anlage 1 / EU model instruction) below for people who came to
      read, and the button once more at the bottom so nobody scrolls back up. -->
 <script lang="ts">
-import { legalDocument, REVOCATION_WIDGET } from '@myavenceo/aven-brand'
+import { legalDocument, REVOCATION_WIDGET } from '@myavenceo/aven-ceo'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import type { Lang } from '$lib/i18n'
@@ -55,14 +55,16 @@ const t = $derived(
 
 	<section class="flex-1 px-5 py-16 sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
-			<p class="text-[10px] font-bold uppercase tracking-[0.22em] text-accent">{t.eyebrow}</p>
-			<h1 class="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+			<p class="eyebrow-accent">
+				{t.eyebrow}
+			</p>
+			<h1 class="section-title mt-3 sm:text-3xl">
 				{doc.title}
 			</h1>
 
 			<!-- Widerrufsbutton für den Shop "avenCEO GmbH" (eRecht24). -->
-			<div class="mt-8 rounded-2xl border border-border/50 bg-surface-card p-6 text-center">
-				<p class="text-[14px] leading-relaxed text-foreground/75">{t.intro}</p>
+			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
+				<p class="text-[length:var(--fs-section)] leading-relaxed text-foreground/80">{t.intro}</p>
 				<p class="mt-4">
 					<a
 						id="eRecht24RevocationButton"
@@ -75,7 +77,7 @@ const t = $derived(
 						style="opacity:.5"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="inline-flex !min-h-11 items-center justify-center rounded-full bg-primary !px-8 !py-0 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+						class="inline-flex !min-h-11 items-center justify-center rounded-full bg-primary !px-8 !py-0 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
 					>
 						<span>{t.button}</span>
 					</a>
@@ -85,13 +87,15 @@ const t = $derived(
 			<!-- The statutory instruction, straight from the brand SSOT. -->
 			{#each doc.sections as section, s (s)}
 				{#if section.title}
-					<h2 class="mt-10 text-[17px] font-semibold tracking-tight text-foreground">
+					<h2
+						class="mt-10 text-[length:var(--fs-lead)] font-semibold tracking-tight text-foreground"
+					>
 						{section.title}
 					</h2>
 				{/if}
 				{#each section.blocks as block, i (i)}
 					{#if 'lines' in block}
-						<p class="mt-3 text-[15px] leading-relaxed text-foreground/75">
+						<p class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground/80">
 							{#each block.lines as line, l (l)}
 								{#if l > 0}
 									<br>
@@ -107,13 +111,13 @@ const t = $derived(
 			     lands after reading the Belehrung. It opens the SAME inline
 			     widget modal by delegating to the upgraded top anchor; the
 			     hosted-form href is only the no-script fallback. -->
-			<div class="mt-10 rounded-2xl border border-border/50 bg-surface-card p-6 text-center">
+			<div class="mt-10 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
 				<a
 					href={REVOCATION_WIDGET.href}
 					target="_blank"
 					rel="noopener noreferrer"
 					onclick={triggerRevocation}
-					class="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-8 text-[13px] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+					class="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-body)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
 				>
 					{t.button}
 				</a>

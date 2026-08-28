@@ -9,7 +9,22 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!!**/bun.lock", "!!**/*.svg"]
+		"includes": [
+			"**",
+			"!!**/bun.lock",
+			"!!**/*.svg",
+			"// Every brand's kitchen sink is GENERATED from its definition by",
+			"// `bun run guidelines` — they document the system rather than being",
+			"// authored, and formatting one by hand would be undone on the next run.",
+			"!!**/kitchen-sink.html",
+			"// Likewise the brand stylesheets. Their shape comes from a brand",
+			"// definition and the generator's rules — a stylistic complaint about",
+			"// one is a complaint about the generator, and fixing it in the output",
+			"// would survive exactly until the next `bun run build:packages`.",
+			"!!**/brand-theme.css",
+			"!!**/brand-components.css",
+			"!!**/brand-elements.css"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -55,6 +70,10 @@
 		}
 	},
 	"overrides": [
+		{
+			"includes": ["**/app.css"],
+			"linter": { "rules": { "suspicious": { "noUnknownAtRules": "off" } } }
+		},
 		{
 			"includes": ["**/*.svelte"],
 			"linter": {
