@@ -2,6 +2,7 @@
 import { type Lang, pick } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 import { localizedPlan, priceSuffix } from '$lib/i18n/plans'
+import { pricing } from '$lib/i18n/pricing'
 import { idFunnelHref } from '$lib/id-service'
 import { euro, plan } from '$lib/pricing/plans'
 
@@ -13,6 +14,8 @@ type Props = {
 let { variant = 'inline', lang = 'de' }: Props = $props()
 
 const t = $derived(pick(common, lang).idCta)
+/** For the MIND-credits line — shared wording with the pricing page. */
+const tp = $derived(pick(pricing, lang))
 const avenId = plan('aven-name')
 /** What the €25 actually buys — avenNAME's features, in the reader's language. */
 const features = $derived(localizedPlan(avenId, lang).features)
@@ -72,6 +75,14 @@ const wrapperClass = $derived(
 	<ul
 		class="mt-7 grid gap-x-8 gap-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground/80 sm:grid-cols-2"
 	>
+		{#if avenId.runtime}
+			<li class="flex gap-2">
+				<span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"></span>
+				<span class="font-semibold text-foreground/85"
+					>{tp.mindOnce(avenId.runtime.mindCredits)}</span
+				>
+			</li>
+		{/if}
 		{#each features as feature (feature.title)}
 			<li class="flex gap-2">
 				<span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"></span>
@@ -81,7 +92,7 @@ const wrapperClass = $derived(
 	</ul>
 
 	<!-- The action block, full card width: the voucher hook, the €25 price as
-	     prominently as avenCEO's 385 €, then the name check on one line. -->
+	     prominently as avenCEO's price, then the name check on one line. -->
 	<div class="mt-7 space-y-4">
 		{#if ceoBeta}
 			<div class="mx-auto max-w-sm rounded-xl bg-offer/25 px-4 py-3 text-center">

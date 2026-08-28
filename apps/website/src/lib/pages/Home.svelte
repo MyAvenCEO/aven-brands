@@ -29,30 +29,69 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 <div {lang} class="app-shell">
 	<MarketingSiteHeader {lang} />
 
+	<!-- Full-bleed video banner: the 4K first frame is the poster, so a crisp
+	     still is on screen the instant the page paints; the muted 720p loop
+	     fades in once it can play. A soft dark scrim keeps the copy legible
+	     over the bright footage without hiding the scene. -->
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-surface-raised via-background to-background px-5 py-24 sm:px-8 sm:py-32 md:py-40"
+		id="home-hero"
+		class="border-b border-border/25 px-5 sm:px-8"
 		aria-labelledby="home-hero-heading"
 	>
-		<div class="mx-auto max-w-3xl text-center">
+		<video
+			id="home-hero-video"
+			autoplay
+			muted
+			loop
+			playsinline
+			preload="metadata"
+			poster="/hero-poster.jpg"
+			aria-hidden="true"
+		>
+			<source src="/hero-bg.mp4" type="video/mp4">
+		</video>
+		<div id="home-hero-scrim" aria-hidden="true"></div>
+
+		<div id="home-hero-content" class="mx-auto max-w-3xl text-center">
 			<h1
 				id="home-hero-heading"
-				class="mx-auto max-w-3xl text-[clamp(1.75rem,5vw,2.75rem)] font-light leading-tight tracking-tight text-pretty text-foreground"
+				class="mx-auto max-w-3xl text-[clamp(1.75rem,5vw,2.75rem)] font-light leading-tight tracking-tight text-pretty"
 			>
 				{t.hero.headingLine1}
 				<span class="mt-1 block">{t.hero.headingLine2}</span>
 			</h1>
 			<div class="mx-auto mt-8 max-w-2xl">
 				<p
-					class="text-pretty text-[length:var(--fs-hero)] font-medium leading-snug text-foreground/80 sm:text-[length:var(--fs-amount)]"
+					id="home-hero-lead"
+					class="text-pretty text-[length:var(--fs-hero)] font-medium leading-snug sm:text-[length:var(--fs-amount)]"
 				>
 					{@html t.hero.transformationHtml}
 				</p>
 				<p
-					class="mt-4 text-[length:var(--fs-section)] leading-snug text-foreground/50 sm:text-[length:var(--fs-title)]"
+					id="home-hero-helper"
+					class="mt-4 text-[length:var(--fs-section)] leading-snug sm:text-[length:var(--fs-title)]"
 				>
 					{t.hero.helper}
 				</p>
 			</div>
+		</div>
+	</section>
+
+	<!-- Trust band: two absolutes on the marine-blue brand bar, full width and
+	     compact — the promise stated plainly before any pitch begins. -->
+	<section class="bg-primary px-5 py-4 text-center sm:px-8 sm:py-5" aria-label={t.trust.encrypted}>
+		<div
+			class="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-primary-foreground"
+		>
+			<span
+				class="text-[length:var(--fs-section)] font-semibold tracking-tight sm:text-[length:var(--fs-title)]"
+				>{t.trust.encrypted}</span
+			>
+			<span aria-hidden="true" class="text-primary-foreground/40">·</span>
+			<span
+				class="text-[length:var(--fs-section)] font-semibold tracking-tight sm:text-[length:var(--fs-title)]"
+				>{t.trust.ownership}</span
+			>
 		</div>
 	</section>
 
@@ -426,3 +465,81 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<SiteFooter {lang} />
 </div>
+
+<style>
+/* The hero is its own dark stage: the video sits behind, a soft scrim
+   darkens the bright footage, and the copy goes light on top. Colours and
+   the gradient live here (scoped CSS, keyed off ids so the strict utility
+   plugin leaves them alone) so the stack stays theme-independent — the
+   banner is dark in either theme. */
+#home-hero {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: clamp(30rem, 72vh, 46rem);
+	padding-block: clamp(5rem, 12vh, 9rem);
+}
+
+#home-hero-video {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Slightly stronger at top and bottom, lighter through the middle where the
+   scene reads — enough to carry white text, not enough to flatten it. */
+#home-hero-scrim {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(
+		to bottom,
+		rgba(15, 23, 42, 0.5) 0%,
+		rgba(15, 23, 42, 0.32) 42%,
+		rgba(15, 23, 42, 0.55) 100%
+	);
+}
+
+#home-hero-content {
+	position: relative;
+}
+
+#home-hero-heading {
+	color: #fff;
+	text-shadow: 0 2px 24px rgba(15, 23, 42, 0.45);
+}
+
+#home-hero-lead {
+	color: rgba(255, 255, 255, 0.94);
+	text-shadow: 0 1px 16px rgba(15, 23, 42, 0.4);
+}
+
+/* The muted half of the transformation line is dark by default (built in
+   home.ts for the light page) — lift it to a soft white on the video. The
+   accent half keeps its brand gold, which reads well over the scrim. */
+#home-hero-lead :global(strong.text-foreground\/50) {
+	color: rgba(255, 255, 255, 0.68);
+}
+
+#home-hero-helper {
+	color: rgba(255, 255, 255, 0.72);
+	text-shadow: 0 1px 12px rgba(15, 23, 42, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#home-hero-video {
+		display: none;
+	}
+	/* With the video hidden, the poster still shows via the section's own
+	   background so the stage is never blank. */
+	#home-hero {
+		background: #1e293b center / cover no-repeat url("/hero-poster.jpg");
+	}
+}
+</style>

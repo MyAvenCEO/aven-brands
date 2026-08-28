@@ -33,16 +33,20 @@ export function localizedPlan(p: Plan, lang: Lang): Plan {
 	}
 }
 
-/** "/month · incl. VAT" · "one-time · incl. VAT" */
+/** "/week · incl. VAT" · "/month · incl. VAT" · "one-time · incl. VAT" */
 export function priceSuffix(p: Plan, lang: Lang): string {
 	if (lang === 'de') return priceSuffixDe(p)
-	return p.billing === 'once' ? 'one-time · incl. VAT' : '/month · incl. VAT'
+	if (p.billing === 'once') return 'one-time · incl. VAT'
+	if (p.billing === 'weekly') return '/week · incl. VAT'
+	return '/month · incl. VAT'
 }
 
-/** "25 € one-time" · "385 €/month" */
+/** "25 € one-time" · "99 €/week" · "987 €/month" */
 export function priceLabel(p: Plan, lang: Lang): string {
 	if (lang === 'de') return priceLabelDe(p)
-	return p.billing === 'once' ? `${euro(p.eurPrice)} € one-time` : `${euro(p.eurPrice)} €/month`
+	if (p.billing === 'once') return `${euro(p.eurPrice)} € one-time`
+	if (p.billing === 'weekly') return `${euro(p.eurPrice)} €/week`
+	return `${euro(p.eurPrice)} €/month`
 }
 
 /** The share note in the reader's language — the DE string lives in plans-data. */

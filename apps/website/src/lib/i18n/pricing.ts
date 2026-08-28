@@ -41,9 +41,9 @@ export interface PricingMessages {
 	soon: string
 	allSkills: (n: number) => string
 	runtime: string
-	runtimeHours: (hours: number) => string
-	fairUse: string
-	extraMinute: (cents: number) => string
+	/** The included MIND credits, weekly (avenCEO) or as a one-off grant (avenNAME). */
+	mindWeekly: (n: number) => string
+	mindOnce: (n: number) => string
 	bundleNote: (idName: string, price: string) => string
 	os: {
 		eyebrow: string
@@ -67,7 +67,7 @@ export const pricing: Record<Lang, PricingMessages> = {
 	de: {
 		title: 'Preise — aven.ceo · avenCEO',
 		description:
-			'Alles beginnt mit einem Namen: avenNAME (25 € einmalig) sichert dir deinen avenCEO‑Namen für ein Jahr und — nach der Einladung — eine Stunde Probefahrt im vollen avenCEO. avenCEO (385 €/Monat) ist dein AI‑CEO für dein Leben und deine Firma in einem. Mit avenCOOP baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens — auf Bewerbung.',
+			'Alles beginnt mit einem Namen: avenNAME (25 € einmalig) sichert dir deinen avenCEO‑Namen für ein Jahr und — nach der Einladung — 100 MIND Credits zum Testen des vollen avenCEO. avenCEO (99 €/Woche) ist dein AI‑CEO für dein Leben und deine Firma in einem. Mit avenCOOP baust du deine eigenen Aven‑Skills und verkaufst sie auf unserem Marketplace an andere Avens — auf Bewerbung.',
 		eyebrow: 'Pricing',
 		heading: 'Alles beginnt mit einem Namen.',
 		lead: 'Hinter deinem Namen entsteht eine KI, die wirklich dir gehört — sie lernt dein Leben kennen, führt deine Firma und wächst mit jeder Idee, die du ihr anvertraust. Du bringst die Vision. Dein Aven bringt sie ins Laufen.',
@@ -96,9 +96,8 @@ export const pricing: Record<Lang, PricingMessages> = {
 		soon: 'bald',
 		allSkills: (n) => `Alle ${n} Skills ansehen →`,
 		runtime: 'KI‑Laufzeit',
-		runtimeHours: (hours) => `Bis zu ${hours} Std/Tag Agent‑Laufzeit`,
-		fairUse: '(Fair Use)',
-		extraMinute: (cents) => `danach ${cents} Cent pro Minute`,
+		mindWeekly: (n) => `${n} MIND Credits pro Woche inklusive`,
+		mindOnce: (n) => `${n} MIND Credits — für Early-Bird-Tests`,
 		bundleNote: (idName, price) =>
 			`+ ${idName} (${price} € einmalig), falls du deinen Namen noch nicht gesichert hast — nicht im Monatspreis enthalten.`,
 		os: {
@@ -123,7 +122,7 @@ export const pricing: Record<Lang, PricingMessages> = {
 	en: {
 		title: 'Pricing — aven.ceo · avenCEO',
 		description:
-			'It all starts with a name: avenNAME (25 € one-time) secures your avenCEO name for a year and — once invited — a one-hour test ride of the full avenCEO. avenCEO (385 €/month) is your AI‑CEO for your life and your company in one. With avenCOOP you build your own Aven skills and sell them on our Marketplace to other Avens — by application.',
+			'It all starts with a name: avenNAME (25 € one-time) secures your avenCEO name for a year and — once invited — 100 MIND credits to test-drive the full avenCEO. avenCEO (99 €/week) is your AI‑CEO for your life and your company in one. With avenCOOP you build your own Aven skills and sell them on our Marketplace to other Avens — by application.',
 		eyebrow: 'Pricing',
 		heading: 'It all starts with a name.',
 		lead: 'Behind your name grows an AI that truly belongs to you — it learns your life, runs your company and grows with every idea you trust it with. You bring the vision. Your Aven sets it in motion.',
@@ -152,9 +151,8 @@ export const pricing: Record<Lang, PricingMessages> = {
 		soon: 'soon',
 		allSkills: (n) => `See all ${n} skills →`,
 		runtime: 'AI runtime',
-		runtimeHours: (hours) => `Up to ${hours} h/day of agent runtime`,
-		fairUse: '(fair use)',
-		extraMinute: (cents) => `then ${cents} cents per minute`,
+		mindWeekly: (n) => `${n} MIND credits per week included`,
+		mindOnce: (n) => `${n} MIND credits — for early-bird testing`,
 		bundleNote: (idName, price) =>
 			`+ ${idName} (${price} € one-time) if you have not secured your name yet — not included in the monthly price.`,
 		os: {

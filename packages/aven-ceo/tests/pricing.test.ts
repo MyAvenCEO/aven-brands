@@ -21,14 +21,14 @@ import {
  */
 
 describe('the catalogue', () => {
-	test('sells exactly two things: avenNAME once, avenCEO monthly', () => {
+	test('sells exactly two things: avenNAME once, avenCEO weekly', () => {
 		expect(plan('aven-name').name).toBe('avenNAME')
 		expect(plan('aven-name').eurPrice).toBe(25)
 		expect(plan('aven-name').billing).toBe('once')
 
 		expect(plan('aven-ceo').name).toBe('avenCEO')
-		expect(plan('aven-ceo').eurPrice).toBe(385)
-		expect(plan('aven-ceo').billing).toBe('monthly')
+		expect(plan('aven-ceo').eurPrice).toBe(99)
+		expect(plan('aven-ceo').billing).toBe('weekly')
 
 		// avenCOOP is a relationship you apply for, not a product you book.
 		expect(plan('aven-coop').applyOnly).toBe(true)
@@ -81,7 +81,7 @@ describe('how often one account may buy', () => {
 describe('what a buyer reads', () => {
 	test('the one-off never prints a monthly cadence', () => {
 		expect(priceLabel(plan('aven-name'))).toBe('25 € einmalig')
-		expect(priceLabel(plan('aven-ceo'))).toBe('385 €/Monat')
+		expect(priceLabel(plan('aven-ceo'))).toBe('99 €/Woche')
 	})
 
 	test('both languages carry every feature line', () => {
