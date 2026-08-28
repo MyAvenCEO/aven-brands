@@ -70,8 +70,9 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 					<!-- One word, two faces: "aven" in the thin display face, "CEO" in the
 					     heaviest Google Sans Flex, uppercase. -->
 					<span class="text-[length:var(--fs-lead)] tracking-tight"
-						><span class="font-display" style="font-weight: 300">aven</span
-						><span class="font-sans uppercase" style="font-weight: 900">CEO</span></span
+						><span class="font-display" style="font-weight: 300; font-size: 1.5em; line-height: 1"
+							>aven</span
+						><span class="font-sans uppercase" style="font-weight: 800">CEO</span></span
 					>
 				</a>
 				<!-- Social: desktop only — redundant with the footer on phones. -->

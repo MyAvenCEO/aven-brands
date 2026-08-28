@@ -84,30 +84,30 @@ export const home: Record<Lang, HomeMessages> = {
 		shift: {
 			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
-			bodyHtml: `${s('Zeit gegen Geld zu tauschen', 'text-foreground/85')} kollabiert, sobald KI fast jede Arbeit so gut erledigt wie ein Mensch — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')}. Dann bleibt nur noch eine einzige Einkommensquelle.`,
-			question: 'Besitzt du die KI, die die neue Arbeit leistet — oder nicht?',
+			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — zahlt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr aus. Nur, was dir gehört.`,
+			question: 'Besitzt du die KI, die die neue Arbeit macht — oder nicht?',
 			without: {
 				eyebrow: 'Ohne Assets',
 				title: 'Das fremdbestimmte Drehbuch',
 				items: [
-					'Deine Arbeitszeit konkurriert mit dem Preis von Strom.',
+					'Deine Stunden konkurrieren mit dem Strompreis.',
 					'Jedes Gehalt ist ersetzbar — auch deins.',
-					'Deine Daten und dein Alltag gehören den Plattformen anderer.'
+					'Deine Daten liegen auf fremden Plattformen.'
 				],
-				closing: 'Dein Leben läuft nach dem Plan von jemand anderem.'
+				closing: 'Dein Leben läuft nach dem Plan anderer.'
 			},
 			with: {
 				eyebrow: 'Mit deinen Avens',
 				title: 'Das selbstbestimmte Drehbuch',
 				items: [
-					'Deine KI arbeitet rund um die Uhr — für dich, nicht für einen Konzern.',
-					'Was du baust, gehört dir — und jede neue Idee bekommt ihren eigenen Aven.',
-					'Du gestaltest wieder: deine Vision, deine Beziehungen, dein Leben.'
+					'Deine KI arbeitet rund um die Uhr — für dich.',
+					'Was du baust, gehört dir. Jede Idee bekommt ihren Aven.',
+					'Du gestaltest wieder — deine Vision, dein Leben.'
 				],
-				closing: 'Gemeinsam etwas bauen, das dir gehört — das macht glücklich.'
+				closing: 'Du baust etwas Eigenes. Das macht glücklich.'
 			},
-			closingBefore: 'Beide Drehbücher beginnen heute — und du schreibst eines davon sowieso.',
-			closingStrong: 'Nimm den Stift in die Hand.'
+			closingBefore: 'Beide Drehbücher beginnen heute — du schreibst eines davon sowieso.',
+			closingStrong: 'Nimm den Stift.'
 		},
 		company: {
 			eyebrow: 'Die Firma der Zukunft',
@@ -127,19 +127,19 @@ export const home: Record<Lang, HomeMessages> = {
 			lead: 'Ein Aven ist kein Abo, das du mietest. Er ist ein Asset, das arbeitet, lernt und dir gehört. Und es bleibt nicht bei einem.',
 			rungs: [
 				{
-					count: '1',
+					count: 'Dein erster',
 					title: 'avenCEO',
-					text: 'Dein Aven für dein Leben und deine erste Firma — dein Wissen, deine Bücher, deine Vision.'
+					text: 'Führt dein Leben und deine erste Firma — dein Wissen, deine Bücher, deine Vision.'
 				},
 				{
-					count: '1 pro Idee',
-					title: 'Ein avenCEO pro Idee',
-					text: 'Jede weitere Firma, jeder Shop, jedes Projekt bekommt seinen eigenen. Fünf Ideen, fünf Avens.'
+					count: 'Pro Idee',
+					title: 'Je ein Aven',
+					text: 'Neue Firma, neuer Shop, neues Projekt? Jedes bekommt seinen eigenen avenCEO.'
 				},
 				{
-					count: '5, 10, mehr',
-					title: 'Deine eigenen Avens',
-					text: 'Sie arbeiten weiter, während du schläfst — und jedes Jahr, das sie laufen, wissen sie mehr.'
+					count: 'Mit der Zeit',
+					title: 'Ein Vermögen, das wächst',
+					text: 'Sie arbeiten, während du schläfst — und werden jedes Jahr mehr wert.'
 				}
 			],
 			closing:
@@ -194,15 +194,15 @@ export const home: Record<Lang, HomeMessages> = {
 		shift: {
 			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
-			bodyHtml: `${s('Trading time for money', 'text-foreground/85')} collapses as soon as AI does almost any job as well as a human — around the clock, ${s('at the price of electricity', 'text-foreground/85')}. Then only one single source of income remains.`,
-			question: 'Do you own the AI that does the new work — or not?',
+			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity', 'text-foreground/85')} — ${s('trading time for money', 'text-foreground/85')} stops paying. Only what you own will.`,
+			question: 'Do you own the AI doing the new work — or not?',
 			without: {
 				eyebrow: 'Without assets',
 				title: 'The script someone else wrote',
 				items: [
-					'Your working hours compete with the price of electricity.',
+					'Your hours compete with the price of electricity.',
 					'Every salary is replaceable — yours too.',
-					'Your data and your everyday life belong to other people’s platforms.'
+					'Your data lives on someone else’s platform.'
 				],
 				closing: 'Your life runs on somebody else’s plan.'
 			},
@@ -210,13 +210,13 @@ export const home: Record<Lang, HomeMessages> = {
 				eyebrow: 'With your Avens',
 				title: 'The script you write yourself',
 				items: [
-					'Your AI works around the clock — for you, not for a corporation.',
-					'What you build belongs to you — and every new idea gets its own Aven.',
-					'You shape things again: your vision, your relationships, your life.'
+					'Your AI works around the clock — for you.',
+					'What you build is yours. Every idea gets its own Aven.',
+					'You shape it all again — your vision, your life.'
 				],
-				closing: 'Building something together that belongs to you — that is what makes you happy.'
+				closing: 'You build something that’s yours. That’s happiness.'
 			},
-			closingBefore: 'Both scripts begin today — and you are writing one of them either way.',
+			closingBefore: 'Both scripts start today — you’re writing one either way.',
 			closingStrong: 'Pick up the pen.'
 		},
 		company: {
@@ -237,23 +237,23 @@ export const home: Record<Lang, HomeMessages> = {
 			lead: 'An Aven is not a subscription you rent. It is an asset that works, learns and belongs to you. And it does not stay at one.',
 			rungs: [
 				{
-					count: '1',
+					count: 'Your first',
 					title: 'avenCEO',
-					text: 'Your Aven for your life and your first company — your knowledge, your books, your vision.'
+					text: 'Runs your life and your first company — your knowledge, your books, your vision.'
 				},
 				{
-					count: '1 per idea',
-					title: 'One avenCEO per idea',
-					text: 'Every further company, every shop, every project gets its own. Five ideas, five Avens.'
+					count: 'Every idea',
+					title: 'One Aven each',
+					text: 'A new company, shop or project? Each one gets its own avenCEO.'
 				},
 				{
-					count: '5, 10, more',
-					title: 'Your own Avens',
-					text: 'They keep working while you sleep — and every year they run, they know more.'
+					count: 'Over time',
+					title: 'A fleet that compounds',
+					text: 'They work while you sleep — and grow more valuable every year.'
 				}
 			],
 			closing:
-				'Your hour is not the asset. Your Avens are — and they belong to you, not to a platform.'
+				'Your hour is not the asset. Your Avens are — and they belong to you, not a platform.'
 		},
 		founders: {
 			eyebrow: 'The first avenCEO',

@@ -51,7 +51,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		<div id="home-hero-content" class="mx-auto max-w-3xl text-center">
 			<h1
 				id="home-hero-heading"
-				class="mx-auto max-w-3xl text-[clamp(2rem,6vw,3.25rem)] font-light leading-tight tracking-tight text-pretty"
+				class="mx-auto max-w-3xl text-[clamp(2rem,6.5vw,4rem)] font-light leading-tight tracking-tight text-pretty"
 			>
 				{t.hero.headingLine1}
 				<span class="mt-1 block">{t.hero.headingLine2}</span>
@@ -197,21 +197,21 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- The thesis: the company of the future, named. A dark marine spread —
-	     the page's turning point set against the light sections around it. -->
+	<!-- The thesis: the company of the future, named. A paradise-blue spread —
+	     the page's turning point, set against the light sections around it. -->
 	<section
-		class="bg-primary px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
+		class="bg-success px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
 		<div class="mx-auto max-w-3xl text-center">
 			<p
-				class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-success"
+				class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-primary-foreground/75"
 			>
 				{t.company.eyebrow}
 			</p>
 			<h2
 				id="company-heading"
-				class="mt-5 text-[clamp(2rem,6vw,3.25rem)] font-light leading-tight tracking-tight text-primary-foreground"
+				class="mt-5 text-[clamp(2rem,6.5vw,4rem)] font-light leading-tight tracking-tight text-primary-foreground"
 			>
 				{t.company.heading}
 			</h2>
