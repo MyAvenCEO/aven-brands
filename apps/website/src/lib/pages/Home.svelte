@@ -288,35 +288,35 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<section
-		class="border-b border-border/12 bg-linear-to-b from-surface-soft/25 to-transparent px-5 py-9 sm:px-8 sm:py-11"
-		id="founders"
-	>
-		<div class="mx-auto max-w-5xl">
-			<header class="mx-auto max-w-2xl text-center">
-				<p class="eyebrow-accent">
+	<!-- Founders as a 50/50 magazine split: the avenCEO speaks from a turquoise
+	     panel on the left, the human + AI team stands on the light right. -->
+	<section id="founders" class="grid items-stretch lg:grid-cols-2">
+		<div
+			class="flex items-center bg-success px-5 py-16 text-primary-foreground sm:px-8 sm:py-20 lg:px-14 lg:py-28"
+		>
+			<div class="mx-auto w-full max-w-xl lg:mr-0 lg:ml-auto lg:max-w-md">
+				<p
+					class="text-[length:var(--fs-body)] font-semibold uppercase tracking-[var(--tracking-wider)] text-primary-foreground/70"
+				>
 					{t.founders.eyebrow}
 				</p>
 				<h2
-					class="mt-2 text-[clamp(1.5rem,4vw,2.15rem)] font-light leading-tight tracking-tight text-foreground/90"
+					class="mt-3 text-[clamp(1.75rem,4.5vw,2.75rem)] font-light leading-tight tracking-tight text-primary-foreground"
 				>
 					{t.founders.heading}
 				</h2>
-				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-body)] leading-relaxed text-foreground/65 sm:max-w-2xl sm:text-[length:var(--fs-title)] sm:leading-[1.52]"
+				<div
+					id="founders-prose"
+					class="mt-5 space-y-3 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/75 sm:text-base"
 				>
-					{@html t.founders.introHtml}
-				</p>
-				<p
-					class="mx-auto mt-3 max-w-xl text-[length:var(--fs-body)] leading-relaxed text-foreground/65 sm:max-w-2xl sm:text-[length:var(--fs-title)] sm:leading-[1.52]"
-				>
-					{@html t.founders.teamHtml}
-				</p>
-			</header>
+					<p>{@html t.founders.introHtml}</p>
+					<p>{@html t.founders.teamHtml}</p>
+				</div>
+			</div>
+		</div>
 
-			<div
-				class="mx-auto mt-8 max-w-3xl rounded-2xl border border-foreground/8 bg-surface-raised px-4 py-5 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-6 sm:py-6"
-			>
+		<div class="flex items-center bg-surface-cream px-5 py-16 sm:px-8 sm:py-20 lg:px-14">
+			<div class="mx-auto w-full max-w-md">
 				<div
 					class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1.2fr)] items-stretch gap-x-2 sm:gap-x-4"
 				>
@@ -486,7 +486,8 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 /* The company thesis sits on marine, but its emphasised words are authored
    with the light-page tone (text-foreground) — lift them so they read on the
    dark spread. Keyed off the id so the strict utility plugin ignores it. */
-#company-prose :global(strong) {
+#company-prose :global(strong),
+#founders-prose :global(strong) {
 	color: var(--color-primary-foreground);
 	font-weight: 500;
 }
