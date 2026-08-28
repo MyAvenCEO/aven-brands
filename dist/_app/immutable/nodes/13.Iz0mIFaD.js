@@ -1,0 +1,1 @@
+import"../chunks/UMgtT-7i.js";import"../chunks/xihTtKlq.js";import{t as e}from"../chunks/Wa4WVTaI.js";function t(t){e(t,{lang:`de`})}export{t as component};

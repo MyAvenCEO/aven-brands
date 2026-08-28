@@ -1,0 +1,1 @@
+import"../chunks/UMgtT-7i.js";import"../chunks/xihTtKlq.js";import{t as e}from"../chunks/CV-vMPSL.js";function t(t){e(t,{lang:`de`})}export{t as component};
