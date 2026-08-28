@@ -20,8 +20,9 @@ export type HomeMessages = {
 		/** The vehicle, as an aside — the Aven is how you get there. */
 		helper: string
 	}
-	/** The trust band under the hero: two absolutes on the marine-blue brand bar. */
-	trust: { encrypted: string; ownership: string }
+	/** The proposition band under the hero: the one-line claim (with an accent
+	 * span) and the three 100 % absolutes it rests on. */
+	trust: { headlineHtml: string; claims: string[] }
 	shift: {
 		eyebrow: string
 		heading: string
@@ -73,12 +74,12 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'KI betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
-			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum<br>${s('souveränen Leben', 'text-accent')} von morgen.`,
+			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen Gründer', 'text-accent')}leben von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
-			encrypted: '100 % Ende‑zu‑Ende verschlüsselte KI',
-			ownership: '100 % Eigentum an deinen Daten'
+			headlineHtml: `avenCEO ist der weltweit erste ${s('agentische Co‑Founder', 'text-accent')}.`,
+			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum']
 		},
 		shift: {
 			eyebrow: 'Warum jetzt',
@@ -183,12 +184,12 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'AI runs your company,',
 			headingLine2: 'you lead the vision.',
-			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to<br>${s('sovereign life', 'text-accent')} of tomorrow.`,
+			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign founder', 'text-accent')} life of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
-			encrypted: '100 % end‑to‑end encrypted AI',
-			ownership: '100 % ownership of your data'
+			headlineHtml: `avenCEO is the world’s first ${s('agentic co‑founder', 'text-accent')}.`,
+			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership']
 		},
 		shift: {
 			eyebrow: 'Why now',
