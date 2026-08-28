@@ -77,6 +77,24 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
+	<!-- Trust band: two absolutes on the marine-blue brand bar, full width and
+	     compact — the promise stated plainly before any pitch begins. -->
+	<section class="bg-primary px-5 py-4 text-center sm:px-8 sm:py-5" aria-label={t.trust.encrypted}>
+		<div
+			class="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-primary-foreground"
+		>
+			<span
+				class="text-[length:var(--fs-section)] font-semibold tracking-tight sm:text-[length:var(--fs-title)]"
+				>{t.trust.encrypted}</span
+			>
+			<span aria-hidden="true" class="text-primary-foreground/40">·</span>
+			<span
+				class="text-[length:var(--fs-section)] font-semibold tracking-tight sm:text-[length:var(--fs-title)]"
+				>{t.trust.ownership}</span
+			>
+		</div>
+	</section>
+
 	<!-- The shift: the FOMO that is simply true — post-AGI touches everyone. -->
 	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="shift-heading">
 		<div class="mx-auto max-w-4xl">
