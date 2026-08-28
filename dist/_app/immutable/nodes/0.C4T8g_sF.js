@@ -1,0 +1,1 @@
+import{C as e,T as t,U as n,_ as r,nt as i,p as a,w as o}from"../chunks/UMgtT-7i.js";import"../chunks/xihTtKlq.js";var s=i({prerender:()=>!0,trailingSlash:()=>c}),c=`always`,l=t(`<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>`);function u(t,i){var s=o();a(`12qhfyh`,t=>{var n=l();e(t,n)});var c=n(s);r(c,()=>i.children),e(t,s)}export{u as component,s as universal};
