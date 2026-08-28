@@ -36,7 +36,7 @@ export const TONES = {
 	earth: '#d4a373', // warm amber-tan — notice
 	sand: '#f3e7c6', // cream yellow — the warm fill
 	chalk: '#f8fafc', // near-white — text on a dark tone
-	ink: '#1f2a3d' // dark slate-blue — body copy, never pure black
+	ink: '#182a47' // very dark marine blue — body copy, never pure black
 } as const
 
 /**

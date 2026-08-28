@@ -74,7 +74,7 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'KI betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
-			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründerleben von morgen.`,
+			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
@@ -184,7 +184,7 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'AI runs your company,',
 			headingLine2: 'you lead the vision.',
-			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder life of tomorrow.`,
+			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {

@@ -115,9 +115,13 @@ const wrapperClass = $derived(
 				</span>
 			</p>
 		</div>
+		<!-- One field, read as one address: the name types RIGHT-aligned so it
+		     sits flush against the fixed ".aven.ceo" suffix — a divided,
+		     non-editable segment at the SAME size. Field and button share one
+		     height (h-16) so they line up exactly on desktop. -->
 		<div class="flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
 			<label
-				class="flex min-h-16 flex-1 items-center gap-2 rounded-full border border-accent/25 bg-surface-cream px-6 text-left shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
+				class="flex h-16 flex-1 items-stretch overflow-hidden rounded-full border border-accent/25 bg-surface-cream text-left shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
 			>
 				<input
 					bind:value={name}
@@ -126,16 +130,17 @@ const wrapperClass = $derived(
 					autocomplete="off"
 					spellcheck="false"
 					placeholder={t.placeholder}
-					class="min-w-0 flex-1 bg-transparent py-3 text-[length:var(--fs-amount)] font-semibold tracking-tight text-foreground outline-none placeholder:text-foreground/35"
+					class="min-w-0 flex-1 bg-transparent pl-6 pr-2 text-right text-[length:var(--fs-hero)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
 				>
-				<span class="shrink-0 text-[length:var(--fs-title)] font-medium text-foreground/55"
+				<span
+					class="flex shrink-0 select-none items-center border-l border-accent/20 bg-surface-soft/60 px-5 text-[length:var(--fs-hero)] font-medium text-foreground/45"
 					>.aven.ceo</span
 				>
 			</label>
 			<button
 				type="submit"
 				disabled={!slug}
-				class="inline-flex min-h-16 shrink-0 items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-title)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
+				class="inline-flex h-16 shrink-0 items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-title)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
 			>
 				{t.button}
 			</button>

@@ -67,7 +67,12 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 			<div class="flex items-center gap-4">
 				<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
 					<img src="/aven-logo.svg" alt="" class="size-7 shrink-0" width="28" height="28">
-					<span class="text-[length:var(--fs-lead)] font-semibold tracking-tight">avenCEO</span>
+					<!-- One word, two faces: "aven" in the thin display face, "CEO" in the
+					     heaviest Google Sans Flex, uppercase. -->
+					<span class="text-[length:var(--fs-lead)] tracking-tight"
+						><span class="font-display" style="font-weight: 300">aven</span
+						><span class="font-sans uppercase" style="font-weight: 900">CEO</span></span
+					>
 				</a>
 				<!-- Social: desktop only — redundant with the footer on phones. -->
 				<span
