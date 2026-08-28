@@ -32,11 +32,11 @@ export const TONES = {
 	'paradise-water': '#449c94', // turquoise — the bright note; settled work
 	/* Row two — the warm half: the signals. */
 	terracotta: '#c15b40', // burnt orange — the failure tone
-	sunflower: '#d2a24a', // clean gold — the brand's highlight
+	sunflower: '#f2ba3d', // bright, radiant brand yellow — the brand's highlight
 	earth: '#d4a373', // warm amber-tan — notice
 	sand: '#f3e7c6', // cream yellow — the warm fill
 	chalk: '#f8fafc', // near-white — text on a dark tone
-	ink: '#1f2a3d' // dark slate-blue — body copy, never pure black
+	ink: '#182a47' // very dark marine blue — body copy, never pure black
 } as const
 
 /**
@@ -206,17 +206,20 @@ export const APP_ROLES: Record<string, string> = {
 /* ══ 4 · TYPE, RADII, SPACING ══════════════════════════════════════════════ */
 
 /**
- * Inter is the single typeface across body, UI, titles and badges — one family,
- * differentiated purely by weight and size. `--font-display`, `--font-serif`
- * and `--font-mono` stay SEPARATE tokens so a dedicated face can be brought
- * back by editing one line, without touching a single component.
+ * The site self-hosts two faces: `Google Sans Flex` carries body, UI and
+ * badges, and `FogtwoNo5` is the dedicated display face for titles. Both are
+ * served locally (no remote font CDN). `--font-display` is its own token so
+ * the title face can move in one line; `--font-serif`/`--font-mono` inherit
+ * the body stack until a brand brings a dedicated face back.
  *
- * `app` and `web` differ only in the family name: the app self-hosts the
- * variable font as `InterVariable`, the site pulls `Inter` from Google Fonts.
+ * `app` keeps the self-hosted `InterVariable` (avenOS); only the `web` surface
+ * moved to Google Sans Flex. `display` is shared across surfaces — its stack
+ * falls back through Google Sans Flex → Inter for any surface without the file.
  */
 export const FONT_STACK = {
 	app: '"InterVariable", ui-sans-serif, system-ui, -apple-system, sans-serif',
-	web: '"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif'
+	web: '"Google Sans Flex", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif',
+	display: '"FogtwoNo5", "Google Sans Flex", "Inter", ui-sans-serif, system-ui, sans-serif'
 } as const
 
 export const FONT_WEIGHTS: Record<string, string> = {

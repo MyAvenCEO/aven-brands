@@ -4,7 +4,7 @@ import type { Lang } from './index'
 export const common: Record<
 	Lang,
 	{
-		nav: { skills: string; avens: string; pricing: string; cta: string }
+		nav: { skills: string; avens: string; pricing: string; cta: string; menu: string }
 		switchLabel: string
 		footer: {
 			tagline: string
@@ -46,7 +46,13 @@ export const common: Record<
 	}
 > = {
 	de: {
-		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Preise', cta: 'Namen sichern' },
+		nav: {
+			skills: 'Skills',
+			avens: 'Marketplace',
+			pricing: 'Preise',
+			cta: 'Aven einstellen',
+			menu: 'Menü'
+		},
 		switchLabel: 'Sprache',
 		footer: {
 			tagline: 'Deine eigene KI, deine eigene Firma — und das, was du damit baust, gehört dir.',
@@ -64,8 +70,8 @@ export const common: Record<
 			}
 		},
 		idCta: {
-			eyebrow: 'Warteliste · Invite only',
-			title: 'Sichere dir deinen avenCEO‑Namen',
+			eyebrow: 'Invite only',
+			title: 'Sichere dir jetzt deinen avenCEO‑Namen',
 			bodyHtml:
 				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
 			betaLine: (pct, months) => `+ ${pct} % Rabatt auf die ersten ${months} Monate avenCEO`,
@@ -86,7 +92,13 @@ export const common: Record<
 		}
 	},
 	en: {
-		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Pricing', cta: 'Claim your name' },
+		nav: {
+			skills: 'Skills',
+			avens: 'Marketplace',
+			pricing: 'Pricing',
+			cta: 'Hire your Aven',
+			menu: 'Menu'
+		},
 		switchLabel: 'Language',
 		footer: {
 			tagline: 'Your own AI, your own company — and what you build with it belongs to you.',
@@ -104,8 +116,8 @@ export const common: Record<
 			}
 		},
 		idCta: {
-			eyebrow: 'Waiting list · Invite only',
-			title: 'Claim your avenCEO name',
+			eyebrow: 'Invite only',
+			title: 'Claim your avenCEO name now',
 			bodyHtml:
 				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
 			betaLine: (pct, months) => `+ ${pct} % off your first ${months} months of avenCEO`,

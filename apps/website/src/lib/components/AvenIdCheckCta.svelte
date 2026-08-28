@@ -48,7 +48,7 @@ const wrapperClass = $derived(
 
 <form
 	onsubmit={submit}
-	class="{wrapperClass} {centered ? 'text-center' : ''}"
+	class="{wrapperClass} overflow-hidden {centered ? 'text-center' : ''}"
 	aria-label={t.formLabel}
 >
 	<p class="eyebrow-accent">
@@ -94,17 +94,6 @@ const wrapperClass = $derived(
 	<!-- The action block, full card width: the voucher hook, the €25 price as
 	     prominently as avenCEO's price, then the name check on one line. -->
 	<div class="mt-7 space-y-4">
-		{#if ceoBeta}
-			<div class="mx-auto max-w-sm rounded-xl bg-offer/25 px-4 py-3 text-center">
-				<p class="font-bold leading-snug text-foreground/90">
-					{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
-				</p>
-				<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/55">
-					{t.betaScarcity}
-				</p>
-			</div>
-		{/if}
-		<div class="border-t border-border/25"></div>
 		<div class="rounded-2xl border border-border/25 bg-surface-card px-5 py-4 text-center">
 			<p class="flex flex-wrap items-baseline justify-center gap-x-2">
 				<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground">
@@ -115,9 +104,13 @@ const wrapperClass = $derived(
 				</span>
 			</p>
 		</div>
+		<!-- One field, read as one address: the name types RIGHT-aligned so it
+		     sits flush against the fixed ".aven.ceo" suffix — a divided,
+		     non-editable segment at the SAME size. Field and button share one
+		     height (h-16) so they line up exactly on desktop. -->
 		<div class="flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
 			<label
-				class="flex min-h-16 flex-1 items-center gap-2 rounded-full border border-accent/25 bg-surface-cream px-6 text-left shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
+				class="flex h-16 flex-1 items-stretch overflow-hidden rounded-full border border-accent/25 bg-surface-cream text-left shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
 			>
 				<input
 					bind:value={name}
@@ -126,19 +119,34 @@ const wrapperClass = $derived(
 					autocomplete="off"
 					spellcheck="false"
 					placeholder={t.placeholder}
-					class="min-w-0 flex-1 bg-transparent py-3 text-[length:var(--fs-amount)] font-semibold tracking-tight text-foreground outline-none placeholder:text-foreground/35"
+					class="min-w-0 flex-1 bg-transparent pl-6 pr-2 text-right text-[length:var(--fs-hero)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
 				>
-				<span class="shrink-0 text-[length:var(--fs-title)] font-medium text-foreground/55"
+				<span
+					class="flex shrink-0 select-none items-center border-l border-accent/20 bg-surface-soft/60 px-5 text-[length:var(--fs-hero)] font-medium text-foreground/45"
 					>.aven.ceo</span
 				>
 			</label>
 			<button
 				type="submit"
 				disabled={!slug}
-				class="inline-flex min-h-16 shrink-0 items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-title)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
+				class="inline-flex h-16 shrink-0 items-center justify-center rounded-full bg-primary px-8 text-[length:var(--fs-title)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-40"
 			>
 				{t.button}
 			</button>
 		</div>
 	</div>
+
+	<!-- The early-adopter perk as a full-width footer bar clipped to the card's
+	     rounded corners: negative margins cancel the card padding, overflow-hidden
+	     on the form rounds it off. -->
+	{#if ceoBeta}
+		<div class="-mx-5 -mb-9 mt-8 bg-accent px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10">
+			<p class="font-bold leading-snug text-foreground/90">
+				{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
+			</p>
+			<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/60">
+				{t.betaScarcity}
+			</p>
+		</div>
+	{/if}
 </form>
