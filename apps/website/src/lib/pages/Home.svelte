@@ -27,7 +27,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 <!-- All {@html} below renders our own static copy from $lib/i18n/home.ts — never user content. -->
 <div {lang} class="app-shell">
-	<MarketingSiteHeader {lang} />
+	<MarketingSiteHeader {lang} overlay />
 
 	<!-- Full-bleed video banner: the 4K first frame is the poster, so a crisp
 	     still is on screen the instant the page paints; the muted 720p loop
@@ -88,16 +88,18 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{@html t.trust.headlineHtml}
 			</p>
 			<ul
-				class="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-x-10 sm:gap-y-3"
+				class="mt-5 grid grid-cols-3 items-start gap-x-3 sm:mt-8 sm:flex sm:flex-row sm:items-baseline sm:justify-center sm:gap-x-10"
 			>
 				{#each t.trust.claims as claim (claim)}
-					<li class="flex items-baseline gap-2">
+					<li
+						class="flex flex-col items-center gap-0.5 text-center sm:flex-row sm:items-baseline sm:gap-2"
+					>
 						<span
-							class="text-[length:var(--fs-title)] font-bold tabular-nums text-accent sm:text-[length:var(--fs-lead)]"
+							class="text-[length:var(--fs-body)] font-bold tabular-nums text-accent sm:text-[length:var(--fs-lead)]"
 							>100 %</span
 						>
 						<span
-							class="text-[length:var(--fs-title)] font-medium text-primary-foreground/85 sm:text-[length:var(--fs-lead)]"
+							class="text-[length:var(--fs-meta)] font-medium leading-tight text-primary-foreground/85 sm:text-[length:var(--fs-lead)] sm:leading-snug"
 							>{claim}</span
 						>
 					</li>

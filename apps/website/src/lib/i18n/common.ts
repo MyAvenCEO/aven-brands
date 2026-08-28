@@ -4,7 +4,7 @@ import type { Lang } from './index'
 export const common: Record<
 	Lang,
 	{
-		nav: { skills: string; avens: string; pricing: string; cta: string }
+		nav: { skills: string; avens: string; pricing: string; cta: string; menu: string }
 		switchLabel: string
 		footer: {
 			tagline: string
@@ -46,7 +46,13 @@ export const common: Record<
 	}
 > = {
 	de: {
-		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Preise', cta: 'Namen sichern' },
+		nav: {
+			skills: 'Skills',
+			avens: 'Avens',
+			pricing: 'Preise',
+			cta: 'Jetzt Namen sichern',
+			menu: 'Menü'
+		},
 		switchLabel: 'Sprache',
 		footer: {
 			tagline: 'Deine eigene KI, deine eigene Firma — und das, was du damit baust, gehört dir.',
@@ -86,7 +92,13 @@ export const common: Record<
 		}
 	},
 	en: {
-		nav: { skills: 'Skills', avens: 'Avens', pricing: 'Pricing', cta: 'Claim your name' },
+		nav: {
+			skills: 'Skills',
+			avens: 'Avens',
+			pricing: 'Pricing',
+			cta: 'Secure your name now',
+			menu: 'Menu'
+		},
 		switchLabel: 'Language',
 		footer: {
 			tagline: 'Your own AI, your own company — and what you build with it belongs to you.',

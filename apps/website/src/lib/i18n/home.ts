@@ -74,11 +74,11 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'KI betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
-			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen Gründer', 'text-accent')}leben von morgen.`,
+			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründerleben von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
-			headlineHtml: `avenCEO ist der weltweit erste ${s('agentische Co‑Founder', 'text-accent')}.`,
+			headlineHtml: 'avenCEO ist der weltweit erste agentische Co‑Founder.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum']
 		},
 		shift: {
@@ -184,11 +184,11 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'AI runs your company,',
 			headingLine2: 'you lead the vision.',
-			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign founder', 'text-accent')} life of tomorrow.`,
+			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder life of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
-			headlineHtml: `avenCEO is the world’s first ${s('agentic co‑founder', 'text-accent')}.`,
+			headlineHtml: 'avenCEO is the world’s first agentic co‑founder.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership']
 		},
 		shift: {
