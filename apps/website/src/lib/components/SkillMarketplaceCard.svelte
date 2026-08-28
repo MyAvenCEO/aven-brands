@@ -75,7 +75,8 @@ const cardClass = $derived.by(() =>
 
 	<div class="mt-5 flex items-center justify-between border-t border-border/10 pt-4">
 		<span
-			class="inline-flex items-center rounded-full bg-secondary px-2.5 py-1 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wide)] text-foreground/70"
+			style="background-color: color-mix(in oklab, var(--color-tidal-blue) 12%, transparent); color: var(--color-tidal-blue)"
+			class="inline-flex items-center rounded-full px-2.5 py-1 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wide)]"
 		>
 			{skill.hero.promiseHoursPerWeek}
 			{t.saved}

@@ -6,10 +6,10 @@ import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import SkillMarketplaceCard from '$lib/components/SkillMarketplaceCard.svelte'
 import { type Lang, localeHref, pick } from '$lib/i18n'
-import { localizedPlan, priceLabel, vatNote } from '$lib/i18n/plans'
+import { localizedPlan, priceLabel } from '$lib/i18n/plans'
 import { skills as messages } from '$lib/i18n/skills'
 import { PLANS, type PlanId, planIncludes } from '$lib/pricing/plans'
-import { loadSkills, loadSkillsByPlan, skillDetailHref, skillsIncludedIn } from '$lib/skills/loader'
+import { loadSkills, loadSkillsByPlan, skillDetailHref } from '$lib/skills/loader'
 
 let { lang }: { lang: Lang } = $props()
 
@@ -28,7 +28,7 @@ const byPlan = $derived(loadSkillsByPlan(lang))
 const fromQuery = $derived(browser ? (page.url.searchParams.get('plan') as PlanId | null) : null)
 let picked = $state<PlanId | null>(null)
 const selected = $derived<PlanId>(
-	picked ?? (fromQuery && PLANS.some((p) => p.id === fromQuery) ? fromQuery : 'aven-ceo')
+	fromQuery && PLANS.some((p) => p.id === fromQuery) ? fromQuery : 'aven-ceo'
 )
 
 const visibleSkills = $derived(skills.filter((s) => planIncludes(selected, s.plan)))
@@ -77,81 +77,8 @@ const chainSteps = $derived(t.chain.steps)
 
 	<!-- Marketplace: sidebar + featured + catalog -->
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
-		<div class="mx-auto flex max-w-6xl flex-col gap-10 lg:flex-row lg:gap-12">
-			<!-- Filters -->
-			<aside class="lg:w-56 lg:shrink-0">
-				<p class="eyebrow-quiet">
-					{t.filter.label}
-				</p>
-				<p
-					class="mt-2 text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground/50"
-				>
-					{t.filter.includedIn}
-				</p>
-				<p class="mt-1 text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50">
-					{t.filter.explainer}
-				</p>
-				<!-- Only plans that actually carry skills: avenNAME sat here forever
-				     showing an empty catalogue, which is a filter that can only
-				     disappoint. -->
-				<div class="mt-4 space-y-2">
-					{#each PLANS.filter((pl) => skillsIncludedIn(pl.id, lang).length > 0) as p (p.id)}
-						{@const included = planIncludes(selected, p.id)}
-						{@const isSelected = selected === p.id}
-						<button
-							type="button"
-							onclick={() => {
-								picked = p.id
-							}}
-							class="flex w-full items-start gap-3 rounded-xl border p-3 text-left ring-1 transition-colors {isSelected
-								? 'border-accent/25 bg-accent/15 ring-accent/25'
-								: included
-									? 'border-border/25 bg-surface-raised hover:bg-surface-soft'
-									: 'border-border/25 bg-surface-card opacity-55 hover:opacity-85'}"
-						>
-							<span
-								class="mt-1 size-3.5 shrink-0 rounded-full border {included
-									? 'border-accent bg-accent'
-									: 'border-foreground/25'}"
-								aria-hidden="true"
-							></span>
-							<span class="min-w-0 flex-1">
-								<span class="flex items-baseline justify-between gap-2">
-									<span
-										class="text-[length:var(--fs-meta)] font-bold tracking-[var(--tracking-wide)] text-foreground/80"
-									>
-										{p.name}
-									</span>
-									<span
-										class="shrink-0 text-[length:var(--fs-eyebrow)] font-semibold tabular-nums text-foreground/50"
-									>
-										{priceLabel(p, lang)}
-									</span>
-								</span>
-								<span
-									class="mt-0.5 block text-[length:var(--fs-micro)] leading-snug text-foreground/50"
-								>
-									{localizedPlan(p, lang).role}
-								</span>
-							</span>
-						</button>
-					{/each}
-				</div>
-				<p class="mt-3 text-[length:var(--fs-micro)] leading-snug text-foreground/35">
-					{vatNote(lang)}
-				</p>
-				<p class="mt-3 text-[length:var(--fs-micro)] font-semibold tabular-nums text-foreground/35">
-					{t.filter.count(visibleSkills.length, skills.length)}
-				</p>
-				<a
-					href={localeHref(lang, '/pricing')}
-					class="mt-3 inline-flex text-[length:var(--fs-eyebrow)] font-semibold text-foreground/50 underline underline-offset-4 hover:text-foreground/80"
-				>
-					{t.filter.compare}
-				</a>
-			</aside>
-
-			<div class="min-w-0 flex-1 space-y-12">
+		<div class="mx-auto max-w-5xl">
+			<div class="space-y-12">
 				{#if visibleByPlan.length > 1}
 					<p
 						class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-[length:var(--fs-body)] leading-snug text-foreground/80"
