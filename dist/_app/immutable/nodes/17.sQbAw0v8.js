@@ -1,0 +1,1 @@
+import"../chunks/UMgtT-7i.js";import"../chunks/xihTtKlq.js";import{l as e}from"../chunks/DQC7FMim.js";import{t}from"../chunks/BoIySluA.js";function n(n){t(n,{get doc(){return e}})}export{n as component};
