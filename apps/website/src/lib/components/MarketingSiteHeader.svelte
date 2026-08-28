@@ -62,7 +62,7 @@ const headerClass = $derived(
  * utilities aren't emitted from a dynamic class string, so pin them here. */
 const headerStyle = $derived(
 	solid
-		? 'background-color: color-mix(in oklab, var(--color-background) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border);'
+		? 'background-color: color-mix(in oklab, var(--color-background) 30%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);'
 		: ''
 )
 

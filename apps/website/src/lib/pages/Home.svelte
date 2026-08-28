@@ -128,11 +128,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 			</div>
 
-			<!-- The question, big, in the display face. -->
+			<!-- The question as a pull-quote: big display type, one word lit in the
+			     brand yellow for magazine contrast. -->
 			<p
 				class="mx-auto mt-9 max-w-3xl text-center font-display text-[clamp(1.5rem,4.2vw,2.5rem)] font-medium leading-tight tracking-tight text-foreground"
 			>
-				{t.shift.question}
+				{@html t.shift.question}
 			</p>
 
 			<div class="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-0">
@@ -163,7 +164,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</p>
 				</div>
 				<!-- The new script: full colour, accent marks — the life you write. -->
-				<div class="border-t border-border/20 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
+				<div class="border-t border-border/10 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
 						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
 					>
@@ -191,10 +192,14 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</div>
 
 			<p
-				class="mx-auto mt-14 max-w-2xl text-center text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]"
+				class="mx-auto mt-16 max-w-2xl text-center text-[length:var(--fs-title)] font-light leading-snug tracking-tight text-foreground/60 sm:text-[length:var(--fs-lead)]"
 			>
 				{t.shift.closingBefore}
-				<strong class="font-sans font-medium text-accent">{t.shift.closingStrong}</strong>
+			</p>
+			<p
+				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight text-accent"
+			>
+				{t.shift.closingStrong}
 			</p>
 		</div>
 	</section>
@@ -229,7 +234,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{/each}
 			</div>
 			<p
-				class="mx-auto mt-9 max-w-xl border-t border-primary-foreground/15 pt-7 text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
+				class="mx-auto mt-9 max-w-xl border-t border-primary-foreground/12 pt-7 text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
 			>
 				{t.company.closingLine1}
 				<span class="mt-2 block">
@@ -415,7 +420,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</div>
 				</div>
 				<p
-					class="mt-4 border-t border-border/12 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
+					class="mt-4 border-t border-border/8 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
 				>
 					{t.founders.sum}
 				</p>
@@ -460,7 +465,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<section class="border-b border-border/12 px-5 py-14 sm:px-8 sm:py-16">
+	<section class="border-b border-border/8 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
 			<div class="pb-6 text-center">
 				<p class="eyebrow-accent">

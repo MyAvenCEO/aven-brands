@@ -85,7 +85,8 @@ export const home: Record<Lang, HomeMessages> = {
 			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
 			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — zahlt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr aus. Nur, was dir gehört.`,
-			question: 'Besitzt du die KI, die die neue Arbeit macht — oder nicht?',
+			question:
+				'<span class="text-accent">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
 			without: {
 				eyebrow: 'Ohne Assets',
 				title: 'Das fremdbestimmte Drehbuch',
@@ -122,7 +123,7 @@ export const home: Record<Lang, HomeMessages> = {
 				'<span style="color:var(--color-accent)">dein</span> eigener <span style="color:var(--color-accent)">avenCEO</span>'
 		},
 		own: {
-			eyebrow: 'Dein Vermögen · Besitzen statt mieten',
+			eyebrow: 'Besitzen statt mieten',
 			headingLine1: 'Am Ende besitzt du nicht einen Aven.',
 			headingLine2: 'Sondern einen für jede Idee, die du hast.',
 			lead: 'Ein Aven ist kein Abo, das du mietest. Er ist ein Asset, das arbeitet, lernt und dir gehört. Und es bleibt nicht bei einem.',
@@ -196,7 +197,7 @@ export const home: Record<Lang, HomeMessages> = {
 			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
 			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity', 'text-foreground/85')} — ${s('trading time for money', 'text-foreground/85')} stops paying. Only what you own will.`,
-			question: 'Do you own the AI doing the new work — or not?',
+			question: 'Do you <span class="text-accent">own</span> the AI doing the new work — or not?',
 			without: {
 				eyebrow: 'Without assets',
 				title: 'The script someone else wrote',
@@ -233,7 +234,7 @@ export const home: Record<Lang, HomeMessages> = {
 				'<span style="color:var(--color-accent)">your</span> own <span style="color:var(--color-accent)">avenCEO</span>'
 		},
 		own: {
-			eyebrow: 'Your assets · Own it, don’t rent it',
+			eyebrow: 'Own it, don’t rent it',
 			headingLine1: 'In the end you do not own one Aven.',
 			headingLine2: 'You own one for every idea you have.',
 			lead: 'An Aven is not a subscription you rent. It is an asset that works, learns and belongs to you. And it does not stay at one.',

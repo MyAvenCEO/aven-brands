@@ -35,7 +35,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<MarketingSiteHeader active="skills" {lang} />
 
 	<!-- 1. WHY — Daniel scenario -->
-	<section class="border-b border-border/25 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
+	<section class="border-b border-border/10 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
 		<div class="mx-auto max-w-3xl text-center">
 			<p class="eyebrow-accent">
 				{skill.hero.kicker}
@@ -54,7 +54,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			>
 				{skill.hero.headlineMain}
 				<span
-					class="mt-2 block text-[clamp(1.25rem,3.85vw,2.05rem)] font-light leading-[1.08] tracking-tight text-foreground/90"
+					class="mt-3 block font-sans text-[length:var(--fs-title)] font-normal leading-snug tracking-normal text-foreground/65 sm:text-[length:var(--fs-lead)]"
 				>
 					{skill.hero.headlineSerifLead}
 				</span>
@@ -93,7 +93,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 2. WAS DU GEWINNST — benefits first -->
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-white/15 via-white/8 to-transparent px-5 py-14 sm:px-8 sm:py-20"
+		class="border-b border-border/10 bg-linear-to-b from-white/15 via-white/8 to-transparent px-5 py-14 sm:px-8 sm:py-20"
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
@@ -138,7 +138,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</h2>
 			<ol class="mt-10 mx-auto max-w-xl list-none space-y-0 p-0">
 				{#each skill.howSteps as step, i (step)}
-					<li class="border-b border-border/25 py-6 first:border-t first:border-border/25">
+					<li class="border-b border-border/10 py-6 first:border-t first:border-border/25">
 						<div class="flex flex-col items-center gap-2 sm:gap-2.5">
 							<span
 								class="text-[length:var(--fs-eyebrow)] font-bold tabular-nums tracking-[var(--tracking-wide)] text-foreground/35"
@@ -159,7 +159,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 4. WHAT — honest mechanics -->
 	<section
-		class="border-b border-border/25 bg-gradient-to-b from-transparent via-white/15 to-transparent px-5 py-14 sm:px-8 sm:py-20"
+		class="border-b border-border/10 bg-gradient-to-b from-transparent via-white/15 to-transparent px-5 py-14 sm:px-8 sm:py-20"
 	>
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
@@ -200,7 +200,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- 5. PLAYS WELL WITH -->
-	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-16">
+	<section class="border-b border-border/10 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
 				<p class="eyebrow-accent">
@@ -237,7 +237,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 6. VALUE STACK (Hormozi) -->
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-transparent via-white/15 to-transparent px-5 py-14 sm:px-8 sm:py-20"
+		class="border-b border-border/10 bg-linear-to-b from-transparent via-white/15 to-transparent px-5 py-14 sm:px-8 sm:py-20"
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
@@ -327,7 +327,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<!-- 7. BONUSES + GUARANTEE + SCARCITY -->
-	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-16">
+	<section class="border-b border-border/10 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl space-y-6">
 			<div class="rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-6">
 				<p class="eyebrow-quiet">
@@ -357,7 +357,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 	<!-- 8. LETTER FROM AVENOS -->
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-white/15 via-white/8 to-transparent px-5 py-12 sm:px-8 sm:py-16"
+		class="border-b border-border/10 bg-linear-to-b from-white/15 via-white/8 to-transparent px-5 py-12 sm:px-8 sm:py-16"
 	>
 		<div class="mx-auto max-w-2xl">
 			<div

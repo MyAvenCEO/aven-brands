@@ -73,13 +73,13 @@ const cardClass = $derived.by(() =>
 		{/each}
 	</div>
 
-	<div class="mt-5 flex items-center justify-between border-t border-border/25 pt-4">
-		<div>
-			<p class="eyebrow-accent">
-				{skill.hero.promiseHoursPerWeek}
-				{t.saved}
-			</p>
-		</div>
+	<div class="mt-5 flex items-center justify-between border-t border-border/10 pt-4">
+		<span
+			class="inline-flex items-center rounded-full bg-secondary px-2.5 py-1 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wide)] text-foreground/70"
+		>
+			{skill.hero.promiseHoursPerWeek}
+			{t.saved}
+		</span>
 		<span
 			class="text-[length:var(--fs-meta)] font-semibold text-foreground/50 transition-colors group-hover:text-foreground/80"
 		>
