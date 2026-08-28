@@ -107,7 +107,7 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'Du baust etwas Eigenes. Das macht glücklich.'
 			},
 			closingBefore: 'Beide Drehbücher beginnen heute — du schreibst eines davon sowieso.',
-			closingStrong: 'Nimm den Stift.'
+			closingStrong: 'Nimmst du den Stift?'
 		},
 		company: {
 			eyebrow: 'Die Firma der Zukunft',
@@ -118,7 +118,8 @@ export const home: Record<Lang, HomeMessages> = {
 			],
 			closingLine1: 'Jeder Mensch wird Gründer.',
 			closingLine2Before: 'Alles, was du dazu brauchst, ist',
-			closingLine2Strong: 'dein eigener avenCEO'
+			closingLine2Strong:
+				'<span style="color:var(--color-accent)">dein</span> eigener <span style="color:var(--color-accent)">avenCEO</span>'
 		},
 		own: {
 			eyebrow: 'Dein Vermögen · Besitzen statt mieten',
@@ -217,7 +218,7 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'You build something that’s yours. That’s happiness.'
 			},
 			closingBefore: 'Both scripts start today — you’re writing one either way.',
-			closingStrong: 'Pick up the pen.'
+			closingStrong: 'Will you pick up the pen?'
 		},
 		company: {
 			eyebrow: 'The company of the future',
@@ -228,7 +229,8 @@ export const home: Record<Lang, HomeMessages> = {
 			],
 			closingLine1: 'Everyone becomes a founder.',
 			closingLine2Before: 'All you need for it is',
-			closingLine2Strong: 'your own avenCEO'
+			closingLine2Strong:
+				'<span style="color:var(--color-accent)">your</span> own <span style="color:var(--color-accent)">avenCEO</span>'
 		},
 		own: {
 			eyebrow: 'Your assets · Own it, don’t rent it',

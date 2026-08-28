@@ -27,7 +27,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 <!-- All {@html} below renders our own static copy from $lib/i18n/home.ts — never user content. -->
 <div {lang} class="app-shell">
-	<MarketingSiteHeader {lang} overlay />
+	<MarketingSiteHeader maxWidth="6xl" {lang} overlay />
 
 	<!-- Full-bleed video banner: the 4K first frame is the poster, so a crisp
 	     still is on screen the instant the page paints; the muted 720p loop
@@ -59,7 +59,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<div class="mx-auto mt-8 max-w-2xl">
 				<p
 					id="home-hero-lead"
-					class="text-pretty text-[length:var(--fs-hero)] font-normal leading-snug sm:text-[length:var(--fs-display)]"
+					class="text-pretty text-[length:var(--fs-lead)] font-light leading-snug sm:text-[length:var(--fs-amount)]"
 				>
 					{@html t.hero.transformationHtml}
 				</p>
@@ -163,7 +163,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</p>
 				</div>
 				<!-- The new script: full colour, accent marks — the life you write. -->
-				<div class="border-t border-border/40 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
+				<div class="border-t border-border/20 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
 						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
 					>
@@ -234,9 +234,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{t.company.closingLine1}
 				<span class="mt-2 block">
 					{t.company.closingLine2Before}
-					<strong style="color: var(--color-foreground)" class="font-sans font-medium"
-						>{t.company.closingLine2Strong}</strong
-					>.
+					<span class="font-sans font-medium">{@html t.company.closingLine2Strong}</span>.
 				</span>
 			</p>
 		</div>
@@ -291,7 +289,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	</section>
 
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-surface-soft/25 to-transparent px-5 py-9 sm:px-8 sm:py-11"
+		class="border-b border-border/12 bg-linear-to-b from-surface-soft/25 to-transparent px-5 py-9 sm:px-8 sm:py-11"
 		id="founders"
 	>
 		<div class="mx-auto max-w-5xl">
@@ -417,7 +415,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</div>
 				</div>
 				<p
-					class="mt-4 border-t border-border/25 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
+					class="mt-4 border-t border-border/12 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
 				>
 					{t.founders.sum}
 				</p>
@@ -462,7 +460,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16">
+	<section class="border-b border-border/12 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
 			<div class="pb-6 text-center">
 				<p class="eyebrow-accent">

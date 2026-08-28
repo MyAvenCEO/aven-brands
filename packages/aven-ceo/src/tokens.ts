@@ -32,7 +32,7 @@ export const TONES = {
 	'paradise-water': '#449c94', // turquoise — the bright note; settled work
 	/* Row two — the warm half: the signals. */
 	terracotta: '#c15b40', // burnt orange — the failure tone
-	sunflower: '#d2a24a', // clean gold — the brand's highlight
+	sunflower: '#f2ba3d', // bright, radiant brand yellow — the brand's highlight
 	earth: '#d4a373', // warm amber-tan — notice
 	sand: '#f3e7c6', // cream yellow — the warm fill
 	chalk: '#f8fafc', // near-white — text on a dark tone

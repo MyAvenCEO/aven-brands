@@ -26,6 +26,20 @@
 	font-display: swap;
 }
 
+/* Section eyebrows across the site read in brand tidal-blue, a step larger,
+ * and framed in em-dashes ("— WHY NOW —"). Un-layered so it overrides the
+ * generated `.eyebrow-accent` component. */
+.eyebrow-accent {
+	color: var(--color-tidal-blue);
+	font-size: var(--fs-body);
+}
+.eyebrow-accent::before {
+	content: "— ";
+}
+.eyebrow-accent::after {
+	content: " —";
+}
+
 /*
  * THE MARKETING SITE'S THEME.
  *

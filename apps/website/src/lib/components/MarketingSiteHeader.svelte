@@ -29,13 +29,41 @@ const maxW = $derived(maxWidth === '6xl' ? 'max-w-6xl' : 'max-w-5xl')
 /** Open state for the full-screen mobile menu. */
 let menuOpen = $state(false)
 
-/** The bar goes light over the dark video (overlay) AND whenever the menu is
- * open (its glass layer is dark) — otherwise the usual dark-on-cream. */
-const ink = $derived(overlay || menuOpen ? 'text-primary-foreground' : 'text-foreground')
+/** In overlay mode the bar is transparent over the hero video, then solidifies
+ * once you scroll past most of it — so it sticks to the top like the sub-pages
+ * rather than scrolling away. */
+let scrolled = $state(false)
+$effect(() => {
+	if (!overlay) return
+	const onScroll = () => {
+		scrolled = window.scrollY > window.innerHeight * 0.7
+	}
+	onScroll()
+	window.addEventListener('scroll', onScroll, { passive: true })
+	return () => window.removeEventListener('scroll', onScroll)
+})
+
+/** The bar is light while it floats transparent over the video (overlay, not
+ * yet scrolled) or while the dark mobile menu is open — otherwise dark-on-cream. */
+const lightBar = $derived((overlay && !scrolled) || menuOpen)
+const solid = $derived(!overlay || scrolled)
+const ink = $derived(lightBar ? 'text-primary-foreground' : 'text-foreground')
 const socialInk = $derived(
-	overlay
+	lightBar
 		? 'text-primary-foreground/70 transition-colors hover:text-primary-foreground'
 		: 'text-foreground/65 transition-colors hover:text-foreground'
+)
+/** Fixed over the hero video (so the video sits full-bleed behind it), sticky
+ * everywhere else. */
+const headerClass = $derived(
+	`${overlay ? 'fixed' : 'sticky'} inset-x-0 top-0 z-50 transition-colors duration-200`
+)
+/** The solid bar's fill/blur/hairline as inline style — these opacity + blur
+ * utilities aren't emitted from a dynamic class string, so pin them here. */
+const headerStyle = $derived(
+	solid
+		? 'background-color: color-mix(in oklab, var(--color-background) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border);'
+		: ''
 )
 
 /** The nav points, shared by the desktop bar and the full-screen menu. */
@@ -55,11 +83,7 @@ function linkCls(isActive: boolean) {
 const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 </script>
 
-<header
-	class={overlay
-		? 'absolute inset-x-0 top-0 z-50'
-		: 'sticky top-0 z-50 border-b border-border/25 bg-background/25 backdrop-blur-md'}
->
+<header class={headerClass} style={headerStyle}>
 	<div class="relative z-10 mx-auto {maxW} px-5 lg:px-8">
 		<!-- Collapsed bar: logo left; on lg the full nav; on mobile the CTA and a
 		     hamburger that opens the full-screen menu below. -->
