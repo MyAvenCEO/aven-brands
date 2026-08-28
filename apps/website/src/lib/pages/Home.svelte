@@ -59,13 +59,13 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<div class="mx-auto mt-8 max-w-2xl">
 				<p
 					id="home-hero-lead"
-					class="text-pretty text-[length:var(--fs-hero)] font-medium leading-snug sm:text-[length:var(--fs-amount)]"
+					class="text-pretty text-[length:var(--fs-hero)] font-medium leading-snug sm:text-[length:var(--fs-display)]"
 				>
 					{@html t.hero.transformationHtml}
 				</p>
 				<p
 					id="home-hero-helper"
-					class="mt-4 text-[length:var(--fs-section)] leading-snug sm:text-[length:var(--fs-title)]"
+					class="mt-4 text-[length:var(--fs-section)] leading-snug sm:text-[length:var(--fs-lead)]"
 				>
 					{t.hero.helper}
 				</p>
@@ -73,21 +73,36 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- Trust band: two absolutes on the marine-blue brand bar, full width —
-	     the promise stated plainly, right under the hero, before any pitch. -->
-	<section class="bg-primary px-5 py-7 text-center sm:px-8 sm:py-9" aria-label={t.trust.encrypted}>
-		<div
-			class="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-primary-foreground"
-		>
-			<span
-				class="text-[length:var(--fs-title)] font-semibold tracking-tight sm:text-[length:var(--fs-hero)]"
-				>{t.trust.encrypted}</span
+	<!-- Proposition band on the marine-blue brand bar: the one-line claim, then
+	     the three 100 % absolutes it rests on — the promise, right under the
+	     hero, before any pitch begins. -->
+	<section
+		class="bg-primary px-5 py-9 text-center sm:px-8 sm:py-12"
+		aria-labelledby="trust-headline"
+	>
+		<div class="mx-auto max-w-4xl text-primary-foreground">
+			<p
+				id="trust-headline"
+				class="text-[length:var(--fs-hero)] font-semibold tracking-tight text-balance sm:text-[length:var(--fs-amount)]"
 			>
-			<span aria-hidden="true" class="text-accent">·</span>
-			<span
-				class="text-[length:var(--fs-title)] font-semibold tracking-tight sm:text-[length:var(--fs-hero)]"
-				>{t.trust.ownership}</span
+				{@html t.trust.headlineHtml}
+			</p>
+			<ul
+				class="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-x-10 sm:gap-y-3"
 			>
+				{#each t.trust.claims as claim (claim)}
+					<li class="flex items-baseline gap-2">
+						<span
+							class="text-[length:var(--fs-title)] font-bold tabular-nums text-accent sm:text-[length:var(--fs-lead)]"
+							>100 %</span
+						>
+						<span
+							class="text-[length:var(--fs-title)] font-medium text-primary-foreground/85 sm:text-[length:var(--fs-lead)]"
+							>{claim}</span
+						>
+					</li>
+				{/each}
+			</ul>
 		</div>
 	</section>
 
