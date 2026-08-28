@@ -166,7 +166,8 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<!-- The new script: full colour, accent marks — the life you write. -->
 				<div class="border-t border-border/10 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
+						style="color: var(--color-tidal-blue)"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)]"
 					>
 						{t.shift.with.eyebrow}
 					</p>
@@ -178,7 +179,11 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					>
 						{#each t.shift.with.items as item, i (i)}
 							<li class="flex gap-3">
-								<span class="mt-2.5 h-px w-4 shrink-0 bg-accent" aria-hidden="true"></span>
+								<span
+									style="background-color: var(--color-tidal-blue)"
+									class="mt-2.5 h-px w-4 shrink-0"
+									aria-hidden="true"
+								></span>
 								<span>{item}</span>
 							</li>
 						{/each}
@@ -197,7 +202,8 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{t.shift.closingBefore}
 			</p>
 			<p
-				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight text-accent"
+				style="color: var(--color-tidal-blue)"
+				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight"
 			>
 				{t.shift.closingStrong}
 			</p>

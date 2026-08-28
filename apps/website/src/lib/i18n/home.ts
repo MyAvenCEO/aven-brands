@@ -72,7 +72,7 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'KI betreibt deine Firma,',
+			headingLine1: 'KI‑CEO betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
 			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
@@ -86,7 +86,7 @@ export const home: Record<Lang, HomeMessages> = {
 			heading: 'Bald zählt nur noch, was dir gehört.',
 			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — zahlt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr aus. Nur, was dir gehört.`,
 			question:
-				'<span class="text-accent">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
+				'<span style="color:var(--color-tidal-blue)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
 			without: {
 				eyebrow: 'Ohne Assets',
 				title: 'Das fremdbestimmte Drehbuch',
@@ -115,7 +115,7 @@ export const home: Record<Lang, HomeMessages> = {
 			heading: '1 Mensch + 1 avenCEO',
 			paragraphsHtml: [
 				`Kein Büro, keine Abteilungen, keine vierzig Angestellten — zwei Rollen: ${s('ein Mensch mit der Vision')} und ${s('ein avenCEO, der die ganze Firma ausführt')}.`,
-				`Jede Entscheidung, jede Korrektur fließt in seine Skills zurück. Nach fünf Jahren ist er das ${s('Gedächtnis, die Erfahrung und das Urteil')} deiner Firma — und damit ihr wertvollstes Asset.`
+				`Jede Entscheidung, jede Korrektur fließt in seine Skills zurück. Nach einem Jahr ist er das ${s('Gedächtnis, die Erfahrung und das Urteil')} deiner Firma — und damit ihr wertvollstes Asset.`
 			],
 			closingLine1: 'Jeder Mensch wird Gründer.',
 			closingLine2Before: 'Alles, was du dazu brauchst, ist',
@@ -184,7 +184,7 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'AI runs your company,',
+			headingLine1: 'AI‑CEO runs your company,',
 			headingLine2: 'you lead the vision.',
 			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
@@ -197,7 +197,8 @@ export const home: Record<Lang, HomeMessages> = {
 			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
 			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity', 'text-foreground/85')} — ${s('trading time for money', 'text-foreground/85')} stops paying. Only what you own will.`,
-			question: 'Do you <span class="text-accent">own</span> the AI doing the new work — or not?',
+			question:
+				'Do you <span style="color:var(--color-tidal-blue)">own</span> the AI doing the new work — or not?',
 			without: {
 				eyebrow: 'Without assets',
 				title: 'The script someone else wrote',
@@ -226,7 +227,7 @@ export const home: Record<Lang, HomeMessages> = {
 			heading: '1 human + 1 avenCEO',
 			paragraphsHtml: [
 				`No office, no departments, no forty employees — two roles: ${s('one human with the vision')} and ${s('one avenCEO that runs the entire company')}.`,
-				`Every decision, every correction flows back into its skills. After five years it is the ${s('memory, the experience and the judgment')} of your company — and with that its most valuable asset.`
+				`Every decision, every correction flows back into its skills. After one year it is the ${s('memory, the experience and the judgment')} of your company — and with that its most valuable asset.`
 			],
 			closingLine1: 'Everyone becomes a founder.',
 			closingLine2Before: 'All you need for it is',
