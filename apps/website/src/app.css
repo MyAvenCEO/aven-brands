@@ -31,7 +31,7 @@
  * generated `.eyebrow-accent` component. */
 .eyebrow-accent {
 	color: var(--color-tidal-blue);
-	font-size: var(--fs-body);
+	font-size: var(--fs-meta);
 }
 .eyebrow-accent::before {
 	content: "— ";

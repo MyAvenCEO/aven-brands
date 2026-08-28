@@ -212,36 +212,54 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		class="px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
-		<div class="mx-auto max-w-3xl text-center">
-			<p
-				style="color: var(--color-foreground)"
-				class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
-			>
-				{t.company.eyebrow}
-			</p>
-			<h2
-				id="company-heading"
-				class="mt-5 text-[clamp(2rem,6.5vw,4rem)] font-light leading-tight tracking-tight text-primary-foreground"
-			>
-				{t.company.heading}
-			</h2>
+		<div class="mx-auto max-w-5xl">
+			<div class="text-center">
+				<p
+					style="color: var(--color-foreground)"
+					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
+				>
+					{t.company.eyebrow}
+				</p>
+				<h2
+					id="company-heading"
+					class="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4.5rem)] font-light leading-[1.03] tracking-tight text-primary-foreground"
+				>
+					{t.company.heading}
+				</h2>
+			</div>
+
+			<!-- The body as two numbered magazine columns, split by a rule — the
+			     editorial contrast against the centred heading and close. -->
 			<div
 				id="company-prose"
-				class="mx-auto mt-8 max-w-2xl space-y-4 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/70 sm:text-base"
+				class="mx-auto mt-14 grid max-w-4xl gap-x-14 gap-y-10 text-left sm:mt-16 lg:grid-cols-2"
 			>
 				{#each t.company.paragraphsHtml as paragraph, i (i)}
-					<p class="text-pretty">{@html paragraph}</p>
+					<div class={i > 0 ? 'lg:border-l lg:border-primary-foreground/15 lg:pl-14' : ''}>
+						<span
+							class="font-display text-[length:var(--fs-display)] font-light leading-none text-primary-foreground/35"
+							>{String(i + 1).padStart(2, '0')}</span
+						>
+						<p
+							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/80 sm:text-base"
+						>
+							{@html paragraph}
+						</p>
+					</div>
 				{/each}
 			</div>
-			<p
-				class="mx-auto mt-9 max-w-xl border-t border-primary-foreground/12 pt-7 text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
-			>
-				{t.company.closingLine1}
-				<span class="mt-2 block">
-					{t.company.closingLine2Before}
-					<span class="font-sans font-medium">{@html t.company.closingLine2Strong}</span>.
-				</span>
-			</p>
+
+			<div class="mx-auto mt-16 max-w-xl border-t border-primary-foreground/12 pt-10 text-center">
+				<p
+					class="text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
+				>
+					{t.company.closingLine1}
+					<span class="mt-2 block">
+						{t.company.closingLine2Before}
+						<span class="font-sans font-medium">{@html t.company.closingLine2Strong}</span>.
+					</span>
+				</p>
+			</div>
 		</div>
 	</section>
 
