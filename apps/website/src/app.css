@@ -6,6 +6,40 @@
  * an @import makes the browser drop the import. */
 @aven-utilities;
 
+/* Self-hosted brand faces — no remote font CDN. The family NAMES come from the
+ * SSOT (`--font-sans` / `--font-display` in brand-theme.css); these @font-face
+ * rules serve the actual files from /static/fonts. Both cover the full weight
+ * range so the single-master display face never gets faux-bolded. */
+@font-face {
+	font-family: "Google Sans Flex";
+	src: url("/fonts/GoogleSansFlex-latin.woff2") format("woff2");
+	font-weight: 1 1000;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "FogtwoNo5";
+	src: url("/fonts/FogtwoNo5.otf") format("opentype");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Section eyebrows across the site read in brand tidal-blue, a step larger,
+ * and framed in em-dashes ("— WHY NOW —"). Un-layered so it overrides the
+ * generated `.eyebrow-accent` component. */
+.eyebrow-accent {
+	color: var(--color-tidal-blue);
+	font-size: var(--fs-meta);
+}
+.eyebrow-accent::before {
+	content: "— ";
+}
+.eyebrow-accent::after {
+	content: " —";
+}
+
 /*
  * THE MARKETING SITE'S THEME.
  *
@@ -33,7 +67,8 @@
 		font-weight: 400;
 	}
 
-	/* Titles match the app: Inter semibold, gently tightened, balanced. */
+	/* Titles wear the display face (FogtwoNo5): it reads refined at a lighter
+	   weight, so headings stay elegant rather than heavy. */
 	h1,
 	h2,
 	h3,
@@ -41,9 +76,9 @@
 	h5,
 	h6 {
 		font-family: var(--font-display);
-		font-weight: 600;
+		font-weight: 500;
 		letter-spacing: -0.015em;
-		line-height: 1.15;
+		line-height: 1.12;
 		text-wrap: balance;
 	}
 }

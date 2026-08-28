@@ -27,7 +27,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 <!-- All {@html} below renders our own static copy from $lib/i18n/home.ts — never user content. -->
 <div {lang} class="app-shell">
-	<MarketingSiteHeader {lang} overlay />
+	<MarketingSiteHeader maxWidth="6xl" {lang} overlay />
 
 	<!-- Full-bleed video banner: the 4K first frame is the poster, so a crisp
 	     still is on screen the instant the page paints; the muted 720p loop
@@ -51,7 +51,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		<div id="home-hero-content" class="mx-auto max-w-3xl text-center">
 			<h1
 				id="home-hero-heading"
-				class="mx-auto max-w-3xl text-[clamp(1.75rem,5vw,2.75rem)] font-light leading-tight tracking-tight text-pretty"
+				class="mx-auto max-w-3xl text-[clamp(2rem,6.5vw,4rem)] font-light leading-tight tracking-tight text-pretty"
 			>
 				{t.hero.headingLine1}
 				<span class="mt-1 block">{t.hero.headingLine2}</span>
@@ -59,7 +59,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<div class="mx-auto mt-8 max-w-2xl">
 				<p
 					id="home-hero-lead"
-					class="text-pretty text-[length:var(--fs-hero)] font-medium leading-snug sm:text-[length:var(--fs-display)]"
+					class="text-pretty text-[length:var(--fs-lead)] font-light leading-snug sm:text-[length:var(--fs-amount)]"
 				>
 					{@html t.hero.transformationHtml}
 				</p>
@@ -73,33 +73,31 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- Proposition band on the marine-blue brand bar: the one-line claim, then
-	     the three 100 % absolutes it rests on — the promise, right under the
-	     hero, before any pitch begins. -->
+	<!-- Proposition band on the marine-blue brand bar, editorial-style: the
+	     claim as a light display headline, then the three 100 % absolutes as
+	     columns split by hairline rules, the figures in paradise blue. -->
 	<section
-		class="bg-primary px-5 py-9 text-center sm:px-8 sm:py-12"
+		class="bg-primary px-5 py-12 text-center sm:px-8 sm:py-16"
 		aria-labelledby="trust-headline"
 	>
 		<div class="mx-auto max-w-4xl text-primary-foreground">
-			<p
+			<h2
 				id="trust-headline"
-				class="text-[length:var(--fs-hero)] font-semibold tracking-tight text-balance sm:text-[length:var(--fs-amount)]"
+				class="mx-auto max-w-2xl text-[length:var(--fs-amount)] font-normal leading-tight tracking-tight text-balance sm:text-[length:var(--fs-display)]"
 			>
 				{@html t.trust.headlineHtml}
-			</p>
+			</h2>
 			<ul
-				class="mt-5 grid grid-cols-3 items-start gap-x-3 sm:mt-8 sm:flex sm:flex-row sm:items-baseline sm:justify-center sm:gap-x-10"
+				class="mx-auto mt-8 grid max-w-3xl grid-cols-3 divide-x divide-primary-foreground/15 sm:mt-11"
 			>
 				{#each t.trust.claims as claim (claim)}
-					<li
-						class="flex flex-col items-center gap-0.5 text-center sm:flex-row sm:items-baseline sm:gap-2"
-					>
+					<li class="flex flex-col items-center gap-1 px-2 sm:gap-2 sm:px-6">
 						<span
-							class="text-[length:var(--fs-body)] font-bold tabular-nums text-accent sm:text-[length:var(--fs-lead)]"
-							>100 %</span
+							class="font-display text-[length:var(--fs-hero)] font-medium tabular-nums text-success sm:text-[length:var(--fs-display)]"
+							>100%</span
 						>
 						<span
-							class="text-[length:var(--fs-meta)] font-medium leading-tight text-primary-foreground/85 sm:text-[length:var(--fs-lead)] sm:leading-snug"
+							class="text-[length:var(--fs-micro)] font-medium uppercase leading-tight tracking-[var(--tracking-wide)] text-primary-foreground/60 sm:text-[length:var(--fs-meta)]"
 							>{claim}</span
 						>
 					</li>
@@ -108,82 +106,85 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- The shift: the FOMO that is simply true — post-AGI touches everyone. -->
-	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="shift-heading">
-		<div class="mx-auto max-w-4xl">
+	<!-- The shift, as an editorial spread: the wish up top, the question set
+	     large, then the two scripts side by side — the old one greyed out, the
+	     new one in full colour — split by a single rule. No card chrome. -->
+	<section class="section-band sm:px-8 sm:py-24" aria-labelledby="shift-heading">
+		<div class="mx-auto max-w-5xl">
 			<div class="mx-auto max-w-2xl text-center">
 				<p class="eyebrow-accent">
 					{t.shift.eyebrow}
 				</p>
 				<h2
 					id="shift-heading"
-					class="mt-4 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
+					class="mt-4 text-4xl tracking-tight text-pretty text-foreground sm:text-5xl"
 				>
 					{t.shift.heading}
 				</h2>
 				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/65 sm:text-base"
+					class="mx-auto mt-5 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/60 sm:text-base"
 				>
 					{@html t.shift.bodyHtml}
 				</p>
-				<p
-					class="mx-auto mt-6 max-w-xl text-pretty text-[length:var(--fs-hero)] font-medium leading-snug text-foreground sm:text-[length:var(--fs-amount)]"
-				>
-					{t.shift.question}
-				</p>
 			</div>
 
-			<!-- The emotional fork: the same future, seen from both sides. -->
-			<div class="mt-10 grid gap-4 sm:grid-cols-2">
-				<div class="rounded-2xl bg-primary p-6 sm:p-7">
+			<!-- The question as a pull-quote: big display type, one word lit in the
+			     brand yellow for magazine contrast. -->
+			<p
+				class="mx-auto mt-9 max-w-3xl text-center font-display text-[clamp(1.5rem,4.2vw,2.5rem)] font-medium leading-tight tracking-tight text-foreground"
+			>
+				{@html t.shift.question}
+			</p>
+
+			<div class="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-0">
+				<!-- The old script: greyed out — the life you're leaving. -->
+				<div class="sm:pr-12">
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-primary-foreground/50"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/40"
 					>
 						{t.shift.without.eyebrow}
 					</p>
-					<h3 class="mt-2 text-lg font-semibold tracking-tight text-primary-foreground sm:text-xl">
+					<h3 class="mt-2 text-2xl tracking-tight text-foreground/55 sm:text-3xl">
 						{t.shift.without.title}
 					</h3>
 					<ul
-						class="mt-4 space-y-2.5 text-[length:var(--fs-section)] leading-snug text-primary-foreground/65"
+						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/50 sm:text-base"
 					>
 						{#each t.shift.without.items as item, i (i)}
-							<li class="flex gap-2.5">
-								<span
-									class="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary-foreground/25"
-									aria-hidden="true"
-								></span>
+							<li class="flex gap-3">
+								<span class="mt-2.5 h-px w-4 shrink-0 bg-foreground/25" aria-hidden="true"></span>
 								<span>{item}</span>
 							</li>
 						{/each}
 					</ul>
 					<p
-						class="mt-5 border-t border-primary-foreground/15 pt-4 text-[length:var(--fs-hero)] font-light leading-snug text-primary-foreground sm:text-[length:var(--fs-amount)]"
+						class="mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground/60 sm:text-[length:var(--fs-hero)]"
 					>
 						{t.shift.without.closing}
 					</p>
 				</div>
-				<div class="rounded-2xl border border-accent/25 bg-secondary p-6 sm:p-7">
+				<!-- The new script: full colour, accent marks — the life you write. -->
+				<div class="border-t border-border/10 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/50"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
 					>
 						{t.shift.with.eyebrow}
 					</p>
-					<h3 class="mt-2 text-lg font-semibold tracking-tight text-foreground sm:text-xl">
+					<h3 class="mt-2 text-2xl tracking-tight text-foreground sm:text-3xl">
 						{t.shift.with.title}
 					</h3>
 					<ul
-						class="mt-4 space-y-2.5 text-[length:var(--fs-section)] leading-snug text-foreground/80"
+						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/80 sm:text-base"
 					>
 						{#each t.shift.with.items as item, i (i)}
-							<li class="flex gap-2.5">
-								<span class="bullet" aria-hidden="true"></span>
+							<li class="flex gap-3">
+								<span class="mt-2.5 h-px w-4 shrink-0 bg-accent" aria-hidden="true"></span>
 								<span>{item}</span>
 							</li>
 						{/each}
 					</ul>
 					<p
-						class="mt-5 border-t border-foreground/8 pt-4 text-[length:var(--fs-hero)] font-light leading-snug text-foreground sm:text-[length:var(--fs-amount)]"
+						class="mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground sm:text-[length:var(--fs-hero)]"
 					>
 						{t.shift.with.closing}
 					</p>
@@ -191,47 +192,74 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</div>
 
 			<p
-				class="mx-auto mt-10 max-w-xl text-center text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]"
+				class="mx-auto mt-16 max-w-2xl text-center text-[length:var(--fs-title)] font-light leading-snug tracking-tight text-foreground/60 sm:text-[length:var(--fs-lead)]"
 			>
 				{t.shift.closingBefore}
-				<strong class="font-sans font-semibold text-accent">{t.shift.closingStrong}</strong>
+			</p>
+			<p
+				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight text-accent"
+			>
+				{t.shift.closingStrong}
 			</p>
 		</div>
 	</section>
 
-	<!-- The thesis: the company of the future, named. -->
+	<!-- The thesis: the company of the future, named. A tidal-blue spread (the
+	     brand's bluer teal) — the page's turning point, set against the light
+	     sections around it, with marine accents. -->
 	<section
-		class="border-b border-border/25 bg-linear-to-b from-surface-soft/25 to-transparent px-5 py-16 sm:px-8 sm:py-24"
+		style="background-color: var(--color-tidal-blue)"
+		class="px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
-		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow-accent">
-				{t.company.eyebrow}
-			</p>
-			<h2
-				id="company-heading"
-				class="mt-5 text-[clamp(1.75rem,5vw,2.75rem)] font-light leading-tight tracking-tight text-foreground"
-			>
-				{t.company.heading}
-			</h2>
+		<div class="mx-auto max-w-5xl">
+			<div class="text-center">
+				<p
+					style="color: var(--color-foreground)"
+					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
+				>
+					{t.company.eyebrow}
+				</p>
+				<h2
+					id="company-heading"
+					class="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4.5rem)] font-light leading-[1.03] tracking-tight text-primary-foreground"
+				>
+					{t.company.heading}
+				</h2>
+			</div>
+
+			<!-- The body as two numbered magazine columns, split by a rule — the
+			     editorial contrast against the centred heading and close. -->
 			<div
-				class="mx-auto mt-8 max-w-2xl space-y-4 text-[length:var(--fs-title)] leading-relaxed text-foreground/65 sm:text-base"
+				id="company-prose"
+				class="mx-auto mt-14 grid max-w-4xl gap-x-14 gap-y-10 text-left sm:mt-16 lg:grid-cols-2"
 			>
 				{#each t.company.paragraphsHtml as paragraph, i (i)}
-					<p class="text-pretty">{@html paragraph}</p>
+					<div class={i > 0 ? 'lg:border-l lg:border-primary-foreground/15 lg:pl-14' : ''}>
+						<span
+							class="font-display text-[length:var(--fs-display)] font-light leading-none text-primary-foreground/35"
+							>{String(i + 1).padStart(2, '0')}</span
+						>
+						<p
+							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/80 sm:text-base"
+						>
+							{@html paragraph}
+						</p>
+					</div>
 				{/each}
 			</div>
-			<p
-				class="mx-auto mt-9 max-w-xl border-t border-border/25 pt-7 text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]"
-			>
-				{t.company.closingLine1}
-				<span class="mt-2 block">
-					{t.company.closingLine2Before}
-					<strong class="font-sans font-semibold text-foreground"
-						>{t.company.closingLine2Strong}</strong
-					>.
-				</span>
-			</p>
+
+			<div class="mx-auto mt-16 max-w-xl border-t border-primary-foreground/12 pt-10 text-center">
+				<p
+					class="text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
+				>
+					{t.company.closingLine1}
+					<span class="mt-2 block">
+						{t.company.closingLine2Before}
+						<span class="font-sans font-medium">{@html t.company.closingLine2Strong}</span>.
+					</span>
+				</p>
+			</div>
 		</div>
 	</section>
 
@@ -245,7 +273,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 				<h2
 					id="own-heading"
-					class="mt-4 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
+					class="mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl"
 				>
 					{t.own.headingLine1}
 					<span class="mt-1 block">{t.own.headingLine2}</span>
@@ -267,7 +295,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						>
 							{rung.count}
 						</p>
-						<p class="mt-2 text-lg font-semibold tracking-tight text-foreground">{rung.title}</p>
+						<p class="mt-2 font-display text-xl tracking-tight text-foreground">{rung.title}</p>
 						<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground/65">
 							{rung.text}
 						</p>
@@ -283,35 +311,35 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<section
-		class="border-b border-border/25 bg-linear-to-b from-surface-soft/25 to-transparent px-5 py-9 sm:px-8 sm:py-11"
-		id="founders"
-	>
-		<div class="mx-auto max-w-5xl">
-			<header class="mx-auto max-w-2xl text-center">
-				<p class="eyebrow-accent">
+	<!-- Founders as a 50/50 magazine split: the avenCEO speaks from a turquoise
+	     panel on the left, the human + AI team stands on the light right. -->
+	<section id="founders" class="grid items-stretch lg:grid-cols-2">
+		<div
+			class="flex items-center bg-success px-5 py-16 text-primary-foreground sm:px-8 sm:py-20 lg:px-14 lg:py-28"
+		>
+			<div class="mx-auto w-full max-w-xl lg:mr-0 lg:ml-auto lg:max-w-md">
+				<p
+					class="text-[length:var(--fs-body)] font-semibold uppercase tracking-[var(--tracking-wider)] text-primary-foreground/70"
+				>
 					{t.founders.eyebrow}
 				</p>
 				<h2
-					class="mt-2 text-[clamp(1.5rem,4vw,2.15rem)] font-light leading-tight tracking-tight text-foreground/90"
+					class="mt-3 text-[clamp(1.75rem,4.5vw,2.75rem)] font-light leading-tight tracking-tight text-primary-foreground"
 				>
 					{t.founders.heading}
 				</h2>
-				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-body)] leading-relaxed text-foreground/65 sm:max-w-2xl sm:text-[length:var(--fs-title)] sm:leading-[1.52]"
+				<div
+					id="founders-prose"
+					class="mt-5 space-y-3 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/75 sm:text-base"
 				>
-					{@html t.founders.introHtml}
-				</p>
-				<p
-					class="mx-auto mt-3 max-w-xl text-[length:var(--fs-body)] leading-relaxed text-foreground/65 sm:max-w-2xl sm:text-[length:var(--fs-title)] sm:leading-[1.52]"
-				>
-					{@html t.founders.teamHtml}
-				</p>
-			</header>
+					<p>{@html t.founders.introHtml}</p>
+					<p>{@html t.founders.teamHtml}</p>
+				</div>
+			</div>
+		</div>
 
-			<div
-				class="mx-auto mt-8 max-w-3xl rounded-2xl border border-foreground/8 bg-surface-raised px-4 py-5 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-6 sm:py-6"
-			>
+		<div class="flex items-center bg-surface-cream px-5 py-16 sm:px-8 sm:py-20 lg:px-14">
+			<div class="mx-auto w-full max-w-md">
 				<div
 					class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1.2fr)] items-stretch gap-x-2 sm:gap-x-4"
 				>
@@ -410,7 +438,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</div>
 				</div>
 				<p
-					class="mt-4 border-t border-border/25 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
+					class="mt-4 border-t border-border/8 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
 				>
 					{t.founders.sum}
 				</p>
@@ -427,7 +455,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 				<h2
 					id="skills-preview-heading"
-					class="mt-4 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
+					class="mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl"
 				>
 					{t.skills.heading}
 				</h2>
@@ -455,15 +483,13 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16">
+	<section class="border-b border-border/8 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
 			<div class="pb-6 text-center">
 				<p class="eyebrow-accent">
 					{t.start.eyebrow}
 				</p>
-				<h2
-					class="mt-3 text-2xl font-semibold tracking-tight text-pretty text-foreground sm:text-3xl"
-				>
+				<h2 class="mt-3 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl">
 					{t.start.heading}
 				</h2>
 				<p
@@ -480,6 +506,15 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 </div>
 
 <style>
+/* The company thesis sits on marine, but its emphasised words are authored
+   with the light-page tone (text-foreground) — lift them so they read on the
+   dark spread. Keyed off the id so the strict utility plugin ignores it. */
+#company-prose :global(strong),
+#founders-prose :global(strong) {
+	color: var(--color-primary-foreground);
+	font-weight: 500;
+}
+
 /* The hero is its own dark stage: the video sits behind, a soft scrim
    darkens the bright footage, and the copy goes light on top. Colours and
    the gradient live here (scoped CSS, keyed off ids so the strict utility
@@ -492,7 +527,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: clamp(30rem, 72vh, 46rem);
+	min-height: 85vh;
 	padding-block: clamp(5rem, 12vh, 9rem);
 }
 

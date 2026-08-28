@@ -48,9 +48,9 @@ export const common: Record<
 	de: {
 		nav: {
 			skills: 'Skills',
-			avens: 'Avens',
+			avens: 'Marketplace',
 			pricing: 'Preise',
-			cta: 'Jetzt Namen sichern',
+			cta: 'Aven einstellen',
 			menu: 'Menü'
 		},
 		switchLabel: 'Sprache',
@@ -70,8 +70,8 @@ export const common: Record<
 			}
 		},
 		idCta: {
-			eyebrow: 'Warteliste · Invite only',
-			title: 'Sichere dir deinen avenCEO‑Namen',
+			eyebrow: 'Invite only',
+			title: 'Sichere dir jetzt deinen avenCEO‑Namen',
 			bodyHtml:
 				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
 			betaLine: (pct, months) => `+ ${pct} % Rabatt auf die ersten ${months} Monate avenCEO`,
@@ -94,9 +94,9 @@ export const common: Record<
 	en: {
 		nav: {
 			skills: 'Skills',
-			avens: 'Avens',
+			avens: 'Marketplace',
 			pricing: 'Pricing',
-			cta: 'Secure your name now',
+			cta: 'Hire your Aven',
 			menu: 'Menu'
 		},
 		switchLabel: 'Language',
@@ -116,8 +116,8 @@ export const common: Record<
 			}
 		},
 		idCta: {
-			eyebrow: 'Waiting list · Invite only',
-			title: 'Claim your avenCEO name',
+			eyebrow: 'Invite only',
+			title: 'Claim your avenCEO name now',
 			bodyHtml:
 				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
 			betaLine: (pct, months) => `+ ${pct} % off your first ${months} months of avenCEO`,
