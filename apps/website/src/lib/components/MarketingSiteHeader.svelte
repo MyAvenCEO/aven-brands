@@ -32,18 +32,20 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 </script>
 
 <header class="sticky top-0 z-50 border-b border-border/25 bg-background/25 backdrop-blur-md">
-	<!-- Below lg (phone + tablet): four centered lines — logo · social icons · nav+DE|EN · CTA. lg+: one row. -->
+	<!-- Mobile: two tight rows — [logo · CTA], then [nav · DE|EN]; social icons
+	     live in the footer, so they are hidden here below lg. lg+: one row. -->
 	<div
-		class="mx-auto flex {maxW} flex-col items-center gap-y-3 px-5 py-5 lg:flex-row lg:flex-wrap lg:justify-between lg:gap-x-10 lg:gap-y-2 lg:px-8"
+		class="mx-auto flex {maxW} flex-col gap-y-2 px-5 py-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-x-10 lg:gap-y-2 lg:px-8 lg:py-5"
 	>
-		<div class="flex flex-col items-center gap-3 lg:flex-row lg:gap-4">
+		<div class="flex w-full items-center justify-between lg:w-auto lg:justify-start lg:gap-4">
 			<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
 				<img src="/aven-logo.svg" alt="" class="size-7 shrink-0" width="28" height="28">
 				<span class="text-[length:var(--fs-lead)] font-semibold tracking-tight text-foreground"
 					>avenCEO</span
 				>
 			</a>
-			<span class="flex items-center gap-4 lg:gap-3" aria-label={t.footer.socialLabel}>
+			<!-- Social: desktop only — redundant with the footer on phones. -->
+			<span class="hidden items-center gap-3 lg:flex" aria-label={t.footer.socialLabel}>
 				{#each SOCIAL_PROFILES as profile (profile.href)}
 					<a
 						href={profile.href}
@@ -52,10 +54,17 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 						aria-label={profile.name}
 						class="text-foreground/65 transition-colors hover:text-foreground"
 					>
-						<SocialIcon {profile} class="size-5 lg:size-4" />
+						<SocialIcon {profile} class="size-4" />
 					</a>
 				{/each}
 			</span>
+			<!-- CTA: mobile only, anchored to the right of the logo row. -->
+			<a
+				href={idFunnelHref()}
+				class="rounded-full bg-primary px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold text-primary-foreground transition-opacity hover:opacity-90 lg:hidden"
+			>
+				{t.nav.cta}
+			</a>
 		</div>
 		<nav
 			class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
@@ -65,15 +74,13 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 			<a href={localeHref(lang, '/pricing')} class={linkCls(active === 'pricing')}>
 				{t.nav.pricing}
 			</a>
-			<!-- Below lg the CTA takes its own full-width line so DE|EN shares the row with the nav links. -->
-			<span class="order-last flex w-full justify-center lg:order-none lg:w-auto">
-				<a
-					href={idFunnelHref()}
-					class="rounded-full bg-primary px-4 py-1.5 normal-case font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-				>
-					{t.nav.cta}
-				</a>
-			</span>
+			<!-- CTA: desktop only, inline with the nav. -->
+			<a
+				href={idFunnelHref()}
+				class="hidden rounded-full bg-primary px-4 py-1.5 normal-case font-semibold text-primary-foreground transition-opacity hover:opacity-90 lg:inline-flex"
+			>
+				{t.nav.cta}
+			</a>
 			<!-- DE | EN: the current language is the solid one, the other is the link. -->
 			<span class="flex items-center gap-1.5 tabular-nums" aria-label={t.switchLabel}>
 				<a
