@@ -71,9 +71,9 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'A(G)I führt deine Firma,',
+			headingLine1: 'KI betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
-			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum<br>${s('souveränen Gründer', 'text-accent')} von morgen.`,
+			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum<br>${s('souveränen Leben', 'text-accent')} von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
@@ -81,7 +81,7 @@ export const home: Record<Lang, HomeMessages> = {
 			ownership: '100 % Eigentum an deinen Daten'
 		},
 		shift: {
-			eyebrow: 'Post‑AGI · Warum jetzt',
+			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
 			bodyHtml: `${s('Zeit gegen Geld zu tauschen', 'text-foreground/85')} kollabiert, sobald KI fast jede Arbeit so gut erledigt wie ein Mensch — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')}. Dann bleibt nur noch eine einzige Einkommensquelle.`,
 			question: 'Besitzt du die KI, die die neue Arbeit leistet — oder nicht?',
@@ -181,9 +181,9 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'A(G)I runs your company,',
+			headingLine1: 'AI runs your company,',
 			headingLine2: 'you lead the vision.',
-			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to<br>${s('sovereign founder', 'text-accent')} of tomorrow.`,
+			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to<br>${s('sovereign life', 'text-accent')} of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
@@ -191,7 +191,7 @@ export const home: Record<Lang, HomeMessages> = {
 			ownership: '100 % ownership of your data'
 		},
 		shift: {
-			eyebrow: 'Post‑AGI · Why now',
+			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
 			bodyHtml: `${s('Trading time for money', 'text-foreground/85')} collapses as soon as AI does almost any job as well as a human — around the clock, ${s('at the price of electricity', 'text-foreground/85')}. Then only one single source of income remains.`,
 			question: 'Do you own the AI that does the new work — or not?',
