@@ -50,7 +50,7 @@ export const common: Record<
 			skills: 'Skills',
 			avens: 'Avens',
 			pricing: 'Preise',
-			cta: 'Jetzt Namen sichern',
+			cta: 'Aven einstellen',
 			menu: 'Menü'
 		},
 		switchLabel: 'Sprache',
@@ -96,7 +96,7 @@ export const common: Record<
 			skills: 'Skills',
 			avens: 'Avens',
 			pricing: 'Pricing',
-			cta: 'Secure your name now',
+			cta: 'Hire your Aven',
 			menu: 'Menu'
 		},
 		switchLabel: 'Language',

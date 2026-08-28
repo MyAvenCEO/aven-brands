@@ -1,4 +1,5 @@
 <script lang="ts">
+import { fade, fly } from 'svelte/transition'
 import { page } from '$app/state'
 import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
@@ -25,17 +26,24 @@ let {
 const t = $derived(pick(common, lang))
 const maxW = $derived(maxWidth === '6xl' ? 'max-w-6xl' : 'max-w-5xl')
 
-/** On the dark video the collapsed bar goes light; everywhere else it is the
- * usual dark-on-cream. The mobile dropdown panel is always a solid light sheet. */
-const ink = $derived(overlay ? 'text-primary-foreground' : 'text-foreground')
+/** Open state for the full-screen mobile menu. */
+let menuOpen = $state(false)
+
+/** The bar goes light over the dark video (overlay) AND whenever the menu is
+ * open (its glass layer is dark) — otherwise the usual dark-on-cream. */
+const ink = $derived(overlay || menuOpen ? 'text-primary-foreground' : 'text-foreground')
 const socialInk = $derived(
 	overlay
 		? 'text-primary-foreground/70 transition-colors hover:text-primary-foreground'
 		: 'text-foreground/65 transition-colors hover:text-foreground'
 )
 
-/** Open state for the mobile dropdown. */
-let menuOpen = $state(false)
+/** The nav points, shared by the desktop bar and the full-screen menu. */
+const MENU_ITEMS = $derived([
+	{ href: '/skills', label: t.nav.skills, key: 'skills' as const },
+	{ href: '/avens', label: t.nav.avens, key: 'avens' as const },
+	{ href: '/pricing', label: t.nav.pricing, key: 'pricing' as const }
+])
 
 function linkCls(isActive: boolean) {
 	return isActive
@@ -52,9 +60,9 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 		? 'absolute inset-x-0 top-0 z-50'
 		: 'sticky top-0 z-50 border-b border-border/25 bg-background/25 backdrop-blur-md'}
 >
-	<div class="mx-auto {maxW} px-5 lg:px-8">
+	<div class="relative z-10 mx-auto {maxW} px-5 lg:px-8">
 		<!-- Collapsed bar: logo left; on lg the full nav; on mobile the CTA and a
-		     hamburger that drops the nav items into a solid sheet below. -->
+		     hamburger that opens the full-screen menu below. -->
 		<div class="flex items-center justify-between gap-4 py-3 lg:py-5 {ink}">
 			<div class="flex items-center gap-4">
 				<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
@@ -92,7 +100,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				</a>
 				<a
 					href={idFunnelHref()}
-					class="rounded-full bg-primary px-4 py-1.5 normal-case font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold text-primary-foreground shadow-[0_1px_2px_rgba(30,41,59,0.15)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>
@@ -121,7 +129,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 			<div class="flex items-center gap-2 lg:hidden">
 				<a
 					href={idFunnelHref()}
-					class="rounded-full bg-primary px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold text-primary-foreground shadow-[0_1px_2px_rgba(30,41,59,0.15)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>
@@ -160,56 +168,58 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				</button>
 			</div>
 		</div>
-
-		<!-- Mobile dropdown: a solid light sheet so the links read in either mode. -->
-		{#if menuOpen}
-			<nav
-				class="mb-3 flex flex-col rounded-2xl border border-border/25 bg-surface-raised p-2 text-[length:var(--fs-body)] font-semibold uppercase tracking-[var(--tracking-wider)] text-foreground shadow-[0_8px_30px_rgba(30,41,59,0.12)] lg:hidden"
-			>
-				<a
-					href={localeHref(lang, '/skills')}
-					onclick={() => (menuOpen = false)}
-					class="rounded-lg px-3 py-2.5 transition-colors hover:bg-surface-card {active === 'skills' ? 'text-accent' : ''}"
-				>
-					{t.nav.skills}
-				</a>
-				<a
-					href={localeHref(lang, '/avens')}
-					onclick={() => (menuOpen = false)}
-					class="rounded-lg px-3 py-2.5 transition-colors hover:bg-surface-card {active === 'avens' ? 'text-accent' : ''}"
-				>
-					{t.nav.avens}
-				</a>
-				<a
-					href={localeHref(lang, '/pricing')}
-					onclick={() => (menuOpen = false)}
-					class="rounded-lg px-3 py-2.5 transition-colors hover:bg-surface-card {active === 'pricing' ? 'text-accent' : ''}"
-				>
-					{t.nav.pricing}
-				</a>
-				<span
-					class="mt-1 flex items-center gap-1.5 border-t border-border/25 px-3 pt-3 tabular-nums"
-					aria-label={t.switchLabel}
-				>
-					<a
-						href={lang === 'de' ? page.url.pathname : otherHref}
-						hreflang="de"
-						aria-current={lang === 'de' ? 'true' : undefined}
-						class={lang === 'de' ? 'opacity-100' : 'opacity-50 transition-opacity hover:opacity-100'}
-					>
-						DE
-					</a>
-					<span aria-hidden="true" class="opacity-30">|</span>
-					<a
-						href={lang === 'en' ? page.url.pathname : otherHref}
-						hreflang="en"
-						aria-current={lang === 'en' ? 'true' : undefined}
-						class={lang === 'en' ? 'opacity-100' : 'opacity-50 transition-opacity hover:opacity-100'}
-					>
-						EN
-					</a>
-				</span>
-			</nav>
-		{/if}
 	</div>
 </header>
+
+{#if menuOpen}
+	<!-- Full-screen menu: a translucent glass layer over the page, nav points
+	     centred and large. It sits OUTSIDE <header> so its `fixed` box escapes
+	     the bar's backdrop-filter and covers the whole viewport; the bar (z-50)
+	     stays above it, so its ✕ closes the menu. -->
+	<div class="fixed inset-0 z-40 lg:hidden" transition:fade={{ duration: 150 }}>
+		<div class="absolute inset-0 bg-primary/90 backdrop-blur-xl"></div>
+		<nav
+			class="relative flex h-full flex-col items-center justify-center gap-7 px-6 text-center text-primary-foreground"
+		>
+			{#each MENU_ITEMS as item, i (item.key)}
+				<a
+					href={localeHref(lang, item.href)}
+					onclick={() => (menuOpen = false)}
+					in:fly={{ y: 16, duration: 260, delay: 60 + 50 * i }}
+					class="font-display text-[clamp(2.25rem,11vw,3.75rem)] font-medium leading-none tracking-tight transition-opacity hover:opacity-70 {active ===
+					item.key
+						? 'text-accent'
+						: ''}"
+				>
+					{item.label}
+				</a>
+			{/each}
+			<span
+				class="mt-8 flex items-center gap-3 text-[length:var(--fs-hero)] font-semibold tabular-nums"
+				aria-label={t.switchLabel}
+			>
+				<a
+					href={lang === 'de' ? page.url.pathname : otherHref}
+					hreflang="de"
+					aria-current={lang === 'de' ? 'true' : undefined}
+					class={lang === 'de'
+						? 'text-primary-foreground'
+						: 'text-primary-foreground/45 transition-colors hover:text-primary-foreground'}
+				>
+					DE
+				</a>
+				<span aria-hidden="true" class="text-primary-foreground/30">|</span>
+				<a
+					href={lang === 'en' ? page.url.pathname : otherHref}
+					hreflang="en"
+					aria-current={lang === 'en' ? 'true' : undefined}
+					class={lang === 'en'
+						? 'text-primary-foreground'
+						: 'text-primary-foreground/45 transition-colors hover:text-primary-foreground'}
+				>
+					EN
+				</a>
+			</span>
+		</nav>
+	</div>
+{/if}

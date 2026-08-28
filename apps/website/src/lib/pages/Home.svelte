@@ -95,7 +95,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						class="flex flex-col items-center gap-0.5 text-center sm:flex-row sm:items-baseline sm:gap-2"
 					>
 						<span
-							class="text-[length:var(--fs-body)] font-bold tabular-nums text-accent sm:text-[length:var(--fs-lead)]"
+							class="text-[length:var(--fs-body)] font-bold tabular-nums text-success sm:text-[length:var(--fs-lead)]"
 							>100 %</span
 						>
 						<span
