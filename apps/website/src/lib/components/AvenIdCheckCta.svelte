@@ -48,7 +48,7 @@ const wrapperClass = $derived(
 
 <form
 	onsubmit={submit}
-	class="{wrapperClass} {centered ? 'text-center' : ''}"
+	class="{wrapperClass} overflow-hidden {centered ? 'text-center' : ''}"
 	aria-label={t.formLabel}
 >
 	<p class="eyebrow-accent">
@@ -94,17 +94,6 @@ const wrapperClass = $derived(
 	<!-- The action block, full card width: the voucher hook, the €25 price as
 	     prominently as avenCEO's price, then the name check on one line. -->
 	<div class="mt-7 space-y-4">
-		{#if ceoBeta}
-			<div class="mx-auto max-w-sm rounded-xl bg-offer/25 px-4 py-3 text-center">
-				<p class="font-bold leading-snug text-foreground/90">
-					{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
-				</p>
-				<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/55">
-					{t.betaScarcity}
-				</p>
-			</div>
-		{/if}
-		<div class="border-t border-border/25"></div>
 		<div class="rounded-2xl border border-border/25 bg-surface-card px-5 py-4 text-center">
 			<p class="flex flex-wrap items-baseline justify-center gap-x-2">
 				<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground">
@@ -146,4 +135,18 @@ const wrapperClass = $derived(
 			</button>
 		</div>
 	</div>
+
+	<!-- The early-adopter perk as a full-width footer bar clipped to the card's
+	     rounded corners: negative margins cancel the card padding, overflow-hidden
+	     on the form rounds it off. -->
+	{#if ceoBeta}
+		<div class="-mx-5 -mb-9 mt-8 bg-offer px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10">
+			<p class="font-bold leading-snug text-foreground/90">
+				{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
+			</p>
+			<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/60">
+				{t.betaScarcity}
+			</p>
+		</div>
+	{/if}
 </form>

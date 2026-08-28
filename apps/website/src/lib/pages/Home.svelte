@@ -106,82 +106,84 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- The shift: the FOMO that is simply true — post-AGI touches everyone. -->
-	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="shift-heading">
-		<div class="mx-auto max-w-4xl">
+	<!-- The shift, as an editorial spread: the wish up top, the question set
+	     large, then the two scripts side by side — the old one greyed out, the
+	     new one in full colour — split by a single rule. No card chrome. -->
+	<section class="section-band sm:px-8 sm:py-24" aria-labelledby="shift-heading">
+		<div class="mx-auto max-w-5xl">
 			<div class="mx-auto max-w-2xl text-center">
 				<p class="eyebrow-accent">
 					{t.shift.eyebrow}
 				</p>
 				<h2
 					id="shift-heading"
-					class="mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl"
+					class="mt-4 text-4xl tracking-tight text-pretty text-foreground sm:text-5xl"
 				>
 					{t.shift.heading}
 				</h2>
 				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/65 sm:text-base"
+					class="mx-auto mt-5 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/60 sm:text-base"
 				>
 					{@html t.shift.bodyHtml}
 				</p>
-				<p
-					class="mx-auto mt-6 max-w-xl text-pretty text-[length:var(--fs-hero)] font-medium leading-snug text-foreground sm:text-[length:var(--fs-amount)]"
-				>
-					{t.shift.question}
-				</p>
 			</div>
 
-			<!-- The emotional fork: the same future, seen from both sides. -->
-			<div class="mt-10 grid gap-4 sm:grid-cols-2">
-				<div class="rounded-2xl bg-primary p-6 sm:p-7">
+			<!-- The question, big, in the display face. -->
+			<p
+				class="mx-auto mt-9 max-w-3xl text-center font-display text-[clamp(1.5rem,4.2vw,2.5rem)] font-medium leading-tight tracking-tight text-foreground"
+			>
+				{t.shift.question}
+			</p>
+
+			<div class="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-0">
+				<!-- The old script: greyed out — the life you're leaving. -->
+				<div class="sm:pr-12">
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-primary-foreground/50"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/40"
 					>
 						{t.shift.without.eyebrow}
 					</p>
-					<h3 class="mt-2 text-xl tracking-tight text-primary-foreground sm:text-2xl">
+					<h3 class="mt-2 text-2xl tracking-tight text-foreground/55 sm:text-3xl">
 						{t.shift.without.title}
 					</h3>
 					<ul
-						class="mt-4 space-y-2.5 text-[length:var(--fs-section)] leading-snug text-primary-foreground/65"
+						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/50 sm:text-base"
 					>
 						{#each t.shift.without.items as item, i (i)}
-							<li class="flex gap-2.5">
-								<span
-									class="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary-foreground/25"
-									aria-hidden="true"
-								></span>
+							<li class="flex gap-3">
+								<span class="mt-2.5 h-px w-4 shrink-0 bg-foreground/25" aria-hidden="true"></span>
 								<span>{item}</span>
 							</li>
 						{/each}
 					</ul>
 					<p
-						class="mt-5 border-t border-primary-foreground/15 pt-4 text-[length:var(--fs-hero)] font-light leading-snug text-primary-foreground sm:text-[length:var(--fs-amount)]"
+						class="mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground/60 sm:text-[length:var(--fs-hero)]"
 					>
 						{t.shift.without.closing}
 					</p>
 				</div>
-				<div class="rounded-2xl border border-accent/25 bg-secondary p-6 sm:p-7">
+				<!-- The new script: full colour, accent marks — the life you write. -->
+				<div class="border-t border-border/40 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/50"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-accent"
 					>
 						{t.shift.with.eyebrow}
 					</p>
-					<h3 class="mt-2 text-xl tracking-tight text-foreground sm:text-2xl">
+					<h3 class="mt-2 text-2xl tracking-tight text-foreground sm:text-3xl">
 						{t.shift.with.title}
 					</h3>
 					<ul
-						class="mt-4 space-y-2.5 text-[length:var(--fs-section)] leading-snug text-foreground/80"
+						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/80 sm:text-base"
 					>
 						{#each t.shift.with.items as item, i (i)}
-							<li class="flex gap-2.5">
-								<span class="bullet" aria-hidden="true"></span>
+							<li class="flex gap-3">
+								<span class="mt-2.5 h-px w-4 shrink-0 bg-accent" aria-hidden="true"></span>
 								<span>{item}</span>
 							</li>
 						{/each}
 					</ul>
 					<p
-						class="mt-5 border-t border-foreground/8 pt-4 text-[length:var(--fs-hero)] font-light leading-snug text-foreground sm:text-[length:var(--fs-amount)]"
+						class="mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground sm:text-[length:var(--fs-hero)]"
 					>
 						{t.shift.with.closing}
 					</p>
@@ -189,23 +191,26 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</div>
 
 			<p
-				class="mx-auto mt-10 max-w-xl text-center text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]"
+				class="mx-auto mt-14 max-w-2xl text-center text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]"
 			>
 				{t.shift.closingBefore}
-				<strong class="font-sans font-semibold text-accent">{t.shift.closingStrong}</strong>
+				<strong class="font-sans font-medium text-accent">{t.shift.closingStrong}</strong>
 			</p>
 		</div>
 	</section>
 
-	<!-- The thesis: the company of the future, named. A paradise-blue spread —
-	     the page's turning point, set against the light sections around it. -->
+	<!-- The thesis: the company of the future, named. A tidal-blue spread (the
+	     brand's bluer teal) — the page's turning point, set against the light
+	     sections around it, with marine accents. -->
 	<section
-		class="bg-success px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
+		style="background-color: var(--color-tidal-blue)"
+		class="px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
 		<div class="mx-auto max-w-3xl text-center">
 			<p
-				class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-primary-foreground/75"
+				style="color: var(--color-foreground)"
+				class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
 			>
 				{t.company.eyebrow}
 			</p>
@@ -229,7 +234,9 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{t.company.closingLine1}
 				<span class="mt-2 block">
 					{t.company.closingLine2Before}
-					<strong class="font-sans font-medium text-accent">{t.company.closingLine2Strong}</strong>.
+					<strong style="color: var(--color-foreground)" class="font-sans font-medium"
+						>{t.company.closingLine2Strong}</strong
+					>.
 				</span>
 			</p>
 		</div>
