@@ -83,7 +83,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		<div class="mx-auto max-w-4xl text-primary-foreground">
 			<h2
 				id="trust-headline"
-				class="mx-auto max-w-2xl text-[length:var(--fs-amount)] font-normal leading-tight tracking-tight text-balance sm:text-[length:var(--fs-display)]"
+				class="mx-auto max-w-2xl text-[length:var(--fs-amount)] font-normal leading-snug tracking-normal text-balance sm:text-[length:var(--fs-display)]"
 			>
 				{@html t.trust.headlineHtml}
 			</h2>

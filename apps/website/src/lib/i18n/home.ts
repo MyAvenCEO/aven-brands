@@ -72,19 +72,20 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'KI‑CEO betreibt deine Firma,',
+			headingLine1: 'KI betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
 			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
-			headlineHtml: 'avenCEO ist der weltweit erste datenschutzwahrende agentische Co‑Founder.',
+			headlineHtml:
+				'avenCEO ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum']
 		},
 		shift: {
 			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
-			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — zahlt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr aus. Nur, was dir gehört.`,
+			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — lohnt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr. Nur noch, was dir gehört.`,
 			question:
 				'<span style="color:var(--color-tidal-blue)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
 			without: {
@@ -108,7 +109,7 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'Du baust etwas Eigenes. Das macht glücklich.'
 			},
 			closingBefore: 'Beide Drehbücher beginnen heute — du schreibst eines davon sowieso.',
-			closingStrong: 'Nimmst du den Stift?'
+			closingStrong: 'Greifst du zum Stift?'
 		},
 		company: {
 			eyebrow: 'Die Firma der Zukunft',
@@ -184,7 +185,7 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'AI‑CEO runs your company,',
+			headingLine1: 'AI runs your company,',
 			headingLine2: 'you lead the vision.',
 			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
