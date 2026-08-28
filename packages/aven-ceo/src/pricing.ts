@@ -3,7 +3,7 @@
  *
  * NOT a ladder. avenNAME is the door: you secure your unique
  * avenCEO name for a year, take your place in the waitlist, and — once
- * invited — test‑ride your avenCEO live for an hour. avenCEO is the one
+ * invited — test‑ride your avenCEO live with a MIND‑credit grant. avenCEO is the one
  * AI‑CEO for your LIFE and your COMPANY at once: inbox, post, documents and
  * the daily organisation on the personal side; pre‑accounting, finances,
  * website, shop and blog on the company side. There is no longer a split
@@ -149,9 +149,9 @@ export const PLANS: Plan[] = [
 	{
 		id: 'aven-name',
 		name: 'avenNAME',
-		role: 'Sichere dir deinen avenCEO‑Namen — und fahre den vollen avenCEO 1 Stunde Probe, sobald du eingeladen bist.',
+		role: 'Sichere dir deinen avenCEO‑Namen — und teste den vollen avenCEO mit 100 MIND Credits, sobald du eingeladen bist.',
 		pitch:
-			'Deinen avenCEO gibt es genau einmal — und er trägt deinen Namen. Sichere ihn dir für ein Jahr, bevor ihn jemand anderes trägt, und fahre ihn nach deiner Einladung eine Stunde Probe.',
+			'Deinen avenCEO gibt es genau einmal — und er trägt deinen Namen. Sichere ihn dir für ein Jahr, bevor ihn jemand anderes trägt, und teste ihn nach deiner Einladung mit 100 MIND Credits.',
 		eurPrice: 25,
 		billing: 'once',
 		maxPerAccount: 1,
@@ -162,11 +162,6 @@ export const PLANS: Plan[] = [
 				title: 'Dein avenCEO‑Name für 1 Jahr',
 				description:
 					'Dein einzigartiger Name ist ein Jahr für dich gesichert — niemand sonst kann ihn tragen.'
-			},
-			{
-				title: '1 Std Testride nach Einladung',
-				description:
-					'Als Early Adopter fährst du nach deiner Einladung den vollen avenCEO eine Stunde Probe — alle Skills außer Postweiterleitung.'
 			},
 			{
 				title: 'Dein Platz auf der Warteliste',
@@ -472,18 +467,13 @@ export interface PlanTexts {
 /** The English translations, keyed like PLANS; features in feature order. */
 const PLAN_TEXTS_EN: Record<PlanId, PlanTexts> = {
 	'aven-name': {
-		role: 'Secure your avenCEO name — and test-drive the full avenCEO for 1 hour once you are invited.',
+		role: 'Secure your avenCEO name — and test-drive the full avenCEO with 100 MIND credits once you are invited.',
 		pitch:
-			'Your avenCEO exists exactly once — and it carries your name. Secure it for a year before someone else does, and take it for a 1-hour test ride once you are invited.',
+			'Your avenCEO exists exactly once — and it carries your name. Secure it for a year before someone else does, and take it for a test ride with 100 MIND credits once you are invited.',
 		features: [
 			{
 				title: 'Your avenCEO name for 1 year',
 				description: 'Your unique name is reserved for you for a year — nobody else can carry it.'
-			},
-			{
-				title: '1 h test ride once invited',
-				description:
-					'As an early adopter you test-drive the full avenCEO for 1 hour after your invite — every skill except postal forwarding.'
 			},
 			{
 				title: 'Your place on the waiting list',
