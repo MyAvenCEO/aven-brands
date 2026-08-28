@@ -498,7 +498,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: clamp(30rem, 72vh, 46rem);
+	min-height: 85vh;
 	padding-block: clamp(5rem, 12vh, 9rem);
 }
 

@@ -70,7 +70,7 @@ export const common: Record<
 			}
 		},
 		idCta: {
-			eyebrow: 'Warteliste · Invite only',
+			eyebrow: 'Invite only',
 			title: 'Sichere dir deinen avenCEO‑Namen',
 			bodyHtml:
 				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
@@ -116,7 +116,7 @@ export const common: Record<
 			}
 		},
 		idCta: {
-			eyebrow: 'Waiting list · Invite only',
+			eyebrow: 'Invite only',
 			title: 'Claim your avenCEO name',
 			bodyHtml:
 				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
