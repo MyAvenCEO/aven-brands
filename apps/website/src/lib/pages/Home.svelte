@@ -33,11 +33,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	     still is on screen the instant the page paints; the muted 720p loop
 	     fades in once it can play. A soft dark scrim keeps the copy legible
 	     over the bright footage without hiding the scene. -->
-	<section
-		id="home-hero"
-		class="border-b border-border/25 px-5 sm:px-8"
-		aria-labelledby="home-hero-heading"
-	>
+	<section id="home-hero" class="px-5 sm:px-8" aria-labelledby="home-hero-heading">
 		<video
 			id="home-hero-video"
 			autoplay
@@ -77,19 +73,19 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- Trust band: two absolutes on the marine-blue brand bar, full width and
-	     compact — the promise stated plainly before any pitch begins. -->
-	<section class="bg-primary px-5 py-4 text-center sm:px-8 sm:py-5" aria-label={t.trust.encrypted}>
+	<!-- Trust band: two absolutes on the marine-blue brand bar, full width —
+	     the promise stated plainly, right under the hero, before any pitch. -->
+	<section class="bg-primary px-5 py-7 text-center sm:px-8 sm:py-9" aria-label={t.trust.encrypted}>
 		<div
-			class="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-primary-foreground"
+			class="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-primary-foreground"
 		>
 			<span
-				class="text-[length:var(--fs-section)] font-semibold tracking-tight sm:text-[length:var(--fs-title)]"
+				class="text-[length:var(--fs-title)] font-semibold tracking-tight sm:text-[length:var(--fs-hero)]"
 				>{t.trust.encrypted}</span
 			>
-			<span aria-hidden="true" class="text-primary-foreground/40">·</span>
+			<span aria-hidden="true" class="text-accent">·</span>
 			<span
-				class="text-[length:var(--fs-section)] font-semibold tracking-tight sm:text-[length:var(--fs-title)]"
+				class="text-[length:var(--fs-title)] font-semibold tracking-tight sm:text-[length:var(--fs-hero)]"
 				>{t.trust.ownership}</span
 			>
 		</div>
