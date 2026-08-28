@@ -41,7 +41,7 @@ const year = 2026
 				<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
 					<img src="/aven-logo.svg" alt="" class="size-7" width="28" height="28">
 					<span class="text-[length:var(--fs-title)] tracking-tight"
-						><span class="font-display" style="font-weight: 300; font-size: 1.5em; line-height: 1"
+						><span class="font-display" style="font-weight: 300; font-size: 1.45em; line-height: 1"
 							>aven</span
 						><span class="font-sans uppercase" style="font-weight: 800">CEO</span></span
 					>

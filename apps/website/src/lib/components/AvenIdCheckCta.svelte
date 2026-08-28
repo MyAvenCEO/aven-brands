@@ -140,13 +140,11 @@ const wrapperClass = $derived(
 	     rounded corners: negative margins cancel the card padding, overflow-hidden
 	     on the form rounds it off. -->
 	{#if ceoBeta}
-		<div class="-mx-5 -mb-9 mt-8 bg-offer px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10">
-			<p class="font-bold leading-snug text-primary-foreground">
+		<div class="-mx-5 -mb-9 mt-8 bg-accent px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10">
+			<p class="font-bold leading-snug text-foreground/90">
 				{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
 			</p>
-			<p
-				class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-primary-foreground/75"
-			>
+			<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/60">
 				{t.betaScarcity}
 			</p>
 		</div>
