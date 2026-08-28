@@ -172,15 +172,9 @@ function skillFeatures(p: Plan): SkillFeature[] {
 										aria-hidden="true"
 										class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"
 									></span>
-									<span>
-										<span class="font-semibold text-foreground/85"
-											>{t.runtimeHours(ceo.runtime.hoursPerDay)}</span
-										>
-										<span class="text-foreground/55"
-											>{t.fairUse}
-											· {t.extraMinute(ceo.runtime.centsPerExtraMinute)}</span
-										>
-									</span>
+									<span class="font-semibold text-foreground/85"
+										>{t.mindWeekly(ceo.runtime.mindCredits)}</span
+									>
 								</li>
 							{/if}
 							{#each ceoPlain as feature (feature.title)}

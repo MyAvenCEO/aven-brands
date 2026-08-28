@@ -49,7 +49,7 @@
     },
     "packages/aven-ceo": {
       "name": "@myavenceo/aven-ceo",
-      "version": "0.6.0",
+      "version": "0.8.1",
       "dependencies": {
         "@myavenceo/aven-vibes": "^0.2.0",
       },

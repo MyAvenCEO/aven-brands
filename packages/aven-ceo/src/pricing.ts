@@ -18,7 +18,7 @@
  * avenNAME is a prerequisite, not a part of any plan: every avenCEO
  * has its own name, secured with avenNAME before the avenCEO itself opens.
  *
- * There are exactly TWO things to buy — avenNAME once, avenCEO monthly — and
+ * There are exactly TWO things to buy — avenNAME once, avenCEO weekly — and
  * one of each per account: see `maxPerAccount`.
  *
  * The plan ids are WIRE KEYS (API tier enum, Polar `metadata.tier`, our own
@@ -99,7 +99,7 @@ export interface Plan {
 	 * before you print a `/m`.
 	 */
 	eurPrice: number
-	billing: 'once' | 'monthly'
+	billing: 'once' | 'weekly' | 'monthly'
 	/**
 	 * How many of this product ONE account may ever hold. `1` on every plan
 	 * today: avenNAME is bought once and never again (one name per human),
@@ -132,11 +132,12 @@ export interface Plan {
 	 */
 	beta?: { discountPct: number; months: number }
 	/**
-	 * Included agent runtime per day, and what a minute costs past it. Fair
-	 * use is a promise about a NUMBER, so the number is data, not prose in a
-	 * feature bullet where it drifts per tier.
+	 * Included MIND credits and the period they land on. `per: 'once'` is a
+	 * fixed early-adopter grant (avenNAME); `per: 'week'` is the allotment that
+	 * lands with every weekly cycle of a subscription. Replaces the old
+	 * hours/day + per-minute model — credits are a promise about ONE number.
 	 */
-	runtime?: { hoursPerDay: number; centsPerExtraMinute: number }
+	runtime?: { mindCredits: number; per: 'once' | 'week' }
 	/** What this product does. Skills cascade: avenCOOP carries avenCEO's. */
 	features: PlanFeature[]
 	/** Marks the product we lead with. */
@@ -154,6 +155,7 @@ export const PLANS: Plan[] = [
 		eurPrice: 25,
 		billing: 'once',
 		maxPerAccount: 1,
+		runtime: { mindCredits: 100, per: 'once' },
 		revenueSharePct: 0,
 		features: [
 			{
@@ -183,11 +185,11 @@ export const PLANS: Plan[] = [
 		role: 'Dein AI‑CEO — für dein Leben und deine Firma, in einem.',
 		pitch:
 			'Du hast die Vision — dein avenCEO macht aus der Idee eine Firma, die läuft. Er arbeitet, während du schläfst, und wird jeden Tag besser. So fühlt sich Gründen an, wenn es keine 80‑Stunden‑Woche mehr kostet.',
-		eurPrice: 385,
-		billing: 'monthly',
+		eurPrice: 99,
+		billing: 'weekly',
 		maxPerAccount: 1,
 		beta: { discountPct: 30, months: 3 },
-		runtime: { hoursPerDay: 4, centsPerExtraMinute: 8 },
+		runtime: { mindCredits: 800, per: 'week' },
 		revenueSharePct: 8.2,
 		highlight: true,
 		features: [
@@ -295,7 +297,7 @@ export const PLANS: Plan[] = [
 		billing: 'monthly',
 		maxPerAccount: 1,
 		beta: { discountPct: 50, months: 6 },
-		runtime: { hoursPerDay: 12, centsPerExtraMinute: 5 },
+		runtime: { mindCredits: 2400, per: 'week' },
 		revenueSharePct: 30,
 		revenueShareNote: 'inkl. App‑Store‑Gebühren & Co.',
 		applyOnly: true,
@@ -420,9 +422,11 @@ export function betaPrice(p: Plan): number | null {
 	return Math.round(p.eurPrice * (1 - p.beta.discountPct / 100) * 100) / 100
 }
 
-/** "25 € einmalig" · "385 €/Monat" — the whole price in one string. */
+/** "25 € einmalig" · "99 €/Woche" · "987 €/Monat" — the whole price in one string. */
 export function priceLabel(p: Plan): string {
-	return p.billing === 'once' ? `${euro(p.eurPrice)} € einmalig` : `${euro(p.eurPrice)} €/Monat`
+	if (p.billing === 'once') return `${euro(p.eurPrice)} € einmalig`
+	if (p.billing === 'weekly') return `${euro(p.eurPrice)} €/Woche`
+	return `${euro(p.eurPrice)} €/Monat`
 }
 
 /**
@@ -430,7 +434,9 @@ export function priceLabel(p: Plan): string {
  * reads as one statement, not as a label stacked on a figure.
  */
 export function priceSuffix(p: Plan): string {
-	return p.billing === 'once' ? 'einmalig · inkl. USt.' : '/Monat · inkl. USt.'
+	if (p.billing === 'once') return 'einmalig · inkl. USt.'
+	if (p.billing === 'weekly') return '/Woche · inkl. USt.'
+	return '/Monat · inkl. USt.'
 }
 
 /**
