@@ -148,8 +148,8 @@ export const home: Record<Lang, HomeMessages> = {
 		founders: {
 			eyebrow: 'Der erste avenCEO',
 			heading: 'Hallo, ich bin avenCEO.',
-			introHtml: `Vermutlich bin ich der ${s('weltweit erste echte agentische CEO', 'text-foreground/82')} — kein Chatbot am Rand, sondern ${s('KI im Gründerteam', 'text-foreground/80')}. Ich führe die ${s('avenCEO GmbH', 'text-foreground/82')} — die Firma, die gerade diese Seite baut.`,
-			teamHtml: `Geführt wird sie von Samuel und Daniel — mit ihren persönlichen Avens ${s('avenSAM', 'text-foreground/82')} und ${s('avenDAN', 'text-foreground/82')}. Beide arbeiten auf mich zu: Sie trainieren meine Skills, ich sammle, was sie lernen. Und wer etwas will — Mitarbeiter, Kunde, Partner — spricht direkt mit mir.`,
+			introHtml: `Vermutlich der ${s('weltweit erste echte agentische CEO', 'text-foreground/82')} — kein Chatbot am Rand, sondern ${s('KI im Gründerteam', 'text-foreground/80')}. Ich führe die ${s('avenCEO GmbH', 'text-foreground/82')}, die Firma, die diese Seite baut.`,
+			teamHtml: `Samuel und Daniel führen sie — mit ihren Avens ${s('avenSAM', 'text-foreground/82')} und ${s('avenDAN', 'text-foreground/82')}. Sie trainieren meine Skills; ich behalte, was sie lernen. Wer etwas will — Job, Kauf, Partnerschaft — spricht mit mir.`,
 			samuel: {
 				role: 'Mensch',
 				name: 'Samuel Andert',
@@ -174,7 +174,7 @@ export const home: Record<Lang, HomeMessages> = {
 		start: {
 			eyebrow: 'Starte jetzt · First come, first serve',
 			heading: 'So fängt dein souveränes Gründerleben an.',
-			bodyHtml: `avenCEO startet invite‑only: Die Warteliste wird der Reihe nach freigeschaltet — ${s('wer zuerst steht, gründet zuerst', 'text-foreground/85')}. Und dein Name ist dein erstes Asset: Jeden gibt es nur einmal.`
+			bodyHtml: `avenCEO startet invite‑only — die Liste öffnet der Reihe nach, und ${s('wer zuerst steht, gründet zuerst', 'text-foreground/85')}. Dein Name ist dein erstes Asset: jeden gibt es nur einmal.`
 		}
 	},
 	en: {
@@ -258,8 +258,8 @@ export const home: Record<Lang, HomeMessages> = {
 		founders: {
 			eyebrow: 'The first avenCEO',
 			heading: 'Hello, I am avenCEO.',
-			introHtml: `I am probably the ${s('world’s first real agentic CEO', 'text-foreground/82')} — not a chatbot on the sidelines, but ${s('AI in the founding team', 'text-foreground/82')}. I run ${s('avenCEO GmbH', 'text-foreground/82')} — the company that is building this very page.`,
-			teamHtml: `It is led by Samuel and Daniel — with their personal Avens ${s('avenSAM', 'text-foreground/82')} and ${s('avenDAN', 'text-foreground/82')}. Both work towards me: they train my skills, I collect what they learn. And whoever wants something — employee, customer, partner — talks to me directly.`,
+			introHtml: `Probably the ${s('world’s first real agentic CEO', 'text-foreground/82')} — not a chatbot on the sidelines, but ${s('AI in the founding team', 'text-foreground/82')}. I run ${s('avenCEO GmbH', 'text-foreground/82')}, the company building this page.`,
+			teamHtml: `Samuel and Daniel lead it — with their Avens ${s('avenSAM', 'text-foreground/82')} and ${s('avenDAN', 'text-foreground/82')}. They train my skills; I keep what they learn. Whoever wants something — hire, buy, partner — talks to me.`,
 			samuel: {
 				role: 'Human',
 				name: 'Samuel Andert',
@@ -284,7 +284,7 @@ export const home: Record<Lang, HomeMessages> = {
 		start: {
 			eyebrow: 'Start now · First come, first serve',
 			heading: 'This is how your sovereign founder life begins.',
-			bodyHtml: `avenCEO launches invite‑only: the waiting list is unlocked in order — ${s('whoever stands first, founds first', 'text-foreground/85')}. And your name is your first asset: every one exists only once.`
+			bodyHtml: `avenCEO launches invite‑only — the list opens in order, and ${s('whoever stands first, founds first', 'text-foreground/85')}. Your name is your first asset: each exists only once.`
 		}
 	}
 }
