@@ -62,7 +62,7 @@ const headerClass = $derived(
  * utilities aren't emitted from a dynamic class string, so pin them here. */
 const headerStyle = $derived(
 	solid
-		? 'background-color: color-mix(in oklab, var(--color-background) 15%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);'
+		? 'background-color: color-mix(in oklab, var(--color-background) 10%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);'
 		: ''
 )
 
@@ -94,9 +94,9 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 					<!-- One word, two faces: "aven" in the thin display face, "CEO" in the
 					     heaviest Google Sans Flex, uppercase. -->
 					<span class="text-[length:var(--fs-lead)] tracking-tight"
-						><span class="font-display" style="font-weight: 300; font-size: 1.45em; line-height: 1"
+						><span class="font-display" style="font-weight: 300; font-size: 1.4em; line-height: 1"
 							>aven</span
-						><span class="font-sans uppercase" style="font-weight: 800">CEO</span></span
+						><span class="font-sans uppercase" style="font-weight: 700">CEO</span></span
 					>
 				</a>
 				<!-- Social: desktop only — redundant with the footer on phones. -->
