@@ -1,5 +1,3 @@
-import { icons, iconNames } from '@myavenceo/aven-ceo/icons'
-import { renderIcon } from '@myavenceo/aven-vibes'
 /**
  * ceoBRAND — the docs surface, derived from the SSOT.
  *
@@ -23,6 +21,7 @@ import {
 	TRACKING_SCALE,
 	TYPE_SCALE
 } from '@myavenceo/aven-ceo/design'
+import { iconNames, icons } from '@myavenceo/aven-ceo/icons'
 import {
 	FONT_STACK,
 	FONT_WEIGHTS,
@@ -32,15 +31,49 @@ import {
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
+import { renderIcon } from '@myavenceo/aven-vibes'
 
-export type SwatchRow = { name: string; value: string; cssVar: string }
+export type SwatchRow = {
+	name: string
+	value: string
+	cssVar: string
+	/** The dark theme's value for this same role, when it overrides. */
+	dark?: string
+}
 export type ScaleRow = { name: string; value: string; cssVar: string }
 
 /** A CSS custom property name for a colour token, matching the generator. */
 const colourVar = (name: string) => `--color-${name}`
 
-const rows = (map: Record<string, string>): SwatchRow[] =>
-	Object.entries(map).map(([name, value]) => ({ name, value, cssVar: colourVar(name) }))
+/**
+ * One row per ROLE, with both themes on it.
+ *
+ * `dark-foreground` is not a second token — it is the second value of
+ * `foreground`, and listing it as its own row did two bad things. It doubled
+ * the apparent size of the palette (ninety-two entries where there are
+ * fifty-odd roles), and its swatch rendered EMPTY in the light theme, because
+ * `var(--color-dark-foreground)` is not declared there: an undefined custom
+ * property invalidates the declaration, so the chip fell back to transparent
+ * and looked like a blank card rather than an error.
+ *
+ * Pairing them fixes both. A role shows what it is in each theme, and the
+ * dark chip is painted from the literal value rather than from a variable that
+ * only exists under the other theme.
+ */
+const rows = (map: Record<string, string>): SwatchRow[] => {
+	const entries = Object.entries(map)
+	const darkOf = new Map(
+		entries.filter(([n]) => n.startsWith('dark-')).map(([n, v]) => [n.slice(5), v])
+	)
+	return entries
+		.filter(([name]) => !name.startsWith('dark-'))
+		.map(([name, value]) => ({
+			name,
+			value,
+			cssVar: colourVar(name),
+			dark: darkOf.get(name)
+		}))
+}
 
 const scaleRows = (map: Record<string, string>): ScaleRow[] =>
 	Object.entries(map).map(([name, value]) => ({ name, value, cssVar: `--${name}` }))

@@ -3,6 +3,8 @@
  * Algorithm aligned with boring-avatars v2 (MIT): https://github.com/boringdesigners/boring-avatars
  */
 
+import { PALETTES } from '@myavenceo/aven-ceo/tokens'
+
 const VIEW = 36
 
 function hashCode(name: string): number {
@@ -48,6 +50,9 @@ function getContrast(hexcolor: string): string {
 	const r = Number.parseInt(l.slice(0, 2), 16)
 	const g = Number.parseInt(l.slice(2, 4), 16)
 	const b = Number.parseInt(l.slice(4, 6), 16)
+	/* ds-allow-hardcode: pure black and white are the two ends of the contrast
+	   computation itself, not brand colours — a theme cannot change what the
+	   maximum-contrast ink against an arbitrary generated fill is. */
 	return (r * 299 + g * 587 + b * 114) / 1000 >= 128 ? '#000000' : '#FFFFFF'
 }
 
@@ -79,7 +84,10 @@ function beamData(name: string, colors: string[]) {
 	}
 }
 
-const DEFAULT_PALETTE = ['#f7ead9', '#ccc7a8', '#88b499', '#305669', '#222e49']
+/* From the brand, not from here. Five hexes in a website file meant a second
+   brand could not have its own identicons and editing the brand reached
+   nothing — the same bug as a hardcoded colour anywhere else. */
+const DEFAULT_PALETTE = PALETTES.avatar
 
 export function paletteFromCommaString(csv: string): string[] {
 	const parts = csv

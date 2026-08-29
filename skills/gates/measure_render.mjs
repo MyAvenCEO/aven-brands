@@ -29,6 +29,19 @@ catch {
 
 const argv = process.argv.slice(2);
 const dark = argv.includes('--dark');
+/*
+ * WHERE the theme is stamped, and WHAT is then measured.
+ *
+ * `--dark` alone stamps the root, which assumes the whole page is theme-aware.
+ * A page can legitimately scope dark to one region — a docs page whose site
+ * chrome is light-only and whose design-system section has its own switch —
+ * and stamping the root there darkens the tokens under chrome that never reads
+ * them, producing two hundred failures for a state the page cannot enter.
+ *
+ *   --dark-on=<selector>   stamp data-theme on this element, and measure only
+ *                          inside it.
+ */
+const darkOn = (argv.find((a) => a.startsWith('--dark-on=')) ?? '').slice('--dark-on='.length);
 let files = argv.filter(a => !a.startsWith('--'));
 if (files.length === 0) {
   const root = resolve('examples');
@@ -59,8 +72,14 @@ for (const f of files) {
     const h = await page.evaluate(() => document.documentElement.scrollHeight);
     await page.setViewportSize({ width: 1280, height: Math.min(Math.max(h, 720), 20000) });
   }
-  if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+  if (dark || darkOn)
+    await page.evaluate((sel) => {
+      const el = sel ? document.querySelector(sel) : document.documentElement;
+      if (!el) throw new Error(`measure_render: --dark-on selector matched nothing: ${sel}`);
+      el.setAttribute('data-theme', 'dark');
+    }, darkOn || null);
 
+  await page.evaluate((sel) => { window.__measureScope = sel; }, darkOn || null);
   const items = await page.evaluate(() => {
     /*
      * Colour is resolved by the BROWSER, not by a regex over the string.
@@ -136,7 +155,10 @@ for (const f of files) {
     };
 
     const out = [];
-    for (const el of document.querySelectorAll('body *')) {
+    const scope = window.__measureScope
+      ? document.querySelector(window.__measureScope)
+      : document.body;
+    for (const el of (scope ?? document.body).querySelectorAll('*')) {
       if (['SCRIPT', 'STYLE', 'SVG', 'PATH', 'USE'].includes(el.tagName)) continue;
       const direct = [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim().length);
       if (!direct) continue;
@@ -169,7 +191,7 @@ for (const f of files) {
     if (r < need) fails.push({ ...it, r, need });
   }
   if (onImage) console.log(`  note: ${onImage} text element(s) sit on imagery — not measurable here, check by eye.`);
-  const mode = dark ? ' [dark]' : '';
+  const mode = darkOn ? ` [dark @ ${darkOn}]` : dark ? ' [dark]' : '';
   if (fails.length) {
     totalFail += fails.length;
     console.log(`\nFAIL ${f}${mode} — ${fails.length} text pair(s) below WCAG AA:`);

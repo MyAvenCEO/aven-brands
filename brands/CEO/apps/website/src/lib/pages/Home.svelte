@@ -80,7 +80,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		class="bg-primary px-5 py-12 text-center sm:px-8 sm:py-16"
 		aria-labelledby="trust-headline"
 	>
-		<div class="mx-auto max-w-4xl text-primary-foreground">
+		<div class="mx-auto max-w-4xl text-band-foreground">
 			<h2
 				id="trust-headline"
 				class="mx-auto max-w-2xl text-[length:var(--fs-amount)] font-normal leading-snug tracking-normal text-balance sm:text-[length:var(--fs-display)]"
@@ -97,7 +97,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							>100%</span
 						>
 						<span
-							class="text-[length:var(--fs-micro)] font-medium uppercase leading-tight tracking-[var(--tracking-wide)] text-primary-foreground/60 sm:text-[length:var(--fs-meta)]"
+							class="text-[length:var(--fs-micro)] font-medium uppercase leading-tight tracking-[var(--tracking-wide)] text-band-foreground sm:text-[length:var(--fs-meta)]"
 							>{claim}</span
 						>
 					</li>
@@ -122,7 +122,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{t.shift.heading}
 				</h2>
 				<p
-					class="mx-auto mt-5 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/60 sm:text-base"
+					class="mx-auto mt-5 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet sm:text-base"
 				>
 					{@html t.shift.bodyHtml}
 				</p>
@@ -140,15 +140,15 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<!-- The old script: greyed out — the life you're leaving. -->
 				<div class="sm:pr-12">
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/40"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground-quiet"
 					>
 						{t.shift.without.eyebrow}
 					</p>
-					<h3 class="mt-2 text-2xl tracking-tight text-foreground/55 sm:text-3xl">
+					<h3 class="mt-2 text-2xl tracking-tight text-foreground-quiet sm:text-3xl">
 						{t.shift.without.title}
 					</h3>
 					<ul
-						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/50 sm:text-base"
+						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground-quiet sm:text-base"
 					>
 						{#each t.shift.without.items as item, i (i)}
 							<li class="flex gap-3">
@@ -158,7 +158,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						{/each}
 					</ul>
 					<p
-						class="mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground/60 sm:text-[length:var(--fs-hero)]"
+						class="mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground-quiet sm:text-[length:var(--fs-hero)]"
 					>
 						{t.shift.without.closing}
 					</p>
@@ -166,7 +166,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<!-- The new script: full colour, accent marks — the life you write. -->
 				<div class="border-t border-border/10 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
-						style="color: var(--color-paradise)"
+						style="color: var(--color-eyebrow-ink)"
 						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)]"
 					>
 						{t.shift.with.eyebrow}
@@ -175,7 +175,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						{t.shift.with.title}
 					</h3>
 					<ul
-						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/80 sm:text-base"
+						class="mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground-soft sm:text-base"
 					>
 						{#each t.shift.with.items as item, i (i)}
 							<li class="flex gap-3">
@@ -197,12 +197,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</div>
 
 			<p
-				class="mx-auto mt-16 max-w-2xl text-center text-[length:var(--fs-title)] font-light leading-snug tracking-tight text-foreground/60 sm:text-[length:var(--fs-lead)]"
+				class="mx-auto mt-16 max-w-2xl text-center text-[length:var(--fs-title)] font-light leading-snug tracking-tight text-foreground-quiet sm:text-[length:var(--fs-lead)]"
 			>
 				{t.shift.closingBefore}
 			</p>
 			<p
-				style="color: var(--color-paradise)"
+				style="color: var(--color-eyebrow-ink)"
 				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight"
 			>
 				{t.shift.closingStrong}
@@ -214,21 +214,19 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	     brand's bluer teal) — the page's turning point, set against the light
 	     sections around it, with marine accents. -->
 	<section
-		style="background-color: var(--color-paradise)"
-		class="px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
+		class="bg-band px-5 py-20 text-band-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
 		<div class="mx-auto max-w-5xl">
 			<div class="text-center">
 				<p
-					style="color: var(--color-foreground)"
-					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)]"
+					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-band-foreground"
 				>
 					{t.company.eyebrow}
 				</p>
 				<h2
 					id="company-heading"
-					class="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4.5rem)] font-light leading-[1.03] tracking-tight text-primary-foreground"
+					class="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground"
 				>
 					{t.company.heading}
 				</h2>
@@ -243,11 +241,11 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{#each t.company.paragraphsHtml as paragraph, i (i)}
 					<div class={i > 0 ? 'lg:border-l lg:border-primary-foreground/15 lg:pl-14' : ''}>
 						<span
-							class="font-display text-[length:var(--fs-display)] font-light leading-none text-primary-foreground/35"
+							class="font-display text-[length:var(--fs-display)] font-light leading-none text-band-foreground"
 							>{String(i + 1).padStart(2, '0')}</span
 						>
 						<p
-							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/80 sm:text-base"
+							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-band-foreground sm:text-base"
 						>
 							{@html paragraph}
 						</p>
@@ -257,7 +255,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 			<div class="mx-auto mt-16 max-w-xl border-t border-primary-foreground/12 pt-10 text-center">
 				<p
-					class="text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-primary-foreground sm:text-[length:var(--fs-hero)]"
+					class="text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-band-foreground sm:text-[length:var(--fs-hero)]"
 				>
 					{t.company.closingLine1}
 					<span class="mt-2 block">
@@ -285,7 +283,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<span class="mt-1 block">{t.own.headingLine2}</span>
 				</h2>
 				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/65 sm:text-base"
+					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet sm:text-base"
 				>
 					{t.own.lead}
 				</p>
@@ -297,12 +295,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
 					>
 						<p
-							class="text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent"
+							class="text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent-ink"
 						>
 							{rung.count}
 						</p>
 						<p class="mt-2 font-display text-xl tracking-tight text-foreground">{rung.title}</p>
-						<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground/65">
+						<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground-quiet">
 							{rung.text}
 						</p>
 					</li>
@@ -321,22 +319,22 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	     panel on the left, the human + AI team stands on the light right. -->
 	<section id="founders" class="grid items-stretch lg:grid-cols-2">
 		<div
-			class="flex items-center bg-success px-5 py-16 text-primary-foreground sm:px-8 sm:py-20 lg:px-14 lg:py-28"
+			class="flex items-center bg-band-alt px-5 py-16 text-band-foreground sm:px-8 sm:py-20 lg:px-14 lg:py-28"
 		>
 			<div class="mx-auto w-full max-w-xl lg:mr-0 lg:ml-auto lg:max-w-md">
 				<p
-					class="text-[length:var(--fs-body)] font-semibold uppercase tracking-[var(--tracking-wider)] text-primary-foreground/70"
+					class="text-[length:var(--fs-body)] font-semibold uppercase tracking-[var(--tracking-wider)] text-band-foreground"
 				>
 					{t.founders.eyebrow}
 				</p>
 				<h2
-					class="mt-3 text-[clamp(1.75rem,4.5vw,2.75rem)] font-light leading-tight tracking-tight text-primary-foreground"
+					class="mt-3 text-[clamp(1.75rem,4.5vw,2.75rem)] font-light leading-tight tracking-tight text-band-foreground"
 				>
 					{t.founders.heading}
 				</h2>
 				<div
 					id="founders-prose"
-					class="mt-5 space-y-3 text-[length:var(--fs-title)] leading-relaxed text-primary-foreground/75 sm:text-base"
+					class="mt-5 space-y-3 text-[length:var(--fs-title)] leading-relaxed text-band-foreground sm:text-base"
 				>
 					<p>{@html t.founders.introHtml}</p>
 					<p>{@html t.founders.teamHtml}</p>
@@ -371,7 +369,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							{t.founders.samuel.name}
 						</p>
 						<p
-							class="mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground/50 sm:text-[length:var(--fs-micro)]"
+							class="mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground-quiet sm:text-[length:var(--fs-micro)]"
 						>
 							{t.founders.samuel.caption}
 						</p>
@@ -381,7 +379,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						aria-hidden="true"
 					>
 						<span
-							class="text-center text-2xl font-light leading-none text-foreground/35 sm:text-[length:var(--fs-display)]"
+							class="text-center text-2xl font-light leading-none text-foreground-quiet sm:text-[length:var(--fs-display)]"
 							>+</span
 						>
 					</div>
@@ -407,7 +405,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							{t.founders.daniel.name}
 						</p>
 						<p
-							class="mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground/50 sm:text-[length:var(--fs-micro)]"
+							class="mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground-quiet sm:text-[length:var(--fs-micro)]"
 						>
 							{t.founders.daniel.caption}
 						</p>
@@ -417,7 +415,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						aria-hidden="true"
 					>
 						<span
-							class="text-center text-2xl font-light leading-none text-foreground/35 sm:text-[length:var(--fs-display)]"
+							class="text-center text-2xl font-light leading-none text-foreground-quiet sm:text-[length:var(--fs-display)]"
 							>→</span
 						>
 					</div>
@@ -432,19 +430,19 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							{t.founders.ceo.role}
 						</p>
 						<p
-							class="mt-0.5 text-[length:var(--fs-meta)] font-bold tracking-[var(--tracking-wide)] text-accent sm:text-[length:var(--fs-body)]"
+							class="mt-0.5 text-[length:var(--fs-meta)] font-bold tracking-[var(--tracking-wide)] text-accent-ink sm:text-[length:var(--fs-body)]"
 						>
 							{t.founders.ceo.name}
 						</p>
 						<p
-							class="mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground/50 sm:text-[length:var(--fs-micro)]"
+							class="mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground-quiet sm:text-[length:var(--fs-micro)]"
 						>
 							{t.founders.ceo.caption}
 						</p>
 					</div>
 				</div>
 				<p
-					class="mt-4 border-t border-border/8 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent sm:text-[length:var(--fs-eyebrow)]"
+					class="mt-4 border-t border-border/8 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent-ink sm:text-[length:var(--fs-eyebrow)]"
 				>
 					{t.founders.sum}
 				</p>
@@ -466,7 +464,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{t.skills.heading}
 				</h2>
 				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/65 sm:text-base"
+					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet sm:text-base"
 				>
 					{t.skills.lead}
 				</p>
@@ -481,7 +479,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<p class="mt-8 text-center">
 				<a
 					href={localeHref(lang, '/skills')}
-					class="inline-flex items-center gap-1.5 text-[length:var(--fs-meta)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground/65 transition-colors hover:text-foreground"
+					class="inline-flex items-center gap-1.5 text-[length:var(--fs-meta)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground-quiet transition-colors hover:text-foreground"
 				>
 					{t.skills.all}
 				</a>
@@ -499,7 +497,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{t.start.heading}
 				</h2>
 				<p
-					class="mx-auto mt-3 max-w-lg text-[length:var(--fs-title)] leading-snug text-foreground/65 sm:text-base"
+					class="mx-auto mt-3 max-w-lg text-[length:var(--fs-title)] leading-snug text-foreground-quiet sm:text-base"
 				>
 					{@html t.start.bodyHtml}
 				</p>
@@ -512,6 +510,50 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 </div>
 
 <style>
+/*
+ * Emphasis inside translated copy.
+ *
+ * Three roles, styled here rather than in the sentence. `lead` is the default
+ * and is only a weight — it used to be four different opacities (80, 82, 85,
+ * 88) for one idea, none of which anyone could see the difference between.
+ * `strong` is the hero's highlight, and stays sunflower because it sits on a
+ * photograph, where the tone reads and the page's inks do not. `past` is the
+ * life being left behind, so it is struck through and quiet.
+ */
+/* `:global` because Svelte scopes CSS by stamping a class on elements it
+   compiled, and `{@html}` content is not compiled — it arrives as a string, so
+   a scoped selector never matches it. */
+:global([data-emph]) {
+	font-weight: 500;
+}
+:global([data-emph="strong"]) {
+	color: var(--color-accent);
+}
+:global([data-emph="past"]) {
+	color: var(--color-foreground-quiet);
+	text-decoration: line-through;
+}
+/* On the hero photograph the page inks do not apply: everything there is the
+   light ink, and `past` is that ink held back. */
+#home-hero :global([data-emph="past"]) {
+	color: var(--color-on-dark);
+	opacity: 0.6;
+}
+
+/*
+ * Emphasis inside translated copy.
+ *
+ * The heading used to carry `<span style="color:var(--color-accent)">` in the
+ * sentence itself — a colour decision living in content, in two languages, and
+ * one that measured 2.72:1 against the band it sits on. Sunflower cannot be
+ * made to read on paradise: the lightest version that clears 4.5:1 is white.
+ * So on a band the emphasis is weight, and the copy says `<b>`, which is what
+ * it meant.
+ */
+#company-heading b {
+	font-weight: 600;
+}
+
 /* The company thesis sits on marine, but its emphasised words are authored
    with the light-page tone (text-foreground) — lift them so they read on the
    dark spread. Keyed off the id so the strict utility plugin ignores it. */

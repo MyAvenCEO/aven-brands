@@ -1,11 +1,11 @@
 <script lang="ts">
+import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 import { fade, fly } from 'svelte/transition'
 import { page } from '$app/state'
 import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
-import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 
 type NavActive = 'skills' | 'avens' | 'pricing' | 'docs'
 
@@ -50,8 +50,8 @@ const solid = $derived(!overlay || scrolled)
 const ink = $derived(lightBar ? 'text-primary-foreground' : 'text-foreground')
 const socialInk = $derived(
 	lightBar
-		? 'text-primary-foreground/70 transition-colors hover:text-primary-foreground'
-		: 'text-foreground/65 transition-colors hover:text-foreground'
+		? 'text-primary-foreground-soft transition-colors hover:text-primary-foreground'
+		: 'text-foreground-quiet transition-colors hover:text-foreground'
 )
 /** Fixed over the hero video (so the video sits full-bleed behind it), sticky
  * everywhere else. */
@@ -227,7 +227,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 					in:fly={{ y: 16, duration: 260, delay: 60 + 50 * i }}
 					class="font-display text-[clamp(2.25rem,11vw,3.75rem)] font-medium leading-none tracking-tight transition-opacity hover:opacity-70 {active ===
 					item.key
-						? 'text-accent'
+						? 'text-accent-ink'
 						: ''}"
 				>
 					{item.label}
@@ -243,18 +243,18 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 					aria-current={lang === 'de' ? 'true' : undefined}
 					class={lang === 'de'
 						? 'text-primary-foreground'
-						: 'text-primary-foreground/45 transition-colors hover:text-primary-foreground'}
+						: 'text-primary-foreground-quiet transition-colors hover:text-primary-foreground'}
 				>
 					DE
 				</a>
-				<span aria-hidden="true" class="text-primary-foreground/30">|</span>
+				<span aria-hidden="true" class="text-primary-foreground-quiet">|</span>
 				<a
 					href={lang === 'en' ? page.url.pathname : otherHref}
 					hreflang="en"
 					aria-current={lang === 'en' ? 'true' : undefined}
 					class={lang === 'en'
 						? 'text-primary-foreground'
-						: 'text-primary-foreground/45 transition-colors hover:text-primary-foreground'}
+						: 'text-primary-foreground-quiet transition-colors hover:text-primary-foreground'}
 				>
 					EN
 				</a>

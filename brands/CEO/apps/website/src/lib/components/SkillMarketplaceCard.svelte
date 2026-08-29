@@ -31,14 +31,14 @@ const cardClass = $derived.by(() =>
 >
 	<div class="flex items-start justify-between gap-3">
 		<p
-			class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
+			class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground-quiet"
 		>
 			{plan(skill.plan).name}
 		</p>
 		<span
 			class="inline-flex items-center rounded-full border px-2 py-0.5 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wider)] {skill.comingSoon
 				? 'border-quiet/25 bg-quiet/8 text-quiet-ink'
-				: 'border-accent/25 bg-accent/15 text-accent'}"
+				: 'border-accent/25 bg-accent/15 text-accent-ink'}"
 		>
 			{skill.comingSoon ? t.soon : t.skill}
 		</span>
@@ -51,13 +51,13 @@ const cardClass = $derived.by(() =>
 	</h3>
 
 	<p
-		class="mt-2 text-[length:var(--fs-section)] font-medium leading-snug text-foreground/80 sm:text-[length:var(--fs-title)]"
+		class="mt-2 text-[length:var(--fs-section)] font-medium leading-snug text-foreground-soft sm:text-[length:var(--fs-title)]"
 	>
 		{skill.oneLineCopy}
 	</p>
 
 	<p
-		class="mt-3 text-[length:var(--fs-body)] italic leading-snug text-foreground/65 sm:text-[length:var(--fs-section)]"
+		class="mt-3 text-[length:var(--fs-body)] italic leading-snug text-foreground-quiet sm:text-[length:var(--fs-section)]"
 	>
 		"{skill.founderScenario.timestamp}
 		— {skill.founderScenario.story.slice(0, 100)}&hellip;"
@@ -66,7 +66,7 @@ const cardClass = $derived.by(() =>
 	<div class="mt-4 flex flex-wrap gap-1.5">
 		{#each skill.playsWith as { slug } (slug)}
 			<span
-				class="inline-flex items-center rounded-full border border-border/25 bg-surface-page/25 px-2 py-0.5 text-[length:var(--fs-nano)] font-semibold text-foreground/50"
+				class="inline-flex items-center rounded-full border border-border/25 bg-surface-page/25 px-2 py-0.5 text-[length:var(--fs-nano)] font-semibold text-foreground-quiet"
 			>
 				→ {t.chainLabels[slug] ?? slug}
 			</span>
@@ -75,14 +75,14 @@ const cardClass = $derived.by(() =>
 
 	<div class="mt-5 flex items-center justify-between border-t border-border/10 pt-4">
 		<span
-			style="background-color: color-mix(in oklab, var(--color-paradise) 12%, transparent); color: var(--color-paradise)"
+			style="background-color: color-mix(in oklab, var(--color-progress) 12%, transparent); color: var(--color-progress-ink)"
 			class="inline-flex items-center rounded-full px-2.5 py-1 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wide)]"
 		>
 			{skill.hero.promiseHoursPerWeek}
 			{t.saved}
 		</span>
 		<span
-			class="text-[length:var(--fs-meta)] font-semibold text-foreground/50 transition-colors group-hover:text-foreground/80"
+			class="text-[length:var(--fs-meta)] font-semibold text-foreground-quiet transition-colors group-hover:text-foreground-soft"
 		>
 			{t.view}
 		</span>

@@ -16,7 +16,7 @@ const HEADING: Record<number, string> = {
 	2: 'mt-12 text-xl font-semibold tracking-tight text-foreground border-b border-border/25 pb-2',
 	3: 'mt-8 text-[length:var(--fs-lead)] font-semibold tracking-tight text-foreground',
 	4: 'mt-6 text-[length:var(--fs-title)] font-semibold text-foreground',
-	5: 'mt-5 text-[length:var(--fs-body)] font-semibold text-foreground/80'
+	5: 'mt-5 text-[length:var(--fs-body)] font-semibold text-foreground-soft'
 }
 
 function isList(block: LegalBlock): block is { items: string[] } {
@@ -71,7 +71,7 @@ function parts(line: string): { text: string; href?: string }[] {
 				{#each section.blocks as block, i (i)}
 					{#if isList(block)}
 						<ul
-							class="mt-3 space-y-2 text-[length:var(--fs-title)] leading-relaxed text-foreground/80"
+							class="mt-3 space-y-2 text-[length:var(--fs-title)] leading-relaxed text-foreground-soft"
 						>
 							{#each block.items as item, j (j)}
 								<li class="flex gap-2">
@@ -99,10 +99,10 @@ function parts(line: string): { text: string; href?: string }[] {
 						</ul>
 					{:else}
 						<p
-							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground/80 break-words"
+							class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground-soft break-words"
 						>
 							{#if block.lead}
-								<strong class="font-semibold text-foreground/90">{block.lead}</strong><br>
+								<strong class="font-semibold text-foreground-soft">{block.lead}</strong><br>
 							{/if}
 							{#each block.lines as line, l (l)}
 								{#if l > 0}

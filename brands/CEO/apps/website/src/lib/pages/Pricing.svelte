@@ -63,7 +63,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 			<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground"
 				>{euro(p.eurPrice)}&nbsp;€</span
 			>
-			<span class="text-[length:var(--fs-meta)] font-medium text-foreground/50"
+			<span class="text-[length:var(--fs-meta)] font-medium text-foreground-quiet"
 				>{priceSuffix(p, lang)}</span
 			>
 		</p>
@@ -75,7 +75,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
      trust with numbers, this line earns the wish. -->
 {#snippet pitchLine(p: Plan)}
 	<p
-		class="mx-auto mt-4 max-w-md text-center text-[length:var(--fs-body)] leading-relaxed text-foreground/65 italic"
+		class="mx-auto mt-4 max-w-md text-center text-[length:var(--fs-body)] leading-relaxed text-foreground-quiet italic"
 	>
 		{p.pitch}
 	</p>
@@ -102,7 +102,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 						>{t.soon}</span
 					>
 				{/if}
-				<span class="text-foreground/50">· {feature.title}</span>
+				<span class="text-foreground-quiet">· {feature.title}</span>
 			</li>
 		{/each}
 	</ul>
@@ -118,7 +118,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 		<div class="mx-auto max-w-6xl">
 			<div class="mx-auto max-w-2xl text-center">
 				<p
-					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent"
+					class="text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent-ink"
 				>
 					{t.eyebrow}
 				</p>
@@ -127,7 +127,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 				</h2>
 				<!-- The wish first, the three facts after — same order as on the cards. -->
 				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-relaxed text-foreground/80"
+					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-relaxed text-foreground-soft"
 				>
 					{t.lead}
 				</p>
@@ -144,7 +144,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 			>
 				<!-- No `uppercase`: the brand is spelled avenCEO, not AVENCEO. -->
 				<p class="text-center text-2xl font-semibold tracking-tight text-foreground">{ceo.name}</p>
-				<p class="mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+				<p class="mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground-quiet">
 					{ceo.role}
 				</p>
 
@@ -164,11 +164,11 @@ function skillFeatures(p: Plan): SkillFeature[] {
 							class="mt-3 rounded-lg bg-success/8 px-3 py-2 text-[length:var(--fs-meta)] leading-snug"
 						>
 							<strong class="font-semibold text-success-ink">{t.sovereignty.lead}</strong>
-							<span class="text-foreground/80">{t.sovereignty.text}</span>
+							<span class="text-foreground-soft">{t.sovereignty.text}</span>
 						</div>
 						<!-- Titles only: compact, two columns in the wide left section. -->
 						<ul
-							class="mt-3 space-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground/80"
+							class="mt-3 space-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground-soft"
 						>
 							{#if ceo.runtime}
 								<li class="flex gap-2">
@@ -176,7 +176,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 										aria-hidden="true"
 										class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"
 									></span>
-									<span class="font-semibold text-foreground/85"
+									<span class="font-semibold text-foreground-soft"
 										>{t.mindWeekly(ceo.runtime.mindCredits)}</span
 									>
 								</li>
@@ -198,13 +198,13 @@ function skillFeatures(p: Plan): SkillFeature[] {
 											→
 										</a>
 									{:else}
-										<span class="font-medium text-foreground/80">{feature.title}</span>
+										<span class="font-medium text-foreground-soft">{feature.title}</span>
 									{/if}
 								</li>
 							{/each}
 						</ul>
 						{#if lang === 'de'}
-							<p class="mt-4 text-[length:var(--fs-micro)] leading-snug text-foreground/40">
+							<p class="mt-4 text-[length:var(--fs-micro)] leading-snug text-foreground-quiet">
 								{t.postForwardNote}
 							</p>
 						{/if}
@@ -216,10 +216,10 @@ function skillFeatures(p: Plan): SkillFeature[] {
 								{t.skills}
 							</p>
 							{@render skillList(skillFeatures(ceo))}
-							<p class="mt-2 text-[length:var(--fs-meta)] text-foreground/50">
+							<p class="mt-2 text-[length:var(--fs-meta)] text-foreground-quiet">
 								<a
 									href={`${localeHref(lang, '/skills')}?plan=${ceo.id}`}
-									class="underline underline-offset-4 hover:text-foreground/80"
+									class="underline underline-offset-4 hover:text-foreground-soft"
 								>
 									{t.allSkills(ceoSkillCount)}
 								</a>
@@ -236,7 +236,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 					<button
 						type="button"
 						disabled
-						class="mt-4 inline-flex min-h-11 w-full cursor-default items-center justify-center rounded-full bg-foreground/10 px-10 text-[length:var(--fs-body)] font-semibold text-foreground/50"
+						class="mt-4 inline-flex min-h-11 w-full cursor-default items-center justify-center rounded-full bg-muted px-10 text-[length:var(--fs-body)] font-semibold text-foreground-soft"
 					>
 						{t.comingSoon}
 					</button>

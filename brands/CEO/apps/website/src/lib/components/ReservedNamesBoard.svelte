@@ -32,20 +32,20 @@ const hidden = $derived(taken.length - shown.length)
 		<ol class="mt-3 space-y-1.5">
 			{#each shown as name, i (name.slug)}
 				<li class="flex items-baseline gap-3 text-[length:var(--fs-body)]">
-					<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-foreground/35">
+					<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-foreground-quiet">
 						{i + 1}
 					</span>
 					<span class="font-semibold tracking-tight text-foreground">{name.slug}</span>
-					<span class="text-[length:var(--fs-eyebrow)] text-foreground/50">.aven.ceo</span>
+					<span class="text-[length:var(--fs-eyebrow)] text-foreground-quiet">.aven.ceo</span>
 					{#if name.holder}
-						<span class="ml-auto text-[length:var(--fs-eyebrow)] text-foreground/35"
+						<span class="ml-auto text-[length:var(--fs-eyebrow)] text-foreground-quiet"
 							>{name.holder}</span
 						>
 					{/if}
 				</li>
 			{/each}
 			{#if hidden > 0}
-				<li class="flex items-baseline gap-3 text-[length:var(--fs-meta)] text-foreground/50">
+				<li class="flex items-baseline gap-3 text-[length:var(--fs-meta)] text-foreground-quiet">
 					<span class="w-6 shrink-0 text-right tabular-nums">⋮</span>
 					<span>{t.more(hidden)}</span>
 				</li>
@@ -53,17 +53,17 @@ const hidden = $derived(taken.length - shown.length)
 			<li
 				class="flex items-baseline gap-3 rounded-lg border border-dashed border-accent/25 bg-accent/8 px-2 py-1.5 text-[length:var(--fs-body)]"
 			>
-				<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-accent">
+				<span class="w-6 shrink-0 text-right font-semibold tabular-nums text-accent-ink">
 					{nextPosition()}
 				</span>
-				<span class="font-semibold tracking-tight text-foreground/65">{t.yourName}</span>
-				<span class="text-[length:var(--fs-eyebrow)] text-foreground/50">.aven.ceo</span>
-				<span class="ml-auto text-[length:var(--fs-eyebrow)] font-medium text-accent"
+				<span class="font-semibold tracking-tight text-foreground-quiet">{t.yourName}</span>
+				<span class="text-[length:var(--fs-eyebrow)] text-foreground-quiet">.aven.ceo</span>
+				<span class="ml-auto text-[length:var(--fs-eyebrow)] font-medium text-accent-ink"
 					>{t.free}</span
 				>
 			</li>
 		</ol>
-		<p class="mt-3 text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50">
+		<p class="mt-3 text-[length:var(--fs-eyebrow)] leading-snug text-foreground-quiet">
 			{t.footnote}
 		</p>
 	</div>

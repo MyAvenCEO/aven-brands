@@ -67,7 +67,9 @@ const t = $derived(
 
 			<!-- Widerrufsbutton für den Shop "avenCEO GmbH" (eRecht24). -->
 			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
-				<p class="text-[length:var(--fs-section)] leading-relaxed text-foreground/80">{t.intro}</p>
+				<p class="text-[length:var(--fs-section)] leading-relaxed text-foreground-soft">
+					{t.intro}
+				</p>
 				<p class="mt-4">
 					<a
 						id="eRecht24RevocationButton"
@@ -98,7 +100,7 @@ const t = $derived(
 				{/if}
 				{#each section.blocks as block, i (i)}
 					{#if 'lines' in block}
-						<p class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground/80">
+						<p class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground-soft">
 							{#each block.lines as line, l (l)}
 								{#if l > 0}
 									<br>

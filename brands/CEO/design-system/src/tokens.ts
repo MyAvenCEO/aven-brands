@@ -36,6 +36,7 @@ import {
 	FONT_STACK_MAP,
 	FONT_WEIGHT_MAP,
 	flatColor,
+	PALETTE_MAP,
 	RADII_MAP,
 	VIBE_SCALE_MAP
 } from './brand-data.js'
@@ -96,6 +97,19 @@ export const ROLES: Record<string, string> = flatColor('roles')
  * opposite the gold on purpose, so an offer never reads as just a highlight.
  */
 export const FUNCTIONAL: Record<string, string> = flatColor('functional')
+
+/**
+ * Ordered colour sets a generator walks by index rather than by meaning.
+ *
+ * The identicon palette lived in the website as a bare array of five hexes,
+ * which is the same bug as a hardcoded colour anywhere else: a second brand
+ * could not have its own, and editing the brand reached nothing.
+ */
+export const PALETTES: Record<string, string[]> = Object.fromEntries(
+	Object.entries(PALETTE_MAP as Record<string, unknown>)
+		.filter(([name]) => !name.startsWith('$'))
+		.map(([name, def]) => [name, (def as { $value: string[] }).$value])
+)
 
 /**
  * Roles only the APP owns: the muted/strong pair for every signal rather than

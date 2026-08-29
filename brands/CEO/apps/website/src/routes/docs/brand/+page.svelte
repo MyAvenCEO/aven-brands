@@ -20,9 +20,9 @@ import {
 	elevationScale,
 	fontStacks,
 	fontWeights,
+	iconMarkup,
 	inkScale,
 	layoutNames,
-	iconMarkup,
 	logoVariants,
 	radiusScale,
 	sections,
@@ -100,7 +100,6 @@ function inspect(name: string) {
 			</p>
 		</div>
 		<div id="cb-head-actions">
-			<img id="cb-logo" src="/aven-logo.svg" alt="" width="40" height="40">
 			<div id="cb-theme" role="group" aria-label="Theme">
 				{#each ['light', 'dark'] as const as option (option)}
 					<button
@@ -203,9 +202,21 @@ function inspect(name: string) {
 						<div class="cb-swatches">
 							{#each group.rows as row (row.name)}
 								<div class="cb-swatch">
-									<div class="cb-chip" style="background: var({row.cssVar})"></div>
+									<div class="cb-chip">
+										<span class="cb-chip-half" style="background: var({row.cssVar})"></span>
+										{#if row.dark}
+											<span
+												class="cb-chip-half"
+												style="background: {row.dark}"
+												title="dark theme"
+											></span>
+										{/if}
+									</div>
 									<p class="cb-name">{row.name}</p>
 									<p class="cb-mono">{row.value}</p>
+									{#if row.dark}
+										<p class="cb-mono cb-dark-value">dark {row.dark}</p>
+									{/if}
 								</div>
 							{/each}
 						</div>
@@ -452,10 +463,6 @@ function inspect(name: string) {
 	align-items: center;
 	gap: var(--space-comfortable);
 }
-#cb-logo {
-	inline-size: 2.5rem;
-	block-size: 2.5rem;
-}
 #cb-theme {
 	display: inline-flex;
 	border: 1px solid var(--color-border);
@@ -546,7 +553,10 @@ function inspect(name: string) {
 .cb-count {
 	font-size: var(--fs-micro);
 	font-variant-numeric: tabular-nums;
-	color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+	/* Not a color-mix: 65% of the foreground over an unknown ground is a
+	   relationship, and the count chip sits on a tint the ladder does not
+	   name. The role is measured; the relationship was not. */
+	color: var(--color-foreground-quiet);
 }
 #cb-main {
 	padding: var(--space-loose) 1.25rem 4rem;
@@ -592,9 +602,20 @@ function inspect(name: string) {
 	min-inline-size: 0;
 }
 .cb-chip {
+	display: flex;
 	block-size: 3.5rem;
+	overflow: hidden;
 	border-radius: var(--radius-chip);
 	border: 1px solid var(--color-border);
+}
+/* Two halves when a role is themed, one when it is not — so the split itself
+   tells you which roles carry a dark override, without a badge saying so. */
+.cb-chip-half {
+	flex: 1;
+	min-inline-size: 0;
+}
+.cb-dark-value {
+	color: var(--color-foreground-quiet);
 }
 .cb-name {
 	margin: 0.35rem 0 0;

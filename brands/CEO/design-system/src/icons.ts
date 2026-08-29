@@ -12,8 +12,9 @@
  * and the set stays coherent as it grows rather than accumulating a second
  * visual language one icon at a time.
  */
-import { validateIconRegistry } from '@myavenceo/aven-vibes'
+
 import type { IconRegistry } from '@myavenceo/aven-vibes'
+import { validateIconRegistry } from '@myavenceo/aven-vibes'
 
 import document from './brand/icons.avenceo.json' with { type: 'json' }
 
@@ -35,9 +36,8 @@ export type SocialProfile = { name: string; href: string; icon: string }
 
 import socialDocument from './brand/social.avenceo.json' with { type: 'json' }
 
-export const SOCIAL_PROFILES: SocialProfile[] = (
-	socialDocument as { profiles: SocialProfile[] }
-).profiles
+export const SOCIAL_PROFILES: SocialProfile[] = (socialDocument as { profiles: SocialProfile[] })
+	.profiles
 
 /* A profile naming an icon that does not exist renders an empty span, silently.
    Fail here instead. */

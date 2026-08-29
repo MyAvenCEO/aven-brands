@@ -35,7 +35,9 @@ export const componentsDocument = componentsJson as unknown as ComponentsDocumen
 export const colorGroups = brandDocument.color
 export const scaleGroups = brandDocument.scale
 
-export const flatColor = (group: keyof typeof brandDocument.color) =>
+/* `palettes` is excluded: it holds arrays, not tokens, so flattening it is a
+   category error rather than a missing feature. It has its own accessor. */
+export const flatColor = (group: Exclude<keyof typeof brandDocument.color, 'palettes'>) =>
 	flatten(brandDocument.color[group])
 
 export const flatScale = (group: 'type' | 'tracking' | 'elevation' | 'radius' | 'space') =>
@@ -75,3 +77,6 @@ export const factsDocument = factsJson as unknown as {
 	pricing: { vatNote: string; legacyPlanIds: Record<string, string>; plans: unknown[] }
 	skills: { catalog: unknown[] }
 }
+
+/** Ordered colour sets a generator walks by index. See `PALETTES` in tokens. */
+export const PALETTE_MAP = brandDocument.color.palettes as Record<string, { $value: string[] }>

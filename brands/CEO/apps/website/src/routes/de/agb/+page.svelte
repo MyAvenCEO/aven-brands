@@ -18,7 +18,7 @@ import SiteFooter from '$lib/components/SiteFooter.svelte'
 		<div class="mx-auto max-w-2xl">
 			<p class="eyebrow-accent">Rechtliches</p>
 			<h1 class="section-title mt-3 sm:text-3xl">Allgemeine Geschäftsbedingungen</h1>
-			<p class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground/65">
+			<p class="mt-3 text-[length:var(--fs-title)] leading-relaxed text-foreground-quiet">
 				Die Bedingungen, unter denen wir liefern.
 			</p>
 
@@ -30,7 +30,7 @@ import SiteFooter from '$lib/components/SiteFooter.svelte'
 				>
 					Platzhalter
 				</p>
-				<p class="mt-2 text-[length:var(--fs-section)] leading-relaxed text-foreground/65">
+				<p class="mt-2 text-[length:var(--fs-section)] leading-relaxed text-foreground-quiet">
 					Hier steht bald der rechtsverbindliche Text. Bis dahin ist diese Seite bewusst leer und
 					auf <span class="font-mono text-[length:var(--fs-body)]">noindex</span> gesetzt — ein
 					Rechtstext, der nur so aussieht, als wäre er einer, hilft niemandem.

@@ -63,7 +63,7 @@ const wrapperClass = $derived(
 	</h3>
 	<!-- Our own static copy with inline emphasis — not user content. -->
 	<p
-		class="mt-3 text-[length:var(--fs-section)] leading-snug text-foreground/65 sm:text-[length:var(--fs-title)] {centered
+		class="mt-3 text-[length:var(--fs-section)] leading-snug text-foreground-quiet sm:text-[length:var(--fs-title)] {centered
 			? 'mx-auto max-w-2xl'
 			: 'max-w-2xl'}"
 	>
@@ -73,12 +73,12 @@ const wrapperClass = $derived(
 	<!-- The four benefits, styled and sized exactly like avenCEO's ENTHALTEN
 	     bullets: a small accent dot and the title, no sub-copy. -->
 	<ul
-		class="mt-7 grid gap-x-8 gap-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground/80 sm:grid-cols-2"
+		class="mt-7 grid gap-x-8 gap-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground-soft sm:grid-cols-2"
 	>
 		{#if avenId.runtime}
 			<li class="flex gap-2">
 				<span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"></span>
-				<span class="font-semibold text-foreground/85"
+				<span class="font-semibold text-foreground-soft"
 					>{tp.mindOnce(avenId.runtime.mindCredits)}</span
 				>
 			</li>
@@ -86,7 +86,7 @@ const wrapperClass = $derived(
 		{#each features as feature (feature.title)}
 			<li class="flex gap-2">
 				<span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent"></span>
-				<span class="font-medium text-foreground/80">{feature.title}</span>
+				<span class="font-medium text-foreground-soft">{feature.title}</span>
 			</li>
 		{/each}
 	</ul>
@@ -99,7 +99,7 @@ const wrapperClass = $derived(
 				<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground">
 					{euro(avenId.eurPrice)}&nbsp;€
 				</span>
-				<span class="text-[length:var(--fs-meta)] font-medium text-foreground/50">
+				<span class="text-[length:var(--fs-meta)] font-medium text-foreground-quiet">
 					{priceSuffix(avenId, lang)}
 				</span>
 			</p>
@@ -129,10 +129,10 @@ const wrapperClass = $derived(
 					autocomplete="off"
 					spellcheck="false"
 					placeholder={t.placeholder}
-					class="min-w-0 flex-1 bg-transparent pl-7 pr-2 text-right text-[length:var(--fs-amount)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
+					class="min-w-0 flex-1 bg-transparent pl-7 pr-2 text-right text-[length:var(--fs-amount)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground-quiet"
 				>
 				<span
-					class="flex shrink-0 select-none items-center border-l border-accent/30 bg-surface-sunken/60 px-6 text-[length:var(--fs-amount)] font-medium text-foreground/45"
+					class="flex shrink-0 select-none items-center border-l border-accent/30 bg-surface-sunken/60 px-6 text-[length:var(--fs-amount)] font-medium text-foreground-quiet"
 					>.aven.ceo</span
 				>
 			</label>
@@ -150,11 +150,13 @@ const wrapperClass = $derived(
 	     rounded corners: negative margins cancel the card padding, overflow-hidden
 	     on the form rounds it off. -->
 	{#if ceoBeta}
-		<div class="-mx-5 -mb-9 mt-8 bg-accent px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10">
-			<p class="font-bold leading-snug text-foreground/90">
+		<div
+			class="-mx-5 -mb-9 mt-8 bg-accent px-5 py-4 text-center text-accent-foreground sm:-mx-10 sm:-mb-11 sm:px-10"
+		>
+			<p class="font-bold leading-snug">
 				{t.betaLine(ceoBeta.discountPct, ceoBeta.months)}
 			</p>
-			<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug text-foreground/60">
+			<p class="mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug">
 				{t.betaScarcity}
 			</p>
 		</div>

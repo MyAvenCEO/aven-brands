@@ -1,10 +1,10 @@
 <script lang="ts">
 import { legalPath } from '@myavenceo/aven-ceo'
+import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
-import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 
 /**
  * THE footer, on every page. It carries the two things a German site owes a
@@ -47,7 +47,7 @@ const year = 2026
 					>
 				</a>
 				<p
-					class="mt-2 max-w-xs text-[length:var(--fs-meta)] leading-snug text-primary-foreground/55"
+					class="mt-2 max-w-xs text-[length:var(--fs-meta)] leading-snug text-primary-foreground-quiet"
 				>
 					{t.footer.tagline}
 				</p>
@@ -60,7 +60,7 @@ const year = 2026
 				{#each nav as item (item.href)}
 					<a
 						href={item.href}
-						class="text-primary-foreground/65 transition-colors hover:text-primary-foreground"
+						class="text-primary-foreground-quiet transition-colors hover:text-primary-foreground"
 					>
 						{item.label}
 					</a>
@@ -74,7 +74,7 @@ const year = 2026
 				{#each legal as item (item.href)}
 					<a
 						href={item.href}
-						class="text-primary-foreground/65 transition-colors hover:text-primary-foreground"
+						class="text-primary-foreground-quiet transition-colors hover:text-primary-foreground"
 					>
 						{item.label}
 					</a>
@@ -90,7 +90,7 @@ const year = 2026
 						href={profile.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="flex items-center gap-2 text-primary-foreground/65 transition-colors hover:text-primary-foreground"
+						class="flex items-center gap-2 text-primary-foreground-quiet transition-colors hover:text-primary-foreground"
 					>
 						<SocialIcon {profile} />
 						{profile.name}
@@ -100,7 +100,7 @@ const year = 2026
 		</div>
 
 		<div
-			class="flex flex-col gap-2 border-t border-primary-foreground/15 pt-6 text-[length:var(--fs-eyebrow)] text-primary-foreground/45 sm:flex-row sm:items-center sm:justify-between"
+			class="flex flex-col gap-2 border-t border-primary-foreground/15 pt-6 text-[length:var(--fs-eyebrow)] text-primary-foreground-quiet sm:flex-row sm:items-center sm:justify-between"
 		>
 			<p>© {year} {t.footer.copyright}</p>
 		</div>

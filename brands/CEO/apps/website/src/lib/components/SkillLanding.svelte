@@ -54,7 +54,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			>
 				{skill.hero.headlineMain}
 				<span
-					class="mt-3 block font-sans text-[length:var(--fs-title)] font-normal leading-snug tracking-normal text-foreground/65 sm:text-[length:var(--fs-lead)]"
+					class="mt-3 block font-sans text-[length:var(--fs-title)] font-normal leading-snug tracking-normal text-foreground-quiet sm:text-[length:var(--fs-lead)]"
 				>
 					{skill.hero.headlineSerifLead}
 				</span>
@@ -68,7 +68,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						{t.fromRealLife}
 					</p>
 					<p
-						class="mt-3 text-[length:var(--fs-title)] italic leading-relaxed text-foreground/80 sm:text-[length:var(--fs-title)]"
+						class="mt-3 text-[length:var(--fs-title)] italic leading-relaxed text-foreground-soft sm:text-[length:var(--fs-title)]"
 					>
 						"{skill.founderScenario.story}"
 					</p>
@@ -80,11 +80,11 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							{@html beamAvatarSvg(AVEN, paletteKi, 32, `skill-aven-${skill.slug}`)}
 						</div>
 						<p
-							class="text-[length:var(--fs-nano)] font-bold tracking-[var(--tracking-wider)] text-accent"
+							class="text-[length:var(--fs-nano)] font-bold tracking-[var(--tracking-wider)] text-accent-ink"
 						>
 							{t.yourAven}
 						</p>
-						<p class="text-[length:var(--fs-nano)] text-foreground/35">{t.solvesIt}</p>
+						<p class="text-[length:var(--fs-nano)] text-foreground-quiet">{t.solvesIt}</p>
 					</div>
 				</div>
 			</div>
@@ -106,14 +106,14 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{t.gainHeading(skillLabel(skill.slug))}
 				</h2>
 				<p
-					class="mx-auto mt-3 max-w-md text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent"
+					class="mx-auto mt-3 max-w-md text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent-ink"
 				>
 					{skill.hero.promiseHoursPerWeek}
 					{t.perWeekBack}
 				</p>
 			</div>
 			<ul
-				class="mt-8 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground/80 sm:text-[length:var(--fs-title)]"
+				class="mt-8 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground-soft sm:text-[length:var(--fs-title)]"
 			>
 				{#each skill.benefits as benefit (benefit)}
 					<li class="flex gap-3">
@@ -141,12 +141,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<li class="border-b border-border/10 py-6 first:border-t first:border-border/25">
 						<div class="flex flex-col items-center gap-2 sm:gap-2.5">
 							<span
-								class="text-[length:var(--fs-eyebrow)] font-bold tabular-nums tracking-[var(--tracking-wide)] text-foreground/35"
+								class="text-[length:var(--fs-eyebrow)] font-bold tabular-nums tracking-[var(--tracking-wide)] text-foreground-quiet"
 							>
 								{String(i + 1).padStart(2, '0')}
 							</span>
 							<p
-								class="max-w-md text-[length:var(--fs-title)] font-medium leading-snug text-foreground/90 sm:text-[length:var(--fs-lead)]"
+								class="max-w-md text-[length:var(--fs-title)] font-medium leading-snug text-foreground-soft sm:text-[length:var(--fs-lead)]"
 							>
 								{step}
 							</p>
@@ -175,7 +175,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<p class="eyebrow-quiet">
 						{t.input}
 					</p>
-					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
+					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground-soft">
 						{skill.whatMechanics.input}
 					</p>
 				</div>
@@ -183,7 +183,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<p class="eyebrow-accent">
 						{t.magic}
 					</p>
-					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
+					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground-soft">
 						{skill.whatMechanics.magic}
 					</p>
 				</div>
@@ -191,7 +191,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<p class="eyebrow-quiet">
 						{t.output}
 					</p>
-					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground/80">
+					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground-soft">
 						{skill.whatMechanics.output}
 					</p>
 				</div>
@@ -217,14 +217,16 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							href={skillDetailHref(slug, lang)}
 							class="flex items-start gap-3 rounded-xl border border-border/25 bg-surface-raised px-4 py-3 transition-colors hover:border-border/25 hover:bg-surface-sunken"
 						>
-							<span class="mt-0.5 text-[length:var(--fs-eyebrow)] font-bold text-accent">→</span>
+							<span class="mt-0.5 text-[length:var(--fs-eyebrow)] font-bold text-accent-ink"
+								>→</span
+							>
 							<div>
 								<p
-									class="text-[length:var(--fs-eyebrow)] font-bold tracking-[var(--tracking-wide)] text-foreground/80"
+									class="text-[length:var(--fs-eyebrow)] font-bold tracking-[var(--tracking-wide)] text-foreground-soft"
 								>
 									{skillLabel(slug)}
 								</p>
-								<p class="mt-0.5 text-[length:var(--fs-meta)] leading-snug text-foreground/50">
+								<p class="mt-0.5 text-[length:var(--fs-meta)] leading-snug text-foreground-quiet">
 									{relation}
 								</p>
 							</div>
@@ -256,18 +258,18 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{#each skill.valueStack.standaloneAlternatives as alt (alt.label)}
 						<li class="flex items-baseline justify-between gap-3">
 							<span
-								class="text-[length:var(--fs-body)] text-foreground/65 line-through decoration-foreground/30"
+								class="text-[length:var(--fs-body)] text-foreground-quiet line-through decoration-foreground/30"
 								>{alt.label}</span
 							>
 							{#if alt.eurPerMonth > 0}
 								<span
-									class="shrink-0 text-[length:var(--fs-body)] font-bold tabular-nums text-foreground/50 line-through decoration-foreground/30"
+									class="shrink-0 text-[length:var(--fs-body)] font-bold tabular-nums text-foreground-quiet line-through decoration-foreground/30"
 								>
 									{alt.eurPerMonth}&nbsp;€/m
 								</span>
 							{:else}
 								<span
-									class="shrink-0 text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground/35"
+									class="shrink-0 text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground-quiet"
 								>
 									{t.notAvailable}
 								</span>
@@ -276,7 +278,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{/each}
 				</ul>
 				<div class="mt-5 flex items-baseline justify-between border-t border-border/25 pt-4">
-					<span class="text-[length:var(--fs-section)] font-semibold text-foreground/65"
+					<span class="text-[length:var(--fs-section)] font-semibold text-foreground-quiet"
 						>{t.standaloneTotal}</span
 					>
 					<span
@@ -292,7 +294,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<p class="mt-2 text-center text-[length:var(--fs-title)] font-bold text-foreground">
 						{t.noSurcharge}
 					</p>
-					<p class="mt-1 text-center text-[length:var(--fs-meta)] text-foreground/65">
+					<p class="mt-1 text-center text-[length:var(--fs-meta)] text-foreground-quiet">
 						{t.noLockIn}
 					</p>
 				</div>
@@ -301,7 +303,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						<p class="eyebrow-quiet">
 							{t.firstRelief}
 						</p>
-						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
+						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground-soft">
 							{skill.valueStack.timeDelayToValue}
 						</p>
 					</div>
@@ -309,7 +311,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						<p class="eyebrow-quiet">
 							{t.setupEffort}
 						</p>
-						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
+						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground-soft">
 							{skill.valueStack.effortToInstall}
 						</p>
 					</div>
@@ -317,7 +319,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						<p class="eyebrow-quiet">
 							{t.proof}
 						</p>
-						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground/80">
+						<p class="mt-1 text-[length:var(--fs-body)] font-medium text-foreground-soft">
 							{skill.valueStack.proof}
 						</p>
 					</div>
@@ -336,7 +338,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<ul class="mt-3 space-y-2">
 					{#each skill.bonuses as bonus (bonus)}
 						<li
-							class="flex gap-3 text-[length:var(--fs-body)] leading-snug text-foreground/80 sm:text-[length:var(--fs-section)]"
+							class="flex gap-3 text-[length:var(--fs-body)] leading-snug text-foreground-soft sm:text-[length:var(--fs-section)]"
 						>
 							<span class="mt-1 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
 							<span>{bonus}</span>
@@ -348,7 +350,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<p class="eyebrow-accent">
 					{t.availability}
 				</p>
-				<p class="mt-1.5 text-[length:var(--fs-body)] leading-snug text-foreground/80">
+				<p class="mt-1.5 text-[length:var(--fs-body)] leading-snug text-foreground-soft">
 					{availabilityNote(skill, lang)}
 				</p>
 			</div>
@@ -376,20 +378,20 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 								{t.writtenBy}
 							</p>
 							<p
-								class="mt-0.5 text-[length:var(--fs-body)] font-bold tracking-[var(--tracking-wide)] text-accent"
+								class="mt-0.5 text-[length:var(--fs-body)] font-bold tracking-[var(--tracking-wide)] text-accent-ink"
 							>
 								{AVEN}
 							</p>
 						</div>
 					</div>
 					<p
-						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground/35"
+						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wider)] text-foreground-quiet"
 					>
 						{skillLabel(skill.slug)}
 					</p>
 				</header>
 				<p
-					class="mt-6 text-[length:var(--fs-title)] italic leading-relaxed text-foreground/80 sm:text-[length:var(--fs-title)] sm:leading-[1.65]"
+					class="mt-6 text-[length:var(--fs-title)] italic leading-relaxed text-foreground-soft sm:text-[length:var(--fs-title)] sm:leading-[1.65]"
 				>
 					{skill.letterFromPublisher}
 				</p>
@@ -398,7 +400,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						{t.signOff}
 					</p>
 					<p
-						class="mt-1.5 text-[length:var(--fs-body)] font-bold tracking-[var(--tracking-wide)] text-accent"
+						class="mt-1.5 text-[length:var(--fs-body)] font-bold tracking-[var(--tracking-wide)] text-accent-ink"
 					>
 						{AVEN}
 					</p>
@@ -414,7 +416,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<div class="mt-6 text-center">
 				<a
 					href={localeHref(lang, '/skills')}
-					class="text-[length:var(--fs-meta)] font-semibold uppercase tracking-[var(--tracking-wider)] text-foreground/50 transition-opacity hover:text-foreground/80"
+					class="text-[length:var(--fs-meta)] font-semibold uppercase tracking-[var(--tracking-wider)] text-foreground-quiet transition-opacity hover:text-foreground-soft"
 				>
 					{t.backToAll}
 				</a>

@@ -62,13 +62,13 @@ const chainSteps = $derived(t.chain.steps)
 			>
 				{t.hero.heading}
 				<span
-					class="mt-2 block text-[clamp(1.25rem,3.85vw,2.05rem)] font-light leading-[1.08] tracking-tight text-foreground/90"
+					class="mt-2 block text-[clamp(1.25rem,3.85vw,2.05rem)] font-light leading-[1.08] tracking-tight text-foreground-soft"
 				>
 					{t.hero.subheading}
 				</span>
 			</h1>
 			<p
-				class="mx-auto mt-8 max-w-2xl text-[length:var(--fs-title)] leading-relaxed text-foreground/65 sm:text-base"
+				class="mx-auto mt-8 max-w-2xl text-[length:var(--fs-title)] leading-relaxed text-foreground-quiet sm:text-base"
 			>
 				{@html t.hero.paragraphHtml}
 			</p>
@@ -81,7 +81,7 @@ const chainSteps = $derived(t.chain.steps)
 			<div class="space-y-12">
 				{#if visibleByPlan.length > 1}
 					<p
-						class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-[length:var(--fs-body)] leading-snug text-foreground/80"
+						class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-[length:var(--fs-body)] leading-snug text-foreground-soft"
 					>
 						{t.inclusion(selectedPlan.name, visibleSkills.length, inheritedCount, ownCount)}
 					</p>
@@ -93,20 +93,20 @@ const chainSteps = $derived(t.chain.steps)
 						>
 							<div>
 								<p
-									class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground/35"
+									class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground-quiet"
 								>
 									{t.group.with(group.plan.name)}
 								</p>
 								<h2 class="mt-1 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
 									{localizedPlan(group.plan, lang).role}
 								</h2>
-								<p class="mt-1 text-[length:var(--fs-meta)] text-foreground/50">
+								<p class="mt-1 text-[length:var(--fs-meta)] text-foreground-quiet">
 									{t.group.count(group.skills.length, priceLabel(group.plan, lang))}
 								</p>
 							</div>
 							<a
 								href={`${localeHref(lang, '/pricing')}#${group.plan.id}`}
-								class="text-[length:var(--fs-meta)] font-semibold text-foreground/50 underline underline-offset-4 hover:text-foreground/80"
+								class="text-[length:var(--fs-meta)] font-semibold text-foreground-quiet underline underline-offset-4 hover:text-foreground-soft"
 							>
 								{t.group.view(group.plan.name)}
 							</a>
@@ -119,7 +119,7 @@ const chainSteps = $derived(t.chain.steps)
 					</div>
 				{:else}
 					<p
-						class="rounded-xl border border-border/25 bg-surface-card px-4 py-6 text-center text-[length:var(--fs-section)] text-foreground/50"
+						class="rounded-xl border border-border/25 bg-surface-card px-4 py-6 text-center text-[length:var(--fs-section)] text-foreground-quiet"
 					>
 						{t.empty}
 					</p>
@@ -141,7 +141,7 @@ const chainSteps = $derived(t.chain.steps)
 					{t.chain.heading}
 				</h2>
 				<p
-					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/65"
+					class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet"
 				>
 					{t.chain.paragraph}
 				</p>
@@ -156,17 +156,17 @@ const chainSteps = $derived(t.chain.steps)
 						class="group flex min-w-0 flex-col items-center rounded-xl border border-border/25 bg-surface-raised px-4 py-4 text-center transition-colors hover:border-border/25 hover:bg-surface-sunken sm:w-36"
 					>
 						<p
-							class="text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-wide)] text-foreground/65 group-hover:text-foreground/90"
+							class="text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-wide)] text-foreground-quiet group-hover:text-foreground-soft"
 						>
 							{step.label}
 						</p>
-						<p class="mt-1 text-[length:var(--fs-eyebrow)] leading-snug text-foreground/50">
+						<p class="mt-1 text-[length:var(--fs-eyebrow)] leading-snug text-foreground-quiet">
 							{step.description}
 						</p>
 					</a>
 					{#if i < chainSteps.length - 1}
 						<div
-							class="flex items-center justify-center text-foreground/35 sm:self-center"
+							class="flex items-center justify-center text-foreground-quiet sm:self-center"
 							aria-hidden="true"
 						>
 							<span class="text-lg sm:text-xl">→</span>
@@ -183,11 +183,11 @@ const chainSteps = $derived(t.chain.steps)
 				</p>
 				<a
 					href={skillDetailHref('human-reviewer', lang)}
-					class="mt-1 block text-[length:var(--fs-meta)] font-bold tracking-[var(--tracking-wide)] text-foreground/80 hover:text-foreground/90"
+					class="mt-1 block text-[length:var(--fs-meta)] font-bold tracking-[var(--tracking-wide)] text-foreground-soft hover:text-foreground-soft"
 				>
 					human-reviewer
 				</a>
-				<p class="mt-1 text-[length:var(--fs-eyebrow)] text-foreground/50">
+				<p class="mt-1 text-[length:var(--fs-eyebrow)] text-foreground-quiet">
 					{t.chain.hitlNote}
 				</p>
 			</div>
@@ -204,7 +204,7 @@ const chainSteps = $derived(t.chain.steps)
 				{t.pricing.heading(skills.length)}
 			</h2>
 			<p
-				class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground/65"
+				class="mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet"
 			>
 				{t.pricing.paragraph}
 			</p>

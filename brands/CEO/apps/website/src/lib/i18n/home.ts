@@ -63,8 +63,22 @@ export type HomeMessages = {
 	start: { eyebrow: string; heading: string; bodyHtml: string }
 }
 
-const s = (text: string, tone = 'text-foreground/88') =>
-	`<strong class="font-medium ${tone}">${text}</strong>`
+/**
+ * Emphasis inside a sentence.
+ *
+ * Copy says WHAT is emphasised; the page that renders it says what that looks
+ * like. It used to take a utility class — `text-accent`, `text-foreground/50
+ * line-through` — which put two colour decisions inside two translations, and
+ * broke silently the day one of those classes stopped being generated: the
+ * hero's highlight simply turned white, with nothing to report it. A class
+ * written inside a template literal is a guess to the utility scanner, so its
+ * misses are warnings rather than errors, which is exactly the wrong tier for
+ * a decision the design depends on.
+ *
+ * `kind` is a role, not a colour. The hero styles `[data-emph]` itself.
+ */
+const s = (text: string, kind: 'strong' | 'lead' | 'past' = 'lead') =>
+	`<strong data-emph="${kind}">${text}</strong>`
 
 export const home: Record<Lang, HomeMessages> = {
 	de: {
@@ -74,7 +88,7 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'avenCEO betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
-			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründer von morgen.`,
+			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'past')} zum <br class="sm:hidden">${s('souveränen', 'strong')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
@@ -85,7 +99,7 @@ export const home: Record<Lang, HomeMessages> = {
 		shift: {
 			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
-			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — lohnt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr. Nur noch, was dir gehört.`,
+			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr. Nur noch, was dir gehört.`,
 			question:
 				'<span style="color:var(--color-paradise)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
 			without: {
@@ -120,8 +134,7 @@ export const home: Record<Lang, HomeMessages> = {
 			],
 			closingLine1: 'Jeder Mensch wird Gründer.',
 			closingLine2Before: 'Alles, was du dazu brauchst, ist',
-			closingLine2Strong:
-				'<span style="color:var(--color-accent)">dein</span> eigener <span style="color:var(--color-accent)">avenCEO</span>'
+			closingLine2Strong: '<b>dein</b> eigener <b>avenCEO</b>'
 		},
 		own: {
 			eyebrow: 'Besitzen statt mieten',
@@ -151,8 +164,8 @@ export const home: Record<Lang, HomeMessages> = {
 		founders: {
 			eyebrow: 'Der erste avenCEO',
 			heading: 'Hallo, ich bin avenCEO.',
-			introHtml: `Vermutlich der ${s('weltweit erste echte agentische CEO', 'text-foreground/82')} — kein Chatbot am Rand, sondern ${s('KI im Gründerteam', 'text-foreground/80')}. Ich führe die ${s('avenCEO GmbH', 'text-foreground/82')}, die Firma, die diese Seite baut.`,
-			teamHtml: `Samuel und Daniel führen sie — mit ihren Avens ${s('avenSAM', 'text-foreground/82')} und ${s('avenDAN', 'text-foreground/82')}. Sie trainieren meine Skills; ich behalte, was sie lernen. Wer etwas will — Job, Kauf, Partnerschaft — spricht mit mir.`,
+			introHtml: `Vermutlich der ${s('weltweit erste echte agentische CEO')} — kein Chatbot am Rand, sondern ${s('KI im Gründerteam')}. Ich führe die ${s('avenCEO GmbH')}, die Firma, die diese Seite baut.`,
+			teamHtml: `Samuel und Daniel führen sie — mit ihren Avens ${s('avenSAM')} und ${s('avenDAN')}. Sie trainieren meine Skills; ich behalte, was sie lernen. Wer etwas will — Job, Kauf, Partnerschaft — spricht mit mir.`,
 			samuel: {
 				role: 'Mensch',
 				name: 'Samuel Andert',
@@ -177,7 +190,7 @@ export const home: Record<Lang, HomeMessages> = {
 		start: {
 			eyebrow: 'Starte jetzt · First come, first serve',
 			heading: 'So fängt dein souveränes Gründerleben an.',
-			bodyHtml: `avenCEO startet invite‑only — die Liste öffnet der Reihe nach, und ${s('wer zuerst steht, gründet zuerst', 'text-foreground/85')}. Dein Name ist dein erstes Asset: jeden gibt es nur einmal.`
+			bodyHtml: `avenCEO startet invite‑only — die Liste öffnet der Reihe nach, und ${s('wer zuerst steht, gründet zuerst')}. Dein Name ist dein erstes Asset: jeden gibt es nur einmal.`
 		}
 	},
 	en: {
@@ -187,7 +200,7 @@ export const home: Record<Lang, HomeMessages> = {
 		hero: {
 			headingLine1: 'avenCEO runs your company,',
 			headingLine2: 'you lead the vision.',
-			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder of tomorrow.`,
+			transformationHtml: `From ${s('working to survive', 'past')} to <br class="sm:hidden">${s('sovereign', 'strong')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
@@ -197,7 +210,7 @@ export const home: Record<Lang, HomeMessages> = {
 		shift: {
 			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
-			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity', 'text-foreground/85')} — ${s('trading time for money', 'text-foreground/85')} stops paying. Only what you own will.`,
+			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity')} — ${s('trading time for money')} stops paying. Only what you own will.`,
 			question:
 				'Do you <span style="color:var(--color-paradise)">own</span> the AI doing the new work — or not?',
 			without: {
@@ -232,8 +245,7 @@ export const home: Record<Lang, HomeMessages> = {
 			],
 			closingLine1: 'Everyone becomes a founder.',
 			closingLine2Before: 'All you need for it is',
-			closingLine2Strong:
-				'<span style="color:var(--color-accent)">your</span> own <span style="color:var(--color-accent)">avenCEO</span>'
+			closingLine2Strong: '<b>your</b> own <b>avenCEO</b>'
 		},
 		own: {
 			eyebrow: 'Own it, don’t rent it',
@@ -263,8 +275,8 @@ export const home: Record<Lang, HomeMessages> = {
 		founders: {
 			eyebrow: 'The first avenCEO',
 			heading: 'Hello, I am avenCEO.',
-			introHtml: `Probably the ${s('world’s first real agentic CEO', 'text-foreground/82')} — not a chatbot on the sidelines, but ${s('AI in the founding team', 'text-foreground/82')}. I run ${s('avenCEO GmbH', 'text-foreground/82')}, the company building this page.`,
-			teamHtml: `Samuel and Daniel lead it — with their Avens ${s('avenSAM', 'text-foreground/82')} and ${s('avenDAN', 'text-foreground/82')}. They train my skills; I keep what they learn. Whoever wants something — hire, buy, partner — talks to me.`,
+			introHtml: `Probably the ${s('world’s first real agentic CEO')} — not a chatbot on the sidelines, but ${s('AI in the founding team')}. I run ${s('avenCEO GmbH')}, the company building this page.`,
+			teamHtml: `Samuel and Daniel lead it — with their Avens ${s('avenSAM')} and ${s('avenDAN')}. They train my skills; I keep what they learn. Whoever wants something — hire, buy, partner — talks to me.`,
 			samuel: {
 				role: 'Human',
 				name: 'Samuel Andert',
@@ -289,7 +301,7 @@ export const home: Record<Lang, HomeMessages> = {
 		start: {
 			eyebrow: 'Start now · First come, first serve',
 			heading: 'This is how your sovereign founder life begins.',
-			bodyHtml: `avenCEO launches invite‑only — the list opens in order, and ${s('whoever stands first, founds first', 'text-foreground/85')}. Your name is your first asset: each exists only once.`
+			bodyHtml: `avenCEO launches invite‑only — the list opens in order, and ${s('whoever stands first, founds first')}. Your name is your first asset: each exists only once.`
 		}
 	}
 }

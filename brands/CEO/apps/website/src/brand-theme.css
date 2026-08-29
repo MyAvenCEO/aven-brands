@@ -35,6 +35,8 @@
 	--color-on-success: #fafaf9;
 	--color-on-info: #2b231c;
 	--color-white: #ffffff;
+	--color-on-primary-soft: #ccd0d5;
+	--color-on-primary-quiet: #acb1b8;
 
 	/* ══ 2 · THE SURFACES — every rung, both themes ══ */
 	--color-light-page: #fdfbf3;
@@ -66,6 +68,7 @@
 
 	/* roles that differ in the dark. */
 	--color-foreground: var(--color-on-dark);
+	--color-foreground-soft: #cbced3;
 	--color-card-foreground: var(--color-on-dark);
 	--color-muted: #1c2637;
 	--color-muted-foreground: #8e9bb0;
@@ -88,7 +91,7 @@
 	--color-track: #2a3548;
 	--color-error-surface: #2e1c16;
 	--color-error-border: #6b3626;
-	--color-foreground-quiet: #a8b0bd;
+	--color-foreground-quiet: #b5bcc7;
 	--color-eyebrow-ink: #6cc3dd;
 }
 
@@ -97,12 +100,18 @@
 	/* ══ 3 · THE ROLES — what a colour MEANS ══ */
 	--color-background: var(--color-surface-page);
 	--color-foreground: var(--color-on-light);
+	--color-foreground-soft: #4b5360;
 	--color-muted: #f4f4f0;
 	--color-muted-foreground: #7d8593;
 	--color-border: #dfe1e6;
 	--color-input: #fefdfa;
 	--color-primary: var(--color-marine);
 	--color-primary-foreground: var(--color-on-primary);
+	--color-primary-foreground-soft: var(--color-on-primary-soft);
+	--color-primary-foreground-quiet: var(--color-on-primary-quiet);
+	--color-band: #217c91;
+	--color-band-alt: #377d77;
+	--color-band-foreground: var(--color-on-dark);
 	--color-secondary: var(--color-surface-selected);
 	--color-secondary-foreground: var(--color-marine);
 	--color-quiet: #57789e;
@@ -136,8 +145,8 @@
 	--color-track: #e4e3e0;
 	--color-error-surface: #faf0e8;
 	--color-error-border: #e9c5b7;
-	--color-foreground-quiet: #6d737c;
-	--color-eyebrow-ink: #1f7a8f;
+	--color-foreground-quiet: #626770;
+	--color-eyebrow-ink: #1d7084;
 
 	--radius-lg: 1rem;
 	--radius-xl: 1.5rem;
