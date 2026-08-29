@@ -379,7 +379,7 @@
 	.logo {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--space-tight);
+		gap: 0.625rem;
 		text-decoration: none;
 		color: inherit;
 		font-size: var(--fs-lead);
@@ -388,10 +388,18 @@
 
 	.logo--mark {
 		gap: 0;
+
+		& .logo-wordmark {
+			display: none;
+		}
 	}
 
 	.logo--wordmark {
 		gap: 0;
+
+		& .logo-mark {
+			display: none;
+		}
 	}
 
 	.text {
@@ -3465,10 +3473,6 @@
 		50% {
 			opacity: 0.55;
 		}
-	}
-
-	.logo--lockup {
-
 	}
 
 	.nav-link {

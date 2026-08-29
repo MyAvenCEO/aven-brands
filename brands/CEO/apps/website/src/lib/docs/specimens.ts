@@ -312,10 +312,27 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	logo: {
-		html: `<span class="sp-row">
-			<span class="logo logo--lockup"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
-			<span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"></span>
-			<span class="logo logo--wordmark"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
+		one: `<span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>`,
+		/* IDENTICAL children in all three, and that is the point being made.
+		   The old specimen left the wordmark out of `logo--mark` and the mark out
+		   of `logo--wordmark`, which made the variants look like they worked while
+		   the markup was doing the job. Now one set of children plus one class
+		   gives all three — so a caller never has to know which variant expects
+		   which children. Each sits in its own labelled cell, because three
+		   lockups in a row read as one long run of marks and words. */
+		html: `<span class="sp-stack" style="justify-items:center; gap:var(--space-comfortable)">
+			<span class="sp-stack" style="justify-items:center; gap:var(--space-hairline)">
+				<span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
+				<span class="text text--mono-meta">default</span>
+			</span>
+			<span class="sp-stack" style="justify-items:center; gap:var(--space-hairline)">
+				<span class="logo logo--mark" role="img" aria-label="avenCEO"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
+				<span class="text text--mono-meta">mark</span>
+			</span>
+			<span class="sp-stack" style="justify-items:center; gap:var(--space-hairline)">
+				<span class="logo logo--wordmark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
+				<span class="text text--mono-meta">wordmark</span>
+			</span>
 		</span>`
 	},
 	'nav-link': {
@@ -407,7 +424,7 @@ export const specimens: Record<string, Specimen> = {
 		tall: true,
 		one: `<span class="navbar" style="position: static; inline-size: 100%; max-inline-size: 44rem">
 			<span class="navbar-bar">
-				<span class="navbar-brand"><span class="logo logo--lockup"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
+				<span class="navbar-brand"><span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
 				<span class="navbar-actions">
 					<a class="nav-link" href="#specimen">Skills</a>
 					<a class="nav-link" href="#specimen">Pricing</a>
@@ -422,7 +439,7 @@ export const specimens: Record<string, Specimen> = {
 		one: `<span class="site-footer" style="inline-size: 100%; max-inline-size: 44rem">
 			<span class="site-footer-inner">
 				<span class="site-footer-brand">
-					<span class="logo logo--lockup"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
+					<span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
 					<span class="site-footer-link">Your own AI, your own company.</span>
 				</span>
 				<span class="site-footer-groups">

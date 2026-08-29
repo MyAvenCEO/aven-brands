@@ -1015,14 +1015,17 @@ function inspect(name: string) {
 #cb-brand {
 	display: grid;
 	gap: 0.25rem;
-	padding: var(--space-comfortable) 0.75rem var(--space-comfortable);
+	/* Tighter at the bottom than the top. The rule below is what separates this
+	   from the index, so the space between the switch and the rule only has to
+	   stop them touching — anything more reads as a missing element. */
+	padding: var(--space-comfortable) 0.75rem var(--space-tight);
 	border-block-end: 1px solid var(--color-border-soft);
-	margin-block-end: var(--space-tight);
+	margin-block-end: var(--space-hairline);
 }
 #cb-theme {
 	display: inline-flex;
 	justify-self: start;
-	margin-block-start: var(--space-tight);
+	margin-block-start: var(--space-hairline);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-full);
 	overflow: hidden;
@@ -1501,14 +1504,16 @@ function inspect(name: string) {
 }
 .cb-unit-stage {
 	display: grid;
-	/* TOP-aligned, not centred. Centring a specimen that overflows hides its
-	   head AND its foot — you scroll up to find the title and down to find the
-	   action, and the first glance lands in the middle of a card. Every stage
-	   starting at the top also gives the grid a shared baseline, so the row
-	   reads across. Horizontal centring stays: a badge in a 21rem column
-	   pinned left is a badge floating in a corner. */
-	align-content: start;
-	justify-items: center;
+	/* `safe center`, which is centred until it would cost you something.
+	   A badge alone in a square looks wrong pinned to the top edge, so the
+	   resting behaviour is centred. But centring a specimen TALLER than its
+	   stage hides the head and the foot at once — you scroll up for the title
+	   and down for the action, and the first glance lands in the middle of a
+	   card. The `safe` keyword is exactly that rule: centre while it fits, fall
+	   back to `start` the moment it overflows. Without it the choice is one
+	   behaviour for both cases and one of them is always wrong. */
+	align-content: safe center;
+	justify-items: safe center;
 	gap: var(--space-tight);
 	/* `min-block-size: 0` is what lets the stage shrink inside the square and
 	   scroll instead of pushing the card taller — a grid child defaults to
