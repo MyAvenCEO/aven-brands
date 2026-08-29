@@ -3874,6 +3874,18 @@
 		}
 	}
 
+	.nav-menu-crest {
+		display: grid;
+		place-items: center;
+		margin-block-end: var(--space-tight);
+		opacity: 0.9;
+	}
+
+	.nav-menu-eyebrow {
+		margin: 0 0 var(--space-comfortable);
+		color: color-mix(in oklab, var(--color-primary-foreground) 70%, transparent);
+	}
+
 	.nav-menu-scrim {
 		position: absolute;
 		inset: 0;
@@ -3928,6 +3940,9 @@
 		}
 		&[aria-selected="true"], &[aria-pressed="true"], &[aria-current]:not([aria-current="false"]) {
 			color: var(--color-accent-ink);
+			text-decoration: underline;
+			text-underline-offset: 0.2em;
+			text-decoration-thickness: 2px;
 		}
 	}
 

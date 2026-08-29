@@ -465,6 +465,8 @@ export const specimens: Record<string, Specimen> = {
 			<span class="nav-menu" id="sp-nav-menu" data-open="false" style="position:absolute">
 				<span class="nav-menu-scrim"></span>
 				<span class="nav-menu-panel">
+									<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span></span>
+					<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>
 					<span class="nav-menu-items">
 						<a class="nav-menu-item" href="#specimen" aria-current="page">Skills</a>
 						<a class="nav-menu-item" href="#specimen">Marketplace</a>
@@ -485,9 +487,11 @@ export const specimens: Record<string, Specimen> = {
 		tall: true,
 		/* Rendered open and un-fixed, because a `position: fixed` specimen escapes
 		   the stage and covers the docs page. */
-		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:20rem; border-radius:var(--radius-lg); overflow:hidden">
+		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:15rem; border-radius:var(--radius-lg); overflow:hidden">
 			<span class="nav-menu-scrim"></span>
 			<span class="nav-menu-panel">
+				<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span></span>
+				<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>
 				<span class="nav-menu-items">
 					<a class="nav-menu-item" href="#specimen" aria-current="page">Skills</a>
 					<a class="nav-menu-item" href="#specimen">Marketplace</a>

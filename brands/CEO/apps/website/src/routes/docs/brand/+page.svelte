@@ -119,21 +119,35 @@ const DETAIL_VIEWS = ['preview', 'config'] as const
 const VIEWPORTS = [
 	{
 		id: 'desktop',
-		label: 'Desktop',
-		width: null,
+		/* ds-allow-hardcode:start — every number here IS the specification. A
+		   token would name a breakpoint the design system uses for LAYOUT; these
+		   are the widths a specimen is being INSPECTED at, and the label says each
+		   one out loud because the reader needs to know where they are. */
+		label: 'Desktop — 1440px',
+		/* The stage is roughly 1000px on a laptop, so a composite that only
+		   misbehaves past 1200 could not be seen at all. `width` is the width the
+		   specimen BELIEVES it has and `scale` shrinks the result to fit — the
+		   container queries then fire at desktop thresholds inside a stage that is
+		   physically much smaller. It is the browser's own device emulation, done
+		   in a box. */
+		width: '1440px',
+		scale: 0.5,
 		icon: renderIcon('external', icons, { size: '1em' })
 	},
 	{
+		id: 'tablet',
+		label: 'Tablet — 768px',
+		width: '768px',
+		scale: 1,
+		icon: renderIcon('menu', icons, { size: '1em' })
+	},
+	{
 		id: 'mobile',
-		/* ds-allow-hardcode:start — the label and the width both. This IS the
-		   specification: the stage is checked AT a width, and a token would name a
-		   breakpoint the design system uses for LAYOUT rather than the width a
-		   specimen is being inspected at. The label says the number out loud
-		   because the person reading it needs to know which width they are on. */
 		label: 'Mobile — 390px',
 		width: '390px',
+		scale: 1,
 		/* ds-allow-hardcode:end */
-		icon: renderIcon('menu', icons, { size: '1em' })
+		icon: renderIcon('search', icons, { size: '1em' })
 	}
 ] as const
 let detailView = $state<(typeof DETAIL_VIEWS)[number]>('preview')
@@ -147,12 +161,34 @@ const activeState = $derived(openUnit?.states.find((s) => s.name === forcedState
 const activePart = $derived(openUnit?.parts.find((p) => p.name === openPart))
 /* A part's own declarations, read from the compiled stylesheet rather than
    restated here — the part is a real class, so the system already knows. */
+/**
+ * The stage, pretending to be a screen it is not.
+ *
+ * `inline-size` is what the specimen believes it has; `scale` shrinks the
+ * rendered result to fit the panel. A container query inside the specimen then
+ * fires at the BELIEVED width — so a navbar in a 500px stage collapses or does
+ * not collapse exactly as it would at 1440px, which is the only way to check a
+ * desktop layout on a laptop that is showing you a sidebar and a detail pane at
+ * the same time.
+ *
+ * `transform` rather than `zoom`: zoom is not a transform, it re-lays-out at the
+ * scaled size and the container queries then see the SMALL width again, which
+ * defeats the entire exercise.
+ */
 const viewportStyle = $derived(
 	(() => {
-		const w = VIEWPORTS.find((v) => v.id === viewport)?.width
-		return w ? `max-inline-size:${w};margin-inline:auto;` : ''
+		const v = VIEWPORTS.find((x) => x.id === viewport)
+		if (!v?.width) return ''
+		const scale = v.scale ?? 1
+		const box = `inline-size:${v.width};max-inline-size:${v.width};margin-inline:auto;`
+		if (scale === 1) return box
+		/* The wrapper reserves the SCALED height, or a half-size specimen leaves
+		   half a stage of empty space under it. */
+		return `${box}transform:scale(${scale});transform-origin:top center;`
 	})()
 )
+/** What the scaled stage costs in layout height, so the panel does not gap. */
+const viewportShrink = $derived(VIEWPORTS.find((x) => x.id === viewport)?.scale ?? 1)
 const partDecls = $derived(
 	openUnit && openPart ? declarationsOf(`${openUnit.name}-${openPart}`) : []
 )
@@ -319,6 +355,33 @@ const STATE_ATTR: Record<string, [string, string]> = {
  * surface would drive — so it demonstrates the contract rather than reimplementing
  * a header.
  */
+/**
+ * Reserve the height a scaled stage actually occupies.
+ *
+ * `transform: scale()` paints smaller and lays out the same, so a half-size
+ * specimen leaves half a stage of empty panel under it. The height has to be
+ * measured because it depends on the specimen — and a percentage margin cannot
+ * do it: percentage margins resolve against the containing block's INLINE size,
+ * never its block size, which is how the first attempt collapsed the stage to
+ * nothing at all.
+ */
+function fitScaledStage(node: HTMLElement) {
+	const stage = node.querySelector<HTMLElement>('.cb-detail-stage')
+	if (!stage) return
+	const apply = () => {
+		const scale = Number(getComputedStyle(node).getPropertyValue('--cb-shrink')) || 1
+		/* `scrollHeight`, not `offsetHeight`: the stage is a scroll container, so
+		   its offset height is the box it was GIVEN and its scroll height is what
+		   the specimen actually needs. Reserving the former clipped every specimen
+		   taller than the panel. */
+		node.style.setProperty('--cb-frame-h', `${stage.scrollHeight * scale}px`)
+	}
+	apply()
+	const observer = new ResizeObserver(apply)
+	observer.observe(stage)
+	return () => observer.disconnect()
+}
+
 function wireSpecimen(node: HTMLElement) {
 	const onClick = (event: Event) => {
 		const control = (event.target as HTMLElement)?.closest<HTMLElement>('[aria-expanded]')
@@ -757,6 +820,14 @@ function inspect(name: string) {
 								{#if detailView === 'preview'}
 									<!-- The `one` specimen. Applying a variant to a stage holding six
 									     buttons turns all six primary at once, which shows nothing. -->
+									<!-- The scale is a TRANSFORM, so it costs no layout height — a
+									     half-size specimen would leave half a stage of gap under it.
+									     The frame reserves what the transform gave back. -->
+									<div
+										class="cb-detail-frame"
+										style="--cb-shrink:{viewportShrink}"
+										{@attach fitScaledStage}
+									>
 									<div
 										class="cb-detail-stage"
 										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
@@ -769,6 +840,7 @@ function inspect(name: string) {
 										{:else}
 											<p class="cb-mono cb-unit-todo">no specimen yet</p>
 										{/if}
+									</div>
 									</div>
 
 									<!-- Walk the sequence. Only where the axis IS one: an axis whose
@@ -1647,6 +1719,15 @@ function inspect(name: string) {
 /* Walking a flow, not choosing a look. A rail under the stage: where you are,
    what is either side of you, and two arrows — the sequence read left to right,
    which is the direction the flow itself runs. */
+.cb-detail-frame {
+	/* Holds the scaled stage. A transform costs no layout height, so without this
+	   the panel keeps the FULL height and leaves a gap the size of what the scale
+	   removed. The height is MEASURED — a percentage margin would have resolved
+	   against the containing block's WIDTH, which is how the first attempt
+	   collapsed the stage to nothing. */
+	display: grid;
+	block-size: var(--cb-frame-h, auto);
+}
 .cb-walk {
 	display: flex;
 	flex-wrap: wrap;
