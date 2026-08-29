@@ -4,7 +4,7 @@ import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
-import { SOCIAL_PROFILES } from '$lib/social'
+import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 
 /**
  * THE footer, on every page. It carries the two things a German site owes a

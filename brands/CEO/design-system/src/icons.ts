@@ -23,3 +23,25 @@ validateIconRegistry(icons)
 
 /** The icon names, so a docs surface can list them without importing the JSON. */
 export const iconNames = Object.keys(icons)
+
+/**
+ * The public social profiles.
+ *
+ * Here rather than in the website because the header, the footer and anything
+ * else that links out all need the same four, and because the icon each one
+ * uses is a NAME into the registry above — so no surface handles path data.
+ */
+export type SocialProfile = { name: string; href: string; icon: string }
+
+import socialDocument from './brand/social.avenceo.json' with { type: 'json' }
+
+export const SOCIAL_PROFILES: SocialProfile[] = (
+	socialDocument as { profiles: SocialProfile[] }
+).profiles
+
+/* A profile naming an icon that does not exist renders an empty span, silently.
+   Fail here instead. */
+for (const profile of SOCIAL_PROFILES) {
+	if (!icons[profile.icon])
+		throw new Error(`social profile "${profile.name}": no icon named "${profile.icon}"`)
+}

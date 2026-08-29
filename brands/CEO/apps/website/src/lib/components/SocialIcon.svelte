@@ -1,17 +1,19 @@
 <script lang="ts">
-import type { SocialProfile } from '$lib/social'
+/**
+ * One social glyph.
+ *
+ * The geometry is not here — it is in the brand's icon registry, and this
+ * renders it through the engine's own `renderIcon`. That is the whole change:
+ * the path data used to live in `$lib/social.ts`, where the header, the footer
+ * and the privacy document each kept their own idea of which four profiles
+ * exist. Now a surface names a profile and gets whatever the brand says.
+ */
+import { icons, type SocialProfile } from '@myavenceo/aven-ceo/icons'
+import { renderIcon } from '@myavenceo/aven-vibes'
 
-/** One Phosphor-duotone social glyph, colored via currentColor, sized via class. */
-let { profile, class: cls = 'size-4' }: { profile: SocialProfile; class?: string } = $props()
+let { profile, size = '1rem' }: { profile: SocialProfile; size?: string } = $props()
+
+const svg = $derived(renderIcon(profile.icon, icons, { size }))
 </script>
 
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	viewBox="0 0 256 256"
-	fill="currentColor"
-	aria-hidden="true"
-	class={cls}
->
-	<path d={profile.dim} opacity=".2" />
-	<path d={profile.solid} />
-</svg>
+{@html svg}

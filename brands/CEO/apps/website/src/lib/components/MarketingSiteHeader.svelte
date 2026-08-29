@@ -5,7 +5,7 @@ import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
-import { SOCIAL_PROFILES } from '$lib/social'
+import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 
 type NavActive = 'skills' | 'avens' | 'pricing' | 'docs'
 
@@ -117,7 +117,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 							rel="noopener noreferrer"
 							aria-label={profile.name}
 						>
-							<SocialIcon {profile} class="size-4" />
+							<SocialIcon {profile} />
 						</a>
 					{/each}
 				</span>
