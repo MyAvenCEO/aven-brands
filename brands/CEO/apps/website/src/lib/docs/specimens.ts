@@ -478,22 +478,38 @@ export const specimens: Record<string, Specimen> = {
 			</span>
 			<span class="nav-menu" id="sp-nav-menu" data-open="false" style="position:absolute">
 				<span class="nav-menu-scrim"></span>
-				<button class="nav-menu-close" type="button" aria-label="Close menu" aria-expanded="true" aria-controls="sp-nav-menu">${icon('close', '1.25rem')}</button>
-				<span class="nav-menu-panel">
-									<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span></span>
+			<button class="nav-menu-close" type="button" aria-label="Close menu">${icon('close', '1.25rem')}</button>
+			<span class="nav-menu-panel">
+				<span class="nav-menu-head">
+					<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="36" height="36"></span></span>
 					<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>
-					<span class="nav-menu-items">
-						<a class="nav-menu-item" href="#specimen" aria-current="page">Skills</a>
-						<a class="nav-menu-item" href="#specimen">Marketplace</a>
-						<a class="nav-menu-item" href="#specimen">Pricing</a>
-					</span>
-					<span class="segment segment--face-large segment--tone-inverted nav-menu-footer" role="group" aria-label="Language">
+				</span>
+				<span class="nav-menu-items">
+					<a class="nav-menu-item" href="#specimen" aria-current="page">
+						<span class="nav-menu-marker"></span>
+						Skills
+						<span class="nav-menu-meta">The work your aven already knows how to do.</span>
+					</a>
+					<a class="nav-menu-item" href="#specimen">
+						<span class="nav-menu-marker"></span>
+						Marketplace
+						<span class="nav-menu-meta">Skills other people built, ready to hire.</span>
+					</a>
+					<a class="nav-menu-item" href="#specimen">
+						<span class="nav-menu-marker"></span>
+						Pricing
+						<span class="nav-menu-meta">What it costs, and what you get for it.</span>
+					</a>
+				</span>
+				<span class="nav-menu-footer">
+					<span class="segment segment--tone-inverted" role="group" aria-label="Language">
 						<span class="segment-options">
 							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
 							<span class="segment-divider" aria-hidden="true">|</span>
 							<a class="segment-option" href="#specimen">EN</a>
 						</span>
 					</span>
+					<p class="nav-menu-trust">Securely connected through aven.id</p>
 				</span>
 			</span>
 		</span>`
@@ -503,23 +519,40 @@ export const specimens: Record<string, Specimen> = {
 		anchor: 'fill',
 		/* Rendered open and un-fixed, because a `position: fixed` specimen escapes
 		   the stage and covers the docs page. */
-		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:15rem; border-radius:var(--radius-lg); overflow:hidden">
+		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:100%">
 			<span class="nav-menu-scrim"></span>
 			<button class="nav-menu-close" type="button" aria-label="Close menu">${icon('close', '1.25rem')}</button>
 			<span class="nav-menu-panel">
-				<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span></span>
-				<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>
-				<span class="nav-menu-items">
-					<a class="nav-menu-item" href="#specimen" aria-current="page">Skills</a>
-					<a class="nav-menu-item" href="#specimen">Marketplace</a>
-					<a class="nav-menu-item" href="#specimen">Pricing</a>
+				<span class="nav-menu-head">
+					<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="36" height="36"></span></span>
+					<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>
 				</span>
-				<span class="segment segment--face-large segment--tone-inverted nav-menu-footer" role="group" aria-label="Language">
-					<span class="segment-options">
-						<a class="segment-option" href="#specimen" aria-current="true">DE</a>
-						<span class="segment-divider" aria-hidden="true">|</span>
-						<a class="segment-option" href="#specimen">EN</a>
+				<span class="nav-menu-items">
+					<a class="nav-menu-item" href="#specimen" aria-current="page">
+						<span class="nav-menu-marker"></span>
+						Skills
+						<span class="nav-menu-meta">The work your aven already knows how to do.</span>
+					</a>
+					<a class="nav-menu-item" href="#specimen">
+						<span class="nav-menu-marker"></span>
+						Marketplace
+						<span class="nav-menu-meta">Skills other people built, ready to hire.</span>
+					</a>
+					<a class="nav-menu-item" href="#specimen">
+						<span class="nav-menu-marker"></span>
+						Pricing
+						<span class="nav-menu-meta">What it costs, and what you get for it.</span>
+					</a>
+				</span>
+				<span class="nav-menu-footer">
+					<span class="segment segment--tone-inverted" role="group" aria-label="Language">
+						<span class="segment-options">
+							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
+							<span class="segment-divider" aria-hidden="true">|</span>
+							<a class="segment-option" href="#specimen">EN</a>
+						</span>
 					</span>
+					<p class="nav-menu-trust">Securely connected through aven.id</p>
 				</span>
 			</span>
 		</span>`
