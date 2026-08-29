@@ -253,12 +253,31 @@ export const SUPERSEDES: Record<string, Supersession> = {
  * was replaced" from "gone because it was never used".
  */
 export const UNCALLED: string[] = [
-	'title',
-	'lede',
+	/*
+	 * MEASURED across ALL FOUR surfaces, not one. That distinction is the whole
+	 * value of this list, and getting it wrong is how a migration breaks three
+	 * products at once.
+	 *
+	 * The previous contents were counted on the website alone and listed eight
+	 * classes. Six of them had live callers elsewhere — `title` (1 in the app),
+	 * `lede` (2 on the website itself), and the four `logo-*` parts (34 between
+	 * them). Acting on that list would have deleted classes with 39 call sites
+	 * behind them.
+	 *
+	 * Ten more classes read as dead from the website and are not: `panel` (9),
+	 * `mark` (9), `alert` (7), `mono-meta` (13, all in the Tauri app), `digits`
+	 * (4), `well` (3), `steps` (2), `ghost` (2). Checkout is the most
+	 * design-system-adopted surface in the estate and it is adopted entirely on
+	 * THESE classes, so a website-only count says the opposite of the truth.
+	 *
+	 * Reproduce before trusting it:
+	 *   grep for `class="..."` containing the bare class name across
+	 *   brands/CEO/apps/website/src, avenOS/services/checkout/src,
+	 *   avenOS/services/identity/src and avenOS/app/src.
+	 *
+	 * 172 call sites remain across 20 classes. These two are the only ones at
+	 * zero everywhere, and therefore the only ones deletable today.
+	 */
 	'label',
-	'chip',
-	'logo-mark',
-	'logo-wordmark',
-	'logo-word-aven',
-	'logo-word-ceo'
+	'chip'
 ]

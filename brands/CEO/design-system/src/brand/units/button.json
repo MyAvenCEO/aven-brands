@@ -1,6 +1,6 @@
 {
 	"name": "btn",
-	"description": "The one button. Every affirmative, neutral, destructive and marketing action on every surface is this unit.\n\nTHREE AXES, and they answer three different questions. `variant` is what the action MEANS — the only thing a caller chooses by intent. `shape` is what it looks like — a labelled pill or an icon on its own — which is independent of meaning, because a destructive icon button is a real thing. `size` is how big. Anything that describes a moment in time is a STATE, not a variant: the button is not a different button while it is loading.\n\nThat separation was not there. `unavailable` was a variant meaning exactly what the `disabled` state means; `icon` was a variant, so an icon button could not also be destructive; and `success` was a variant when the reference set shows it as the end of a flow — default, hover, focus, pressed, loading, success. Mixing the two is how a system ends up with `btn--danger btn--icon` being impossible to express.",
+	"description": "The one button. Every affirmative, neutral, destructive and marketing action on every surface is this unit.\n\nTHREE AXES, and they answer three different questions. `variant` is what the action MEANS \u2014 the only thing a caller chooses by intent. `shape` is what it looks like \u2014 a labelled pill or an icon on its own \u2014 which is independent of meaning, because a destructive icon button is a real thing. `size` is how big. Anything that describes a moment in time is a STATE, not a variant: the button is not a different button while it is loading.\n\nThat separation was not there. `unavailable` was a variant meaning exactly what the `disabled` state means; `icon` was a variant, so an icon button could not also be destructive; and `success` was a variant when the reference set shows it as the end of a flow \u2014 default, hover, focus, pressed, loading, success. Mixing the two is how a system ends up with `btn--danger btn--icon` being impossible to express.",
 	"interface": {
 		"props": {
 			"label": "string",
@@ -26,7 +26,7 @@
 	"styling": {
 		"interactive": true,
 		"base": {
-			"$description": "Fully rounded, and the only thing in the system that is — a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nThe RING is on by default, not only on hover. That is the reference set's actual look and it is the better resting state: a button that only grows a halo when you point at it is a button that reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something — the ring says 'this is a control', the lift says 'and you are on it'.",
+			"$description": "Fully rounded, and the only thing in the system that is \u2014 a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nThe RING is on by default, not only on hover. That is the reference set's actual look and it is the better resting state: a button that only grows a halo when you point at it is a button that reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something \u2014 the ring says 'this is a control', the lift says 'and you are on it'.",
 			"position": "relative",
 			"display": "inline-flex",
 			"alignItems": "center",
@@ -52,7 +52,7 @@
 		},
 		"variants": {
 			"variant": {
-				"$description": "What the action MEANS. Five, and a caller picks by intent — never by colour.",
+				"$description": "What the action MEANS. Five, and a caller picks by intent \u2014 never by colour.",
 				"primary": {
 					"$description": "the one main affirmative action on a surface.",
 					"background": "var(--color-primary)",
@@ -61,14 +61,14 @@
 					"--btn-ring": "var(--color-primary-ring)"
 				},
 				"secondary": {
-					"$description": "The second brand colour, filled. For an action that is affirmative but not the main one — a second real choice rather than a way out. Distinct from `neutral`, which is the way out. The fill is the DARKENED rank, not the tone: white on raw paradise is 3.89:1 and fails AA at body size, which is the same reason the editorial bands are darkened. A brand colour that cannot carry its own label is not a button fill.",
+					"$description": "The second brand colour, filled. For an action that is affirmative but not the main one \u2014 a second real choice rather than a way out. Distinct from `neutral`, which is the way out. The fill is the DARKENED rank, not the tone: white on raw paradise is 3.89:1 and fails AA at body size, which is the same reason the editorial bands are darkened. A brand colour that cannot carry its own label is not a button fill.",
 					"background": "var(--color-secondary-strong)",
 					"color": "var(--color-secondary-foreground)",
 					"borderColor": "var(--color-secondary-edge)",
 					"--btn-ring": "var(--color-secondary-ring)"
 				},
 				"accent": {
-					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from primary on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR.",
+					"$description": "the marketing call to action \u2014 sunflower, the one place the brand shouts. Distinct from primary on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR.",
 					"background": "var(--color-accent)",
 					"color": "var(--color-accent-foreground)",
 					"borderColor": "var(--color-accent-edge)",
@@ -76,7 +76,7 @@
 					"--btn-badge": "color-mix(in oklab, var(--color-accent-foreground) 18%, transparent)"
 				},
 				"neutral": {
-					"$description": "The neutral alternative to primary — an outline and dark text, never a coloured fill, because a second filled button competes with the first. Called `neutral` and not `secondary`: `secondary` now names the second BRAND COLOUR, and one word meaning both 'paradise' and 'the quiet button' is how a caller ends up reaching for a blue fill on a cancel action.",
+					"$description": "The neutral alternative to primary \u2014 an outline and dark text, never a coloured fill, because a second filled button competes with the first. Called `neutral` and not `secondary`: `secondary` now names the second BRAND COLOUR, and one word meaning both 'paradise' and 'the quiet button' is how a caller ends up reaching for a blue fill on a cancel action.",
 					"background": "var(--color-surface-raised)",
 					"color": "var(--color-foreground)",
 					"borderColor": "var(--color-border-strong)",
@@ -93,7 +93,7 @@
 					"--btn-badge": "var(--color-muted)"
 				},
 				"danger": {
-					"$description": "destructive. The same variant on the trigger AND on its confirm dialog — red in one place and blue in the other is the bug this rule exists to stop.",
+					"$description": "destructive. The same variant on the trigger AND on its confirm dialog \u2014 red in one place and blue in the other is the bug this rule exists to stop.",
 					"background": "var(--color-error)",
 					"color": "var(--color-error-foreground)",
 					"borderColor": "var(--color-error-edge)",
@@ -101,9 +101,9 @@
 				}
 			},
 			"shape": {
-				"$description": "What it looks like, independent of what it means — so a destructive icon button is `btn--danger btn--shape-icon` rather than a variant nobody thought to add.",
+				"$description": "What it looks like, independent of what it means \u2014 so a destructive icon button is `btn--danger btn--shape-icon` rather than a variant nobody thought to add.",
 				"icon": {
-					"$description": "Icon only. Square rather than stadium-wide, because a pill around a single glyph is mostly empty space — but still fully rounded, so it stays visibly the same family. The label lives in `aria-label`: an icon button with no accessible name is announced as nothing.",
+					"$description": "Icon only. Square rather than stadium-wide, because a pill around a single glyph is mostly empty space \u2014 but still fully rounded, so it stays visibly the same family. The label lives in `aria-label`: an icon button with no accessible name is announced as nothing.",
 					"paddingInline": "0",
 					"inlineSize": "2.5rem"
 				},
@@ -148,12 +148,12 @@
 				"outline": "1px solid var(--color-focus)"
 			},
 			"active": {
-				"$description": "Pressed: the ring tightens and the lift goes — the button settles onto the surface it was floating over.",
+				"$description": "Pressed: the ring tightens and the lift goes \u2014 the button settles onto the surface it was floating over.",
 				"transform": "translateY(0)",
 				"boxShadow": "0 0 0 3px var(--btn-ring, transparent), none"
 			},
 			"disabled": {
-				"$description": "Flat and quiet, not a dimmed slab. Reducing a filled button to 55% opacity over a cream page produces a muddy grey that reads as a control that failed rather than one that is not available yet — so the fill is dropped instead of faded. This replaced an `unavailable` VARIANT that meant the same thing: one of them had to go, and a thing that is true right now is a state.",
+				"$description": "Flat and quiet, not a dimmed slab. Reducing a filled button to 55% opacity over a cream page produces a muddy grey that reads as a control that failed rather than one that is not available yet \u2014 so the fill is dropped instead of faded. This replaced an `unavailable` VARIANT that meant the same thing: one of them had to go, and a thing that is true right now is a state.",
 				"background": "var(--color-muted)",
 				"color": "var(--color-foreground-quiet)",
 				"borderColor": "var(--color-border-soft)",
@@ -168,7 +168,7 @@
 				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised)"
 			},
 			"success": {
-				"$description": "The end of a flow — the name is claimed, the payment is taken. A STATE and not a variant, because it is a moment: the button was primary a second ago and will be primary again. Reusing the primary fill here would say 'press me again', which is the last thing it means.",
+				"$description": "The end of a flow \u2014 the name is claimed, the payment is taken. A STATE and not a variant, because it is a moment: the button was primary a second ago and will be primary again. Reusing the primary fill here would say 'press me again', which is the last thing it means.",
 				"background": "var(--color-success)",
 				"color": "var(--color-success-foreground)",
 				"borderColor": "var(--color-success-edge)",
@@ -177,12 +177,12 @@
 			}
 		},
 		"reducedMotion": {
-			"$description": "The press feedback goes; the control still responds. Never `animation:none` as a blanket — a button has no entrance animation to lose, but the rule is written per unit because for others it would remove the very thing that reveals the content.",
+			"$description": "The press feedback goes; the control still responds. Never `animation:none` as a blanket \u2014 a button has no entrance animation to lose, but the rule is written per unit because for others it would remove the very thing that reveals the content.",
 			"transition": "none"
 		},
 		"parts": {
 			"badge": {
-				"$description": "The circular affordance at the trailing edge — the reference set's other good idea. It is where a spinner goes while loading and where a chevron goes at rest, so the button's right side has a fixed place for state instead of the label shifting when one appears.",
+				"$description": "The circular affordance at the trailing edge \u2014 the reference set's other good idea. It is where a spinner goes while loading and where a chevron goes at rest, so the button's right side has a fixed place for state instead of the label shifting when one appears.",
 				"display": "inline-flex",
 				"alignItems": "center",
 				"justifyContent": "center",
@@ -203,7 +203,7 @@
 				"marginInlineStart": "-0.125rem"
 			},
 			"icon-end": {
-				"$description": "A glyph after the label — a chevron, an arrow. Distinct from `badge`, which is the filled circle a spinner lives in.",
+				"$description": "A glyph after the label \u2014 a chevron, an arrow. Distinct from `badge`, which is the filled circle a spinner lives in.",
 				"display": "inline-flex",
 				"alignItems": "center",
 				"flexShrink": "0",
@@ -216,8 +216,6 @@
 		}
 	},
 	"a11y": {
-		"role": "button",
-		"keyboard": "Enter and Space activate. Tab reaches it. Disabled removes it from the tab order.",
-		"notes": "`loading` deliberately keeps full opacity and swaps the cursor: an action in flight must not read as unavailable. aria-busy carries the announcement."
+		"note": "A real `<button>`, or a real `<a>` when it navigates. The distinction is not pedantry: a button that is a div needs `role`, `tabindex` and a key handler bolted on, and the Enter/Space split is the part everyone forgets \u2014 a link fires on Enter only, a button on both.\n\nThe ring is on at REST, which is unusual and deliberate: it means the focus ring has to be visibly different from the resting ring rather than merely present, so focus uses the focus colour and not a thicker version of the same halo.\n\n`disabled` removes it from the tab order entirely, which is right for a control that cannot be used and wrong for one that is temporarily busy \u2014 that is what `loading` is for. A loading button keeps focus, keeps its size, and announces itself with `aria-busy`; swapping the label for a spinner without `aria-busy` tells a screen-reader user nothing happened. The icon-only shape needs a real name: an `aria-label`, not a `title`, because a title needs hover and a keyboard has none."
 	}
 }

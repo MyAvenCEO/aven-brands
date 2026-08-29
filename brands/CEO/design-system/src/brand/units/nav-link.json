@@ -61,6 +61,6 @@
 		}
 	},
 	"a11y": {
-		"notes": "aria-current takes a TOKEN, not a boolean: the correct value for navigation is \"page\". Passing `true` renders a bare `aria-current`, which is valid ARIA but weaker — screen readers announce \"current page\" for the token and only \"current\" for the bare form. The current page is marked by that attribute, never by colour alone. The 2.75rem minimum height keeps the target well above the 24px floor."
+		"note": "The current page carries `aria-current=\"page\"`, never `aria-selected` \u2014 that belongs to a tab or an option, and on an `<a>` it is invalid ARIA that axe rejects. It is also never marked by colour alone: the current item changes weight and carries a marker, because a tint is the first thing lost on a dim screen or in forced-colors mode.\n\nThe whole row is the target, not the words in it \u2014 a nav item you have to hit the text of is one that misses on a trackpad, and it is how a 24px target requirement gets met on paper and failed in practice."
 	}
 }
