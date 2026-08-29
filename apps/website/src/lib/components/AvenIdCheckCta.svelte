@@ -41,7 +41,7 @@ function submit(e: SubmitEvent) {
 const centered = $derived(variant === 'banner')
 const wrapperClass = $derived(
 	variant === 'banner'
-		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-raised)] sm:px-10 sm:py-11'
+		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-surface-raised)] sm:px-10 sm:py-11'
 		: 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
 )
 </script>
@@ -120,7 +120,7 @@ const wrapperClass = $derived(
 		     one step up the ramp from the rest of the block. -->
 		<div class="flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
 			<label
-				class="flex h-20 items-stretch overflow-hidden rounded-full border-2 border-accent/40 bg-surface-cream text-left shadow-[var(--shadow-floating)] sm:flex-1"
+				class="flex h-20 items-stretch overflow-hidden rounded-full border-2 border-accent/40 bg-surface-page text-left shadow-[var(--shadow-floating)] sm:flex-1"
 			>
 				<input
 					bind:value={name}
@@ -132,7 +132,7 @@ const wrapperClass = $derived(
 					class="min-w-0 flex-1 bg-transparent pl-7 pr-2 text-right text-[length:var(--fs-amount)] font-medium tracking-tight text-foreground outline-none placeholder:text-foreground/35"
 				>
 				<span
-					class="flex shrink-0 select-none items-center border-l border-accent/30 bg-surface-soft/60 px-6 text-[length:var(--fs-amount)] font-medium text-foreground/45"
+					class="flex shrink-0 select-none items-center border-l border-accent/30 bg-surface-sunken/60 px-6 text-[length:var(--fs-amount)] font-medium text-foreground/45"
 					>.aven.ceo</span
 				>
 			</label>

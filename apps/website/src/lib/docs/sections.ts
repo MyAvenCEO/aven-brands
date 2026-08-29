@@ -14,7 +14,7 @@ import {
 	COMPONENTS,
 	ELEVATION_SCALE,
 	INK_SCALE,
-	PRIMITIVES,
+	LAYOUTS,
 	RADIUS_SCALE,
 	SPACE_SCALE,
 	TINT_SCALE,
@@ -22,9 +22,9 @@ import {
 	TYPE_SCALE
 } from '@myavenceo/aven-ceo/design'
 import {
-	CREAMS,
 	FONT_STACK,
 	FONT_WEIGHTS,
+	GROUNDS,
 	ROLES,
 	SITE_ROLES,
 	SURFACES,
@@ -53,10 +53,10 @@ export const colourGroups = [
 		rows: rows(TONES)
 	},
 	{
-		id: 'creams',
-		title: 'Creams',
-		lede: 'The light ground family every surface stands on.',
-		rows: rows(CREAMS)
+		id: 'grounds',
+		title: 'Grounds',
+		lede: 'The surface colours themselves, per theme. The dark ladder is declared and not yet wired.',
+		rows: rows(GROUNDS)
 	},
 	{
 		id: 'surfaces',
@@ -115,11 +115,11 @@ export function specimenTag(name: string): 'button' | 'div' {
 }
 
 export const componentNames = Object.keys(COMPONENTS)
-export const primitiveNames = Object.keys(PRIMITIVES)
+export const layoutNames = Object.keys(LAYOUTS)
 
 /** The declarations behind a component, for the inspector panel. */
 export function declarationsOf(name: string): Array<[string, string]> {
-	const decl = (COMPONENTS[name] ?? PRIMITIVES[name]) as Record<string, unknown> | undefined
+	const decl = (COMPONENTS[name] ?? LAYOUTS[name]) as Record<string, unknown> | undefined
 	if (!decl) return []
 	return Object.entries(decl)
 		.filter(([, v]) => typeof v === 'string')
@@ -148,5 +148,5 @@ export const sections: DocSection[] = [
 		count: radiusScale.length + spaceScale.length + elevationScale.length
 	},
 	{ id: 'components', label: 'Components', count: componentNames.length },
-	{ id: 'primitives', label: 'Primitives', count: primitiveNames.length }
+	{ id: 'layouts', label: 'Layouts', count: layoutNames.length }
 ]

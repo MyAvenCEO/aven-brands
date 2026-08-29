@@ -294,7 +294,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<ol class="mt-10 grid gap-4 sm:grid-cols-3">
 				{#each t.own.rungs as rung (rung.title)}
 					<li
-						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
+						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-surface-raised)]"
 					>
 						<p
 							class="text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent"
@@ -344,14 +344,14 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</div>
 		</div>
 
-		<div class="flex items-center bg-surface-cream px-5 py-16 sm:px-8 sm:py-20 lg:px-14">
+		<div class="flex items-center bg-surface-page px-5 py-16 sm:px-8 sm:py-20 lg:px-14">
 			<div class="mx-auto w-full max-w-md">
 				<div
 					class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1.2fr)] items-stretch gap-x-2 sm:gap-x-4"
 				>
 					<div class="flex min-w-0 flex-col items-center justify-start text-center">
 						<div
-							class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-background sm:size-16"
+							class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page sm:size-16"
 						>
 							<img
 								src={samuelPhoto}
@@ -387,7 +387,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</div>
 					<div class="flex min-w-0 flex-col items-center justify-start text-center">
 						<div
-							class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-background sm:size-16"
+							class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page sm:size-16"
 						>
 							<img
 								src={danielPhoto}
@@ -423,7 +423,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</div>
 					<div class="flex min-w-0 flex-col items-center justify-start text-center">
 						<div
-							class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-background sm:size-16 [&>svg]:block [&>svg]:size-full"
+							class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page sm:size-16 [&>svg]:block [&>svg]:size-full"
 							aria-hidden="true"
 						>
 							{@html beamAvatarSvg('avenCEO', paletteKi, 64, 'fnd-k-ceo')}
@@ -565,12 +565,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 }
 
 #home-hero-heading {
-	color: var(--color-chalk);
+	color: var(--color-dark-ink);
 	text-shadow: 0 2px 24px color-mix(in srgb, var(--color-marine) 45%, transparent);
 }
 
 #home-hero-lead {
-	color: color-mix(in srgb, var(--color-chalk) 94%, transparent);
+	color: color-mix(in srgb, var(--color-dark-ink) 94%, transparent);
 	text-shadow: 0 1px 16px color-mix(in srgb, var(--color-marine) 40%, transparent);
 }
 
@@ -578,11 +578,11 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
    home.ts for the light page) — lift it to a soft white on the video. The
    accent half keeps its brand gold, which reads well over the scrim. */
 #home-hero-lead :global(strong.text-foreground\/50) {
-	color: color-mix(in srgb, var(--color-chalk) 68%, transparent);
+	color: color-mix(in srgb, var(--color-dark-ink) 68%, transparent);
 }
 
 #home-hero-helper {
-	color: color-mix(in srgb, var(--color-chalk) 72%, transparent);
+	color: color-mix(in srgb, var(--color-dark-ink) 72%, transparent);
 	text-shadow: 0 1px 12px color-mix(in srgb, var(--color-marine) 40%, transparent);
 }
 

@@ -29,9 +29,10 @@ import { nearestStepOn } from '@myavenceo/aven-vibes/brand'
 import {
 	COMPONENTS_MAP,
 	type Decl,
+	flatAlpha,
 	flatScale,
-	NEAREST_STEP_MAP,
-	PRIMITIVES_MAP
+	LAYOUTS_MAP,
+	NEAREST_STEP_MAP
 } from './brand-data.js'
 
 export type { Decl }
@@ -73,7 +74,7 @@ export const TRACKING_SCALE: Record<string, string> = flatScale('tracking')
  * WCAG 1.4.3 exempts inactive controls, and a system with no sub-AA step has
  * nowhere to put the one job that legitimately needs one. It must never carry
  * live text. */
-export const INK_SCALE: Record<string, string> = flatScale('ink')
+export const INK_SCALE: Record<string, string> = flatAlpha('on-text')
 
 /**
  * TINT — the same ink, but as a surface rather than as text.
@@ -83,7 +84,7 @@ export const INK_SCALE: Record<string, string> = flatScale('ink')
  * anyone reads. Separating them is what stops a border rounding up into a
  * legible grey.
  */
-export const TINT_SCALE: Record<string, string> = flatScale('tint')
+export const TINT_SCALE: Record<string, string> = flatAlpha('on-surface')
 
 /**
  * Snap an opacity percentage to its nearest step.
@@ -142,13 +143,13 @@ export const SCALE_TOKENS: Record<string, string> = {
  * roles above, so no component spells a value of its own. */
 export const COMPONENTS: Record<string, Decl> = COMPONENTS_MAP
 
-/* ══ 7 · THE LAYOUT PRIMITIVES ═════════════════════════════════════════════
+/* ══ 7 · THE LAYOUT LAYOUTS ═════════════════════════════════════════════
  * The shapes almost every layout is made of. In the unit model these become
  * the declared arrangement a composite names, rather than CSS a page writes. */
-export const PRIMITIVES: Record<string, Decl> = PRIMITIVES_MAP
+export const LAYOUTS: Record<string, Decl> = LAYOUTS_MAP
 
 /** Primitive names, so a consumer can assert the set it renders. */
-export const PRIMITIVE_NAMES = Object.keys(PRIMITIVES)
+export const LAYOUT_NAMES = Object.keys(LAYOUTS)
 
 /** The component names, so a consumer can assert the set it renders. */
 export const COMPONENT_NAMES = Object.keys(COMPONENTS)

@@ -50,7 +50,10 @@ const t = $derived(
 	<script async src={REVOCATION_WIDGET.scriptSrc}></script>
 </svelte:head>
 
-<div {lang} class="flex min-h-screen flex-col bg-background text-foreground font-sans antialiased">
+<div
+	{lang}
+	class="flex min-h-screen flex-col bg-surface-page text-foreground font-sans antialiased"
+>
 	<MarketingSiteHeader {lang} />
 
 	<section class="flex-1 px-5 py-16 sm:px-8 sm:py-20">

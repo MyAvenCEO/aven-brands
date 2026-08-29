@@ -66,11 +66,11 @@ function handle(a: LiveAven) {
 				{#each companies as a (a.slug)}
 					{@const profile = t.companies[a.slug]}
 					<article
-						class="flex min-w-0 flex-col rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
+						class="flex min-w-0 flex-col rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-surface-raised)]"
 					>
 						<div class="flex items-start gap-4">
 							<div
-								class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-background [&>svg]:block [&>svg]:size-full"
+								class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page [&>svg]:block [&>svg]:size-full"
 								aria-hidden="true"
 							>
 								{@html beamAvatarSvg(a.name, paletteCompany, 56, `aven-${a.slug}`)}
@@ -149,7 +149,7 @@ function handle(a: LiveAven) {
 				{#each people as a (a.slug)}
 					<li class="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4">
 						<div
-							class="size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-background [&>svg]:block [&>svg]:size-full"
+							class="size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page [&>svg]:block [&>svg]:size-full"
 							aria-hidden="true"
 						>
 							{@html beamAvatarSvg(a.name, palettePerson, 40, `aven-${a.slug}`)}

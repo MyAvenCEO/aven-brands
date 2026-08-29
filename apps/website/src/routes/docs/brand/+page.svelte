@@ -21,7 +21,7 @@ import {
 	fontStacks,
 	fontWeights,
 	inkScale,
-	primitiveNames,
+	layoutNames,
 	radiusScale,
 	sections,
 	spaceScale,
@@ -268,15 +268,15 @@ function inspect(name: string) {
 						{/each}
 					</div>
 				</section>
-			{:else if active === 'primitives'}
+			{:else if active === 'layouts'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Primitives</p>
+					<p class="eyebrow-quiet">Layouts</p>
 					<p class="meta">
-						The layout shapes almost every page is made of. In the unit model these become the
-						declared arrangement a composite names, rather than CSS a page writes.
+						The layout shapes almost every page is made of. Renamed from "primitives": a unit is now
+						the smallest piece, which is what primitive means everywhere else.
 					</p>
 					<div class="cb-gallery">
-						{#each primitiveNames as name (name)}
+						{#each layoutNames as name (name)}
 							<div class="cb-piece">
 								<button
 									type="button"

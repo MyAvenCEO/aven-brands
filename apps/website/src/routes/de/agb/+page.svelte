@@ -10,7 +10,7 @@ import SiteFooter from '$lib/components/SiteFooter.svelte'
 
 <div
 	lang="de"
-	class="flex min-h-screen flex-col bg-background text-foreground font-sans antialiased"
+	class="flex min-h-screen flex-col bg-surface-page text-foreground font-sans antialiased"
 >
 	<MarketingSiteHeader />
 
@@ -24,7 +24,7 @@ import SiteFooter from '$lib/components/SiteFooter.svelte'
 
 			<!-- PLACEHOLDER. This page is noindex until the real text is in it;
 			     a legal page with invented content is worse than none. -->
-			<div class="mt-8 rounded-2xl border border-dashed border-quiet/25 bg-surface-soft/25 p-6">
+			<div class="mt-8 rounded-2xl border border-dashed border-quiet/25 bg-surface-sunken/25 p-6">
 				<p
 					class="text-[length:var(--fs-micro)] font-semibold uppercase tracking-[var(--tracking-wider)] text-quiet-ink"
 				>

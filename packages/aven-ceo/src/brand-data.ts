@@ -38,8 +38,12 @@ export const scaleGroups = brandDocument.scale
 export const flatColor = (group: keyof typeof brandDocument.color) =>
 	flatten(brandDocument.color[group])
 
-export const flatScale = (group: keyof typeof brandDocument.scale) =>
+export const flatScale = (group: 'type' | 'tracking' | 'elevation' | 'radius' | 'space') =>
 	flatten(brandDocument.scale[group])
+
+/** The alpha floors. Nested, because they are one axis with two contrast rules. */
+export const flatAlpha = (floor: 'on-text' | 'on-surface') =>
+	flatten(brandDocument.scale.alpha[floor])
 
 export const BRAND_NAME = brandDocument.name
 export const BRAND_SLUG = brandDocument.slug
@@ -52,7 +56,7 @@ export const VIBE_SCALE_MAP = flatten(
 export const APP_ICON_PLATE_VALUE = brandDocument.appIconPlate
 
 export const COMPONENTS_MAP = componentsDocument.components
-export const PRIMITIVES_MAP = componentsDocument.primitives
+export const LAYOUTS_MAP = componentsDocument.layouts
 export const NEAREST_STEP_MAP = (
 	componentsJson as unknown as { nearestStep: { values: Record<string, string> } }
 ).nearestStep.values

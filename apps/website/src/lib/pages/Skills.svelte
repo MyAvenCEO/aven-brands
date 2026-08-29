@@ -153,7 +153,7 @@ const chainSteps = $derived(t.chain.steps)
 				{#each chainSteps as step, i (step.slug)}
 					<a
 						href={skillDetailHref(step.slug, lang)}
-						class="group flex min-w-0 flex-col items-center rounded-xl border border-border/25 bg-surface-raised px-4 py-4 text-center transition-colors hover:border-border/25 hover:bg-surface-soft sm:w-36"
+						class="group flex min-w-0 flex-col items-center rounded-xl border border-border/25 bg-surface-raised px-4 py-4 text-center transition-colors hover:border-border/25 hover:bg-surface-sunken sm:w-36"
 					>
 						<p
 							class="text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-wide)] text-foreground/65 group-hover:text-foreground/90"
@@ -211,7 +211,7 @@ const chainSteps = $derived(t.chain.steps)
 			<div class="mt-6">
 				<a
 					href={localeHref(lang, '/pricing')}
-					class="inline-flex min-h-11 items-center justify-center rounded-full border border-border/25 bg-surface-raised px-7 text-[length:var(--fs-body)] font-semibold text-foreground transition-colors hover:bg-surface-soft"
+					class="inline-flex min-h-11 items-center justify-center rounded-full border border-border/25 bg-surface-raised px-7 text-[length:var(--fs-body)] font-semibold text-foreground transition-colors hover:bg-surface-sunken"
 				>
 					{t.pricing.cta}
 				</a>

@@ -62,7 +62,7 @@ const headerClass = $derived(
  * utilities aren't emitted from a dynamic class string, so pin them here. */
 const headerStyle = $derived(
 	solid
-		? 'background-color: color-mix(in oklab, var(--color-background) 10%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);'
+		? 'background-color: color-mix(in oklab, var(--color-surface-page) 10%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);'
 		: ''
 )
 
@@ -138,7 +138,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[var(--shadow-surface-raised)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>
@@ -168,7 +168,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[var(--shadow-surface-raised)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>

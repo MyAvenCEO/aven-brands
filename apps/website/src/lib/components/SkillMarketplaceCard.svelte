@@ -17,10 +17,10 @@ const t = $derived(pick(messages, lang).card)
 
 const cardClass = $derived.by(() =>
 	skill.comingSoon
-		? 'group flex min-w-0 flex-col rounded-2xl border-2 border-dashed border-quiet/25 bg-surface-soft/25 p-5 opacity-85 transition-all hover:border-quiet/25 hover:opacity-100 sm:p-6'
+		? 'group flex min-w-0 flex-col rounded-2xl border-2 border-dashed border-quiet/25 bg-surface-sunken/25 p-5 opacity-85 transition-all hover:border-quiet/25 hover:opacity-100 sm:p-6'
 		: variant === 'spotlight'
-			? 'group flex min-w-0 flex-col rounded-2xl border-2 border-accent/25 bg-surface-raised p-6 ring-1 ring-accent/15 shadow-[var(--shadow-raised)] transition-all hover:border-accent/25  sm:p-7'
-			: 'group flex min-w-0 flex-col rounded-2xl border border-border/25 bg-surface-raised p-5 transition-all hover:border-border/25 hover:bg-surface-soft  sm:p-6'
+			? 'group flex min-w-0 flex-col rounded-2xl border-2 border-accent/25 bg-surface-raised p-6 ring-1 ring-accent/15 shadow-[var(--shadow-surface-raised)] transition-all hover:border-accent/25  sm:p-7'
+			: 'group flex min-w-0 flex-col rounded-2xl border border-border/25 bg-surface-raised p-5 transition-all hover:border-border/25 hover:bg-surface-sunken  sm:p-6'
 )
 </script>
 
@@ -66,7 +66,7 @@ const cardClass = $derived.by(() =>
 	<div class="mt-4 flex flex-wrap gap-1.5">
 		{#each skill.playsWith as { slug } (slug)}
 			<span
-				class="inline-flex items-center rounded-full border border-border/25 bg-background/25 px-2 py-0.5 text-[length:var(--fs-nano)] font-semibold text-foreground/50"
+				class="inline-flex items-center rounded-full border border-border/25 bg-surface-page/25 px-2 py-0.5 text-[length:var(--fs-nano)] font-semibold text-foreground/50"
 			>
 				→ {t.chainLabels[slug] ?? slug}
 			</span>

@@ -18,20 +18,11 @@
 
 	/* ══ 1 · THE BRAND TONES — the paint, each spelled exactly once ══ */
 	--color-marine: #1e293b;
-	--color-anchor: #57789e;
-	--color-terracotta: #c15b40;
-	--color-sunflower: #f2ba3d;
-	--color-earth: #d4a373;
-	--color-sand: #f3e7c6;
 	--color-paradise: #2489a0;
 	--color-turquoise: #449c94;
-
-	/* ══ the cream family, lightest to warmest ══ */
-	--color-porcelain: #fffdf7;
-	--color-linen: #faf9f4;
-	--color-eggshell: #f6f3e8;
-	--color-ivory: #f6f1e2;
-	--color-chalk: #f8fafc;
+	--color-sunflower: #f2ba3d;
+	--color-earth: #d4a373;
+	--color-terracotta: #c15b40;
 
 	/* ══ the inks guaranteed to read on a filled tone ══ */
 	--color-on-warning: #2b2313;
@@ -40,23 +31,33 @@
 	--color-on-info: #2b231c;
 	--color-white: #ffffff;
 
+	/* ══ the grounds — the surface colours themselves, per theme ══ */
+	--color-light-page: #fffdf7;
+	--color-light-raised: #faf9f4;
+	--color-light-sunken: #f6f3e8;
+	--color-light-card: #f6f1e2;
+	--color-light-selected: #f3e7c6;
+	--color-dark-page: #1e293b;
+	--color-dark-raised: #243448;
+	--color-dark-card: #2a3a56;
+	--color-dark-selected: #57789e;
+	--color-dark-ink: #f8fafc;
+
 	/* ══ 2 · THE SURFACES — which rung each part stands on ══ */
-	--color-surface-raised: var(--color-porcelain);
-	--color-surface-cream: var(--color-linen);
-	--color-surface-soft: var(--color-eggshell);
-	--color-surface-card: var(--color-ivory);
-	--color-surface-card-selected: var(--color-sand);
-	--color-background: var(--color-surface-cream);
-	--color-surface-card-hover: var(--color-eggshell);
+	--color-surface-page: var(--color-light-page);
+	--color-surface-raised: var(--color-light-raised);
+	--color-surface-sunken: var(--color-light-sunken);
+	--color-surface-card: var(--color-light-card);
+	--color-surface-selected: var(--color-light-selected);
 
 	/* ══ 3 · THE ROLES — what a colour MEANS ══ */
 	--color-primary: var(--color-marine);
-	--color-primary-foreground: var(--color-chalk);
-	--color-quiet: var(--color-anchor);
-	--color-quiet-foreground: var(--color-chalk);
-	--color-quiet-ink: color-mix(in oklab, var(--color-anchor) 82%, black);
+	--color-primary-foreground: var(--color-dark-ink);
+	--color-quiet: var(--color-dark-selected);
+	--color-quiet-foreground: var(--color-dark-ink);
+	--color-quiet-ink: color-mix(in oklab, var(--color-dark-selected) 82%, black);
 	--color-progress: var(--color-paradise);
-	--color-progress-foreground: var(--color-chalk);
+	--color-progress-foreground: var(--color-dark-ink);
 	--color-progress-ink: color-mix(in oklab, var(--color-paradise) 72%, black);
 	--color-success: var(--color-turquoise);
 	--color-success-foreground: var(--color-on-success);
@@ -70,20 +71,20 @@
 	--color-info: var(--color-earth);
 	--color-info-foreground: var(--color-on-info);
 	--color-info-ink: color-mix(in oklab, var(--color-earth) 72%, black);
-	--color-secondary: var(--color-sand);
+	--color-secondary: var(--color-light-selected);
 	--color-secondary-foreground: var(--color-marine);
 	--color-foreground: var(--color-marine);
 	--color-card-foreground: var(--color-foreground);
-	--color-muted: color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-cream));
+	--color-muted: color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-page));
 	--color-muted-foreground: color-mix(in srgb, var(--color-marine) 42%, transparent);
 	--color-border: color-mix(in srgb, var(--color-marine) 14%, transparent);
-	--color-input: color-mix(in srgb, var(--color-white) 65%, var(--color-surface-cream));
-	--color-accent: var(--color-sunflower);
-	--color-accent-foreground: var(--color-on-warning);
-	--color-accent-ink: color-mix(in oklab, var(--color-sunflower) 62%, black);
-	--color-offer: var(--color-terracotta);
-	--color-offer-foreground: var(--color-on-error);
-	--color-offer-ink: color-mix(in oklab, var(--color-terracotta) 88%, black);
+	--color-input: color-mix(in srgb, var(--color-white) 65%, var(--color-surface-page));
+	--color-accent: var(--color-warning);
+	--color-accent-foreground: var(--color-warning-foreground);
+	--color-accent-ink: var(--color-warning-ink);
+	--color-offer: var(--color-error);
+	--color-offer-foreground: var(--color-error-foreground);
+	--color-offer-ink: var(--color-error-ink);
 	--color-card: var(--color-surface-raised);
 
 	--radius-lg: 1rem;

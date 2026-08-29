@@ -7,69 +7,86 @@
 			"marine": {
 				"$type": "color",
 				"$value": "#1e293b",
-				"$description": "deep navy — the brand blue, the body copy and the dark ground. Absorbed `ink` (#182a47), which was the same hue two lightness steps away and carried only `foreground`."
-			},
-			"anchor": {
-				"$type": "color",
-				"$value": "#57789e",
-				"$description": "the mid step of the marine hue — everything held back."
-			},
-			"terracotta": {
-				"$type": "color",
-				"$value": "#c15b40",
-				"$description": "FUNCTIONAL, not identity: the failure tone. It is not in the logo and must not be used as a brand accent — it means something went wrong."
-			},
-			"sunflower": {
-				"$type": "color",
-				"$value": "#f2ba3d",
-				"$description": "the brand highlight. Sunflower, not \"gold\" — the name is the brand's own and the generic one loses it."
-			},
-			"earth": {
-				"$type": "color",
-				"$value": "#d4a373",
-				"$description": "FUNCTIONAL, not identity: the notice tone. Sits between terracotta and sunflower in hue and carries `info`."
-			},
-			"sand": {
-				"$type": "color",
-				"$value": "#f3e7c6",
-				"$description": "the warmest step of the light ground, and the selected-card fill. A light step of the sunflower hue rather than a colour of its own."
+				"$description": "the brand blue. Also the ground a dark theme stands on."
 			},
 			"paradise": {
 				"$type": "color",
 				"$value": "#2489a0",
-				"$description": "the deeper blue-teal — work in motion. Renamed from tidal-blue."
+				"$description": "the deeper blue-teal — work in motion."
 			},
 			"turquoise": {
 				"$type": "color",
 				"$value": "#449c94",
-				"$description": "the bright turquoise — settled work. Renamed from paradise-water."
-			}
+				"$description": "the bright turquoise — settled work."
+			},
+			"sunflower": {
+				"$type": "color",
+				"$value": "#f2ba3d",
+				"$description": "the brand highlight. Sunflower, not \"gold\" — the generic word loses the name."
+			},
+			"earth": {
+				"$type": "color",
+				"$value": "#d4a373",
+				"$description": "FUNCTIONAL, not identity: the notice tone."
+			},
+			"terracotta": {
+				"$type": "color",
+				"$value": "#c15b40",
+				"$description": "FUNCTIONAL, not identity: the failure tone. Not in the logo; it means something went wrong."
+			},
+			"$description": "The brand hues. Identity first, then the two that carry only meaning. Sorted by hue so the family structure is visible rather than incidental."
 		},
-		"creams": {
-			"porcelain": {
+		"grounds": {
+			"$description": "The surface colours themselves, per theme. Separate from `surfaces` on purpose: a component that names a theme cannot be re-themed, so the ladders live here and the rungs live there.",
+			"light-page": {
 				"$type": "color",
 				"$value": "#fffdf7",
-				"$description": "the raised card — lightest, lifts off the page"
+				"$description": "was porcelain — the lightest ground, what the page itself stands on."
 			},
-			"linen": {
+			"light-raised": {
 				"$type": "color",
 				"$value": "#faf9f4",
-				"$description": "the page ground everything rests on"
+				"$description": "was linen — a region lifted off the page."
 			},
-			"eggshell": {
+			"light-sunken": {
 				"$type": "color",
 				"$value": "#f6f3e8",
-				"$description": "one step warmer — panels, hover"
+				"$description": "was eggshell — a region set into the page."
 			},
-			"ivory": {
+			"light-card": {
 				"$type": "color",
 				"$value": "#f6f1e2",
-				"$description": "warmest — cards at rest, and selection"
+				"$description": "was ivory — the fill of a card."
 			},
-			"chalk": {
+			"light-selected": {
+				"$type": "color",
+				"$value": "#f3e7c6",
+				"$description": "was sand — a card the user has chosen."
+			},
+			"dark-page": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "the deepest rung. The dark theme is DECLARED here and not yet wired; nothing renders from it until `surfaces` has a dark override."
+			},
+			"dark-raised": {
+				"$type": "color",
+				"$value": "#243448",
+				"$description": "a region lifted off the dark page. Derived from marine, not yet verified for contrast."
+			},
+			"dark-card": {
+				"$type": "color",
+				"$value": "#2a3a56",
+				"$description": "the fill of a card on a dark page. Derived, not yet verified."
+			},
+			"dark-selected": {
+				"$type": "color",
+				"$value": "#57789e",
+				"$description": "was anchor — the mid step of the marine hue."
+			},
+			"dark-ink": {
 				"$type": "color",
 				"$value": "#f8fafc",
-				"$description": "near-white with a blue cast — the ground a dark surface inverts to, and the text that reads on a filled tone."
+				"$description": "was chalk — the text that reads on a dark ground."
 			}
 		},
 		"contrastInk": {
@@ -100,33 +117,31 @@
 			}
 		},
 		"surfaces": {
+			"$description": "What a component actually references, and the theme seam. Theme-NEUTRAL: a component says `bg-card` and never learns which theme it is in, so switching themes re-points these five at the other ladder rather than editing every call site.",
+			"surface-page": {
+				"$type": "color",
+				"$value": "var(--color-light-page)",
+				"$description": "the page ground itself."
+			},
 			"surface-raised": {
 				"$type": "color",
-				"$value": "var(--color-porcelain)"
+				"$value": "var(--color-light-raised)",
+				"$description": "lifted off the page."
 			},
-			"surface-cream": {
+			"surface-sunken": {
 				"$type": "color",
-				"$value": "var(--color-linen)"
-			},
-			"surface-soft": {
-				"$type": "color",
-				"$value": "var(--color-eggshell)"
+				"$value": "var(--color-light-sunken)",
+				"$description": "set into the page. Absorbed `surface-card-hover`."
 			},
 			"surface-card": {
 				"$type": "color",
-				"$value": "var(--color-ivory)"
+				"$value": "var(--color-light-card)",
+				"$description": "the fill of a card."
 			},
-			"surface-card-selected": {
+			"surface-selected": {
 				"$type": "color",
-				"$value": "var(--color-sand)"
-			},
-			"background": {
-				"$type": "color",
-				"$value": "var(--color-surface-cream)"
-			},
-			"surface-card-hover": {
-				"$type": "color",
-				"$value": "var(--color-eggshell)"
+				"$value": "var(--color-light-selected)",
+				"$description": "a card the user has chosen."
 			}
 		},
 		"roles": {
@@ -136,19 +151,19 @@
 			},
 			"primary-foreground": {
 				"$type": "color",
-				"$value": "var(--color-chalk)"
+				"$value": "var(--color-dark-ink)"
 			},
 			"quiet": {
 				"$type": "color",
-				"$value": "var(--color-anchor)"
+				"$value": "var(--color-dark-selected)"
 			},
 			"quiet-foreground": {
 				"$type": "color",
-				"$value": "var(--color-chalk)"
+				"$value": "var(--color-dark-ink)"
 			},
 			"quiet-ink": {
 				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-anchor) 82%, black)"
+				"$value": "color-mix(in oklab, var(--color-dark-selected) 82%, black)"
 			},
 			"progress": {
 				"$type": "color",
@@ -156,7 +171,7 @@
 			},
 			"progress-foreground": {
 				"$type": "color",
-				"$value": "var(--color-chalk)"
+				"$value": "var(--color-dark-ink)"
 			},
 			"progress-ink": {
 				"$type": "color",
@@ -212,7 +227,7 @@
 			},
 			"secondary": {
 				"$type": "color",
-				"$value": "var(--color-sand)"
+				"$value": "var(--color-light-selected)"
 			},
 			"secondary-foreground": {
 				"$type": "color",
@@ -228,7 +243,7 @@
 			},
 			"muted": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-cream))"
+				"$value": "color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-page))"
 			},
 			"muted-foreground": {
 				"$type": "color",
@@ -240,37 +255,45 @@
 			},
 			"input": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-white) 65%, var(--color-surface-cream))"
+				"$value": "color-mix(in srgb, var(--color-white) 65%, var(--color-surface-page))"
 			}
 		},
 		"siteRoles": {
+			"$description": "Roles only the marketing site owns. Each ALIASES the shared role that already carries the value — the site means \"highlight\" where the app means \"careful\", which is a real difference in meaning and not a reason to derive the colour twice. Changing the gold is now one edit, not three.",
 			"accent": {
 				"$type": "color",
-				"$value": "var(--color-sunflower)"
+				"$value": "var(--color-warning)",
+				"$description": "the marketing highlight. Same paint as `warning`; different job."
 			},
 			"accent-foreground": {
 				"$type": "color",
-				"$value": "var(--color-on-warning)"
+				"$value": "var(--color-warning-foreground)",
+				"$description": "text on the accent."
 			},
 			"accent-ink": {
 				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-sunflower) 62%, black)"
+				"$value": "var(--color-warning-ink)",
+				"$description": "the accent as running text."
 			},
 			"offer": {
 				"$type": "color",
-				"$value": "var(--color-terracotta)"
+				"$value": "var(--color-error)",
+				"$description": "the BETA window, which closes. Borrows the failure tone deliberately so an offer never reads as merely a highlight."
 			},
 			"offer-foreground": {
 				"$type": "color",
-				"$value": "var(--color-on-error)"
+				"$value": "var(--color-error-foreground)",
+				"$description": "text on an offer."
 			},
 			"offer-ink": {
 				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-terracotta) 88%, black)"
+				"$value": "var(--color-error-ink)",
+				"$description": "the offer as running text."
 			},
 			"card": {
 				"$type": "color",
-				"$value": "var(--color-surface-raised)"
+				"$value": "var(--color-surface-raised)",
+				"$description": "the site puts cards on the raised rung rather than the card rung."
 			}
 		},
 		"appRoles": {
@@ -308,7 +331,8 @@
 			},
 			"evidence": {
 				"$type": "color",
-				"$value": "var(--color-sunflower)"
+				"$value": "var(--color-warning)",
+				"$description": "the grounding marker. Same paint as `warning`; different job."
 			},
 			"evidence-soft": {
 				"$type": "color",
@@ -316,7 +340,8 @@
 			},
 			"evidence-ink": {
 				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-sunflower) 62%, black)"
+				"$value": "var(--color-warning-ink)",
+				"$description": "the grounding marker. Same paint as `warning-ink`; different job."
 			},
 			"card": {
 				"$type": "color",
@@ -324,7 +349,7 @@
 			},
 			"sandbox-host": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-background) 94%, var(--color-foreground))"
+				"$value": "color-mix(in srgb, var(--color-surface-page) 94%, var(--color-foreground))"
 			}
 		}
 	},
@@ -566,48 +591,51 @@
 				"$description": "the most emphatic eyebrow"
 			}
 		},
-		"ink": {
-			"ink-faint": {
-				"$type": "number",
-				"$value": "0.35",
-				"$description": "2.05:1 — disabled + watermarks ONLY (WCAG-exempt)"
+		"alpha": {
+			"$description": "One axis, two floors. Both are opacity; the only difference is what it is applied to. Text has a WCAG contrast floor and a surface does not, which is the whole distinction and exactly what the old `ink`/`tint` names hid.",
+			"on-text": {
+				"ink-faint": {
+					"$type": "number",
+					"$value": "0.35",
+					"$description": "2.05:1 — disabled + watermarks ONLY (WCAG-exempt)"
+				},
+				"ink-quiet": {
+					"$type": "number",
+					"$value": "0.65",
+					"$description": "4.61:1 — captions, secondary meta"
+				},
+				"ink-muted": {
+					"$type": "number",
+					"$value": "0.75",
+					"$description": "6.42:1 — supporting copy"
+				},
+				"ink-strong": {
+					"$type": "number",
+					"$value": "0.85",
+					"$description": "8.62:1 — emphasis short of full ink"
+				},
+				"ink-full": {
+					"$type": "number",
+					"$value": "0.9",
+					"$description": "10.10:1 — body copy at full weight"
+				}
 			},
-			"ink-quiet": {
-				"$type": "number",
-				"$value": "0.65",
-				"$description": "4.61:1 — captions, secondary meta"
-			},
-			"ink-muted": {
-				"$type": "number",
-				"$value": "0.75",
-				"$description": "6.42:1 — supporting copy"
-			},
-			"ink-strong": {
-				"$type": "number",
-				"$value": "0.85",
-				"$description": "8.62:1 — emphasis short of full ink"
-			},
-			"ink-full": {
-				"$type": "number",
-				"$value": "0.9",
-				"$description": "10.10:1 — body copy at full weight"
-			}
-		},
-		"tint": {
-			"tint-hairline": {
-				"$type": "number",
-				"$value": "0.08",
-				"$description": "the 1px rule between rows"
-			},
-			"tint-soft": {
-				"$type": "number",
-				"$value": "0.15",
-				"$description": "a resting wash"
-			},
-			"tint-firm": {
-				"$type": "number",
-				"$value": "0.25",
-				"$description": "a deliberate edge"
+			"on-surface": {
+				"tint-hairline": {
+					"$type": "number",
+					"$value": "0.08",
+					"$description": "the 1px rule between rows"
+				},
+				"tint-soft": {
+					"$type": "number",
+					"$value": "0.15",
+					"$description": "a resting wash"
+				},
+				"tint-firm": {
+					"$type": "number",
+					"$value": "0.25",
+					"$description": "a deliberate edge"
+				}
 			}
 		},
 		"elevation": {

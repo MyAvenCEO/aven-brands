@@ -49,8 +49,23 @@ export const TONES: Record<string, string> = flatColor('tones')
  * `creams` is the light ground family; `contrastInk` is the text guaranteed to
  * read on a filled tone; `surfaces` says which rung of the ladder each part of
  * a page stands on. */
-export const CREAMS: Record<string, string> = flatColor('creams')
+/**
+ * THE SURFACES — every surface a page stands on, in both themes.
+ *
+ * Was `SURFACES`, which named the material and could therefore only ever
+ * describe one theme: a dark surface is not a cream. Keys are `<theme>-<rung>`,
+ * so a theme switch re-points the five surface rungs at the other ladder
+ * instead of inventing a parallel vocabulary.
+ *
+ * The dark ladder is DECLARED and not yet wired. Nothing renders from it until
+ * `surfaces` gains a dark override, which is deliberate: a half-existing dark
+ * mode is worse than none, because components start assuming it works.
+ */
 export const CONTRAST_INK: Record<string, string> = flatColor('contrastInk')
+/** The surface colours themselves, per theme: `light-page` … `dark-ink`. */
+export const GROUNDS: Record<string, string> = flatColor('grounds')
+
+/** The theme-neutral rungs a component references: `page`, `card`, `sunken`… */
 export const SURFACES: Record<string, string> = flatColor('surfaces')
 
 /* ══ 3 · THE ROLES ═════════════════════════════════════════════════════════
@@ -131,7 +146,7 @@ export const vibeTokens: Record<string, string> = {
 	muted: withAlpha(TONES.marine, 0.56),
 	'muted-strong': withAlpha(TONES.marine, 0.72),
 
-	'bg-a': CREAMS.linen,
+	'bg-a': GROUNDS['light-raised'],
 	surface: withAlpha(CONTRAST_INK.white, 0.42),
 	'surface-2': withAlpha(CONTRAST_INK.white, 0.55),
 	'surface-raised': withAlpha(CONTRAST_INK.white, 0.55),
@@ -141,7 +156,7 @@ export const vibeTokens: Record<string, string> = {
 	'border-strong': withAlpha(TONES.marine, 0.2),
 
 	primary: TONES.marine,
-	'primary-foreground': CREAMS.chalk,
+	'primary-foreground': GROUNDS['dark-ink'],
 	secondary: TONES.sand,
 	'secondary-foreground': TONES.marine,
 	'brand-accent': TONES.sunflower,

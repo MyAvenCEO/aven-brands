@@ -74,7 +74,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</p>
 					<div class="mt-4 flex items-center gap-2 border-t border-border/25 pt-3">
 						<div
-							class="size-6 shrink-0 overflow-hidden rounded-full ring-1 ring-background [&>svg]:block [&>svg]:size-full"
+							class="size-6 shrink-0 overflow-hidden rounded-full ring-1 ring-surface-page [&>svg]:block [&>svg]:size-full"
 							aria-hidden="true"
 						>
 							{@html beamAvatarSvg(AVEN, paletteKi, 32, `skill-aven-${skill.slug}`)}
@@ -215,7 +215,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					<li>
 						<a
 							href={skillDetailHref(slug, lang)}
-							class="flex items-start gap-3 rounded-xl border border-border/25 bg-surface-raised px-4 py-3 transition-colors hover:border-border/25 hover:bg-surface-soft"
+							class="flex items-start gap-3 rounded-xl border border-border/25 bg-surface-raised px-4 py-3 transition-colors hover:border-border/25 hover:bg-surface-sunken"
 						>
 							<span class="mt-0.5 text-[length:var(--fs-eyebrow)] font-bold text-accent">→</span>
 							<div>
@@ -361,12 +361,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div
-				class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 shadow-[var(--shadow-raised)] sm:px-8 sm:py-9"
+				class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 shadow-[var(--shadow-surface-raised)] sm:px-8 sm:py-9"
 			>
 				<header class="flex items-end justify-between gap-4 border-b border-foreground/[0.06] pb-5">
 					<div class="flex items-center gap-3">
 						<div
-							class="size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-background [&>svg]:block [&>svg]:size-full"
+							class="size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page [&>svg]:block [&>svg]:size-full"
 							aria-hidden="true"
 						>
 							{@html beamAvatarSvg(AVEN, paletteKi, 48, `letter-${skill.slug}`)}

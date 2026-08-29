@@ -69,7 +69,7 @@
 	}
 
 	body {
-		@apply bg-background text-foreground font-sans;
+		@apply bg-surface-page text-foreground font-sans;
 		font-weight: 400;
 	}
 
@@ -93,7 +93,7 @@
 	/* The app's card idiom, available to the site by name: a raised cream
 	 * panel with a hairline border and the app's one shadow. */
 	.aven-card {
-		@apply rounded-2xl border border-foreground/5 bg-surface-raised p-6 shadow-[var(--shadow-raised)];
+		@apply rounded-2xl border border-foreground/5 bg-surface-raised p-6 shadow-[var(--shadow-surface-raised)];
 	}
 
 	/* 11px tracked uppercase — the app's eyebrow, one class instead of the

@@ -136,7 +136,7 @@
 
 	.app-shell {
 		min-height: 100vh;
-		background: var(--color-background);
+		background: var(--color-surface-page);
 		color: var(--color-foreground);
 		font-family: var(--font-sans);
 		-webkit-font-smoothing: antialiased;
@@ -203,7 +203,7 @@
 		align-items: center;
 		gap: 0.25rem;
 		border-radius: var(--radius-chip);
-		background: var(--color-surface-soft);
+		background: var(--color-surface-sunken);
 		font-size: var(--fs-micro);
 		padding: 0.125rem 0.375rem;
 	}
@@ -223,7 +223,7 @@
 		padding: var(--space-comfortable);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-inner);
-		background: var(--color-surface-soft);
+		background: var(--color-surface-sunken);
 	}
 
 	.mark {
