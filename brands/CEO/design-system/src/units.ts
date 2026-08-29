@@ -147,23 +147,96 @@ export const unitNames = Object.keys(units)
  * generated stylesheet — declared, emitted, and never once used by any of the
  * three surfaces.
  */
-export const SUPERSEDES: Record<string, string[]> = {
-	text: [
-		'title',
-		'section-title',
-		'lede',
-		'meta',
-		'mono-meta',
-		'digits',
-		'eyebrow',
-		'eyebrow-accent',
-		'eyebrow-quiet'
-	],
-	surface: ['card', 'well', 'panel'],
-	step: ['step', 'steps'],
-	btn: ['btn', 'ghost'],
-	logo: [],
-	navbar: [],
-	'nav-link': [],
-	'site-footer': []
+export type Supersession = {
+	/** The unit that replaces it, and the variant if the mapping needs one. */
+	unit: string
+	as?: string
+	/** Why it is not a straight swap, where it is not. */
+	note?: string
 }
+
+/**
+ * Every legacy class, and what replaces it.
+ *
+ * Measured across all four surfaces rather than remembered — the website, the
+ * checkout at my.aven.ceo, avenID, and the Tauri app. That measurement changed
+ * the plan twice.
+ *
+ * It found that CHECKOUT is the most design-system-adopted surface in the
+ * estate, and adopted entirely on this vocabulary: `panel`, `well`, `steps`,
+ * `eyebrow`, `mark`, `digits`, `alert`. So these classes cannot be deleted as
+ * the website migrates — the migration has two consumers, and untying one
+ * without the other breaks the one that was doing the right thing.
+ *
+ * And it found eight classes nothing calls at all, which are deleted rather
+ * than mapped. Four of them are the logo's own parts, which nothing uses
+ * because the site header never adopted the logo unit: it draws a bare `<img>`
+ * with `size-7 shrink-0`. A class emitted for a unit nobody uses is a class
+ * with a plan, not a caller.
+ */
+export const SUPERSEDES: Record<string, Supersession> = {
+	/* Type — one unit, one axis, nine answers. */
+	title: { unit: 'text', as: 'title' },
+	'section-title': { unit: 'text', as: 'section-title' },
+	lede: {
+		unit: 'prose',
+		as: 'lead',
+		note: 'prose owns the measure; the old class did not have one.'
+	},
+	meta: { unit: 'text', as: 'meta' },
+	'mono-meta': { unit: 'text', as: 'mono-meta' },
+	digits: { unit: 'text', as: 'digits' },
+	eyebrow: { unit: 'text', as: 'eyebrow' },
+	'eyebrow-accent': { unit: 'text', as: 'eyebrow-accent' },
+	'eyebrow-quiet': { unit: 'text', as: 'eyebrow-quiet' },
+	label: { unit: 'field', as: 'label', note: 'a label belongs to a field, not to the page.' },
+
+	/* Boxes — three of them differed only in radius, padding and ground. */
+	panel: { unit: 'surface', as: 'lg' },
+	well: { unit: 'surface', as: 'sunken' },
+	chip: { unit: 'badge' },
+
+	/* Structure. */
+	'app-shell': {
+		unit: 'section',
+		note: 'the shell is a section with no rule and the page ground.'
+	},
+	'section-band': { unit: 'section', as: 'ground-band' },
+	steps: { unit: 'step', note: 'the rail is the container; `step` is the stage on it.' },
+
+	/* Controls and feedback. */
+	ghost: { unit: 'btn', as: 'ghost' },
+	alert: {
+		unit: 'toast',
+		note: 'NOT a straight swap. A toast is transient and a page alert is not — an error the user must act on stays beside the thing that failed. Checkout and avenID both use `alert` for the second kind, so this needs an `inline` variant on toast, or its own unit, before either can move.'
+	},
+	mark: {
+		unit: 'logo',
+		as: 'mark',
+		note: "checkout and avenID use `mark` for the brand image at the top of a trust screen — which is `flow-card`'s `crest` slot holding a `logo`."
+	},
+
+	/* The logo\'s own parts, which the logo unit now owns. */
+	'logo-mark': { unit: 'logo' },
+	'logo-wordmark': { unit: 'logo' },
+	'logo-word-aven': { unit: 'logo' },
+	'logo-word-ceo': { unit: 'logo' }
+}
+
+/**
+ * Legacy classes nothing calls, on any surface.
+ *
+ * Deletable the moment someone regenerates the component map. Kept as a list
+ * rather than simply removed so the next measurement can tell "gone because it
+ * was replaced" from "gone because it was never used".
+ */
+export const UNCALLED: string[] = [
+	'title',
+	'lede',
+	'label',
+	'chip',
+	'logo-mark',
+	'logo-wordmark',
+	'logo-word-aven',
+	'logo-word-ceo'
+]

@@ -27,6 +27,7 @@ import {
 	layoutNames,
 	leafRows,
 	logoVariants,
+	migrationRows,
 	radiusScale,
 	sections,
 	spaceScale,
@@ -156,6 +157,12 @@ const variantClass = $derived(
 		.map(([axis, option]) => (axis === 'variant' ? option : `${axis}-${option}`))
 		.join(' ')
 )
+
+/** Jump from a migration row into the unit that replaces it. */
+function openUnitFrom(unit: string) {
+	active = compositeRows.some((u) => u.name === unit) ? 'composites' : 'leafs'
+	openDetail(unit)
+}
 
 function openDetail(name: string) {
 	open = name
@@ -530,6 +537,39 @@ function inspect(name: string) {
 							<div class="cb-row">
 								<span class="cb-geo" style="box-shadow: var({step.cssVar})"></span>
 								<span class="cb-mono">{step.name}</span>
+							</div>
+						{/each}
+					</div>
+				</section>
+			{:else if active === 'migration'}
+				<section class="cb-section">
+					<p class="eyebrow-quiet">Migration</p>
+					<p class="meta">
+						Every class from the vocabulary that predates units, and what replaces it. Measured
+						across all four surfaces — the website, the checkout at my.aven.ceo, avenID and the
+						Tauri app — not remembered. The measurement is the point: checkout is the most
+						design-system-adopted surface in the estate and it is adopted entirely on THESE classes,
+						so untying the website without it would break the one that was already doing the right
+						thing.
+					</p>
+					<div class="cb-migration">
+						{#each migrationRows as row (row.legacy)}
+							<div class="cb-mig" class:cb-mig--done={row.uncalled}>
+								<span class="cb-mono cb-mig-from">.{row.legacy}</span>
+								<span class="cb-mig-arrow" aria-hidden="true">{@html backIcon}</span>
+								<button
+									type="button"
+									class="cb-mono cb-mig-to"
+									onclick={() => openUnitFrom(row.unit)}
+								>
+									{row.unit}{row.as ? `--${row.as}` : ''}
+								</button>
+								{#if row.uncalled}
+									<span class="cb-tag">nothing calls it</span>
+								{/if}
+								{#if row.note}
+									<p class="cb-mig-note">{row.note}</p>
+								{/if}
 							</div>
 						{/each}
 					</div>
@@ -1191,6 +1231,57 @@ function inspect(name: string) {
 	background: var(--color-primary);
 	border-color: var(--color-primary);
 	color: var(--color-primary-foreground);
+}
+/* One row per legacy class. Flat and dense on purpose — this is a worklist,
+   not a gallery, and the thing you want from it is "how many are left". */
+.cb-migration {
+	display: grid;
+	gap: 0.15rem;
+	margin-block-start: var(--space-tight);
+}
+.cb-mig {
+	display: grid;
+	grid-template-columns: minmax(0, 12rem) auto minmax(0, 14rem) auto;
+	align-items: center;
+	gap: var(--space-tight);
+	padding: var(--space-tight) var(--space-comfortable);
+	border: 1px solid var(--color-border-soft);
+	border-radius: var(--radius-sm);
+	background: var(--color-surface-raised);
+}
+.cb-mig--done {
+	opacity: 0.62;
+}
+.cb-mig-from {
+	color: var(--color-foreground-quiet);
+	overflow-wrap: anywhere;
+}
+.cb-mig-arrow {
+	display: inline-flex;
+	color: var(--color-border-strong);
+}
+.cb-mig-to {
+	justify-self: start;
+	padding: 0.1rem 0.45rem;
+	border: 1px solid var(--color-border-soft);
+	border-radius: var(--radius-full);
+	background: transparent;
+	font: inherit;
+	font-family: var(--font-mono);
+	font-size: var(--fs-micro);
+	color: var(--color-foreground);
+	cursor: pointer;
+}
+.cb-mig-to:hover {
+	border-color: var(--color-border-strong);
+	background: var(--color-muted);
+}
+.cb-mig-note {
+	grid-column: 1 / -1;
+	margin: 0.15rem 0 0;
+	font-size: var(--fs-micro);
+	line-height: 1.5;
+	color: var(--color-foreground-soft);
 }
 .cb-units {
 	display: grid;

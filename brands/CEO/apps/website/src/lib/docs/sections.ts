@@ -31,7 +31,7 @@ import {
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
-import { unitNames, unitStyles, units } from '@myavenceo/aven-ceo/units'
+import { SUPERSEDES, UNCALLED, unitNames, unitStyles, units } from '@myavenceo/aven-ceo/units'
 import { renderIcon } from '@myavenceo/aven-vibes'
 
 export type SwatchRow = {
@@ -215,6 +215,36 @@ export const unitNameList: string[] = [...unitNames]
 export const leafRows = unitRows.filter((u) => u.kind === 'leaf')
 export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
 
+/* ── Migration ──────────────────────────────────────────────────────────── */
+
+/**
+ * The legacy vocabulary, and what replaces it.
+ *
+ * Here rather than in a document because the migration has TWO consumers — the
+ * website and the checkout at my.aven.ceo — and untying one without the other
+ * breaks the one that was already doing the right thing. A row you can see is a
+ * row somebody can act on; a plan in a markdown file is archaeology waiting to
+ * happen.
+ */
+export type MigrationRow = {
+	legacy: string
+	unit: string
+	as?: string
+	note?: string
+	uncalled: boolean
+}
+
+export const migrationRows: MigrationRow[] = Object.entries(SUPERSEDES)
+	.map(([legacy, to]) => ({
+		legacy,
+		unit: to.unit,
+		as: to.as,
+		note: to.note,
+		uncalled: UNCALLED.includes(legacy)
+	}))
+	/* Uncalled last: those are already done, they just need a regeneration. */
+	.sort((a, b) => Number(a.uncalled) - Number(b.uncalled) || a.legacy.localeCompare(b.legacy))
+
 /* ── Type ───────────────────────────────────────────────────────────────── */
 
 export const fontStacks = Object.entries(FONT_STACK).map(([name, value]) => ({
@@ -311,6 +341,7 @@ export const sections: DocSection[] = [
 	   composites under twelve leafs, which is how a library reads as "we only
 	   have leafs". The split is the architecture's own, so it navigates the
 	   same way it is built. */
+	{ id: 'migration', label: 'Migration', count: migrationRows.length },
 	{ id: 'leafs', label: 'Leafs', count: leafRows.length },
 	{ id: 'composites', label: 'Composites', count: compositeRows.length },
 	{ id: 'layouts', label: 'Layouts', count: layoutNames.length }
