@@ -250,6 +250,29 @@ const omit = (map: Record<string, string>, key: string) =>
 const backIcon = renderIcon('chevron-right', icons, { size: '1rem' })
 
 /**
+ * Stop the rail at the site header's edge, not the screen's.
+ *
+ * The marketing header is `position: sticky` and about 61px tall — but "about"
+ * is the problem: it is 61 at this width and something else on a phone, after a
+ * font swap, or once a nav item wraps. A hardcoded offset is both a lint failure
+ * and wrong half the time, so the height is MEASURED and published as
+ * `--cb-top`, and a `ResizeObserver` keeps it true when the header reflows.
+ *
+ * Without it the rail scrolls under the header and its first item is covered —
+ * WCAG 2.4.11, which is about a focused element hiding behind sticky chrome and
+ * is exactly this bug with a keyboard attached.
+ */
+function stickBelowSiteHeader(node: HTMLElement) {
+	const header = document.querySelector('header')
+	if (!header) return
+	const apply = () => node.style.setProperty('--cb-top', `${header.getBoundingClientRect().height}px`)
+	apply()
+	const observer = new ResizeObserver(apply)
+	observer.observe(header)
+	return () => observer.disconnect()
+}
+
+/**
  * Dress the specimen with the chosen variant and state.
  *
  * An attachment rather than a class, because the thing being dressed is inside
@@ -333,66 +356,77 @@ function inspect(name: string) {
 
 <MarketingSiteHeader active="docs" lang="en" />
 
-<div id="ceobrand" class="app-shell" data-theme={theme}>
-	<header id="cb-head">
-		<div>
-			<p class="eyebrow">ceoBRAND</p>
-			<h1 class="title">Design system</h1>
-			<p class="lede">
-				Rendered from the brand config itself. If it renders wrong, the system is wrong.
-			</p>
-		</div>
-		<div id="cb-head-actions">
-			<div id="cb-theme" role="group" aria-label="Theme">
-				{#each ['light', 'dark'] as const as option (option)}
-					<button
-						type="button"
-						class="cb-theme-option"
-						aria-pressed={theme === option}
-						onclick={() => {
-							theme = option
-						}}
-					>
-						{option}
-					</button>
-				{/each}
-			</div>
-			<a class="meta" href="/docs/">Back to docs</a>
-		</div>
-	</header>
-
+<div id="ceobrand" class="app-shell" data-theme={theme} {@attach stickBelowSiteHeader}>
 	<div id="cb-body">
-		<aside id="cb-aside" aria-label="Sections">
-			<nav>
-				<ul>
-					{#each sections as section (section.id)}
-						<li>
+		<!-- The page's own header lives INSIDE the rail, above the index — one
+		     column that identifies the page, switches its theme and navigates it,
+		     rather than a full-width band that pushed the first specimen a
+		     screenful down and left a wide empty gutter beside the title.
+
+		     And the rail is the `sidebar` composite itself, not a private copy of
+		     one. This page documents that unit; a documentation page that hand-
+		     rolls the navigation it is documenting is the drift the whole system
+		     exists to stop, and it is the only place where a regression in
+		     `sidebar` would be noticed immediately by whoever is reading it. -->
+		<aside id="cb-aside">
+			<nav class="sidebar sidebar--tone-plain" aria-label="Sections">
+				<div id="cb-brand">
+					<p class="text text--eyebrow">ceoBRAND</p>
+					<h1 class="text text--section-title">Design system</h1>
+					<p class="text text--meta">
+						Rendered from the brand config itself. If it renders wrong, the system is wrong.
+					</p>
+					<div id="cb-theme" role="group" aria-label="Theme">
+						{#each ['light', 'dark'] as const as option (option)}
 							<button
 								type="button"
-								class="cb-nav"
-								aria-current={active === section.id ? 'true' : undefined}
+								class="cb-theme-option"
+								aria-pressed={theme === option}
 								onclick={() => {
-									active = section.id
-									inspecting = null
-									/* Leaving the detail view with the section. Without this, moving
-									   from Leafs to Composites kept one leaf's detail on screen and
-									   the Composites list rendered as empty. */
-									open = null
+									theme = option
 								}}
 							>
-								<span>{section.label}</span>
-								<span class="cb-count">{section.count}</span>
+								{option}
 							</button>
-						</li>
+						{/each}
+					</div>
+				</div>
+
+				<div class="sidebar-items">
+					{#each sections as section (section.id)}
+						<button
+							type="button"
+							class="sidebar-item"
+							aria-current={active === section.id ? 'true' : undefined}
+							onclick={() => {
+								active = section.id
+								inspecting = null
+								/* Leaving the detail view with the section. Without this, moving
+								   from Leafs to Composites kept one leaf's detail on screen and
+								   the Composites list rendered as empty. */
+								open = null
+							}}
+						>
+							<span class="sidebar-marker"></span>
+							<span>{section.label}</span>
+							<span class="sidebar-count">{section.count}</span>
+						</button>
 					{/each}
-				</ul>
+				</div>
+
+				<div class="sidebar-footer">
+					<a class="sidebar-item" href="/docs/">
+						<span class="sidebar-marker"></span>
+						Back to docs
+					</a>
+				</div>
 			</nav>
 		</aside>
 
 		<main id="cb-main">
 			{#if active === 'logo'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Logo</p>
+					<p class="text text--eyebrow">Logo</p>
 					<p class="meta">
 						The mark, the wordmark and the lockup. The wordmark is two faces in one word — "aven" in
 						the thin display face, "CEO" in the heaviest sans — a specification that used to live
@@ -424,7 +458,7 @@ function inspect(name: string) {
 				</section>
 			{:else if active === 'icons'}
 				<section class="cb-section cb-section--full">
-					<p class="eyebrow-quiet">Icons</p>
+					<p class="text text--eyebrow">Icons</p>
 					<p class="meta">
 						Duotone: a filled backing at 0.2 under the figure, both in
 						<span class="cb-mono">currentColor</span>. Two opacities of one colour, never two
@@ -445,7 +479,7 @@ function inspect(name: string) {
 			{:else if active === 'colour'}
 				{#each colourGroups as group (group.id)}
 					<section class="cb-section">
-						<p class="eyebrow-quiet">{group.title}</p>
+						<p class="text text--eyebrow">{group.title}</p>
 						<p class="meta">{group.lede}</p>
 						<div class="cb-swatches">
 							{#each group.rows as row (row.name)}
@@ -472,7 +506,7 @@ function inspect(name: string) {
 				{/each}
 			{:else if active === 'type'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Faces</p>
+					<p class="text text--eyebrow">Faces</p>
 					<p class="meta">The stacks the brand sets its words in.</p>
 					<div class="cb-rows">
 						{#each fontStacks as font (font.name)}
@@ -486,7 +520,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Weights</p>
+					<p class="text text--eyebrow">Weights</p>
 					<div class="cb-rows">
 						{#each fontWeights as weight (weight.name)}
 							<div class="cb-row">
@@ -499,7 +533,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Ramp</p>
+					<p class="text text--eyebrow">Ramp</p>
 					<p class="meta">Twelve steps. A size not on the ramp is not available.</p>
 					<div class="cb-rows">
 						{#each typeScale as step (step.name)}
@@ -521,7 +555,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Tracking</p>
+					<p class="text text--eyebrow">Tracking</p>
 					<div class="cb-rows">
 						{#each trackingScale as step (step.name)}
 							<div class="cb-row">
@@ -537,7 +571,7 @@ function inspect(name: string) {
 				</section>
 			{:else if active === 'alpha'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Alpha · on text</p>
+					<p class="text text--eyebrow">Alpha · on text</p>
 					<p class="meta">
 						Text emphasis as steps, not a continuum. The faintest step is the disabled and watermark
 						level and deliberately sits below AA, so it must never carry live text.
@@ -556,7 +590,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Alpha · on surface</p>
+					<p class="text text--eyebrow">Alpha · on surface</p>
 					<p class="meta">The same ink as a surface rather than as text.</p>
 					<div class="cb-rows">
 						{#each tintScale as step (step.name)}
@@ -572,7 +606,7 @@ function inspect(name: string) {
 				</section>
 			{:else if active === 'geometry'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Radius</p>
+					<p class="text text--eyebrow">Radius</p>
 					<div class="cb-rows">
 						{#each radiusScale as step (step.name)}
 							<div class="cb-row">
@@ -583,7 +617,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Space</p>
+					<p class="text text--eyebrow">Space</p>
 					<div class="cb-rows">
 						{#each spaceScale as step (step.name)}
 							<div class="cb-row">
@@ -594,7 +628,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Elevation</p>
+					<p class="text text--eyebrow">Elevation</p>
 					<div class="cb-rows">
 						{#each elevationScale as step (step.name)}
 							<div class="cb-row">
@@ -606,7 +640,7 @@ function inspect(name: string) {
 				</section>
 			{:else if active === 'migration'}
 				<section class="cb-section cb-section--full">
-					<p class="eyebrow-quiet">Migration</p>
+					<p class="text text--eyebrow">Migration</p>
 					<p class="meta">
 						Every class from the vocabulary that predates units, and what replaces it. Measured
 						across all four surfaces — the website, the checkout at my.aven.ceo, avenID and the
@@ -884,7 +918,7 @@ function inspect(name: string) {
 						     gallery: it gave a 1216px main two columns of cards and left a third of
 						     the screen empty. -->
 						<section class="cb-section cb-section--full">
-							<p class="eyebrow-quiet">{group.title}</p>
+							<p class="text text--eyebrow">{group.title}</p>
 							<p class="meta">{group.lede}</p>
 							<div class="cb-units">
 								{#each group.rows as unit (unit.name)}
@@ -928,7 +962,7 @@ function inspect(name: string) {
 				{/if}
 			{:else if active === 'layouts'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Layouts</p>
+					<p class="text text--eyebrow">Layouts</p>
 					<p class="meta">
 						The layout shapes almost every page is made of. Renamed from "primitives": a unit is now
 						the smallest piece, which is what primitive means everywhere else.
@@ -975,37 +1009,31 @@ function inspect(name: string) {
 #ceobrand {
 	min-block-size: 100vh;
 }
-#cb-head {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-comfortable);
-	align-items: flex-end;
-	justify-content: space-between;
-	padding: var(--space-section) 1.25rem var(--space-loose);
-	border-block-end: 1px solid var(--color-border);
-}
-#cb-head > div {
+/* The rail's own header — identity, then the theme switch, then the index.
+   Separated by a rule rather than by a gap, so it reads as the head OF the
+   list and not as a first item in it. */
+#cb-brand {
 	display: grid;
 	gap: 0.25rem;
-}
-#cb-head-actions {
-	display: flex;
-	align-items: center;
-	gap: var(--space-comfortable);
+	padding: var(--space-comfortable) 0.75rem var(--space-comfortable);
+	border-block-end: 1px solid var(--color-border-soft);
+	margin-block-end: var(--space-tight);
 }
 #cb-theme {
 	display: inline-flex;
+	justify-self: start;
+	margin-block-start: var(--space-tight);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-full);
 	overflow: hidden;
 }
 .cb-theme-option {
-	min-block-size: 2.25rem;
+	min-block-size: 2rem;
 	padding-inline: var(--space-comfortable);
 	border: 0;
 	background: transparent;
 	font: inherit;
-	font-size: var(--fs-meta);
+	font-size: var(--fs-micro);
 	/* Not muted-foreground: it measures 3.59:1 here and fails AA. The unselected
 	   half of a switch is still a label someone has to read to operate it. */
 	color: var(--color-foreground-quiet);
@@ -1023,62 +1051,68 @@ function inspect(name: string) {
 }
 @media (min-width: 56rem) {
 	#cb-body {
-		grid-template-columns: 14rem minmax(0, 1fr);
+		/* `auto`, so the `sidebar` unit's own width decides the column. Pinning
+		   the track to 14rem here would mean the docs page overrides the very
+		   unit it is demonstrating. */
+		grid-template-columns: auto minmax(0, 1fr);
 	}
 	#cb-aside {
-		border-inline-end: 1px solid var(--color-border);
-		border-block-end: none;
 		position: sticky;
-		top: 0;
+		/* The site header is sticky and sits above this. At `top: 0` the rail
+		   slid underneath it and lost its first item — and a keyboard tabbing
+		   into that item put focus behind opaque chrome, which is WCAG 2.4.11.
+		   `--cb-top` is the header's measured height, republished on resize. */
+		top: var(--cb-top, 0px);
 		align-self: start;
-		max-block-size: 100vh;
+		max-block-size: calc(100dvh - var(--cb-top, 0px));
 		overflow-y: auto;
+	}
+	#cb-aside .sidebar {
+		block-size: 100%;
+		border-inline-end: 1px solid var(--color-border);
 	}
 }
 #cb-aside {
-	padding: var(--space-comfortable) 1.25rem;
 	border-block-end: 1px solid var(--color-border);
 }
-#cb-aside ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: grid;
-	gap: 0.125rem;
+@media (min-width: 56rem) {
+	#cb-aside {
+		border-block-end: none;
+	}
 }
-.cb-nav {
+/* The rail's items are `sidebar-item`s, which the unit styles. Only two things
+   are this page's: a <button> does not inherit the page font or fill its track,
+   and the label has to take the free space so the count stays at the edge. */
+#cb-aside .sidebar-item {
 	inline-size: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--space-tight);
-	padding: 0.5rem 0.625rem;
-	background: none;
 	border: 0;
-	border-radius: var(--radius-xs);
 	font: inherit;
-	font-size: var(--fs-section);
-	color: color-mix(in srgb, var(--color-foreground) 75%, transparent);
-	cursor: pointer;
+	font-size: var(--fs-meta);
+	font-weight: 500;
 	text-align: start;
-	min-block-size: 2.25rem;
+	cursor: pointer;
+	background: none;
 }
-.cb-nav:hover {
-	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
-	color: var(--color-foreground);
+#cb-aside .sidebar-item > span:not([class]) {
+	flex: 1 1 auto;
+	min-inline-size: 0;
 }
-.cb-nav[aria-current="true"] {
-	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+/* TEMPORARY — remove once `@myavenceo/aven-vibes` >= 0.5.1 is installed.
+   `sidebar` declares a `selected` state that draws the fill and reveals the
+   marker, and this rail marks its current section the only correct way for a
+   navigation: `aria-current`. Up to 0.5.0 the engine compiled `selected` to
+   `[aria-selected="true"], [aria-pressed="true"]` only, so the state was
+   declared, correctly triggered and rendered nothing. The fix is MyAvenCEO/
+   avenVIBES#4; until it is published this page draws what the unit will draw,
+   with the unit's own values, so the docs nav does not ship without a current
+   item. It is a duplicate on purpose and it is dated. */
+#cb-aside .sidebar-item[aria-current="true"] {
+	background: var(--color-surface-sunken);
 	color: var(--color-foreground);
 	font-weight: 600;
 }
-.cb-count {
-	font-size: var(--fs-micro);
-	font-variant-numeric: tabular-nums;
-	/* Not a color-mix: 65% of the foreground over an unknown ground is a
-	   relationship, and the count chip sits on a tint the ladder does not
-	   name. The role is measured; the relationship was not. */
-	color: var(--color-foreground-quiet);
+#cb-aside .sidebar-item[aria-current="true"] .sidebar-marker {
+	opacity: 1;
 }
 #cb-main {
 	padding: var(--space-loose) 1.25rem 4rem;
