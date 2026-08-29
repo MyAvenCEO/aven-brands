@@ -294,7 +294,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<ol class="mt-10 grid gap-4 sm:grid-cols-3">
 				{#each t.own.rungs as rung (rung.title)}
 					<li
-						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
+						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
 					>
 						<p
 							class="text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent"
@@ -554,9 +554,9 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	z-index: -1;
 	background: linear-gradient(
 		to bottom,
-		rgba(15, 23, 42, 0.5) 0%,
-		rgba(15, 23, 42, 0.32) 42%,
-		rgba(15, 23, 42, 0.55) 100%
+		color-mix(in srgb, var(--color-marine) 50%, transparent) 0%,
+		color-mix(in srgb, var(--color-marine) 32%, transparent) 42%,
+		color-mix(in srgb, var(--color-marine) 55%, transparent) 100%
 	);
 }
 
@@ -565,25 +565,25 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 }
 
 #home-hero-heading {
-	color: #fff;
-	text-shadow: 0 2px 24px rgba(15, 23, 42, 0.45);
+	color: var(--color-chalk);
+	text-shadow: 0 2px 24px color-mix(in srgb, var(--color-marine) 45%, transparent);
 }
 
 #home-hero-lead {
-	color: rgba(255, 255, 255, 0.94);
-	text-shadow: 0 1px 16px rgba(15, 23, 42, 0.4);
+	color: color-mix(in srgb, var(--color-chalk) 94%, transparent);
+	text-shadow: 0 1px 16px color-mix(in srgb, var(--color-marine) 40%, transparent);
 }
 
 /* The muted half of the transformation line is dark by default (built in
    home.ts for the light page) — lift it to a soft white on the video. The
    accent half keeps its brand gold, which reads well over the scrim. */
 #home-hero-lead :global(strong.text-foreground\/50) {
-	color: rgba(255, 255, 255, 0.68);
+	color: color-mix(in srgb, var(--color-chalk) 68%, transparent);
 }
 
 #home-hero-helper {
-	color: rgba(255, 255, 255, 0.72);
-	text-shadow: 0 1px 12px rgba(15, 23, 42, 0.4);
+	color: color-mix(in srgb, var(--color-chalk) 72%, transparent);
+	text-shadow: 0 1px 12px color-mix(in srgb, var(--color-marine) 40%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -593,7 +593,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	/* With the video hidden, the poster still shows via the section's own
 	   background so the stage is never blank. */
 	#home-hero {
-		background: #1e293b center / cover no-repeat url("/hero-poster.jpg");
+		background: var(--color-marine) center / cover no-repeat url("/hero-poster.jpg");
 	}
 }
 </style>

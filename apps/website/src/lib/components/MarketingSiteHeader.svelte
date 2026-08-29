@@ -7,7 +7,7 @@ import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
 import { SOCIAL_PROFILES } from '$lib/social'
 
-type NavActive = 'skills' | 'avens' | 'pricing'
+type NavActive = 'skills' | 'avens' | 'pricing' | 'docs'
 
 let {
 	active = null,
@@ -70,7 +70,8 @@ const headerStyle = $derived(
 const MENU_ITEMS = $derived([
 	{ href: '/skills', label: t.nav.skills, key: 'skills' as const },
 	{ href: '/avens', label: t.nav.avens, key: 'avens' as const },
-	{ href: '/pricing', label: t.nav.pricing, key: 'pricing' as const }
+	{ href: '/pricing', label: t.nav.pricing, key: 'pricing' as const },
+	{ href: '/docs', label: t.nav.docs, key: 'docs' as const }
 ])
 
 function linkCls(isActive: boolean) {
@@ -128,10 +129,11 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a href={localeHref(lang, '/pricing')} class={linkCls(active === 'pricing')}>
 					{t.nav.pricing}
 				</a>
+				<a href={localeHref(lang, '/docs')} class={linkCls(active === 'docs')}>{t.nav.docs}</a>
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[0_1px_2px_rgba(30,41,59,0.15)] transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>
@@ -161,7 +163,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[0_1px_2px_rgba(30,41,59,0.15)] transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>
@@ -207,7 +209,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 	<!-- Full-screen menu: a translucent glass layer over the page, nav points
 	     centred and large. It sits OUTSIDE <header> so its `fixed` box escapes
 	     the bar's backdrop-filter and covers the whole viewport; the bar (z-50)
-	     stays above it, so its ✕ closes the menu. -->
+	     stays above it, so its close button closes the menu. -->
 	<div class="fixed inset-0 z-40 lg:hidden" transition:fade={{ duration: 150 }}>
 		<div class="absolute inset-0 bg-primary/90 backdrop-blur-xl"></div>
 		<nav

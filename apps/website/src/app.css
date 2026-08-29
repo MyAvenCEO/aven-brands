@@ -28,9 +28,15 @@
 
 /* Section eyebrows across the site read in brand tidal-blue, a step larger,
  * and framed in em-dashes ("— WHY NOW —"). Un-layered so it overrides the
- * generated `.eyebrow-accent` component. */
+ * generated `.eyebrow-accent` component.
+ *
+ * The tone is darkened only as far as legibility demands and no further. At
+ * `--fs-meta` (12px) this is normal-size text, so it needs 4.5:1: raw
+ * tidal-blue measures 3.86:1 and fails, 92% of it measures 4.70:1 and passes.
+ * `progress-ink` (72%) also passes but reads as a different, muddier colour —
+ * the eyebrow should still look like the brand's blue. */
 .eyebrow-accent {
-	color: var(--color-tidal-blue);
+	color: color-mix(in oklab, var(--color-tidal-blue) 92%, black);
 	font-size: var(--fs-meta);
 }
 .eyebrow-accent::before {
@@ -87,7 +93,7 @@
 	/* The app's card idiom, available to the site by name: a raised cream
 	 * panel with a hairline border and the app's one shadow. */
 	.aven-card {
-		@apply rounded-2xl border border-foreground/5 bg-surface-raised p-6 shadow-[0_1px_3px_rgba(30,41,59,0.05)];
+		@apply rounded-2xl border border-foreground/5 bg-surface-raised p-6 shadow-[var(--shadow-raised)];
 	}
 
 	/* 11px tracked uppercase — the app's eyebrow, one class instead of the

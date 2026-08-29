@@ -41,7 +41,7 @@ function submit(e: SubmitEvent) {
 const centered = $derived(variant === 'banner')
 const wrapperClass = $derived(
 	variant === 'banner'
-		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:px-10 sm:py-11'
+		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-raised)] sm:px-10 sm:py-11'
 		: 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
 )
 </script>
@@ -110,7 +110,7 @@ const wrapperClass = $derived(
 		     height (h-16) so they line up exactly on desktop. -->
 		<div class="flex flex-col gap-2.5 sm:flex-row sm:items-stretch">
 			<label
-				class="flex h-16 flex-1 items-stretch overflow-hidden rounded-full border border-accent/25 bg-surface-cream text-left shadow-[0_1px_3px_rgba(30,41,59,0.05)]"
+				class="flex h-16 flex-1 items-stretch overflow-hidden rounded-full border border-accent/25 bg-surface-cream text-left shadow-[var(--shadow-raised)]"
 			>
 				<input
 					bind:value={name}

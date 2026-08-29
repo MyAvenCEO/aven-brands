@@ -140,7 +140,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 			     the right, running the full height. No badge, no revenue-share. -->
 			<div
 				id={ceo.id}
-				class="relative mx-auto mt-12 max-w-3xl scroll-mt-28 rounded-2xl border-2 border-accent/25 bg-surface-raised p-6 pt-9 shadow-[0_1px_3px_rgba(30,41,59,0.05)] sm:p-10"
+				class="relative mx-auto mt-12 max-w-3xl scroll-mt-28 rounded-2xl border-2 border-accent/25 bg-surface-raised p-6 pt-9 shadow-[var(--shadow-raised)] sm:p-10"
 			>
 				<!-- No `uppercase`: the brand is spelled avenCEO, not AVENCEO. -->
 				<p class="text-center text-2xl font-semibold tracking-tight text-foreground">{ceo.name}</p>
