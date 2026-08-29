@@ -1075,7 +1075,13 @@ function inspect(name: string) {
 												{/if}
 											</span>
 										</span>
-										<span class="cb-unit-stage">
+										<!-- `inert`, not `pointer-events: none`. The CSS blocks the
+										     mouse and leaves every control in the TAB ORDER, so a
+										     keyboard user walked through up to nineteen dead buttons
+										     per card, forty cards of them, before reaching anything.
+										     `inert` removes them from the tab order and the
+										     accessibility tree too, which is what a preview is. -->
+										<span class="cb-unit-stage" inert>
 											<!-- One instance here too. A grid card showing three variants
 											     of a card is three cards, and the eye reads the row as
 											     nine things rather than three units. -->
@@ -1596,6 +1602,10 @@ function inspect(name: string) {
 	grid-template-rows: auto minmax(0, 1fr);
 	aspect-ratio: 1;
 	min-inline-size: 0;
+	/* The containing block for the stretched target above. Without it the
+	   pseudo-element resolves against the nearest positioned ancestor, which is
+	   the page, and one card would cover the whole grid. */
+	position: relative;
 	/* Square, and bounded. A square that grows with its track grows on BOTH
 	   axes: at a 1044px main region an unbounded card was 494x494 holding one
 	   badge. 22rem is about the size of the largest thing any specimen actually
@@ -1629,21 +1639,46 @@ function inspect(name: string) {
 	cursor: pointer;
 	text-align: start;
 }
-.cb-unit-name:hover {
+/*
+ * THE WHOLE CARD IS THE TARGET, from one button.
+ *
+ * A stretched pseudo-element rather than a <button> around everything: wrapping
+ * the card put real buttons and links inside a button, which is invalid HTML and
+ * swallowed their clicks — pressing the navbar's hamburger opened the detail
+ * view instead of the menu. `::after` covers the same area and nests nothing, so
+ * there is exactly one control and it is the size of the card.
+ */
+.cb-unit-name::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	border-radius: inherit;
+}
+.cb-unit:hover .cb-unit-name {
 	text-decoration: underline;
 	/* ds-allow-hardcode */
 	text-underline-offset: 3px;
 }
-.cb-unit-name:focus-visible {
-	outline: 1px solid var(--color-focus);
-	/* ds-allow-hardcode */
-	outline-offset: 3px;
-	border-radius: var(--radius-xs);
+.cb-unit:hover {
+	border-color: var(--color-border-strong);
 }
-/* The stage is a PREVIEW. Inert, so a specimen cannot be left in a state while
-   you are scanning the grid, and so a control inside it never competes with the
-   card's own affordance. The detail view is where things are pressed. */
-.cb-unit-stage > * {
+/* The ring goes on the CARD, because the card is what the button covers. A ring
+   around three words in the corner would describe a target that is not there. */
+.cb-unit:has(.cb-unit-name:focus-visible) {
+	outline: 1px solid var(--color-focus);
+	/* The ring sits 2px off the card edge. The spacing scale starts at 0.25rem,
+	   twice this — at 4px it reads as a second border rather than as focus. */
+	/* ds-allow-hardcode */
+	outline-offset: 2px;
+}
+.cb-unit-name:focus-visible {
+	outline: none;
+}
+/* The stage is a PREVIEW — see the `inert` attribute on it, which handles the
+   mouse, the tab order and the accessibility tree together. This only has to
+   keep the stretched target above reachable through it. */
+.cb-unit-stage {
 	pointer-events: none;
 }
 .cb-unit-tags {
