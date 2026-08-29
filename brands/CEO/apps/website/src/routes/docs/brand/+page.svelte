@@ -180,11 +180,13 @@ function inspect(name: string) {
 				<section class="cb-section">
 					<p class="eyebrow-quiet">Icons</p>
 					<p class="meta">
-						Geometry only, drawn on the lucide 24 grid at stroke width 2. A view names an icon and
-						nothing more — the engine writes every attribute, so no string a view controls reaches
-						the markup. Each one paints in <span class="cb-mono">currentColor</span>, which is why
-						the row below inverts with the theme instead of needing a second file. The logo mark is
-						not here on purpose: it is ten brand colours, so it stays an image.
+						Duotone: a filled backing at 0.2 under the figure, both in
+						<span class="cb-mono">currentColor</span>. Two opacities of one colour, never two
+						colours — two colours could not be themed, and this is why the row below inverts
+						with the theme instead of needing a second file. A view names an icon and nothing
+						more; the engine writes every attribute, so no string a view controls reaches the
+						markup. The logo mark is not here on purpose: it is ten brand colours, so it stays
+						an image.
 					</p>
 					<div class="cb-icons">
 						{#each iconMarkup as icon (icon.name)}
