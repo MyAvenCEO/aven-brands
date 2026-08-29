@@ -12,7 +12,8 @@
 		"strict": true,
 		"target": "ES2022",
 		"types": ["node"],
-		"typeRoots": ["../../node_modules/@types", "./node_modules/@types"]
+		"typeRoots": ["../../node_modules/@types", "./node_modules/@types"],
+		"resolveJsonModule": true
 	},
-	"include": ["src/**/*.ts"]
+	"include": ["src/**/*.ts", "src/**/*.json"]
 }

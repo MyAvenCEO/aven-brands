@@ -21,6 +21,7 @@
  * catalog does not know is a mistake, and so is a catalog entry no one
  * implements.
  */
+import { factsDocument } from './brand-data.js'
 
 /** Which tier a skill first appears in; higher tiers include it. */
 export type SkillPlan = 'aven-ceo'
@@ -47,97 +48,7 @@ export interface SkillEntry {
 /**
  * The catalog. Ordered as the marketplace lists it: what you get first, first.
  */
-export const CATALOG: SkillEntry[] = [
-	{
-		id: 'inbox-router',
-		name: 'Inbox Router',
-		tagline: 'One inbox for everything — and someone deciding what matters now.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'inbox',
-		slug: 'email-manager',
-		name: 'Email Manager',
-		tagline: 'No money-mail ever gets lost — ever.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'docs',
-		slug: 'docs-organizer',
-		name: 'Docs Organizer',
-		tagline: 'No document goes unread — whatever format it comes in.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'brain',
-		slug: 'brain-memorizer',
-		name: 'Brain Memorizer',
-		tagline: 'Your Aven never forgets — who, what, when, how often.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'human-reviewer',
-		name: 'Human Reviewer',
-		tagline: 'You decide. Only when you truly have to.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'todos',
-		slug: 'todo-shuffler',
-		name: 'Todo Shuffler',
-		tagline: 'Your list sorts itself — by what actually matters next.',
-		plan: 'aven-ceo',
-		comingSoon: true
-	},
-	{
-		id: 'calendar',
-		slug: 'calendar-organizer',
-		name: 'Calendar Organizer',
-		tagline: 'Your calendar plans around your life — not the other way round.',
-		plan: 'aven-ceo',
-		comingSoon: true
-	},
-	{
-		id: 'bookmark-champion',
-		name: 'Bookmark Champion',
-		tagline: 'Everything you ever saved — findable at last.',
-		plan: 'aven-ceo',
-		comingSoon: true
-	},
-	{
-		id: 'abgleich',
-		slug: 'book-keeper',
-		name: 'Book Keeper',
-		tagline: 'Invoices matched with bank statements. Bookings suggested.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'finance-brain',
-		name: 'Finance Brain',
-		tagline: 'Invoices out, numbers straight — no spreadsheet, no gut feeling.',
-		plan: 'aven-ceo',
-		comingSoon: true
-	},
-	{
-		id: 'website-creator',
-		name: 'Website Creator',
-		tagline: 'Your website exists — and stays current without you touching it.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'checkout-builder',
-		name: 'Checkout Builder',
-		tagline: 'From offer to paying customer — without a shop project.',
-		plan: 'aven-ceo'
-	},
-	{
-		id: 'blog-writer',
-		name: 'Blog Writer',
-		tagline: "Your Aven writes. You sign off — when it's good.",
-		plan: 'aven-ceo',
-		comingSoon: true
-	}
-]
+export const CATALOG: SkillEntry[] = factsDocument.skills.catalog as SkillEntry[]
 
 /** By canonical id. */
 export function skillById(id: string): SkillEntry | undefined {

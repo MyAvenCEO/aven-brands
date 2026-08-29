@@ -49,6 +49,7 @@ for (const [brand, out, fontLink] of [
 	const body = await renderViewToString(kitchenSinkView(), {}, { evaluate })
 
 	const html = `<!doctype html>
+<html lang="en">
 <meta charset="utf-8">
 <title>${brand.name} — design system</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,6 +63,7 @@ ${kitchenSinkCss()}
 body { font-family: var(--font-sans); background: var(--color-background); color: var(--color-foreground); margin: 0; -webkit-font-smoothing: antialiased; }
 </style>
 ${body}
+</html>
 `
 	writeFileSync(path.join(root, out), html)
 	console.log(`  ${brand.name.padEnd(8)} → ${out} (${Math.round(html.length / 1024)} KB)`)

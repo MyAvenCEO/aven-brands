@@ -72,7 +72,7 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'KI betreibt deine Firma,',
+			headingLine1: 'avenCEO betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
 			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'text-foreground/50 line-through')} zum <br class="sm:hidden">${s('souveränen', 'text-accent')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
@@ -185,7 +185,7 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'AI runs your company,',
+			headingLine1: 'avenCEO runs your company,',
 			headingLine2: 'you lead the vision.',
 			transformationHtml: `From ${s('working to survive', 'text-foreground/50 line-through')} to <br class="sm:hidden">${s('sovereign', 'text-accent')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
