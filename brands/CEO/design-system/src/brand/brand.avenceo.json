@@ -1,0 +1,1011 @@
+{
+	"$description": "avenCEO brand tokens. THE source of truth: the TypeScript package loads this file and adds types, it does not hold values. DTCG shape ($type/$value); values may reference other tokens with var(--color-...) exactly as the emitted CSS does.",
+	"name": "avenCEO",
+	"slug": "aven-ceo",
+	"color": {
+		"tones": {
+			"$description": "The brand identity. Four hues, and nothing that only carries a meaning — a colour in here is one the logo and the marketing may use. Sorted by hue.",
+			"marine": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "the brand blue. Also the ground the dark theme stands on."
+			},
+			"paradise": {
+				"$type": "color",
+				"$value": "#2489a0",
+				"$description": "the deeper blue-teal — work in motion."
+			},
+			"turquoise": {
+				"$type": "color",
+				"$value": "#449c94",
+				"$description": "the bright turquoise — settled work."
+			},
+			"sunflower": {
+				"$type": "color",
+				"$value": "#f2ba3d",
+				"$description": "the highlight. Sunflower, not \"gold\" — the generic word loses the name."
+			}
+		},
+		"palettes": {
+			"$description": "Ordered colour sets a generator walks. Not roles — nothing here is picked by meaning, only by index — so they live apart from the role map.",
+			"avatar": {
+				"$type": "color",
+				"$value": ["#f7ead9", "#ccc7a8", "#88b499", "#305669", "#222e49"],
+				"$description": "The five colours a generated identicon draws from, light to dark. They are the logo's own palette and used to sit in the website as a bare array, which meant a second brand could not have its own and a change here reached nothing."
+			}
+		},
+		"functional": {
+			"$description": "Colours that carry a MEANING and are never identity. Neither appears in the logo, and neither may be used as a brand accent — reaching for the failure tone to decorate something is the mistake this separation exists to prevent.",
+			"terracotta": {
+				"$type": "color",
+				"$value": "#c15b40",
+				"$description": "the failure pigment. Kept its own name: a TONE is named for the paint and a ROLE for the meaning, so `terracotta` and `error` are different words for a reason. It lives here rather than in `tones` because it is never identity — it appears in no logo and must not decorate."
+			},
+			"earth": {
+				"$type": "color",
+				"$value": "#d4a373",
+				"$description": "the notice pigment. Same reasoning."
+			}
+		},
+		"surfaces": {
+			"$description": "Every surface a page stands on, in both themes. The LIGHT ladder is the sand family (the brand cream); the DARK ladder is the marine family. Named `<theme>-<rung>`, so a theme is a prefix and adding dark is adding rows. The dark ladder is declared and NOT yet wired — nothing renders from it until a theme selects it.",
+			"light-page": {
+				"$type": "color",
+				"$value": "#fdfbf3",
+				"$description": "the page itself — the lightest sand."
+			},
+			"light-raised": {
+				"$type": "color",
+				"$value": "#f8f6ed",
+				"$description": "lifted off the page."
+			},
+			"light-sunken": {
+				"$type": "color",
+				"$value": "#f6f3e8",
+				"$description": "set into the page."
+			},
+			"light-card": {
+				"$type": "color",
+				"$value": "#f6f1e2",
+				"$description": "the fill of a card."
+			},
+			"light-selected": {
+				"$type": "color",
+				"$value": "#f3e7c6",
+				"$description": "a card the user has chosen — sand at full strength."
+			},
+			"dark-page": {
+				"$type": "color",
+				"$value": "#161f30",
+				"$description": "the page itself — marine, one step below the brand tone."
+			},
+			"dark-raised": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "lifted off the page — the brand marine."
+			},
+			"dark-sunken": {
+				"$type": "color",
+				"$value": "#131a28",
+				"$description": "set into the page."
+			},
+			"dark-card": {
+				"$type": "color",
+				"$value": "#243448",
+				"$description": "the fill of a card."
+			},
+			"dark-selected": {
+				"$type": "color",
+				"$value": "#3e4b60",
+				"$description": "a card the user has chosen."
+			}
+		},
+		"ink": {
+			"$description": "Text guaranteed to read on a filled colour. Concrete values, not derivations: these used to be `color-mix(... N%, black)` computed at render time in seven places, which meant the system could not tell you what colour its own text was without a browser. Same rendered values, now nameable and checkable.",
+			"on-light": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "on any light rung — the brand marine."
+			},
+			"on-dark": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "on any dark rung."
+			},
+			"on-primary": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "on marine."
+			},
+			"on-warning": {
+				"$type": "color",
+				"$value": "#2b2313",
+				"$description": "on sunflower."
+			},
+			"on-error": {
+				"$type": "color",
+				"$value": "#fffefb",
+				"$description": "on the failure tone."
+			},
+			"on-success": {
+				"$type": "color",
+				"$value": "#fafaf9",
+				"$description": "on turquoise."
+			},
+			"on-info": {
+				"$type": "color",
+				"$value": "#2b231c",
+				"$description": "on the notice tone."
+			},
+			"white": {
+				"$type": "color",
+				"$value": "#ffffff",
+				"$description": "true white. Named because the system uses it in exactly two places."
+			},
+			"on-primary-soft": {
+				"$type": "color",
+				"$value": "#ccd0d5",
+				"$description": "the de-emphasised step of text on a primary fill. 9.44:1. Replaces `text-primary-foreground/80`, which said the same thing as a relationship to whatever was behind it — and a relationship inverts between themes while a named colour does not."
+			},
+			"on-primary-quiet": {
+				"$type": "color",
+				"$value": "#acb1b8",
+				"$description": "the quiet step of text on a primary fill — footer meta, legal line. 6.78:1."
+			},
+			"on-dark-soft": {
+				"$type": "color",
+				"$value": "#f8fafcf0",
+				"$description": "the lead line over media: on-dark at 94%."
+			},
+			"on-dark-quiet": {
+				"$type": "color",
+				"$value": "#f8fafcb8",
+				"$description": "the helper line over media: on-dark at 72%."
+			}
+		},
+		"roles": {
+			"$description": "What the paint MEANS. ONE group: the site/app split it replaced held six tokens that aliased shared roles under different names and one that differed, which is not a vocabulary, it is a synonym list. A surface that does not use `evidence` simply does not use it. A role prefixed `dark-` is that role's value under `[data-theme=\"dark\"]`: the generator strips the prefix and emits it in the dark block, the same derivation the surfaces use. Only roles that actually differ need one. The `border-strong`/`border-soft`/`track`/`error-surface`/`error-border` roles exist because those values used to be alphas of another colour, which cannot be themed: an alpha carries a RELATIONSHIP to whatever is behind it, and that relationship inverts between a pale ground and a dark one.",
+			"background": {
+				"$type": "color",
+				"$value": "var(--color-surface-page)",
+				"$description": "the page ground."
+			},
+			"foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-light)",
+				"$description": "body copy."
+			},
+			"foreground-soft": {
+				"$type": "color",
+				"$value": "#4b5360",
+				"$description": "body copy, held back one step — a lede under a heading, a supporting paragraph. 6.30:1 on the darkest light surface. This is the middle of THREE named emphasis steps (foreground, foreground-soft, foreground-quiet); the site used to spell it `text-foreground/80`."
+			},
+			"muted": {
+				"$type": "color",
+				"$value": "#f4f4f0",
+				"$description": "a quiet fill. Was a color-mix of marine into the page."
+			},
+			"muted-foreground": {
+				"$type": "color",
+				"$value": "#7d8593",
+				"$description": "quiet copy. WARNING: 3.66:1 on the page ground — this FAILS AA as text and must not be used for any. `foreground-quiet` is the readable step. Kept for non-text uses pending its own fix."
+			},
+			"border": {
+				"$type": "color",
+				"$value": "#dfe1e6",
+				"$description": "a hairline."
+			},
+			"input": {
+				"$type": "color",
+				"$value": "#fefdfa",
+				"$description": "a field."
+			},
+			"primary": {
+				"$type": "color",
+				"$value": "var(--color-marine)",
+				"$description": "the one main affirmative action."
+			},
+			"primary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-primary)",
+				"$description": "text on primary."
+			},
+			"primary-foreground-soft": {
+				"$type": "color",
+				"$value": "var(--color-on-primary-soft)",
+				"$description": "text on primary, held back one step."
+			},
+			"primary-foreground-quiet": {
+				"$type": "color",
+				"$value": "var(--color-on-primary-quiet)",
+				"$description": "the quiet step of text on primary — footer meta, the legal line."
+			},
+			"band": {
+				"$type": "color",
+				"$value": "#217c91",
+				"$description": "A full-bleed editorial band in a brand tone. Darkened from the tone by ~5% so WHITE clears 4.5:1 on it — paradise itself gives 3.89:1 and 3.12:1, which is to say neither white nor dark text reads on the raw tone at body size. There is no soft or quiet step on a band: at this contrast there is no room for one, and de-emphasising with a paler grey on a saturated colour is weak typography anyway. Hierarchy on a band comes from size and weight."
+			},
+			"band-alt": {
+				"$type": "color",
+				"$value": "#377d77",
+				"$description": "the second editorial band, from turquoise. Same rule, same 4.6:1 with white."
+			},
+			"band-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "the only text colour a band carries."
+			},
+			"scrim-thin": {
+				"$type": "color",
+				"$value": "#fdfbf3e6",
+				"$description": "The glass bar: the page ground at 90%, so the content behind reads through the blur without the text on top losing its ground. Named, because this lived as an inline `color-mix(surface-page 10%, transparent)` in a `style` attribute in one component — unthemeable, and 10% is far too thin to sit text on."
+			},
+			"scrim": {
+				"$type": "color",
+				"$value": "#1e293b52",
+				"$description": "The veil over hero media. 32% marine — enough that the light ink reads on any frame the video lands on, little enough that the scene is still a scene. It was three stacked `color-mix` stops in one component."
+			},
+			"scrim-strong": {
+				"$type": "color",
+				"$value": "#1e293b80",
+				"$description": "50% marine, for the top of a hero where the nav sits."
+			},
+			"scrim-heavy": {
+				"$type": "color",
+				"$value": "#1e293b8c",
+				"$description": "55% marine, for the bottom of a hero where the copy ends and the next section begins."
+			},
+			"scrim-text": {
+				"$type": "color",
+				"$value": "#1e293b73",
+				"$description": "The halo under hero text. Not decoration — over a photograph the scrim alone cannot promise contrast on every frame, and this is the second half of that guarantee."
+			},
+			"dark-scrim-thin": {
+				"$type": "color",
+				"$value": "#151e30e6",
+				"$description": "the glass bar on dark."
+			},
+			"secondary": {
+				"$type": "color",
+				"$value": "var(--color-surface-selected)",
+				"$description": "the warm second action."
+			},
+			"secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-marine)",
+				"$description": "text on secondary."
+			},
+			"quiet": {
+				"$type": "color",
+				"$value": "#57789e",
+				"$description": "held back — meta, captions."
+			},
+			"quiet-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on quiet."
+			},
+			"quiet-ink": {
+				"$type": "color",
+				"$value": "#415b78",
+				"$description": "quiet, as running text."
+			},
+			"progress": {
+				"$type": "color",
+				"$value": "var(--color-paradise)",
+				"$description": "in motion."
+			},
+			"progress-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on progress."
+			},
+			"progress-ink": {
+				"$type": "color",
+				"$value": "#135665",
+				"$description": "progress, as running text."
+			},
+			"progress-surface": {
+				"$type": "color",
+				"$value": "#dceae7",
+				"$description": "the quiet form of progress — a tint to sit progress-ink on. Concrete, not `bg-progress/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. progress-ink measures 6.66:1 on it."
+			},
+			"progress-border": {
+				"$type": "color",
+				"$value": "#b8d7d8",
+				"$description": "the edge of a progress tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+			},
+			"dark-progress-surface": {
+				"$type": "color",
+				"$value": "#193649",
+				"$description": "the progress tint on dark."
+			},
+			"dark-progress-border": {
+				"$type": "color",
+				"$value": "#1c4c5f",
+				"$description": "the progress tint edge on dark."
+			},
+			"success": {
+				"$type": "color",
+				"$value": "var(--color-turquoise)",
+				"$description": "settled."
+			},
+			"success-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-success)",
+				"$description": "text on success."
+			},
+			"success-ink": {
+				"$type": "color",
+				"$value": "#255b56",
+				"$description": "success, as running text."
+			},
+			"success-surface": {
+				"$type": "color",
+				"$value": "#e1ede5",
+				"$description": "the quiet form of success — a tint to sit success-ink on. Concrete, not `bg-success/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. success-ink measures 6.44:1 on it."
+			},
+			"success-border": {
+				"$type": "color",
+				"$value": "#c2ddd5",
+				"$description": "the edge of a success tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+			},
+			"dark-success-surface": {
+				"$type": "color",
+				"$value": "#203a46",
+				"$description": "the success tint on dark."
+			},
+			"dark-success-border": {
+				"$type": "color",
+				"$value": "#29545a",
+				"$description": "the success tint edge on dark."
+			},
+			"warning": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)",
+				"$description": "careful, but nothing is broken."
+			},
+			"warning-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-warning)",
+				"$description": "text on warning."
+			},
+			"warning-ink": {
+				"$type": "color",
+				"$value": "#7f601b",
+				"$description": "warning, as running text."
+			},
+			"warning-surface": {
+				"$type": "color",
+				"$value": "#fbf1d8",
+				"$description": "the quiet form of warning — a tint to sit warning-ink on. Concrete, not `bg-warning/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. warning-ink measures 5.20:1 on it."
+			},
+			"warning-border": {
+				"$type": "color",
+				"$value": "#f9e6b9",
+				"$description": "the edge of a warning tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+			},
+			"dark-warning-surface": {
+				"$type": "color",
+				"$value": "#464133",
+				"$description": "the warning tint on dark."
+			},
+			"dark-warning-border": {
+				"$type": "color",
+				"$value": "#726035",
+				"$description": "the warning tint edge on dark."
+			},
+			"error": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)",
+				"$description": "something failed."
+			},
+			"error-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-error)",
+				"$description": "text on error."
+			},
+			"error-ink": {
+				"$type": "color",
+				"$value": "#9b4832",
+				"$description": "error, as running text."
+			},
+			"info": {
+				"$type": "color",
+				"$value": "var(--color-earth)",
+				"$description": "notice — your turn."
+			},
+			"info-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-info)",
+				"$description": "text on info."
+			},
+			"info-ink": {
+				"$type": "color",
+				"$value": "#886748",
+				"$description": "info, as running text."
+			},
+			"info-surface": {
+				"$type": "color",
+				"$value": "#f7eee0",
+				"$description": "the quiet form of info — a tint to sit info-ink on. Concrete, not `bg-info/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. info-ink measures 4.48:1 on it."
+			},
+			"info-border": {
+				"$type": "color",
+				"$value": "#f0dfca",
+				"$description": "the edge of a info tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+			},
+			"dark-info-surface": {
+				"$type": "color",
+				"$value": "#403c3f",
+				"$description": "the info tint on dark."
+			},
+			"dark-info-border": {
+				"$type": "color",
+				"$value": "#66564c",
+				"$description": "the info tint edge on dark."
+			},
+			"accent": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)",
+				"$description": "the marketing highlight. Same paint as `warning`, different job — and the job is the reason the name survives the merge."
+			},
+			"accent-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-warning)",
+				"$description": "text on accent."
+			},
+			"accent-ink": {
+				"$type": "color",
+				"$value": "#7f601b",
+				"$description": "accent, as running text."
+			},
+			"accent-surface": {
+				"$type": "color",
+				"$value": "#fbf1d8",
+				"$description": "the quiet form of accent — a tint to sit accent-ink on. Concrete, not `bg-accent/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. accent-ink measures 5.20:1 on it."
+			},
+			"accent-border": {
+				"$type": "color",
+				"$value": "#f9e6b9",
+				"$description": "the edge of a accent tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+			},
+			"dark-accent-surface": {
+				"$type": "color",
+				"$value": "#464133",
+				"$description": "the accent tint on dark."
+			},
+			"dark-accent-border": {
+				"$type": "color",
+				"$value": "#726035",
+				"$description": "the accent tint edge on dark."
+			},
+			"offer": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)",
+				"$description": "the BETA window, which closes. Borrows the failure tone so an offer never reads as merely a highlight."
+			},
+			"offer-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-error)",
+				"$description": "text on an offer."
+			},
+			"offer-ink": {
+				"$type": "color",
+				"$value": "#a24b34",
+				"$description": "offer, as running text."
+			},
+			"offer-surface": {
+				"$type": "color",
+				"$value": "#f4e3d8",
+				"$description": "the quiet form of offer — a tint to sit offer-ink on. Concrete, not `bg-offer/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. offer-ink measures 4.68:1 on it."
+			},
+			"offer-border": {
+				"$type": "color",
+				"$value": "#eac8ba",
+				"$description": "the edge of a offer tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+			},
+			"dark-offer-surface": {
+				"$type": "color",
+				"$value": "#3c2c34",
+				"$description": "the offer tint on dark."
+			},
+			"dark-offer-border": {
+				"$type": "color",
+				"$value": "#5e3837",
+				"$description": "the offer tint edge on dark."
+			},
+			"card": {
+				"$type": "color",
+				"$value": "var(--color-surface-card)",
+				"$description": "the fill a card takes."
+			},
+			"card-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-light)",
+				"$description": "text on a card."
+			},
+			"dark-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "body copy on a dark ground."
+			},
+			"dark-foreground-soft": {
+				"$type": "color",
+				"$value": "#cbced3",
+				"$description": "the soft step on dark. 5.59:1 on dark-selected."
+			},
+			"dark-card-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on a dark card."
+			},
+			"dark-muted": {
+				"$type": "color",
+				"$value": "#1c2637",
+				"$description": "a quiet fill on dark."
+			},
+			"dark-muted-foreground": {
+				"$type": "color",
+				"$value": "#8e9bb0",
+				"$description": "quiet copy on dark."
+			},
+			"dark-border": {
+				"$type": "color",
+				"$value": "#2c3a4f",
+				"$description": "a hairline on dark."
+			},
+			"dark-input": {
+				"$type": "color",
+				"$value": "#1a2434",
+				"$description": "a field on dark."
+			},
+			"dark-secondary": {
+				"$type": "color",
+				"$value": "#2a3a56",
+				"$description": "the second action on dark."
+			},
+			"dark-secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on it."
+			},
+			"dark-primary": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "on dark the primary action inverts — a marine button on a marine page is invisible."
+			},
+			"dark-primary-foreground": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "text on the inverted primary."
+			},
+			"dark-quiet-ink": {
+				"$type": "color",
+				"$value": "#9fb3cc",
+				"$description": "quiet running text, lightened for a dark ground."
+			},
+			"dark-progress-ink": {
+				"$type": "color",
+				"$value": "#5cc0d8",
+				"$description": "progress running text on dark."
+			},
+			"dark-success-ink": {
+				"$type": "color",
+				"$value": "#6fc9c0",
+				"$description": "success running text on dark."
+			},
+			"dark-warning-ink": {
+				"$type": "color",
+				"$value": "#f2c766",
+				"$description": "warning running text on dark."
+			},
+			"dark-error-ink": {
+				"$type": "color",
+				"$value": "#e08b73",
+				"$description": "error running text on dark."
+			},
+			"dark-info-ink": {
+				"$type": "color",
+				"$value": "#e0b98f",
+				"$description": "info running text on dark."
+			},
+			"dark-accent-ink": {
+				"$type": "color",
+				"$value": "#f2c766",
+				"$description": "accent running text on dark."
+			},
+			"dark-offer-ink": {
+				"$type": "color",
+				"$value": "#e08b73",
+				"$description": "offer running text on dark."
+			},
+			"border-strong": {
+				"$type": "color",
+				"$value": "#c7c7c8",
+				"$description": "a deliberate edge — a band divider. Was 25% of the foreground."
+			},
+			"border-soft": {
+				"$type": "color",
+				"$value": "#edece8",
+				"$description": "a hairline. Was 8% of the foreground."
+			},
+			"track": {
+				"$type": "color",
+				"$value": "#e4e3e0",
+				"$description": "the unfilled part of a rail. Was 12% of the foreground."
+			},
+			"error-surface": {
+				"$type": "color",
+				"$value": "#faf0e8",
+				"$description": "the wash behind a failure message. Was 8% of terracotta."
+			},
+			"error-border": {
+				"$type": "color",
+				"$value": "#e9c5b7",
+				"$description": "the edge of a failure message. Was 35% of terracotta."
+			},
+			"dark-border-strong": {
+				"$type": "color",
+				"$value": "#44536b",
+				"$description": "a band divider on dark."
+			},
+			"dark-border-soft": {
+				"$type": "color",
+				"$value": "#232d3e",
+				"$description": "a hairline on dark."
+			},
+			"dark-track": {
+				"$type": "color",
+				"$value": "#2a3548",
+				"$description": "an unfilled rail on dark."
+			},
+			"dark-error-surface": {
+				"$type": "color",
+				"$value": "#2e1c16",
+				"$description": "the wash behind a failure message on dark."
+			},
+			"dark-error-border": {
+				"$type": "color",
+				"$value": "#6b3626",
+				"$description": "the edge of a failure message on dark."
+			},
+			"foreground-quiet": {
+				"$type": "color",
+				"$value": "#626770",
+				"$description": "the quiet step of the body copy — captions, eyebrows, meta. Measured against the DARKEST light surface (light-selected), not against the page: a caption on a selected card is the same caption, and the old value cleared 4.5 only on the page ground."
+			},
+			"dark-foreground-quiet": {
+				"$type": "color",
+				"$value": "#b5bcc7",
+				"$description": "the quiet step on dark, held to the same rule — it clears 4.5 on dark-selected, the darkest-contrast pairing the dark ladder can produce."
+			},
+			"eyebrow-ink": {
+				"$type": "color",
+				"$value": "#1d7084",
+				"$description": "the site eyebrow. Paradise darkened only as far as legibility on the DARKEST ground an eyebrow lands on — which is not the page but a sunflower-tinted panel. Tuning it against the page alone left it at 4.02:1 on light-selected and 4.25:1 on an accent tint."
+			},
+			"focus": {
+				"$type": "color",
+				"$value": "#ab790b",
+				"$description": "The focus ring, one colour for the whole estate — sunflower, the brand's own signal colour. DARKENED, and only as far as legibility: raw sunflower #f2ba3d measures 1.44 to 1.71:1 on the light ladder, which is a focus ring nobody can see, and WCAG 1.4.11 asks 3:1 of the one affordance a keyboard user has. This clears 3.12 to 3.70 on every light surface and still reads as gold."
+			},
+			"dark-focus": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)",
+				"$description": "On dark the brand sunflower needs no darkening — it measures 4.99 to 9.84:1 on the marine ladder, so the ring is the tone itself."
+			},
+			"dark-eyebrow-ink": {
+				"$type": "color",
+				"$value": "#6cc3dd",
+				"$description": "the same eyebrow on a dark ground, where the tone must go LIGHTER rather than darker — which is the whole reason this is a role and not a darkening written at the call site."
+			}
+		}
+	},
+	"font": {
+		"stack": {
+			"app": {
+				"$type": "fontFamily",
+				"$value": "\"InterVariable\", ui-sans-serif, system-ui, -apple-system, sans-serif"
+			},
+			"web": {
+				"$type": "fontFamily",
+				"$value": "\"Google Sans Flex\", \"Inter\", ui-sans-serif, system-ui, -apple-system, sans-serif"
+			},
+			"display": {
+				"$type": "fontFamily",
+				"$value": "\"FogtwoNo5\", \"Google Sans Flex\", \"Inter\", ui-sans-serif, system-ui, sans-serif"
+			}
+		},
+		"weight": {
+			"font-weight-medium": {
+				"$type": "fontWeight",
+				"$value": "500"
+			},
+			"font-weight-semibold": {
+				"$type": "fontWeight",
+				"$value": "600"
+			},
+			"font-weight-bold": {
+				"$type": "fontWeight",
+				"$value": "700"
+			}
+		}
+	},
+	"radii": {
+		"$description": "The radius scale, and there is only one. Ten tokens for one idea had accumulated — `chip`, `inner`, `control`, `card`, `panel`, `pill`, plus `lg`, `xl` and `2xl` that duplicated three of them exactly — so the same corner was being chosen by name rather than by size, and two components meaning \"a card\" could pick different ones. Six steps, roughly Apple's: 6, 10, 14, 20, 28, and full. Every component draws from these and nothing else.",
+		"radius-xs": {
+			"$type": "dimension",
+			"$value": "0.375rem",
+			"$description": "A chip, a tag, an inline pill that is not a button. 6px."
+		},
+		"radius-sm": {
+			"$type": "dimension",
+			"$value": "0.625rem",
+			"$description": "An input, a select, a small control. 10px."
+		},
+		"radius-md": {
+			"$type": "dimension",
+			"$value": "0.875rem",
+			"$description": "A card interior, a well, a nested box. 14px."
+		},
+		"radius-lg": {
+			"$type": "dimension",
+			"$value": "1.25rem",
+			"$description": "A card. 20px."
+		},
+		"radius-xl": {
+			"$type": "dimension",
+			"$value": "1.75rem",
+			"$description": "A panel, a modal, a sheet. 28px."
+		},
+		"radius-full": {
+			"$type": "dimension",
+			"$value": "9999px",
+			"$description": "Buttons, and nothing else. A fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button."
+		}
+	},
+	"vibeScale": {
+		"radius-xs": {
+			"$type": "dimension",
+			"$value": "0.375rem",
+			"$description": "A chip, a tag, an inline pill that is not a button. 6px."
+		},
+		"radius-sm": {
+			"$type": "dimension",
+			"$value": "0.625rem",
+			"$description": "An input, a select, a small control. 10px."
+		},
+		"radius-md": {
+			"$type": "dimension",
+			"$value": "0.875rem",
+			"$description": "A card interior, a well, a nested box. 14px."
+		},
+		"radius-lg": {
+			"$type": "dimension",
+			"$value": "1.25rem",
+			"$description": "A card. 20px."
+		},
+		"radius-xl": {
+			"$type": "dimension",
+			"$value": "1.75rem",
+			"$description": "A panel, a modal, a sheet. 28px."
+		},
+		"radius-full": {
+			"$type": "dimension",
+			"$value": "9999px",
+			"$description": "Buttons, and nothing else. A fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button."
+		}
+	},
+	"scale": {
+		"type": {
+			"fs-nano": {
+				"$type": "dimension",
+				"$value": "9px",
+				"$description": "legal footnotes, the smallest badge"
+			},
+			"fs-micro": {
+				"$type": "dimension",
+				"$value": "10px",
+				"$description": "dense meta, table chrome"
+			},
+			"fs-eyebrow": {
+				"$type": "dimension",
+				"$value": "11px",
+				"$description": "THE eyebrow, and inline labels"
+			},
+			"fs-meta": {
+				"$type": "dimension",
+				"$value": "12px",
+				"$description": "captions, secondary lines"
+			},
+			"fs-body": {
+				"$type": "dimension",
+				"$value": "13px",
+				"$description": "running text in dense surfaces"
+			},
+			"fs-section": {
+				"$type": "dimension",
+				"$value": "14px",
+				"$description": "section headings, comfortable body"
+			},
+			"fs-title": {
+				"$type": "dimension",
+				"$value": "15px",
+				"$description": "card titles"
+			},
+			"fs-lead": {
+				"$type": "dimension",
+				"$value": "17px",
+				"$description": "the lead line of a panel"
+			},
+			"fs-hero": {
+				"$type": "dimension",
+				"$value": "20px",
+				"$description": "a page's first statement"
+			},
+			"fs-amount": {
+				"$type": "dimension",
+				"$value": "24px",
+				"$description": "figures that carry weight"
+			},
+			"fs-display": {
+				"$type": "dimension",
+				"$value": "28px",
+				"$description": "marketing headline"
+			},
+			"fs-display-lg": {
+				"$type": "dimension",
+				"$value": "38px",
+				"$description": "the one line above the fold"
+			}
+		},
+		"tracking": {
+			"tracking-tight": {
+				"$type": "dimension",
+				"$value": "-0.02em",
+				"$description": "large type, pulled together"
+			},
+			"tracking-normal": {
+				"$type": "dimension",
+				"$value": "0"
+			},
+			"tracking-wide": {
+				"$type": "dimension",
+				"$value": "0.08em",
+				"$description": "uppercase at small sizes"
+			},
+			"tracking-wider": {
+				"$type": "dimension",
+				"$value": "0.14em"
+			},
+			"tracking-widest": {
+				"$type": "dimension",
+				"$value": "0.22em",
+				"$description": "the most emphatic eyebrow"
+			}
+		},
+		"alpha": {
+			"$description": "One axis, two floors. Both are opacity; the only difference is what it is applied to. Text has a WCAG contrast floor and a surface does not, which is the whole distinction and exactly what the old `ink`/`tint` names hid.",
+			"on-text": {
+				"ink-faint": {
+					"$type": "number",
+					"$value": "0.35",
+					"$description": "2.05:1 — disabled + watermarks ONLY (WCAG-exempt)"
+				},
+				"ink-quiet": {
+					"$type": "number",
+					"$value": "0.65",
+					"$description": "4.61:1 — captions, secondary meta"
+				},
+				"ink-muted": {
+					"$type": "number",
+					"$value": "0.75",
+					"$description": "6.42:1 — supporting copy"
+				},
+				"ink-strong": {
+					"$type": "number",
+					"$value": "0.85",
+					"$description": "8.62:1 — emphasis short of full ink"
+				},
+				"ink-full": {
+					"$type": "number",
+					"$value": "0.9",
+					"$description": "10.10:1 — body copy at full weight"
+				}
+			},
+			"on-surface": {
+				"tint-hairline": {
+					"$type": "number",
+					"$value": "0.08",
+					"$description": "the 1px rule between rows"
+				},
+				"tint-soft": {
+					"$type": "number",
+					"$value": "0.15",
+					"$description": "a resting wash"
+				},
+				"tint-firm": {
+					"$type": "number",
+					"$value": "0.25",
+					"$description": "a deliberate edge"
+				}
+			}
+		},
+		"elevation": {
+			"shadow-raised": {
+				"$type": "shadow",
+				"$value": "0 1px 3px rgba(30, 41, 59, 0.05)"
+			},
+			"shadow-floating": {
+				"$type": "shadow",
+				"$value": "0 4px 16px rgba(30, 41, 59, 0.12)"
+			},
+			"shadow-overlay": {
+				"$type": "shadow",
+				"$value": "0 12px 40px rgba(30, 41, 59, 0.18)"
+			}
+		},
+		"radius": {
+			"$description": "The radius scale, and there is only one. Ten tokens for one idea had accumulated — `chip`, `inner`, `control`, `card`, `panel`, `pill`, plus `lg`, `xl` and `2xl` that duplicated three of them exactly — so the same corner was being chosen by name rather than by size, and two components meaning \"a card\" could pick different ones. Six steps, roughly Apple's: 6, 10, 14, 20, 28, and full. Every component draws from these and nothing else.",
+			"radius-xs": {
+				"$type": "dimension",
+				"$value": "0.375rem",
+				"$description": "A chip, a tag, an inline pill that is not a button. 6px."
+			},
+			"radius-sm": {
+				"$type": "dimension",
+				"$value": "0.625rem",
+				"$description": "An input, a select, a small control. 10px."
+			},
+			"radius-md": {
+				"$type": "dimension",
+				"$value": "0.875rem",
+				"$description": "A card interior, a well, a nested box. 14px."
+			},
+			"radius-lg": {
+				"$type": "dimension",
+				"$value": "1.25rem",
+				"$description": "A card. 20px."
+			},
+			"radius-xl": {
+				"$type": "dimension",
+				"$value": "1.75rem",
+				"$description": "A panel, a modal, a sheet. 28px."
+			},
+			"radius-full": {
+				"$type": "dimension",
+				"$value": "9999px",
+				"$description": "Buttons, and nothing else. A fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button."
+			}
+		},
+		"space": {
+			"space-tight": {
+				"$type": "dimension",
+				"$value": "0.5rem"
+			},
+			"space-snug": {
+				"$type": "dimension",
+				"$value": "0.75rem"
+			},
+			"space-comfortable": {
+				"$type": "dimension",
+				"$value": "1rem"
+			},
+			"space-loose": {
+				"$type": "dimension",
+				"$value": "1.5rem"
+			},
+			"space-section": {
+				"$type": "dimension",
+				"$value": "2.5rem"
+			}
+		}
+	},
+	"elements": {
+		"h1": "title",
+		"button": "btn",
+		"label": "label"
+	},
+	"appIconPlate": "#faf9f4"
+}

@@ -1,0 +1,93 @@
+{
+	"name": "tabs",
+	"description": "One region, several panels, one visible at a time. 47 uses across the app and avenID — and none on the website, which is why an earlier pass measured this at zero and left it out. A website-only measurement is not an estate measurement.",
+	"interface": {
+		"props": {
+			"label": "string",
+			"selected": "string"
+		},
+		"slots": {
+			"tabs": {},
+			"panel": {}
+		},
+		"events": {
+			"select": {
+				"id": "string"
+			}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "list",
+				"attrs": {
+					"role": "tablist",
+					"aria-label": "$props.label"
+				},
+				"$children": "tabs"
+			},
+			{
+				"tag": "div",
+				"part": "panel",
+				"attrs": {
+					"role": "tabpanel"
+				},
+				"$children": "panel"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gap": "var(--space-comfortable)"
+		},
+		"parts": {
+			"list": {
+				"$description": "Scrolls rather than wraps, because a tab strip that wraps to two rows stops reading as one control. A scrolling strip needs a VISIBLE cue that it scrolls — the mask below — since an aria-label mentioning it serves screen readers only and sighted users simply lose the tabs.",
+				"display": "flex",
+				"gap": "var(--space-hairline)",
+				"overflowX": "auto",
+				"scrollbarWidth": "thin",
+				"borderBlockEnd": "1px solid var(--color-border)",
+				"maskImage": "linear-gradient(to right, #000 calc(100% - 1.5rem), transparent)"
+			},
+			"tab": {
+				"minBlockSize": "2.75rem",
+				"padding": "0 var(--space-comfortable)",
+				"border": "0",
+				"background": "transparent",
+				"color": "var(--color-foreground-quiet)",
+				"font": "inherit",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "600",
+				"whiteSpace": "nowrap",
+				"cursor": "pointer",
+				"borderBlockEnd": "2px solid transparent"
+			},
+			"panel": {
+				"minInlineSize": "0"
+			}
+		},
+		"states": {
+			"selected": {
+				"$part": "tab",
+				"$description": "Weight and a rule, not colour alone — the underline is what carries the state for anyone who cannot separate the two inks.",
+				"color": "var(--color-foreground)",
+				"borderBlockEndColor": "var(--color-primary)"
+			},
+			"hover": {
+				"$part": "tab",
+				"color": "var(--color-foreground)"
+			},
+			"focus": {
+				"$part": "tab",
+				"outline": "1px solid var(--color-focus)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The WAI-ARIA tabs pattern, which is a KEYBOARD model before it is a visual one: one stop in the tab order for the whole strip (`tabindex=0` on the selected tab, `-1` on the rest), Left/Right to move between tabs, Home/End to the ends. Each tab carries `aria-selected` and `aria-controls`; each panel `aria-labelledby` its tab. A strip of buttons that merely looks like tabs makes every tab a separate tab stop and tells a screen reader nothing about the relationship."
+	}
+}

@@ -4,26 +4,27 @@
 	"version": "0.1.0",
 	"type": "module",
 	"workspaces": [
-		"apps/*",
-		"packages/*"
+		"brands/*/apps/*",
+		"brands/*/design-system"
 	],
 	"scripts": {
-		"dev": "bun run build:packages && bun run --cwd apps/website dev",
-		"check": "bun run build:packages && bun run --cwd apps/website check",
-		"test": "bun test packages/aven-ceo/tests packages/aven-brandkit/tests",
-		"build:packages": "bun run --cwd packages/aven-ceo build && bun run --cwd packages/aven-yma build && bun run brand:generate",
-		"build:next": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.next.aven.ceo bun run --cwd apps/website build && bun run --cwd apps/website audit:build next",
-		"build:production": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.aven.ceo bun run --cwd apps/website build && bun run --cwd apps/website audit:build production",
+		"dev": "bun run build:packages && bun run --cwd brands/CEO/apps/website dev",
+		"check": "bun run build:packages && bun run --cwd brands/CEO/apps/website check",
+		"test": "bun test brands/CEO/design-system/tests",
+		"build:packages": "bun run --cwd brands/CEO/design-system build && bun run brand:generate",
+		"build:next": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.next.aven.ceo bun run --cwd brands/CEO/apps/website build && bun run --cwd brands/CEO/apps/website audit:build next",
+		"build:production": "bun run build:packages && PUBLIC_ID_BASE_URL=https://id.aven.ceo bun run --cwd brands/CEO/apps/website build && bun run --cwd brands/CEO/apps/website audit:build production",
 		"lint": "bunx biome check .",
 		"format": "bunx biome format --write .",
-		"brand:generate": "bun run --cwd packages/aven-ceo generate && bun run --cwd apps/yma brand:generate",
-		"dev:yma": "bun run build:packages && bun run --cwd apps/yma dev",
-		"build:yma": "bun run build:packages && bun run --cwd apps/yma build",
-		"guidelines": "bun run build:packages && bun ./scripts/render-guidelines.ts"
+		"brand:generate": "bun run --cwd brands/CEO/design-system generate",
+		"dev:yma": "bun run build:packages:yma && bun run --cwd brands/YMA/apps/website dev",
+		"build:yma": "bun run build:packages:yma && bun run --cwd brands/YMA/apps/website build",
+		"guidelines": "bun run build:packages && bun ./scripts/render-guidelines.ts",
+		"build:packages:yma": "bun run --cwd brands/YMA/design-system build && bun run --cwd brands/YMA/apps/website brand:generate"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.6",
-		"@myavenceo/aven-vibes": "^0.3.2",
+		"@myavenceo/aven-vibes": "^0.5.0",
 		"typescript": "6.0.2"
 	},
 	"engines": {

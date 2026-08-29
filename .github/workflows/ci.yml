@@ -47,7 +47,12 @@ jobs:
         # All three, not just the one that used to be the only one.
         run: |
           set -euo pipefail
-          for pkg in packages/*/; do
+          # `brands/*/design-system`, not `packages/*` — the restructure moved
+          # every publishable package under its own brand, and this loop kept
+          # globbing a directory that no longer exists. A glob that matches
+          # nothing expands to itself, so the step failed on `cd packages/*/`
+          # rather than quietly passing, which is the one good thing about it.
+          for pkg in brands/*/design-system/; do
             echo "── $pkg"
             (cd "$pkg" && npm pack --dry-run)
           done

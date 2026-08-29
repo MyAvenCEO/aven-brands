@@ -1,0 +1,196 @@
+{
+	"name": "hero",
+	"description": "The first screen, as the website actually renders it. A full-bleed stage with media behind it, a scrim over that, and the copy on top — and it is the one place on any surface where the page's inks do not apply, because text over a photograph has no measurable contrast. Two things make that text readable and both are parts of this unit rather than decisions at a call site: the scrim, and a text-shadow on every line. On the site this was a section with four ids, five hand-written rules and a scrim spelled as three stacked `color-mix` stops.",
+	"interface": {
+		"props": {
+			"labelledBy": "string",
+			"poster": "string",
+			"src": "string"
+		},
+		"slots": {
+			"media": {
+				"accepts": ["media"]
+			},
+			"eyebrow": {},
+			"heading": {},
+			"lead": {},
+			"helper": {},
+			"actions": {
+				"accepts": ["btn"]
+			}
+		}
+	},
+	"view": {
+		"tag": "section",
+		"attrs": {
+			"aria-labelledby": "$props.labelledBy"
+		},
+		"$children": [
+			{
+				"tag": "div",
+				"part": "media",
+				"$children": "media"
+			},
+			{
+				"tag": "div",
+				"part": "scrim",
+				"attrs": {
+					"aria-hidden": "true"
+				}
+			},
+			{
+				"tag": "div",
+				"part": "content",
+				"$children": [
+					{
+						"tag": "p",
+						"part": "eyebrow",
+						"$children": "eyebrow"
+					},
+					{
+						"tag": "h1",
+						"part": "heading",
+						"attrs": {
+							"id": "$props.labelledBy"
+						},
+						"$children": "heading"
+					},
+					{
+						"tag": "p",
+						"part": "lead",
+						"$children": "lead"
+					},
+					{
+						"tag": "p",
+						"part": "helper",
+						"$children": "helper"
+					},
+					{
+						"tag": "div",
+						"part": "actions",
+						"$children": "actions"
+					}
+				]
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "`min-block-size: 85vh` and flex-centred, matching the site exactly. `isolation: isolate` is what lets the media sit at a negative z-index without escaping behind the page.",
+			"position": "relative",
+			"isolation": "isolate",
+			"overflow": "hidden",
+			"display": "flex",
+			"alignItems": "center",
+			"justifyContent": "center",
+			"minBlockSize": "85vh",
+			"paddingInline": "var(--space-comfortable)",
+			"paddingBlock": "clamp(5rem, 12vh, 9rem)",
+			"color": "var(--color-on-dark)"
+		},
+		"parts": {
+			"media": {
+				"$description": "Where a `media` unit goes. The hero does not own a video — it owns a hole that one fits into, which is what lets the same hero sit over a photograph or a loop.",
+				"position": "absolute",
+				"inset": "0",
+				"zIndex": "-2"
+			},
+			"scrim": {
+				"$description": "Stronger at the top and bottom, lighter through the middle where the scene reads — enough to carry white text, not enough to flatten the picture. Three named stops rather than three `color-mix` calls at a call site.",
+				"position": "absolute",
+				"inset": "0",
+				"zIndex": "-1",
+				"background": "linear-gradient(to bottom, var(--color-scrim-strong) 0%, var(--color-scrim) 42%, var(--color-scrim-heavy) 100%)"
+			},
+			"content": {
+				"position": "relative",
+				"marginInline": "auto",
+				"inlineSize": "100%",
+				"maxInlineSize": "48rem",
+				"minInlineSize": "0",
+				"textAlign": "center"
+			},
+			"eyebrow": {
+				"margin": "0 0 var(--space-tight)",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-widest)",
+				"color": "var(--color-on-dark)"
+			},
+			"heading": {
+				"$description": "`clamp` rather than breakpoints — a hero headline has one job at every width, and three step changes on the way down is three chances to break a line badly. The text-shadow is not decoration: it is the second half of the contrast guarantee, and it is what keeps the line readable on a frame the scrim alone cannot carry.",
+				"margin": "0",
+				"maxInlineSize": "48rem",
+				"marginInline": "auto",
+				"fontSize": "clamp(2rem, 6.5vw, 4rem)",
+				"fontWeight": "300",
+				"lineHeight": "1.1",
+				"letterSpacing": "var(--tracking-tight)",
+				"textWrap": "pretty",
+				"color": "var(--color-on-dark)",
+				"textShadow": "0 2px 24px var(--color-scrim-text)"
+			},
+			"lead": {
+				"marginBlock": "var(--space-section) 0",
+				"marginInline": "auto",
+				"maxInlineSize": "42rem",
+				"fontSize": "var(--fs-lead)",
+				"fontWeight": "300",
+				"lineHeight": "1.25",
+				"textWrap": "pretty",
+				"color": "var(--color-on-dark-soft)",
+				"textShadow": "0 1px 16px var(--color-scrim-text)"
+			},
+			"actions": {
+				"display": "flex",
+				"flexWrap": "wrap",
+				"justifyContent": "center",
+				"gap": "var(--space-tight)",
+				"marginBlockStart": "var(--space-section)"
+			},
+			"helper": {
+				"$description": "The third line — quieter still, and the one most often forgotten when a hero is rebuilt by hand.",
+				"marginBlock": "var(--space-comfortable) 0",
+				"fontSize": "var(--fs-section)",
+				"lineHeight": "1.25",
+				"color": "var(--color-on-dark-quiet)",
+				"textShadow": "0 1px 12px var(--color-scrim-text)"
+			}
+		},
+		"variants": {
+			"height": {
+				"full": {
+					"minBlockSize": "100dvh"
+				},
+				"short": {
+					"minBlockSize": "min(56dvh, 34rem)"
+				}
+			},
+			"align": {
+				"start": {
+					"$part": "content",
+					"textAlign": "start"
+				}
+			},
+			"ground": {
+				"$description": "A hero without media still needs its own ground, or the light ink lands on the page.",
+				"band": {
+					"background": "var(--color-band)",
+					"color": "var(--color-band-foreground)"
+				},
+				"marine": {
+					"background": "var(--color-primary)",
+					"color": "var(--color-primary-foreground)"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "The video goes and its own poster frame takes its place — the stage stays, so nothing is lost. Never `display:none` on the media without a ground behind it, or the hero becomes light ink on white.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "The `<h1>`, once per page, and it is what names the section. The video is decorative: `aria-hidden`, muted, and it must not be the only thing carrying meaning. Under `prefers-reduced-motion` the video is replaced by its poster rather than removed — removing it would take the ground with it and leave light text on a white page. Contrast here cannot be measured automatically: the scrim is the guarantee, and it is why it is a part of the unit rather than a decision at the call site."
+	}
+}

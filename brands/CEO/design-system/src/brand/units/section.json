@@ -1,0 +1,58 @@
+{
+	"name": "section",
+	"description": "One band of a page. Eleven of them on the marketing site, spelled eight different ways — `px-5 py-12 sm:px-8 sm:py-14`, then `py-14 sm:py-16`, then `py-16 sm:py-20` — which is a vertical rhythm decided eight times rather than once. The gutter and the rule travel with it, because a section that sets its own padding and forgets its own divider is how a page loses its rhythm one edit at a time.",
+	"interface": {
+		"props": { "labelledBy": "string" },
+		"slots": { "content": {} }
+	},
+	"view": {
+		"tag": "section",
+		"attrs": { "aria-labelledby": "$props.labelledBy" },
+		"$children": [{ "tag": "div", "part": "inner", "$children": "content" }]
+	},
+	"styling": {
+		"base": {
+			"paddingInline": "var(--space-comfortable)",
+			"paddingBlock": "var(--space-section)",
+			"borderBlockEnd": "1px solid var(--color-border-soft)"
+		},
+		"parts": {
+			"inner": {
+				"$description": "The measure. A section is full-bleed and its CONTENT is not — separating the two is what lets a band carry a colour to the edges while the text still stops at a readable width.",
+				"marginInline": "auto",
+				"inlineSize": "100%",
+				"maxInlineSize": "72rem",
+				"minInlineSize": "0"
+			}
+		},
+		"variants": {
+			"rhythm": {
+				"tight": { "paddingBlock": "var(--space-loose)" },
+				"loose": { "paddingBlock": "calc(var(--space-section) * 1.4)" }
+			},
+			"ground": {
+				"band": {
+					"$description": "A full-bleed band in the brand tone, carrying the one text colour a band has. The page's turning point, used sparingly — two on the home page.",
+					"background": "var(--color-band)",
+					"color": "var(--color-band-foreground)",
+					"borderBlockEndColor": "transparent"
+				},
+				"band-alt": {
+					"background": "var(--color-band-alt)",
+					"color": "var(--color-band-foreground)",
+					"borderBlockEndColor": "transparent"
+				},
+				"raised": { "background": "var(--color-surface-raised)" },
+				"plain": { "borderBlockEndColor": "transparent" }
+			},
+			"measure": {
+				"$description": "Narrower content for a section that is mostly prose.",
+				"prose": { "$part": "inner", "maxInlineSize": "44rem" },
+				"wide": { "$part": "inner", "maxInlineSize": "84rem" }
+			}
+		}
+	},
+	"a11y": {
+		"note": "A `<section>` is only a landmark when it has an accessible name, which is why `labelledBy` is on the interface rather than optional-by-habit. An unnamed section is a generic div to a screen reader, and a page of eleven of them gives a screen-reader user no way to skip between them."
+	}
+}

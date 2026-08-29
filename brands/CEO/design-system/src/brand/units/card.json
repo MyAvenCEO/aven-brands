@@ -1,0 +1,87 @@
+{
+	"name": "card",
+	"description": "A bounded thing in a list of things. Twelve near-identical spellings on the site — `rounded-xl border border-border/25 bg-surface-raised px-4 py-4`, then `px-5 py-5`, `px-5 py-7`, `p-5 sm:p-6`, `p-6` — seven different paddings for one idea, each one chosen by eye at a call site. Distinct from `surface`, which is any padded box; a card is a card because something can be DONE with it, so it has a hover and a selected state and `surface` does not.",
+	"interface": {
+		"props": {
+			"href": "string"
+		},
+		"slots": {
+			"content": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": "content"
+	},
+	"styling": {
+		"interactive": true,
+		"base": {
+			"display": "flex",
+			"flexDirection": "column",
+			"gap": "var(--space-tight)",
+			"minInlineSize": "0",
+			"padding": "var(--space-loose)",
+			"borderRadius": "var(--radius-lg)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)",
+			"color": "inherit",
+			"textDecoration": "none",
+			"transition": "border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)"
+		},
+		"variants": {
+			"emphasis": {
+				"featured": {
+					"$description": "One card in a set, lifted. A grid where every card is featured is a grid where none is — this exists so the eye has somewhere to land, which four equal cards never give it.",
+					"borderColor": "var(--color-accent)",
+					"boxShadow": "var(--shadow-raised)"
+				},
+				"quiet": {
+					"$description": "Not yet real — a skill that is coming, a slot not filled. A dashed edge says `placeholder` in a way a fainter fill does not.",
+					"borderStyle": "dashed",
+					"background": "var(--color-surface-sunken)"
+				}
+			},
+			"density": {
+				"compact": {
+					"padding": "var(--space-comfortable)",
+					"borderRadius": "var(--radius-sm)"
+				},
+				"roomy": {
+					"padding": "var(--space-section)"
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$description": "A lift, and the border warms. Not a background change — a card that fills on hover fights every badge and chip inside it.",
+				"transform": "translateY(-2px)",
+				"borderColor": "var(--color-border-strong)",
+				"boxShadow": "var(--shadow-raised)"
+			},
+			"focus": {
+				"outline": "1px solid var(--color-focus)"
+			},
+			"active": {
+				"transform": "translateY(0)",
+				"boxShadow": "none"
+			},
+			"disabled": {
+				"opacity": "0.55",
+				"cursor": "default",
+				"boxShadow": "none",
+				"transform": "none"
+			},
+			"selected": {
+				"borderColor": "var(--color-primary)",
+				"boxShadow": "inset 0 0 0 1px var(--color-primary)"
+			}
+		},
+		"reducedMotion": {
+			"$description": "The lift goes; the border still warms, so hover is still legible.",
+			"transition": "border-color 0.01ms"
+		}
+	},
+	"a11y": {
+		"note": "When the whole card is a link, it is ONE `<a>` wrapping the content — not a div with an onclick and a link inside it, which gives a keyboard user two targets for one destination and a screen reader a link whose name is the entire card. Anything genuinely separate inside (a menu, a secondary action) has to sit outside that link."
+	}
+}

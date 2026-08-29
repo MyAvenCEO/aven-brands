@@ -1,0 +1,137 @@
+{
+	"name": "toast",
+	"description": "Something happened, said briefly and out of the way. 15 uses across the app and avenID. The rule it carries: feedback may not outrun the truth — a toast saying `Draft created` while the list still shows the same items is a lie the user catches immediately.",
+	"interface": {
+		"props": {
+			"title": "string",
+			"body": "string",
+			"tone": "string"
+		},
+		"slots": {
+			"action": {}
+		},
+		"events": {
+			"dismiss": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"attrs": {
+			"role": "status",
+			"aria-live": "polite"
+		},
+		"$children": [
+			{
+				"tag": "span",
+				"part": "icon",
+				"$icon": {
+					"name": "$props.icon",
+					"size": "1.25rem"
+				}
+			},
+			{
+				"tag": "div",
+				"part": "copy",
+				"$children": [
+					{
+						"tag": "p",
+						"part": "title",
+						"text": "$props.title"
+					},
+					{
+						"tag": "p",
+						"part": "body",
+						"text": "$props.body"
+					}
+				]
+			},
+			{
+				"tag": "button",
+				"part": "dismiss",
+				"attrs": {
+					"type": "button",
+					"aria-label": "Dismiss"
+				},
+				"$icon": {
+					"name": "close",
+					"size": "1rem"
+				}
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "flex",
+			"alignItems": "flex-start",
+			"gap": "var(--space-tight)",
+			"maxInlineSize": "min(26rem, calc(100vw - 2rem))",
+			"padding": "var(--space-comfortable)",
+			"borderRadius": "var(--radius-lg)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "var(--shadow-overlay)",
+			"color": "var(--color-foreground)"
+		},
+		"parts": {
+			"icon": {
+				"flexShrink": "0",
+				"marginBlockStart": "0.125rem"
+			},
+			"copy": {
+				"display": "grid",
+				"gap": "var(--space-hairline)",
+				"minInlineSize": "0"
+			},
+			"title": {
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "600"
+			},
+			"body": {
+				"$description": "`overflow-wrap:anywhere` because a toast routinely carries an id, a URL or an email — one unbreakable token sets the element's min-content width and pushes the toast past the viewport.",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-soft)",
+				"overflowWrap": "anywhere"
+			},
+			"dismiss": {
+				"flexShrink": "0",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"inlineSize": "1.5rem",
+				"blockSize": "1.5rem",
+				"border": "0",
+				"borderRadius": "var(--radius-sm)",
+				"background": "transparent",
+				"color": "var(--color-foreground-quiet)",
+				"cursor": "pointer"
+			}
+		},
+		"variants": {
+			"tone": {
+				"success": {
+					"$part": "icon",
+					"color": "var(--color-success-ink)"
+				},
+				"error": {
+					"$part": "icon",
+					"color": "var(--color-error-ink)"
+				},
+				"warning": {
+					"$part": "icon",
+					"color": "var(--color-warning-ink)"
+				},
+				"info": {
+					"$part": "icon",
+					"color": "var(--color-progress-ink)"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "The entrance may fade but must never be the only thing that reveals the text — a toast whose content arrives via a transform is a toast that is invisible under `reduce` if the transform is dropped.",
+			"transition": "opacity var(--duration-quick) ease-out"
+		}
+	},
+	"a11y": {
+		"note": "`role=status` with `aria-live=polite` announces without interrupting. An ERROR that the user must act on is not a toast — it belongs beside the thing that failed, because a toast that vanishes takes the instruction with it. The dismiss button is a real button with a label; 1.5rem is under the 24px target minimum on its own, so it relies on the toast's padding as hit area and must keep it."
+	}
+}

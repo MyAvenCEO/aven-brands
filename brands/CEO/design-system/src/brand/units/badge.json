@@ -1,0 +1,97 @@
+{
+	"name": "badge",
+	"description": "A small label that states a fact about the thing beside it — a status, a category, a count. 69 uses across the three surfaces and no two agreed: the website spelled it as a rounded-full span with an alpha tint and an alpha border, the app as a dozen local classes. The tint/ink pairing is the part worth centralising, because an alpha tint over an unknown ground has no guaranteed contrast and every one of them was picked by eye.",
+	"interface": {
+		"props": {
+			"label": "string"
+		}
+	},
+	"view": {
+		"tag": "span",
+		"text": "$props.label"
+	},
+	"styling": {
+		"base": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"gap": "var(--space-hairline)",
+			"padding": "0.125rem 0.5rem",
+			"borderRadius": "var(--radius-full)",
+			"fontSize": "var(--fs-nano)",
+			"fontWeight": "700",
+			"textTransform": "uppercase",
+			"letterSpacing": "var(--tracking-wider)",
+			"whiteSpace": "nowrap",
+			"background": "var(--color-muted)",
+			"color": "var(--color-foreground-soft)",
+			"border": "1px solid var(--color-border-soft)"
+		},
+		"variants": {
+			"tone": {
+				"neutral": {
+					"background": "var(--color-muted)",
+					"color": "var(--color-foreground-soft)",
+					"borderColor": "var(--color-border-soft)"
+				},
+				"accent": {
+					"background": "var(--color-accent-surface)",
+					"color": "var(--color-accent-ink)",
+					"borderColor": "var(--color-accent-border)"
+				},
+				"progress": {
+					"background": "var(--color-progress-surface)",
+					"color": "var(--color-progress-ink)",
+					"borderColor": "var(--color-progress-border)"
+				},
+				"success": {
+					"background": "var(--color-success-surface)",
+					"color": "var(--color-success-ink)",
+					"borderColor": "var(--color-success-border)"
+				},
+				"warning": {
+					"background": "var(--color-warning-surface)",
+					"color": "var(--color-warning-ink)",
+					"borderColor": "var(--color-warning-border)"
+				},
+				"error": {
+					"background": "var(--color-error-surface)",
+					"color": "var(--color-error-ink)",
+					"borderColor": "var(--color-error-border)"
+				},
+				"$description": "A TINT with the tone's ink on it, not a solid fill. The solid form shouts — a row of six filled pills is six things demanding attention — and the tinted form is what the site's own skill cards already used, by hand, at five different alphas. Each tint is a concrete colour with its ink measured on it, because `bg-accent/15` over an unknown ground guarantees nothing."
+			},
+			"emphasis": {
+				"solid": {
+					"$description": "Filled, for the one badge that must carry across a busy row — a live status in a table of drafts. Rare on purpose: if two badges in a set are solid, neither is.",
+					"background": "var(--color-primary)",
+					"color": "var(--color-primary-foreground)",
+					"borderColor": "var(--color-primary)"
+				},
+				"quiet": {
+					"$description": "An outline and no fill, for a badge that must not compete with the row it sits in.",
+					"background": "transparent",
+					"borderColor": "var(--color-border-strong)",
+					"color": "var(--color-foreground-quiet)"
+				}
+			},
+			"size": {
+				"$description": "A badge sits beside something, so its ladder is the ladder of the things it labels: a nano badge on a card title, a micro one in a table row, a meta one standing alone.",
+				"sm": {
+					"padding": "0.05rem 0.4rem",
+					"fontSize": "var(--fs-nano)"
+				},
+				"md": {
+					"padding": "0.125rem 0.5rem",
+					"fontSize": "var(--fs-nano)"
+				},
+				"lg": {
+					"padding": "0.25rem 0.7rem",
+					"fontSize": "var(--fs-micro)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "A badge is a label, not a control. It carries no role — a screen reader reads it as the text it is. When the badge is the ONLY thing saying a row failed, the row needs the word too: colour is never the only signal."
+	}
+}

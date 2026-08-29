@@ -57,9 +57,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -f apps/website/dist/index.html
-          printf '%s\n' "$GITHUB_SHA" > apps/website/dist/.source-revision
-          printf '%s\n' "${{ steps.target.outputs.environment }}" > apps/website/dist/.environment
+          test -f brands/CEO/apps/website/dist/index.html
+          printf '%s\n' "$GITHUB_SHA" > brands/CEO/apps/website/dist/.source-revision
+          printf '%s\n' "${{ steps.target.outputs.environment }}" > brands/CEO/apps/website/dist/.environment
 
       - name: Publish dist to deployment branch
         env:
@@ -80,7 +80,7 @@ jobs:
 
           git -C "$publish_dir" rm -r --ignore-unmatch .
           install -d "$publish_dir/dist"
-          cp -a apps/website/dist/. "$publish_dir/dist/"
+          cp -a brands/CEO/apps/website/dist/. "$publish_dir/dist/"
           git -C "$publish_dir" add -A
 
           if git -C "$publish_dir" diff --cached --quiet; then

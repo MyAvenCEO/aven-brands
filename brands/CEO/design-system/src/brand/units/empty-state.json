@@ -1,0 +1,75 @@
+{
+	"name": "empty-state",
+	"description": "Zero, said on purpose. The rule it exists to enforce is a composition one: a small centred block pinned under the header with a thousand pixels of nothing below it reads as a page that failed to load, not as a considered zero-state. This unit fills the region it is given.",
+	"interface": {
+		"props": {
+			"title": "string",
+			"body": "string",
+			"icon": "string"
+		},
+		"slots": {
+			"action": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "span",
+				"part": "icon",
+				"$icon": {
+					"name": "$props.icon",
+					"size": "2rem"
+				}
+			},
+			{
+				"tag": "p",
+				"part": "title",
+				"text": "$props.title"
+			},
+			{
+				"tag": "p",
+				"part": "body",
+				"text": "$props.body"
+			},
+			{
+				"tag": "div",
+				"part": "action",
+				"$children": "action"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"placeContent": "center",
+			"justifyItems": "center",
+			"gap": "var(--space-tight)",
+			"minBlockSize": "18rem",
+			"blockSize": "100%",
+			"padding": "var(--space-section)",
+			"textAlign": "center"
+		},
+		"parts": {
+			"icon": {
+				"color": "var(--color-foreground-quiet)"
+			},
+			"title": {
+				"fontSize": "var(--fs-title)",
+				"fontWeight": "600",
+				"color": "var(--color-foreground)"
+			},
+			"body": {
+				"maxInlineSize": "38ch",
+				"fontSize": "var(--fs-body)",
+				"color": "var(--color-foreground-soft)"
+			},
+			"action": {
+				"marginBlockStart": "var(--space-tight)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "Not a live region: an empty state is the page, not an announcement. The body must say what to do first — `No projects yet. Create your first project to get started.` and never `No data`."
+	}
+}

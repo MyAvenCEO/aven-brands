@@ -1,0 +1,33 @@
+{
+	"name": "step",
+	"description": "One stage on a progress rail. `step-done` used to be a second component declaring two properties, and its own comment said it was applied alongside step and never instead — which is the definition of a state, not a component.",
+	"interface": {
+		"props": {
+			"done": "string"
+		}
+	},
+	"view": {
+		"tag": "span",
+		"attrs": {
+			"aria-selected": "$props.done",
+			"role": "presentation"
+		}
+	},
+	"styling": {
+		"base": {
+			"flex": "1",
+			"height": "3px",
+			"borderRadius": "var(--radius-full)",
+			"background": "color-mix(in srgb, var(--color-foreground) 12%, transparent)"
+		},
+		"states": {
+			"selected": {
+				"background": "var(--color-primary)",
+				"color": "var(--color-primary-foreground)"
+			}
+		}
+	},
+	"a11y": {
+		"notes": "The rail itself carries the accessible progress announcement; the individual steps are presentational, so they are marked role=presentation rather than each announcing itself."
+	}
+}

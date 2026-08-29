@@ -1,0 +1,54 @@
+{
+	"name": "media",
+	"description": "A picture or a moving picture, filling the box it is given. One unit for both, because everything that matters about them is the same — how they crop, what they do when they have not loaded, and what happens under `prefers-reduced-motion` — and the only real difference is the tag. It exists so the hero does not own its own video: a hero over a photograph and a hero over a loop should differ by a variant, not by a different component.",
+	"interface": {
+		"props": { "src": "string", "poster": "string", "alt": "string" }
+	},
+	"view": {
+		"tag": "img",
+		"attrs": { "src": "$props.src", "alt": "$props.alt", "loading": "lazy", "decoding": "async" }
+	},
+	"styling": {
+		"base": {
+			"$description": "`object-fit: cover` with `inset: 0` — the box decides the shape and the media fills it, which is the only arrangement that survives an unknown aspect ratio. The intrinsic size is overridden on purpose; without it a 4K frame sets the layout.",
+			"display": "block",
+			"inlineSize": "100%",
+			"blockSize": "100%",
+			"objectFit": "cover",
+			"objectPosition": "center",
+			"backgroundColor": "var(--color-primary)"
+		},
+		"variants": {
+			"placement": {
+				"$description": "Where the media sits relative to the content on top of it.",
+				"behind": {
+					"$description": "Full-bleed, behind everything, out of the flow. The negative z-index is what lets the content sit on top without a stacking context of its own — the parent supplies `isolation: isolate` so the negative index cannot escape it.",
+					"position": "absolute",
+					"inset": "0",
+					"zIndex": "-2"
+				}
+			},
+			"ratio": {
+				"$description": "For media in the flow, where the box has to reserve its space before the file arrives. This is the layout-shift fix: without a ratio the page reflows when the image loads, which is a Core Web Vitals failure and reads as a bug.",
+				"wide": { "aspectRatio": "16 / 9", "blockSize": "auto" },
+				"square": { "aspectRatio": "1", "blockSize": "auto" },
+				"portrait": { "aspectRatio": "3 / 4", "blockSize": "auto" }
+			},
+			"fit": {
+				"contain": {
+					"$description": "For a logo or a diagram, where cropping would remove the point.",
+					"objectFit": "contain"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "A video is replaced by its own poster frame, never removed — removing it takes the ground with it and leaves light text on white. The poster is set as a background on this element so the swap needs no second element and no JavaScript.",
+			"backgroundImage": "var(--media-poster, none)",
+			"backgroundSize": "cover",
+			"backgroundPosition": "center"
+		}
+	},
+	"a11y": {
+		"note": "Decorative media takes `alt=\"\"` and, if it is a video, `aria-hidden` — a background loop carries no content and announcing it says nothing. Media that IS the content takes a real `alt`, and a video that is the content needs captions and controls, at which point it is not this unit's job. An autoplaying video must be muted and must loop or stop on its own: WCAG 2.2.2 gives anything that moves for more than five seconds a way to pause it, and a silent decorative loop behind a scrim is the one shape that does not need a control."
+	}
+}

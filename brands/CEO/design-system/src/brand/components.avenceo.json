@@ -1,0 +1,338 @@
+{
+	"$description": "avenCEO component and primitive style declarations. Loaded by the TypeScript package; the generator emits these as CSS classes. Property names are camelCase CSS properties; a nested object is a selector block containing \"&\". Four classes were removed after measuring that no surface used them: card-sm, btn-secondary, step-done and bullet appeared only in the generated stylesheet. step-done is now the `selected` state of the `step` unit, and btn-secondary a variant of `btn`.",
+	"components": {
+		"card": {
+			"borderRadius": "var(--radius-lg)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)",
+			"padding": "var(--space-loose)",
+			"boxShadow": "var(--shadow-raised)"
+		},
+		"eyebrow": {
+			"fontSize": "var(--fs-eyebrow)",
+			"fontWeight": "600",
+			"textTransform": "uppercase",
+			"letterSpacing": "var(--tracking-wide)",
+			"color": "var(--color-foreground-quiet)"
+		},
+		"eyebrow-accent": {
+			"fontSize": "var(--fs-micro)",
+			"fontWeight": "700",
+			"textTransform": "uppercase",
+			"letterSpacing": "var(--tracking-widest)",
+			"color": "var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black))"
+		},
+		"eyebrow-quiet": {
+			"fontSize": "var(--fs-nano)",
+			"fontWeight": "700",
+			"textTransform": "uppercase",
+			"letterSpacing": "var(--tracking-widest)",
+			"color": "var(--color-foreground-quiet)"
+		},
+		"section-title": {
+			"fontSize": "var(--fs-amount)",
+			"fontWeight": "600",
+			"letterSpacing": "var(--tracking-tight)",
+			"color": "var(--color-foreground)"
+		},
+		"section-band": {
+			"borderBottom": "1px solid var(--color-border-strong)",
+			"padding": "3.5rem 1.25rem"
+		},
+		"app-shell": {
+			"minHeight": "100vh",
+			"background": "var(--color-surface-page)",
+			"color": "var(--color-foreground)",
+			"fontFamily": "var(--font-sans)",
+			"WebkitFontSmoothing": "antialiased"
+		},
+		"mono-meta": {
+			"fontFamily": "var(--font-mono)",
+			"fontSize": "var(--fs-micro)",
+			"color": "var(--color-foreground-quiet)"
+		},
+		"title": {
+			"margin": "0",
+			"fontSize": "var(--fs-hero)",
+			"fontWeight": "600",
+			"letterSpacing": "var(--tracking-tight)"
+		},
+		"lede": {
+			"margin": "0",
+			"fontSize": "var(--fs-section)",
+			"lineHeight": "1.6",
+			"color": "var(--color-foreground-quiet)"
+		},
+		"label": {
+			"display": "grid",
+			"gap": "0.4rem",
+			"fontWeight": "600",
+			"textAlign": "left"
+		},
+		"btn": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"justifyContent": "center",
+			"gap": "var(--space-tight)",
+			"minHeight": "2.75rem",
+			"padding": "0 1.75rem",
+			"border": "0",
+			"borderRadius": "var(--radius-full)",
+			"background": "var(--color-primary)",
+			"color": "var(--color-primary-foreground)",
+			"font": "inherit",
+			"fontSize": "var(--fs-section)",
+			"fontWeight": "600",
+			"cursor": "pointer",
+			"transition": "opacity 0.15s ease",
+			"&:hover:not(:disabled)": {
+				"opacity": "0.9"
+			},
+			"&:disabled": {
+				"cursor": "default",
+				"opacity": "0.55"
+			},
+			"@container (width < 22rem)": {
+				"width": "100%"
+			}
+		},
+		"chip": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"gap": "0.25rem",
+			"borderRadius": "var(--radius-xs)",
+			"background": "var(--color-surface-sunken)",
+			"fontSize": "var(--fs-micro)",
+			"padding": "0.125rem 0.375rem"
+		},
+		"panel": {
+			"containerType": "inline-size",
+			"width": "min(100%, 34rem)",
+			"marginInline": "auto",
+			"padding": "2.5rem 2rem",
+			"border": "1px solid var(--color-border-soft)",
+			"borderRadius": "var(--radius-lg)",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "var(--shadow-raised)"
+		},
+		"well": {
+			"padding": "var(--space-comfortable)",
+			"border": "1px solid var(--color-border)",
+			"borderRadius": "var(--radius-sm)",
+			"background": "var(--color-surface-sunken)"
+		},
+		"mark": {
+			"width": "3.5rem",
+			"height": "3.5rem",
+			"marginInline": "auto"
+		},
+		"digits": {
+			"fontSize": "var(--fs-amount)",
+			"fontWeight": "500",
+			"letterSpacing": "var(--tracking-tight)",
+			"fontVariantNumeric": "tabular-nums"
+		},
+		"alert": {
+			"padding": "0.75rem 1rem",
+			"border": "1px solid var(--color-error-border)",
+			"borderRadius": "var(--radius-sm)",
+			"background": "var(--color-error-surface)",
+			"color": "var(--color-error-ink, color-mix(in oklab, var(--color-terracotta) 85%, black))",
+			"fontSize": "var(--fs-body)",
+			"lineHeight": "1.5",
+			"textAlign": "left"
+		},
+		"steps": {
+			"display": "flex",
+			"gap": "0.375rem",
+			"width": "100%"
+		},
+		"step": {
+			"flex": "1",
+			"height": "3px",
+			"borderRadius": "var(--radius-full)",
+			"background": "var(--color-track)"
+		},
+		"field": {
+			"display": "grid",
+			"gap": "var(--space-tight)",
+			"width": "100%",
+			"textAlign": "left"
+		},
+		"ghost": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"justifyContent": "center",
+			"minHeight": "2.75rem",
+			"padding": "0 1.25rem",
+			"border": "1px solid var(--color-border)",
+			"borderRadius": "var(--radius-full)",
+			"background": "transparent",
+			"color": "var(--color-foreground-quiet)",
+			"font": "inherit",
+			"fontSize": "var(--fs-body)",
+			"fontWeight": "500",
+			"lineHeight": "1",
+			"textDecoration": "none",
+			"whiteSpace": "nowrap",
+			"cursor": "pointer"
+		},
+		"meta": {
+			"fontSize": "var(--fs-meta)",
+			"color": "var(--color-foreground-quiet)"
+		},
+		"logo-mark": {
+			"inlineSize": "1.75rem",
+			"blockSize": "1.75rem",
+			"flexShrink": "0"
+		},
+		"logo-wordmark": {
+			"display": "inline-flex",
+			"alignItems": "baseline",
+			"whiteSpace": "nowrap"
+		},
+		"logo-word-aven": {
+			"fontFamily": "var(--font-display)",
+			"fontWeight": "300",
+			"fontSize": "1.4em",
+			"lineHeight": "1"
+		},
+		"logo-word-ceo": {
+			"fontFamily": "var(--font-sans)",
+			"fontWeight": "700",
+			"textTransform": "uppercase"
+		},
+		"logo": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"gap": "var(--space-tight)",
+			"textDecoration": "none",
+			"color": "inherit",
+			"fontSize": "var(--fs-lead)",
+			"letterSpacing": "var(--tracking-tight)"
+		},
+		"logo--mark": {
+			"gap": "0"
+		},
+		"logo--wordmark": {
+			"gap": "0"
+		}
+	},
+	"nearestStep": {
+		"$description": "Where every arbitrary value found in the pre-scale audit lands on a scale. Kept as data so the migration stays checkable.",
+		"values": {
+			"7px": "fs-nano",
+			"8px": "fs-nano",
+			"9px": "fs-nano",
+			"10px": "fs-micro",
+			"11px": "fs-eyebrow",
+			"12px": "fs-meta",
+			"13px": "fs-body",
+			"13.5px": "fs-body",
+			"14px": "fs-section",
+			"15px": "fs-title",
+			"16px": "fs-title",
+			"17px": "fs-lead",
+			"18px": "fs-lead",
+			"19px": "fs-hero",
+			"20px": "fs-hero",
+			"21px": "fs-hero",
+			"22px": "fs-amount",
+			"25px": "fs-amount",
+			"28px": "fs-display",
+			"0.4375rem": "fs-nano",
+			"0.5625rem": "fs-nano",
+			"0.625rem": "fs-micro",
+			"0.6875rem": "fs-eyebrow",
+			"0.68rem": "fs-eyebrow",
+			"1.02rem": "fs-lead",
+			"1.125rem": "fs-lead",
+			"1.25rem": "fs-hero",
+			"1.3125rem": "fs-hero",
+			"1.4rem": "fs-amount",
+			"1.55rem": "fs-amount",
+			"1.65rem": "fs-amount",
+			"1.7rem": "fs-display",
+			"1.75rem": "fs-display",
+			"2.35rem": "fs-display-lg",
+			"-0.03em": "tracking-tight",
+			"-0.02em": "tracking-tight",
+			"0.06em": "tracking-wide",
+			"0.08em": "tracking-wide",
+			"0.1em": "tracking-wide",
+			"0.12em": "tracking-wider",
+			"0.14em": "tracking-wider",
+			"0.16em": "tracking-wider",
+			"0.17em": "tracking-wider",
+			"0.18em": "tracking-wider",
+			"0.2em": "tracking-widest",
+			"0.22em": "tracking-widest",
+			"0.24em": "tracking-widest",
+			"0.26em": "tracking-widest",
+			"0.28em": "tracking-widest"
+		}
+	},
+	"layouts": {
+		"stack": {
+			"display": "grid",
+			"gap": "var(--gap, var(--space-comfortable))"
+		},
+		"stack-center": {
+			"justifyItems": "center",
+			"textAlign": "center"
+		},
+		"cluster": {
+			"display": "flex",
+			"flexWrap": "wrap",
+			"gap": "var(--gap, var(--space-tight))",
+			"alignItems": "var(--align, center)"
+		},
+		"center": {
+			"boxSizing": "content-box",
+			"maxInlineSize": "var(--measure, 34rem)",
+			"marginInline": "auto",
+			"paddingInline": "var(--gutter, 0)"
+		},
+		"grid-auto": {
+			"display": "grid",
+			"gap": "var(--gap, var(--space-loose))",
+			"gridTemplateColumns": "repeat(auto-fit, minmax(min(var(--min, 16rem), 100%), 1fr))"
+		},
+		"sidebar": {
+			"display": "flex",
+			"flexWrap": "wrap",
+			"gap": "var(--gap, var(--space-loose))",
+			"& > :first-child": {
+				"flexBasis": "var(--side, 16rem)",
+				"flexGrow": "1"
+			},
+			"& > :last-child": {
+				"flexBasis": "0",
+				"flexGrow": "999",
+				"minInlineSize": "var(--min, 50%)"
+			}
+		},
+		"switcher": {
+			"containerType": "inline-size",
+			"display": "flex",
+			"flexWrap": "wrap",
+			"gap": "var(--gap, var(--space-loose))",
+			"& > *": {
+				"flexGrow": "1",
+				"flexBasis": "calc((var(--threshold, 30rem) - 100%) * 999)"
+			}
+		},
+		"frame": {
+			"aspectRatio": "var(--ratio, 16 / 9)",
+			"overflow": "hidden",
+			"display": "flex",
+			"alignItems": "center",
+			"justifyContent": "center",
+			"& > *": {
+				"inlineSize": "100%",
+				"blockSize": "100%",
+				"objectFit": "cover"
+			}
+		}
+	}
+}

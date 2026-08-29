@@ -1,0 +1,56 @@
+{
+	"name": "skeleton",
+	"description": "The shape of content that has not arrived. Worth having as a unit for one reason: a skeleton that does not match the size of what replaces it causes the layout to jump, which is a Core Web Vitals failure and reads as a bug.",
+	"interface": {
+		"props": {
+			"lines": "number"
+		}
+	},
+	"view": {
+		"tag": "div",
+		"attrs": {
+			"aria-hidden": "true"
+		}
+	},
+	"styling": {
+		"base": {
+			"borderRadius": "var(--radius-sm)",
+			"background": "var(--color-track)",
+			"blockSize": "1em",
+			"animation": "aven-skeleton 1600ms ease-in-out infinite"
+		},
+		"variants": {
+			"shape": {
+				"text": {
+					"blockSize": "1em",
+					"borderRadius": "var(--radius-full)"
+				},
+				"block": {
+					"blockSize": "8rem"
+				},
+				"circle": {
+					"inlineSize": "2.5rem",
+					"blockSize": "2.5rem",
+					"borderRadius": "var(--radius-full)"
+				}
+			}
+		},
+		"keyframes": {
+			"aven-skeleton": {
+				"0%,100%": {
+					"opacity": "1"
+				},
+				"50%": {
+					"opacity": "0.55"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "Still visible, no longer pulsing — the shape is the message, the pulse was only reassurance.",
+			"animation": "none"
+		}
+	},
+	"a11y": {
+		"note": "`aria-hidden`, always. A skeleton is a placeholder for the eye; announcing it says nothing useful and reading a screenful of them says it repeatedly. The REGION being loaded carries `aria-busy=true` instead, so a screen reader is told once that something is coming."
+	}
+}

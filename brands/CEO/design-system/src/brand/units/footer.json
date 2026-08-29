@@ -1,0 +1,136 @@
+{
+	"name": "site-footer",
+	"description": "The end of the page, and the answer to \"a page ends on purpose\". One slot and no parts previously, while the real footer carried a brand block, three separate link groups each with its own heading, and a legal line — assembled by hand in one component. Three `<nav>` elements is correct and needs three labels; without them a screen reader hears \"navigation\" three times and cannot tell which is which.",
+	"interface": {
+		"props": {
+			"note": "string"
+		},
+		"slots": {
+			"brand": {},
+			"groups": {},
+			"meta": {}
+		}
+	},
+	"view": {
+		"tag": "footer",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "inner",
+				"$children": [
+					{
+						"tag": "div",
+						"part": "brand",
+						"$children": "brand"
+					},
+					{
+						"tag": "div",
+						"part": "groups",
+						"$children": "groups"
+					}
+				]
+			},
+			{
+				"tag": "div",
+				"part": "meta",
+				"$children": "meta"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"paddingInline": "var(--space-comfortable)",
+			"paddingBlock": "var(--space-section)",
+			"background": "var(--color-primary)",
+			"color": "var(--color-primary-foreground)"
+		},
+		"parts": {
+			"inner": {
+				"display": "grid",
+				"gap": "var(--space-section)",
+				"marginInline": "auto",
+				"inlineSize": "100%",
+				"maxInlineSize": "72rem",
+				"minInlineSize": "0"
+			},
+			"brand": {
+				"display": "grid",
+				"gap": "var(--space-tight)",
+				"maxInlineSize": "28ch"
+			},
+			"groups": {
+				"$description": "`auto-fit` with a `minmax` floor rather than a column count, so three groups become two and then one without a breakpoint per step.",
+				"display": "grid",
+				"gap": "var(--space-loose)",
+				"gridTemplateColumns": "repeat(auto-fit, minmax(min(10rem, 100%), 1fr))"
+			},
+			"group": {
+				"display": "grid",
+				"gap": "0.4rem",
+				"alignContent": "start",
+				"minInlineSize": "0"
+			},
+			"group-title": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-wider)",
+				"color": "var(--color-primary-foreground-quiet)"
+			},
+			"link": {
+				"fontSize": "var(--fs-meta)",
+				"color": "var(--color-primary-foreground-soft)",
+				"textDecoration": "none",
+				"overflowWrap": "anywhere"
+			},
+			"meta": {
+				"$description": "The legal line. Wraps to a column on a narrow viewport rather than shrinking a copyright notice past its own words.",
+				"display": "flex",
+				"flexWrap": "wrap",
+				"gap": "var(--space-tight)",
+				"justifyContent": "space-between",
+				"marginInline": "auto",
+				"marginBlockStart": "var(--space-section)",
+				"paddingBlockStart": "var(--space-comfortable)",
+				"inlineSize": "100%",
+				"maxInlineSize": "72rem",
+				"borderBlockStart": "1px solid var(--color-primary-foreground-quiet)",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-primary-foreground-quiet)"
+			}
+		},
+		"variants": {
+			"ground": {
+				"page": {
+					"$description": "For a surface whose page is already dark, where a marine footer would vanish into it.",
+					"background": "var(--color-surface-raised)",
+					"color": "var(--color-foreground)"
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$part": "link",
+				"color": "var(--color-primary-foreground)"
+			},
+			"focus": {
+				"$part": "link",
+				"outline": "1px solid var(--color-focus)"
+			},
+			"active": {
+				"$part": "link",
+				"color": "var(--color-primary-foreground)"
+			},
+			"disabled": {
+				"$part": "link",
+				"opacity": "0.55",
+				"cursor": "default"
+			}
+		},
+		"interactive": true
+	},
+	"a11y": {
+		"note": "Each link group is its own `<nav>` with its own `aria-label` — \"Product\", \"Legal\", \"Social\" — because three unlabelled navigation landmarks in one footer tell a screen-reader user nothing about which is which. The footer is a `contentinfo` landmark by virtue of being a top-level `<footer>`, and stops being one if it is nested inside a `<section>`."
+	}
+}

@@ -6,11 +6,11 @@
       "name": "@myavenceo/workspace",
       "devDependencies": {
         "@biomejs/biome": "2.5.6",
-        "@myavenceo/aven-vibes": "^0.3.2",
+        "@myavenceo/aven-vibes": "^0.5.0",
         "typescript": "6.0.2",
       },
     },
-    "apps/website": {
+    "brands/CEO/apps/website": {
       "name": "@myavenceo/website",
       "version": "0.1.0",
       "dependencies": {
@@ -29,7 +29,17 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
-    "apps/yma": {
+    "brands/CEO/design-system": {
+      "name": "@myavenceo/aven-ceo",
+      "version": "0.10.0",
+      "dependencies": {
+        "@myavenceo/aven-vibes": "^0.5.0",
+      },
+      "devDependencies": {
+        "@types/node": "^26.3.0",
+      },
+    },
+    "brands/YMA/apps/website": {
       "name": "yma-website",
       "dependencies": {
         "@myavenceo/aven-yma": "workspace:*",
@@ -47,21 +57,11 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
-    "packages/aven-ceo": {
-      "name": "@myavenceo/aven-ceo",
-      "version": "0.10.0",
-      "dependencies": {
-        "@myavenceo/aven-vibes": "^0.3.2",
-      },
-      "devDependencies": {
-        "@types/node": "^26.3.0",
-      },
-    },
-    "packages/aven-yma": {
+    "brands/YMA/design-system": {
       "name": "@myavenceo/aven-yma",
       "version": "0.1.0",
       "dependencies": {
-        "@myavenceo/aven-vibes": "^0.3.2",
+        "@myavenceo/aven-vibes": "^0.4.0",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -97,13 +97,13 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:packages/aven-ceo"],
+    "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:brands/CEO/design-system"],
 
-    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.3.2", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.3.2/f3b74762ddc5a50d1557a31d6d58c51c56bd2c88", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-gAwGxcUHNCPhM3Ky1kXaHJXOl8rIXRJBUGH6trtsXoRZFG2+JCugqwasqv2eSCDFNJdgBfn9XE6SZ0uGJDnkew=="],
+    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.5.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.5.0/202efb75ed8e952773a9d4caadb7a57a905519fa", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-3Qw34EqFr5698Jije+8cLIKGEYTPUzXC2VsM+ETcNq/dp3DZB9C7NIvCmFsoRkAcLTLLpz7HYw9jLfoDV2nRBg=="],
 
-    "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:packages/aven-yma"],
+    "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:brands/YMA/design-system"],
 
-    "@myavenceo/website": ["@myavenceo/website@workspace:apps/website"],
+    "@myavenceo/website": ["@myavenceo/website@workspace:brands/CEO/apps/website"],
 
     "@oxc-project/types": ["@oxc-project/types@0.146.0", "", {}, "sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA=="],
 
@@ -277,9 +277,11 @@
 
     "vitefu": ["vitefu@1.1.3", "", { "peerDependencies": { "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["vite"] }, "sha512-ub4okH7Z5KLjb6hDyjqrGXqWtWvoYdU3IGm/NorpgHncKoLTCfRIbvlhBm7r0YstIaQRYlp4yEbFqDcKSzXSSg=="],
 
-    "yma-website": ["yma-website@workspace:apps/yma"],
+    "yma-website": ["yma-website@workspace:brands/YMA/apps/website"],
 
     "zimmerframe": ["zimmerframe@1.1.4", "", {}, "sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ=="],
+
+    "@myavenceo/aven-yma/@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.4.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.4.0/fb46b669cf4fa076e99945e9df5c1417d38f0297", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-dJ8RAo+KNfJmn77xLyzf2z+UiJjW1hfZoM4q6DkTIotF1h+u3pZB+c8OG6amskmwvf3ake5e+EE4pkv4Yrutzw=="],
 
     "@myavenceo/website/@types/node": ["@types/node@24.13.3", "", { "dependencies": { "undici-types": "~7.18.0" } }, "sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q=="],
 
