@@ -132,4 +132,21 @@ describe('the container contract', () => {
 		}
 		expect(offenders).toEqual([])
 	})
+
+	test('a container declares a display that containment actually works on', () => {
+		/*
+		 * `container-type: inline-size` has NO EFFECT on an element whose display
+		 * is `inline`. Containment needs a block box, and `display` defaults to
+		 * whatever the TAG is — so a unit that declares containment and no display
+		 * is inert the moment a surface renders it as a `<span>`.
+		 *
+		 * Eight units were in that state. The navbar is how it surfaced: at 318px
+		 * it still showed a full desktop nav, because the `@container` rule it was
+		 * waiting on could never fire. Nothing failed; the query simply never
+		 * matched, which looks exactly like a threshold that is too low.
+		 */
+		const INERT = new Set(['inline', 'contents', undefined, ''])
+		const containers = all.filter((u) => u.styling?.base?.containerType === 'inline-size')
+		expect(containers.filter((u) => INERT.has(u.styling?.base?.display)).map((u) => u.name)).toEqual([])
+	})
 })

@@ -973,13 +973,23 @@ function inspect(name: string) {
 							<p class="meta">{group.lede}</p>
 							<div class="cb-units">
 								{#each group.rows as unit (unit.name)}
-									<button
-										type="button"
-										class="cb-unit"
-										onclick={() => openDetail(unit.name)}
-									>
+									<!-- An ARTICLE, not a button. Wrapping a specimen in a <button>
+									     put real buttons and links inside a button — invalid HTML, and
+									     it broke the thing it was previewing: pressing the navbar's
+									     hamburger bubbled to the card and opened the detail view
+									     instead of opening the menu.
+
+									     So the card opens from its NAME, which is one honest target,
+									     and the stage below is inert. Preview here, playground in the
+									     detail view; a grid of forty live components is forty things
+									     that can be in the wrong state while you are trying to scan. -->
+									<article class="cb-unit">
 										<span class="cb-unit-head">
-											<span class="cb-unit-name">{unit.name}</span>
+											<button
+												type="button"
+												class="cb-unit-name"
+												onclick={() => openDetail(unit.name)}
+											>{unit.name}</button>
 											<span class="cb-unit-tags">
 												{#if unit.animates}
 													<span class="cb-tag">animates</span>
@@ -1005,7 +1015,7 @@ function inspect(name: string) {
 												<span class="cb-mono cb-unit-todo">no specimen yet</span>
 											{/if}
 										</span>
-									</button>
+									</article>
 								{/each}
 							</div>
 						</section>
@@ -1105,10 +1115,11 @@ function inspect(name: string) {
 }
 @media (min-width: 56rem) {
 	#cb-body {
-		/* `auto`, so the `sidebar` unit's own width decides the column. Pinning
-		   the track to 14rem here would mean the docs page overrides the very
-		   unit it is demonstrating. */
-		grid-template-columns: auto minmax(0, 1fr);
+		/* The LAYOUT declares the track; the unit fills it. This said `auto` —
+		   the layout declining to decide — which handed the decision to the
+		   content, and the content is a container that has nothing to size from.
+		   The rail collapsed to zero and the navigation vanished. */
+		grid-template-columns: 16rem minmax(0, 1fr);
 	}
 	#cb-aside {
 		position: sticky;
@@ -1124,6 +1135,9 @@ function inspect(name: string) {
 	#cb-aside .sidebar {
 		block-size: 100%;
 		border-inline-end: 1px solid var(--color-border);
+	}
+	#cb-aside {
+		min-inline-size: 0;
 	}
 }
 #cb-aside {
@@ -1535,10 +1549,32 @@ function inspect(name: string) {
 	background: var(--color-muted);
 }
 .cb-unit-name {
+	border: 0;
+	padding: 0;
+	background: none;
 	font-family: var(--font-mono);
 	font-size: var(--fs-meta);
 	font-weight: 600;
 	color: var(--color-foreground);
+	cursor: pointer;
+	text-align: start;
+}
+.cb-unit-name:hover {
+	text-decoration: underline;
+	/* ds-allow-hardcode */
+	text-underline-offset: 3px;
+}
+.cb-unit-name:focus-visible {
+	outline: 1px solid var(--color-focus);
+	/* ds-allow-hardcode */
+	outline-offset: 3px;
+	border-radius: var(--radius-xs);
+}
+/* The stage is a PREVIEW. Inert, so a specimen cannot be left in a state while
+   you are scanning the grid, and so a control inside it never competes with the
+   card's own affordance. The detail view is where things are pressed. */
+.cb-unit-stage > * {
+	pointer-events: none;
 }
 .cb-unit-tags {
 	display: flex;
