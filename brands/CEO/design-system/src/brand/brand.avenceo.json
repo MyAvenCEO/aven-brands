@@ -4,7 +4,7 @@
 	"slug": "aven-ceo",
 	"color": {
 		"tones": {
-			"$description": "The brand identity. Four hues, and nothing that only carries a meaning \u2014 a colour in here is one the logo and the marketing may use. Sorted by hue.",
+			"$description": "The brand identity. Four hues, and nothing that only carries a meaning — a colour in here is one the logo and the marketing may use. Sorted by hue.",
 			"marine": {
 				"$type": "color",
 				"$value": "#1e293b",
@@ -13,21 +13,21 @@
 			"paradise": {
 				"$type": "color",
 				"$value": "#2489a0",
-				"$description": "the deeper blue-teal \u2014 work in motion."
+				"$description": "the deeper blue-teal — work in motion."
 			},
 			"turquoise": {
 				"$type": "color",
 				"$value": "#449c94",
-				"$description": "the bright turquoise \u2014 settled work."
+				"$description": "the bright turquoise — settled work."
 			},
 			"sunflower": {
 				"$type": "color",
 				"$value": "#f2ba3d",
-				"$description": "the highlight. Sunflower, not \"gold\" \u2014 the generic word loses the name."
+				"$description": "the highlight. Sunflower, not \"gold\" — the generic word loses the name."
 			}
 		},
 		"palettes": {
-			"$description": "Ordered colour sets a generator walks. Not roles \u2014 nothing here is picked by meaning, only by index \u2014 so they live apart from the role map.",
+			"$description": "Ordered colour sets a generator walks. Not roles — nothing here is picked by meaning, only by index — so they live apart from the role map.",
 			"avatar": {
 				"$type": "color",
 				"$value": [
@@ -41,11 +41,11 @@
 			}
 		},
 		"functional": {
-			"$description": "Colours that carry a MEANING and are never identity. Neither appears in the logo, and neither may be used as a brand accent \u2014 reaching for the failure tone to decorate something is the mistake this separation exists to prevent.",
+			"$description": "Colours that carry a MEANING and are never identity. Neither appears in the logo, and neither may be used as a brand accent — reaching for the failure tone to decorate something is the mistake this separation exists to prevent.",
 			"terracotta": {
 				"$type": "color",
 				"$value": "#c15b40",
-				"$description": "the failure pigment. Kept its own name: a TONE is named for the paint and a ROLE for the meaning, so `terracotta` and `error` are different words for a reason. It lives here rather than in `tones` because it is never identity \u2014 it appears in no logo and must not decorate."
+				"$description": "the failure pigment. Kept its own name: a TONE is named for the paint and a ROLE for the meaning, so `terracotta` and `error` are different words for a reason. It lives here rather than in `tones` because it is never identity — it appears in no logo and must not decorate."
 			},
 			"earth": {
 				"$type": "color",
@@ -54,11 +54,11 @@
 			}
 		},
 		"surfaces": {
-			"$description": "Every surface a page stands on, in both themes. The LIGHT ladder is the sand family (the brand cream); the DARK ladder is the marine family. Named `<theme>-<rung>`, so a theme is a prefix and adding dark is adding rows. The dark ladder is declared and NOT yet wired \u2014 nothing renders from it until a theme selects it.",
+			"$description": "Every surface a page stands on, in both themes. The LIGHT ladder is the sand family (the brand cream); the DARK ladder is the marine family. Named `<theme>-<rung>`, so a theme is a prefix and adding dark is adding rows. The dark ladder is declared and NOT yet wired — nothing renders from it until a theme selects it.",
 			"light-page": {
 				"$type": "color",
 				"$value": "#fdfbf3",
-				"$description": "the page itself \u2014 the lightest sand."
+				"$description": "the page itself — the lightest sand."
 			},
 			"light-raised": {
 				"$type": "color",
@@ -78,17 +78,17 @@
 			"light-selected": {
 				"$type": "color",
 				"$value": "#f3e7c6",
-				"$description": "a card the user has chosen \u2014 sand at full strength."
+				"$description": "a card the user has chosen — sand at full strength."
 			},
 			"dark-page": {
 				"$type": "color",
 				"$value": "#161f30",
-				"$description": "the page itself \u2014 marine, one step below the brand tone."
+				"$description": "the page itself — marine, one step below the brand tone."
 			},
 			"dark-raised": {
 				"$type": "color",
 				"$value": "#1e293b",
-				"$description": "lifted off the page \u2014 the brand marine."
+				"$description": "lifted off the page — the brand marine."
 			},
 			"dark-sunken": {
 				"$type": "color",
@@ -111,7 +111,7 @@
 			"on-light": {
 				"$type": "color",
 				"$value": "#1e293b",
-				"$description": "on any light rung \u2014 the brand marine."
+				"$description": "on any light rung — the brand marine."
 			},
 			"on-dark": {
 				"$type": "color",
@@ -151,12 +151,12 @@
 			"on-primary-soft": {
 				"$type": "color",
 				"$value": "#ccd0d5",
-				"$description": "the de-emphasised step of text on a primary fill. 9.44:1. Replaces `text-primary-foreground/80`, which said the same thing as a relationship to whatever was behind it \u2014 and a relationship inverts between themes while a named colour does not."
+				"$description": "the de-emphasised step of text on a primary fill. 9.44:1. Replaces `text-primary-foreground/80`, which said the same thing as a relationship to whatever was behind it — and a relationship inverts between themes while a named colour does not."
 			},
 			"on-primary-quiet": {
 				"$type": "color",
 				"$value": "#acb1b8",
-				"$description": "the quiet step of text on a primary fill \u2014 footer meta, legal line. 6.78:1."
+				"$description": "the quiet step of text on a primary fill — footer meta, legal line. 6.78:1."
 			},
 			"on-dark-soft": {
 				"$type": "color",
@@ -184,7 +184,7 @@
 			"foreground-soft": {
 				"$type": "color",
 				"$value": "#4b5360",
-				"$description": "body copy, held back one step \u2014 a lede under a heading, a supporting paragraph. 6.30:1 on the darkest light surface. This is the middle of THREE named emphasis steps (foreground, foreground-soft, foreground-quiet); the site used to spell it `text-foreground/80`."
+				"$description": "body copy, held back one step — a lede under a heading, a supporting paragraph. 6.30:1 on the darkest light surface. This is the middle of THREE named emphasis steps (foreground, foreground-soft, foreground-quiet); the site used to spell it `text-foreground/80`."
 			},
 			"muted": {
 				"$type": "color",
@@ -194,7 +194,7 @@
 			"muted-foreground": {
 				"$type": "color",
 				"$value": "#7d8593",
-				"$description": "quiet copy. WARNING: 3.66:1 on the page ground \u2014 this FAILS AA as text and must not be used for any. `foreground-quiet` is the readable step. Kept for non-text uses pending its own fix."
+				"$description": "quiet copy. WARNING: 3.66:1 on the page ground — this FAILS AA as text and must not be used for any. `foreground-quiet` is the readable step. Kept for non-text uses pending its own fix."
 			},
 			"border": {
 				"$type": "color",
@@ -214,7 +214,7 @@
 			"primary-edge": {
 				"$type": "color",
 				"$value": "#68707d",
-				"$description": "The rim of a primary button. Lighter than its fill and by enough to see \u2014 at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 2.93:1 against the fill."
+				"$description": "The rim of a primary button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 2.93:1 against the fill."
 			},
 			"primary-ring": {
 				"$type": "color",
@@ -234,12 +234,12 @@
 			"primary-foreground-quiet": {
 				"$type": "color",
 				"$value": "var(--color-on-primary-quiet)",
-				"$description": "the quiet step of text on primary \u2014 footer meta, the legal line."
+				"$description": "the quiet step of text on primary — footer meta, the legal line."
 			},
 			"secondary": {
 				"$type": "color",
 				"$value": "var(--color-paradise)",
-				"$description": "THE SECOND BRAND COLOUR. Paradise. Stated once here so every role that means \"the second colour\" points at this rather than naming the tone \u2014 `progress` did, `band` did, and the three had no way of moving together. It replaces a `secondary` that pointed at a sand SURFACE, which was a surface wearing an action name."
+				"$description": "THE SECOND BRAND COLOUR. Paradise. Stated once here so every role that means \"the second colour\" points at this rather than naming the tone — `progress` did, `band` did, and the three had no way of moving together. It replaces a `secondary` that pointed at a sand SURFACE, which was a surface wearing an action name."
 			},
 			"secondary-foreground": {
 				"$type": "color",
@@ -259,7 +259,7 @@
 			"band": {
 				"$type": "color",
 				"$value": "#217c91",
-				"$description": "A full-bleed editorial band in a brand tone. Darkened from the tone by ~5% so WHITE clears 4.5:1 on it \u2014 paradise itself gives 3.89:1 and 3.12:1, which is to say neither white nor dark text reads on the raw tone at body size. There is no soft or quiet step on a band: at this contrast there is no room for one, and de-emphasising with a paler grey on a saturated colour is weak typography anyway. Hierarchy on a band comes from size and weight."
+				"$description": "A full-bleed editorial band in a brand tone. Darkened from the tone by ~5% so WHITE clears 4.5:1 on it — paradise itself gives 3.89:1 and 3.12:1, which is to say neither white nor dark text reads on the raw tone at body size. There is no soft or quiet step on a band: at this contrast there is no room for one, and de-emphasising with a paler grey on a saturated colour is weak typography anyway. Hierarchy on a band comes from size and weight."
 			},
 			"band-alt": {
 				"$type": "color",
@@ -274,12 +274,12 @@
 			"scrim-thin": {
 				"$type": "color",
 				"$value": "#fdfbf3e6",
-				"$description": "The glass bar: the page ground at 90%, so the content behind reads through the blur without the text on top losing its ground. Named, because this lived as an inline `color-mix(surface-page 10%, transparent)` in a `style` attribute in one component \u2014 unthemeable, and 10% is far too thin to sit text on."
+				"$description": "The glass bar: the page ground at 90%, so the content behind reads through the blur without the text on top losing its ground. Named, because this lived as an inline `color-mix(surface-page 10%, transparent)` in a `style` attribute in one component — unthemeable, and 10% is far too thin to sit text on."
 			},
 			"scrim": {
 				"$type": "color",
 				"$value": "#1e293b52",
-				"$description": "The veil over hero media. 32% marine \u2014 enough that the light ink reads on any frame the video lands on, little enough that the scene is still a scene. It was three stacked `color-mix` stops in one component."
+				"$description": "The veil over hero media. 32% marine — enough that the light ink reads on any frame the video lands on, little enough that the scene is still a scene. It was three stacked `color-mix` stops in one component."
 			},
 			"scrim-strong": {
 				"$type": "color",
@@ -294,7 +294,7 @@
 			"scrim-text": {
 				"$type": "color",
 				"$value": "#1e293b73",
-				"$description": "The halo under hero text. Not decoration \u2014 over a photograph the scrim alone cannot promise contrast on every frame, and this is the second half of that guarantee."
+				"$description": "The halo under hero text. Not decoration — over a photograph the scrim alone cannot promise contrast on every frame, and this is the second half of that guarantee."
 			},
 			"dark-scrim-thin": {
 				"$type": "color",
@@ -304,7 +304,7 @@
 			"quiet": {
 				"$type": "color",
 				"$value": "#57789e",
-				"$description": "held back \u2014 meta, captions."
+				"$description": "held back — meta, captions."
 			},
 			"quiet-foreground": {
 				"$type": "color",
@@ -334,12 +334,12 @@
 			"progress-surface": {
 				"$type": "color",
 				"$value": "#dceae7",
-				"$description": "the quiet form of progress \u2014 a tint to sit progress-ink on. Concrete, not `bg-progress/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. progress-ink measures 6.66:1 on it."
+				"$description": "the quiet form of progress — a tint to sit progress-ink on. Concrete, not `bg-progress/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. progress-ink measures 6.66:1 on it."
 			},
 			"progress-border": {
 				"$type": "color",
 				"$value": "#b8d7d8",
-				"$description": "the edge of a progress tint. Decorative \u2014 it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+				"$description": "the edge of a progress tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
 			},
 			"dark-progress-surface": {
 				"$type": "color",
@@ -359,7 +359,7 @@
 			"success-edge": {
 				"$type": "color",
 				"$value": "#84beb8",
-				"$description": "The rim of a success button. Lighter than its fill and by enough to see \u2014 at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.56:1 against the fill."
+				"$description": "The rim of a success button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.56:1 against the fill."
 			},
 			"success-ring": {
 				"$type": "color",
@@ -379,12 +379,12 @@
 			"success-surface": {
 				"$type": "color",
 				"$value": "#e1ede5",
-				"$description": "the quiet form of success \u2014 a tint to sit success-ink on. Concrete, not `bg-success/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. success-ink measures 6.44:1 on it."
+				"$description": "the quiet form of success — a tint to sit success-ink on. Concrete, not `bg-success/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. success-ink measures 6.44:1 on it."
 			},
 			"success-border": {
 				"$type": "color",
 				"$value": "#c2ddd5",
-				"$description": "the edge of a success tint. Decorative \u2014 it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+				"$description": "the edge of a success tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
 			},
 			"dark-success-surface": {
 				"$type": "color",
@@ -414,12 +414,12 @@
 			"warning-surface": {
 				"$type": "color",
 				"$value": "#fbf1d8",
-				"$description": "the quiet form of warning \u2014 a tint to sit warning-ink on. Concrete, not `bg-warning/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. warning-ink measures 5.20:1 on it."
+				"$description": "the quiet form of warning — a tint to sit warning-ink on. Concrete, not `bg-warning/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. warning-ink measures 5.20:1 on it."
 			},
 			"warning-border": {
 				"$type": "color",
 				"$value": "#f9e6b9",
-				"$description": "the edge of a warning tint. Decorative \u2014 it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+				"$description": "the edge of a warning tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
 			},
 			"dark-warning-surface": {
 				"$type": "color",
@@ -439,7 +439,7 @@
 			"error-edge": {
 				"$type": "color",
 				"$value": "#d69280",
-				"$description": "The rim of a error button. Lighter than its fill and by enough to see \u2014 at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.71:1 against the fill."
+				"$description": "The rim of a error button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.71:1 against the fill."
 			},
 			"error-ring": {
 				"$type": "color",
@@ -459,7 +459,7 @@
 			"info": {
 				"$type": "color",
 				"$value": "var(--color-earth)",
-				"$description": "notice \u2014 your turn."
+				"$description": "notice — your turn."
 			},
 			"info-foreground": {
 				"$type": "color",
@@ -474,12 +474,12 @@
 			"info-surface": {
 				"$type": "color",
 				"$value": "#f7eee0",
-				"$description": "the quiet form of info \u2014 a tint to sit info-ink on. Concrete, not `bg-info/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. info-ink measures 4.48:1 on it."
+				"$description": "the quiet form of info — a tint to sit info-ink on. Concrete, not `bg-info/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. info-ink measures 4.48:1 on it."
 			},
 			"info-border": {
 				"$type": "color",
 				"$value": "#f0dfca",
-				"$description": "the edge of a info tint. Decorative \u2014 it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+				"$description": "the edge of a info tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
 			},
 			"dark-info-surface": {
 				"$type": "color",
@@ -494,12 +494,12 @@
 			"accent": {
 				"$type": "color",
 				"$value": "var(--color-sunflower)",
-				"$description": "the marketing highlight. Same paint as `warning`, different job \u2014 and the job is the reason the name survives the merge."
+				"$description": "the marketing highlight. Same paint as `warning`, different job — and the job is the reason the name survives the merge."
 			},
 			"accent-edge": {
 				"$type": "color",
 				"$value": "#f6d17f",
-				"$description": "The rim of a accent button. Lighter than its fill and by enough to see \u2014 at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.21:1 against the fill."
+				"$description": "The rim of a accent button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.21:1 against the fill."
 			},
 			"accent-ring": {
 				"$type": "color",
@@ -509,7 +509,7 @@
 			"accent-foreground": {
 				"$type": "color",
 				"$value": "#4a3208",
-				"$description": "The label on a sunflower fill: a DARK GOLD, not the near-black ink used on every other ground. Black on yellow is a hazard sign \u2014 the pairing has a meaning outside this brand and it is 'caution', which is the opposite of what the primary call to action is for. Sunflower darkened until it is unmistakably text reads as the same colour speaking rather than as a warning label.\n\nMeasured at 6.78:1 on #f2ba3d \u2014 comfortably past AA, and deliberately not the maximum available: #1e293b scores 8.27 and is the thing being replaced. Contrast past the floor is a budget to spend on tone, not a score to maximise."
+				"$description": "The label on a sunflower fill: a DARK GOLD, not the near-black ink used on every other ground. Black on yellow is a hazard sign — the pairing has a meaning outside this brand and it is 'caution', which is the opposite of what the primary call to action is for. Sunflower darkened until it is unmistakably text reads as the same colour speaking rather than as a warning label.\n\nMeasured at 6.78:1 on #f2ba3d — comfortably past AA, and deliberately not the maximum available: #1e293b scores 8.27 and is the thing being replaced. Contrast past the floor is a budget to spend on tone, not a score to maximise."
 			},
 			"accent-ink": {
 				"$type": "color",
@@ -519,12 +519,12 @@
 			"accent-surface": {
 				"$type": "color",
 				"$value": "#fbf1d8",
-				"$description": "the quiet form of accent \u2014 a tint to sit accent-ink on. Concrete, not `bg-accent/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. accent-ink measures 5.20:1 on it."
+				"$description": "the quiet form of accent — a tint to sit accent-ink on. Concrete, not `bg-accent/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. accent-ink measures 5.20:1 on it."
 			},
 			"accent-border": {
 				"$type": "color",
 				"$value": "#f9e6b9",
-				"$description": "the edge of a accent tint. Decorative \u2014 it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
+				"$description": "the edge of a accent tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
 			},
 			"dark-accent-surface": {
 				"$type": "color",
@@ -594,7 +594,7 @@
 			"dark-primary": {
 				"$type": "color",
 				"$value": "#f8fafc",
-				"$description": "on dark the primary action inverts \u2014 a marine button on a marine page is invisible."
+				"$description": "on dark the primary action inverts — a marine button on a marine page is invisible."
 			},
 			"dark-primary-foreground": {
 				"$type": "color",
@@ -639,7 +639,7 @@
 			"border-strong": {
 				"$type": "color",
 				"$value": "#c7c7c8",
-				"$description": "a deliberate edge \u2014 a band divider. Was 25% of the foreground."
+				"$description": "a deliberate edge — a band divider. Was 25% of the foreground."
 			},
 			"border-soft": {
 				"$type": "color",
@@ -689,32 +689,32 @@
 			"foreground-quiet": {
 				"$type": "color",
 				"$value": "#626770",
-				"$description": "the quiet step of the body copy \u2014 captions, eyebrows, meta. Measured against the DARKEST light surface (light-selected), not against the page: a caption on a selected card is the same caption, and the old value cleared 4.5 only on the page ground."
+				"$description": "the quiet step of the body copy — captions, eyebrows, meta. Measured against the DARKEST light surface (light-selected), not against the page: a caption on a selected card is the same caption, and the old value cleared 4.5 only on the page ground."
 			},
 			"dark-foreground-quiet": {
 				"$type": "color",
 				"$value": "#b5bcc7",
-				"$description": "the quiet step on dark, held to the same rule \u2014 it clears 4.5 on dark-selected, the darkest-contrast pairing the dark ladder can produce."
+				"$description": "the quiet step on dark, held to the same rule — it clears 4.5 on dark-selected, the darkest-contrast pairing the dark ladder can produce."
 			},
 			"eyebrow-ink": {
 				"$type": "color",
 				"$value": "#1d7084",
-				"$description": "the site eyebrow. Paradise darkened only as far as legibility on the DARKEST ground an eyebrow lands on \u2014 which is not the page but a sunflower-tinted panel. Tuning it against the page alone left it at 4.02:1 on light-selected and 4.25:1 on an accent tint."
+				"$description": "the site eyebrow. Paradise darkened only as far as legibility on the DARKEST ground an eyebrow lands on — which is not the page but a sunflower-tinted panel. Tuning it against the page alone left it at 4.02:1 on light-selected and 4.25:1 on an accent tint."
 			},
 			"focus": {
 				"$type": "color",
 				"$value": "#ab790b",
-				"$description": "The focus ring, one colour for the whole estate \u2014 sunflower, the brand's own signal colour. DARKENED, and only as far as legibility: raw sunflower #f2ba3d measures 1.44 to 1.71:1 on the light ladder, which is a focus ring nobody can see, and WCAG 1.4.11 asks 3:1 of the one affordance a keyboard user has. This clears 3.12 to 3.70 on every light surface and still reads as gold."
+				"$description": "The focus ring, one colour for the whole estate — sunflower, the brand's own signal colour. DARKENED, and only as far as legibility: raw sunflower #f2ba3d measures 1.44 to 1.71:1 on the light ladder, which is a focus ring nobody can see, and WCAG 1.4.11 asks 3:1 of the one affordance a keyboard user has. This clears 3.12 to 3.70 on every light surface and still reads as gold."
 			},
 			"dark-focus": {
 				"$type": "color",
 				"$value": "var(--color-sunflower)",
-				"$description": "On dark the brand sunflower needs no darkening \u2014 it measures 4.99 to 9.84:1 on the marine ladder, so the ring is the tone itself."
+				"$description": "On dark the brand sunflower needs no darkening — it measures 4.99 to 9.84:1 on the marine ladder, so the ring is the tone itself."
 			},
 			"dark-eyebrow-ink": {
 				"$type": "color",
 				"$value": "#6cc3dd",
-				"$description": "the same eyebrow on a dark ground, where the tone must go LIGHTER rather than darker \u2014 which is the whole reason this is a role and not a darkening written at the call site."
+				"$description": "the same eyebrow on a dark ground, where the tone must go LIGHTER rather than darker — which is the whole reason this is a role and not a darkening written at the call site."
 			},
 			"secondary-ink": {
 				"$type": "color",
@@ -749,32 +749,32 @@
 			"secondary-strong": {
 				"$type": "color",
 				"$value": "#217c91",
-				"$description": "The second brand colour, darkened until white reads on it \u2014 4.61:1. Raw paradise gives 3.89, so a filled secondary button in the tone itself fails AA at body size. This is the same value the band uses, and for the same reason: a mid-tone cannot carry text without being taken down a step."
+				"$description": "The second brand colour, darkened until white reads on it — 4.61:1. Raw paradise gives 3.89, so a filled secondary button in the tone itself fails AA at body size. This is the same value the band uses, and for the same reason: a mid-tone cannot carry text without being taken down a step."
 			},
 			"tertiary-strong": {
 				"$type": "color",
 				"$value": "#377d77",
-				"$description": "The third brand colour, darkened until white reads on it \u2014 4.60:1. Raw turquoise gives 3.12."
+				"$description": "The third brand colour, darkened until white reads on it — 4.60:1. Raw turquoise gives 3.12."
 			},
 			"secondary-surface": {
 				"$type": "color",
 				"$value": "#dceae7",
-				"$description": "the secondary tint, shared with `progress` \u2014 same colour, named by rank."
+				"$description": "the secondary tint, shared with `progress` — same colour, named by rank."
 			},
 			"secondary-border": {
 				"$type": "color",
 				"$value": "#b8d7d8",
-				"$description": "the secondary tint, shared with `progress` \u2014 same colour, named by rank."
+				"$description": "the secondary tint, shared with `progress` — same colour, named by rank."
 			},
 			"tertiary-surface": {
 				"$type": "color",
 				"$value": "#e1ede5",
-				"$description": "the tertiary tint, shared with `success` \u2014 same colour, named by rank."
+				"$description": "the tertiary tint, shared with `success` — same colour, named by rank."
 			},
 			"tertiary-border": {
 				"$type": "color",
 				"$value": "#c2ddd5",
-				"$description": "the tertiary tint, shared with `success` \u2014 same colour, named by rank."
+				"$description": "the tertiary tint, shared with `success` — same colour, named by rank."
 			}
 		}
 	},
@@ -809,7 +809,7 @@
 		}
 	},
 	"radii": {
-		"$description": "The radius scale, and there is only one. Ten tokens for one idea had accumulated \u2014 `chip`, `inner`, `control`, `card`, `panel`, `pill`, plus `lg`, `xl` and `2xl` that duplicated three of them exactly \u2014 so the same corner was being chosen by name rather than by size, and two components meaning \"a card\" could pick different ones. Six steps, roughly Apple's: 6, 10, 14, 20, 28, and full. Every component draws from these and nothing else.",
+		"$description": "The radius scale, and there is only one. Ten tokens for one idea had accumulated — `chip`, `inner`, `control`, `card`, `panel`, `pill`, plus `lg`, `xl` and `2xl` that duplicated three of them exactly — so the same corner was being chosen by name rather than by size, and two components meaning \"a card\" could pick different ones. Six steps, roughly Apple's: 6, 10, 14, 20, 28, and full. Every component draws from these and nothing else.",
 		"radius-xs": {
 			"$type": "dimension",
 			"$value": "0.375rem",
@@ -967,27 +967,27 @@
 				"ink-faint": {
 					"$type": "number",
 					"$value": "0.35",
-					"$description": "2.05:1 \u2014 disabled + watermarks ONLY (WCAG-exempt)"
+					"$description": "2.05:1 — disabled + watermarks ONLY (WCAG-exempt)"
 				},
 				"ink-quiet": {
 					"$type": "number",
 					"$value": "0.65",
-					"$description": "4.61:1 \u2014 captions, secondary meta"
+					"$description": "4.61:1 — captions, secondary meta"
 				},
 				"ink-muted": {
 					"$type": "number",
 					"$value": "0.75",
-					"$description": "6.42:1 \u2014 supporting copy"
+					"$description": "6.42:1 — supporting copy"
 				},
 				"ink-strong": {
 					"$type": "number",
 					"$value": "0.85",
-					"$description": "8.62:1 \u2014 emphasis short of full ink"
+					"$description": "8.62:1 — emphasis short of full ink"
 				},
 				"ink-full": {
 					"$type": "number",
 					"$value": "0.9",
-					"$description": "10.10:1 \u2014 body copy at full weight"
+					"$description": "10.10:1 — body copy at full weight"
 				}
 			},
 			"on-surface": {
@@ -1023,7 +1023,7 @@
 			}
 		},
 		"radius": {
-			"$description": "The radius scale, and there is only one. Ten tokens for one idea had accumulated \u2014 `chip`, `inner`, `control`, `card`, `panel`, `pill`, plus `lg`, `xl` and `2xl` that duplicated three of them exactly \u2014 so the same corner was being chosen by name rather than by size, and two components meaning \"a card\" could pick different ones. Six steps, roughly Apple's: 6, 10, 14, 20, 28, and full. Every component draws from these and nothing else.",
+			"$description": "The radius scale, and there is only one. Ten tokens for one idea had accumulated — `chip`, `inner`, `control`, `card`, `panel`, `pill`, plus `lg`, `xl` and `2xl` that duplicated three of them exactly — so the same corner was being chosen by name rather than by size, and two components meaning \"a card\" could pick different ones. Six steps, roughly Apple's: 6, 10, 14, 20, 28, and full. Every component draws from these and nothing else.",
 			"radius-xs": {
 				"$type": "dimension",
 				"$value": "0.375rem",
@@ -1059,7 +1059,7 @@
 			"space-hairline": {
 				"$type": "dimension",
 				"$value": "0.25rem",
-				"$description": "Half a tight. Twelve declarations across the units referenced `--space-hairline` and it was never defined \u2014 every one of them computed to nothing, so a `gap` meant for a hair's breadth was zero and the two things it separated touched. Nothing reported it: an undefined custom property is not an error, it is an empty string, and the declaration is simply dropped."
+				"$description": "Half a tight. Twelve declarations across the units referenced `--space-hairline` and it was never defined — every one of them computed to nothing, so a `gap` meant for a hair's breadth was zero and the two things it separated touched. Nothing reported it: an undefined custom property is not an error, it is an empty string, and the declaration is simply dropped."
 			},
 			"space-tight": {
 				"$type": "dimension",
@@ -1083,7 +1083,7 @@
 			}
 		},
 		"motion": {
-			"$description": "The motion scale. It did not exist, and 53 declarations across the units referenced it anyway \u2014 `--ease-out` 26 times, `--duration-quick` 19, `--duration-moderate` 8. Every one of those transitions was DEAD: an undefined custom property is an empty string, a declaration containing one is discarded whole, and `transition-duration` computed to `0s` on every button in the system. No gate saw it, because a missing transition renders as a working component that simply snaps.\n\nDurations sit inside the 100-300ms band the rules set for UI transitions. `ease-out` for entrances, `ease-in` for exits, `ease-in-out` for a state change that goes and comes back.",
+			"$description": "The motion scale. It did not exist, and 53 declarations across the units referenced it anyway — `--ease-out` 26 times, `--duration-quick` 19, `--duration-moderate` 8. Every one of those transitions was DEAD: an undefined custom property is an empty string, a declaration containing one is discarded whole, and `transition-duration` computed to `0s` on every button in the system. No gate saw it, because a missing transition renders as a working component that simply snaps.\n\nDurations sit inside the 100-300ms band the rules set for UI transitions. `ease-out` for entrances, `ease-in` for exits, `ease-in-out` for a state change that goes and comes back.",
 			"duration-instant": {
 				"$type": "duration",
 				"$value": "80ms",
@@ -1097,7 +1097,7 @@
 			"duration-moderate": {
 				"$type": "duration",
 				"$value": "240ms",
-				"$description": "Something ARRIVING \u2014 a drawer, a toast, a panel opening."
+				"$description": "Something ARRIVING — a drawer, a toast, a panel opening."
 			},
 			"duration-slow": {
 				"$type": "duration",
@@ -1107,12 +1107,12 @@
 			"ease-out": {
 				"$type": "cubicBezier",
 				"$value": "cubic-bezier(0.2, 0, 0, 1)",
-				"$description": "Entrances. Fast at the start, settling at the end \u2014 the thing arrives and stops."
+				"$description": "Entrances. Fast at the start, settling at the end — the thing arrives and stops."
 			},
 			"ease-in": {
 				"$type": "cubicBezier",
 				"$value": "cubic-bezier(0.4, 0, 1, 1)",
-				"$description": "Exits. Slow to leave, then gone \u2014 nothing decelerates on its way off screen."
+				"$description": "Exits. Slow to leave, then gone — nothing decelerates on its way off screen."
 			},
 			"ease-in-out": {
 				"$type": "cubicBezier",
@@ -1135,7 +1135,7 @@
 			"z-overlay": {
 				"$type": "number",
 				"$value": "100",
-				"$description": "A drawer, a popover, a dropdown \u2014 above the page, below a modal."
+				"$description": "A drawer, a popover, a dropdown — above the page, below a modal."
 			},
 			"z-modal": {
 				"$type": "number",
@@ -1146,6 +1146,24 @@
 				"$type": "number",
 				"$value": "300",
 				"$description": "The top. A message about what just happened has to clear a modal, because it may be about the modal."
+			}
+		},
+		"blur": {
+			"$description": "Backdrop blur. It did not exist, and the two surfaces that frost themselves had each invented their own answer: the navbar hardcoded `blur(10px)`, the open menu referenced `--blur-soft`, which was defined nowhere and therefore resolved to its own inline fallback. Two values, one question, neither themeable — the exact drift the token layer exists to stop, and invisible to every gate because both of them RENDER.\n\nThree steps, because frosted glass is a legibility device and not a continuum: enough to separate a layer, enough to obscure one, and a veil for the case where the thing behind is noise.",
+			"blur-soft": {
+				"$type": "dimension",
+				"$value": "8px",
+				"$description": "A layer reads as in front without the ground becoming unreadable. The open menu's scrim."
+			},
+			"blur-firm": {
+				"$type": "dimension",
+				"$value": "10px",
+				"$description": "The navbar's glass. It was `blur(10px)` written at the call site; the value is kept exactly so nothing moves, and now it has a name."
+			},
+			"blur-veil": {
+				"$type": "dimension",
+				"$value": "16px",
+				"$description": "The ground is texture, not context — a modal over a dense page."
 			}
 		}
 	},

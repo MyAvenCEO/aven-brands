@@ -199,7 +199,7 @@
 				"glass": {
 					"$description": "A translucent bar with a backdrop blur, for the scrolled state over content. The fill is a named tint rather than an inline `color-mix`, which is where this lived: in a `style` attribute, in one component, unthemeable. The blur radius is literal: there is no blur scale in this brand yet, and inventing a one-entry scale to hold a single value is worse than the value.",
 					"background": "var(--color-scrim-thin)",
-					"backdropFilter": "blur(10px)",
+					"backdropFilter": "blur(var(--blur-firm))",
 					"borderBlockEndColor": "var(--color-border-soft)"
 				}
 			}

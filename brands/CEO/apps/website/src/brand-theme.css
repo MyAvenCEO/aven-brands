@@ -208,6 +208,9 @@
 	--z-overlay: 100;
 	--z-modal: 200;
 	--z-toast: 300;
+	--blur-soft: 8px;
+	--blur-firm: 10px;
+	--blur-veil: 16px;
 }
 
 /* The dark theme. Inert until something sets data-theme, and LAST so it

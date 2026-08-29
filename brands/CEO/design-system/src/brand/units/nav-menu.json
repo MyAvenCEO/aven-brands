@@ -1,39 +1,90 @@
 {
 	"name": "nav-menu",
-	"description": "The full-screen menu a narrow `navbar` opens.\n\nIt was a centred column of large words on a tinted wash — the default full-screen menu that every site has, and nothing about it belonged to this brand. Rebuilt out of the devices the rest of the system already uses: an eyebrow naming the band, a left-aligned column with a real reading edge, a hairline rhythm between items, a marker bar on the current one, and a meta line saying what each destination IS. A menu of five words tells you their names; a menu with a line under each tells you which one you want.\n\nLEFT-ALIGNED, and that is the biggest change. Centred display type is the generic answer, and it is also the harder one to read: five centred lines have five different starting points, so the eye re-finds the left edge on every row. Every other index in this system — the sidebar, the navbar, the footer — reads down a single edge, and this one now does too.\n\nA SEPARATE composite from `navbar`, for a structural reason rather than tidiness. The bar is `backdrop-filter` glass, and a filtered element creates a containing block for `position: fixed` descendants — so a menu nested inside the bar is trapped in the bar's box and covers nothing. The real header found this and renders the menu as a SIBLING. Any implementation that nests this will look correct in a harness and fail on the page.",
+	"description": "The full-screen menu a narrow `navbar` opens.\n\nIt was a centred column of large words on an INVERTED wash — the default full-screen menu that every site has, and nothing about it belonged to this brand. Rebuilt out of the devices the rest of the system already uses: an eyebrow naming the band, a left-aligned column with a real reading edge, a hairline rhythm between items, a marker bar on the current one, and a meta line saying what each destination IS. A menu of five words tells you their names; a menu with a line under each tells you which one you want.\n\nLEFT-ALIGNED, and that is the biggest change. Centred display type is the generic answer, and it is also the harder one to read: five centred lines have five different starting points, so the eye re-finds the left edge on every row. Every other index in this system — the sidebar, the navbar, the footer — reads down a single edge, and this one now does too.\n\nA SEPARATE composite from `navbar`, for a structural reason rather than tidiness. The bar is `backdrop-filter` glass, and a filtered element creates a containing block for `position: fixed` descendants — so a menu nested inside the bar is trapped in the bar's box and covers nothing. The real header found this and renders the menu as a SIBLING. Any implementation that nests this will look correct in a harness and fail on the page.",
 	"interface": {
-		"props": { "open": "boolean", "label": "string" },
-		"slots": {
-			"close": { "accepts": ["icon"] },
-			"crest": { "accepts": ["logo"] },
-			"eyebrow": {},
-			"items": { "accepts": ["nav-link"] },
-			"footer": { "accepts": ["segment"] }
+		"props": {
+			"open": "boolean",
+			"label": "string"
 		},
-		"events": { "dismiss": {} }
+		"slots": {
+			"close": {
+				"accepts": [
+					"icon"
+				]
+			},
+			"crest": {
+				"accepts": [
+					"logo"
+				]
+			},
+			"eyebrow": {},
+			"items": {
+				"accepts": [
+					"nav-link"
+				]
+			},
+			"footer": {
+				"accepts": [
+					"segment"
+				]
+			}
+		},
+		"events": {
+			"dismiss": {}
+		}
 	},
 	"view": {
 		"tag": "div",
-		"attrs": { "data-open": "$props.open" },
+		"attrs": {
+			"data-open": "$props.open"
+		},
 		"$children": [
-			{ "tag": "div", "part": "scrim" },
+			{
+				"tag": "div",
+				"part": "scrim"
+			},
 			{
 				"tag": "button",
 				"part": "close",
-				"attrs": { "type": "button", "aria-label": "Close menu" },
+				"attrs": {
+					"type": "button",
+					"aria-label": "Close menu"
+				},
 				"$children": "close"
 			},
 			{
 				"tag": "nav",
 				"part": "panel",
-				"attrs": { "aria-label": "$props.label" },
+				"attrs": {
+					"aria-label": "$props.label"
+				},
 				"$children": [
-					{ "tag": "div", "part": "head", "$children": [
-						{ "tag": "div", "part": "crest", "$children": "crest" },
-						{ "tag": "p", "part": "eyebrow", "$children": "eyebrow" }
-					] },
-					{ "tag": "div", "part": "items", "$children": "items" },
-					{ "tag": "div", "part": "footer", "$children": "footer" }
+					{
+						"tag": "div",
+						"part": "head",
+						"$children": [
+							{
+								"tag": "div",
+								"part": "crest",
+								"$children": "crest"
+							},
+							{
+								"tag": "p",
+								"part": "eyebrow",
+								"$children": "eyebrow"
+							}
+						]
+					},
+					{
+						"tag": "div",
+						"part": "items",
+						"$children": "items"
+					},
+					{
+						"tag": "div",
+						"part": "footer",
+						"$children": "footer"
+					}
 				]
 			}
 		]
@@ -51,15 +102,18 @@
 			"visibility": "hidden",
 			"opacity": "0",
 			"transition": "opacity var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate)",
-			"&[data-open=\"true\"]": { "visibility": "visible", "opacity": "1" }
+			"&[data-open=\"true\"]": {
+				"visibility": "visible",
+				"opacity": "1"
+			}
 		},
 		"parts": {
 			"scrim": {
-				"$description": "Marine, and nearly solid. It was 90% with a heavy blur — a frosted sheet, which is a device this brand uses for the NAVBAR and should not repeat here: two glass layers in one interaction and neither reads as the front one. 97% with a light blur is a ground, and the page behind stays faintly present so dismissing feels like closing rather than navigating back.",
+				"$description": "The ground, and it FOLLOWS THE THEME. It was `--color-primary` — marine in light, near-white in dark — so the menu was a dark takeover on a light page and a light one on a dark page, inverted against whatever the reader had chosen. That is the right call for `voice-pill`, which is chrome and has to read as the active layer; it is the wrong one here, because a full-screen menu IS the page for as long as it is open and a page that inverts when it opens is a page that changed.\n\n97% rather than a heavy blur: frosted glass is the NAVBAR's device, and two glass layers in one interaction leaves neither reading as the front one. The page stays faintly present so dismissing feels like closing rather than navigating back.",
 				"position": "absolute",
 				"inset": "0",
-				"background": "color-mix(in oklab, var(--color-primary) 97%, transparent)",
-				"backdropFilter": "blur(var(--blur-soft, 8px))"
+				"background": "color-mix(in oklab, var(--color-surface-page) 97%, transparent)",
+				"backdropFilter": "blur(var(--blur-soft))"
 			},
 			"close": {
 				"$description": "A WAY OUT, in the corner. The menu had none — it relied on the bar's toggle showing through from above, which works only while the bar is rendered over the overlay and is invisible to anyone who does not already know. A full-screen takeover with no visible dismiss is the most common trap-the-user bug there is, and Escape does not help a touch user.\n\nOutlined in the ink at 25%, never filled — the treatment `voice-pill` gives its side controls, because a filled button here would compete with the destinations.",
@@ -73,10 +127,10 @@
 				"inlineSize": "2.75rem",
 				"blockSize": "2.75rem",
 				"padding": "0",
-				"border": "1px solid color-mix(in oklab, var(--color-primary-foreground) 25%, transparent)",
+				"border": "1px solid var(--color-border-strong)",
 				"borderRadius": "var(--radius-full)",
 				"background": "transparent",
-				"color": "var(--color-primary-foreground)",
+				"color": "var(--color-foreground)",
 				"cursor": "pointer",
 				"transition": "background var(--duration-quick) var(--ease-out)"
 			},
@@ -91,8 +145,8 @@
 				"maxInlineSize": "46rem",
 				"marginInline": "auto",
 				"padding": "var(--space-section) var(--space-loose)",
-				"color": "var(--color-primary-foreground)",
-				"overflowY": "auto"
+				"color": "var(--color-foreground)",
+				"overflowY": "hidden"
 			},
 			"head": {
 				"display": "flex",
@@ -107,26 +161,28 @@
 				"opacity": "0.9"
 			},
 			"eyebrow": {
-				"$description": "Composes `text text--eyebrow`, inverted. The brand's signature device — it names the band the eye is about to read — and the menu was the one full-surface moment without one. Only the colour is this unit's.",
+				"$description": "Composes `text text--eyebrow`. The brand's signature device — it names the band the eye is about to read — in paradise, like every other eyebrow in the system. It was an inverted white at 70%, which was a second answer to a question the system had already settled.",
 				"margin": "0",
-				"color": "color-mix(in oklab, var(--color-primary-foreground) 70%, transparent)"
+				"color": "var(--color-eyebrow-ink)"
 			},
 			"items": {
-				"$description": "A list with a rhythm, not a stack of words. Each row has a hairline above it, which is what turns five destinations into a scannable index — the same decision `sidebar` makes at a quarter of the size.",
+				"$description": "A list with a rhythm, not a stack of words — each row carries a hairline above it, the same decision `sidebar` makes at a quarter of the size.\n\n`safe center` and not `center`. Plain centring is right while the destinations fit and destroys the surface when they do not: the row refuses to shrink, the footer is pushed past the panel's bottom edge, and the language switch lands on top of the last item. The `safe` keyword centres while there is room and falls back to `start` the moment there is not, so nothing is ever centred into an overflow the user cannot scroll back to.\n\n`min-block-size: 0` is what lets the row shrink at all — a grid child defaults to `auto` and will not go below its content, which is why `minmax(0, 1fr)` on the track was not enough on its own.",
 				"display": "grid",
-				"alignContent": "center",
-				"minBlockSize": "0"
+				"alignContent": "safe center",
+				"minBlockSize": "0",
+				"overflowY": "auto",
+				"overscrollBehavior": "contain"
 			},
 			"item": {
 				"$description": "One destination. `clamp(1.75rem, 7cqi, 3rem)` in the display face — `cqi`, the container's inline size, not `vw`: the real header uses `11vw` and is right by coincidence, because there the menu happens to BE the viewport. Measured against its own container it is right everywhere.\n\nThe whole row is the target, and the row is padded rather than the text — a 3rem word with a 3rem hit area is a link you can miss above and below.",
 				"position": "relative",
 				"display": "grid",
 				"gap": "0.15rem",
-				"paddingBlock": "var(--space-comfortable)",
+				"paddingBlock": "clamp(var(--space-tight), 2.5cqi, var(--space-comfortable))",
 				"paddingInline": "var(--space-comfortable)",
-				"borderBlockStart": "1px solid color-mix(in oklab, var(--color-primary-foreground) 15%, transparent)",
+				"borderBlockStart": "1px solid var(--color-border-soft)",
 				"fontFamily": "var(--font-display)",
-				"fontSize": "clamp(1.75rem, 7cqi, 3rem)",
+				"fontSize": "clamp(1.35rem, 6cqi, 2.75rem)",
 				"fontWeight": "500",
 				"lineHeight": "1.1",
 				"letterSpacing": "var(--tracking-tight)",
@@ -142,7 +198,7 @@
 				"fontWeight": "400",
 				"lineHeight": "1.4",
 				"letterSpacing": "normal",
-				"color": "color-mix(in oklab, var(--color-primary-foreground) 60%, transparent)"
+				"color": "var(--color-foreground-quiet)"
 			},
 			"marker": {
 				"$description": "The bar beside the current destination — the same device `sidebar` uses, at this surface's scale. Present on every row at `opacity: 0` and revealed by the selected state, so the current item settles rather than the bar appearing from nothing.",
@@ -153,7 +209,7 @@
 				"inlineSize": "0.25rem",
 				"blockSize": "2rem",
 				"borderRadius": "var(--radius-full)",
-				"background": "var(--color-accent)",
+				"background": "var(--color-accent-ink)",
 				"opacity": "0",
 				"transition": "opacity var(--duration-quick) var(--ease-out)"
 			},
@@ -166,14 +222,14 @@
 				"gap": "var(--space-comfortable)",
 				"paddingBlockStart": "var(--space-comfortable)",
 				"paddingInline": "var(--space-comfortable)",
-				"borderBlockStart": "1px solid color-mix(in oklab, var(--color-primary-foreground) 15%, transparent)"
+				"borderBlockStart": "1px solid var(--color-border-soft)"
 			},
 			"trust": {
 				"$description": "One quiet line. A page that ends on purpose rather than simply stopping — the composition rule this surface was missing.",
 				"margin": "0",
 				"fontFamily": "var(--font-sans)",
 				"fontSize": "var(--fs-micro)",
-				"color": "color-mix(in oklab, var(--color-primary-foreground) 50%, transparent)"
+				"color": "var(--color-foreground-quiet)"
 			}
 		},
 		"variants": {
@@ -182,7 +238,7 @@
 				"solid": {
 					"$description": "No blur — for a surface where the page behind is noise rather than context, and for the browsers that cannot do it.",
 					"& .nav-menu-scrim": {
-						"background": "var(--color-primary)",
+						"background": "var(--color-surface-page)",
 						"backdropFilter": "none"
 					}
 				}
@@ -190,9 +246,9 @@
 		},
 		"states": {
 			"hover": {
-				"$description": "The row tints and steps in. Moving the text rather than only colouring it is what makes a 3rem target feel like a control — at this size a colour change alone is easy to miss because the glyphs are mostly negative space.",
+				"$description": "The row tints and steps in. Moving the text rather than only colouring it is what makes a large target feel like a control — at display sizes a colour change alone is easy to miss, because the glyphs are mostly negative space.",
 				"$part": "item",
-				"background": "color-mix(in oklab, var(--color-primary-foreground) 6%, transparent)",
+				"background": "var(--color-muted)",
 				"paddingInlineStart": "var(--space-loose)"
 			},
 			"focus": {
@@ -202,7 +258,7 @@
 			},
 			"active": {
 				"$part": "item",
-				"background": "color-mix(in oklab, var(--color-primary-foreground) 10%, transparent)"
+				"background": "var(--color-surface-sunken)"
 			},
 			"disabled": {
 				"$part": "item",
@@ -210,11 +266,13 @@
 				"cursor": "default"
 			},
 			"selected": {
-				"$description": "The page you are already on: accent ink, and the marker bar revealed. The accent is the one colour on a marine ground that is neither the foreground nor a dimmed version of it — but colour alone is what people miss on a dim screen, so the bar carries it too.",
+				"$description": "The page you are already on: accent ink, and the marker bar revealed. `accent-ink` rather than the raw accent — sunflower at full strength on a pale ground is 1.7:1 and unreadable, which is the whole reason the ink role exists. Colour is never alone: the bar carries it too.",
 				"$part": "item",
-				"color": "var(--color-accent)",
+				"color": "var(--color-accent-ink)",
 				"paddingInlineStart": "var(--space-loose)",
-				"& .nav-menu-marker": { "opacity": "1" }
+				"& .nav-menu-marker": {
+					"opacity": "1"
+				}
 			}
 		},
 		"reducedMotion": {

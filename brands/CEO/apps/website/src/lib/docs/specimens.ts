@@ -502,7 +502,7 @@ export const specimens: Record<string, Specimen> = {
 					</a>
 				</span>
 				<span class="nav-menu-footer">
-					<span class="segment segment--tone-inverted" role="group" aria-label="Language">
+					<span class="segment" role="group" aria-label="Language">
 						<span class="segment-options">
 							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
 							<span class="segment-divider" aria-hidden="true">|</span>
@@ -545,7 +545,7 @@ export const specimens: Record<string, Specimen> = {
 					</a>
 				</span>
 				<span class="nav-menu-footer">
-					<span class="segment segment--tone-inverted" role="group" aria-label="Language">
+					<span class="segment" role="group" aria-label="Language">
 						<span class="segment-options">
 							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
 							<span class="segment-divider" aria-hidden="true">|</span>

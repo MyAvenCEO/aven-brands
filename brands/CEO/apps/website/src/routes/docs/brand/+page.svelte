@@ -1893,7 +1893,13 @@ function inspect(name: string) {
 	   rather than clipping it — the desktop device came out 1226px tall beside a
 	   705px phone. A fixed height plus `overflow: hidden` is what makes all three
 	   devices the same size, which is the point of standing them side by side. */
-	block-size: calc(100dvh - var(--cb-top, 0px) - 11rem);
+	/* With a FLOOR. The viewport allowance alone put the device at ~200px on a
+	   short window — the phone showed its own status bar and clipped the first
+	   row of whatever it was previewing, which reads as a broken component
+	   rather than a small screen. `max()` keeps this a DEFINITE height, so the
+	   frame still refuses to grow to its unscaled content; below the floor the
+	   page scrolls instead, which is the honest trade. */
+	block-size: max(30rem, calc(100dvh - var(--cb-top, 0px) - 11rem));
 	padding: var(--space-tight);
 	border: 1px solid var(--color-border-strong);
 	border-radius: var(--radius-xl);

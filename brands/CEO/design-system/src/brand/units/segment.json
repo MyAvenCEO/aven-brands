@@ -91,12 +91,12 @@
 			"tone": {
 				"$description": "The ground it sits on. A segment on a marine panel cannot use the page's inks.",
 				"inverted": {
-					"$description": "On a dark or brand-filled ground \u2014 the footer, the open menu.",
+					"$description": "On a genuinely dark ground \u2014 the site footer's marine band. NOT the open menu: that surface follows the theme now, so an inverted tone there paints light ink on a light ground.\n\nThe inactive option sits at 78%, not 65%. The quiet half of a switch still has to be READ \u2014 it is the thing you are about to press \u2014 and 65% of the foreground on its own ground is under 4.5:1, which made 'DE' next to a full-strength 'EN' look disabled rather than unselected.",
 					"& .segment-option": {
-						"color": "color-mix(in oklab, var(--color-primary-foreground) 65%, transparent)"
+						"color": "color-mix(in oklab, var(--color-primary-foreground) 78%, transparent)"
 					},
 					"& .segment-divider": {
-						"color": "color-mix(in oklab, var(--color-primary-foreground) 40%, transparent)"
+						"color": "color-mix(in oklab, var(--color-primary-foreground) 45%, transparent)"
 					}
 				}
 			}
