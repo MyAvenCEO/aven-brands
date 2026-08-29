@@ -95,8 +95,8 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	toast: {
-		html: `<span class="toast">
-			<span class="toast-icon toast-icon--tone-success">${icon('check', '1.25rem')}</span>
+		html: `<span class="toast toast--tone-success">
+			<span class="toast-icon">${icon('check', '1.25rem')}</span>
 			<span class="toast-copy">
 				<p class="toast-title">Name reserved</p>
 				<p class="toast-body">samuel.aven.ceo is yours. We emailed the confirmation.</p>
@@ -208,6 +208,74 @@ export const specimens: Record<string, Specimen> = {
 			<a class="nav-link" href="#specimen" aria-current="page">Skills</a>
 			<a class="nav-link" href="#specimen">Marketplace</a>
 			<a class="nav-link" href="#specimen">Pricing</a>
+		</span>`
+	},
+	card: {
+		html: `<span class="sp-row sp-row--cards">
+			<span class="card" style="inline-size: 15rem">
+				<span class="badge badge--tone-progress">Running</span>
+				<p class="text text--section-title">Inbox router</p>
+				<p class="prose prose--size-fine">Reads every mail, answers what it can, and hands you the rest.</p>
+			</span>
+			<span class="card card--emphasis-featured" style="inline-size: 15rem">
+				<span class="badge badge--tone-accent">Most picked</span>
+				<p class="text text--section-title">Book keeper</p>
+				<p class="prose prose--size-fine">Files every receipt the day it arrives.</p>
+			</span>
+			<span class="card card--emphasis-quiet" style="inline-size: 15rem">
+				<span class="badge badge--emphasis-quiet">Soon</span>
+				<p class="text text--section-title">Blog writer</p>
+				<p class="prose prose--size-fine">Drafts in your voice, from what your company already published.</p>
+			</span>
+		</span>`
+	},
+	section: {
+		tall: true,
+		html: `<span class="sp-stack sp-stack--wide" style="gap: 0">
+			<span class="section section--rhythm-tight" style="display:block">
+				<span class="section-inner" style="display:block">
+					<p class="text text--eyebrow-quiet">Default</p>
+					<p class="text text--section-title">A band with a rule under it</p>
+				</span>
+			</span>
+			<span class="section section--rhythm-tight section--ground-band" style="display:block">
+				<span class="section-inner" style="display:block">
+					<p class="text text--eyebrow-quiet">Band</p>
+					<p class="text text--section-title">The page's turning point</p>
+				</span>
+			</span>
+			<span class="section section--rhythm-tight section--ground-band-alt" style="display:block">
+				<span class="section-inner" style="display:block">
+					<p class="text text--eyebrow-quiet">Band alt</p>
+					<p class="text text--section-title">The second voice</p>
+				</span>
+			</span>
+		</span>`
+	},
+	stat: {
+		html: `<span class="sp-row">
+			<span class="stat stat--align-center">
+				<p class="stat-value">6</p>
+				<p class="stat-label">Hours saved</p>
+				<p class="stat-caption">per week, inbox alone</p>
+			</span>
+			<span class="stat stat--align-center stat--tone-accent">
+				<p class="stat-value">1 / 10</p>
+				<p class="stat-label">Claimed</p>
+				<p class="stat-caption">founder seats</p>
+			</span>
+			<span class="stat stat--align-center stat--size-sm stat--tone-progress">
+				<p class="stat-value">13</p>
+				<p class="stat-label">Skills live</p>
+				<p class="stat-caption">three more in beta</p>
+			</span>
+		</span>`
+	},
+	prose: {
+		html: `<span class="sp-stack sp-stack--wide">
+			<p class="prose prose--size-lead">Once AI does nearly every job, around the clock, at the price of electricity, trading time for money stops paying.</p>
+			<p class="prose">Every decision and every correction flows back into your aven's skills. After a year it is the memory, the experience and the judgment of your company — and with that, its most valuable asset.</p>
+			<p class="prose prose--size-fine">Prices include VAT. Cancel any time.</p>
 		</span>`
 	},
 	step: {

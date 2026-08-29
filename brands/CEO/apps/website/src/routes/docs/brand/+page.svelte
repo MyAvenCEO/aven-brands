@@ -1000,6 +1000,9 @@ function inspect(name: string) {
 }
 /* The specimens' own scaffolding — a row, or a stack. Deliberately only two:
    a specimen that needs a third layout is a specimen doing too much. */
+.sp-row--cards {
+	align-items: stretch;
+}
 .sp-row {
 	display: flex;
 	flex-wrap: wrap;

@@ -1,0 +1,57 @@
+{
+	"name": "stat",
+	"description": "One number and what it means. On the site these are the hours-saved figures and the claimed-name counts, each assembled by hand from a display-face number and a caption. The pairing is the unit: a figure without its label is trivia, and the two have a fixed relationship — the number leads, the label follows, and the label never competes.",
+	"interface": {
+		"props": { "value": "string", "label": "string", "caption": "string" }
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{ "tag": "p", "part": "value", "text": "$props.value" },
+			{ "tag": "p", "part": "label", "text": "$props.label" },
+			{ "tag": "p", "part": "caption", "text": "$props.caption" }
+		]
+	},
+	"styling": {
+		"base": { "display": "grid", "gap": "0.15rem", "minInlineSize": "0" },
+		"parts": {
+			"value": {
+				"$description": "The display face, tabular, and large enough to actually lead — 2.5x the body size is the floor below which a heading is just bold body text.",
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "var(--fs-display)",
+				"fontWeight": "500",
+				"lineHeight": "1",
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground)"
+			},
+			"label": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-wider)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"caption": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-soft)"
+			}
+		},
+		"variants": {
+			"align": { "center": { "justifyItems": "center", "textAlign": "center" } },
+			"tone": {
+				"accent": { "$part": "value", "color": "var(--color-accent-ink)" },
+				"progress": { "$part": "value", "color": "var(--color-progress-ink)" }
+			},
+			"size": {
+				"sm": { "$part": "value", "fontSize": "var(--fs-amount)" },
+				"lg": { "$part": "value", "fontSize": "var(--fs-hero)" }
+			}
+		}
+	},
+	"a11y": {
+		"note": "The number and its label are one thought, so they are one block — a screen reader reaching `6` with no context has been told nothing. Where the figure is approximate the label says so in words; a `~` is not announced."
+	}
+}

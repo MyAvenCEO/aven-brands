@@ -48,6 +48,7 @@ import accordion from './brand/units/accordion.json' with { type: 'json' }
 import avatar from './brand/units/avatar.json' with { type: 'json' }
 import badge from './brand/units/badge.json' with { type: 'json' }
 import button from './brand/units/button.json' with { type: 'json' }
+import card from './brand/units/card.json' with { type: 'json' }
 import emptyState from './brand/units/empty-state.json' with { type: 'json' }
 import field from './brand/units/field.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
@@ -55,10 +56,13 @@ import logo from './brand/units/logo.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
+import prose from './brand/units/prose.json' with { type: 'json' }
+import section from './brand/units/section.json' with { type: 'json' }
 import select from './brand/units/select.json' with { type: 'json' }
 import sidebar from './brand/units/sidebar.json' with { type: 'json' }
 import skeleton from './brand/units/skeleton.json' with { type: 'json' }
 import spinner from './brand/units/spinner.json' with { type: 'json' }
+import stat from './brand/units/stat.json' with { type: 'json' }
 import step from './brand/units/step.json' with { type: 'json' }
 import surface from './brand/units/surface.json' with { type: 'json' }
 import table from './brand/units/table.json' with { type: 'json' }
@@ -75,7 +79,11 @@ import toast from './brand/units/toast.json' with { type: 'json' }
  */
 const documents = [
 	text,
+	prose,
 	surface,
+	card,
+	section,
+	stat,
 	button,
 	badge,
 	tabs,
