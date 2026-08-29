@@ -30,13 +30,13 @@
  * and framed in em-dashes ("— WHY NOW —"). Un-layered so it overrides the
  * generated `.eyebrow-accent` component.
  *
- * The tone is darkened only as far as legibility demands and no further. At
- * `--fs-meta` (12px) this is normal-size text, so it needs 4.5:1: raw
- * tidal-blue measures 3.86:1 and fails, 92% of it measures 4.70:1 and passes.
- * `progress-ink` (72%) also passes but reads as a different, muddier colour —
- * the eyebrow should still look like the brand's blue. */
+ * The colour is a ROLE, not a darkening written here. It used to be
+ * `color-mix(paradise 92%, black)` — correct on a pale ground and exactly
+ * backwards on a dark one, where the tone has to go lighter. A darkening at a
+ * call site cannot be themed, which is the whole lesson of the sweep that
+ * replaced eleven of these. */
 .eyebrow-accent {
-	color: color-mix(in oklab, var(--color-paradise) 92%, black);
+	color: var(--color-eyebrow-ink);
 	font-size: var(--fs-meta);
 }
 .eyebrow-accent::before {

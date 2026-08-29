@@ -83,6 +83,13 @@
 	--color-info-ink: #e0b98f;
 	--color-accent-ink: #f2c766;
 	--color-offer-ink: #e08b73;
+	--color-border-strong: #44536b;
+	--color-border-soft: #232d3e;
+	--color-track: #2a3548;
+	--color-error-surface: #2e1c16;
+	--color-error-border: #6b3626;
+	--color-foreground-quiet: #a8b0bd;
+	--color-eyebrow-ink: #6cc3dd;
 }
 
 :root {
@@ -124,6 +131,13 @@
 	--color-offer-ink: #a24b34;
 	--color-card: var(--color-surface-card);
 	--color-card-foreground: var(--color-on-light);
+	--color-border-strong: #c7c7c8;
+	--color-border-soft: #edece8;
+	--color-track: #e4e3e0;
+	--color-error-surface: #faf0e8;
+	--color-error-border: #e9c5b7;
+	--color-foreground-quiet: #6d737c;
+	--color-eyebrow-ink: #1f7a8f;
 
 	--radius-lg: 1rem;
 	--radius-xl: 1.5rem;

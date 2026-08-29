@@ -13,7 +13,7 @@
 			"fontWeight": "600",
 			"textTransform": "uppercase",
 			"letterSpacing": "var(--tracking-wide)",
-			"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+			"color": "var(--color-foreground-quiet)"
 		},
 		"eyebrow-accent": {
 			"fontSize": "var(--fs-micro)",
@@ -27,7 +27,7 @@
 			"fontWeight": "700",
 			"textTransform": "uppercase",
 			"letterSpacing": "var(--tracking-widest)",
-			"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+			"color": "var(--color-foreground-quiet)"
 		},
 		"section-title": {
 			"fontSize": "var(--fs-amount)",
@@ -36,7 +36,7 @@
 			"color": "var(--color-foreground)"
 		},
 		"section-band": {
-			"borderBottom": "1px solid color-mix(in srgb, var(--color-foreground) 25%, transparent)",
+			"borderBottom": "1px solid var(--color-border-strong)",
 			"padding": "3.5rem 1.25rem"
 		},
 		"app-shell": {
@@ -49,7 +49,7 @@
 		"mono-meta": {
 			"fontFamily": "var(--font-mono)",
 			"fontSize": "var(--fs-micro)",
-			"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+			"color": "var(--color-foreground-quiet)"
 		},
 		"title": {
 			"margin": "0",
@@ -61,7 +61,7 @@
 			"margin": "0",
 			"fontSize": "var(--fs-section)",
 			"lineHeight": "1.6",
-			"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+			"color": "var(--color-foreground-quiet)"
 		},
 		"label": {
 			"display": "grid",
@@ -110,7 +110,7 @@
 			"width": "min(100%, 34rem)",
 			"marginInline": "auto",
 			"padding": "2.5rem 2rem",
-			"border": "1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent)",
+			"border": "1px solid var(--color-border-soft)",
 			"borderRadius": "var(--radius-card)",
 			"background": "var(--color-surface-raised)",
 			"boxShadow": "var(--shadow-raised)"
@@ -134,9 +134,9 @@
 		},
 		"alert": {
 			"padding": "0.75rem 1rem",
-			"border": "1px solid color-mix(in srgb, var(--color-terracotta) 35%, transparent)",
+			"border": "1px solid var(--color-error-border)",
 			"borderRadius": "var(--radius-inner)",
-			"background": "color-mix(in srgb, var(--color-terracotta) 8%, transparent)",
+			"background": "var(--color-error-surface)",
 			"color": "var(--color-error-ink, color-mix(in oklab, var(--color-terracotta) 85%, black))",
 			"fontSize": "var(--fs-body)",
 			"lineHeight": "1.5",
@@ -151,7 +151,7 @@
 			"flex": "1",
 			"height": "3px",
 			"borderRadius": "var(--radius-pill)",
-			"background": "color-mix(in srgb, var(--color-foreground) 12%, transparent)"
+			"background": "var(--color-track)"
 		},
 		"field": {
 			"display": "grid",
@@ -168,7 +168,7 @@
 			"border": "1px solid var(--color-border)",
 			"borderRadius": "var(--radius-pill)",
 			"background": "transparent",
-			"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)",
+			"color": "var(--color-foreground-quiet)",
 			"font": "inherit",
 			"fontSize": "var(--fs-body)",
 			"fontWeight": "500",
@@ -179,7 +179,7 @@
 		},
 		"meta": {
 			"fontSize": "var(--fs-meta)",
-			"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+			"color": "var(--color-foreground-quiet)"
 		}
 	},
 	"nearestStep": {

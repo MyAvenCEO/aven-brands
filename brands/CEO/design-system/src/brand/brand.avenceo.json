@@ -136,7 +136,7 @@
 			}
 		},
 		"roles": {
-			"$description": "What the paint MEANS. ONE group: the site/app split it replaced held six tokens that aliased shared roles under different names and one that differed, which is not a vocabulary, it is a synonym list. A surface that does not use `evidence` simply does not use it. A role prefixed `dark-` is that role's value under `[data-theme=\"dark\"]`: the generator strips the prefix and emits it in the dark block, the same derivation the surfaces use. Only roles that actually differ need one.",
+			"$description": "What the paint MEANS. ONE group: the site/app split it replaced held six tokens that aliased shared roles under different names and one that differed, which is not a vocabulary, it is a synonym list. A surface that does not use `evidence` simply does not use it. A role prefixed `dark-` is that role's value under `[data-theme=\"dark\"]`: the generator strips the prefix and emits it in the dark block, the same derivation the surfaces use. Only roles that actually differ need one. The `border-strong`/`border-soft`/`track`/`error-surface`/`error-border` roles exist because those values used to be alphas of another colour, which cannot be themed: an alpha carries a RELATIONSHIP to whatever is behind it, and that relationship inverts between a pale ground and a dark one.",
 			"background": {
 				"$type": "color",
 				"$value": "var(--color-surface-page)",
@@ -155,7 +155,7 @@
 			"muted-foreground": {
 				"$type": "color",
 				"$value": "#7d8593",
-				"$description": "quiet copy."
+				"$description": "quiet copy. WARNING: 3.66:1 on the page ground — this FAILS AA as text and must not be used for any. `foreground-quiet` is the readable step. Kept for non-text uses pending its own fix."
 			},
 			"border": {
 				"$type": "color",
@@ -406,6 +406,76 @@
 				"$type": "color",
 				"$value": "#e08b73",
 				"$description": "offer running text on dark."
+			},
+			"border-strong": {
+				"$type": "color",
+				"$value": "#c7c7c8",
+				"$description": "a deliberate edge — a band divider. Was 25% of the foreground."
+			},
+			"border-soft": {
+				"$type": "color",
+				"$value": "#edece8",
+				"$description": "a hairline. Was 8% of the foreground."
+			},
+			"track": {
+				"$type": "color",
+				"$value": "#e4e3e0",
+				"$description": "the unfilled part of a rail. Was 12% of the foreground."
+			},
+			"error-surface": {
+				"$type": "color",
+				"$value": "#faf0e8",
+				"$description": "the wash behind a failure message. Was 8% of terracotta."
+			},
+			"error-border": {
+				"$type": "color",
+				"$value": "#e9c5b7",
+				"$description": "the edge of a failure message. Was 35% of terracotta."
+			},
+			"dark-border-strong": {
+				"$type": "color",
+				"$value": "#44536b",
+				"$description": "a band divider on dark."
+			},
+			"dark-border-soft": {
+				"$type": "color",
+				"$value": "#232d3e",
+				"$description": "a hairline on dark."
+			},
+			"dark-track": {
+				"$type": "color",
+				"$value": "#2a3548",
+				"$description": "an unfilled rail on dark."
+			},
+			"dark-error-surface": {
+				"$type": "color",
+				"$value": "#2e1c16",
+				"$description": "the wash behind a failure message on dark."
+			},
+			"dark-error-border": {
+				"$type": "color",
+				"$value": "#6b3626",
+				"$description": "the edge of a failure message on dark."
+			},
+			"foreground-quiet": {
+				"$type": "color",
+				"$value": "#6d737c",
+				"$description": "the quiet step of the body copy — captions, eyebrows, meta. Measured at 4.70:1 on the page ground. Deliberately NOT `muted-foreground`, which is a lighter value at 3.66:1 and fails AA as text; that one is for non-text uses and is flagged for its own fix."
+			},
+			"dark-foreground-quiet": {
+				"$type": "color",
+				"$value": "#a8b0bd",
+				"$description": "the same step on a dark ground, 7.55:1."
+			},
+			"eyebrow-ink": {
+				"$type": "color",
+				"$value": "#1f7a8f",
+				"$description": "the site eyebrow. Paradise darkened only as far as legibility demands: at 12px this is normal-size text and needs 4.5:1, where the raw tone is 3.86:1 and this is 4.70:1."
+			},
+			"dark-eyebrow-ink": {
+				"$type": "color",
+				"$value": "#6cc3dd",
+				"$description": "the same eyebrow on a dark ground, where the tone must go LIGHTER rather than darker — which is the whole reason this is a role and not a darkening written at the call site."
 			}
 		}
 	},
