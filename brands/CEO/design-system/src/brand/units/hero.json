@@ -112,11 +112,8 @@
 			},
 			"eyebrow": {
 				"margin": "0 0 var(--space-tight)",
-				"fontSize": "var(--fs-micro)",
-				"fontWeight": "700",
-				"textTransform": "uppercase",
-				"letterSpacing": "var(--tracking-widest)",
-				"color": "var(--color-on-dark)"
+				"color": "var(--color-on-dark)",
+				"$description": "Composes `text--eyebrow`. Only the colour is this unit's; the size, weight, case and tracking come from the one definition."
 			},
 			"heading": {
 				"$description": "`clamp` rather than breakpoints — a hero headline has one job at every width, and three step changes on the way down is three chances to break a line badly. The text-shadow is not decoration: it is the second half of the contrast guarantee, and it is what keeps the line readable on a frame the scrim alone cannot carry. A heading that names the product should use the LOGO's own wordmark rather than retyping it: `avenCEO` set in the body face beside a display headline is two different avenCEOs on one screen. The `logo` leaf goes inline via `logo--wordmark`, and the size rule below is what makes it sit at the headline's own size instead of the logo's default.",

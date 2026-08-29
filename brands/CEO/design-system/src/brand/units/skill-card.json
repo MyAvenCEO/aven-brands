@@ -141,12 +141,8 @@
 				"color": "var(--color-foreground-quiet)"
 			},
 			"eyebrow": {
-				"$description": "the plan this skill belongs to. Quiet, because it classifies rather than names.",
+				"$description": "Composes `text--eyebrow`. Only the colour is this unit's; the size, weight, case and tracking come from the one definition.",
 				"margin": "0",
-				"fontSize": "var(--fs-micro)",
-				"fontWeight": "700",
-				"textTransform": "uppercase",
-				"letterSpacing": "var(--tracking-widest)",
 				"color": "var(--color-foreground-quiet)"
 			},
 			"quote": {

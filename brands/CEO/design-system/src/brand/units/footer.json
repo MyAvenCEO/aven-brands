@@ -72,11 +72,8 @@
 			},
 			"group-title": {
 				"margin": "0",
-				"fontSize": "var(--fs-micro)",
-				"fontWeight": "700",
-				"textTransform": "uppercase",
-				"letterSpacing": "var(--tracking-wider)",
-				"color": "var(--color-primary-foreground-quiet)"
+				"color": "var(--color-primary-foreground-quiet)",
+				"$description": "Composes `text--eyebrow`. Only the colour is this unit's; the size, weight, case and tracking come from the one definition."
 			},
 			"link": {
 				"fontSize": "var(--fs-meta)",

@@ -98,11 +98,8 @@
 		"parts": {
 			"eyebrow": {
 				"margin": "0",
-				"fontSize": "var(--fs-micro)",
-				"fontWeight": "700",
-				"textTransform": "uppercase",
-				"letterSpacing": "var(--tracking-widest)",
-				"color": "var(--color-foreground-quiet)"
+				"color": "var(--color-foreground-quiet)",
+				"$description": "Composes `text--eyebrow`. Only the colour is this unit's; the size, weight, case and tracking come from the one definition."
 			},
 			"heading": {
 				"margin": "0",

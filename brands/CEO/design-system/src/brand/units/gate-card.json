@@ -100,9 +100,9 @@
 			},
 			"asked": {
 				"flexShrink": "0",
-				"fontFamily": "var(--font-mono)",
 				"fontSize": "var(--fs-micro)",
-				"color": "var(--color-foreground-quiet)"
+				"color": "var(--color-foreground-quiet)",
+				"$description": "Composes `text--mono-meta`. The face comes from the one definition."
 			},
 			"detail": {
 				"margin": "0",
@@ -143,15 +143,8 @@
 				"padding": "var(--space-comfortable) var(--space-loose)"
 			},
 			"kind": {
-				"$description": "What KIND of decision this is, as a mono pill in the primary tint. It is the first thing read and it is what lets someone triage a queue of gates without opening each one.",
+				"$description": "Composes `badge badge--face-mono badge--tone-progress`. It was a hand-built mono pill; the shape, the tint and the ink all belong to `badge`, and only the placement is this unit's.",
 				"flexShrink": "0",
-				"padding": "0.1rem 0.5rem",
-				"borderRadius": "var(--radius-full)",
-				"background": "color-mix(in oklab, var(--color-primary) 8%, transparent)",
-				"fontFamily": "var(--font-mono)",
-				"fontSize": "var(--fs-nano)",
-				"textTransform": "uppercase",
-				"letterSpacing": "var(--tracking-wide)",
 				"color": "var(--color-primary)"
 			}
 		},

@@ -87,10 +87,10 @@
 			},
 			"time": {
 				"flexShrink": "0",
-				"fontFamily": "var(--font-mono)",
 				"fontSize": "var(--fs-nano)",
 				"fontVariantNumeric": "tabular-nums",
-				"color": "var(--color-foreground-quiet)"
+				"color": "var(--color-foreground-quiet)",
+				"$description": "Composes `text--mono-meta`. The face comes from the one definition."
 			},
 			"foot": {
 				"display": "flex",

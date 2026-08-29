@@ -1,6 +1,6 @@
 {
 	"name": "text",
-	"description": "How text reads. Nine classes in the old vocabulary — title, section-title, lede, meta, mono-meta, digits and three eyebrows — declared only type properties: size, weight, colour, tracking, case. That is not nine components, it is one question with nine answers. The axis is named `variant` so the emitted class reads `text--lede`, one word from the name it replaces, rather than `text--role-lede`.",
+	"description": "How text reads. Nine classes in the old vocabulary — title, section-title, lede, meta, mono-meta, digits and three eyebrows — declared only type properties: size, weight, colour, tracking, case. That is not nine components, it is one question with nine answers. The axis is named `variant` so the emitted class reads `text--lede`, one word from the name it replaces, rather than `text--role-lede`.\n\nThe eyebrow and the mono caption are the two type ideas the rest of the system kept re-deriving. Six composites had grown their own eyebrow at three sizes and two trackings, and nine had their own mono caption — none of that variance was chosen, it was each written at a call site and then extracted verbatim. A composite's eyebrow part now carries `text text--eyebrow` and declares only what is genuinely its own, which is usually just a colour.",
 	"interface": {
 		"props": {
 			"as": "string",
@@ -42,9 +42,10 @@
 					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
 				},
 				"mono-meta": {
+					"$description": "A code-ish caption — a timestamp, an id, a file type. Nine units had their own; this is the one.",
 					"fontFamily": "var(--font-mono)",
 					"fontSize": "var(--fs-micro)",
-					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+					"color": "var(--color-foreground-quiet)"
 				},
 				"digits": {
 					"fontSize": "var(--fs-amount)",
@@ -53,25 +54,36 @@
 					"fontVariantNumeric": "tabular-nums"
 				},
 				"eyebrow": {
-					"fontSize": "var(--fs-eyebrow)",
-					"fontWeight": "600",
+					"$description": "The section eyebrow — the small uppercase line above a heading. ONE definition, because six composites had grown their own at three different sizes and two different trackings, none of which anyone chose: they were each written at a call site and then extracted verbatim. fs-micro at widest tracking is the one the site actually uses most.",
+					"fontSize": "var(--fs-micro)",
+					"fontWeight": "700",
 					"textTransform": "uppercase",
-					"letterSpacing": "var(--tracking-wide)",
-					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+					"letterSpacing": "var(--tracking-widest)",
+					"color": "var(--color-foreground-quiet)"
 				},
 				"eyebrow-accent": {
 					"fontSize": "var(--fs-micro)",
 					"fontWeight": "700",
 					"textTransform": "uppercase",
 					"letterSpacing": "var(--tracking-widest)",
-					"color": "var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black))"
+					"color": "var(--color-eyebrow-ink)",
+					"$description": "The site eyebrow, in the brand's interactive blue."
 				},
 				"eyebrow-quiet": {
+					"$description": "The eyebrow, one step down — for a surface that already has one.",
 					"fontSize": "var(--fs-nano)",
 					"fontWeight": "700",
 					"textTransform": "uppercase",
 					"letterSpacing": "var(--tracking-widest)",
-					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+					"color": "var(--color-foreground-quiet)"
+				},
+				"label": {
+					"$description": "The label above a value — a stat's caption, a plan's name. Tighter tracking than the section eyebrow because it sits directly on the thing it names rather than above a block, and at that distance widest tracking reads as loose.",
+					"fontSize": "var(--fs-micro)",
+					"fontWeight": "700",
+					"textTransform": "uppercase",
+					"letterSpacing": "var(--tracking-wider)",
+					"color": "var(--color-foreground-quiet)"
 				}
 			}
 		}

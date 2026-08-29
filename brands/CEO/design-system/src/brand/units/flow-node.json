@@ -2,31 +2,59 @@
 	"name": "flow-node",
 	"description": "One step of a running process, with a live status — a skill executing, a job in a pipeline. The app draws these as a list where each row carries a dot that pulses while it works and becomes a tick or a cross when it stops.\n\nThe reason it is a unit and not a badge: the status here CHANGES while you are looking at it, which makes it the one place in the system where motion is carrying meaning. That has two consequences most implementations miss — the change has to be announced, and the pulse has to survive `prefers-reduced-motion` as something other than a still dot, because a still dot and a finished dot look identical.",
 	"interface": {
-		"props": { "label": "string", "status": "string", "detail": "string" },
-		"slots": { "children": {} }
+		"props": {
+			"label": "string",
+			"status": "string",
+			"detail": "string"
+		},
+		"slots": {
+			"children": {}
+		}
 	},
 	"view": {
 		"tag": "li",
-		"attrs": { "data-status": "$props.status" },
+		"attrs": {
+			"data-status": "$props.status"
+		},
 		"$children": [
 			{
 				"tag": "div",
 				"part": "head",
 				"$children": [
-					{ "tag": "span", "part": "label", "text": "$props.label" },
+					{
+						"tag": "span",
+						"part": "label",
+						"text": "$props.label"
+					},
 					{
 						"tag": "span",
 						"part": "dot",
-						"attrs": { "role": "status", "aria-label": "$props.status" }
+						"attrs": {
+							"role": "status",
+							"aria-label": "$props.status"
+						}
 					}
 				]
 			},
-			{ "tag": "p", "part": "detail", "text": "$props.detail" },
-			{ "tag": "ul", "part": "children", "$children": "children" }
+			{
+				"tag": "p",
+				"part": "detail",
+				"text": "$props.detail"
+			},
+			{
+				"tag": "ul",
+				"part": "children",
+				"$children": "children"
+			}
 		]
 	},
 	"styling": {
-		"base": { "display": "grid", "gap": "0.15rem", "minInlineSize": "0", "listStyle": "none" },
+		"base": {
+			"display": "grid",
+			"gap": "0.15rem",
+			"minInlineSize": "0",
+			"listStyle": "none"
+		},
 		"parts": {
 			"head": {
 				"display": "flex",
@@ -56,10 +84,10 @@
 			},
 			"detail": {
 				"margin": "0",
-				"fontFamily": "var(--font-mono)",
 				"fontSize": "var(--fs-nano)",
 				"color": "var(--color-foreground-quiet)",
-				"overflowWrap": "anywhere"
+				"overflowWrap": "anywhere",
+				"$description": "Composes `text--mono-meta`. The face comes from the one definition."
 			},
 			"children": {
 				"$description": "Nested steps, indented by a rule rather than by margin — the rule is what makes the nesting visible when a child scrolls past its parent.",
@@ -101,7 +129,14 @@
 			}
 		},
 		"keyframes": {
-			"aven-pulse": { "0%,100%": { "opacity": "1" }, "50%": { "opacity": "0.35" } }
+			"aven-pulse": {
+				"0%,100%": {
+					"opacity": "1"
+				},
+				"50%": {
+					"opacity": "0.35"
+				}
+			}
 		},
 		"reducedMotion": {
 			"$description": "The pulse becomes a RING rather than stopping. A still dot and a finished dot look identical, so removing the animation would make 'running' and 'done' indistinguishable for exactly the users who asked for less motion — which is the opposite of an accommodation.",

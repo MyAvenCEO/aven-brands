@@ -1,6 +1,6 @@
 {
 	"name": "badge",
-	"description": "A small label that states a fact about the thing beside it — a status, a category, a count. 69 uses across the three surfaces and no two agreed: the website spelled it as a rounded-full span with an alpha tint and an alpha border, the app as a dozen local classes. The tint/ink pairing is the part worth centralising, because an alpha tint over an unknown ground has no guaranteed contrast and every one of them was picked by eye.",
+	"description": "A small label that states a fact about the thing beside it — a status, a category, a count. 69 uses across the three surfaces and no two agreed: the website spelled it as a rounded-full span with an alpha tint and an alpha border, the app as a dozen local classes. The tint/ink pairing is the part worth centralising, because an alpha tint over an unknown ground has no guaranteed contrast and every one of them was picked by eye.\n\nThe `face: mono` variant absorbed two hand-built chips — `media-card`'s file type and `gate-card`'s decision kind. Both were a small mono pill with a tint, which is what a badge is; they differed only in colour, and colour is what `tone` is for.",
 	"interface": {
 		"props": {
 			"label": "string"
@@ -87,6 +87,14 @@
 				"lg": {
 					"padding": "0.25rem 0.7rem",
 					"fontSize": "var(--fs-micro)"
+				}
+			},
+			"face": {
+				"$description": "The badge's face. `mono` is for a badge carrying a machine value — a file type, a decision kind, an id — where the point is that it is a token and not a word. Two units had grown their own mono chip; this is the one.",
+				"mono": {
+					"fontFamily": "var(--font-mono)",
+					"textTransform": "none",
+					"letterSpacing": "var(--tracking-wide)"
 				}
 			}
 		}

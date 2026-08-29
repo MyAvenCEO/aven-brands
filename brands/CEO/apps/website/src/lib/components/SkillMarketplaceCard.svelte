@@ -42,7 +42,7 @@ const cardClass = $derived(
 	aria-label={`${skillLabel(skill.slug)} — ${skill.oneLineCopy}`}
 >
 	<div class="skill-card-head">
-		<p class="skill-card-eyebrow">{plan(skill.plan).name}</p>
+		<p class="text text--eyebrow skill-card-eyebrow">{plan(skill.plan).name}</p>
 		<span class="badge {skill.comingSoon ? '' : 'badge--tone-accent'}">
 			{skill.comingSoon ? t.soon : t.skill}
 		</span>

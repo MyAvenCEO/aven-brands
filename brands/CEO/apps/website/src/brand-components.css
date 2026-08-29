@@ -434,7 +434,7 @@
 	.text--mono-meta {
 		font-family: var(--font-mono);
 		font-size: var(--fs-micro);
-		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+		color: var(--color-foreground-quiet);
 	}
 
 	.text--digits {
@@ -445,11 +445,11 @@
 	}
 
 	.text--eyebrow {
-		font-size: var(--fs-eyebrow);
-		font-weight: 600;
+		font-size: var(--fs-micro);
+		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: var(--tracking-wide);
-		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-foreground-quiet);
 	}
 
 	.text--eyebrow-accent {
@@ -457,7 +457,7 @@
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: var(--tracking-widest);
-		color: var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black));
+		color: var(--color-eyebrow-ink);
 	}
 
 	.text--eyebrow-quiet {
@@ -465,7 +465,15 @@
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: var(--tracking-widest);
-		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+		color: var(--color-foreground-quiet);
+	}
+
+	.text--label {
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wider);
+		color: var(--color-foreground-quiet);
 	}
 
 	.prose {
@@ -649,10 +657,6 @@
 
 	.hero-eyebrow {
 		margin: 0 0 var(--space-tight);
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-widest);
 		color: var(--color-on-dark);
 	}
 
@@ -787,10 +791,6 @@
 
 	.stat-label {
 		margin: 0;
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wider);
 		color: var(--color-foreground-quiet);
 	}
 
@@ -919,10 +919,6 @@
 
 	.skill-card-eyebrow {
 		margin: 0;
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-widest);
 		color: var(--color-foreground-quiet);
 	}
 
@@ -983,10 +979,6 @@
 
 	.claim-card-eyebrow {
 		margin: 0;
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-widest);
 		color: var(--color-eyebrow-ink);
 	}
 
@@ -1112,10 +1104,6 @@
 
 	.flow-card-eyebrow {
 		margin: 0;
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-widest);
 		color: var(--color-foreground-quiet);
 	}
 
@@ -1314,10 +1302,6 @@
 
 	.price-tier-name {
 		margin: 0;
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wider);
 		color: var(--color-foreground-quiet);
 	}
 
@@ -1527,11 +1511,6 @@
 
 	.media-card-kind {
 		flex-shrink: 0;
-		padding: 0.05rem 0.35rem;
-		border-radius: var(--radius-xs);
-		background: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--fs-nano);
 		color: var(--color-foreground-quiet);
 	}
 
@@ -1539,7 +1518,6 @@
 		display: grid;
 		place-items: center;
 		block-size: 100%;
-		font-family: var(--font-mono);
 		font-size: var(--fs-micro);
 		color: var(--color-foreground-quiet);
 	}
@@ -1607,7 +1585,6 @@
 
 	.flow-node-detail {
 		margin: 0;
-		font-family: var(--font-mono);
 		font-size: var(--fs-nano);
 		color: var(--color-foreground-quiet);
 		overflow-wrap: anywhere;
@@ -1840,7 +1817,6 @@
 
 	.thread-item-time {
 		flex-shrink: 0;
-		font-family: var(--font-mono);
 		font-size: var(--fs-nano);
 		font-variant-numeric: tabular-nums;
 		color: var(--color-foreground-quiet);
@@ -1966,7 +1942,6 @@
 
 	.gate-card-asked {
 		flex-shrink: 0;
-		font-family: var(--font-mono);
 		font-size: var(--fs-micro);
 		color: var(--color-foreground-quiet);
 	}
@@ -2012,13 +1987,6 @@
 
 	.gate-card-kind {
 		flex-shrink: 0;
-		padding: 0.1rem 0.5rem;
-		border-radius: var(--radius-full);
-		background: color-mix(in oklab, var(--color-primary) 8%, transparent);
-		font-family: var(--font-mono);
-		font-size: var(--fs-nano);
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wide);
 		color: var(--color-primary);
 	}
 
@@ -2378,6 +2346,12 @@
 	.badge--size-lg {
 		padding: 0.25rem 0.7rem;
 		font-size: var(--fs-micro);
+	}
+
+	.badge--face-mono {
+		font-family: var(--font-mono);
+		text-transform: none;
+		letter-spacing: var(--tracking-wide);
 	}
 
 	.icon {
@@ -3255,10 +3229,6 @@
 
 	.site-footer-group-title {
 		margin: 0;
-		font-size: var(--fs-micro);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wider);
 		color: var(--color-primary-foreground-quiet);
 	}
 

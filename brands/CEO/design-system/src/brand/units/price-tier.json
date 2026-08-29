@@ -2,24 +2,58 @@
 	"name": "price-tier",
 	"description": "One plan in a set of plans. A price, its terms, and what you get — and the composition rule that four equal tiers are four tiers the eye lands nowhere in, so one of them is `featured` and the rest are quiet. On the site each tier was a card, a hand-built price line and a bare `<ul>` with `space-y-1.5`, repeated per tier with the amount and the caption re-typed at three different sizes.",
 	"interface": {
-		"props": { "name": "string", "amount": "string", "terms": "string" },
-		"slots": { "features": {}, "action": { "accepts": ["btn"] }, "note": {} }
+		"props": {
+			"name": "string",
+			"amount": "string",
+			"terms": "string"
+		},
+		"slots": {
+			"features": {},
+			"action": {
+				"accepts": ["btn"]
+			},
+			"note": {}
+		}
 	},
 	"view": {
 		"tag": "div",
 		"$children": [
-			{ "tag": "p", "part": "name", "text": "$props.name" },
+			{
+				"tag": "p",
+				"part": "name",
+				"text": "$props.name"
+			},
 			{
 				"tag": "p",
 				"part": "price",
 				"$children": [
-					{ "tag": "span", "part": "amount", "text": "$props.amount" },
-					{ "tag": "span", "part": "terms", "text": "$props.terms" }
+					{
+						"tag": "span",
+						"part": "amount",
+						"text": "$props.amount"
+					},
+					{
+						"tag": "span",
+						"part": "terms",
+						"text": "$props.terms"
+					}
 				]
 			},
-			{ "tag": "ul", "part": "features", "$children": "features" },
-			{ "tag": "div", "part": "action", "$children": "action" },
-			{ "tag": "p", "part": "note", "$children": "note" }
+			{
+				"tag": "ul",
+				"part": "features",
+				"$children": "features"
+			},
+			{
+				"tag": "div",
+				"part": "action",
+				"$children": "action"
+			},
+			{
+				"tag": "p",
+				"part": "note",
+				"$children": "note"
+			}
 		]
 	},
 	"styling": {
@@ -37,11 +71,8 @@
 		"parts": {
 			"name": {
 				"margin": "0",
-				"fontSize": "var(--fs-micro)",
-				"fontWeight": "700",
-				"textTransform": "uppercase",
-				"letterSpacing": "var(--tracking-wider)",
-				"color": "var(--color-foreground-quiet)"
+				"color": "var(--color-foreground-quiet)",
+				"$description": "Composes `text--eyebrow`. Only the colour is this unit's; the size, weight, case and tracking come from the one definition."
 			},
 			"price": {
 				"display": "flex",
@@ -58,7 +89,10 @@
 				"fontVariantNumeric": "tabular-nums",
 				"color": "var(--color-foreground)"
 			},
-			"terms": { "fontSize": "var(--fs-meta)", "color": "var(--color-foreground-quiet)" },
+			"terms": {
+				"fontSize": "var(--fs-meta)",
+				"color": "var(--color-foreground-quiet)"
+			},
 			"features": {
 				"display": "grid",
 				"gap": "0.4rem",
@@ -94,7 +128,10 @@
 					"background": "var(--color-surface-page)",
 					"boxShadow": "var(--shadow-raised)"
 				},
-				"quiet": { "background": "var(--color-surface-sunken)", "borderStyle": "dashed" }
+				"quiet": {
+					"background": "var(--color-surface-sunken)",
+					"borderStyle": "dashed"
+				}
 			}
 		}
 	},

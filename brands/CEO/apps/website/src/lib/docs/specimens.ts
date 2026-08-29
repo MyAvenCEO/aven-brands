@@ -357,7 +357,7 @@ export const specimens: Record<string, Specimen> = {
 			<span class="hero-media"><img class="media media--placement-behind" src="/hero-poster.jpg" alt=""></span>
 			<span class="hero-scrim" aria-hidden="true"></span>
 			<span class="hero-content">
-				<p class="hero-eyebrow">The company of the future</p>
+				<p class="text text--eyebrow hero-eyebrow">The company of the future</p>
 				<h3 class="hero-heading" style="margin:0"><span class="hero-heading-mark logo logo--wordmark"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span> runs your company, you lead the vision.</h3>
 				<p class="hero-lead">From working to survive to sovereign founder of tomorrow.</p>
 				<p class="hero-helper">— your avenCEO gets you there —</p>
@@ -422,7 +422,7 @@ export const specimens: Record<string, Specimen> = {
 		   screen shows one or the other. */
 		one: `<span class="flow-card" style="display:grid">
 			<span class="flow-card-crest">${icon('info', '1.5rem')}</span>
-			<p class="flow-card-eyebrow">Secure app connection</p>
+			<p class="text text--eyebrow flow-card-eyebrow">Secure app connection</p>
 			<p class="flow-card-status">Taken</p>
 			<p class="flow-card-heading" style="margin:0">Authorize this device</p>
 			<p class="flow-card-description">Confirm the connection to give the app access to your Aven account.</p>
@@ -439,7 +439,7 @@ export const specimens: Record<string, Specimen> = {
 		tall: true,
 		one: `<span class="claim-card" style="inline-size:100%; max-inline-size:44rem">
 			<span class="claim-card-body">
-				<p class="claim-card-eyebrow">— Invite only —</p>
+				<p class="text text--eyebrow claim-card-eyebrow">— Invite only —</p>
 				<h3 class="claim-card-heading" style="margin:0">Claim your avenCEO name now</h3>
 				<p class="claim-card-lede">Like a domain — but for your avenCEO: e.g. maia.aven.ceo. It exists exactly once — claim it before someone else does.</p>
 				<ul class="claim-card-benefits">
@@ -474,7 +474,7 @@ export const specimens: Record<string, Specimen> = {
 	'price-tier': {
 		tall: true,
 		one: `<span class="price-tier price-tier--emphasis-featured" style="display:flex; inline-size:17rem">
-			<p class="price-tier-name">Founder</p>
+			<p class="text text--label price-tier-name">Founder</p>
 			<p class="price-tier-price"><span class="price-tier-amount">49 €</span><span class="price-tier-terms">/ month</span></p>
 			<ul class="price-tier-features">
 				<li class="price-tier-feature"><span class="claim-card-dot"></span><span>Your avenCEO, running daily</span></li>
@@ -503,17 +503,17 @@ export const specimens: Record<string, Specimen> = {
 		one: `<a class="media-card" href="#specimen" style="inline-size:13rem">
 			<span class="media-card-stage"><img class="media" src="/hero-poster.jpg" alt=""></span>
 			<span class="media-card-caption">
-				<span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="media-card-kind">pdf</span></span>
+				<span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="badge badge--face-mono badge--size-sm media-card-kind">pdf</span></span>
 			</span>
 		</a>`,
 		html: `<span class="sp-row sp-row--cards">
 			<a class="media-card" href="#specimen" style="inline-size:11rem">
 				<span class="media-card-stage"><img class="media" src="/hero-poster.jpg" alt=""></span>
-				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="media-card-kind">pdf</span></span></span>
+				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="badge badge--face-mono badge--size-sm media-card-kind">pdf</span></span></span>
 			</a>
 			<a class="media-card media-card--ratio-square" href="#specimen" style="inline-size:11rem">
 				<span class="media-card-stage"><span class="media-card-placeholder">no preview</span></span>
-				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Invoice 0142</span><span class="media-card-kind">csv</span></span></span>
+				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Invoice 0142</span><span class="badge badge--face-mono badge--size-sm media-card-kind">csv</span></span></span>
 			</a>
 		</span>`
 	},
@@ -521,7 +521,7 @@ export const specimens: Record<string, Specimen> = {
 		one: `<ul style="list-style:none;margin:0;padding:0;inline-size:20rem">
 			<li class="flow-node flow-node--status-running">
 				<span class="flow-node-head"><span class="flow-node-label">Reading the inbox</span><span class="flow-node-dot" role="status" aria-label="running"></span></span>
-				<p class="flow-node-detail">142 messages since 09:00</p>
+				<p class="text text--mono-meta flow-node-detail">142 messages since 09:00</p>
 				<ul class="flow-node-children">
 					<li class="flow-node flow-node--status-done"><span class="flow-node-head"><span class="flow-node-label">Fetch</span><span class="flow-node-dot" role="status" aria-label="done">${icon('check', '0.6rem')}</span></span></li>
 					<li class="flow-node flow-node--status-failed"><span class="flow-node-head"><span class="flow-node-label">Classify</span><span class="flow-node-dot" role="status" aria-label="failed">${icon('close', '0.6rem')}</span></span></li>
@@ -564,11 +564,11 @@ export const specimens: Record<string, Specimen> = {
 	'thread-item': {
 		one: `<span class="sp-stack sp-stack--wide" style="gap:0.15rem">
 			<a class="thread-item" href="#specimen" aria-current="true">
-				<span class="thread-item-head"><span class="thread-item-title">Route today's inbox</span><span class="thread-item-time">09:14</span></span>
+				<span class="thread-item-head"><span class="thread-item-title">Route today's inbox</span><span class="text text--mono-meta thread-item-time">09:14</span></span>
 				<span class="thread-item-foot"><span class="thread-item-preview">142 messages, 9 need you</span><span class="thread-item-badge"><span class="badge badge--tone-progress badge--size-sm">Running</span></span></span>
 			</a>
 			<a class="thread-item" href="#specimen">
-				<span class="thread-item-head"><span class="thread-item-title">File the Q3 receipts</span><span class="thread-item-time">Tue</span></span>
+				<span class="thread-item-head"><span class="thread-item-title">File the Q3 receipts</span><span class="text text--mono-meta thread-item-time">Tue</span></span>
 				<span class="thread-item-foot"><span class="thread-item-preview">Done — 34 filed, 2 flagged</span></span>
 			</a>
 		</span>`
@@ -592,9 +592,9 @@ export const specimens: Record<string, Specimen> = {
 		one: `<span class="gate-card" style="display:grid; inline-size:100%; max-inline-size:30rem">
 			<span class="gate-card-body">
 				<span class="gate-card-head">
-					<span class="gate-card-kind">Send</span>
+					<span class="badge badge--face-mono badge--tone-progress badge--size-sm gate-card-kind">Send</span>
 					<p class="gate-card-question">Send this reply to Anna Weber?</p>
-					<span class="gate-card-asked">2 min ago</span>
+					<span class="text text--mono-meta gate-card-asked">2 min ago</span>
 				</span>
 				<p class="gate-card-detail">Your aven drafted an answer about the Q3 invoice. Nothing is sent until you say so.</p>
 				<span class="gate-card-preview">Hi Anna — the Q3 invoice went out on the 14th to accounts@…; I have attached it again here.
@@ -655,21 +655,21 @@ Let me know if anything is missing.</span>
 		</span>`
 	},
 	stat: {
-		one: `<span class="stat"><p class="stat-value">6</p><p class="stat-label">Hours saved</p><p class="stat-caption">per week, inbox alone</p></span>`,
+		one: `<span class="stat"><p class="stat-value">6</p><p class="text text--label stat-label">Hours saved</p><p class="stat-caption">per week, inbox alone</p></span>`,
 		html: `<span class="sp-row">
 			<span class="stat stat--align-center">
 				<p class="stat-value">6</p>
-				<p class="stat-label">Hours saved</p>
+				<p class="text text--label stat-label">Hours saved</p>
 				<p class="stat-caption">per week, inbox alone</p>
 			</span>
 			<span class="stat stat--align-center stat--tone-accent">
 				<p class="stat-value">1 / 10</p>
-				<p class="stat-label">Claimed</p>
+				<p class="text text--label stat-label">Claimed</p>
 				<p class="stat-caption">founder seats</p>
 			</span>
 			<span class="stat stat--align-center stat--size-sm stat--tone-progress">
 				<p class="stat-value">13</p>
-				<p class="stat-label">Skills live</p>
+				<p class="text text--label stat-label">Skills live</p>
 				<p class="stat-caption">three more in beta</p>
 			</span>
 		</span>`
