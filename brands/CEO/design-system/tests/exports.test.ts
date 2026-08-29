@@ -90,14 +90,23 @@ describe('the brand surface', () => {
 	test('every primitive is a hex, so a consumer can render it without a browser', () => {
 		/* Surfaces and ink joined this list when the palette stopped deriving its
 		   own values with `color-mix`: a system that cannot state its own colours
-		   without resolving CSS cannot check them either. */
+		   without resolving CSS cannot check them either.
+		
+		   Eight digits are allowed as well as six, and only just. An alpha in a
+		   token is normally the bug this whole palette was cleaned up to remove —
+		   it describes a RELATIONSHIP to whatever is behind it, and that
+		   relationship inverts between themes. The exception is text over media,
+		   where the backdrop is a photograph and therefore genuinely unknown: the
+		   hero's scrim and text-shadow carry the contrast, and the ink's alpha is
+		   the difference between its three lines. It is still a hex, so a consumer
+		   can still resolve it without a browser, which is what this test is for. */
 		for (const value of [
 			...Object.values(tokens.TONES),
 			...Object.values(tokens.FUNCTIONAL),
 			...Object.values(tokens.SURFACES),
 			...Object.values(tokens.INK)
 		]) {
-			expect(value).toMatch(/^#[0-9a-f]{6}$/i)
+			expect(value).toMatch(/^#[0-9a-f]{6}([0-9a-f]{2})?$/i)
 		}
 	})
 })
