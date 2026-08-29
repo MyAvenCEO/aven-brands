@@ -68,10 +68,15 @@ const headerStyle = $derived(
 
 /** The nav points, shared by the desktop bar and the full-screen menu. */
 const MENU_ITEMS = $derived([
-	{ href: '/skills', label: t.nav.skills, key: 'skills' as const },
-	{ href: '/avens', label: t.nav.avens, key: 'avens' as const },
-	{ href: '/pricing', label: t.nav.pricing, key: 'pricing' as const },
-	{ href: '/docs', label: t.nav.docs, key: 'docs' as const }
+	{ href: '/skills', label: t.nav.skills, key: 'skills' as const, localized: true },
+	{ href: '/avens', label: t.nav.avens, key: 'avens' as const, localized: true },
+	{ href: '/pricing', label: t.nav.pricing, key: 'pricing' as const, localized: true },
+	/* ceoBRAND is written once, in English — a design system's reference is its
+	   token names and class names, which are not translated. So this point is
+	   NOT locale-prefixed: `localeHref(de, '/docs')` would link `/de/docs/`,
+	   which does not exist and which the prerenderer correctly refuses to
+	   build a page that links to. */
+	{ href: '/docs', label: t.nav.docs, key: 'docs' as const, localized: false }
 ])
 
 function linkCls(isActive: boolean) {
@@ -129,7 +134,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a href={localeHref(lang, '/pricing')} class={linkCls(active === 'pricing')}>
 					{t.nav.pricing}
 				</a>
-				<a href={localeHref(lang, '/docs')} class={linkCls(active === 'docs')}>{t.nav.docs}</a>
+				<a href="/docs/" class={linkCls(active === 'docs')}>{t.nav.docs}</a>
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
@@ -217,7 +222,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 		>
 			{#each MENU_ITEMS as item, i (item.key)}
 				<a
-					href={localeHref(lang, item.href)}
+					href={item.localized ? localeHref(lang, item.href) : `${item.href}/`}
 					onclick={() => (menuOpen = false)}
 					in:fly={{ y: 16, duration: 260, delay: 60 + 50 * i }}
 					class="font-display text-[clamp(2.25rem,11vw,3.75rem)] font-medium leading-none tracking-tight transition-opacity hover:opacity-70 {active ===
