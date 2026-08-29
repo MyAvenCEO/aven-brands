@@ -52,6 +52,7 @@
  * Keep `$lib`/Svelte imports out; anything that needs them lives in the
  * website's plans.ts.
  */
+import { factsDocument } from './brand-data.js'
 
 export type PlanId = 'aven-name' | 'aven-ceo' | 'aven-coop'
 
@@ -145,184 +146,7 @@ export interface Plan {
 }
 
 /** Display order. Plans are NOT cumulative — see `planIncludes`. */
-export const PLANS: Plan[] = [
-	{
-		id: 'aven-name',
-		name: 'avenNAME',
-		role: 'Sichere dir deinen avenCEO‑Namen — und teste den vollen avenCEO mit 100 MIND Credits, sobald du eingeladen bist.',
-		pitch:
-			'Deinen avenCEO gibt es genau einmal — und er trägt deinen Namen. Sichere ihn dir für ein Jahr, bevor ihn jemand anderes trägt, und teste ihn nach deiner Einladung mit 100 MIND Credits.',
-		eurPrice: 25,
-		billing: 'once',
-		maxPerAccount: 1,
-		runtime: { mindCredits: 100, per: 'once' },
-		revenueSharePct: 0,
-		features: [
-			{
-				title: 'Dein avenCEO‑Name für 1 Jahr',
-				description:
-					'Dein einzigartiger Name ist ein Jahr für dich gesichert — niemand sonst kann ihn tragen.'
-			},
-			{
-				title: 'Dein Platz auf der Warteliste',
-				description: 'Du stehst fest in der Reihe — sobald wir öffnen, bist du dran.'
-			},
-			{
-				title: 'Dein Profil im aven Marketplace',
-				description:
-					'Präsentiere deine Vision oder Idee mit einem eigenen Profil — sichtbar für alle Avens.'
-			}
-		]
-	},
-	{
-		id: 'aven-ceo',
-		name: 'avenCEO',
-		role: 'Dein AI‑CEO — für dein Leben und deine Firma, in einem.',
-		pitch:
-			'Du hast die Vision — dein avenCEO macht aus der Idee eine Firma, die läuft. Er arbeitet, während du schläfst, und wird jeden Tag besser. So fühlt sich Gründen an, wenn es keine 80‑Stunden‑Woche mehr kostet.',
-		eurPrice: 99,
-		billing: 'weekly',
-		maxPerAccount: 1,
-		beta: { discountPct: 30, months: 3 },
-		runtime: { mindCredits: 800, per: 'week' },
-		revenueSharePct: 8.2,
-		highlight: true,
-		features: [
-			{
-				skill: 'inbox-router',
-				title: 'Ein Eingang für alles',
-				description:
-					'E‑Mail, Post, Nachrichten und Gedanken landen an einem Ort — dein Aven sortiert sie.'
-			},
-			{
-				skill: 'email-manager',
-				title: 'E‑Mail‑Inbox',
-				description:
-					'Dein Aven liest mit, antwortet in deinem Ton und hält deinen Posteingang leer.'
-			},
-			{
-				skill: 'calendar-organizer',
-				title: 'Dein Kalender denkt mit',
-				description: 'Termine, Wege und Puffer planen sich selbst — du schaust nur noch drauf.'
-			},
-			{
-				skill: 'todo-shuffler',
-				title: 'Deine Liste sortiert sich selbst',
-				description:
-					'Was heute zählt, steht oben — dein Aven priorisiert nach dem, was wirklich ansteht.'
-			},
-			{
-				skill: 'docs-organizer',
-				title: 'Dokumentenverwaltung',
-				description:
-					'Verträge, Rechnungen, Unterlagen — abgelegt, benannt und wiedergefunden, ohne dass du suchst.'
-			},
-			{
-				skill: 'brain-memorizer',
-				title: 'Notizen, Kontakte, Beziehungen',
-				description:
-					'Dein Aven merkt sich, wer wer ist und was euch verbindet — nichts geht mehr verloren.'
-			},
-			{
-				skill: 'bookmark-champion',
-				title: 'Links und Lesezeichen, wiederfindbar',
-				description:
-					'Alles, was du speicherst, ist in Sekunden wieder da — sortiert und durchsuchbar.'
-			},
-			{
-				skill: 'human-reviewer',
-				title: 'Du entscheidest, wenn es zählt',
-				description:
-					'Bei allem, was wirklich wichtig ist, fragt dein Aven erst dich — du behältst das letzte Wort.'
-			},
-			{
-				skill: 'book-keeper',
-				title: 'Vorbuchhaltung',
-				description:
-					'Belege, Konten, Abstimmung — vorbereitet für deine Steuerkanzlei, ohne Stapel auf dem Tisch.'
-			},
-			{
-				skill: 'finance-brain',
-				title: 'Finanz‑Dashboard und Rechnungen',
-				description:
-					'Du siehst jederzeit, wo deine Firma steht — und Rechnungen schreiben sich von selbst.'
-			},
-			{
-				title: 'Agent‑API‑Auth‑Proxy',
-				description:
-					'Dein Aven nutzt Dienste und APIs in deinem Namen — sicher, ohne deine Schlüssel preiszugeben.'
-			},
-			{
-				skill: 'website-creator',
-				title: 'Website und Landingpages',
-				description:
-					'Deine Website entsteht aus deiner Vision — und bleibt aktuell, ohne dass du sie anfasst.'
-			},
-			{
-				skill: 'checkout-builder',
-				title: 'Produkt‑Checkout und Shop',
-				description:
-					'Verkaufe Produkte und Leistungen direkt — Checkout, Zahlung und Belege laufen von allein.'
-			},
-			{
-				skill: 'blog-writer',
-				title: 'Blog',
-				description:
-					'Dein Aven schreibt und veröffentlicht in deinem Ton — deine Geschichte bleibt hörbar.'
-			},
-			{
-				title: '2 digitale Postadressen incl.*',
-				description:
-					'Deine Papier‑ und Geschäftspost kommt digitalisiert bei deinem Aven an — je eine Adresse privat und geschäftlich, falls du beide brauchst (exkl. Nachsendeauftrag der Deutschen Post).'
-			},
-			{
-				title: 'Im aven Marketplace gelistet',
-				description:
-					'Deine Firma ist auffindbar für Kunden, Partner und andere Avens — vom ersten Tag an.'
-			}
-		]
-	},
-	{
-		id: 'aven-coop',
-		name: 'avenCOOP',
-		role: 'Hands‑on Unterstützung für dein eigenes souveränes Aven‑Business',
-		pitch:
-			'Du willst nicht nur eine Firma — du willst dein eigenes Aven‑Business. Wir haben die Infrastruktur gebaut und stehen neben dir, bis dein Skillbundle im Marketplace steht. Deine Idee, dein Name, dein Werk.',
-		eurPrice: 987,
-		billing: 'monthly',
-		maxPerAccount: 1,
-		beta: { discountPct: 50, months: 6 },
-		runtime: { mindCredits: 2400, per: 'week' },
-		revenueSharePct: 30,
-		revenueShareNote: 'inkl. App‑Store‑Gebühren & Co.',
-		applyOnly: true,
-		features: [
-			{
-				title: 'Hands‑on bis dein Bundle steht',
-				description:
-					'Wir arbeiten neben dir, während DU dein Skillbundle baust — dein Produkt, dein Name, unsere Infrastruktur.'
-			},
-			{
-				title: 'Verkauf im aven Marketplace',
-				description:
-					'Du verkaufst dein Bundle selbst — dein Preis, deine Kunden, dein Name auf dem Produkt.'
-			},
-			{
-				title: 'Rundum‑sorglos‑Abrechnung',
-				description:
-					'Wir verkaufen als offizieller Merchant of Record — App‑Store‑Gebühren & Co. stecken in den 30 %, du bekommst wöchentlich deine Auszahlung.'
-			},
-			{
-				title: 'Souveränität, die du weitergibst',
-				description: 'Deine Kunden behalten ihre eigenen Schlüssel — nicht du, nicht wir.'
-			},
-			{
-				title: 'Begleitung bei der Gründung',
-				description: 'Wir führen dich durch die deutsche Gründungs‑Bürokratie — GmbH oder UG.'
-			}
-		]
-	}
-]
+export const PLANS: Plan[] = factsDocument.pricing.plans as Plan[]
 
 export const planOrder: PlanId[] = PLANS.map((p) => p.id)
 
@@ -336,11 +160,9 @@ export const planOrder: PlanId[] = PLANS.map((p) => p.id)
  * deliberately absent, so `planIdOf('avenme')` is `null` rather than a
  * silent upgrade to something the buyer never bought.
  */
-export const LEGACY_PLAN_IDS: Readonly<Record<string, PlanId>> = Object.freeze({
-	avenid: 'aven-name',
-	avenceo: 'aven-ceo',
-	avencoop: 'aven-coop'
-})
+export const LEGACY_PLAN_IDS: Readonly<Record<string, PlanId>> = Object.freeze(
+	factsDocument.pricing.legacyPlanIds as Record<string, PlanId>
+)
 
 /**
  * A plan id from any source — our own current spelling, a legacy spelling out
@@ -438,7 +260,7 @@ export function priceSuffix(p: Plan): string {
  * The one VAT sentence, spelled once. "Netto" alone does not carry it — the
  * explicit clause does.
  */
-export const VAT_NOTE = 'Alle Preise verstehen sich inkl. der gesetzlichen Umsatzsteuer.'
+export const VAT_NOTE: string = factsDocument.pricing.vatNote
 
 // ---------------------------------------------------------------------------
 // Bilingual texts. German is the AUTHORED language — the strings on the PLANS

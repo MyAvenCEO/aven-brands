@@ -22,6 +22,7 @@ import type { Decl } from '@myavenceo/aven-vibes/brand'
 
 import brandJson from './brand/brand.avenceo.json' with { type: 'json' }
 import componentsJson from './brand/components.avenceo.json' with { type: 'json' }
+import factsJson from './brand/facts.avenceo.json' with { type: 'json' }
 
 export type { Decl }
 
@@ -114,3 +115,18 @@ export const APP_ICON_PLATE_VALUE = brandDoc.appIconPlate
 export const COMPONENTS_MAP = componentsDoc.components
 export const PRIMITIVES_MAP = componentsDoc.primitives
 export const NEAREST_STEP_MAP = componentsDoc.nearestStep.values
+
+/* ── The business facts ─────────────────────────────────────────────────── */
+
+/**
+ * Plans, prices and the skill catalog.
+ *
+ * Same rule as the palette: these are VALUES, so they are data. The helpers
+ * that read them — `plan()`, `priceLabel()`, `reconcile()` — are machinery and
+ * stay in `pricing.ts` and `skills.ts`. Typed by the caller, because the shapes
+ * (`Plan`, `SkillEntry`) are declared where the helpers that use them live.
+ */
+export const factsDocument = factsJson as unknown as {
+	pricing: { vatNote: string; legacyPlanIds: Record<string, string>; plans: unknown[] }
+	skills: { catalog: unknown[] }
+}
