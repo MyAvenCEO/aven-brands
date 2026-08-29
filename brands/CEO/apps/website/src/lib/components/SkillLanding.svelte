@@ -361,7 +361,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div
-				class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 shadow-[var(--shadow-surface-raised)] sm:px-8 sm:py-9"
+				class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 shadow-[var(--shadow-raised)] sm:px-8 sm:py-9"
 			>
 				<header class="flex items-end justify-between gap-4 border-b border-foreground/[0.06] pb-5">
 					<div class="flex items-center gap-3">

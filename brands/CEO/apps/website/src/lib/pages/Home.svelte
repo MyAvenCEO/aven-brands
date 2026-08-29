@@ -294,7 +294,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<ol class="mt-10 grid gap-4 sm:grid-cols-3">
 				{#each t.own.rungs as rung (rung.title)}
 					<li
-						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-surface-raised)]"
+						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
 					>
 						<p
 							class="text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent"
@@ -565,12 +565,12 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 }
 
 #home-hero-heading {
-	color: var(--color-dark-ink);
+	color: var(--color-on-dark);
 	text-shadow: 0 2px 24px color-mix(in srgb, var(--color-marine) 45%, transparent);
 }
 
 #home-hero-lead {
-	color: color-mix(in srgb, var(--color-dark-ink) 94%, transparent);
+	color: color-mix(in srgb, var(--color-on-dark) 94%, transparent);
 	text-shadow: 0 1px 16px color-mix(in srgb, var(--color-marine) 40%, transparent);
 }
 
@@ -578,11 +578,11 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
    home.ts for the light page) — lift it to a soft white on the video. The
    accent half keeps its brand gold, which reads well over the scrim. */
 #home-hero-lead :global(strong.text-foreground\/50) {
-	color: color-mix(in srgb, var(--color-dark-ink) 68%, transparent);
+	color: color-mix(in srgb, var(--color-on-dark) 68%, transparent);
 }
 
 #home-hero-helper {
-	color: color-mix(in srgb, var(--color-dark-ink) 72%, transparent);
+	color: color-mix(in srgb, var(--color-on-dark) 72%, transparent);
 	text-shadow: 0 1px 12px color-mix(in srgb, var(--color-marine) 40%, transparent);
 }
 

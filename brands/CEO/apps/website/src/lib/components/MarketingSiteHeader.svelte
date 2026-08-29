@@ -138,7 +138,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[var(--shadow-surface-raised)] transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>
@@ -168,7 +168,7 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 				<a
 					href={idFunnelHref()}
 					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[var(--shadow-surface-raised)] transition-opacity hover:opacity-90"
+					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
 				>
 					{t.nav.cta}
 				</a>

@@ -41,7 +41,7 @@ function submit(e: SubmitEvent) {
 const centered = $derived(variant === 'banner')
 const wrapperClass = $derived(
 	variant === 'banner'
-		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-surface-raised)] sm:px-10 sm:py-11'
+		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-raised)] sm:px-10 sm:py-11'
 		: 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
 )
 </script>
