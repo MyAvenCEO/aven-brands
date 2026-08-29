@@ -62,9 +62,16 @@ describe('the container contract', () => {
 	})
 
 	test('every container declares its own inline-size', () => {
-		expect(
-			composites.filter((u: any) => !u.styling?.base?.inlineSize).map((u: any) => u.name)
-		).toEqual([])
+		/*
+		 * EVERY container, including the viewport-pinned ones. `nav-menu` relied on
+		 * `inset: 0` for its width and was exempted here because it is fixed — and
+		 * it collapsed to zero the first time anything rendered it as anything but
+		 * fixed, which its own specimen does. That is the third time this exact
+		 * circularity has cost a layout, so the rule now has no exceptions: if a
+		 * unit is a container, it says how wide it is.
+		 */
+		const everyContainer = all.filter((u) => u.styling?.base?.containerType === 'inline-size')
+		expect(everyContainer.filter((u) => !u.styling?.base?.inlineSize).map((u) => u.name)).toEqual([])
 	})
 
 	test('a unit that hugs its content is never a container', () => {

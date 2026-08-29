@@ -303,6 +303,36 @@ const STATE_ATTR: Record<string, [string, string]> = {
 	error: ['aria-invalid', 'true']
 }
 
+/**
+ * Make a specimen's declared controls actually work.
+ *
+ * The navbar's hamburger declares `aria-expanded` and did nothing when pressed —
+ * the exact defect `verify_interactive` exists to catch, sitting in the page
+ * that documents the system. A specimen is static markup, so nothing was ever
+ * going to wire it; but the CONTRACT between these two units is part of what
+ * this page is documenting, and a reader should be able to press the button and
+ * see the menu.
+ *
+ * Deliberately tiny and generic: one delegated listener that flips
+ * `aria-expanded` on the control and `data-open` on the menu it names through
+ * `aria-controls`. It encodes no product logic — the same two attributes a real
+ * surface would drive — so it demonstrates the contract rather than reimplementing
+ * a header.
+ */
+function wireSpecimen(node: HTMLElement) {
+	const onClick = (event: Event) => {
+		const control = (event.target as HTMLElement)?.closest<HTMLElement>('[aria-expanded]')
+		if (!control || !node.contains(control)) return
+		const open = control.getAttribute('aria-expanded') !== 'true'
+		control.setAttribute('aria-expanded', String(open))
+		const id = control.getAttribute('aria-controls')
+		const target = id ? node.querySelector<HTMLElement>(`#${CSS.escape(id)}`) : null
+		if (target) target.setAttribute('data-open', String(open))
+	}
+	node.addEventListener('click', onClick)
+	return () => node.removeEventListener('click', onClick)
+}
+
 const applyPreview =
 	(unit: (typeof allRows)[number], variants: string, forced: string | null) =>
 	(node: HTMLElement) => {
@@ -732,6 +762,7 @@ function inspect(name: string) {
 										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
 										style={viewportStyle}
 										{@attach applyPreview(unit, variantClass, forcedState)}
+										{@attach wireSpecimen}
 									>
 										{#if specimenHtml}
 											{@html specimenHtml}

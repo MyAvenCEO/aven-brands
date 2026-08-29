@@ -71,6 +71,8 @@ import promptBar from './brand/units/prompt-bar.json' with { type: 'json' }
 import prose from './brand/units/prose.json' with { type: 'json' }
 import rowList from './brand/units/row-list.json' with { type: 'json' }
 import section from './brand/units/section.json' with { type: 'json' }
+import segment from './brand/units/segment.json' with { type: 'json' }
+import socialRow from './brand/units/social-row.json' with { type: 'json' }
 import settingRow from './brand/units/setting-row.json' with { type: 'json' }
 import sidebar from './brand/units/sidebar.json' with { type: 'json' }
 import skeleton from './brand/units/skeleton.json' with { type: 'json' }
@@ -101,6 +103,8 @@ const documents = [
 	surface,
 	card,
 	section,
+	segment,
+	socialRow,
 	hero,
 	media,
 	stat,

@@ -1,0 +1,104 @@
+{
+	"name": "social-row",
+	"description": "The row of social marks beside the wordmark in the header, and again in the footer. Four links, icon-only, quiet until pointed at.\n\nA unit because it is the same row twice with two different inks \u2014 dark on the header's pale bar, light on the footer's marine ground \u2014 and because the thing that keeps going wrong with it is not the look. An icon-only link has no accessible name unless someone gives it one, and a row of four is four unnamed links: a screen reader reads \"link, link, link, link\". Both existing copies pass an `aria-label` per item, which is correct and is exactly the care that gets dropped on the fifth copy.\n\nIt takes its ink from `currentColor`, so a surface tints the ROW once and every mark follows. The header does this today by passing a different class per context.",
+	"interface": {
+		"props": {
+			"label": "string"
+		},
+		"slots": {
+			"items": {
+				"accepts": [
+					"icon"
+				]
+			}
+		}
+	},
+	"view": {
+		"tag": "span",
+		"attrs": {
+			"role": "list",
+			"aria-label": "$props.label"
+		},
+		"$children": [
+			{
+				"tag": "span",
+				"part": "items",
+				"$children": "items"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "A row that never wraps and never grows. In a header it sits between the wordmark and the nav, and a social row that wraps to a second line pushes the bar's height around on exactly the widths where space is tightest.\n\nNot a container: `fit-content` is width from contents, which containment removes.",
+			"display": "inline-flex",
+			"alignItems": "center",
+			"gap": "var(--space-comfortable)",
+			"inlineSize": "fit-content",
+			"flexShrink": "0",
+			"color": "inherit"
+		},
+		"parts": {
+			"items": {
+				"display": "inline-flex",
+				"alignItems": "center",
+				"gap": "var(--space-comfortable)"
+			},
+			"item": {
+				"$description": "One mark. `currentColor` throughout, so the ROW is tinted once and every icon follows \u2014 the alternative is a colour per mark and four places to forget. The target is padded to 24px against an 18px glyph: WCAG 2.5.8 measures the TARGET, not the drawing, and four adjacent 18px links are four near-misses in a row.",
+				"display": "inline-grid",
+				"placeItems": "center",
+				"inlineSize": "1.5rem",
+				"blockSize": "1.5rem",
+				"borderRadius": "var(--radius-xs)",
+				"color": "inherit",
+				"opacity": "0.75",
+				"transition": "opacity var(--duration-quick) var(--ease-out)"
+			}
+		},
+		"variants": {
+			"density": {
+				"$description": "How much air between the marks.",
+				"tight": {
+					"$description": "For a header already carrying a nav and a call to action.",
+					"gap": "var(--space-tight)",
+					"& .social-row-items": {
+						"gap": "var(--space-tight)"
+					}
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$part": "item",
+				"opacity": "1"
+			},
+			"focus": {
+				"$part": "item",
+				"opacity": "1",
+				"outline": "1px solid var(--color-focus)",
+				"outlineOffset": "2px"
+			},
+			"active": {
+				"$part": "item",
+				"opacity": "0.6"
+			},
+			"disabled": {
+				"$part": "item",
+				"opacity": "0.4",
+				"cursor": "default"
+			},
+			"selected": {
+				"$part": "item",
+				"opacity": "1"
+			}
+		},
+		"interactive": true,
+		"reducedMotion": {
+			"$description": "The fade stays as an instant change. Hover here is a courtesy, not information, so there is nothing to lose by making it immediate.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "Every mark needs its own accessible name \u2014 an `aria-label` naming the NETWORK, not the icon: \"avenCEO on LinkedIn\", never \"LinkedIn logo\". The glyph is `aria-hidden`, because an icon announced beside a labelled link is the name read twice.\n\nThe row is `role=\"list\"` with a label, so a screen reader can skip it as a unit rather than walking four links to discover they were all social.\n\nOff-site links open in a new tab in both existing copies, which needs `rel=\"noopener noreferrer\"` \u2014 and a link that changes context without warning is WCAG 3.2.5, so the name should say so.\n\nThe target is 24px against an 18px glyph, measured on the target, which is what 2.5.8 counts."
+	}
+}

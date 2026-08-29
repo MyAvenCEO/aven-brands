@@ -51,16 +51,21 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "`position: fixed` over the whole viewport at the overlay layer \u2014 BELOW the bar, deliberately, so the bar's close control stays reachable and the menu cannot cover the thing that dismisses it.\n\nIt IS a container, like every other composite. `inset: 0` gives it a width from outside its contents, which is the one precondition containment needs, so there is no reason for this unit to be the exception \u2014 and one good reason against: the type below sizes in `cqi`, so the menu renders correctly at any size it is given rather than only at full screen. A `vw`-based menu is right exactly once and wrong in a preview, a split pane, or a tablet sidebar.",
+			"$description": "`position: fixed` over the whole viewport at the overlay layer \u2014 BELOW the bar, deliberately, so the bar's close control stays reachable and the menu cannot cover the thing that dismisses it.\n\nIt IS a container, like every other composite. `inset: 0` gives it a width from outside its contents, which is the one precondition containment needs, so there is no reason for this unit to be the exception \u2014 and one good reason against: the type below sizes in `cqi`, so the menu renders correctly at any size it is given rather than only at full screen. A `vw`-based menu is right exactly once and wrong in a preview, a split pane, or a tablet sidebar.\n\n`inline-size: 100%` even though `inset: 0` already gives it one. Being a container means the width may not come from the contents, and `inset` is the only other source \u2014 so the moment anything renders this unit as anything but fixed, it has no width at all and collapses to zero. Its own specimen did exactly that. `100%` of a fixed element's containing block IS the viewport, so the declaration is redundant in the real case and load-bearing in every other one.\n\nThe OPEN state is declared here, on `[data-open=\"true\"]`, and it was missing. The view emitted `data-open`, a caller could set it, and no rule read it \u2014 so the menu stayed `visibility: hidden` and pressing the hamburger flipped two attributes and changed nothing on screen. An attribute declared and never read is the same defect as a variant that declares nothing: the control moves and the interface does not.\n\nIt is an attribute rather than a state because open-ness is DATA the surface owns, not an interaction this element is having. `aria-expanded` lives on the button that opens it, `data-open` lives here, and a surface flips both together.",
 			"position": "fixed",
 			"inset": "0",
+			"inlineSize": "100%",
 			"zIndex": "var(--z-overlay)",
 			"display": "grid",
 			"visibility": "hidden",
 			"opacity": "0",
 			"transition": "opacity var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate)",
 			"containerType": "inline-size",
-			"containerName": "nav-menu"
+			"containerName": "nav-menu",
+			"&[data-open=\"true\"]": {
+				"visibility": "visible",
+				"opacity": "1"
+			}
 		},
 		"parts": {
 			"scrim": {

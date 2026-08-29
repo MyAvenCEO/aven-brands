@@ -421,31 +421,71 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	navbar: {
-		/* No `breakpoint` class on it. The bar collapses on its OWN width now, so
-		   this same markup is a full desktop nav in the detail view and a brand +
-		   hamburger in a 324px grid card — which is the demonstration. */
-		one: `<span class="navbar">
-			<span class="navbar-bar">
-				<span class="navbar-brand"><span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
-				<span class="navbar-links">
-					<a class="nav-link" href="#specimen" aria-current="page">Skills</a>
-					<a class="nav-link" href="#specimen">Marketplace</a>
-					<a class="nav-link" href="#specimen">Pricing</a>
-					<a class="nav-link" href="#specimen">Docs</a>
+		tall: true,
+		/* The hamburger WORKS. `aria-controls` names the menu and the storybook's
+		   generic wiring flips `aria-expanded` and `data-open` — the same two
+		   attributes a real surface drives. A specimen whose declared control does
+		   nothing is the defect `verify_interactive` exists to catch, sitting in
+		   the page that documents the system.
+
+		   The menu is a SIBLING of the bar, never a child: the bar is
+		   `backdrop-filter` glass, and a filtered element becomes the containing
+		   block for `position: fixed` descendants. */
+		one: `<span style="position:relative; display:block; inline-size:100%; block-size:20rem; overflow:hidden; border-radius:var(--radius-lg)">
+			<span class="navbar" style="position:relative; z-index:2">
+				<span class="navbar-bar">
+					<span class="navbar-brand"><span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
+					<span class="social-row social-row--density-tight" role="list" aria-label="avenCEO elsewhere">
+						<span class="social-row-items">
+							<a class="social-row-item" href="#specimen" aria-label="avenCEO on X">${icon('social-x', '1.125rem')}</a>
+							<a class="social-row-item" href="#specimen" aria-label="avenCEO on Instagram">${icon('social-instagram', '1.125rem')}</a>
+							<a class="social-row-item" href="#specimen" aria-label="avenCEO on LinkedIn">${icon('social-linkedin', '1.125rem')}</a>
+							<a class="social-row-item" href="#specimen" aria-label="avenCEO on YouTube">${icon('social-youtube', '1.125rem')}</a>
+						</span>
+					</span>
+					<span class="navbar-links">
+						<a class="nav-link" href="#specimen" aria-current="page">Skills</a>
+						<a class="nav-link" href="#specimen">Marketplace</a>
+						<a class="nav-link" href="#specimen">Pricing</a>
+						<a class="nav-link" href="#specimen">Docs</a>
+					</span>
+					<span class="navbar-actions">
+						<button class="btn btn--accent" type="button"><span class="btn-label">Hire your Aven</span></button>
+						<span class="segment" role="group" aria-label="Language">
+							<span class="segment-options">
+								<a class="segment-option" href="#specimen" aria-current="true">DE</a>
+								<span class="segment-divider" aria-hidden="true">|</span>
+								<a class="segment-option" href="#specimen">EN</a>
+							</span>
+						</span>
+					</span>
+					<button class="navbar-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sp-nav-menu">${icon('menu', '1.25rem')}</button>
 				</span>
-				<span class="navbar-actions">
-					<button class="btn btn--accent" type="button"><span class="btn-label">Hire your Aven</span></button>
+			</span>
+			<span class="nav-menu" id="sp-nav-menu" data-open="false" style="position:absolute">
+				<span class="nav-menu-scrim"></span>
+				<span class="nav-menu-panel">
+					<span class="nav-menu-items">
+						<a class="nav-menu-item" href="#specimen" aria-current="page">Skills</a>
+						<a class="nav-menu-item" href="#specimen">Marketplace</a>
+						<a class="nav-menu-item" href="#specimen">Pricing</a>
+					</span>
+					<span class="segment segment--face-large segment--tone-inverted nav-menu-footer" role="group" aria-label="Language">
+						<span class="segment-options">
+							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
+							<span class="segment-divider" aria-hidden="true">|</span>
+							<a class="segment-option" href="#specimen">EN</a>
+						</span>
+					</span>
 				</span>
-				<button class="navbar-toggle" type="button" aria-label="Open menu" aria-expanded="false">${icon('menu', '1.25rem')}</button>
 			</span>
 		</span>`
 	},
 	'nav-menu': {
 		tall: true,
-		/* Rendered OPEN and un-fixed, because a `position: fixed` specimen escapes
-		   the stage and covers the docs page. `data-demo-state` opts the state
-		   rendering out; the geometry and the type are what this shows. */
-		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; visibility:visible; opacity:1; block-size:20rem; border-radius:var(--radius-lg); overflow:hidden">
+		/* Rendered open and un-fixed, because a `position: fixed` specimen escapes
+		   the stage and covers the docs page. */
+		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:20rem; border-radius:var(--radius-lg); overflow:hidden">
 			<span class="nav-menu-scrim"></span>
 			<span class="nav-menu-panel">
 				<span class="nav-menu-items">
@@ -453,10 +493,54 @@ export const specimens: Record<string, Specimen> = {
 					<a class="nav-menu-item" href="#specimen">Marketplace</a>
 					<a class="nav-menu-item" href="#specimen">Pricing</a>
 				</span>
-				<span class="nav-menu-footer">
-					<a class="nav-menu-item" href="#specimen" style="font-size:inherit" aria-current="true">DE</a>
-					<span aria-hidden="true">|</span>
-					<a class="nav-menu-item" href="#specimen" style="font-size:inherit">EN</a>
+				<span class="segment segment--face-large segment--tone-inverted nav-menu-footer" role="group" aria-label="Language">
+					<span class="segment-options">
+						<a class="segment-option" href="#specimen" aria-current="true">DE</a>
+						<span class="segment-divider" aria-hidden="true">|</span>
+						<a class="segment-option" href="#specimen">EN</a>
+					</span>
+				</span>
+			</span>
+		</span>`
+	},
+	'social-row': {
+		one: `<span class="social-row" role="list" aria-label="avenCEO elsewhere">
+			<span class="social-row-items">
+				<a class="social-row-item" href="#specimen" aria-label="avenCEO on X">${icon('social-x', '1.125rem')}</a>
+				<a class="social-row-item" href="#specimen" aria-label="avenCEO on Instagram">${icon('social-instagram', '1.125rem')}</a>
+				<a class="social-row-item" href="#specimen" aria-label="avenCEO on LinkedIn">${icon('social-linkedin', '1.125rem')}</a>
+				<a class="social-row-item" href="#specimen" aria-label="avenCEO on YouTube">${icon('social-youtube', '1.125rem')}</a>
+			</span>
+		</span>`
+	},
+	segment: {
+		one: `<span class="segment" role="group" aria-label="Language">
+			<span class="segment-options">
+				<a class="segment-option" href="#specimen" aria-current="true">DE</a>
+				<span class="segment-divider" aria-hidden="true">|</span>
+				<a class="segment-option" href="#specimen">EN</a>
+			</span>
+		</span>`,
+		/* Three faces, three real call sites: the header's language switch, the
+		   storybook's own theme control, and a price toggle. One question. */
+		html: `<span class="sp-stack" style="justify-items:center">
+			<span class="segment" role="group" aria-label="Language">
+				<span class="segment-options">
+					<a class="segment-option" href="#specimen" aria-current="true">DE</a>
+					<span class="segment-divider" aria-hidden="true">|</span>
+					<a class="segment-option" href="#specimen">EN</a>
+				</span>
+			</span>
+			<span class="segment segment--face-pill" role="group" aria-label="Theme">
+				<span class="segment-options">
+					<button class="segment-option" type="button" aria-pressed="true">Light</button>
+					<button class="segment-option" type="button" aria-pressed="false">Dark</button>
+				</span>
+			</span>
+			<span class="segment segment--face-pill" role="group" aria-label="Billing period">
+				<span class="segment-options">
+					<button class="segment-option" type="button" aria-pressed="true">Monthly</button>
+					<button class="segment-option" type="button" aria-pressed="false">Yearly</button>
 				</span>
 			</span>
 		</span>`
