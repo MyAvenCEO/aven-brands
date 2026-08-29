@@ -1,0 +1,673 @@
+{
+	"$description": "avenCEO brand tokens. THE source of truth: the TypeScript package loads this file and adds types, it does not hold values. DTCG shape ($type/$value); values may reference other tokens with var(--color-...) exactly as the emitted CSS does.",
+	"name": "avenCEO",
+	"slug": "aven-ceo",
+	"color": {
+		"tones": {
+			"marine": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "deep navy — the brand's ink and its fill"
+			},
+			"anchor": {
+				"$type": "color",
+				"$value": "#57789e",
+				"$description": "steel blue, off the violet side — everything held back"
+			},
+			"tidal-blue": {
+				"$type": "color",
+				"$value": "#2489a0",
+				"$description": "teal-blue — work in motion"
+			},
+			"paradise-water": {
+				"$type": "color",
+				"$value": "#449c94",
+				"$description": "turquoise — the bright note; settled work"
+			},
+			"terracotta": {
+				"$type": "color",
+				"$value": "#c15b40",
+				"$description": "burnt orange — the failure tone"
+			},
+			"sunflower": {
+				"$type": "color",
+				"$value": "#f2ba3d",
+				"$description": "bright, radiant brand yellow — the brand's highlight"
+			},
+			"earth": {
+				"$type": "color",
+				"$value": "#d4a373",
+				"$description": "warm amber-tan — notice"
+			},
+			"sand": {
+				"$type": "color",
+				"$value": "#f3e7c6",
+				"$description": "cream yellow — the warm fill"
+			},
+			"chalk": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "near-white — text on a dark tone"
+			},
+			"ink": {
+				"$type": "color",
+				"$value": "#182a47",
+				"$description": "very dark marine blue — body copy, never pure black"
+			}
+		},
+		"creams": {
+			"porcelain": {
+				"$type": "color",
+				"$value": "#fffdf7",
+				"$description": "the raised card — lightest, lifts off the page"
+			},
+			"linen": {
+				"$type": "color",
+				"$value": "#faf9f4",
+				"$description": "the page ground everything rests on"
+			},
+			"eggshell": {
+				"$type": "color",
+				"$value": "#f6f3e8",
+				"$description": "one step warmer — panels, hover"
+			},
+			"ivory": {
+				"$type": "color",
+				"$value": "#f6f1e2",
+				"$description": "warmest — cards at rest, and selection"
+			}
+		},
+		"contrastInk": {
+			"success-foreground": {
+				"$type": "color",
+				"$value": "#fafaf9"
+			},
+			"warning-foreground": {
+				"$type": "color",
+				"$value": "#2b2313"
+			},
+			"error-foreground": {
+				"$type": "color",
+				"$value": "#fffefb"
+			},
+			"info-foreground": {
+				"$type": "color",
+				"$value": "#2b231c"
+			},
+			"white": {
+				"$type": "color",
+				"$value": "#ffffff"
+			}
+		},
+		"surfaces": {
+			"surface-raised": {
+				"$type": "color",
+				"$value": "var(--color-porcelain)"
+			},
+			"surface-cream": {
+				"$type": "color",
+				"$value": "var(--color-linen)"
+			},
+			"surface-soft": {
+				"$type": "color",
+				"$value": "var(--color-eggshell)"
+			},
+			"surface-card": {
+				"$type": "color",
+				"$value": "var(--color-ivory)"
+			},
+			"surface-card-selected": {
+				"$type": "color",
+				"$value": "var(--color-sand)"
+			},
+			"background": {
+				"$type": "color",
+				"$value": "var(--color-surface-cream)"
+			},
+			"surface-card-hover": {
+				"$type": "color",
+				"$value": "var(--color-eggshell)"
+			}
+		},
+		"roles": {
+			"primary": {
+				"$type": "color",
+				"$value": "var(--color-marine)"
+			},
+			"primary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-chalk)"
+			},
+			"quiet": {
+				"$type": "color",
+				"$value": "var(--color-anchor)"
+			},
+			"quiet-foreground": {
+				"$type": "color",
+				"$value": "var(--color-chalk)"
+			},
+			"quiet-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-anchor) 82%, black)"
+			},
+			"progress": {
+				"$type": "color",
+				"$value": "var(--color-tidal-blue)"
+			},
+			"progress-foreground": {
+				"$type": "color",
+				"$value": "var(--color-chalk)"
+			},
+			"progress-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-tidal-blue) 72%, black)"
+			},
+			"success": {
+				"$type": "color",
+				"$value": "var(--color-paradise-water)"
+			},
+			"success-foreground": {
+				"$type": "color",
+				"$value": "#fafaf9"
+			},
+			"success-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-paradise-water) 68%, black)"
+			},
+			"warning": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)"
+			},
+			"warning-foreground": {
+				"$type": "color",
+				"$value": "#2b2313"
+			},
+			"warning-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-sunflower) 62%, black)"
+			},
+			"error": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)"
+			},
+			"error-foreground": {
+				"$type": "color",
+				"$value": "#fffefb"
+			},
+			"error-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-terracotta) 85%, black)"
+			},
+			"info": {
+				"$type": "color",
+				"$value": "var(--color-earth)"
+			},
+			"info-foreground": {
+				"$type": "color",
+				"$value": "#2b231c"
+			},
+			"info-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-earth) 72%, black)"
+			},
+			"secondary": {
+				"$type": "color",
+				"$value": "var(--color-sand)"
+			},
+			"secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-marine)"
+			},
+			"foreground": {
+				"$type": "color",
+				"$value": "var(--color-ink)"
+			},
+			"card-foreground": {
+				"$type": "color",
+				"$value": "var(--color-foreground)"
+			},
+			"muted": {
+				"$type": "color",
+				"$value": "color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-cream))"
+			},
+			"muted-foreground": {
+				"$type": "color",
+				"$value": "color-mix(in srgb, var(--color-marine) 42%, transparent)"
+			},
+			"border": {
+				"$type": "color",
+				"$value": "color-mix(in srgb, var(--color-marine) 14%, transparent)"
+			},
+			"input": {
+				"$type": "color",
+				"$value": "color-mix(in srgb, #ffffff 65%, var(--color-surface-cream))"
+			}
+		},
+		"siteRoles": {
+			"accent": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)"
+			},
+			"accent-foreground": {
+				"$type": "color",
+				"$value": "#2b2313"
+			},
+			"accent-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-sunflower) 62%, black)"
+			},
+			"offer": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)"
+			},
+			"offer-foreground": {
+				"$type": "color",
+				"$value": "#fffefb"
+			},
+			"offer-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-terracotta) 88%, black)"
+			},
+			"card": {
+				"$type": "color",
+				"$value": "var(--color-surface-raised)"
+			}
+		},
+		"appRoles": {
+			"error-muted": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-terracotta) 22%, white)"
+			},
+			"error-strong": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-terracotta) 78%, black)"
+			},
+			"success-muted": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-paradise-water) 22%, white)"
+			},
+			"success-strong": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-paradise-water) 78%, black)"
+			},
+			"warning-muted": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-sunflower) 22%, white)"
+			},
+			"warning-strong": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-sunflower) 78%, black)"
+			},
+			"info-muted": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-earth) 22%, white)"
+			},
+			"info-strong": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-earth) 78%, black)"
+			},
+			"evidence": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)"
+			},
+			"evidence-soft": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-sunflower) 26%, white)"
+			},
+			"evidence-ink": {
+				"$type": "color",
+				"$value": "color-mix(in oklab, var(--color-sunflower) 62%, black)"
+			},
+			"card": {
+				"$type": "color",
+				"$value": "#ffffff"
+			},
+			"sandbox-host": {
+				"$type": "color",
+				"$value": "color-mix(in srgb, var(--color-background) 94%, var(--color-foreground))"
+			}
+		}
+	},
+	"font": {
+		"stack": {
+			"app": {
+				"$type": "fontFamily",
+				"$value": "\"InterVariable\", ui-sans-serif, system-ui, -apple-system, sans-serif"
+			},
+			"web": {
+				"$type": "fontFamily",
+				"$value": "\"Google Sans Flex\", \"Inter\", ui-sans-serif, system-ui, -apple-system, sans-serif"
+			},
+			"display": {
+				"$type": "fontFamily",
+				"$value": "\"FogtwoNo5\", \"Google Sans Flex\", \"Inter\", ui-sans-serif, system-ui, sans-serif"
+			}
+		},
+		"weight": {
+			"font-weight-medium": {
+				"$type": "fontWeight",
+				"$value": "500"
+			},
+			"font-weight-semibold": {
+				"$type": "fontWeight",
+				"$value": "600"
+			},
+			"font-weight-bold": {
+				"$type": "fontWeight",
+				"$value": "700"
+			}
+		}
+	},
+	"radii": {
+		"radius-lg": {
+			"$type": "dimension",
+			"$value": "1rem"
+		},
+		"radius-xl": {
+			"$type": "dimension",
+			"$value": "1.5rem"
+		},
+		"radius-2xl": {
+			"$type": "dimension",
+			"$value": "2rem"
+		},
+		"radius-full": {
+			"$type": "dimension",
+			"$value": "9999px"
+		}
+	},
+	"vibeScale": {
+		"radius-card": {
+			"$type": "dimension",
+			"$value": "1.5rem"
+		},
+		"radius-inner": {
+			"$type": "dimension",
+			"$value": "0.75rem"
+		},
+		"radius-chip": {
+			"$type": "dimension",
+			"$value": "0.5rem"
+		},
+		"radius-pill": {
+			"$type": "dimension",
+			"$value": "9999px"
+		},
+		"radius-2xl": {
+			"$type": "dimension",
+			"$value": "1.5rem"
+		},
+		"radius-md": {
+			"$type": "dimension",
+			"$value": "0.75rem"
+		},
+		"pad-card": {
+			"$type": "dimension",
+			"$value": "1.5rem"
+		},
+		"pad-card-sm": {
+			"$type": "dimension",
+			"$value": "1rem 1.25rem"
+		},
+		"pad-chip": {
+			"$type": "dimension",
+			"$value": "0.5rem 0.75rem"
+		},
+		"gap-section": {
+			"$type": "dimension",
+			"$value": "1.5rem"
+		},
+		"gap": {
+			"$type": "dimension",
+			"$value": "0.75rem"
+		},
+		"gap-tight": {
+			"$type": "dimension",
+			"$value": "0.5rem"
+		},
+		"max-w": {
+			"$type": "dimension",
+			"$value": "56rem"
+		},
+		"fs-micro": {
+			"$type": "dimension",
+			"$value": "10px"
+		},
+		"fs-eyebrow": {
+			"$type": "dimension",
+			"$value": "11px"
+		},
+		"fs-label": {
+			"$type": "dimension",
+			"$value": "11px"
+		},
+		"fs-meta": {
+			"$type": "dimension",
+			"$value": "12px"
+		},
+		"fs-body": {
+			"$type": "dimension",
+			"$value": "13px"
+		},
+		"fs-section": {
+			"$type": "dimension",
+			"$value": "0.875rem"
+		},
+		"fs-title": {
+			"$type": "dimension",
+			"$value": "0.9375rem"
+		},
+		"fs-lead": {
+			"$type": "dimension",
+			"$value": "1.0625rem"
+		},
+		"fs-hero": {
+			"$type": "dimension",
+			"$value": "1.25rem"
+		},
+		"fs-amount": {
+			"$type": "dimension",
+			"$value": "1.5rem"
+		},
+		"tracking-eyebrow": {
+			"$type": "dimension",
+			"$value": "0.08em"
+		},
+		"tracking-tight": {
+			"$type": "dimension",
+			"$value": "-0.02em"
+		}
+	},
+	"scale": {
+		"type": {
+			"fs-nano": {
+				"$type": "dimension",
+				"$value": "9px",
+				"$description": "legal footnotes, the smallest badge"
+			},
+			"fs-micro": {
+				"$type": "dimension",
+				"$value": "10px",
+				"$description": "dense meta, table chrome"
+			},
+			"fs-eyebrow": {
+				"$type": "dimension",
+				"$value": "11px",
+				"$description": "THE eyebrow, and inline labels"
+			},
+			"fs-meta": {
+				"$type": "dimension",
+				"$value": "12px",
+				"$description": "captions, secondary lines"
+			},
+			"fs-body": {
+				"$type": "dimension",
+				"$value": "13px",
+				"$description": "running text in dense surfaces"
+			},
+			"fs-section": {
+				"$type": "dimension",
+				"$value": "14px",
+				"$description": "section headings, comfortable body"
+			},
+			"fs-title": {
+				"$type": "dimension",
+				"$value": "15px",
+				"$description": "card titles"
+			},
+			"fs-lead": {
+				"$type": "dimension",
+				"$value": "17px",
+				"$description": "the lead line of a panel"
+			},
+			"fs-hero": {
+				"$type": "dimension",
+				"$value": "20px",
+				"$description": "a page's first statement"
+			},
+			"fs-amount": {
+				"$type": "dimension",
+				"$value": "24px",
+				"$description": "figures that carry weight"
+			},
+			"fs-display": {
+				"$type": "dimension",
+				"$value": "28px",
+				"$description": "marketing headline"
+			},
+			"fs-display-lg": {
+				"$type": "dimension",
+				"$value": "38px",
+				"$description": "the one line above the fold"
+			}
+		},
+		"tracking": {
+			"tracking-tight": {
+				"$type": "dimension",
+				"$value": "-0.02em",
+				"$description": "large type, pulled together"
+			},
+			"tracking-normal": {
+				"$type": "dimension",
+				"$value": "0"
+			},
+			"tracking-wide": {
+				"$type": "dimension",
+				"$value": "0.08em",
+				"$description": "uppercase at small sizes"
+			},
+			"tracking-wider": {
+				"$type": "dimension",
+				"$value": "0.14em"
+			},
+			"tracking-widest": {
+				"$type": "dimension",
+				"$value": "0.22em",
+				"$description": "the most emphatic eyebrow"
+			}
+		},
+		"ink": {
+			"ink-faint": {
+				"$type": "number",
+				"$value": "0.35",
+				"$description": "2.05:1 — disabled + watermarks ONLY (WCAG-exempt)"
+			},
+			"ink-quiet": {
+				"$type": "number",
+				"$value": "0.65",
+				"$description": "4.61:1 — captions, secondary meta"
+			},
+			"ink-muted": {
+				"$type": "number",
+				"$value": "0.75",
+				"$description": "6.42:1 — supporting copy"
+			},
+			"ink-strong": {
+				"$type": "number",
+				"$value": "0.85",
+				"$description": "8.62:1 — emphasis short of full ink"
+			},
+			"ink-full": {
+				"$type": "number",
+				"$value": "0.9",
+				"$description": "10.10:1 — body copy at full weight"
+			}
+		},
+		"tint": {
+			"tint-hairline": {
+				"$type": "number",
+				"$value": "0.08",
+				"$description": "the 1px rule between rows"
+			},
+			"tint-soft": {
+				"$type": "number",
+				"$value": "0.15",
+				"$description": "a resting wash"
+			},
+			"tint-firm": {
+				"$type": "number",
+				"$value": "0.25",
+				"$description": "a deliberate edge"
+			}
+		},
+		"elevation": {
+			"shadow-raised": {
+				"$type": "shadow",
+				"$value": "0 1px 3px rgba(30, 41, 59, 0.05)"
+			},
+			"shadow-floating": {
+				"$type": "shadow",
+				"$value": "0 4px 16px rgba(30, 41, 59, 0.12)"
+			},
+			"shadow-overlay": {
+				"$type": "shadow",
+				"$value": "0 12px 40px rgba(30, 41, 59, 0.18)"
+			}
+		},
+		"radius": {
+			"radius-chip": {
+				"$type": "dimension",
+				"$value": "0.5rem"
+			},
+			"radius-inner": {
+				"$type": "dimension",
+				"$value": "0.75rem"
+			},
+			"radius-card": {
+				"$type": "dimension",
+				"$value": "1.5rem"
+			},
+			"radius-panel": {
+				"$type": "dimension",
+				"$value": "2rem"
+			},
+			"radius-pill": {
+				"$type": "dimension",
+				"$value": "9999px"
+			}
+		},
+		"space": {
+			"space-tight": {
+				"$type": "dimension",
+				"$value": "0.5rem"
+			},
+			"space-snug": {
+				"$type": "dimension",
+				"$value": "0.75rem"
+			},
+			"space-comfortable": {
+				"$type": "dimension",
+				"$value": "1rem"
+			},
+			"space-loose": {
+				"$type": "dimension",
+				"$value": "1.5rem"
+			},
+			"space-section": {
+				"$type": "dimension",
+				"$value": "2.5rem"
+			}
+		}
+	},
+	"appIconPlate": "#faf9f4"
+}
