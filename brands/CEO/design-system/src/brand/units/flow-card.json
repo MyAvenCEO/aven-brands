@@ -152,7 +152,8 @@
 				"justifyContent": "center",
 				"gap": "var(--space-tight)",
 				"marginBlockStart": "var(--space-tight)",
-				"inlineSize": "100%"
+				"inlineSize": "100%",
+				"$description": "The affirmative action goes LAST — rightmost in a left-to-right reading order — and the way out goes first. That is the direction of travel: you read to the end of the row and the end is the thing you came to do. Putting the primary first means the eye lands on it before it has read what it is agreeing to, and it puts Cancel where the thumb expects Confirm."
 			},
 			"trust": {
 				"$description": "Who you are actually talking to. On a screen whose whole purpose is being trusted, this is content and not a footer — it is the sentence that answers 'should I press this'.",
@@ -227,28 +228,55 @@
 				}
 			},
 			"step": {
-				"$description": "WHERE in the flow this card is. Not decoration and not the same thing as `status`: status is how it is GOING (success, error, waiting), step is which screen you are ON. A flow that cannot say which step it is on is a flow the user cannot orient in — and all three of these screens are steps in one sequence, which is why they belong to one unit.",
+				"$description": "WHERE in the flow this card is — which is not the same as `status`, which is how it is GOING. Each step tints the eyebrow and the crest with the tone that belongs to it, so the four screens of one sequence are visibly one sequence rather than four cards that happen to look alike. Three of these once declared nothing at all and were documentation wearing a variant's name: a switch that changes nothing is worse than no switch, because it teaches you the control is broken.",
 				"identify": {
-					"$part": "eyebrow",
-					"$description": "Who are you — the name check, the sign-in."
+					"$description": "Who are you — the name check, the sign-in.",
+					"& .flow-card-crest": {
+						"background": "var(--color-secondary-surface)",
+						"borderColor": "var(--color-secondary-border)",
+						"color": "var(--color-secondary-ink)"
+					},
+					"& .flow-card-eyebrow": {
+						"color": "var(--color-secondary-ink)"
+					}
 				},
 				"authorise": {
-					"$part": "eyebrow",
-					"$description": "Do you allow this — the device grant, the consent."
+					"$description": "Do you allow this — the device grant, the consent.",
+					"& .flow-card-eyebrow": {
+						"color": "var(--color-accent-ink)"
+					},
+					"& .flow-card-crest": {
+						"background": "var(--color-accent-surface)",
+						"borderColor": "var(--color-accent-border)",
+						"color": "var(--color-accent-ink)"
+					}
 				},
 				"pay": {
-					"$part": "eyebrow",
-					"$description": "Confirm the money."
+					"$description": "Confirm the money. Marine, because this is the one step that takes something.",
+					"& .flow-card-eyebrow": {
+						"color": "var(--color-foreground)"
+					},
+					"& .flow-card-crest": {
+						"background": "var(--color-primary)",
+						"borderColor": "var(--color-primary)",
+						"color": "var(--color-primary-foreground)"
+					}
 				},
 				"done": {
-					"$part": "eyebrow",
-					"$description": "It happened. Pairs with `status: success`.",
-					"color": "var(--color-success-ink)"
+					"$description": "It happened.",
+					"& .flow-card-eyebrow": {
+						"color": "var(--color-tertiary-ink)"
+					},
+					"& .flow-card-crest": {
+						"background": "var(--color-success-surface)",
+						"borderColor": "var(--color-success-border)",
+						"color": "var(--color-success-ink)"
+					}
 				}
 			}
 		}
 	},
 	"a11y": {
-		"note": "`aria-live=\"polite\"` on the card, because the heading and description CHANGE as the flow advances and a screen-reader user is otherwise left on the previous step with no way to know. The alert is `role=\"alert\"`, which interrupts — correct for a failure the user must act on. The status glyph is decorative: colour is never the only signal, so the heading always says in words what the glyph says in shape. The code is `user-select: all` so it can be copied in one gesture rather than dragged."
+		"note": "`aria-live=\"polite\"` on the card, because the heading and description CHANGE as the flow advances and a screen-reader user is otherwise left on the previous step with no way to know. The alert is `role=\"alert\"`, which interrupts — correct for a failure the user must act on. The status glyph is decorative: colour is never the only signal, so the heading always says in words what the glyph says in shape. The code is `user-select: all` so it can be copied in one gesture rather than dragged. The visual order and the DOM order are the same, so a keyboard tabs to the way out before the commit — which is the safer default when someone is moving fast."
 	}
 }

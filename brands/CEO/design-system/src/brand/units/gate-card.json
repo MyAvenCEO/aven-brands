@@ -1,0 +1,109 @@
+{
+	"name": "gate-card",
+	"description": "The human gate — where an autonomous process stops and asks. The app calls it HITL and it is the most consequential shape in the estate: it is the one interface where a person takes responsibility for what a machine is about to do.\n\nThat gives it two rules nothing else has. It must say what will happen if you say yes, in the same card, at the same time as the buttons — an approve button whose consequence is on another screen is a signature on a blank page. And a pending gate never lives only in a log: it surfaces in one global place, because a decision that is waiting somewhere you are not looking is a process quietly stalled.",
+	"interface": {
+		"props": { "labelledBy": "string", "asked": "string" },
+		"slots": { "question": {}, "detail": {}, "preview": {}, "actions": { "accepts": ["btn"] } }
+	},
+	"view": {
+		"tag": "section",
+		"attrs": { "aria-labelledby": "$props.labelledBy", "role": "group" },
+		"$children": [
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": [
+					{
+						"tag": "p",
+						"part": "question",
+						"attrs": { "id": "$props.labelledBy" },
+						"$children": "question"
+					},
+					{ "tag": "span", "part": "asked", "text": "$props.asked" }
+				]
+			},
+			{ "tag": "p", "part": "detail", "$children": "detail" },
+			{ "tag": "div", "part": "preview", "$children": "preview" },
+			{ "tag": "div", "part": "actions", "$children": "actions" }
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gap": "var(--space-tight)",
+			"minInlineSize": "0",
+			"padding": "var(--space-comfortable) var(--space-loose)",
+			"borderRadius": "var(--radius-md)",
+			"border": "1px solid var(--color-accent-border)",
+			"background": "var(--color-accent-surface)",
+			"color": "var(--color-foreground)"
+		},
+		"parts": {
+			"head": {
+				"display": "flex",
+				"alignItems": "baseline",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0"
+			},
+			"question": {
+				"$description": "The ask, in one sentence, in the imperative of what YOU are deciding — not 'Gate 4 pending'. A gate whose question is a status line is a gate nobody can answer without opening something else.",
+				"margin": "0",
+				"minInlineSize": "0",
+				"flex": "1 1 auto",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "600"
+			},
+			"asked": {
+				"flexShrink": "0",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-nano)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"detail": {
+				"margin": "0",
+				"maxInlineSize": "62ch",
+				"fontSize": "var(--fs-micro)",
+				"lineHeight": "1.55",
+				"color": "var(--color-foreground-soft)"
+			},
+			"preview": {
+				"$description": "WHAT WILL HAPPEN, shown rather than described — the draft that will be sent, the rows that will change. This is the part that makes the gate a decision instead of a formality, and it is the part that gets dropped first when the card is rebuilt by hand.",
+				"maxBlockSize": "16rem",
+				"overflow": "auto",
+				"padding": "var(--space-tight) var(--space-comfortable)",
+				"borderRadius": "var(--radius-sm)",
+				"border": "1px solid var(--color-border-soft)",
+				"background": "var(--color-surface-raised)",
+				"fontSize": "var(--fs-micro)",
+				"lineHeight": "1.5"
+			},
+			"actions": {
+				"$description": "The way out first, the commitment last. Reading order is the direction of travel, and the end of the row is the thing you came to do — putting approve first puts it under the thumb before the eye has read what it is approving.",
+				"display": "flex",
+				"flexWrap": "wrap",
+				"gap": "var(--space-tight)",
+				"marginBlockStart": "var(--space-hairline)",
+				"paddingBlockStart": "var(--space-tight)",
+				"borderBlockStart": "1px solid var(--color-accent-border)"
+			}
+		},
+		"variants": {
+			"weight": {
+				"$description": "How much is at stake, which decides how hard the card is to skim past.",
+				"routine": {
+					"$description": "A confirmation the answer to which is almost always yes. Quiet, so it does not cry wolf and train the eye to click through.",
+					"borderColor": "var(--color-border)",
+					"background": "var(--color-surface-raised)"
+				},
+				"grave": {
+					"$description": "Irreversible — money moving, data deleted, a message sent to a customer. The commit here wears `btn--danger` regardless of whether the action sounds destructive, because irreversible IS the destructive property.",
+					"borderColor": "var(--color-error-border)",
+					"background": "var(--color-error-surface)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "`role=group` named by the question, so a screen reader reaching the buttons has the question as their context rather than two bare verbs. The preview is inside the group for the same reason. A pending gate is announced ONCE via a live region when it appears — not polled, and not silent: a decision waiting where nobody is looking is a stalled process. Never auto-focus the approve button: focus goes to the card, and the person moves to the answer themselves."
+	}
+}

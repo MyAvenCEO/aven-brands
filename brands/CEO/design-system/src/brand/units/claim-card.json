@@ -134,29 +134,31 @@
 				"color": "var(--color-foreground)"
 			},
 			"price": {
-				"display": "flex",
-				"flexWrap": "wrap",
-				"alignItems": "baseline",
-				"justifyContent": "center",
-				"gap": "var(--space-tight)",
+				"display": "grid",
+				"gap": "0.1rem",
 				"inlineSize": "100%",
 				"padding": "var(--space-comfortable)",
 				"borderRadius": "var(--radius-md)",
-				"background": "var(--color-muted)"
+				"background": "var(--color-surface-sunken)",
+				"$description": "A bordered block, not a bare tint — the tint alone let the price float in the panel with nothing marking where it started and ended. And the amount stacks OVER its terms rather than sitting on one baseline with them: `25 € one-time · incl. VAT` on a single line reads as one phrase, and the number stops being the thing the eye lands on.",
+				"justifyItems": "center",
+				"border": "1px solid var(--color-border)"
 			},
 			"amount": {
 				"fontSize": "var(--fs-display)",
 				"fontWeight": "600",
 				"letterSpacing": "var(--tracking-tight)",
 				"fontVariantNumeric": "tabular-nums",
-				"color": "var(--color-foreground)"
+				"color": "var(--color-foreground)",
+				"lineHeight": "1.05"
 			},
 			"terms": {
 				"fontSize": "var(--fs-meta)",
-				"color": "var(--color-foreground-quiet)"
+				"color": "var(--color-foreground-quiet)",
+				"$description": "Under the amount, quiet. It qualifies the number; it does not share its line."
 			},
 			"form": {
-				"$description": "Column on a phone, row from `sm` — and `align-items: stretch`, so the submit matches the field's height without either one being told what that height is.",
+				"$description": "Column on a phone, row from `sm` — and `align-items: stretch`, so the submit matches the field's height without either one being told what that height is. The submit is LAST in the row for the same reason a dialog's confirm is: the end of the row is the end of the action.",
 				"display": "flex",
 				"flexWrap": "wrap",
 				"alignItems": "stretch",

@@ -140,6 +140,10 @@
 	--color-tertiary-ring: #cadad3;
 	--color-secondary-strong: #217c91;
 	--color-tertiary-strong: #377d77;
+	--color-secondary-surface: #dceae7;
+	--color-secondary-border: #b8d7d8;
+	--color-tertiary-surface: #e1ede5;
+	--color-tertiary-border: #c2ddd5;
 
 	--radius-xs: 0.375rem;
 	--radius-sm: 0.625rem;

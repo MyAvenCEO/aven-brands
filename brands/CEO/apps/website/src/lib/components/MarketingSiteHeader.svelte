@@ -55,9 +55,17 @@ const socialInk = $derived(
 )
 /** Fixed over the hero video (so the video sits full-bleed behind it), sticky
  * everywhere else. */
-const headerClass = $derived(
-	`${overlay ? 'fixed' : 'sticky'} inset-x-0 top-0 z-50 transition-colors duration-200`
-)
+/*
+ * NOT a template literal. `sticky` lived only inside `${overlay ? 'fixed' :
+ * 'sticky'}`, which puts it in the utility scanner's CANDIDATE tier — guesses,
+ * whose misses are warnings rather than errors — and it was never emitted. The
+ * header was `position: static` on every page off the hero, so the bar scrolled
+ * away instead of sticking, and nothing reported it: the class was in the
+ * markup, it simply had no rule.
+ *
+ * Both spellings are literal now, so the scanner sees them for certain.
+ */
+const headerClass = 'inset-x-0 top-0 z-50 transition-colors duration-200'
 /** The solid bar's fill/blur/hairline as inline style — these opacity + blur
  * utilities aren't emitted from a dynamic class string, so pin them here. */
 const headerStyle = $derived(
@@ -89,7 +97,7 @@ function linkCls(isActive: boolean) {
 const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 </script>
 
-<header class={headerClass} style={headerStyle}>
+<header class="{overlay ? 'fixed' : 'sticky'} {headerClass}" style={headerStyle}>
 	<div class="relative z-10 mx-auto {maxW} px-5 lg:px-8">
 		<!-- Collapsed bar: logo left; on lg the full nav; on mobile the CTA and a
 		     hamburger that opens the full-screen menu below. -->

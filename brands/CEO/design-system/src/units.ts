@@ -55,6 +55,7 @@ import field from './brand/units/field.json' with { type: 'json' }
 import flowCard from './brand/units/flow-card.json' with { type: 'json' }
 import flowNode from './brand/units/flow-node.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
+import gateCard from './brand/units/gate-card.json' with { type: 'json' }
 import hero from './brand/units/hero.json' with { type: 'json' }
 import icon from './brand/units/icon.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
@@ -65,6 +66,7 @@ import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
 import paymentFrame from './brand/units/payment-frame.json' with { type: 'json' }
 import priceTier from './brand/units/price-tier.json' with { type: 'json' }
+import promptBar from './brand/units/prompt-bar.json' with { type: 'json' }
 import prose from './brand/units/prose.json' with { type: 'json' }
 import rowList from './brand/units/row-list.json' with { type: 'json' }
 import section from './brand/units/section.json' with { type: 'json' }
@@ -111,6 +113,8 @@ const documents = [
 	settingRow,
 	threadItem,
 	viewerFrame,
+	gateCard,
+	promptBar,
 	paymentFrame,
 	button,
 	badge,

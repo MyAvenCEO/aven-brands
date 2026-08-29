@@ -362,8 +362,8 @@ export const specimens: Record<string, Specimen> = {
 				<p class="hero-lead">From working to survive to sovereign founder of tomorrow.</p>
 				<p class="hero-helper">— your avenCEO gets you there —</p>
 				<span class="hero-actions">
-					<button class="btn btn--accent" type="button">Claim your name</button>
 					<button class="btn btn--neutral" type="button">See the skills</button>
+					<button class="btn btn--accent" type="button">Claim your name</button>
 				</span>
 			</span>
 		</span>`
@@ -429,8 +429,8 @@ export const specimens: Record<string, Specimen> = {
 			<span class="flow-card-code">A4F2-9K7Q</span>
 			<span class="flow-card-alert">That code has expired. Ask avenOS for a new one.</span>
 			<span class="flow-card-actions">
-				<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
 				<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
+				<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
 			</span>
 			<p class="flow-card-trust">Securely connected through aven.id</p>
 		</span>`
@@ -585,6 +585,32 @@ export const specimens: Record<string, Specimen> = {
   "runs": 1420,
   "savedHours": 6
 }</span>
+		</span>`
+	},
+	'gate-card': {
+		tall: true,
+		one: `<span class="gate-card" style="display:grid; inline-size:100%; max-inline-size:30rem">
+			<span class="gate-card-head">
+				<p class="gate-card-question">Send this reply to Anna Weber?</p>
+				<span class="gate-card-asked">2 min ago</span>
+			</span>
+			<p class="gate-card-detail">Your aven drafted an answer to her question about the Q3 invoice. Nothing is sent until you say so.</p>
+			<span class="gate-card-preview">Hi Anna — the Q3 invoice went out on the 14th to accounts@…; I have attached it again here. Let me know if anything is missing.</span>
+			<span class="gate-card-actions">
+				<button class="btn btn--neutral btn--size-sm" type="button"><span class="btn-label">Edit draft</span></button>
+				<button class="btn btn--ghost btn--size-sm" type="button"><span class="btn-label">Not now</span></button>
+				<button class="btn btn--primary btn--size-sm" type="button"><span class="btn-label">Send it</span></button>
+			</span>
+		</span>`
+	},
+	'prompt-bar': {
+		one: `<span class="prompt-bar" style="display:grid; inline-size:100%; max-inline-size:32rem">
+			<span class="prompt-bar-hint">Enter to send · Shift+Enter for a new line</span>
+			<span class="prompt-bar-shell">
+				<span class="prompt-bar-leading"><button class="btn btn--ghost btn--shape-icon btn--size-sm" type="button" aria-label="Voice">${icon('info', '1.125rem')}</button></span>
+				<textarea class="prompt-bar-input" rows="1" aria-label="Ask your aven" placeholder="Ask your aven…"></textarea>
+				<span class="prompt-bar-actions"><button class="btn btn--primary btn--shape-icon btn--size-sm" type="button" aria-label="Send">${icon('arrow-right', '1.125rem')}</button></span>
+			</span>
 		</span>`
 	},
 	'payment-frame': {

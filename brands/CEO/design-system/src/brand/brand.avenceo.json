@@ -749,6 +749,26 @@
 				"$type": "color",
 				"$value": "#377d77",
 				"$description": "The third brand colour, darkened until white reads on it — 4.60:1. Raw turquoise gives 3.12."
+			},
+			"secondary-surface": {
+				"$type": "color",
+				"$value": "#dceae7",
+				"$description": "the secondary tint, shared with `progress` — same colour, named by rank."
+			},
+			"secondary-border": {
+				"$type": "color",
+				"$value": "#b8d7d8",
+				"$description": "the secondary tint, shared with `progress` — same colour, named by rank."
+			},
+			"tertiary-surface": {
+				"$type": "color",
+				"$value": "#e1ede5",
+				"$description": "the tertiary tint, shared with `success` — same colour, named by rank."
+			},
+			"tertiary-border": {
+				"$type": "color",
+				"$value": "#c2ddd5",
+				"$description": "the tertiary tint, shared with `success` — same colour, named by rank."
 			}
 		}
 	},
