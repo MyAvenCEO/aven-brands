@@ -61,9 +61,8 @@ export const TONES: Record<string, string> = flatColor('tones')
  * `surfaces` gains a dark override, which is deliberate: a half-existing dark
  * mode is worse than none, because components start assuming it works.
  */
-export const CONTRAST_INK: Record<string, string> = flatColor('contrastInk')
+export const INK: Record<string, string> = flatColor('ink')
 /** The surface colours themselves, per theme: `light-page` … `dark-ink`. */
-export const GROUNDS: Record<string, string> = flatColor('grounds')
 
 /** The theme-neutral rungs a component references: `page`, `card`, `sunken`… */
 export const SURFACES: Record<string, string> = flatColor('surfaces')
@@ -96,7 +95,7 @@ export const ROLES: Record<string, string> = flatColor('roles')
  * BETA window, which closes, and borrows the failure tone's urgency. It sits
  * opposite the gold on purpose, so an offer never reads as just a highlight.
  */
-export const SITE_ROLES: Record<string, string> = flatColor('siteRoles')
+export const FUNCTIONAL: Record<string, string> = flatColor('functional')
 
 /**
  * Roles only the APP owns: the muted/strong pair for every signal rather than
@@ -108,7 +107,6 @@ export const SITE_ROLES: Record<string, string> = flatColor('siteRoles')
  * and reached for `bg-emerald-100` instead. A gap in a taxonomy does not stay
  * empty; it gets filled from outside.
  */
-export const APP_ROLES: Record<string, string> = flatColor('appRoles')
 
 /* ══ 4 · TYPE, RADII, SPACING ══════════════════════════════════════════════ */
 
@@ -146,17 +144,17 @@ export const vibeTokens: Record<string, string> = {
 	muted: withAlpha(TONES.marine, 0.56),
 	'muted-strong': withAlpha(TONES.marine, 0.72),
 
-	'bg-a': GROUNDS['light-raised'],
-	surface: withAlpha(CONTRAST_INK.white, 0.42),
-	'surface-2': withAlpha(CONTRAST_INK.white, 0.55),
-	'surface-raised': withAlpha(CONTRAST_INK.white, 0.55),
+	'bg-a': SURFACES['light-raised'],
+	surface: withAlpha(INK.white, 0.42),
+	'surface-2': withAlpha(INK.white, 0.55),
+	'surface-raised': withAlpha(INK.white, 0.55),
 
 	border: withAlpha(TONES.marine, 0.14),
 	'border-soft': withAlpha(TONES.marine, 0.08),
 	'border-strong': withAlpha(TONES.marine, 0.2),
 
 	primary: TONES.marine,
-	'primary-foreground': GROUNDS['dark-ink'],
+	'primary-foreground': INK['on-dark'],
 	secondary: TONES.sand,
 	'secondary-foreground': TONES.marine,
 	'brand-accent': TONES.sunflower,
@@ -165,8 +163,8 @@ export const vibeTokens: Record<string, string> = {
 	warn: TONES.earth,
 	danger: TONES.terracotta,
 
-	'tech-fill': withAlpha(CONTRAST_INK.white, 0.45),
-	'tech-fill-inner': withAlpha(CONTRAST_INK.white, 0.66),
+	'tech-fill': withAlpha(INK.white, 0.45),
+	'tech-fill-inner': withAlpha(INK.white, 0.66),
 	'hitl-dash': withAlpha(TONES.marine, 0.16),
 
 	...VIBE_SCALE

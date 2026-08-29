@@ -24,9 +24,9 @@ import {
 import {
 	FONT_STACK,
 	FONT_WEIGHTS,
-	GROUNDS,
+	FUNCTIONAL,
+	INK,
 	ROLES,
-	SITE_ROLES,
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
@@ -49,32 +49,32 @@ export const colourGroups = [
 	{
 		id: 'tones',
 		title: 'Tones',
-		lede: 'The paint. Every brand colour spelled exactly once.',
+		lede: 'The brand identity. Four hues — a colour here is one the logo may use.',
 		rows: rows(TONES)
 	},
 	{
-		id: 'grounds',
-		title: 'Grounds',
-		lede: 'The surface colours themselves, per theme. The dark ladder is declared and not yet wired.',
-		rows: rows(GROUNDS)
+		id: 'functional',
+		title: 'Functional',
+		lede: 'Colours that carry a meaning and are never identity. Neither is in the logo.',
+		rows: rows(FUNCTIONAL)
 	},
 	{
 		id: 'surfaces',
 		title: 'Surfaces',
-		lede: 'Which rung of the page each region sits on.',
+		lede: 'Every rung, in both themes. The light ladder is sand, the dark is marine. The theme-neutral names a component uses are derived from these, not authored.',
 		rows: rows(SURFACES)
+	},
+	{
+		id: 'ink',
+		title: 'Ink',
+		lede: 'Text guaranteed to read on a filled colour. Concrete values, not derivations.',
+		rows: rows(INK)
 	},
 	{
 		id: 'roles',
 		title: 'Roles',
-		lede: 'What the paint MEANS. Shared by every surface.',
+		lede: 'What the paint MEANS. One group — the site/app split it replaced was mostly synonyms.',
 		rows: rows(ROLES)
-	},
-	{
-		id: 'site-roles',
-		title: 'Site roles',
-		lede: 'Roles only the marketing site owns.',
-		rows: rows(SITE_ROLES)
 	}
 ] as const
 

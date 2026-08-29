@@ -16,76 +16,94 @@
 	--font-weight-semibold: 600;
 	--font-weight-bold: 700;
 
-	/* ══ 1 · THE BRAND TONES — the paint, each spelled exactly once ══ */
+	/* ══ 1 · THE BRAND TONES — identity, each spelled exactly once ══ */
 	--color-marine: #1e293b;
 	--color-paradise: #2489a0;
 	--color-turquoise: #449c94;
 	--color-sunflower: #f2ba3d;
-	--color-earth: #d4a373;
-	--color-terracotta: #c15b40;
 
-	/* ══ the inks guaranteed to read on a filled tone ══ */
+	/* ══ colours that carry a MEANING and are never identity ══ */
+	--color-terracotta: #c15b40;
+	--color-earth: #d4a373;
+
+	/* ══ the inks guaranteed to read on a filled colour ══ */
+	--color-on-light: #1e293b;
+	--color-on-dark: #f8fafc;
+	--color-on-primary: #f8fafc;
 	--color-on-warning: #2b2313;
 	--color-on-error: #fffefb;
 	--color-on-success: #fafaf9;
 	--color-on-info: #2b231c;
 	--color-white: #ffffff;
 
-	/* ══ the grounds — the surface colours themselves, per theme ══ */
+	/* ══ 2 · THE SURFACES — every rung, both themes ══ */
 	--color-light-page: #fffdf7;
 	--color-light-raised: #faf9f4;
 	--color-light-sunken: #f6f3e8;
 	--color-light-card: #f6f1e2;
 	--color-light-selected: #f3e7c6;
-	--color-dark-page: #1e293b;
-	--color-dark-raised: #243448;
-	--color-dark-card: #2a3a56;
-	--color-dark-selected: #57789e;
-	--color-dark-ink: #f8fafc;
+	--color-dark-page: #161f30;
+	--color-dark-raised: #1e293b;
+	--color-dark-sunken: #131a28;
+	--color-dark-card: #243448;
+	--color-dark-selected: #3e4b60;
 
-	/* ══ 2 · THE SURFACES — which rung each part stands on ══ */
+	/* THE THEME SEAM — derived, never authored. Light is the default. */
 	--color-surface-page: var(--color-light-page);
 	--color-surface-raised: var(--color-light-raised);
 	--color-surface-sunken: var(--color-light-sunken);
 	--color-surface-card: var(--color-light-card);
 	--color-surface-selected: var(--color-light-selected);
+}
+
+/* Declared and inert until a surface sets data-theme. */
+[data-theme="dark"] {
+	--color-surface-page: var(--color-dark-page);
+	--color-surface-raised: var(--color-dark-raised);
+	--color-surface-sunken: var(--color-dark-sunken);
+	--color-surface-card: var(--color-dark-card);
+	--color-surface-selected: var(--color-dark-selected);
+}
+
+:root {
 
 	/* ══ 3 · THE ROLES — what a colour MEANS ══ */
+	--color-background: var(--color-surface-page);
+	--color-foreground: var(--color-on-light);
+	--color-muted: #f4f4f0;
+	--color-muted-foreground: #7d8593;
+	--color-border: #dfe1e6;
+	--color-input: #fefdfa;
 	--color-primary: var(--color-marine);
-	--color-primary-foreground: var(--color-dark-ink);
-	--color-quiet: var(--color-dark-selected);
-	--color-quiet-foreground: var(--color-dark-ink);
-	--color-quiet-ink: color-mix(in oklab, var(--color-dark-selected) 82%, black);
+	--color-primary-foreground: var(--color-on-primary);
+	--color-secondary: var(--color-surface-selected);
+	--color-secondary-foreground: var(--color-marine);
+	--color-quiet: #57789e;
+	--color-quiet-foreground: var(--color-on-dark);
+	--color-quiet-ink: #415b78;
 	--color-progress: var(--color-paradise);
-	--color-progress-foreground: var(--color-dark-ink);
-	--color-progress-ink: color-mix(in oklab, var(--color-paradise) 72%, black);
+	--color-progress-foreground: var(--color-on-dark);
+	--color-progress-ink: #135665;
 	--color-success: var(--color-turquoise);
 	--color-success-foreground: var(--color-on-success);
-	--color-success-ink: color-mix(in oklab, var(--color-turquoise) 68%, black);
+	--color-success-ink: #255b56;
 	--color-warning: var(--color-sunflower);
 	--color-warning-foreground: var(--color-on-warning);
-	--color-warning-ink: color-mix(in oklab, var(--color-sunflower) 62%, black);
+	--color-warning-ink: #7f601b;
 	--color-error: var(--color-terracotta);
 	--color-error-foreground: var(--color-on-error);
-	--color-error-ink: color-mix(in oklab, var(--color-terracotta) 85%, black);
+	--color-error-ink: #9b4832;
 	--color-info: var(--color-earth);
 	--color-info-foreground: var(--color-on-info);
-	--color-info-ink: color-mix(in oklab, var(--color-earth) 72%, black);
-	--color-secondary: var(--color-light-selected);
-	--color-secondary-foreground: var(--color-marine);
-	--color-foreground: var(--color-marine);
-	--color-card-foreground: var(--color-foreground);
-	--color-muted: color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-page));
-	--color-muted-foreground: color-mix(in srgb, var(--color-marine) 42%, transparent);
-	--color-border: color-mix(in srgb, var(--color-marine) 14%, transparent);
-	--color-input: color-mix(in srgb, var(--color-white) 65%, var(--color-surface-page));
-	--color-accent: var(--color-warning);
-	--color-accent-foreground: var(--color-warning-foreground);
-	--color-accent-ink: var(--color-warning-ink);
-	--color-offer: var(--color-error);
-	--color-offer-foreground: var(--color-error-foreground);
-	--color-offer-ink: var(--color-error-ink);
-	--color-card: var(--color-surface-raised);
+	--color-info-ink: #886748;
+	--color-accent: var(--color-sunflower);
+	--color-accent-foreground: var(--color-on-warning);
+	--color-accent-ink: #7f601b;
+	--color-offer: var(--color-terracotta);
+	--color-offer-foreground: var(--color-on-error);
+	--color-offer-ink: #a24b34;
+	--color-card: var(--color-surface-card);
+	--color-card-foreground: var(--color-on-light);
 
 	--radius-lg: 1rem;
 	--radius-xl: 1.5rem;

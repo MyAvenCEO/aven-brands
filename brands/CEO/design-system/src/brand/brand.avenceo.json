@@ -4,10 +4,11 @@
 	"slug": "aven-ceo",
 	"color": {
 		"tones": {
+			"$description": "The brand identity. Four hues, and nothing that only carries a meaning — a colour in here is one the logo and the marketing may use. Sorted by hue.",
 			"marine": {
 				"$type": "color",
 				"$value": "#1e293b",
-				"$description": "the brand blue. Also the ground a dark theme stands on."
+				"$description": "the brand blue. Also the ground the dark theme stands on."
 			},
 			"paradise": {
 				"$type": "color",
@@ -22,334 +23,299 @@
 			"sunflower": {
 				"$type": "color",
 				"$value": "#f2ba3d",
-				"$description": "the brand highlight. Sunflower, not \"gold\" — the generic word loses the name."
+				"$description": "the highlight. Sunflower, not \"gold\" — the generic word loses the name."
+			}
+		},
+		"functional": {
+			"$description": "Colours that carry a MEANING and are never identity. Neither appears in the logo, and neither may be used as a brand accent — reaching for the failure tone to decorate something is the mistake this separation exists to prevent.",
+			"terracotta": {
+				"$type": "color",
+				"$value": "#c15b40",
+				"$description": "the failure pigment. Kept its own name: a TONE is named for the paint and a ROLE for the meaning, so `terracotta` and `error` are different words for a reason. It lives here rather than in `tones` because it is never identity — it appears in no logo and must not decorate."
 			},
 			"earth": {
 				"$type": "color",
 				"$value": "#d4a373",
-				"$description": "FUNCTIONAL, not identity: the notice tone."
-			},
-			"terracotta": {
-				"$type": "color",
-				"$value": "#c15b40",
-				"$description": "FUNCTIONAL, not identity: the failure tone. Not in the logo; it means something went wrong."
-			},
-			"$description": "The brand hues. Identity first, then the two that carry only meaning. Sorted by hue so the family structure is visible rather than incidental."
+				"$description": "the notice pigment. Same reasoning."
+			}
 		},
-		"grounds": {
-			"$description": "The surface colours themselves, per theme. Separate from `surfaces` on purpose: a component that names a theme cannot be re-themed, so the ladders live here and the rungs live there.",
+		"surfaces": {
+			"$description": "Every surface a page stands on, in both themes. The LIGHT ladder is the sand family (the brand cream); the DARK ladder is the marine family. Named `<theme>-<rung>`, so a theme is a prefix and adding dark is adding rows. The dark ladder is declared and NOT yet wired — nothing renders from it until a theme selects it.",
 			"light-page": {
 				"$type": "color",
 				"$value": "#fffdf7",
-				"$description": "was porcelain — the lightest ground, what the page itself stands on."
+				"$description": "the page itself — the lightest sand."
 			},
 			"light-raised": {
 				"$type": "color",
 				"$value": "#faf9f4",
-				"$description": "was linen — a region lifted off the page."
+				"$description": "lifted off the page."
 			},
 			"light-sunken": {
 				"$type": "color",
 				"$value": "#f6f3e8",
-				"$description": "was eggshell — a region set into the page."
+				"$description": "set into the page."
 			},
 			"light-card": {
 				"$type": "color",
 				"$value": "#f6f1e2",
-				"$description": "was ivory — the fill of a card."
+				"$description": "the fill of a card."
 			},
 			"light-selected": {
 				"$type": "color",
 				"$value": "#f3e7c6",
-				"$description": "was sand — a card the user has chosen."
+				"$description": "a card the user has chosen — sand at full strength."
 			},
 			"dark-page": {
 				"$type": "color",
-				"$value": "#1e293b",
-				"$description": "the deepest rung. The dark theme is DECLARED here and not yet wired; nothing renders from it until `surfaces` has a dark override."
+				"$value": "#161f30",
+				"$description": "the page itself — marine, one step below the brand tone."
 			},
 			"dark-raised": {
 				"$type": "color",
-				"$value": "#243448",
-				"$description": "a region lifted off the dark page. Derived from marine, not yet verified for contrast."
+				"$value": "#1e293b",
+				"$description": "lifted off the page — the brand marine."
+			},
+			"dark-sunken": {
+				"$type": "color",
+				"$value": "#131a28",
+				"$description": "set into the page."
 			},
 			"dark-card": {
 				"$type": "color",
-				"$value": "#2a3a56",
-				"$description": "the fill of a card on a dark page. Derived, not yet verified."
+				"$value": "#243448",
+				"$description": "the fill of a card."
 			},
 			"dark-selected": {
 				"$type": "color",
-				"$value": "#57789e",
-				"$description": "was anchor — the mid step of the marine hue."
-			},
-			"dark-ink": {
-				"$type": "color",
-				"$value": "#f8fafc",
-				"$description": "was chalk — the text that reads on a dark ground."
+				"$value": "#3e4b60",
+				"$description": "a card the user has chosen."
 			}
 		},
-		"contrastInk": {
+		"ink": {
+			"$description": "Text guaranteed to read on a filled colour. Concrete values, not derivations: these used to be `color-mix(... N%, black)` computed at render time in seven places, which meant the system could not tell you what colour its own text was without a browser. Same rendered values, now nameable and checkable.",
+			"on-light": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "on any light rung — the brand marine."
+			},
+			"on-dark": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "on any dark rung."
+			},
+			"on-primary": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "on marine."
+			},
 			"on-warning": {
 				"$type": "color",
 				"$value": "#2b2313",
-				"$description": "near-black with a warm cast — the only text that reads on sunflower."
+				"$description": "on sunflower."
 			},
 			"on-error": {
 				"$type": "color",
 				"$value": "#fffefb",
-				"$description": "near-white with a warm cast — the text that reads on terracotta."
+				"$description": "on the failure tone."
 			},
 			"on-success": {
 				"$type": "color",
 				"$value": "#fafaf9",
-				"$description": "near-white, neutral — the text that reads on turquoise."
+				"$description": "on turquoise."
 			},
 			"on-info": {
 				"$type": "color",
 				"$value": "#2b231c",
-				"$description": "near-black with a warm cast — the text that reads on earth."
+				"$description": "on the notice tone."
 			},
 			"white": {
 				"$type": "color",
 				"$value": "#ffffff",
-				"$description": "true white. The one place the system uses it, so it is named rather than typed."
-			}
-		},
-		"surfaces": {
-			"$description": "What a component actually references, and the theme seam. Theme-NEUTRAL: a component says `bg-card` and never learns which theme it is in, so switching themes re-points these five at the other ladder rather than editing every call site.",
-			"surface-page": {
-				"$type": "color",
-				"$value": "var(--color-light-page)",
-				"$description": "the page ground itself."
-			},
-			"surface-raised": {
-				"$type": "color",
-				"$value": "var(--color-light-raised)",
-				"$description": "lifted off the page."
-			},
-			"surface-sunken": {
-				"$type": "color",
-				"$value": "var(--color-light-sunken)",
-				"$description": "set into the page. Absorbed `surface-card-hover`."
-			},
-			"surface-card": {
-				"$type": "color",
-				"$value": "var(--color-light-card)",
-				"$description": "the fill of a card."
-			},
-			"surface-selected": {
-				"$type": "color",
-				"$value": "var(--color-light-selected)",
-				"$description": "a card the user has chosen."
+				"$description": "true white. Named because the system uses it in exactly two places."
 			}
 		},
 		"roles": {
-			"primary": {
+			"$description": "What the paint MEANS. ONE group: the site/app split it replaced held six tokens that aliased shared roles under different names and one that differed, which is not a vocabulary, it is a synonym list. A surface that does not use `evidence` simply does not use it.",
+			"background": {
 				"$type": "color",
-				"$value": "var(--color-marine)"
-			},
-			"primary-foreground": {
-				"$type": "color",
-				"$value": "var(--color-dark-ink)"
-			},
-			"quiet": {
-				"$type": "color",
-				"$value": "var(--color-dark-selected)"
-			},
-			"quiet-foreground": {
-				"$type": "color",
-				"$value": "var(--color-dark-ink)"
-			},
-			"quiet-ink": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-dark-selected) 82%, black)"
-			},
-			"progress": {
-				"$type": "color",
-				"$value": "var(--color-paradise)"
-			},
-			"progress-foreground": {
-				"$type": "color",
-				"$value": "var(--color-dark-ink)"
-			},
-			"progress-ink": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-paradise) 72%, black)"
-			},
-			"success": {
-				"$type": "color",
-				"$value": "var(--color-turquoise)"
-			},
-			"success-foreground": {
-				"$type": "color",
-				"$value": "var(--color-on-success)"
-			},
-			"success-ink": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-turquoise) 68%, black)"
-			},
-			"warning": {
-				"$type": "color",
-				"$value": "var(--color-sunflower)"
-			},
-			"warning-foreground": {
-				"$type": "color",
-				"$value": "var(--color-on-warning)"
-			},
-			"warning-ink": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-sunflower) 62%, black)"
-			},
-			"error": {
-				"$type": "color",
-				"$value": "var(--color-terracotta)"
-			},
-			"error-foreground": {
-				"$type": "color",
-				"$value": "var(--color-on-error)"
-			},
-			"error-ink": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-terracotta) 85%, black)"
-			},
-			"info": {
-				"$type": "color",
-				"$value": "var(--color-earth)"
-			},
-			"info-foreground": {
-				"$type": "color",
-				"$value": "var(--color-on-info)"
-			},
-			"info-ink": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-earth) 72%, black)"
-			},
-			"secondary": {
-				"$type": "color",
-				"$value": "var(--color-light-selected)"
-			},
-			"secondary-foreground": {
-				"$type": "color",
-				"$value": "var(--color-marine)"
+				"$value": "var(--color-surface-page)",
+				"$description": "the page ground."
 			},
 			"foreground": {
 				"$type": "color",
-				"$value": "var(--color-marine)"
-			},
-			"card-foreground": {
-				"$type": "color",
-				"$value": "var(--color-foreground)"
+				"$value": "var(--color-on-light)",
+				"$description": "body copy."
 			},
 			"muted": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-page))"
+				"$value": "#f4f4f0",
+				"$description": "a quiet fill. Was a color-mix of marine into the page."
 			},
 			"muted-foreground": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-marine) 42%, transparent)"
+				"$value": "#7d8593",
+				"$description": "quiet copy."
 			},
 			"border": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-marine) 14%, transparent)"
+				"$value": "#dfe1e6",
+				"$description": "a hairline."
 			},
 			"input": {
 				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-white) 65%, var(--color-surface-page))"
-			}
-		},
-		"siteRoles": {
-			"$description": "Roles only the marketing site owns. Each ALIASES the shared role that already carries the value — the site means \"highlight\" where the app means \"careful\", which is a real difference in meaning and not a reason to derive the colour twice. Changing the gold is now one edit, not three.",
+				"$value": "#fefdfa",
+				"$description": "a field."
+			},
+			"primary": {
+				"$type": "color",
+				"$value": "var(--color-marine)",
+				"$description": "the one main affirmative action."
+			},
+			"primary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-primary)",
+				"$description": "text on primary."
+			},
+			"secondary": {
+				"$type": "color",
+				"$value": "var(--color-surface-selected)",
+				"$description": "the warm second action."
+			},
+			"secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-marine)",
+				"$description": "text on secondary."
+			},
+			"quiet": {
+				"$type": "color",
+				"$value": "#57789e",
+				"$description": "held back — meta, captions."
+			},
+			"quiet-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on quiet."
+			},
+			"quiet-ink": {
+				"$type": "color",
+				"$value": "#415b78",
+				"$description": "quiet, as running text."
+			},
+			"progress": {
+				"$type": "color",
+				"$value": "var(--color-paradise)",
+				"$description": "in motion."
+			},
+			"progress-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on progress."
+			},
+			"progress-ink": {
+				"$type": "color",
+				"$value": "#135665",
+				"$description": "progress, as running text."
+			},
+			"success": {
+				"$type": "color",
+				"$value": "var(--color-turquoise)",
+				"$description": "settled."
+			},
+			"success-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-success)",
+				"$description": "text on success."
+			},
+			"success-ink": {
+				"$type": "color",
+				"$value": "#255b56",
+				"$description": "success, as running text."
+			},
+			"warning": {
+				"$type": "color",
+				"$value": "var(--color-sunflower)",
+				"$description": "careful, but nothing is broken."
+			},
+			"warning-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-warning)",
+				"$description": "text on warning."
+			},
+			"warning-ink": {
+				"$type": "color",
+				"$value": "#7f601b",
+				"$description": "warning, as running text."
+			},
+			"error": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)",
+				"$description": "something failed."
+			},
+			"error-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-error)",
+				"$description": "text on error."
+			},
+			"error-ink": {
+				"$type": "color",
+				"$value": "#9b4832",
+				"$description": "error, as running text."
+			},
+			"info": {
+				"$type": "color",
+				"$value": "var(--color-earth)",
+				"$description": "notice — your turn."
+			},
+			"info-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-info)",
+				"$description": "text on info."
+			},
+			"info-ink": {
+				"$type": "color",
+				"$value": "#886748",
+				"$description": "info, as running text."
+			},
 			"accent": {
 				"$type": "color",
-				"$value": "var(--color-warning)",
-				"$description": "the marketing highlight. Same paint as `warning`; different job."
+				"$value": "var(--color-sunflower)",
+				"$description": "the marketing highlight. Same paint as `warning`, different job — and the job is the reason the name survives the merge."
 			},
 			"accent-foreground": {
 				"$type": "color",
-				"$value": "var(--color-warning-foreground)",
-				"$description": "text on the accent."
+				"$value": "var(--color-on-warning)",
+				"$description": "text on accent."
 			},
 			"accent-ink": {
 				"$type": "color",
-				"$value": "var(--color-warning-ink)",
-				"$description": "the accent as running text."
+				"$value": "#7f601b",
+				"$description": "accent, as running text."
 			},
 			"offer": {
 				"$type": "color",
-				"$value": "var(--color-error)",
-				"$description": "the BETA window, which closes. Borrows the failure tone deliberately so an offer never reads as merely a highlight."
+				"$value": "var(--color-terracotta)",
+				"$description": "the BETA window, which closes. Borrows the failure tone so an offer never reads as merely a highlight."
 			},
 			"offer-foreground": {
 				"$type": "color",
-				"$value": "var(--color-error-foreground)",
+				"$value": "var(--color-on-error)",
 				"$description": "text on an offer."
 			},
 			"offer-ink": {
 				"$type": "color",
-				"$value": "var(--color-error-ink)",
-				"$description": "the offer as running text."
+				"$value": "#a24b34",
+				"$description": "offer, as running text."
 			},
 			"card": {
 				"$type": "color",
-				"$value": "var(--color-surface-raised)",
-				"$description": "the site puts cards on the raised rung rather than the card rung."
-			}
-		},
-		"appRoles": {
-			"error-muted": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-terracotta) 22%, white)"
+				"$value": "var(--color-surface-card)",
+				"$description": "the fill a card takes."
 			},
-			"error-strong": {
+			"card-foreground": {
 				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-terracotta) 78%, black)"
-			},
-			"success-muted": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-turquoise) 22%, white)"
-			},
-			"success-strong": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-turquoise) 78%, black)"
-			},
-			"warning-muted": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-sunflower) 22%, white)"
-			},
-			"warning-strong": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-sunflower) 78%, black)"
-			},
-			"info-muted": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-earth) 22%, white)"
-			},
-			"info-strong": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-earth) 78%, black)"
-			},
-			"evidence": {
-				"$type": "color",
-				"$value": "var(--color-warning)",
-				"$description": "the grounding marker. Same paint as `warning`; different job."
-			},
-			"evidence-soft": {
-				"$type": "color",
-				"$value": "color-mix(in oklab, var(--color-sunflower) 26%, white)"
-			},
-			"evidence-ink": {
-				"$type": "color",
-				"$value": "var(--color-warning-ink)",
-				"$description": "the grounding marker. Same paint as `warning-ink`; different job."
-			},
-			"card": {
-				"$type": "color",
-				"$value": "var(--color-white)"
-			},
-			"sandbox-host": {
-				"$type": "color",
-				"$value": "color-mix(in srgb, var(--color-surface-page) 94%, var(--color-foreground))"
+				"$value": "var(--color-on-light)",
+				"$description": "text on a card."
 			}
 		}
 	},

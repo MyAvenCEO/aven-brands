@@ -87,8 +87,16 @@ describe('the design surface', () => {
 })
 
 describe('the brand surface', () => {
-	test('tones and creams are hex, so a consumer can render them', () => {
-		for (const value of [...Object.values(tokens.TONES), ...Object.values(tokens.GROUNDS)]) {
+	test('every primitive is a hex, so a consumer can render it without a browser', () => {
+		/* Surfaces and ink joined this list when the palette stopped deriving its
+		   own values with `color-mix`: a system that cannot state its own colours
+		   without resolving CSS cannot check them either. */
+		for (const value of [
+			...Object.values(tokens.TONES),
+			...Object.values(tokens.FUNCTIONAL),
+			...Object.values(tokens.SURFACES),
+			...Object.values(tokens.INK)
+		]) {
 			expect(value).toMatch(/^#[0-9a-f]{6}$/i)
 		}
 	})
