@@ -41,6 +41,10 @@
 			"types": "./dist/vibes/index.d.ts",
 			"import": "./dist/vibes/index.js"
 		},
+		"./units": {
+			"types": "./dist/units.d.ts",
+			"import": "./dist/units.js"
+		},
 		"./utilities": {
 			"types": "./dist/utilities.d.ts",
 			"import": "./dist/utilities.js"
@@ -80,6 +84,6 @@
 		"@types/node": "^26.3.0"
 	},
 	"dependencies": {
-		"@myavenceo/aven-vibes": "^0.3.0"
+		"@myavenceo/aven-vibes": "^0.3.2"
 	}
 }
