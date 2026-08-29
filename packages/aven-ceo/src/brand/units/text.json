@@ -1,0 +1,82 @@
+{
+	"name": "text",
+	"description": "How text reads. Nine classes in the old vocabulary — title, section-title, lede, meta, mono-meta, digits and three eyebrows — declared only type properties: size, weight, colour, tracking, case. That is not nine components, it is one question with nine answers. The axis is named `variant` so the emitted class reads `text--lede`, one word from the name it replaces, rather than `text--role-lede`.",
+	"interface": {
+		"props": {
+			"as": "string",
+			"content": "string"
+		}
+	},
+	"view": {
+		"tag": "p",
+		"attrs": {
+			"data-as": "$props.as"
+		},
+		"text": "$props.content"
+	},
+	"styling": {
+		"base": {
+			"margin": "0"
+		},
+		"variants": {
+			"variant": {
+				"title": {
+					"fontSize": "var(--fs-hero)",
+					"fontWeight": "600",
+					"letterSpacing": "var(--tracking-tight)",
+					"color": "var(--color-foreground)"
+				},
+				"section-title": {
+					"fontSize": "var(--fs-amount)",
+					"fontWeight": "600",
+					"letterSpacing": "var(--tracking-tight)",
+					"color": "var(--color-foreground)"
+				},
+				"lede": {
+					"fontSize": "var(--fs-lead)",
+					"lineHeight": "1.5",
+					"color": "color-mix(in srgb, var(--color-foreground) 75%, transparent)"
+				},
+				"meta": {
+					"fontSize": "var(--fs-meta)",
+					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+				},
+				"mono-meta": {
+					"fontFamily": "var(--font-mono)",
+					"fontSize": "var(--fs-micro)",
+					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+				},
+				"digits": {
+					"fontSize": "var(--fs-amount)",
+					"fontWeight": "500",
+					"letterSpacing": "var(--tracking-tight)",
+					"fontVariantNumeric": "tabular-nums"
+				},
+				"eyebrow": {
+					"fontSize": "var(--fs-eyebrow)",
+					"fontWeight": "600",
+					"textTransform": "uppercase",
+					"letterSpacing": "var(--tracking-wide)",
+					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+				},
+				"eyebrow-accent": {
+					"fontSize": "var(--fs-micro)",
+					"fontWeight": "700",
+					"textTransform": "uppercase",
+					"letterSpacing": "var(--tracking-widest)",
+					"color": "var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black))"
+				},
+				"eyebrow-quiet": {
+					"fontSize": "var(--fs-nano)",
+					"fontWeight": "700",
+					"textTransform": "uppercase",
+					"letterSpacing": "var(--tracking-widest)",
+					"color": "color-mix(in srgb, var(--color-foreground) 65%, transparent)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"notes": "`as` sets the element the caller needs for document structure — a heading level is a semantic decision the composition makes, not something a type role can decide for it. The role only says how it reads."
+	}
+}

@@ -18,6 +18,22 @@
  *                avenID header, and the avenOS dashboard rail.
  *   nav-link     three different treatments of "this is the current page".
  *   site-footer  two implementations of the same legal links.
+ *   text         NINE classes — title, section-title, lede, meta, mono-meta,
+ *                digits and three eyebrows — that declared only type
+ *                properties. They are not components, they are the answer to
+ *                "how does this text read", and one `role` axis holds all nine.
+ *   surface      four boxes — card, card-sm, well, panel — differing only in
+ *                radius, padding and ground. `card-sm` and `well` shared three
+ *                of their five declarations.
+ *   step         a stage on a rail, with `step-done` folded in as its
+ *                `selected` STATE. That class declared two properties and its
+ *                own comment said it was "applied alongside `step`, never
+ *                instead", which is a state wearing a component's name.
+ *
+ * The old classes are still emitted by `components.avenceo.json`, because 222
+ * call sites across the website and the app still name them. They are
+ * SUPERSEDED, not kept: the surface migration deletes them once the last call
+ * site moves, and `SUPERSEDES` below is the map that makes that mechanical.
  *
  * `validateRegistry` runs at module load rather than in a test. A unit that
  * cannot render should fail when the package is built, not when a page is
@@ -33,8 +49,20 @@ import footer from './brand/units/footer.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
+import step from './brand/units/step.json' with { type: 'json' }
+import surface from './brand/units/surface.json' with { type: 'json' }
+import text from './brand/units/text.json' with { type: 'json' }
 
-const documents = [button, logo, navLink, navbar, footer] as unknown as UnitDef[]
+const documents = [
+	text,
+	surface,
+	step,
+	button,
+	logo,
+	navLink,
+	navbar,
+	footer
+] as unknown as UnitDef[]
 
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */
 export const units: UnitRegistry = Object.fromEntries(documents.map((u) => [u.name, u]))
@@ -52,3 +80,37 @@ export const unitStyles = registryStyles(units)
 
 /** The unit names, so a docs surface can list them without importing the JSON. */
 export const unitNames = Object.keys(units)
+
+/**
+ * Which legacy class each unit replaces.
+ *
+ * Written down rather than remembered, because the surface migration is a
+ * find-and-replace over 222 call sites and a map is the difference between
+ * that being mechanical and being archaeology. When a row's classes have no
+ * remaining callers, the row and the classes both go.
+ *
+ * Four legacy classes are already gone rather than listed: `card-sm`,
+ * `btn-secondary`, `step-done` and `bullet` appeared nowhere but in the
+ * generated stylesheet — declared, emitted, and never once used by any of the
+ * three surfaces.
+ */
+export const SUPERSEDES: Record<string, string[]> = {
+	text: [
+		'title',
+		'section-title',
+		'lede',
+		'meta',
+		'mono-meta',
+		'digits',
+		'eyebrow',
+		'eyebrow-accent',
+		'eyebrow-quiet'
+	],
+	surface: ['card', 'well', 'panel'],
+	step: ['step', 'steps'],
+	btn: ['btn', 'ghost'],
+	logo: [],
+	navbar: [],
+	'nav-link': [],
+	'site-footer': []
+}
