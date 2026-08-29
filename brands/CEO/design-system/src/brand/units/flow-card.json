@@ -225,6 +225,26 @@
 					"$part": "status",
 					"color": "var(--color-error-ink)"
 				}
+			},
+			"step": {
+				"$description": "WHERE in the flow this card is. Not decoration and not the same thing as `status`: status is how it is GOING (success, error, waiting), step is which screen you are ON. A flow that cannot say which step it is on is a flow the user cannot orient in — and all three of these screens are steps in one sequence, which is why they belong to one unit.",
+				"identify": {
+					"$part": "eyebrow",
+					"$description": "Who are you — the name check, the sign-in."
+				},
+				"authorise": {
+					"$part": "eyebrow",
+					"$description": "Do you allow this — the device grant, the consent."
+				},
+				"pay": {
+					"$part": "eyebrow",
+					"$description": "Confirm the money."
+				},
+				"done": {
+					"$part": "eyebrow",
+					"$description": "It happened. Pairs with `status: success`.",
+					"color": "var(--color-success-ink)"
+				}
 			}
 		}
 	},

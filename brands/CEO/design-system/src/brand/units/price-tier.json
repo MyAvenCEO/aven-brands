@@ -1,0 +1,104 @@
+{
+	"name": "price-tier",
+	"description": "One plan in a set of plans. A price, its terms, and what you get — and the composition rule that four equal tiers are four tiers the eye lands nowhere in, so one of them is `featured` and the rest are quiet. On the site each tier was a card, a hand-built price line and a bare `<ul>` with `space-y-1.5`, repeated per tier with the amount and the caption re-typed at three different sizes.",
+	"interface": {
+		"props": { "name": "string", "amount": "string", "terms": "string" },
+		"slots": { "features": {}, "action": { "accepts": ["btn"] }, "note": {} }
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{ "tag": "p", "part": "name", "text": "$props.name" },
+			{
+				"tag": "p",
+				"part": "price",
+				"$children": [
+					{ "tag": "span", "part": "amount", "text": "$props.amount" },
+					{ "tag": "span", "part": "terms", "text": "$props.terms" }
+				]
+			},
+			{ "tag": "ul", "part": "features", "$children": "features" },
+			{ "tag": "div", "part": "action", "$children": "action" },
+			{ "tag": "p", "part": "note", "$children": "note" }
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "flex",
+			"flexDirection": "column",
+			"gap": "var(--space-tight)",
+			"minInlineSize": "0",
+			"blockSize": "100%",
+			"padding": "var(--space-loose)",
+			"borderRadius": "var(--radius-lg)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)"
+		},
+		"parts": {
+			"name": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-wider)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"price": {
+				"display": "flex",
+				"flexWrap": "wrap",
+				"alignItems": "baseline",
+				"gap": "0.4rem",
+				"margin": "0"
+			},
+			"amount": {
+				"$description": "Tabular, always. Prices in a row that do not share digit widths do not line up, and a set of tiers is read by comparing exactly this number.",
+				"fontSize": "var(--fs-display)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-tight)",
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground)"
+			},
+			"terms": { "fontSize": "var(--fs-meta)", "color": "var(--color-foreground-quiet)" },
+			"features": {
+				"display": "grid",
+				"gap": "0.4rem",
+				"margin": "var(--space-tight) 0 0",
+				"padding": "0",
+				"listStyle": "none",
+				"fontSize": "var(--fs-meta)",
+				"lineHeight": "1.45",
+				"color": "var(--color-foreground-soft)"
+			},
+			"feature": {
+				"display": "grid",
+				"gridTemplateColumns": "auto 1fr",
+				"gap": "var(--space-tight)",
+				"alignItems": "start"
+			},
+			"action": {
+				"$description": "`margin-block-start: auto` pins it to the bottom, so a row of tiers with different feature counts still lines its buttons up. Without it the eye compares three buttons at three heights instead of three prices.",
+				"marginBlockStart": "auto",
+				"paddingBlockStart": "var(--space-tight)"
+			},
+			"note": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)"
+			}
+		},
+		"variants": {
+			"emphasis": {
+				"featured": {
+					"$description": "ONE tier in the set. Four equal tiers is four tiers the eye lands nowhere in — the lead has to be visibly the lead, or the page has no recommendation and the reader has to do the work.",
+					"borderColor": "var(--color-accent)",
+					"background": "var(--color-surface-page)",
+					"boxShadow": "var(--shadow-raised)"
+				},
+				"quiet": { "background": "var(--color-surface-sunken)", "borderStyle": "dashed" }
+			}
+		}
+	},
+	"a11y": {
+		"note": "The features are a real `<ul>`, which is what announces 'list, six items' — a set of `<div>`s reads as running prose and gives no count. The featured tier is not marked by colour alone: it carries a badge saying why, because 'the one with the gold border' is not information a screen reader has."
+	}
+}

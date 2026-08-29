@@ -1,0 +1,62 @@
+{
+	"name": "key-list",
+	"description": "The passkeys, sessions or devices on an account — avenID's dashboard. Each row is a credential with a name, when it was last used, and a way to revoke it. It is its own unit rather than a `table` because the revoke is destructive and per-row: the rule that a destructive action wears the danger variant EVERYWHERE it appears is the kind of thing that gets lost when nine rows are built by hand.",
+	"interface": {
+		"props": { "label": "string" },
+		"slots": { "rows": {}, "empty": { "accepts": ["empty-state"] } }
+	},
+	"view": {
+		"tag": "ul",
+		"attrs": { "aria-label": "$props.label" },
+		"$children": "rows"
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gap": "0",
+			"margin": "0",
+			"padding": "0",
+			"listStyle": "none",
+			"minInlineSize": "0",
+			"borderRadius": "var(--radius-md)",
+			"border": "1px solid var(--color-border)",
+			"overflow": "hidden"
+		},
+		"parts": {
+			"row": {
+				"$description": "Grid rather than flex, so the name column can shrink and the action column cannot. A device name is arbitrary user text — `overflow-wrap: anywhere` on it, because one unbroken string sets the min-content width and pushes the revoke button off a phone.",
+				"display": "grid",
+				"gridTemplateColumns": "1fr auto",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0",
+				"padding": "var(--space-tight) var(--space-comfortable)",
+				"borderBlockEnd": "1px solid var(--color-border-soft)",
+				"background": "var(--color-surface-raised)"
+			},
+			"name": {
+				"minInlineSize": "0",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "600",
+				"overflowWrap": "anywhere",
+				"color": "var(--color-foreground)"
+			},
+			"meta": {
+				"margin": "0.1rem 0 0",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"action": { "flexShrink": "0" }
+		},
+		"states": {
+			"selected": {
+				"$part": "row",
+				"$description": "The credential you are signed in with right now. Marked with a badge and not only a tint — it is the one row whose revoke would sign you out.",
+				"background": "var(--color-surface-selected)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "A `<ul>` with a label, so the count is announced. Each revoke button needs the credential's name in its accessible name — nine buttons all called 'Revoke' tell a screen-reader user nothing about which one they are on. The revoke wears `btn--danger` here AND in its confirm dialog: red in one place and blue in the other is the bug that rule exists to stop."
+	}
+}

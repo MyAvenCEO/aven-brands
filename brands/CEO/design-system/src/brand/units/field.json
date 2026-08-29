@@ -9,7 +9,9 @@
 			"error": "string",
 			"required": "boolean",
 			"type": "string",
-			"value": "string"
+			"value": "string",
+			"placeholder": "string",
+			"autocomplete": "string"
 		},
 		"events": {
 			"input": {
@@ -162,6 +164,36 @@
 					"$part": "control",
 					"textAlign": "end"
 				}
+			},
+			"type": {
+				"$description": "The input TYPE, which is a real thing and not a look. It decides the keyboard a phone shows, what a password manager offers to fill, and what the browser validates before anything reaches you. Getting it wrong is the single most common accessibility failure in a form: `type=text` for an email address gives a phone the wrong keyboard and a password manager nothing to recognise.",
+				"email": {
+					"$part": "control",
+					"$description": "`type=email` + `autocomplete=email` — an @ keyboard and a password manager that offers the right address."
+				},
+				"password": {
+					"$part": "control",
+					"$description": "`type=password` + `autocomplete=current-password`. Never block paste: WCAG 3.3.8 exists because blocking it forces people to retype from memory.",
+					"letterSpacing": "var(--tracking-wide)"
+				},
+				"search": {
+					"$part": "control",
+					"$description": "`type=search`, which gives a phone a Search key instead of Return and lets the platform draw its own clear affordance."
+				},
+				"numeric": {
+					"$part": "control",
+					"$description": "`inputmode=numeric` rather than `type=number` — a code or a card number is a STRING of digits, and `type=number` strips leading zeros and offers a spinner nobody wants on either.",
+					"fontVariantNumeric": "tabular-nums",
+					"letterSpacing": "var(--tracking-wide)"
+				},
+				"multiline": {
+					"$part": "control",
+					"$description": "A `<textarea>`. Resizes vertically only, because horizontal resize breaks the measure it was given.",
+					"minBlockSize": "6rem",
+					"paddingBlock": "var(--space-tight)",
+					"resize": "vertical",
+					"lineHeight": "1.5"
+				}
 			}
 		},
 		"states": {
@@ -171,6 +203,7 @@
 				"outline": "1px solid var(--color-focus)"
 			},
 			"invalid": {
+				"$description": "The border reddens AND the ground tints, because a border alone is a 1px signal — but neither is what makes it accessible. `aria-invalid` is what a screen reader reads, and the error message says how to FIX it rather than what is wrong.",
 				"$part": "control",
 				"borderColor": "var(--color-error-border)",
 				"background": "var(--color-error-surface)"
@@ -178,7 +211,8 @@
 			"disabled": {
 				"$part": "control",
 				"opacity": "0.55",
-				"cursor": "default"
+				"cursor": "default",
+				"$description": "No pointer events and no focus. A disabled field that still takes focus is a keyboard trap with extra steps."
 			}
 		}
 	},

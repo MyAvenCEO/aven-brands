@@ -26,7 +26,7 @@
 	"styling": {
 		"interactive": true,
 		"base": {
-			"$description": "Fully rounded, and the only thing in the system that is — a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it, and a button's depth should come from its ring and its shadow, which the eye can actually see.",
+			"$description": "Fully rounded, and the only thing in the system that is — a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nThe RING is on by default, not only on hover. That is the reference set's actual look and it is the better resting state: a button that only grows a halo when you point at it is a button that reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something — the ring says 'this is a control', the lift says 'and you are on it'.",
 			"position": "relative",
 			"display": "inline-flex",
 			"alignItems": "center",
@@ -45,7 +45,7 @@
 			"letterSpacing": "var(--tracking-tight)",
 			"whiteSpace": "nowrap",
 			"cursor": "pointer",
-			"boxShadow": "var(--shadow-raised)",
+			"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised)",
 			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)",
 			"--btn-ring": "var(--color-primary-ring)",
 			"--btn-badge": "color-mix(in oklab, var(--color-primary-foreground) 22%, transparent)"
@@ -132,18 +132,18 @@
 		},
 		"states": {
 			"hover": {
-				"$description": "A ring and a lift. The ring is the reference set's idea and it is a good one: a halo just outside the edge, in the button's own colour, which reads at any size and does not depend on telling two similar fills apart. It is a `box-shadow` rather than an outline so it can coexist with the focus ring, which is an outline and sits tight on the edge.",
+				"$description": "The ring is already there, so hover LIFTS and deepens instead of introducing it. Fading a button on hover says 'less', which is the opposite of what a hover means.",
 				"transform": "translateY(-1px)",
-				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-overlay)"
+				"boxShadow": "0 0 0 5px var(--btn-ring, transparent), var(--shadow-overlay)"
 			},
 			"focus": {
 				"$description": "The system focus ring: sunflower, 1px, tight on the edge. Deliberately a different shape from the hover ring, so focus and hover are never mistaken for each other.",
 				"outline": "1px solid var(--color-focus)"
 			},
 			"active": {
-				"$description": "Pressed: the ring stays, the lift goes, and the shadow collapses — the button settles onto the surface it was floating over.",
+				"$description": "Pressed: the ring tightens and the lift goes — the button settles onto the surface it was floating over.",
 				"transform": "translateY(0)",
-				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), none"
+				"boxShadow": "0 0 0 3px var(--btn-ring, transparent), none"
 			},
 			"disabled": {
 				"$description": "Flat and quiet, not a dimmed slab. Reducing a filled button to 55% opacity over a cream page produces a muddy grey that reads as a control that failed rather than one that is not available yet — so the fill is dropped instead of faded. This replaced an `unavailable` VARIANT that meant the same thing: one of them had to go, and a thing that is true right now is a state.",

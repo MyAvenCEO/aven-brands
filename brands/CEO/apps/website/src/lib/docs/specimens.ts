@@ -110,16 +110,30 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	field: {
+		/* ONE field. Two of them side by side made the state switches meaningless —
+		   picking `invalid` reddened both, which shows what invalid looks like and
+		   nothing about what changes. */
+		one: `<span class="field" style="inline-size:20rem">
+			<label class="field-label" for="sp-name">Your aven name</label>
+			<input class="field-control" id="sp-name" type="text" value="samuel" readonly>
+			<p class="field-hint">This becomes samuel.aven.ceo. Every name exists once.</p>
+			<p class="field-error">Names are lowercase letters, digits and hyphens. Try samuel-andert.</p>
+		</span>`,
 		html: `<span class="sp-stack">
-			<span class="field">
-				<label class="field-label" for="sp-name">Your aven name</label>
-				<input class="field-control" id="sp-name" type="text" value="samuel" readonly>
-				<p class="field-hint">This becomes samuel.aven.ceo. Every name exists once.</p>
+			<span class="field field--type-email">
+				<label class="field-label" for="sp-mail">Email</label>
+				<input class="field-control" id="sp-mail" type="email" autocomplete="email" value="you@aven.ceo" readonly>
 			</span>
-			<span class="field">
-				<label class="field-label" for="sp-bad">Your aven name</label>
-				<input class="field-control" id="sp-bad" type="text" value="Samuel Andert" aria-invalid="true" readonly>
-				<p class="field-error">Names are lowercase letters, digits and hyphens. Try samuel-andert.</p>
+			<span class="field field--shape-affixed">
+				<label class="field-label" for="sp-aff">Your aven name</label>
+				<span class="field-shell">
+					<input class="field-control" id="sp-aff" type="text" value="maia" readonly>
+					<span class="field-suffix">.aven.ceo</span>
+				</span>
+			</span>
+			<span class="field field--type-numeric">
+				<label class="field-label" for="sp-code">Device code</label>
+				<input class="field-control" id="sp-code" type="text" inputmode="numeric" value="4192" readonly>
 			</span>
 		</span>`
 	},
@@ -396,36 +410,23 @@ export const specimens: Record<string, Specimen> = {
 	},
 	'flow-card': {
 		tall: true,
-		/* The checkout shape: brand mark, the answer as a word, an action. The
-		   avenID shape is the same unit with a status glyph instead of the mark. */
-		one: `<span class="flow-card flow-card--crest-brand flow-card--answer-no" style="display:grid">
-			<span class="flow-card-crest"><img src="/aven-logo.svg" alt="" width="44" height="44"></span>
-			<p class="flow-card-eyebrow">maia.aven.ceo</p>
+		/* Every PART the variants target has to be present, or a switch dresses
+		   nothing and reads as broken. `status` and `answer` both name parts, so
+		   the specimen carries the crest AND the status line even though a real
+		   screen shows one or the other. */
+		one: `<span class="flow-card" style="display:grid">
+			<span class="flow-card-crest">${icon('info', '1.5rem')}</span>
+			<p class="flow-card-eyebrow">Secure app connection</p>
 			<p class="flow-card-status">Taken</p>
-			<p class="flow-card-description">Someone claimed this one already. Every name exists exactly once — try another.</p>
+			<p class="flow-card-heading" style="margin:0">Authorize this device</p>
+			<p class="flow-card-description">Confirm the connection to give the app access to your Aven account.</p>
+			<span class="flow-card-code">A4F2-9K7Q</span>
+			<span class="flow-card-alert">That code has expired. Ask avenOS for a new one.</span>
 			<span class="flow-card-actions">
-				<button class="btn btn--primary" type="button"><span class="btn-label">Try another name</span></button>
+				<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
+				<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
 			</span>
-			<p class="flow-card-trust">Securely checked through aven.id</p>
-		</span>`,
-		html: `<span class="sp-row sp-row--cards">
-			<span class="flow-card flow-card--status-waiting" style="display:grid; inline-size:19rem">
-				<span class="flow-card-crest">${icon('info', '1.5rem')}</span>
-				<p class="flow-card-eyebrow">Secure app connection</p>
-				<p class="flow-card-heading" style="margin:0">Authorize this device</p>
-				<p class="flow-card-description">Confirm the connection to give the app access.</p>
-				<span class="flow-card-code">A4F2-9K7Q</span>
-				<span class="flow-card-actions"><button class="btn btn--primary btn--size-sm" type="button"><span class="btn-label">Authorize</span></button></span>
-				<p class="flow-card-trust">Securely connected through aven.id</p>
-			</span>
-			<span class="flow-card flow-card--status-success" style="display:grid; inline-size:19rem">
-				<span class="flow-card-crest">${icon('check', '1.5rem')}</span>
-				<p class="flow-card-eyebrow">Payment received</p>
-				<p class="flow-card-heading" style="margin:0">maia.aven.ceo is yours</p>
-				<p class="flow-card-description">We emailed the confirmation. You can close this page.</p>
-				<span class="flow-card-actions"><button class="btn btn--secondary btn--size-sm" type="button"><span class="btn-label">Open avenOS</span></button></span>
-				<p class="flow-card-trust">Securely paid through my.aven.ceo</p>
-			</span>
+			<p class="flow-card-trust">Securely connected through aven.id</p>
 		</span>`
 	},
 	'claim-card': {
@@ -463,6 +464,53 @@ export const specimens: Record<string, Specimen> = {
 				<p class="claim-card-offer-note">1 / 10 claimed</p>
 			</span>
 		</span>`
+	},
+	'price-tier': {
+		tall: true,
+		one: `<span class="price-tier price-tier--emphasis-featured" style="display:flex; inline-size:17rem">
+			<p class="price-tier-name">Founder</p>
+			<p class="price-tier-price"><span class="price-tier-amount">49 €</span><span class="price-tier-terms">/ month</span></p>
+			<ul class="price-tier-features">
+				<li class="price-tier-feature"><span class="claim-card-dot"></span><span>Your avenCEO, running daily</span></li>
+				<li class="price-tier-feature"><span class="claim-card-dot"></span><span>Six skills included</span></li>
+				<li class="price-tier-feature"><span class="claim-card-dot"></span><span>Your name for a year</span></li>
+			</ul>
+			<span class="price-tier-action"><button class="btn btn--accent" type="button"><span class="btn-label">Start here</span></button></span>
+			<p class="price-tier-note">Cancel any time. Incl. VAT.</p>
+		</span>`
+	},
+	'rank-list': {
+		one: `<ol class="rank-list" aria-label="Reserved names" style="inline-size:19rem">
+			<li class="rank-list-row"><span class="rank-list-rank">1</span><span class="rank-list-name">maia</span><span class="rank-list-meta">2 days ago</span></li>
+			<li class="rank-list-row"><span class="rank-list-rank">2</span><span class="rank-list-name">samuel</span><span class="rank-list-meta">5 days ago</span></li>
+			<li class="rank-list-row"><span class="rank-list-rank">9</span><span class="rank-list-name">daniel</span><span class="rank-list-meta">last week</span></li>
+			<li class="rank-list-row"><span class="rank-list-rank">10</span><span class="rank-list-name">aven-studio</span><span class="rank-list-meta">last week</span></li>
+		</ol>`
+	},
+	'payment-frame': {
+		tall: true,
+		one: `<span class="payment-frame" style="display:grid; inline-size:100%; max-inline-size:26rem">
+			<span class="payment-frame-stage" style="min-block-size:14rem; display:grid; place-items:center">
+				<span class="prose prose--size-fine">The provider's form renders here.</span>
+			</span>
+			<p class="payment-frame-state">Waiting for the payment provider…</p>
+			<span class="payment-frame-fallback">
+				<span class="prose prose--size-fine">Not loading?</span>
+				<button class="btn btn--secondary btn--size-sm" type="button"><span class="btn-label">Open checkout in a new tab</span></button>
+			</span>
+		</span>`
+	},
+	'key-list': {
+		one: `<ul class="key-list" aria-label="Passkeys" style="inline-size:22rem">
+			<li class="key-list-row">
+				<span><span class="key-list-name">MacBook Pro — Touch ID</span><p class="key-list-meta">Last used 2 hours ago</p></span>
+				<span class="key-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span>
+			</li>
+			<li class="key-list-row">
+				<span><span class="key-list-name">iPhone 15</span><p class="key-list-meta">Last used yesterday</p></span>
+				<span class="key-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span>
+			</li>
+		</ul>`
 	},
 	section: {
 		one: `<span class="section" style="display:block;inline-size:100%"><span class="section-inner" style="display:block"><p class="text text--eyebrow-quiet">Section</p><p class="text text--section-title">One band of a page</p></span></span>`,

@@ -1,0 +1,61 @@
+{
+	"name": "rank-list",
+	"description": "An ordered list where the position is the point — the reserved names board, a leaderboard, a queue. A real `<ol>`, because the numbering is data and not decoration: a `<div>` with a hand-typed digit in front of it loses its meaning the moment one row is filtered out.",
+	"interface": {
+		"props": { "label": "string" },
+		"slots": { "rows": {} }
+	},
+	"view": {
+		"tag": "ol",
+		"attrs": { "aria-label": "$props.label" },
+		"$children": "rows"
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gap": "0.35rem",
+			"margin": "0",
+			"padding": "0",
+			"listStyle": "none",
+			"minInlineSize": "0"
+		},
+		"parts": {
+			"row": {
+				"display": "grid",
+				"gridTemplateColumns": "auto 1fr auto",
+				"alignItems": "baseline",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0",
+				"fontSize": "var(--fs-body)"
+			},
+			"rank": {
+				"$description": "Right-aligned and tabular in a fixed column, so 9 and 10 stack rather than shifting the name beside them. This is the whole reason it is a part and not a `::marker`: a marker cannot be given a width.",
+				"inlineSize": "1.6rem",
+				"flexShrink": "0",
+				"textAlign": "end",
+				"fontWeight": "600",
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"name": {
+				"minInlineSize": "0",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-tight)",
+				"overflowWrap": "anywhere",
+				"color": "var(--color-foreground)"
+			},
+			"meta": {
+				"$description": "The one thing that varies down the list — a date, a status. A long list of identical rows is a long list of identical rows; something has to differ or the eye has nowhere to land while scrolling.",
+				"fontSize": "var(--fs-eyebrow)",
+				"whiteSpace": "nowrap",
+				"color": "var(--color-foreground-quiet)"
+			}
+		},
+		"variants": {
+			"density": { "airy": { "$part": "row", "paddingBlock": "var(--space-tight)" } }
+		}
+	},
+	"a11y": {
+		"note": "An `<ol>` with a label, so a screen reader says 'list, ten items' and can announce the position of each. The rank is inside the row rather than a `::marker` because it needs a fixed width — but it must stay INSIDE the `<li>` so the reading order is rank-then-name, not name-then-rank."
+	}
+}
