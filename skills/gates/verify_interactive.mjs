@@ -37,6 +37,25 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+
+/**
+ * A target is either a file on disk or a URL to a running server.
+ *
+ * Every render gate here loaded `file://` unconditionally. For a static
+ * component harness that is correct. For a BUILT SvelteKit page it is not: the
+ * module scripts never execute over `file://`, so the page renders its markup
+ * and its CSS and hydrates nothing — and a gate that asks whether a control
+ * WORKS then reports that none of them do. `verify_interactive` failed the docs
+ * page's theme switch on exactly that basis, while the live control flips
+ * `aria-pressed`, flips `data-theme`, and repaints the page.
+ *
+ * A gate that fails on every page of a whole framework gets ignored, or gets
+ * "fixed" by deleting the real ARIA it was complaining about. So: pass a path
+ * and it is a file, pass an http(s) URL and it is served.
+ */
+const isUrl = (t) => /^https?:\/\//.test(t);
+const pageUrl = (t) => (isUrl(t) ? t : 'file://' + resolve(t));
+
 let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch {
@@ -56,8 +75,11 @@ if (!target) {
   console.log('usage: node scripts/verify_interactive.mjs <file.html | dir> [--dark] [--advisory]');
   process.exit(0);
 }
-const abs = resolve(target);
-const files = statSync(abs).isDirectory()
+/* A URL is one target and never touches the filesystem — `statSync` on
+   \"http://localhost:1421/...\" resolves it as a relative PATH and throws
+   ENOENT, which is how URL support silently stops at the directory walk. */
+const abs = isUrl(target) ? target : resolve(target);
+const files = !isUrl(target) && statSync(abs).isDirectory()
   ? readdirSync(abs).filter(f => f.endsWith('.html')).map(f => join(abs, f)).sort()
   : [abs];
 
@@ -145,7 +167,7 @@ let checked = 0;
 for (const f of files) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   if (dark) await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto('file://' + f);
+  await page.goto(pageUrl(f));
   if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
   const candidates = await page.evaluate(COLLECT, { attrs: STATE_ATTRS, roles: STATE_ROLES });
   await page.close();
@@ -156,7 +178,7 @@ for (const f of files) {
     if (c.native && !c.declares.length) continue;
     const p = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     if (dark) await p.emulateMedia({ colorScheme: 'dark' });
-    await p.goto('file://' + f);
+    await p.goto(pageUrl(f));
     if (dark) await p.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
     await p.evaluate(WATCH);
     const declaredAttrs = c.declares.filter(d => !d.startsWith('role='));

@@ -13,6 +13,25 @@
  */
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
+
+/**
+ * A target is either a file on disk or a URL to a running server.
+ *
+ * Every render gate here loaded `file://` unconditionally. For a static
+ * component harness that is correct. For a BUILT SvelteKit page it is not: the
+ * module scripts never execute over `file://`, so the page renders its markup
+ * and its CSS and hydrates nothing — and a gate that asks whether a control
+ * WORKS then reports that none of them do. `verify_interactive` failed the docs
+ * page's theme switch on exactly that basis, while the live control flips
+ * `aria-pressed`, flips `data-theme`, and repaints the page.
+ *
+ * A gate that fails on every page of a whole framework gets ignored, or gets
+ * "fixed" by deleting the real ARIA it was complaining about. So: pass a path
+ * and it is a file, pass an http(s) URL and it is served.
+ */
+const isUrl = (t) => /^https?:\/\//.test(t);
+const pageUrl = (t) => (isUrl(t) ? t : 'file://' + resolve(t));
+
 let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch {
@@ -31,7 +50,7 @@ if (!file) { console.log('usage: node scripts/axe_audit.mjs <file.html> [--dark]
 
 const browser = await chromium.launch({ channel: 'chrome' }).catch(() => chromium.launch());
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-await page.goto('file://' + resolve(file), { waitUntil: 'networkidle' }).catch(() => {});
+await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {});
 if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
 
 const localAxe = resolve('node_modules/axe-core/axe.min.js');
