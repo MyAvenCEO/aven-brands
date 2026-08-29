@@ -61,6 +61,7 @@ import section from './brand/units/section.json' with { type: 'json' }
 import select from './brand/units/select.json' with { type: 'json' }
 import sidebar from './brand/units/sidebar.json' with { type: 'json' }
 import skeleton from './brand/units/skeleton.json' with { type: 'json' }
+import skillCard from './brand/units/skill-card.json' with { type: 'json' }
 import spinner from './brand/units/spinner.json' with { type: 'json' }
 import stat from './brand/units/stat.json' with { type: 'json' }
 import step from './brand/units/step.json' with { type: 'json' }
@@ -84,6 +85,7 @@ const documents = [
 	card,
 	section,
 	stat,
+	skillCard,
 	button,
 	badge,
 	tabs,

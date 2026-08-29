@@ -18,7 +18,23 @@ import { renderIcon } from '@myavenceo/aven-vibes'
 export type Specimen = {
 	/** Extra room for a unit that needs it — a modal, an empty state. */
 	tall?: boolean
+	/**
+	 * The gallery view: every variant at once, for the grid card.
+	 *
+	 * Its job is to answer "what is this unit" at a glance, which needs the
+	 * range visible.
+	 */
 	html: string
+	/**
+	 * The explorer view: ONE instance, for the detail page.
+	 *
+	 * A different specimen, not the same one reused, and that is the whole
+	 * point. The explorer applies the chosen variant to what is on the stage —
+	 * so a stage holding six buttons turns all six primary at once, which shows
+	 * you nothing and is actively misleading about what the variant does. One
+	 * instance, one variant, one state.
+	 */
+	one?: string
 }
 
 /* Through the engine's own `renderIcon`, not hand-written SVG — a docs page
@@ -27,6 +43,7 @@ const icon = (name: string, size = '1rem') => renderIcon(name, icons, { size })
 
 export const specimens: Record<string, Specimen> = {
 	btn: {
+		one: `<button class="btn" type="button">Hire your Aven</button>`,
 		html: `<span class="sp-row">
 			<button class="btn btn--primary btn--size-md" type="button">Hire your Aven</button>
 			<button class="btn btn--accent btn--size-md" type="button">Claim your name</button>
@@ -37,6 +54,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	badge: {
+		one: `<span class="badge">Running</span>`,
 		html: `<span class="sp-row">
 			<span class="badge badge--tone-neutral">Draft</span>
 			<span class="badge badge--tone-progress">Running</span>
@@ -73,6 +91,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	avatar: {
+		one: `<span class="avatar">SA</span>`,
 		html: `<span class="sp-row">
 			<span class="avatar avatar--size-sm">SA</span>
 			<span class="avatar">SA</span>
@@ -81,6 +100,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	spinner: {
+		one: `<span class="spinner" role="status" aria-label="Loading">${icon('spinner', '1em')}</span>`,
 		html: `<span class="sp-row">
 			<span class="spinner spinner--size-sm" role="status" aria-label="Loading">${icon('spinner', '1em')}</span>
 			<span class="spinner" role="status" aria-label="Loading">${icon('spinner', '1em')}</span>
@@ -88,6 +108,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	skeleton: {
+		one: `<span class="skeleton" style="inline-size: 14rem"></span>`,
 		html: `<span class="sp-stack sp-stack--wide">
 			<span class="skeleton skeleton--shape-text" style="inline-size: 70%"></span>
 			<span class="skeleton skeleton--shape-text" style="inline-size: 90%"></span>
@@ -182,6 +203,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	surface: {
+		one: `<span class="surface" style="inline-size: 15rem">A padded, rounded box.</span>`,
 		html: `<span class="sp-row">
 			<span class="surface surface--raised surface--size-sm">Raised</span>
 			<span class="surface surface--sunken surface--size-sm">Sunken</span>
@@ -189,6 +211,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	text: {
+		one: `<p class="text">One human plus one avenCEO</p>`,
 		html: `<span class="sp-stack sp-stack--wide">
 			<p class="text text--title">One human plus one avenCEO</p>
 			<p class="text text--lede">The company of the future has two roles, and one of them is not a person.</p>
@@ -204,6 +227,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	'nav-link': {
+		one: `<a class="nav-link" href="#specimen">Marketplace</a>`,
 		html: `<span class="sp-row">
 			<a class="nav-link" href="#specimen" aria-current="page">Skills</a>
 			<a class="nav-link" href="#specimen">Marketplace</a>
@@ -211,6 +235,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	card: {
+		one: `<span class="card" style="inline-size: 17rem"><span class="badge badge--tone-progress">Running</span><p class="text text--section-title">Inbox router</p><p class="prose prose--size-fine">Reads every mail, answers what it can, and hands you the rest.</p></span>`,
 		html: `<span class="sp-row sp-row--cards">
 			<span class="card" style="inline-size: 15rem">
 				<span class="badge badge--tone-progress">Running</span>
@@ -229,7 +254,75 @@ export const specimens: Record<string, Specimen> = {
 			</span>
 		</span>`
 	},
+	'skill-card': {
+		tall: true,
+		one: `<a class="skill-card" href="#specimen" style="inline-size: 19rem">
+			<span class="skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
+			<p class="skill-card-title">Inbox router</p>
+			<p class="skill-card-summary">Reads every mail as it lands, answers what it can in your voice, and hands you only the ones that need you.</p>
+			<span class="skill-card-rail"><span class="skill-card-promise">6 hrs/week</span><span class="skill-card-more">View</span></span>
+		</a>`,
+		html: `<span class="sp-row sp-row--cards">
+			<a class="skill-card" href="#specimen" style="inline-size: 15rem">
+				<span class="skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
+				<p class="skill-card-title">Inbox router</p>
+				<p class="skill-card-summary">Answers what it can in your voice, and hands you the rest.</p>
+				<span class="skill-card-rail"><span class="skill-card-promise">6 hrs/week</span><span class="skill-card-more">View</span></span>
+			</a>
+			<a class="skill-card skill-card--emphasis-featured" href="#specimen" style="inline-size: 15rem">
+				<span class="skill-card-head"><span class="badge badge--tone-accent">Most picked</span></span>
+				<p class="skill-card-title">Book keeper</p>
+				<p class="skill-card-summary">Files every receipt the day it arrives.</p>
+				<span class="skill-card-rail"><span class="skill-card-promise">4 hrs/week</span><span class="skill-card-more">View</span></span>
+			</a>
+			<a class="skill-card skill-card--emphasis-soon" href="#specimen" style="inline-size: 15rem">
+				<span class="skill-card-head"><span class="badge">Soon</span></span>
+				<p class="skill-card-title">Blog writer</p>
+				<p class="skill-card-summary">Drafts in your voice, from what you already published.</p>
+				<span class="skill-card-rail"><span class="skill-card-promise">2 hrs/week</span><span class="skill-card-more">Join list</span></span>
+			</a>
+		</span>`
+	},
+	navbar: {
+		tall: true,
+		one: `<span class="navbar" style="position: static; inline-size: 100%; max-inline-size: 44rem">
+			<span class="navbar-bar">
+				<span class="navbar-brand"><span class="logo logo--lockup"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
+				<span class="navbar-actions">
+					<a class="nav-link" href="#specimen">Skills</a>
+					<a class="nav-link" href="#specimen">Pricing</a>
+					<button class="btn btn--accent btn--size-sm" type="button">Hire your Aven</button>
+					<button class="navbar-toggle" type="button" aria-expanded="false" aria-label="Menu">${icon('menu', '1.25rem')}</button>
+				</span>
+			</span>
+		</span>`
+	},
+	'site-footer': {
+		tall: true,
+		one: `<span class="site-footer" style="inline-size: 100%; max-inline-size: 44rem">
+			<span class="site-footer-inner">
+				<span class="site-footer-brand">
+					<span class="logo logo--lockup"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span>
+					<span class="site-footer-link">Your own AI, your own company.</span>
+				</span>
+				<span class="site-footer-groups">
+					<span class="site-footer-group">
+						<p class="site-footer-group-title">Product</p>
+						<a class="site-footer-link" href="#specimen">Skills</a>
+						<a class="site-footer-link" href="#specimen">Pricing</a>
+					</span>
+					<span class="site-footer-group">
+						<p class="site-footer-group-title">Legal</p>
+						<a class="site-footer-link" href="#specimen">Imprint</a>
+						<a class="site-footer-link" href="#specimen">Privacy</a>
+					</span>
+				</span>
+			</span>
+			<span class="site-footer-meta"><span>&copy; 2026 avenCEO</span><span>Built in Switzerland</span></span>
+		</span>`
+	},
 	section: {
+		one: `<span class="section" style="display:block;inline-size:100%"><span class="section-inner" style="display:block"><p class="text text--eyebrow-quiet">Section</p><p class="text text--section-title">One band of a page</p></span></span>`,
 		tall: true,
 		html: `<span class="sp-stack sp-stack--wide" style="gap: 0">
 			<span class="section section--rhythm-tight" style="display:block">
@@ -253,6 +346,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	stat: {
+		one: `<span class="stat"><p class="stat-value">6</p><p class="stat-label">Hours saved</p><p class="stat-caption">per week, inbox alone</p></span>`,
 		html: `<span class="sp-row">
 			<span class="stat stat--align-center">
 				<p class="stat-value">6</p>
@@ -272,6 +366,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	prose: {
+		one: `<p class="prose">Every decision and every correction flows back into your aven\u2019s skills. After a year it is the memory, the experience and the judgment of your company.</p>`,
 		html: `<span class="sp-stack sp-stack--wide">
 			<p class="prose prose--size-lead">Once AI does nearly every job, around the clock, at the price of electricity, trading time for money stops paying.</p>
 			<p class="prose">Every decision and every correction flows back into your aven's skills. After a year it is the memory, the experience and the judgment of your company — and with that, its most valuable asset.</p>
@@ -279,6 +374,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	step: {
+		one: `<span class="step">Pick the name</span>`,
 		html: `<span class="sp-stack sp-stack--wide">
 			<span class="step">Pick the name</span>
 			<span class="step">Meet your aven</span>

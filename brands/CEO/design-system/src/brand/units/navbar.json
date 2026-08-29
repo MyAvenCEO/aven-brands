@@ -1,69 +1,213 @@
 {
 	"name": "navbar",
-	"description": "The bar every surface has. Three implementations existed: a 257-line marketing header, the avenID header, and the avenOS dashboard rail.",
+	"description": "The bar at the top of every surface, and the most under-described unit in the system — it was two slots and three variants while the real header carried a fixed-over-hero mode, a sticky mode, a scroll-triggered glass-to-solid swap, a light/dark bar that depends on both, and a full-screen mobile menu, all of it written inline with `color-mix` and `backdrop-filter` in a `style` attribute. A composite of composites: it holds the logo, a set of nav-links, a set of buttons, and on a narrow viewport a drawer holding the same links rather than a second copy of them.",
 	"interface": {
 		"props": {
-			"home": "string"
+			"label": "string",
+			"open": "boolean",
+			"scrolled": "boolean"
 		},
 		"slots": {
+			"brand": {
+				"accepts": ["logo"]
+			},
 			"links": {
 				"accepts": ["nav-link"]
 			},
 			"actions": {
 				"accepts": ["btn"]
+			},
+			"drawer": {}
+		},
+		"events": {
+			"toggle": {
+				"open": "boolean"
 			}
 		}
 	},
-	"layout": {
-		"primitive": "cluster",
-		"gap": "space-comfortable",
-		"align": "center"
-	},
 	"view": {
 		"tag": "header",
-		"children": [
+		"attrs": {
+			"data-open": "$props.open",
+			"data-scrolled": "$props.scrolled"
+		},
+		"$children": [
 			{
-				"$use": {
-					"unit": "logo",
-					"props": {
-						"href": "$props.home",
-						"variant": "lockup"
+				"tag": "div",
+				"part": "bar",
+				"$children": [
+					{
+						"tag": "div",
+						"part": "brand",
+						"$children": "brand"
+					},
+					{
+						"tag": "nav",
+						"part": "links",
+						"attrs": {
+							"aria-label": "$props.label"
+						},
+						"$children": "links"
+					},
+					{
+						"tag": "div",
+						"part": "actions",
+						"$children": "actions"
+					},
+					{
+						"tag": "button",
+						"part": "toggle",
+						"attrs": {
+							"type": "button",
+							"aria-expanded": "$props.open",
+							"aria-controls": "$props.drawerId",
+							"aria-label": "Menu"
+						},
+						"$icon": {
+							"name": "menu",
+							"size": "1.25rem"
+						}
 					}
-				}
-			},
-			{
-				"tag": "nav",
-				"class": "navbar-links",
-				"$children": "links"
+				]
 			},
 			{
 				"tag": "div",
-				"class": "navbar-actions",
-				"$children": "actions"
+				"part": "drawer",
+				"attrs": {
+					"id": "$props.drawerId"
+				},
+				"$children": "drawer"
 			}
 		]
 	},
 	"styling": {
 		"base": {
-			"display": "flex",
-			"alignItems": "center",
-			"gap": "var(--space-comfortable)",
-			"padding": "var(--space-snug) 1.25rem",
-			"minHeight": "4rem"
+			"position": "sticky",
+			"insetBlockStart": "0",
+			"insetInline": "0",
+			"zIndex": "50",
+			"background": "var(--color-surface-page)",
+			"borderBlockEnd": "1px solid var(--color-border-soft)",
+			"transition": "background var(--duration-moderate) var(--ease-out), border-color var(--duration-moderate) var(--ease-out)"
+		},
+		"parts": {
+			"bar": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-comfortable)",
+				"marginInline": "auto",
+				"inlineSize": "100%",
+				"maxInlineSize": "84rem",
+				"minBlockSize": "3.5rem",
+				"paddingInline": "var(--space-comfortable)"
+			},
+			"brand": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"flexShrink": "0"
+			},
+			"links": {
+				"$description": "Hidden below the drawer breakpoint, where the same links appear inside the drawer — the SAME nav, moved, not a second one. Two copies means a screen reader announces two navigation landmarks and a keyboard tabs through both.",
+				"display": "none",
+				"alignItems": "center",
+				"gap": "var(--space-comfortable)",
+				"marginInlineStart": "auto"
+			},
+			"actions": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"marginInlineStart": "auto"
+			},
+			"toggle": {
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"inlineSize": "2.75rem",
+				"blockSize": "2.75rem",
+				"marginInlineEnd": "calc(var(--space-tight) * -1)",
+				"border": "0",
+				"borderRadius": "var(--radius-pill)",
+				"background": "transparent",
+				"color": "inherit",
+				"cursor": "pointer"
+			},
+			"drawer": {
+				"$description": "Full-height and translated off-screen rather than `display:none`, so it can animate and so focus management has something real to trap. It is `inert` while closed, which is what stops a keyboard from tabbing into a menu nobody can see.",
+				"position": "fixed",
+				"insetBlockStart": "3.5rem",
+				"insetInline": "0",
+				"insetBlockEnd": "0",
+				"display": "grid",
+				"alignContent": "start",
+				"gap": "var(--space-tight)",
+				"padding": "var(--space-loose)",
+				"background": "var(--color-surface-page)",
+				"transform": "translateY(-100%)",
+				"visibility": "hidden",
+				"transition": "transform var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate)"
+			}
 		},
 		"variants": {
-			"variant": {
-				"marketing": {
-					"background": "transparent"
-				},
-				"app": {
-					"background": "var(--color-surface-raised)",
-					"borderBottom": "1px solid var(--color-border)"
-				},
-				"service": {
-					"borderBottom": "1px solid var(--color-border)"
+			"placement": {
+				"overlay": {
+					"$description": "Fixed over a full-bleed hero, so the media sits behind it. The bar is transparent until the page scrolls; text over imagery is the one case where the page inks do not apply and the light ink is used throughout.",
+					"position": "fixed",
+					"background": "transparent",
+					"borderBlockEndColor": "transparent",
+					"color": "var(--color-on-dark)"
+				}
+			},
+			"tone": {
+				"glass": {
+					"$description": "A translucent bar with a backdrop blur, for the scrolled state over content. The fill is a named tint rather than an inline `color-mix`, which is where this lived: in a `style` attribute, in one component, unthemeable. The blur radius is literal: there is no blur scale in this brand yet, and inventing a one-entry scale to hold a single value is worse than the value.",
+					"background": "var(--color-scrim-thin)",
+					"backdropFilter": "blur(10px)",
+					"borderBlockEndColor": "var(--color-border-soft)"
+				}
+			},
+			"breakpoint": {
+				"$description": "Where the links come out of the drawer. Declared rather than assumed, because the answer depends on how many links there are.",
+				"md": {
+					"$part": "links",
+					"display": "none"
 				}
 			}
+		},
+		"states": {
+			"open": {
+				"$description": "The drawer arrives. The toggle keeps `aria-expanded` in step; the bar itself goes solid so the drawer does not appear to float over nothing.",
+				"$part": "drawer",
+				"transform": "translateY(0)",
+				"visibility": "visible"
+			},
+			"hover": {
+				"$part": "toggle",
+				"background": "var(--color-muted)"
+			},
+			"focus": {
+				"$part": "toggle",
+				"outline": "2px solid var(--color-accent-ink)",
+				"outlineOffset": "-2px"
+			},
+			"active": {
+				"$part": "toggle",
+				"background": "var(--color-surface-sunken)"
+			},
+			"disabled": {
+				"$part": "toggle",
+				"opacity": "0.55",
+				"cursor": "default"
+			}
+		},
+		"interactive": true,
+		"reducedMotion": {
+			"$description": "The drawer still moves — removing the transform leaves it permanently off-screen — it just arrives instantly.",
+			"transition": "none"
 		}
+	},
+	"a11y": {
+		"note": "ONE `<nav>` with one label, in both layouts. The toggle is a real button carrying `aria-expanded` and `aria-controls`; while the drawer is closed it must be `inert` or hidden, or a keyboard tabs into an invisible menu. Opening moves focus into the drawer, Escape closes it, and focus returns to the toggle. WCAG 2.4.11: a sticky bar must not cover a focused element, so anything focusable below it needs scroll-margin at least the bar's height."
 	}
 }

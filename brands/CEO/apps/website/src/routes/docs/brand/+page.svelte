@@ -250,6 +250,10 @@ function inspect(name: string) {
 								onclick={() => {
 									active = section.id
 									inspecting = null
+									/* Leaving the detail view with the section. Without this, moving
+									   from Leafs to Composites kept one leaf's detail on screen and
+									   the Composites list rendered as empty. */
+									open = null
 								}}
 							>
 								<span>{section.label}</span>
@@ -497,7 +501,10 @@ function inspect(name: string) {
 							{@attach applyPreview(unit, variantClass, state)}
 						>
 							{#if specimens[unit.name]}
-								{@html specimens[unit.name].html}
+								<!-- The `one` specimen, not the gallery. Applying a variant to a stage
+								     holding six buttons turns all six primary at once, which shows
+								     nothing about what the variant does. -->
+								{@html specimens[unit.name].one ?? specimens[unit.name].html}
 							{:else}
 								<p class="cb-mono cb-unit-todo">no specimen yet</p>
 							{/if}
