@@ -128,7 +128,7 @@
 				"blockSize": "2.75rem",
 				"marginInlineEnd": "calc(var(--space-tight) * -1)",
 				"border": "0",
-				"borderRadius": "var(--radius-pill)",
+				"borderRadius": "var(--radius-full)",
 				"background": "transparent",
 				"color": "inherit",
 				"cursor": "pointer"
@@ -188,8 +188,7 @@
 			},
 			"focus": {
 				"$part": "toggle",
-				"outline": "2px solid var(--color-accent-ink)",
-				"outlineOffset": "-2px"
+				"outline": "1px solid var(--color-focus)"
 			},
 			"active": {
 				"$part": "toggle",

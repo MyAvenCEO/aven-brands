@@ -83,8 +83,7 @@
 			},
 			"focus": {
 				"$part": "tab",
-				"outline": "2px solid var(--color-accent-ink)",
-				"outlineOffset": "-2px"
+				"outline": "1px solid var(--color-focus)"
 			}
 		}
 	},

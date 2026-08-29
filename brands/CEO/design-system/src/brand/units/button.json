@@ -33,7 +33,7 @@
 			"minBlockSize": "2.5rem",
 			"paddingInline": "1.25rem",
 			"border": "1px solid transparent",
-			"borderRadius": "var(--radius-control)",
+			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
 			"font": "inherit",
@@ -44,42 +44,48 @@
 			"whiteSpace": "nowrap",
 			"cursor": "pointer",
 			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)",
-			"$description": "Softened, not rounded away. A full pill on a 2.5rem control is a lozenge, and the badges beside it use a pill because they are small enough for one to read as a shape rather than as a blob. A button is the same family, one step firmer."
+			"$description": "Fully rounded, and the only thing in the system that is. A stadium is what a button is FOR — it reads as pressable at a glance and nothing else on the page shares the shape, so the affordance is unambiguous. Cards, inputs and panels take the radius ladder instead: a fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button. The fill is DUOTONE, like the icons: the flat colour with a lighter wash of itself over the top. Two opacities of one colour, which is what keeps it themeable — a gradient between two different colours would need a second definition per theme. It is a few percent, enough to give the surface a direction without becoming a gradient anyone would name.",
+			"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%)"
 		},
 		"variants": {
 			"variant": {
 				"primary": {
-					"$description": "the one main affirmative action on a surface.",
+					"$description": "the one main affirmative action on a surface. A duotone fill, like the icons: the flat colour with a lighter wash of itself over the top half. Two opacities of one colour, which is what keeps it themeable — a gradient between two different colours would need a second definition per theme. The effect is a couple of percent, enough to give the surface a direction without becoming a gradient anyone would name.",
 					"background": "var(--color-primary)",
 					"color": "var(--color-primary-foreground)",
 					"borderColor": "var(--color-primary)",
-					"boxShadow": "var(--shadow-raised)"
+					"boxShadow": "var(--shadow-raised)",
+					"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%)"
 				},
 				"secondary": {
 					"$description": "neutral. An outline and dark text, never a coloured fill — a secondary action that carries a fill competes with the primary beside it.",
 					"background": "transparent",
 					"color": "var(--color-foreground)",
-					"borderColor": "var(--color-border-strong)"
+					"borderColor": "var(--color-border-strong)",
+					"backgroundImage": "none"
 				},
 				"danger": {
 					"$description": "destructive. The same variant on the trigger AND on its confirm dialog — red in one place and blue in the other is the bug this rule exists to stop.",
 					"background": "var(--color-error)",
 					"color": "var(--color-error-foreground)",
 					"borderColor": "var(--color-error)",
-					"boxShadow": "var(--shadow-raised)"
+					"boxShadow": "var(--shadow-raised)",
+					"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, var(--color-error-foreground) 12%, var(--color-error)) 0%, var(--color-error) 62%)"
 				},
 				"ghost": {
 					"$description": "no chrome at all, for a tertiary action inside dense UI.",
 					"background": "transparent",
 					"color": "var(--color-foreground-soft)",
-					"borderColor": "transparent"
+					"borderColor": "transparent",
+					"backgroundImage": "none"
 				},
 				"accent": {
 					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from `primary` on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR. Ink is accent-foreground (8.77:1), never the page greys.",
 					"background": "var(--color-accent)",
 					"color": "var(--color-accent-foreground)",
 					"borderColor": "var(--color-accent)",
-					"boxShadow": "var(--shadow-raised)"
+					"boxShadow": "var(--shadow-raised)",
+					"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, #ffffff 12%, var(--color-accent)) 0%, var(--color-accent) 62%)"
 				},
 				"unavailable": {
 					"$description": "not offered yet. NOT `disabled`: disabled means you may not, and this means there is nothing here to press. A muted fill rather than a dimmed primary, because dimming a primary reads as a control that failed rather than one that has not arrived.",
@@ -87,6 +93,17 @@
 					"color": "var(--color-foreground-quiet)",
 					"borderColor": "var(--color-border-soft)",
 					"cursor": "default",
+					"boxShadow": "none",
+					"backgroundImage": "none"
+				},
+				"icon": {
+					"$description": "Icon only. Square rather than stadium-wide, because a pill around a single glyph is mostly empty space — but still fully rounded, so it stays visibly the same family as every other button. The label lives in `aria-label`: an icon button with no accessible name is a button a screen reader announces as nothing at all.",
+					"paddingInline": "0",
+					"inlineSize": "2.5rem",
+					"background": "transparent",
+					"backgroundImage": "none",
+					"color": "var(--color-foreground-soft)",
+					"borderColor": "transparent",
 					"boxShadow": "none"
 				}
 			},
@@ -124,8 +141,7 @@
 				"boxShadow": "var(--shadow-overlay)"
 			},
 			"focus": {
-				"outline": "2px solid var(--color-accent-ink)",
-				"outlineOffset": "2px"
+				"outline": "1px solid var(--color-focus)"
 			},
 			"active": {
 				"transform": "translateY(0)",

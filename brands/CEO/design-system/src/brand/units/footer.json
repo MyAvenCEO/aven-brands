@@ -2,8 +2,14 @@
 	"name": "site-footer",
 	"description": "The end of the page, and the answer to \"a page ends on purpose\". One slot and no parts previously, while the real footer carried a brand block, three separate link groups each with its own heading, and a legal line — assembled by hand in one component. Three `<nav>` elements is correct and needs three labels; without them a screen reader hears \"navigation\" three times and cannot tell which is which.",
 	"interface": {
-		"props": { "note": "string" },
-		"slots": { "brand": {}, "groups": {}, "meta": {} }
+		"props": {
+			"note": "string"
+		},
+		"slots": {
+			"brand": {},
+			"groups": {},
+			"meta": {}
+		}
 	},
 	"view": {
 		"tag": "footer",
@@ -12,11 +18,23 @@
 				"tag": "div",
 				"part": "inner",
 				"$children": [
-					{ "tag": "div", "part": "brand", "$children": "brand" },
-					{ "tag": "div", "part": "groups", "$children": "groups" }
+					{
+						"tag": "div",
+						"part": "brand",
+						"$children": "brand"
+					},
+					{
+						"tag": "div",
+						"part": "groups",
+						"$children": "groups"
+					}
 				]
 			},
-			{ "tag": "div", "part": "meta", "$children": "meta" }
+			{
+				"tag": "div",
+				"part": "meta",
+				"$children": "meta"
+			}
 		]
 	},
 	"styling": {
@@ -35,7 +53,11 @@
 				"maxInlineSize": "72rem",
 				"minInlineSize": "0"
 			},
-			"brand": { "display": "grid", "gap": "var(--space-tight)", "maxInlineSize": "28ch" },
+			"brand": {
+				"display": "grid",
+				"gap": "var(--space-tight)",
+				"maxInlineSize": "28ch"
+			},
 			"groups": {
 				"$description": "`auto-fit` with a `minmax` floor rather than a column count, so three groups become two and then one without a breakpoint per step.",
 				"display": "grid",
@@ -88,14 +110,23 @@
 			}
 		},
 		"states": {
-			"hover": { "$part": "link", "color": "var(--color-primary-foreground)" },
+			"hover": {
+				"$part": "link",
+				"color": "var(--color-primary-foreground)"
+			},
 			"focus": {
 				"$part": "link",
-				"outline": "2px solid var(--color-primary-foreground)",
-				"outlineOffset": "2px"
+				"outline": "1px solid var(--color-focus)"
 			},
-			"active": { "$part": "link", "color": "var(--color-primary-foreground)" },
-			"disabled": { "$part": "link", "opacity": "0.55", "cursor": "default" }
+			"active": {
+				"$part": "link",
+				"color": "var(--color-primary-foreground)"
+			},
+			"disabled": {
+				"$part": "link",
+				"opacity": "0.55",
+				"cursor": "default"
+			}
 		},
 		"interactive": true
 	},

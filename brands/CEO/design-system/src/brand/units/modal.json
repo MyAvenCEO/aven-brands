@@ -66,7 +66,7 @@
 			"maxBlockSize": "calc(100dvh - 4rem)",
 			"padding": "0",
 			"border": "0",
-			"borderRadius": "var(--radius-panel)",
+			"borderRadius": "var(--radius-xl)",
 			"background": "var(--color-surface-raised)",
 			"color": "var(--color-foreground)",
 			"boxShadow": "var(--shadow-overlay)"
@@ -96,7 +96,7 @@
 				"inlineSize": "2rem",
 				"blockSize": "2rem",
 				"border": "0",
-				"borderRadius": "var(--radius-inner)",
+				"borderRadius": "var(--radius-sm)",
 				"background": "transparent",
 				"color": "var(--color-foreground-quiet)",
 				"cursor": "pointer"

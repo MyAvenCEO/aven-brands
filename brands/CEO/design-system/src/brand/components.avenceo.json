@@ -2,7 +2,7 @@
 	"$description": "avenCEO component and primitive style declarations. Loaded by the TypeScript package; the generator emits these as CSS classes. Property names are camelCase CSS properties; a nested object is a selector block containing \"&\". Four classes were removed after measuring that no surface used them: card-sm, btn-secondary, step-done and bullet appeared only in the generated stylesheet. step-done is now the `selected` state of the `step` unit, and btn-secondary a variant of `btn`.",
 	"components": {
 		"card": {
-			"borderRadius": "var(--radius-card)",
+			"borderRadius": "var(--radius-lg)",
 			"border": "1px solid var(--color-border)",
 			"background": "var(--color-surface-raised)",
 			"padding": "var(--space-loose)",
@@ -77,7 +77,7 @@
 			"minHeight": "2.75rem",
 			"padding": "0 1.75rem",
 			"border": "0",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
 			"font": "inherit",
@@ -100,7 +100,7 @@
 			"display": "inline-flex",
 			"alignItems": "center",
 			"gap": "0.25rem",
-			"borderRadius": "var(--radius-chip)",
+			"borderRadius": "var(--radius-xs)",
 			"background": "var(--color-surface-sunken)",
 			"fontSize": "var(--fs-micro)",
 			"padding": "0.125rem 0.375rem"
@@ -111,14 +111,14 @@
 			"marginInline": "auto",
 			"padding": "2.5rem 2rem",
 			"border": "1px solid var(--color-border-soft)",
-			"borderRadius": "var(--radius-card)",
+			"borderRadius": "var(--radius-lg)",
 			"background": "var(--color-surface-raised)",
 			"boxShadow": "var(--shadow-raised)"
 		},
 		"well": {
 			"padding": "var(--space-comfortable)",
 			"border": "1px solid var(--color-border)",
-			"borderRadius": "var(--radius-inner)",
+			"borderRadius": "var(--radius-sm)",
 			"background": "var(--color-surface-sunken)"
 		},
 		"mark": {
@@ -135,7 +135,7 @@
 		"alert": {
 			"padding": "0.75rem 1rem",
 			"border": "1px solid var(--color-error-border)",
-			"borderRadius": "var(--radius-inner)",
+			"borderRadius": "var(--radius-sm)",
 			"background": "var(--color-error-surface)",
 			"color": "var(--color-error-ink, color-mix(in oklab, var(--color-terracotta) 85%, black))",
 			"fontSize": "var(--fs-body)",
@@ -150,7 +150,7 @@
 		"step": {
 			"flex": "1",
 			"height": "3px",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-track)"
 		},
 		"field": {
@@ -166,7 +166,7 @@
 			"minHeight": "2.75rem",
 			"padding": "0 1.25rem",
 			"border": "1px solid var(--color-border)",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-full)",
 			"background": "transparent",
 			"color": "var(--color-foreground-quiet)",
 			"font": "inherit",

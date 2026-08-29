@@ -16,7 +16,7 @@
 			"alignItems": "center",
 			"gap": "var(--space-hairline)",
 			"padding": "0.125rem 0.5rem",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-full)",
 			"fontSize": "var(--fs-nano)",
 			"fontWeight": "700",
 			"textTransform": "uppercase",

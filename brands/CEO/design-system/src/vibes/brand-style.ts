@@ -6,7 +6,7 @@ import { vibeTokens } from '../tokens.js'
  *
  * `brandTokens` is the flat token map the StyleEngine flattens onto `:host` as
  * CSS custom properties (`text` -> `--text`), so any vibe selector can reference
- * `var(--text)`, `var(--radius-card)`, `var(--pad-card)`, etc.
+ * `var(--text)`, `var(--radius-lg)`, `var(--pad-card)`, etc.
  *
  * It used to be a local `brand.style.json` described as "a mirror of the app's
  * app.css tokens" and kept in step by hand. It was not: the vibe layer sat on
@@ -50,13 +50,13 @@ export const brandBaseSelectors: Record<string, Record<string, unknown>> = {
 	'.card': {
 		background: 'var(--surface)',
 		border: '1px solid var(--border)',
-		borderRadius: 'var(--radius-card)',
+		borderRadius: 'var(--radius-lg)',
 		padding: 'var(--pad-card)'
 	},
 	'.card-sm': {
 		background: 'var(--surface)',
 		border: '1px solid var(--border)',
-		borderRadius: 'var(--radius-inner)',
+		borderRadius: 'var(--radius-sm)',
 		padding: 'var(--pad-card-sm)'
 	},
 
@@ -68,7 +68,7 @@ export const brandBaseSelectors: Record<string, Record<string, unknown>> = {
 		gap: 'var(--gap-tight)',
 		background: 'var(--surface)',
 		border: '1px solid var(--border)',
-		borderRadius: 'var(--radius-card)',
+		borderRadius: 'var(--radius-lg)',
 		padding: 'var(--pad-card)'
 	},
 	'.grid-card-icon': {
@@ -78,7 +78,7 @@ export const brandBaseSelectors: Record<string, Record<string, unknown>> = {
 		width: '2.5rem',
 		height: '2.5rem',
 		marginBottom: '0.5rem',
-		borderRadius: 'var(--radius-pill)',
+		borderRadius: 'var(--radius-full)',
 		border: '1px solid var(--border)',
 		color: 'var(--muted-strong)'
 	},
@@ -116,7 +116,7 @@ export const brandBaseSelectors: Record<string, Record<string, unknown>> = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		gap: '0.5rem',
-		borderRadius: 'var(--radius-pill)',
+		borderRadius: 'var(--radius-full)',
 		padding: '0.625rem 1.1rem',
 		fontSize: 'var(--fs-body)',
 		fontWeight: '500',

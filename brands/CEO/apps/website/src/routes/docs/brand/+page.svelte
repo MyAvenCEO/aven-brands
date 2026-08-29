@@ -496,7 +496,6 @@ function inspect(name: string) {
 							<span>All {active}</span>
 						</button>
 						<h2 class="cb-detail-name">{unit.name}</h2>
-						<p class="meta cb-detail-note">{unit.description}</p>
 
 						<div class="cb-detail">
 							<div class="cb-detail-main">
@@ -531,6 +530,10 @@ function inspect(name: string) {
 								{:else}
 									<pre class="cb-config"><code>{unit.json}</code></pre>
 								{/if}
+
+								<!-- Under the specimen, not over it. A paragraph above the stage
+								     pushes the thing being described off the screen. -->
+								<p class="meta cb-detail-note">{unit.description}</p>
 							</div>
 
 							<!-- The controls sit beside the stage, not under it: a unit with four
@@ -656,8 +659,11 @@ function inspect(name: string) {
 											</span>
 										</span>
 										<span class="cb-unit-stage">
+											<!-- One instance here too. A grid card showing three variants
+											     of a card is three cards, and the eye reads the row as
+											     nine things rather than three units. -->
 											{#if specimens[unit.name]}
-												{@html specimens[unit.name].html}
+												{@html specimens[unit.name].one ?? specimens[unit.name].html}
 											{:else}
 												<span class="cb-mono cb-unit-todo">no specimen yet</span>
 											{/if}
@@ -739,7 +745,7 @@ function inspect(name: string) {
 #cb-theme {
 	display: inline-flex;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-pill);
+	border-radius: var(--radius-full);
 	overflow: hidden;
 }
 .cb-theme-option {
@@ -758,10 +764,6 @@ function inspect(name: string) {
 .cb-theme-option[aria-pressed="true"] {
 	background: var(--color-primary);
 	color: var(--color-primary-foreground);
-}
-.cb-theme-option:focus-visible {
-	outline: 2px solid var(--color-accent-ink);
-	outline-offset: -2px;
 }
 #cb-body {
 	display: grid;
@@ -802,7 +804,7 @@ function inspect(name: string) {
 	padding: 0.5rem 0.625rem;
 	background: none;
 	border: 0;
-	border-radius: var(--radius-chip);
+	border-radius: var(--radius-xs);
 	font: inherit;
 	font-size: var(--fs-section);
 	color: color-mix(in srgb, var(--color-foreground) 75%, transparent);
@@ -818,10 +820,6 @@ function inspect(name: string) {
 	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
 	color: var(--color-foreground);
 	font-weight: 600;
-}
-.cb-nav:focus-visible {
-	outline: 2px solid var(--color-accent-ink);
-	outline-offset: 2px;
 }
 .cb-count {
 	font-size: var(--fs-micro);
@@ -860,7 +858,7 @@ function inspect(name: string) {
 	inline-size: 100%;
 	block-size: 4.5rem;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-chip);
+	border-radius: var(--radius-xs);
 	background: var(--color-surface-raised);
 	/* The reason the registry exists: one glyph, both themes. */
 	color: var(--color-foreground);
@@ -879,8 +877,20 @@ function inspect(name: string) {
 }
 @media (min-width: 60rem) {
 	.cb-detail {
-		grid-template-columns: minmax(0, 1fr) 16rem;
+		grid-template-columns: minmax(0, 1fr) 15rem;
 		align-items: start;
+	}
+	/* Sticky and self-scrolling, pinned to the top of the viewport, so a long
+	   list of variants never scrolls the specimen out of reach — the two things
+	   you are comparing have to stay on screen together. */
+	.cb-detail-controls {
+		position: sticky;
+		inset-block-start: 0;
+		max-block-size: 100dvh;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding-block: var(--space-tight);
+		scrollbar-width: thin;
 	}
 }
 .cb-detail-main {
@@ -914,17 +924,13 @@ function inspect(name: string) {
 	color: var(--color-foreground);
 	border-block-end-color: var(--color-primary);
 }
-.cb-tab:focus-visible {
-	outline: 2px solid var(--color-accent-ink);
-	outline-offset: -2px;
-}
 .cb-config {
 	max-block-size: 34rem;
 	margin: 0;
 	padding: var(--space-comfortable);
 	overflow: auto;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-card);
+	border-radius: var(--radius-lg);
 	background: var(--color-surface-sunken);
 	font-family: var(--font-mono);
 	font-size: var(--fs-micro);
@@ -961,7 +967,8 @@ function inspect(name: string) {
 	color: var(--color-foreground);
 }
 .cb-detail-note {
-	max-inline-size: 62ch;
+	max-inline-size: 68ch;
+	margin-block-start: var(--space-comfortable);
 }
 .cb-detail-stage {
 	display: grid;
@@ -970,7 +977,7 @@ function inspect(name: string) {
 	margin-block: var(--space-comfortable);
 	padding: var(--space-section);
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-card);
+	border-radius: var(--radius-lg);
 	background: var(--color-surface-page);
 }
 .cb-detail-stage--tall {
@@ -1005,7 +1012,7 @@ function inspect(name: string) {
 	min-block-size: 1.75rem;
 	padding-inline: 0.625rem;
 	border: 1px solid var(--color-border-strong);
-	border-radius: var(--radius-pill);
+	border-radius: var(--radius-full);
 	background: transparent;
 	font-family: var(--font-mono);
 	font-size: var(--fs-micro);
@@ -1016,10 +1023,6 @@ function inspect(name: string) {
 	background: var(--color-primary);
 	border-color: var(--color-primary);
 	color: var(--color-primary-foreground);
-}
-.cb-chip-btn:focus-visible {
-	outline: 2px solid var(--color-accent-ink);
-	outline-offset: 2px;
 }
 .cb-units {
 	display: grid;
@@ -1032,7 +1035,7 @@ function inspect(name: string) {
 	grid-template-rows: auto 1fr auto;
 	min-inline-size: 0;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-card);
+	border-radius: var(--radius-lg);
 	background: var(--color-surface-raised);
 	overflow: hidden;
 }
@@ -1062,7 +1065,7 @@ function inspect(name: string) {
 }
 .cb-tag {
 	padding: 0.05rem 0.4rem;
-	border-radius: var(--radius-pill);
+	border-radius: var(--radius-full);
 	background: var(--color-surface-page);
 	font-family: var(--font-mono);
 	font-size: var(--fs-nano);
@@ -1128,7 +1131,7 @@ function inspect(name: string) {
 	display: flex;
 	block-size: 3.5rem;
 	overflow: hidden;
-	border-radius: var(--radius-chip);
+	border-radius: var(--radius-xs);
 	border: 1px solid var(--color-border);
 }
 /* Two halves when a role is themed, one when it is not — so the split itself
@@ -1174,7 +1177,7 @@ function inspect(name: string) {
 	display: block;
 	inline-size: 6rem;
 	block-size: 2rem;
-	border-radius: var(--radius-chip);
+	border-radius: var(--radius-xs);
 	background: var(--color-surface-raised);
 }
 .cb-tint {
@@ -1187,7 +1190,7 @@ function inspect(name: string) {
 	display: block;
 	block-size: 1rem;
 	background: var(--color-accent-ink);
-	border-radius: var(--radius-pill);
+	border-radius: var(--radius-full);
 }
 .cb-gallery {
 	display: grid;
@@ -1198,7 +1201,7 @@ function inspect(name: string) {
 }
 .cb-piece {
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-inner);
+	border-radius: var(--radius-sm);
 	overflow: hidden;
 	min-inline-size: 0;
 }
@@ -1219,10 +1222,6 @@ function inspect(name: string) {
 }
 .cb-piece-head:hover {
 	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
-}
-.cb-piece-head:focus-visible {
-	outline: 2px solid var(--color-accent-ink);
-	outline-offset: -2px;
 }
 .cb-stage {
 	padding: var(--space-comfortable);
@@ -1253,7 +1252,7 @@ function inspect(name: string) {
 	display: block;
 	inline-size: 1.5rem;
 	block-size: 1.5rem;
-	border-radius: var(--radius-chip);
+	border-radius: var(--radius-xs);
 	background: color-mix(in srgb, var(--color-foreground) 15%, transparent);
 }
 </style>

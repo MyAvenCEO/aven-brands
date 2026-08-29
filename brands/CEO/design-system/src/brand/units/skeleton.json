@@ -14,7 +14,7 @@
 	},
 	"styling": {
 		"base": {
-			"borderRadius": "var(--radius-inner)",
+			"borderRadius": "var(--radius-sm)",
 			"background": "var(--color-track)",
 			"blockSize": "1em",
 			"animation": "aven-skeleton 1600ms ease-in-out infinite"
@@ -23,7 +23,7 @@
 			"shape": {
 				"text": {
 					"blockSize": "1em",
-					"borderRadius": "var(--radius-pill)"
+					"borderRadius": "var(--radius-full)"
 				},
 				"block": {
 					"blockSize": "8rem"
@@ -31,7 +31,7 @@
 				"circle": {
 					"inlineSize": "2.5rem",
 					"blockSize": "2.5rem",
-					"borderRadius": "var(--radius-pill)"
+					"borderRadius": "var(--radius-full)"
 				}
 			}
 		},

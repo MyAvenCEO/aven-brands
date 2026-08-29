@@ -37,7 +37,7 @@
 			"blockSize": "2.5rem",
 			"flexShrink": "0",
 			"overflow": "hidden",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-muted)",
 			"color": "var(--color-foreground-soft)",
 			"fontSize": "var(--fs-micro)",

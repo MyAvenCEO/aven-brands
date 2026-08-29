@@ -40,7 +40,7 @@ const selectors: StyleDef['selectors'] = {
 		minWidth: '0',
 		fontSize: 'var(--fs-body)',
 		padding: '0.6rem 0.9rem',
-		borderRadius: 'var(--radius-pill)',
+		borderRadius: 'var(--radius-full)',
 		border: '1px solid var(--border)',
 		background: 'var(--surface)',
 		color: 'var(--ink)',
@@ -50,7 +50,7 @@ const selectors: StyleDef['selectors'] = {
 		fontSize: 'var(--fs-body)',
 		fontWeight: '600',
 		padding: '0.6rem 1.2rem',
-		borderRadius: 'var(--radius-pill)',
+		borderRadius: 'var(--radius-full)',
 		border: 'none',
 		background: 'var(--primary)',
 		color: 'var(--primary-foreground)',
@@ -70,7 +70,7 @@ const selectors: StyleDef['selectors'] = {
 		alignItems: 'center',
 		gap: '0.75rem',
 		padding: '0.7rem 0.9rem',
-		borderRadius: 'var(--radius-card)',
+		borderRadius: 'var(--radius-lg)',
 		border: '1px solid var(--border)',
 		background: 'var(--surface)'
 	},
@@ -85,7 +85,7 @@ const selectors: StyleDef['selectors'] = {
 		fontSize: 'var(--fs-micro)',
 		fontWeight: '600',
 		padding: '0.15rem 0.6rem',
-		borderRadius: 'var(--radius-pill)',
+		borderRadius: 'var(--radius-full)',
 		border: '1px solid var(--border)',
 		background: 'var(--bg-a)',
 		color: 'var(--muted-strong)',
@@ -118,7 +118,7 @@ const selectors: StyleDef['selectors'] = {
 		background: 'transparent',
 		color: 'var(--muted-strong)',
 		padding: '0.35rem 0.8rem',
-		borderRadius: 'var(--radius-pill)',
+		borderRadius: 'var(--radius-full)',
 		cursor: 'pointer'
 	},
 
@@ -133,7 +133,7 @@ const selectors: StyleDef['selectors'] = {
 		flexDirection: 'column',
 		gap: '0.5rem',
 		padding: '0.75rem',
-		borderRadius: 'var(--radius-card)',
+		borderRadius: 'var(--radius-lg)',
 		border: '1px solid var(--border)',
 		background: 'var(--bg-a)'
 	},
@@ -156,7 +156,7 @@ const selectors: StyleDef['selectors'] = {
 		flexDirection: 'column',
 		gap: '0.5rem',
 		padding: '0.7rem 0.8rem',
-		borderRadius: 'var(--radius-card)',
+		borderRadius: 'var(--radius-lg)',
 		border: '1px solid var(--border)',
 		background: 'var(--surface)'
 	},

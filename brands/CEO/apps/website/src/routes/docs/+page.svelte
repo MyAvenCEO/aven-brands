@@ -87,10 +87,6 @@ const entries = [
 	box-shadow: var(--shadow-floating);
 	transform: translateY(-2px);
 }
-#docs-grid a:focus-visible {
-	outline: 2px solid var(--color-accent-ink);
-	outline-offset: 3px;
-}
 @media (prefers-reduced-motion: reduce) {
 	#docs-grid a {
 		transition: none;

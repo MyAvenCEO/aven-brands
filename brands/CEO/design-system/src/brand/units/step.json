@@ -17,7 +17,7 @@
 		"base": {
 			"flex": "1",
 			"height": "3px",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-full)",
 			"background": "color-mix(in srgb, var(--color-foreground) 12%, transparent)"
 		},
 		"states": {

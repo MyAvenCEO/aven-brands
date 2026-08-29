@@ -66,7 +66,7 @@
 			"gap": "var(--space-tight)",
 			"maxInlineSize": "min(26rem, calc(100vw - 2rem))",
 			"padding": "var(--space-comfortable)",
-			"borderRadius": "var(--radius-card)",
+			"borderRadius": "var(--radius-lg)",
 			"border": "1px solid var(--color-border)",
 			"background": "var(--color-surface-raised)",
 			"boxShadow": "var(--shadow-overlay)",
@@ -100,7 +100,7 @@
 				"inlineSize": "1.5rem",
 				"blockSize": "1.5rem",
 				"border": "0",
-				"borderRadius": "var(--radius-inner)",
+				"borderRadius": "var(--radius-sm)",
 				"background": "transparent",
 				"color": "var(--color-foreground-quiet)",
 				"cursor": "pointer"

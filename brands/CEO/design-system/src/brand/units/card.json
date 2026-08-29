@@ -2,8 +2,12 @@
 	"name": "card",
 	"description": "A bounded thing in a list of things. Twelve near-identical spellings on the site — `rounded-xl border border-border/25 bg-surface-raised px-4 py-4`, then `px-5 py-5`, `px-5 py-7`, `p-5 sm:p-6`, `p-6` — seven different paddings for one idea, each one chosen by eye at a call site. Distinct from `surface`, which is any padded box; a card is a card because something can be DONE with it, so it has a hover and a selected state and `surface` does not.",
 	"interface": {
-		"props": { "href": "string" },
-		"slots": { "content": {} }
+		"props": {
+			"href": "string"
+		},
+		"slots": {
+			"content": {}
+		}
 	},
 	"view": {
 		"tag": "div",
@@ -17,7 +21,7 @@
 			"gap": "var(--space-tight)",
 			"minInlineSize": "0",
 			"padding": "var(--space-loose)",
-			"borderRadius": "var(--radius-card)",
+			"borderRadius": "var(--radius-lg)",
 			"border": "1px solid var(--color-border)",
 			"background": "var(--color-surface-raised)",
 			"color": "inherit",
@@ -38,8 +42,13 @@
 				}
 			},
 			"density": {
-				"compact": { "padding": "var(--space-comfortable)", "borderRadius": "var(--radius-inner)" },
-				"roomy": { "padding": "var(--space-section)" }
+				"compact": {
+					"padding": "var(--space-comfortable)",
+					"borderRadius": "var(--radius-sm)"
+				},
+				"roomy": {
+					"padding": "var(--space-section)"
+				}
 			}
 		},
 		"states": {
@@ -49,8 +58,13 @@
 				"borderColor": "var(--color-border-strong)",
 				"boxShadow": "var(--shadow-raised)"
 			},
-			"focus": { "outline": "2px solid var(--color-accent-ink)", "outlineOffset": "2px" },
-			"active": { "transform": "translateY(0)", "boxShadow": "none" },
+			"focus": {
+				"outline": "1px solid var(--color-focus)"
+			},
+			"active": {
+				"transform": "translateY(0)",
+				"boxShadow": "none"
+			},
 			"disabled": {
 				"opacity": "0.55",
 				"cursor": "default",

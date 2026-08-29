@@ -51,6 +51,7 @@ export const specimens: Record<string, Specimen> = {
 			<button class="btn btn--danger btn--size-md" type="button">Delete account</button>
 			<button class="btn btn--primary btn--size-md" type="button" disabled>Unavailable</button>
 			<button class="btn btn--unavailable btn--size-md" type="button">Coming soon</button>
+			<button class="btn btn--icon btn--size-md" type="button" aria-label="Search">${icon('search', '1.125rem')}</button>
 		</span>`
 	},
 	icon: {
