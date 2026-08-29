@@ -1,6 +1,6 @@
 {
 	"name": "media-card",
-	"description": "A card whose subject is a picture — an artifact thumbnail, a document preview, a generated image. The app has fifteen of these in a grid and the shape is doing something the plain `card` cannot: the media fills the card's whole upper area edge to edge, and the caption sits under it in a strip. A `card` pads its content; this one deliberately does not, because padding around a thumbnail wastes the only part of the card carrying information.\n\nThe placeholder is the part that gets skipped. A grid of these loads asynchronously, so most of them are empty most of the first second — and an empty card with no reserved height makes the whole grid reflow as each image lands.",
+	"description": "A card whose subject is a picture \u2014 an artifact thumbnail, a document preview, a generated image. The app has fifteen of these in a grid and the shape is doing something the plain `card` cannot: the media fills the card's whole upper area edge to edge, and the caption sits under it in a strip. A `card` pads its content; this one deliberately does not, because padding around a thumbnail wastes the only part of the card carrying information.\n\nThe placeholder is the part that gets skipped. A grid of these loads asynchronously, so most of them are empty most of the first second \u2014 and an empty card with no reserved height makes the whole grid reflow as each image lands.",
 	"interface": {
 		"props": {
 			"title": "string",
@@ -9,10 +9,14 @@
 		},
 		"slots": {
 			"media": {
-				"accepts": ["media"]
+				"accepts": [
+					"media"
+				]
 			},
 			"badge": {
-				"accepts": ["badge"]
+				"accepts": [
+					"badge"
+				]
 			}
 		}
 	},
@@ -54,34 +58,38 @@
 	"styling": {
 		"interactive": true,
 		"base": {
+			"$description": "A SQUARE tile with a 4px inset frame. Both halves of that were lost in the first extraction and both are the look: `ArtifactCard.svelte` is `aspect-square ... rounded-3xl border p-1`, and the padding is what makes the preview panel read as mounted inside a frame rather than bleeding to the card's edge. The extracted version had a 4:3 stage, `radius-md`, no padding, and a border under the caption doing the separating instead \u2014 four decisions, none of them the original's.",
 			"display": "flex",
 			"flexDirection": "column",
+			"aspectRatio": "1",
 			"minInlineSize": "0",
 			"minBlockSize": "0",
-			"borderRadius": "var(--radius-md)",
+			"padding": "0.25rem",
+			"borderRadius": "var(--radius-xl)",
 			"border": "1px solid var(--color-border)",
 			"background": "var(--color-surface-raised)",
 			"color": "inherit",
+			"textAlign": "start",
 			"textDecoration": "none",
 			"overflow": "hidden",
-			"transition": "border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)"
+			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out)"
 		},
 		"parts": {
 			"stage": {
-				"$description": "A RESERVED box with an aspect ratio, not a box that grows to fit whatever arrives. A grid of these loads asynchronously and without a reserved ratio the whole grid reflows as each image lands — which is a layout shift multiplied by however many cards are on screen.",
+				"$description": "The preview, on its own WHITE ground rather than a tinted one \u2014 a scanned page or a photo has to be seen against paper, not against the card's cream. Its radius is the card's minus the 4px inset, which is what keeps the two curves concentric; matching them makes the inner panel look wrongly round.",
 				"position": "relative",
 				"flex": "1 1 auto",
 				"minBlockSize": "0",
-				"aspectRatio": "4 / 3",
-				"background": "var(--color-surface-sunken)",
+				"borderRadius": "1.25rem",
+				"background": "var(--color-on-dark, #fff)",
 				"overflow": "hidden"
 			},
 			"caption": {
-				"$description": "A strip, not a padded block. The media is the content and the caption is a label on it — giving the caption card-sized padding makes the thumbnail look like an afterthought in its own card.",
-				"display": "grid",
-				"gap": "0.1rem",
-				"padding": "var(--space-tight) var(--space-tight) 0.4rem",
-				"borderBlockStart": "1px solid var(--color-border-soft)"
+				"$description": "No rule above it. The 4px frame already separates the caption from the preview, and adding a border draws a second line a few pixels from a real edge \u2014 which reads as a mistake rather than as structure.",
+				"display": "flex",
+				"flexDirection": "column",
+				"gap": "0.125rem",
+				"padding": "var(--space-tight) 0.625rem 0.375rem"
 			},
 			"line": {
 				"display": "flex",
@@ -91,7 +99,6 @@
 				"minInlineSize": "0"
 			},
 			"title": {
-				"$description": "`truncate` rather than wrap. A thumbnail grid is scanned, and a two-line title in one card and a one-line title in the next makes the row's captions sit at different heights.",
 				"minInlineSize": "0",
 				"overflow": "hidden",
 				"textOverflow": "ellipsis",
@@ -101,57 +108,59 @@
 				"color": "var(--color-foreground)"
 			},
 			"kind": {
-				"flexShrink": "0",
-				"color": "var(--color-foreground-quiet)",
-				"$description": "Composes `badge badge--face-mono badge--tone-neutral`. It was a hand-built mono pill; the shape, the tint and the ink all belong to `badge`, and only the placement is this unit's."
+				"$description": "Composes `badge badge--face-mono`. It was a bare colour on this unit while the original is a real pill on `surface-soft` \u2014 so the same file type read as a chip in the app and as grey text here.",
+				"flexShrink": "0"
+			},
+			"meta": {
+				"$description": "Size and date, joined by a middot. It was missing entirely, which removed the only line on the tile that distinguishes two files with the same name \u2014 and the composition rule that a long list needs one differentiator.",
+				"minInlineSize": "0",
+				"overflow": "hidden",
+				"textOverflow": "ellipsis",
+				"whiteSpace": "nowrap",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)"
 			},
 			"placeholder": {
-				"$description": "Composes `text--mono-meta`. The face comes from the one definition.",
+				"$description": "What a file we cannot draw shows instead: its type, in mono, centred. Never an icon standing in for a preview \u2014 the type is the information.",
 				"display": "grid",
 				"placeItems": "center",
 				"blockSize": "100%",
+				"fontFamily": "var(--font-mono)",
 				"fontSize": "var(--fs-micro)",
 				"color": "var(--color-foreground-quiet)"
 			}
 		},
 		"variants": {
 			"ratio": {
-				"$description": "The shape the stage reserves. Set it to what the source usually is — a wrong ratio still prevents the reflow, but it crops badly.",
-				"square": {
-					"$part": "stage",
-					"aspectRatio": "1"
-				},
+				"$description": "The tile's own shape. Square is the default because a grid of tiles is scanned, and a grid of differently-shaped tiles has no rhythm to scan.",
 				"wide": {
-					"$part": "stage",
-					"aspectRatio": "16 / 9"
+					"aspectRatio": "16 / 10"
 				},
 				"page": {
-					"$part": "stage",
+					"$description": "A document's proportions, for a shelf that is all paper.",
 					"aspectRatio": "3 / 4"
 				}
 			}
 		},
 		"states": {
 			"hover": {
-				"transform": "translateY(-2px)",
-				"borderColor": "var(--color-border-strong)",
-				"boxShadow": "var(--shadow-raised)"
+				"background": "var(--color-surface-cream, var(--color-surface-sunken))"
 			},
 			"focus": {
-				"outline": "1px solid var(--color-focus)"
+				"outline": "1px solid var(--color-focus)",
+				"outlineOffset": "2px"
 			},
 			"active": {
-				"transform": "translateY(0)",
-				"boxShadow": "none"
+				"borderColor": "var(--color-border-strong)"
 			},
 			"disabled": {
-				"opacity": "0.55",
-				"cursor": "default",
-				"transform": "none"
+				"opacity": "0.5",
+				"cursor": "default"
 			},
 			"selected": {
+				"$description": "A marine edge and the cream ground \u2014 the same pair the app uses, and not a tint alone: on a wall of tiles a fill change is easy to miss and the edge is what reads.",
 				"borderColor": "var(--color-primary)",
-				"boxShadow": "inset 0 0 0 1px var(--color-primary)"
+				"background": "var(--color-surface-cream, var(--color-surface-sunken))"
 			}
 		},
 		"reducedMotion": {
@@ -160,6 +169,6 @@
 		}
 	},
 	"a11y": {
-		"note": "ONE `<a>` around the whole card. The thumbnail is decorative — `alt=\"\"` — because the title beside it is the name; an alt repeating the title makes a screen reader say it twice. Where the image IS the content and has no title, it takes a real alt instead. The kind chip is text, not colour: a file type conveyed only by a tint is a file type a colourblind user cannot read."
+		"note": "ONE `<a>` around the whole card. The thumbnail is decorative \u2014 `alt=\"\"` \u2014 because the title beside it is the name; an alt repeating the title makes a screen reader say it twice. Where the image IS the content and has no title, it takes a real alt instead. The kind chip is text, not colour: a file type conveyed only by a tint is a file type a colourblind user cannot read."
 	}
 }

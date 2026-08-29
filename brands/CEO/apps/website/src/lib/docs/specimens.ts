@@ -139,7 +139,7 @@ export const specimens: Record<string, Specimen> = {
 			<p class="field-error">Names are lowercase letters, digits and hyphens. Try samuel-andert.</p>
 		</span>`,
 		html: `<span class="sp-stack">
-			<span class="field field--type-email">
+			<span class="field">
 				<label class="field-label" for="sp-mail">Email</label>
 				<input class="field-control" id="sp-mail" type="email" autocomplete="email" value="you@aven.ceo" readonly>
 			</span>
@@ -611,20 +611,29 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	'media-card': {
+		/* The meta line is present, because it was the part that went missing:
+		   without it two files with the same name are the same tile. */
 		one: `<a class="media-card" href="#specimen" style="inline-size:13rem">
 			<span class="media-card-stage"><img class="media" src="/hero-poster.jpg" alt=""></span>
 			<span class="media-card-caption">
 				<span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="badge badge--face-mono badge--size-sm media-card-kind">pdf</span></span>
+				<span class="media-card-meta">2.4 MB &middot; 14. September 2026</span>
 			</span>
 		</a>`,
 		html: `<span class="sp-row sp-row--cards">
 			<a class="media-card" href="#specimen" style="inline-size:11rem">
 				<span class="media-card-stage"><img class="media" src="/hero-poster.jpg" alt=""></span>
-				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="badge badge--face-mono badge--size-sm media-card-kind">pdf</span></span></span>
+				<span class="media-card-caption">
+					<span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="badge badge--face-mono badge--size-sm media-card-kind">pdf</span></span>
+					<span class="media-card-meta">2.4 MB &middot; 14. September</span>
+				</span>
 			</a>
-			<a class="media-card media-card--ratio-square" href="#specimen" style="inline-size:11rem">
-				<span class="media-card-stage"><span class="media-card-placeholder">no preview</span></span>
-				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Invoice 0142</span><span class="badge badge--face-mono badge--size-sm media-card-kind">csv</span></span></span>
+			<a class="media-card" href="#specimen" style="inline-size:11rem" aria-selected="true">
+				<span class="media-card-stage"><span class="media-card-placeholder">csv</span></span>
+				<span class="media-card-caption">
+					<span class="media-card-line"><span class="media-card-title">Invoice 0142</span><span class="badge badge--face-mono badge--size-sm media-card-kind">csv</span></span>
+					<span class="media-card-meta">18 KB &middot; 2. September</span>
+				</span>
 			</a>
 		</span>`
 	},

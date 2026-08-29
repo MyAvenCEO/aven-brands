@@ -1,20 +1,46 @@
 {
 	"name": "prompt-bar",
-	"description": "The one place you talk to the system — text or voice — pinned to the bottom of the app. It is a single unit because it is a single interface: the app deliberately has ONE input, and a second way to ask for something is a second place for the answer to arrive.\n\nThe growing textarea is the part everyone rebuilds and few get right. It has to grow with the content up to a cap and then scroll, and it has to do that without the page jumping — which means the bar is anchored to the bottom and grows upward, not a block in the flow that pushes everything down as you type.",
+	"description": "The one place you talk to the system \u2014 text or voice \u2014 pinned to the bottom of the app. It is a single unit because it is a single interface: the app deliberately has ONE input, and a second way to ask for something is a second place for the answer to arrive.\n\nThe growing textarea is the part everyone rebuilds and few get right. It has to grow with the content up to a cap and then scroll, and it has to do that without the page jumping \u2014 which means the bar is anchored to the bottom and grows upward, not a block in the flow that pushes everything down as you type.",
 	"interface": {
-		"props": { "placeholder": "string", "value": "string", "busy": "boolean" },
-		"slots": { "leading": { "accepts": ["btn"] }, "actions": { "accepts": ["btn"] }, "hint": {} }
+		"props": {
+			"placeholder": "string",
+			"value": "string",
+			"busy": "boolean"
+		},
+		"slots": {
+			"leading": {
+				"accepts": [
+					"btn"
+				]
+			},
+			"actions": {
+				"accepts": [
+					"btn"
+				]
+			},
+			"hint": {}
+		}
 	},
 	"view": {
 		"tag": "form",
-		"attrs": { "aria-busy": "$props.busy" },
+		"attrs": {
+			"aria-busy": "$props.busy"
+		},
 		"$children": [
-			{ "tag": "div", "part": "hint", "$children": "hint" },
+			{
+				"tag": "div",
+				"part": "hint",
+				"$children": "hint"
+			},
 			{
 				"tag": "div",
 				"part": "shell",
 				"$children": [
-					{ "tag": "div", "part": "leading", "$children": "leading" },
+					{
+						"tag": "div",
+						"part": "leading",
+						"$children": "leading"
+					},
 					{
 						"tag": "textarea",
 						"part": "input",
@@ -24,7 +50,11 @@
 							"aria-label": "$props.placeholder"
 						}
 					},
-					{ "tag": "div", "part": "actions", "$children": "actions" }
+					{
+						"tag": "div",
+						"part": "actions",
+						"$children": "actions"
+					}
 				]
 			}
 		]
@@ -41,16 +71,16 @@
 		},
 		"parts": {
 			"shell": {
-				"$description": "A pill holding the input and its controls. `align-items: end` so the buttons stay on the last line as the textarea grows, rather than centring against a three-line box.",
+				"$description": "A rounded RECTANGLE with a 2px marine edge, not a pill with a hairline. The extracted version was `radius-xl` (1.75rem) and `1px solid border-strong` on `--color-input`; the composer in the app is `rounded-2xl border-2 border-primary bg-surface-raised` with a marine-tinted drop shadow. Those are three different decisions and all three matter: the pill radius made it read as a search box, and the grey hairline removed the one signal that says this is where you talk to the system. It is the same statement `gate-card` makes with the same edge, and for the same reason \u2014 both are places a person acts.\n\n`radius-lg` because 1rem is not on this scale; `xl` was too round by half a step and `md` reads as a text input.",
 				"display": "flex",
 				"alignItems": "flex-end",
 				"gap": "var(--space-tight)",
 				"minInlineSize": "0",
 				"padding": "0.375rem 0.375rem 0.375rem var(--space-tight)",
-				"borderRadius": "var(--radius-xl)",
-				"border": "1px solid var(--color-border-strong)",
-				"background": "var(--color-input)",
-				"boxShadow": "var(--shadow-raised)"
+				"borderRadius": "var(--radius-lg)",
+				"border": "2px solid var(--color-primary)",
+				"background": "var(--color-surface-raised)",
+				"boxShadow": "0 4px 16px color-mix(in oklab, var(--color-primary) 12%, transparent)"
 			},
 			"input": {
 				"$description": "Grows to a cap, then scrolls. `field-sizing: content` does it natively where supported; the `max-block-size` is the cap, and without one a pasted essay takes the whole screen. `resize: none` because the grab handle contradicts the automatic growth.",
@@ -69,10 +99,19 @@
 				"lineHeight": "1.45",
 				"resize": "none"
 			},
-			"leading": { "display": "flex", "alignItems": "center", "flexShrink": "0" },
-			"actions": { "display": "flex", "alignItems": "center", "gap": "0.25rem", "flexShrink": "0" },
+			"leading": {
+				"display": "flex",
+				"alignItems": "center",
+				"flexShrink": "0"
+			},
+			"actions": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "0.25rem",
+				"flexShrink": "0"
+			},
 			"hint": {
-				"$description": "What the system is doing, or what it just heard. Above the bar, not inside it — text inside the shell competes with what you are typing.",
+				"$description": "What the system is doing, or what it just heard. Above the bar, not inside it \u2014 text inside the shell competes with what you are typing.",
 				"minBlockSize": "1rem",
 				"paddingInline": "var(--space-tight)",
 				"fontSize": "var(--fs-nano)",
@@ -81,14 +120,18 @@
 		},
 		"variants": {
 			"mode": {
-				"$description": "Typing or talking. The same bar — a second component for voice would be a second place for the answer to arrive.",
+				"$description": "Typing or talking. The same bar \u2014 a second component for voice would be a second place for the answer to arrive.",
 				"listening": {
-					"$description": "Recording. The shell carries the state so the whole bar reads as live, and the hint above says what was heard so far — a listening indicator with no transcript is a microphone you have to trust blindly.",
+					"$description": "Recording. The shell carries the state so the whole bar reads as live, and the hint above says what was heard so far \u2014 a listening indicator with no transcript is a microphone you have to trust blindly.",
 					"$part": "shell",
 					"borderColor": "var(--color-secondary)",
 					"boxShadow": "0 0 0 3px var(--color-secondary-ring)"
 				},
-				"busy": { "$part": "shell", "borderColor": "var(--color-border)", "opacity": "0.75" }
+				"busy": {
+					"$part": "shell",
+					"borderColor": "var(--color-border)",
+					"opacity": "0.75"
+				}
 			},
 			"placement": {
 				"docked": {
@@ -101,11 +144,11 @@
 			}
 		},
 		"reducedMotion": {
-			"$description": "The listening ring stops pulsing but stays visible — it is the only signal that the microphone is open.",
+			"$description": "The listening ring stops pulsing but stays visible \u2014 it is the only signal that the microphone is open.",
 			"transition": "none"
 		}
 	},
 	"a11y": {
-		"note": "The textarea carries its own label; a placeholder is not one, and it disappears the moment someone types. Enter submits and Shift+Enter makes a newline, which has to be stated in the hint because it is not discoverable. Voice needs a visible transcript: an indicator alone asks the user to trust an open microphone with no way to check what it heard. `aria-busy` while a reply is in flight, and the reply itself lands in a live region — not here."
+		"note": "The textarea carries its own label; a placeholder is not one, and it disappears the moment someone types. Enter submits and Shift+Enter makes a newline, which has to be stated in the hint because it is not discoverable. Voice needs a visible transcript: an indicator alone asks the user to trust an open microphone with no way to check what it heard. `aria-busy` while a reply is in flight, and the reply itself lands in a live region \u2014 not here."
 	}
 }

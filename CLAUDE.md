@@ -69,7 +69,6 @@ Match the request to the files to load (and the runnable skill, invocable via `/
 | Which number to bump for this change | `version-bump-advisor` | `skills/workflows/governance.md` |
 | Order a backlog of design system requests | `triage` | `skills/aven-brand/knowledge/measurement.md` |
 | Token build pipeline -> CSS/Tailwind/iOS/Android | `token-build` | `skills/workflows/token-build.md` |
-| Figma <-> code sync, Variables, Code Connect, Figma MCP | `figma-integration` | `skills/workflows/figma-integration.md`, `skills/aven-brand/knowledge/integrations.md` |
 | Map to/from another design system | `migrate-design-system` | `skills/design-systems/interop-protocol.md` + `crosswalk.md` |
 | Write/review UI copy | `ux-writing` | `skills/content/voice-tone.md` |
 | Which components ship undocumented | `docs-coverage` | `skills/aven-brand/knowledge/measurement.md` |
@@ -227,7 +226,6 @@ workflows/
 ├── redesign-audit.md     ← Audit-first redesign + output completeness
 ├── governance.md         ← Versioning (SemVer), contribution, deprecation, change comms
 ├── token-build.md        ← Token pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG)
-├── figma-integration.md  ← Token↔Variable sync, Figma MCP, component parity
 ├── design-qa.md          ← Visual regression + a11y CI gates (axe, snapshots)
 └── performance.md        ← Core Web Vitals, loading, CLS, animation perf
 

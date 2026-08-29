@@ -1,6 +1,6 @@
 # External integrations, once
 
-Depth for `figma-integration`, `drift-check` and `system-health`.
+Depth for `drift-check` and `system-health`.
 
 The library this merged from repeated a per-skill integration block in roughly
 forty files: the same Figma, GitHub and Chromatic instructions, restated. One
@@ -15,23 +15,10 @@ Pick ONE direction of truth and write it down. Two-way sync with no declared
 winner produces a system where neither side can be trusted and every
 disagreement becomes an archaeology exercise.
 
-## Figma
-
-**Variables to tokens.** Map collections and modes onto tiers and themes, not
-file by file. A collection is a tier; a mode is a theme. If the Figma file does
-not have that shape, fixing the shape comes before syncing anything.
-
-**Component parity.** Same variants, same states, same names, both sides. A name
-that differs across the boundary is a translation every person has to perform
-forever.
-
-**Reading component specs.** Component properties on the Figma side compared
-against props on the code side finds API drift without anyone writing a spec by
-hand.
-
-**A caveat worth stating in the output.** Screenshots taken through the REST API
-reflect the last PUBLISHED state, not the live file. If there are unpublished
-changes, the image is not the current design intent. Say which one you used.
+The Figma section that used to sit here went with the `figma-integration`
+skill. It is not archived and not commented out: a design tool this project does
+not use is a section every reader has to skip and a maintainer has to keep
+true. If Figma comes back, the skill and this section come back together.
 
 ## Git host
 

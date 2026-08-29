@@ -737,6 +737,10 @@ function inspect(name: string) {
 									     would invent one. -->
 									{#if walkSteps.length > 1}
 										<div class="cb-walk">
+											<!-- The rail carries the axis NAME. Without it a row reading
+											     "identify authorise pay done" is five words with no subject,
+											     and the reader has to infer which switch they are holding. -->
+											<p class="cb-walk-label">{walkAxis}</p>
 											<button
 												type="button"
 												class="cb-walk-step cb-walk-arrow"
@@ -818,7 +822,11 @@ function inspect(name: string) {
 									</div>
 								{/if}
 
-								{#each unit.variants as axis (axis.axis)}
+								<!-- Axes the WALKER drives are not repeated here. A scened axis had
+								     its options as chips in this column AND as a rail under the stage —
+								     the same five buttons twice, in two visual languages, with no way
+								     to tell which was authoritative. One axis, one control. -->
+								{#each unit.variants.filter((a) => !sceneAxes.includes(a.axis)) as axis (axis.axis)}
 									<div class="cb-controls">
 										<p class="cb-control-label">{axis.axis}</p>
 										<div class="cb-chips">
@@ -1556,6 +1564,14 @@ function inspect(name: string) {
 	justify-content: center;
 	gap: var(--space-tight);
 	margin-block-start: var(--space-comfortable);
+}
+.cb-walk-label {
+	margin: 0;
+	font-family: var(--font-mono);
+	font-size: var(--fs-nano);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-widest);
+	color: var(--color-foreground-quiet);
 }
 .cb-walk-rail {
 	display: flex;
