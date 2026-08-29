@@ -529,15 +529,15 @@ export const specimens: Record<string, Specimen> = {
 			</li>
 		</ul>`
 	},
-	'app-shell': {
+	workbench: {
 		tall: true,
-		one: `<span class="app-shell" style="display:grid; block-size:15rem; inline-size:100%; border:1px solid var(--color-border); border-radius:var(--radius-lg)">
-			<span class="app-shell-rail" style="inline-size:9rem; padding:var(--space-tight)">
+		one: `<span class="workbench" style="display:grid; block-size:15rem; inline-size:100%; border:1px solid var(--color-border); border-radius:var(--radius-lg)">
+			<span class="workbench-rail" style="inline-size:9rem; padding:var(--space-tight)">
 				<a class="nav-link" href="#specimen" aria-current="page">Dashboard</a>
 				<a class="nav-link" href="#specimen">Skills</a>
 				<a class="nav-link" href="#specimen">Artifacts</a>
 			</span>
-			<span class="app-shell-main" style="padding:var(--space-comfortable)">
+			<span class="workbench-main" style="padding:var(--space-comfortable)">
 				<p class="text text--section-title">Main region</p>
 				<p class="prose prose--size-fine">Scrolls on its own. The rail does not scroll with it — which is what <code>min-block-size: 0</code> is for.</p>
 			</span>

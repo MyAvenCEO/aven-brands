@@ -173,12 +173,11 @@
 	}
 
 	.app-shell {
-		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		block-size: 100dvh;
-		overflow: hidden;
+		min-height: 100vh;
 		background: var(--color-surface-page);
 		color: var(--color-foreground);
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
 	}
 
 	.mono-meta {
@@ -1645,7 +1644,16 @@
 		}
 	}
 
-	.app-shell-rail {
+	.workbench {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		block-size: 100dvh;
+		overflow: hidden;
+		background: var(--color-surface-page);
+		color: var(--color-foreground);
+	}
+
+	.workbench-rail {
 		display: flex;
 		flex-direction: column;
 		min-block-size: 0;
@@ -1654,7 +1662,7 @@
 		background: var(--color-surface-raised);
 	}
 
-	.app-shell-main {
+	.workbench-main {
 		display: flex;
 		flex-direction: column;
 		min-inline-size: 0;
@@ -1662,7 +1670,7 @@
 		overflow-y: auto;
 	}
 
-	.app-shell-aside {
+	.workbench-aside {
 		display: none;
 		min-inline-size: 0;
 		min-block-size: 0;
@@ -1670,7 +1678,7 @@
 		border-inline-start: 1px solid var(--color-border);
 	}
 
-	.app-shell-marker {
+	.workbench-marker {
 		position: absolute;
 		inset-inline-start: 0;
 		inline-size: 0.2rem;
@@ -1679,21 +1687,21 @@
 		background: var(--color-primary);
 	}
 
-	.app-shell--panes-three {
+	.workbench--panes-three {
 		grid-template-columns: auto minmax(0, 1fr) auto;
 	}
 
-	.app-shell--rail-icons {
+	.workbench--rail-icons {
 
-		& .app-shell-rail {
+		& .workbench-rail {
 			inline-size: 3.5rem;
 			align-items: center;
 		}
 	}
 
-	.app-shell--rail-wide {
+	.workbench--rail-wide {
 
-		& .app-shell-rail {
+		& .workbench-rail {
 			inline-size: 14rem;
 		}
 	}

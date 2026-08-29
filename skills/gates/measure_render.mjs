@@ -129,9 +129,19 @@ for (const f of files) {
       const x = r.left + r.width / 2, y = r.top + r.height / 2;
       const inView = r.width && r.height && x >= 0 && y >= 0 && x <= innerWidth && y <= innerHeight;
 
+      /*
+       * The stack is only meaningful if it actually contains `el`. A centre
+       * point can miss its own element — an inline box that wraps, a control
+       * whose rect spans a gap — and then the stack describes whatever IS at
+       * that point, which for a filled button was the form behind it. When that
+       * happens the ancestor walk is the honest answer.
+       */
+      const stack = inView ? document.elementsFromPoint(x, y) : [];
+      const onTarget = stack.includes(el);
+
       const layers = [];
-      if (inView) {
-        for (const n of document.elementsFromPoint(x, y)) {
+      if (onTarget) {
+        for (const n of stack) {
           /* The element's OWN background counts. A filled button is the backdrop
              for its own label — skipping it measured white text against the card
              behind the button rather than against the button. */

@@ -45,7 +45,6 @@ import type { UnitDef, UnitRegistry } from '@myavenceo/aven-vibes'
 import { registryStyles, validateRegistry } from '@myavenceo/aven-vibes'
 
 import accordion from './brand/units/accordion.json' with { type: 'json' }
-import appShell from './brand/units/app-shell.json' with { type: 'json' }
 import avatar from './brand/units/avatar.json' with { type: 'json' }
 import badge from './brand/units/badge.json' with { type: 'json' }
 import button from './brand/units/button.json' with { type: 'json' }
@@ -83,6 +82,7 @@ import text from './brand/units/text.json' with { type: 'json' }
 import threadItem from './brand/units/thread-item.json' with { type: 'json' }
 import toast from './brand/units/toast.json' with { type: 'json' }
 import viewerFrame from './brand/units/viewer-frame.json' with { type: 'json' }
+import workbench from './brand/units/workbench.json' with { type: 'json' }
 
 /*
  * Ordered by how much of the estate each one covers, measured across the
@@ -107,7 +107,7 @@ const documents = [
 	rowList,
 	mediaCard,
 	flowNode,
-	appShell,
+	workbench,
 	settingRow,
 	threadItem,
 	viewerFrame,

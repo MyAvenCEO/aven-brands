@@ -1,16 +1,34 @@
 {
-	"name": "app-shell",
-	"description": "The frame a desktop app lives in: a fixed rail, a scrolling main region, and nothing that scrolls the whole window. It is a unit because the thing it gets right is easy to get wrong and invisible when you do — `min-block-size: 0` on the scrolling child.\n\nA flex or grid child defaults to `min-height: auto`, which means it refuses to shrink below its content. So a main region full of a long list does not scroll: it grows, and the page scrolls instead, and the rail scrolls away with it. Every app that has ever had 'the sidebar disappears when I scroll' has had this bug.",
+	"name": "workbench",
+	"description": "The frame a desktop app lives in: a fixed rail, a scrolling main region, and nothing that scrolls the whole window.\n\nNamed `workbench` and not `app-shell` for a reason worth recording. `app-shell` is already a legacy class — six surfaces use it to mean 'the page wrapper', a min-height and a ground — and defining a unit under the same name silently restyled every one of them into a two-column grid. Nothing reported it: the class resolved, the CSS was valid, and the docs page simply rendered with its content pushed 700px to the right. A new unit taking a name the old vocabulary still owns is the one migration hazard that has no gate.\n\nWhat the unit gets right is `min-block-size: 0` on the scrolling child. A grid child defaults to `min-height: auto` and refuses to shrink below its content, so a main region full of a long list does not scroll — it grows, the page scrolls instead, and the rail scrolls away with it. Every app that has ever had 'the sidebar disappears when I scroll' has had this bug.",
 	"interface": {
 		"props": {},
-		"slots": { "rail": { "accepts": ["sidebar"] }, "main": {}, "aside": {} }
+		"slots": {
+			"rail": {
+				"accepts": ["sidebar"]
+			},
+			"main": {},
+			"aside": {}
+		}
 	},
 	"view": {
 		"tag": "div",
 		"$children": [
-			{ "tag": "div", "part": "rail", "$children": "rail" },
-			{ "tag": "main", "part": "main", "$children": "main" },
-			{ "tag": "div", "part": "aside", "$children": "aside" }
+			{
+				"tag": "div",
+				"part": "rail",
+				"$children": "rail"
+			},
+			{
+				"tag": "main",
+				"part": "main",
+				"$children": "main"
+			},
+			{
+				"tag": "div",
+				"part": "aside",
+				"$children": "aside"
+			}
 		]
 	},
 	"styling": {
@@ -62,7 +80,9 @@
 		"variants": {
 			"panes": {
 				"$description": "How many columns the shell has. Declared rather than inferred, so the grid does not have to guess from what is slotted.",
-				"three": { "gridTemplateColumns": "auto minmax(0, 1fr) auto" }
+				"three": {
+					"gridTemplateColumns": "auto minmax(0, 1fr) auto"
+				}
 			},
 			"rail": {
 				"icons": {
@@ -71,7 +91,10 @@
 					"inlineSize": "3.5rem",
 					"alignItems": "center"
 				},
-				"wide": { "$part": "rail", "inlineSize": "14rem" }
+				"wide": {
+					"$part": "rail",
+					"inlineSize": "14rem"
+				}
 			}
 		}
 	},

@@ -360,7 +360,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 			{:else if active === 'icons'}
-				<section class="cb-section">
+				<section class="cb-section cb-section--full">
 					<p class="eyebrow-quiet">Icons</p>
 					<p class="meta">
 						Duotone: a filled backing at 0.2 under the figure, both in
@@ -542,7 +542,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 			{:else if active === 'migration'}
-				<section class="cb-section">
+				<section class="cb-section cb-section--full">
 					<p class="eyebrow-quiet">Migration</p>
 					<p class="meta">
 						Every class from the vocabulary that predates units, and what replaces it. Measured
@@ -776,7 +776,10 @@ function inspect(name: string) {
 					</section>
 				{:else}
 					{#each unitGroups.filter((g) => g.id === active) as group (group.id)}
-						<section class="cb-section">
+						<!-- Full width. A 62rem reading column is right for prose and wrong for a
+						     gallery: it gave a 1216px main two columns of cards and left a third of
+						     the screen empty. -->
+						<section class="cb-section cb-section--full">
 							<p class="eyebrow-quiet">{group.title}</p>
 							<p class="meta">{group.lede}</p>
 							<div class="cb-units">
@@ -1286,7 +1289,10 @@ function inspect(name: string) {
 .cb-units {
 	display: grid;
 	gap: var(--space-comfortable);
-	grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr));
+	/* 21rem, not 24. `auto-fill` fits as many columns as the MINIMUM allows, so
+	   three at 24rem needed 1184px and the main region is 1176 — it missed by
+	   eight pixels and dropped to two columns with a third of the screen empty. */
+	grid-template-columns: repeat(auto-fill, minmax(min(21rem, 100%), 1fr));
 	margin-block-start: var(--space-tight);
 }
 .cb-unit {
