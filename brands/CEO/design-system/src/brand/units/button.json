@@ -29,97 +29,118 @@
 			"display": "inline-flex",
 			"alignItems": "center",
 			"justifyContent": "center",
-			"gap": "var(--space-tight)",
-			"minHeight": "2.75rem",
-			"padding": "0 1.75rem",
-			"border": "0",
+			"gap": "var(--space-hairline)",
+			"minBlockSize": "2.5rem",
+			"paddingInline": "1.25rem",
+			"border": "1px solid transparent",
 			"borderRadius": "var(--radius-pill)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
 			"font": "inherit",
-			"fontSize": "var(--fs-section)",
+			"fontSize": "var(--fs-meta)",
 			"fontWeight": "600",
+			"lineHeight": "1",
+			"letterSpacing": "var(--tracking-tight)",
+			"whiteSpace": "nowrap",
 			"cursor": "pointer",
-			"transition": "opacity 0.15s ease, box-shadow 0.15s ease"
+			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)"
 		},
 		"variants": {
 			"variant": {
 				"primary": {
+					"$description": "the one main affirmative action on a surface.",
 					"background": "var(--color-primary)",
-					"color": "var(--color-primary-foreground)"
+					"color": "var(--color-primary-foreground)",
+					"borderColor": "var(--color-primary)"
 				},
 				"secondary": {
+					"$description": "neutral. An outline and dark text, never a coloured fill — a secondary action that carries a fill competes with the primary beside it.",
 					"background": "transparent",
 					"color": "var(--color-foreground)",
-					"boxShadow": "inset 0 0 0 1px var(--color-border)"
+					"borderColor": "var(--color-border-strong)"
 				},
 				"danger": {
+					"$description": "destructive. The same variant on the trigger AND on its confirm dialog — red in one place and blue in the other is the bug this rule exists to stop.",
 					"background": "var(--color-error)",
-					"color": "var(--color-error-foreground)"
+					"color": "var(--color-error-foreground)",
+					"borderColor": "var(--color-error)"
 				},
 				"ghost": {
+					"$description": "no chrome at all, for a tertiary action inside dense UI.",
 					"background": "transparent",
-					"color": "var(--color-foreground)"
+					"color": "var(--color-foreground-soft)",
+					"borderColor": "transparent"
 				},
 				"accent": {
 					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from `primary` on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR. Ink is accent-foreground (8.77:1), never the page greys.",
 					"background": "var(--color-accent)",
 					"color": "var(--color-accent-foreground)",
+					"borderColor": "var(--color-accent)",
 					"boxShadow": "var(--shadow-raised)"
 				},
 				"unavailable": {
 					"$description": "not offered yet. NOT `disabled`: disabled means you may not, and this means there is nothing here to press. A muted fill rather than a dimmed primary, because dimming a primary reads as a control that failed rather than one that has not arrived.",
 					"background": "var(--color-muted)",
-					"color": "var(--color-foreground-soft)",
-					"cursor": "default"
+					"color": "var(--color-foreground-quiet)",
+					"borderColor": "var(--color-border-soft)",
+					"cursor": "default",
+					"boxShadow": "none"
 				}
 			},
 			"size": {
 				"sm": {
 					"$description": "a nav pill.",
-					"minHeight": "2rem",
-					"padding": "0 1rem",
+					"minBlockSize": "2rem",
+					"paddingInline": "0.875rem",
 					"fontSize": "var(--fs-eyebrow)"
 				},
 				"md": {
-					"$description": "the default. 2.75rem clears the 44px touch target.",
-					"minHeight": "2.75rem",
-					"padding": "0 1.75rem",
-					"fontSize": "var(--fs-section)"
+					"$description": "the default.",
+					"minBlockSize": "2.5rem",
+					"paddingInline": "1.25rem",
+					"fontSize": "var(--fs-meta)"
 				},
 				"lg": {
-					"$description": "a section CTA.",
-					"minHeight": "3.5rem",
-					"padding": "0 2.25rem",
-					"fontSize": "var(--fs-lead)"
+					"$description": "a section CTA. 2.75rem clears the 44px touch target with room to spare.",
+					"minBlockSize": "2.75rem",
+					"paddingInline": "1.75rem",
+					"fontSize": "var(--fs-body)"
 				},
 				"xl": {
 					"$description": "the one submit a page is built around — the name check.",
-					"minHeight": "5rem",
-					"padding": "0 2.25rem",
+					"minBlockSize": "3.5rem",
+					"paddingInline": "2rem",
 					"fontSize": "var(--fs-lead)"
 				}
 			}
 		},
 		"states": {
 			"hover": {
-				"opacity": "0.9"
+				"$description": "A lift rather than a fade. Fading a button on hover says \"less\", which is the opposite of what a hover means; 1px of travel and a shadow say \"this is reachable\".",
+				"transform": "translateY(-1px)",
+				"boxShadow": "var(--shadow-raised)"
 			},
 			"focus": {
 				"outline": "2px solid var(--color-accent-ink)",
 				"outlineOffset": "2px"
 			},
 			"active": {
-				"transform": "translateY(1px)"
+				"transform": "translateY(0)",
+				"boxShadow": "none"
 			},
 			"disabled": {
-				"cursor": "default",
-				"opacity": "0.55"
+				"$description": "Flat and quiet, not a dimmed slab. Reducing a filled button to 55% opacity over a cream page produces a muddy grey that reads as a control that failed rather than one that is not available yet — so the fill is dropped instead of faded.",
+				"background": "var(--color-muted)",
+				"color": "var(--color-foreground-quiet)",
+				"borderColor": "var(--color-border-soft)",
+				"boxShadow": "none",
+				"transform": "none",
+				"cursor": "default"
 			},
 			"loading": {
+				"$description": "Full strength, cursor progress. Reusing the disabled treatment for an in-flight action reads as \"you cannot do this\" rather than \"this is happening\".",
 				"cursor": "progress",
-				"opacity": "1",
-				"$description": "full strength, cursor progress. Reusing the disabled dimming for an in-flight action reads as `you cannot do this` rather than `this is happening`."
+				"opacity": "1"
 			}
 		},
 		"reducedMotion": {

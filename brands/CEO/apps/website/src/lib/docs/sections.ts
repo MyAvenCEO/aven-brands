@@ -128,16 +128,37 @@ export const colourGroups = [
  * Read from the registry rather than listed here, so a unit that exists appears
  * and one that does not, does not.
  */
+export type Decls = Array<[string, string]>
+
 export type UnitRow = {
 	name: string
 	kind: 'leaf' | 'composite'
 	description: string
 	slots: string[]
-	variants: Array<{ axis: string; options: string[] }>
-	states: string[]
-	parts: string[]
+	variants: Array<{ axis: string; options: Array<{ name: string; note: string }> }>
+	/**
+	 * Each state with the declarations it applies.
+	 *
+	 * The declarations, not just the names, because the detail view previews a
+	 * state by APPLYING them — `:hover` and `:focus-visible` cannot be forced
+	 * from a button in a docs page, and writing a second copy of what hover
+	 * looks like is exactly the drift this system exists to prevent. Reading
+	 * them from the registry means the preview is the unit's own answer.
+	 */
+	states: Array<{ name: string; note: string; decls: Decls; part?: string }>
+	parts: Array<{ name: string; note: string }>
 	animates: boolean
+	base: Decls
 }
+
+/** DTCG-ish: `$description` documents, everything else is CSS. */
+const cssDecls = (decl: Record<string, unknown> | undefined): Decls =>
+	Object.entries(decl ?? {})
+		.filter(([k, v]) => !k.startsWith('$') && typeof v === 'string')
+		.map(([k, v]) => [k, v as string])
+
+const note = (decl: Record<string, unknown> | undefined): string =>
+	typeof decl?.$description === 'string' ? decl.$description : ''
 
 const unitRow = (name: string): UnitRow => {
 	const u = units[name] as {
@@ -151,7 +172,13 @@ const unitRow = (name: string): UnitRow => {
 		}
 	}
 	const slots = Object.keys(u.interface?.slots ?? {})
-	const styling = u.styling ?? {}
+	const styling = (u.styling ?? {}) as {
+		base?: Record<string, unknown>
+		variants?: Record<string, Record<string, Record<string, unknown>>>
+		states?: Record<string, Record<string, unknown>>
+		parts?: Record<string, Record<string, unknown>>
+		keyframes?: Record<string, unknown>
+	}
 	return {
 		name,
 		kind: slots.length ? 'composite' : 'leaf',
@@ -159,11 +186,19 @@ const unitRow = (name: string): UnitRow => {
 		slots,
 		variants: Object.entries(styling.variants ?? {}).map(([axis, options]) => ({
 			axis,
-			options: Object.keys(options).filter((o) => !o.startsWith('$'))
+			options: Object.entries(options)
+				.filter(([o]) => !o.startsWith('$'))
+				.map(([o, decl]) => ({ name: o, note: note(decl) }))
 		})),
-		states: Object.keys(styling.states ?? {}),
-		parts: Object.keys(styling.parts ?? {}),
-		animates: Boolean(styling.keyframes)
+		states: Object.entries(styling.states ?? {}).map(([n, decl]) => ({
+			name: n,
+			note: note(decl),
+			decls: cssDecls(decl),
+			part: typeof decl?.$part === 'string' ? decl.$part : undefined
+		})),
+		parts: Object.entries(styling.parts ?? {}).map(([n, decl]) => ({ name: n, note: note(decl) })),
+		animates: Boolean(styling.keyframes),
+		base: cssDecls(styling.base)
 	}
 }
 
@@ -257,6 +292,11 @@ export const sections: DocSection[] = [
 		label: 'Geometry',
 		count: radiusScale.length + spaceScale.length + elevationScale.length
 	},
-	{ id: 'library', label: 'Library', count: unitRows.length },
+	/* Two entries, not one. Twenty-one units in a single scroll buries the
+	   composites under twelve leafs, which is how a library reads as "we only
+	   have leafs". The split is the architecture's own, so it navigates the
+	   same way it is built. */
+	{ id: 'leafs', label: 'Leafs', count: leafRows.length },
+	{ id: 'composites', label: 'Composites', count: compositeRows.length },
 	{ id: 'layouts', label: 'Layouts', count: layoutNames.length }
 ]

@@ -1,4 +1,6 @@
 <script lang="ts">
+import { icons } from '@myavenceo/aven-ceo/icons'
+import { renderIcon } from '@myavenceo/aven-vibes'
 /**
  * ceoBRAND — the interactive design-system surface.
  *
@@ -72,6 +74,122 @@ let theme = $state<'light' | 'dark'>('light')
  * specificity and source order decides — which is how the first attempt
  * rendered a dark page with light text at 1.13:1.
  */
+const unitGroups = [
+	{
+		id: 'leafs',
+		title: 'Leafs',
+		rows: leafRows,
+		lede: 'A unit with no slots. It renders itself and nothing goes inside it.'
+	},
+	{
+		id: 'composites',
+		title: 'Composites',
+		rows: compositeRows,
+		lede: 'A unit with slots — a shape other units are placed into. The slot names are the contract, and they are what a caller fills.'
+	}
+] as const
+
+/* ── The detail viewer ───────────────────────────────────────────────────
+   A grid card opens into one unit, where every variant axis and every state is
+   a switch. The state preview APPLIES the unit's own declarations rather than
+   restating them: `:hover` and `:focus-visible` cannot be forced from a docs
+   page, and a second hand-written copy of what hover looks like is precisely
+   the drift the system exists to stop. */
+let open = $state<string | null>(null)
+let state = $state<string | null>(null)
+let chosen = $state<Record<string, string>>({})
+
+const allRows = $derived([...leafRows, ...compositeRows])
+const openUnit = $derived(open ? allRows.find((u) => u.name === open) : undefined)
+const activeState = $derived(openUnit?.states.find((s) => s.name === state))
+
+/** The modifier classes the chosen variants add, as one string. */
+const variantClass = $derived(
+	Object.entries(chosen)
+		.map(([axis, option]) => (axis === 'variant' ? option : `${axis}-${option}`))
+		.join(' ')
+)
+
+function openDetail(name: string) {
+	open = name
+	state = null
+	chosen = {}
+}
+
+function pick(axis: string, option: string) {
+	chosen = chosen[axis] === option ? omit(chosen, axis) : { ...chosen, [axis]: option }
+}
+
+const omit = (map: Record<string, string>, key: string) =>
+	Object.fromEntries(Object.entries(map).filter(([k]) => k !== key))
+
+const backIcon = renderIcon('chevron-right', icons, { size: '1rem' })
+
+/**
+ * Dress the specimen with the chosen variant and state.
+ *
+ * An attachment rather than a class, because the thing being dressed is inside
+ * `{@html}` — Svelte compiled none of it, so there is no element here to put a
+ * class on. It finds the specimen's own root by the unit's base class and works
+ * on that.
+ *
+ * The state is applied THREE ways, in order of honesty. If the state has a real
+ * attribute — `disabled`, `aria-busy`, `aria-selected` — that is set, and the
+ * unit's own CSS does the rest, which is the truest preview available. Then the
+ * state's declarations are applied inline, so `hover`, `focus` and `active`
+ * (which a docs page cannot trigger) still show what they do. And the
+ * declarations come from the registry, so this page never holds a second copy
+ * of what hover looks like.
+ */
+const STATE_ATTR: Record<string, [string, string]> = {
+	disabled: ['disabled', ''],
+	loading: ['aria-busy', 'true'],
+	selected: ['aria-selected', 'true'],
+	error: ['aria-invalid', 'true']
+}
+
+const applyPreview =
+	(unit: (typeof allRows)[number], variants: string, forced: string | null) =>
+	(node: HTMLElement) => {
+		const roots = node.querySelectorAll<HTMLElement>(`.${unit.name}`)
+		const st = unit.states.find((s) => s.name === forced)
+		const undo: Array<() => void> = []
+
+		for (const root of roots) {
+			/* A state that names a part dresses that part, not the unit. */
+			const target = st?.part
+				? (root.querySelector<HTMLElement>(`.${unit.name}-${st.part}`) ?? root)
+				: root
+
+			const added = variants
+				.split(' ')
+				.filter(Boolean)
+				.map((v) => `${unit.name}--${v}`)
+			root.classList.add(...added)
+			undo.push(() => root.classList.remove(...added))
+
+			if (st) {
+				const attr = STATE_ATTR[st.name]
+				if (attr) {
+					target.setAttribute(attr[0], attr[1])
+					undo.push(() => target.removeAttribute(attr[0]))
+				}
+				const before = target.getAttribute('style') ?? ''
+				const inline = st.decls.map(([k, v]) => `${kebab(k)}:${v}`).join(';')
+				target.setAttribute('style', before ? `${before};${inline}` : inline)
+				undo.push(() =>
+					before ? target.setAttribute('style', before) : target.removeAttribute('style')
+				)
+			}
+		}
+		return () => {
+			for (const fn of undo.reverse()) fn()
+		}
+	}
+
+/** `minBlockSize` is how a unit writes it; CSS wants `min-block-size`. */
+const kebab = (property: string) => property.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)
+
 let inspecting = $state<string | null>(null)
 
 const inspectedDecls = $derived(inspecting ? declarationsOf(inspecting) : [])
@@ -182,11 +300,10 @@ function inspect(name: string) {
 					<p class="meta">
 						Duotone: a filled backing at 0.2 under the figure, both in
 						<span class="cb-mono">currentColor</span>. Two opacities of one colour, never two
-						colours — two colours could not be themed, and this is why the row below inverts
-						with the theme instead of needing a second file. A view names an icon and nothing
-						more; the engine writes every attribute, so no string a view controls reaches the
-						markup. The logo mark is not here on purpose: it is ten brand colours, so it stays
-						an image.
+						colours — two colours could not be themed, and this is why the row below inverts with
+						the theme instead of needing a second file. A view names an icon and nothing more; the
+						engine writes every attribute, so no string a view controls reaches the markup. The logo
+						mark is not here on purpose: it is ten brand colours, so it stays an image.
 					</p>
 					<div class="cb-icons">
 						{#each iconMarkup as icon (icon.name)}
@@ -359,47 +476,166 @@ function inspect(name: string) {
 						{/each}
 					</div>
 				</section>
-			{:else if active === 'library'}
-				{#each [{ id: 'leafs', title: 'Leafs', rows: leafRows, lede: 'A unit with no slots. It renders itself and nothing goes inside it.' }, { id: 'composites', title: 'Composites', rows: compositeRows, lede: 'A unit with slots — a shape other units are placed into. The slot names are the contract.' }] as group (group.id)}
+			{:else if active === 'leafs' || active === 'composites'}
+				{#if openUnit}
+					{@const unit = openUnit}
 					<section class="cb-section">
-						<p class="eyebrow-quiet">{group.title}</p>
-						<p class="meta">{group.lede}</p>
-						<div class="cb-units">
-							{#each group.rows as unit (unit.name)}
-								<article class="cb-unit" class:cb-unit--tall={specimens[unit.name]?.tall}>
-									<header class="cb-unit-head">
-										<span class="cb-unit-name">{unit.name}</span>
-										<span class="cb-unit-tags">
-											{#if unit.animates}
-												<span class="cb-tag">animates</span>
-											{/if}
-											{#each unit.variants as axis (axis.axis)}
-												<span class="cb-tag">{axis.axis}: {axis.options.length}</span>
-											{/each}
-											{#if unit.parts.length}
-												<span class="cb-tag">{unit.parts.length} parts</span>
-											{/if}
-											{#if unit.states.length}
-												<span class="cb-tag">{unit.states.length} states</span>
+						<button type="button" class="cb-back" onclick={() => (open = null)}>
+							{@html backIcon}
+							<span>All {active}</span>
+						</button>
+						<h2 class="cb-detail-name">{unit.name}</h2>
+						<p class="meta cb-detail-note">{unit.description}</p>
+
+						<!-- The specimen, with whatever variant and state is selected applied to
+						     it. Both come from the registry, so what you see is the unit's own
+						     answer rather than a second copy of it kept in this page. -->
+						<!-- svelte-ignore a11y_no_static_element_interactions -->
+						<div
+							class="cb-detail-stage"
+							class:cb-detail-stage--tall={specimens[unit.name]?.tall}
+							{@attach applyPreview(unit, variantClass, state)}
+						>
+							{#if specimens[unit.name]}
+								{@html specimens[unit.name].html}
+							{:else}
+								<p class="cb-mono cb-unit-todo">no specimen yet</p>
+							{/if}
+						</div>
+
+						{#if unit.states.length}
+							<div class="cb-controls">
+								<p class="cb-control-label">State</p>
+								<div class="cb-chips">
+									<button
+										type="button"
+										class="cb-chip-btn"
+										aria-pressed={state === null}
+										onclick={() => (state = null)}
+									>
+										default
+									</button>
+									{#each unit.states as st (st.name)}
+										<button
+											type="button"
+											class="cb-chip-btn"
+											aria-pressed={state === st.name}
+											onclick={() => (state = state === st.name ? null : st.name)}
+										>
+											{st.name}
+										</button>
+									{/each}
+								</div>
+								{#if activeState}
+									<p class="cb-control-note">{activeState.note || 'No note on this state.'}</p>
+									<dl class="cb-decls">
+										{#each activeState.decls as [prop, value] (prop)}
+											<div class="cb-decl">
+												<dt class="cb-mono">{prop}</dt>
+												<dd class="cb-mono">{value}</dd>
+											</div>
+										{/each}
+									</dl>
+								{/if}
+							</div>
+						{/if}
+
+						{#each unit.variants as axis (axis.axis)}
+							<div class="cb-controls">
+								<p class="cb-control-label">{axis.axis}</p>
+								<div class="cb-chips">
+									{#each axis.options as option (option.name)}
+										<button
+											type="button"
+											class="cb-chip-btn"
+											aria-pressed={chosen[axis.axis] === option.name}
+											onclick={() => pick(axis.axis, option.name)}
+										>
+											{option.name}
+										</button>
+									{/each}
+								</div>
+								{#if chosen[axis.axis]}
+									{@const picked = axis.options.find((o) => o.name === chosen[axis.axis])}
+									{#if picked?.note}
+										<p class="cb-control-note">{picked.note}</p>
+									{/if}
+								{/if}
+							</div>
+						{/each}
+
+						{#if unit.slots.length}
+							<div class="cb-controls">
+								<p class="cb-control-label">Slots</p>
+								<p class="cb-control-note">
+									What a caller fills. A composite is a shape, and these are its openings.
+								</p>
+								<div class="cb-chips">
+									{#each unit.slots as slot (slot)}
+										<span class="cb-tag">{slot}</span>
+									{/each}
+								</div>
+							</div>
+						{/if}
+
+						{#if unit.parts.length}
+							<div class="cb-controls">
+								<p class="cb-control-label">Parts</p>
+								<dl class="cb-decls">
+									{#each unit.parts as part (part.name)}
+										<div class="cb-decl">
+											<dt class="cb-mono">.{unit.name}-{part.name}</dt>
+											<dd>{part.note || '—'}</dd>
+										</div>
+									{/each}
+								</dl>
+							</div>
+						{/if}
+					</section>
+				{:else}
+					{#each unitGroups.filter((g) => g.id === active) as group (group.id)}
+						<section class="cb-section">
+							<p class="eyebrow-quiet">{group.title}</p>
+							<p class="meta">{group.lede}</p>
+							<div class="cb-units">
+								{#each group.rows as unit (unit.name)}
+									<button
+										type="button"
+										class="cb-unit"
+										class:cb-unit--tall={specimens[unit.name]?.tall}
+										onclick={() => openDetail(unit.name)}
+									>
+										<span class="cb-unit-head">
+											<span class="cb-unit-name">{unit.name}</span>
+											<span class="cb-unit-tags">
+												{#if unit.animates}
+													<span class="cb-tag">animates</span>
+												{/if}
+												{#each unit.variants as axis (axis.axis)}
+													<span class="cb-tag">{axis.axis}: {axis.options.length}</span>
+												{/each}
+												{#if unit.parts.length}
+													<span class="cb-tag">{unit.parts.length} parts</span>
+												{/if}
+												{#if unit.states.length}
+													<span class="cb-tag">{unit.states.length} states</span>
+												{/if}
+											</span>
+										</span>
+										<span class="cb-unit-stage">
+											{#if specimens[unit.name]}
+												{@html specimens[unit.name].html}
+											{:else}
+												<span class="cb-mono cb-unit-todo">no specimen yet</span>
 											{/if}
 										</span>
-									</header>
-									<div class="cb-unit-stage">
-										{#if specimens[unit.name]}
-											{@html specimens[unit.name].html}
-										{:else}
-											<p class="cb-mono cb-unit-todo">no specimen yet</p>
-										{/if}
-									</div>
-									<p class="cb-unit-note">{unit.description}</p>
-									{#if unit.slots.length}
-										<p class="cb-mono cb-unit-slots">slots: {unit.slots.join(', ')}</p>
-									{/if}
-								</article>
-							{/each}
-						</div>
-					</section>
-				{/each}
+										<span class="cb-unit-note">{unit.description}</span>
+									</button>
+								{/each}
+							</div>
+						</section>
+					{/each}
+				{/if}
 			{:else if active === 'layouts'}
 				<section class="cb-section">
 					<p class="eyebrow-quiet">Layouts</p>
@@ -600,6 +836,96 @@ function inspect(name: string) {
    One card per unit, each one drawing itself doing its job. Wide, because a
    toast, a table and a modal do not fit in a third of a column and shrinking
    them until they do is how a gallery stops showing you the thing. */
+/* ── The detail viewer ─────────────────────────────────────────────────── */
+.cb-back {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-hairline);
+	min-block-size: 2.25rem;
+	margin-block-end: var(--space-tight);
+	padding: 0;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	font-size: var(--fs-meta);
+	color: var(--color-foreground-quiet);
+	cursor: pointer;
+}
+.cb-back :global(svg) {
+	/* The chevron points forward; this goes back. */
+	transform: rotate(180deg);
+}
+.cb-back:hover {
+	color: var(--color-foreground);
+}
+.cb-detail-name {
+	margin: 0;
+	font-family: var(--font-mono);
+	font-size: var(--fs-title);
+	font-weight: 600;
+	color: var(--color-foreground);
+}
+.cb-detail-note {
+	max-inline-size: 62ch;
+}
+.cb-detail-stage {
+	display: grid;
+	place-items: center;
+	min-block-size: 12rem;
+	margin-block: var(--space-comfortable);
+	padding: var(--space-section);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-card);
+	background: var(--color-surface-page);
+}
+.cb-detail-stage--tall {
+	min-block-size: 22rem;
+}
+.cb-controls {
+	margin-block-end: var(--space-comfortable);
+	padding-block-end: var(--space-comfortable);
+	border-block-end: 1px solid var(--color-border-soft);
+}
+.cb-control-label {
+	margin: 0 0 0.4rem;
+	font-size: var(--fs-micro);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-wider);
+	color: var(--color-foreground-quiet);
+}
+.cb-control-note {
+	margin: 0.5rem 0 0;
+	max-inline-size: 62ch;
+	font-size: var(--fs-micro);
+	line-height: 1.55;
+	color: var(--color-foreground-soft);
+}
+.cb-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+.cb-chip-btn {
+	min-block-size: 1.75rem;
+	padding-inline: 0.625rem;
+	border: 1px solid var(--color-border-strong);
+	border-radius: var(--radius-pill);
+	background: transparent;
+	font-family: var(--font-mono);
+	font-size: var(--fs-micro);
+	color: var(--color-foreground-soft);
+	cursor: pointer;
+}
+.cb-chip-btn[aria-pressed="true"] {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+}
+.cb-chip-btn:focus-visible {
+	outline: 2px solid var(--color-accent-ink);
+	outline-offset: 2px;
+}
 .cb-units {
 	display: grid;
 	gap: var(--space-comfortable);
