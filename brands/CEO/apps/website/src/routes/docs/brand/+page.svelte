@@ -97,6 +97,7 @@ const unitGroups = [
    the drift the system exists to stop. */
 let open = $state<string | null>(null)
 let state = $state<string | null>(null)
+let detailView = $state<'preview' | 'config'>('preview')
 let chosen = $state<Record<string, string>>({})
 
 const allRows = $derived([...leafRows, ...compositeRows])
@@ -114,10 +115,16 @@ function openDetail(name: string) {
 	open = name
 	state = null
 	chosen = {}
+	detailView = 'preview'
 }
 
 function pick(axis: string, option: string) {
-	chosen = chosen[axis] === option ? omit(chosen, axis) : { ...chosen, [axis]: option }
+	chosen = { ...chosen, [axis]: option }
+}
+
+/** Back to the resting look for one axis, without touching the others. */
+function clear(axis: string) {
+	chosen = omit(chosen, axis)
 }
 
 const omit = (map: Record<string, string>, key: string) =>
@@ -491,113 +498,132 @@ function inspect(name: string) {
 						<h2 class="cb-detail-name">{unit.name}</h2>
 						<p class="meta cb-detail-note">{unit.description}</p>
 
-						<!-- The specimen, with whatever variant and state is selected applied to
-						     it. Both come from the registry, so what you see is the unit's own
-						     answer rather than a second copy of it kept in this page. -->
-						<!-- svelte-ignore a11y_no_static_element_interactions -->
-						<div
-							class="cb-detail-stage"
-							class:cb-detail-stage--tall={specimens[unit.name]?.tall}
-							{@attach applyPreview(unit, variantClass, state)}
-						>
-							{#if specimens[unit.name]}
-								<!-- The `one` specimen, not the gallery. Applying a variant to a stage
-								     holding six buttons turns all six primary at once, which shows
-								     nothing about what the variant does. -->
-								{@html specimens[unit.name].one ?? specimens[unit.name].html}
-							{:else}
-								<p class="cb-mono cb-unit-todo">no specimen yet</p>
-							{/if}
-						</div>
+						<div class="cb-detail">
+							<div class="cb-detail-main">
+								<div class="cb-tabs" role="tablist" aria-label="View">
+									{#each ['preview', 'config'] as view (view)}
+										<button
+											type="button"
+											class="cb-tab"
+											role="tab"
+											aria-selected={detailView === view}
+											onclick={() => (detailView = view)}
+										>
+											{view}
+										</button>
+									{/each}
+								</div>
 
-						{#if unit.states.length}
-							<div class="cb-controls">
-								<p class="cb-control-label">State</p>
-								<div class="cb-chips">
-									<button
-										type="button"
-										class="cb-chip-btn"
-										aria-pressed={state === null}
-										onclick={() => (state = null)}
+								{#if detailView === 'preview'}
+									<!-- The `one` specimen. Applying a variant to a stage holding six
+									     buttons turns all six primary at once, which shows nothing. -->
+									<div
+										class="cb-detail-stage"
+										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
+										{@attach applyPreview(unit, variantClass, state)}
 									>
-										default
-									</button>
-									{#each unit.states as st (st.name)}
-										<button
-											type="button"
-											class="cb-chip-btn"
-											aria-pressed={state === st.name}
-											onclick={() => (state = state === st.name ? null : st.name)}
-										>
-											{st.name}
-										</button>
-									{/each}
-								</div>
-								{#if activeState}
-									<p class="cb-control-note">{activeState.note || 'No note on this state.'}</p>
-									<dl class="cb-decls">
-										{#each activeState.decls as [prop, value] (prop)}
-											<div class="cb-decl">
-												<dt class="cb-mono">{prop}</dt>
-												<dd class="cb-mono">{value}</dd>
-											</div>
-										{/each}
-									</dl>
+										{#if specimens[unit.name]?.one ?? specimens[unit.name]}
+											{@html specimens[unit.name].one ?? specimens[unit.name].html}
+										{:else}
+											<p class="cb-mono cb-unit-todo">no specimen yet</p>
+										{/if}
+									</div>
+								{:else}
+									<pre class="cb-config"><code>{unit.json}</code></pre>
 								{/if}
 							</div>
-						{/if}
 
-						{#each unit.variants as axis (axis.axis)}
-							<div class="cb-controls">
-								<p class="cb-control-label">{axis.axis}</p>
-								<div class="cb-chips">
-									{#each axis.options as option (option.name)}
-										<button
-											type="button"
-											class="cb-chip-btn"
-											aria-pressed={chosen[axis.axis] === option.name}
-											onclick={() => pick(axis.axis, option.name)}
-										>
-											{option.name}
-										</button>
-									{/each}
-								</div>
-								{#if chosen[axis.axis]}
-									{@const picked = axis.options.find((o) => o.name === chosen[axis.axis])}
-									{#if picked?.note}
-										<p class="cb-control-note">{picked.note}</p>
-									{/if}
-								{/if}
-							</div>
-						{/each}
-
-						{#if unit.slots.length}
-							<div class="cb-controls">
-								<p class="cb-control-label">Slots</p>
-								<p class="cb-control-note">
-									What a caller fills. A composite is a shape, and these are its openings.
-								</p>
-								<div class="cb-chips">
-									{#each unit.slots as slot (slot)}
-										<span class="cb-tag">{slot}</span>
-									{/each}
-								</div>
-							</div>
-						{/if}
-
-						{#if unit.parts.length}
-							<div class="cb-controls">
-								<p class="cb-control-label">Parts</p>
-								<dl class="cb-decls">
-									{#each unit.parts as part (part.name)}
-										<div class="cb-decl">
-											<dt class="cb-mono">.{unit.name}-{part.name}</dt>
-											<dd>{part.note || '—'}</dd>
+							<!-- The controls sit beside the stage, not under it: a unit with four
+							     axes pushed the specimen off the top of the screen, so you were
+							     choosing a variant you could no longer see. -->
+							<aside class="cb-detail-controls" aria-label="Variants and states">
+								{#if unit.states.length}
+									<div class="cb-controls">
+										<p class="cb-control-label">State</p>
+										<div class="cb-chips">
+											<button
+												type="button"
+												class="cb-chip-btn"
+												aria-pressed={state === null}
+												onclick={() => (state = null)}
+											>
+												default
+											</button>
+											{#each unit.states as st (st.name)}
+												<button
+													type="button"
+													class="cb-chip-btn"
+													aria-pressed={state === st.name}
+													onclick={() => (state = st.name)}
+												>
+													{st.name}
+												</button>
+											{/each}
 										</div>
-									{/each}
-								</dl>
-							</div>
-						{/if}
+										{#if activeState}
+											<p class="cb-control-note">{activeState.note || 'No note on this state.'}</p>
+										{/if}
+									</div>
+								{/if}
+
+								{#each unit.variants as axis (axis.axis)}
+									<div class="cb-controls">
+										<p class="cb-control-label">{axis.axis}</p>
+										<div class="cb-chips">
+											<!-- Every axis gets a `default`. Without it, choosing an
+											     emphasis was a one-way door: there was no way back to the
+											     resting look short of reloading. -->
+											<button
+												type="button"
+												class="cb-chip-btn"
+												aria-pressed={!chosen[axis.axis]}
+												onclick={() => clear(axis.axis)}
+											>
+												default
+											</button>
+											{#each axis.options as option (option.name)}
+												<button
+													type="button"
+													class="cb-chip-btn"
+													aria-pressed={chosen[axis.axis] === option.name}
+													onclick={() => pick(axis.axis, option.name)}
+												>
+													{option.name}
+												</button>
+											{/each}
+										</div>
+										{#if chosen[axis.axis]}
+											{@const picked = axis.options.find((o) => o.name === chosen[axis.axis])}
+											{#if picked?.note}
+												<p class="cb-control-note">{picked.note}</p>
+											{/if}
+										{/if}
+									</div>
+								{/each}
+
+								{#if unit.slots.length}
+									<div class="cb-controls">
+										<p class="cb-control-label">Slots</p>
+										<div class="cb-chips">
+											{#each unit.slots as slot (slot)}
+												<span class="cb-tag">{slot}</span>
+											{/each}
+										</div>
+									</div>
+								{/if}
+
+								{#if unit.parts.length}
+									<div class="cb-controls">
+										<p class="cb-control-label">Parts</p>
+										<div class="cb-chips">
+											{#each unit.parts as part (part.name)}
+												<span class="cb-tag">{part.name}</span>
+											{/each}
+										</div>
+									</div>
+								{/if}
+							</aside>
+						</div>
 					</section>
 				{:else}
 					{#each unitGroups.filter((g) => g.id === active) as group (group.id)}
@@ -844,6 +870,68 @@ function inspect(name: string) {
    toast, a table and a modal do not fit in a third of a column and shrinking
    them until they do is how a gallery stops showing you the thing. */
 /* ── The detail viewer ─────────────────────────────────────────────────── */
+/* Stage on the left, controls on the right. Below a wide viewport they stack,
+   controls last, because on a phone the specimen is the thing you came for. */
+.cb-detail {
+	display: grid;
+	gap: var(--space-loose);
+	margin-block: var(--space-comfortable);
+}
+@media (min-width: 60rem) {
+	.cb-detail {
+		grid-template-columns: minmax(0, 1fr) 16rem;
+		align-items: start;
+	}
+}
+.cb-detail-main {
+	min-inline-size: 0;
+}
+.cb-detail-controls {
+	display: grid;
+	gap: var(--space-comfortable);
+	min-inline-size: 0;
+}
+.cb-tabs {
+	display: flex;
+	gap: var(--space-hairline);
+	margin-block-end: var(--space-tight);
+	border-block-end: 1px solid var(--color-border-soft);
+}
+.cb-tab {
+	min-block-size: 2.25rem;
+	padding-inline: var(--space-tight);
+	border: 0;
+	border-block-end: 2px solid transparent;
+	background: transparent;
+	font: inherit;
+	font-size: var(--fs-meta);
+	font-weight: 600;
+	color: var(--color-foreground-quiet);
+	text-transform: capitalize;
+	cursor: pointer;
+}
+.cb-tab[aria-selected="true"] {
+	color: var(--color-foreground);
+	border-block-end-color: var(--color-primary);
+}
+.cb-tab:focus-visible {
+	outline: 2px solid var(--color-accent-ink);
+	outline-offset: -2px;
+}
+.cb-config {
+	max-block-size: 34rem;
+	margin: 0;
+	padding: var(--space-comfortable);
+	overflow: auto;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-card);
+	background: var(--color-surface-sunken);
+	font-family: var(--font-mono);
+	font-size: var(--fs-micro);
+	line-height: 1.6;
+	color: var(--color-foreground-soft);
+	tab-size: 2;
+}
 .cb-back {
 	display: inline-flex;
 	align-items: center;

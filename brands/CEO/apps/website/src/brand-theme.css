@@ -205,6 +205,7 @@
 	--shadow-overlay: 0 12px 40px rgba(30, 41, 59, 0.18);
 	--radius-chip: 0.5rem;
 	--radius-inner: 0.75rem;
+	--radius-control: 0.875rem;
 	--radius-card: 1.5rem;
 	--radius-panel: 2rem;
 	--radius-pill: 9999px;

@@ -52,6 +52,7 @@ import card from './brand/units/card.json' with { type: 'json' }
 import emptyState from './brand/units/empty-state.json' with { type: 'json' }
 import field from './brand/units/field.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
+import icon from './brand/units/icon.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
@@ -88,6 +89,7 @@ const documents = [
 	skillCard,
 	button,
 	badge,
+	icon,
 	tabs,
 	field,
 	toast,

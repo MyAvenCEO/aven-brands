@@ -216,7 +216,7 @@
 		min-block-size: 2.5rem;
 		padding-inline: 1.25rem;
 		border: 1px solid transparent;
-		border-radius: var(--radius-pill);
+		border-radius: var(--radius-control);
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
 		font: inherit;
@@ -230,7 +230,7 @@
 
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(-1px);
-			box-shadow: var(--shadow-raised);
+			box-shadow: var(--shadow-overlay);
 		}
 		&:focus-visible {
 			outline: 2px solid var(--color-accent-ink);
@@ -809,6 +809,7 @@
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
 		border-color: var(--color-primary);
+		box-shadow: var(--shadow-raised);
 	}
 
 	.btn--secondary {
@@ -821,6 +822,7 @@
 		background: var(--color-error);
 		color: var(--color-error-foreground);
 		border-color: var(--color-error);
+		box-shadow: var(--shadow-raised);
 	}
 
 	.btn--ghost {
@@ -930,6 +932,77 @@
 		background: transparent;
 		border-color: var(--color-border-strong);
 		color: var(--color-foreground-quiet);
+	}
+
+	.badge--size-sm {
+		padding: 0.05rem 0.4rem;
+		font-size: var(--fs-nano);
+	}
+
+	.badge--size-md {
+		padding: 0.125rem 0.5rem;
+		font-size: var(--fs-nano);
+	}
+
+	.badge--size-lg {
+		padding: 0.25rem 0.7rem;
+		font-size: var(--fs-micro);
+	}
+
+	.icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		inline-size: 1em;
+		block-size: 1em;
+		font-size: var(--fs-body);
+		color: currentColor;
+		vertical-align: -0.125em;
+	}
+
+	.icon--size-xs {
+		font-size: var(--fs-micro);
+	}
+
+	.icon--size-sm {
+		font-size: var(--fs-meta);
+	}
+
+	.icon--size-md {
+		font-size: var(--fs-lead);
+	}
+
+	.icon--size-lg {
+		font-size: var(--fs-title);
+	}
+
+	.icon--size-xl {
+		font-size: var(--fs-display);
+	}
+
+	.icon--tone-quiet {
+		color: var(--color-foreground-quiet);
+	}
+
+	.icon--tone-accent {
+		color: var(--color-accent-ink);
+	}
+
+	.icon--tone-progress {
+		color: var(--color-progress-ink);
+	}
+
+	.icon--tone-success {
+		color: var(--color-success-ink);
+	}
+
+	.icon--tone-warning {
+		color: var(--color-warning-ink);
+	}
+
+	.icon--tone-error {
+		color: var(--color-error-ink);
 	}
 
 	.tabs {

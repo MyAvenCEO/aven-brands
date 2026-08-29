@@ -53,6 +53,16 @@ export const specimens: Record<string, Specimen> = {
 			<button class="btn btn--unavailable btn--size-md" type="button">Coming soon</button>
 		</span>`
 	},
+	icon: {
+		one: `<span class="icon">${icon('check', '1em')}</span>`,
+		html: `<span class="sp-row">
+			<span class="icon icon--size-sm">${icon('check', '1em')}</span>
+			<span class="icon">${icon('search', '1em')}</span>
+			<span class="icon icon--size-md icon--tone-progress">${icon('info', '1em')}</span>
+			<span class="icon icon--size-lg icon--tone-warning">${icon('warning', '1em')}</span>
+			<span class="icon icon--size-xl icon--tone-error">${icon('error', '1em')}</span>
+		</span>`
+	},
 	badge: {
 		one: `<span class="badge">Running</span>`,
 		html: `<span class="sp-row">

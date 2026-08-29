@@ -33,7 +33,7 @@
 			"minBlockSize": "2.5rem",
 			"paddingInline": "1.25rem",
 			"border": "1px solid transparent",
-			"borderRadius": "var(--radius-pill)",
+			"borderRadius": "var(--radius-control)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
 			"font": "inherit",
@@ -43,7 +43,8 @@
 			"letterSpacing": "var(--tracking-tight)",
 			"whiteSpace": "nowrap",
 			"cursor": "pointer",
-			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)"
+			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)",
+			"$description": "Softened, not rounded away. A full pill on a 2.5rem control is a lozenge, and the badges beside it use a pill because they are small enough for one to read as a shape rather than as a blob. A button is the same family, one step firmer."
 		},
 		"variants": {
 			"variant": {
@@ -51,7 +52,8 @@
 					"$description": "the one main affirmative action on a surface.",
 					"background": "var(--color-primary)",
 					"color": "var(--color-primary-foreground)",
-					"borderColor": "var(--color-primary)"
+					"borderColor": "var(--color-primary)",
+					"boxShadow": "var(--shadow-raised)"
 				},
 				"secondary": {
 					"$description": "neutral. An outline and dark text, never a coloured fill — a secondary action that carries a fill competes with the primary beside it.",
@@ -63,7 +65,8 @@
 					"$description": "destructive. The same variant on the trigger AND on its confirm dialog — red in one place and blue in the other is the bug this rule exists to stop.",
 					"background": "var(--color-error)",
 					"color": "var(--color-error-foreground)",
-					"borderColor": "var(--color-error)"
+					"borderColor": "var(--color-error)",
+					"boxShadow": "var(--shadow-raised)"
 				},
 				"ghost": {
 					"$description": "no chrome at all, for a tertiary action inside dense UI.",
@@ -118,7 +121,7 @@
 			"hover": {
 				"$description": "A lift rather than a fade. Fading a button on hover says \"less\", which is the opposite of what a hover means; 1px of travel and a shadow say \"this is reachable\".",
 				"transform": "translateY(-1px)",
-				"boxShadow": "var(--shadow-raised)"
+				"boxShadow": "var(--shadow-overlay)"
 			},
 			"focus": {
 				"outline": "2px solid var(--color-accent-ink)",

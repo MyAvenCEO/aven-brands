@@ -719,6 +719,11 @@
 			"$type": "dimension",
 			"$value": "0.75rem"
 		},
+		"radius-control": {
+			"$type": "dimension",
+			"$value": "0.875rem",
+			"$description": "A button, a chip, an input. Between the inner radius and the pill: a full pill on a 2.5rem control reads as a lozenge, and a card radius on something that small reads as a box. Named because the answer is the same for every control and was being chosen per component."
+		},
 		"radius-chip": {
 			"$type": "dimension",
 			"$value": "0.5rem"
@@ -969,6 +974,11 @@
 			"radius-inner": {
 				"$type": "dimension",
 				"$value": "0.75rem"
+			},
+			"radius-control": {
+				"$type": "dimension",
+				"$value": "0.875rem",
+				"$description": "A button, a chip, an input. Between the inner radius and the pill: a full pill on a 2.5rem control reads as a lozenge, and a card radius on something that small reads as a box. Named because the answer is the same for every control and was being chosen per component."
 			},
 			"radius-card": {
 				"$type": "dimension",

@@ -73,6 +73,21 @@
 					"borderColor": "var(--color-border-strong)",
 					"color": "var(--color-foreground-quiet)"
 				}
+			},
+			"size": {
+				"$description": "A badge sits beside something, so its ladder is the ladder of the things it labels: a nano badge on a card title, a micro one in a table row, a meta one standing alone.",
+				"sm": {
+					"padding": "0.05rem 0.4rem",
+					"fontSize": "var(--fs-nano)"
+				},
+				"md": {
+					"padding": "0.125rem 0.5rem",
+					"fontSize": "var(--fs-nano)"
+				},
+				"lg": {
+					"padding": "0.25rem 0.7rem",
+					"fontSize": "var(--fs-micro)"
+				}
 			}
 		}
 	},

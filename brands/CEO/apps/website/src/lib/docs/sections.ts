@@ -149,6 +149,8 @@ export type UnitRow = {
 	parts: Array<{ name: string; note: string }>
 	animates: boolean
 	base: Decls
+	/** The unit's own config, verbatim. The storybook shows it beside the render. */
+	json: string
 }
 
 /** DTCG-ish: `$description` documents, everything else is CSS. */
@@ -198,7 +200,11 @@ const unitRow = (name: string): UnitRow => {
 		})),
 		parts: Object.entries(styling.parts ?? {}).map(([n, decl]) => ({ name: n, note: note(decl) })),
 		animates: Boolean(styling.keyframes),
-		base: cssDecls(styling.base)
+		base: cssDecls(styling.base),
+		/* The source, not a summary of it. A design-system viewer that shows only
+		   the render asks you to trust that the render matches the config; showing
+		   both in one place is the only way that claim is checkable. */
+		json: JSON.stringify(units[name], null, '\t')
 	}
 }
 
