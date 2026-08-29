@@ -72,12 +72,21 @@ export const TRACKING_SCALE = {
  * Ink strength, as four steps rather than a continuum. Thirty different
  * `text-foreground/N` values said nothing a reader could perceive: nobody sees
  * the difference between /45 and /50, but everybody sees an inconsistent page. */
+/*
+ * The steps are set where they PASS, not where they looked nice. Measured on
+ * ink over `linen` (#faf9f4): 0.5 was 2.99:1 and 0.35 is 2.05:1, so the old
+ * `ink-quiet` failed AA everywhere it carried a caption. `ink-quiet` now sits
+ * at the AA floor (4.61:1) and `ink-muted` moves up to keep the step visible.
+ *
+ * `ink-faint` deliberately stays below AA: it is the disabled/watermark level,
+ * and WCAG 1.4.3 exempts inactive controls. It must never carry live text.
+ */
 export const INK_SCALE = {
-	'ink-faint': '0.35', // disabled, watermarks, the quietest meta
-	'ink-quiet': '0.5', // captions, secondary meta
-	'ink-muted': '0.65', // supporting copy
-	'ink-strong': '0.8', // emphasis short of full ink
-	'ink-full': '0.9' // all but black — body copy at full weight
+	'ink-faint': '0.35', // 2.05:1 — disabled + watermarks ONLY (WCAG-exempt)
+	'ink-quiet': '0.65', // 4.61:1 — captions, secondary meta
+	'ink-muted': '0.75', // 6.42:1 — supporting copy
+	'ink-strong': '0.85', // 8.62:1 — emphasis short of full ink
+	'ink-full': '0.9' // 10.10:1 — body copy at full weight
 } as const
 
 /**
@@ -255,15 +264,23 @@ export const COMPONENTS: Record<string, Decl> = {
 		fontWeight: '600',
 		textTransform: 'uppercase',
 		letterSpacing: 'var(--tracking-wide)',
-		color: 'color-mix(in srgb, var(--color-foreground) 50%, transparent)'
+		color: 'color-mix(in srgb, var(--color-foreground) 65%, transparent)'
 	},
-	/** The website's louder eyebrow: same idiom, gold, tracked further. */
+	/**
+	 * The website's louder eyebrow: same idiom, gold, tracked further.
+	 *
+	 * Set in the accent's INK face, not the raw tone: sunflower as running text
+	 * on cream measures 1.68:1, and the tokens file already says why the `-ink`
+	 * faces exist — marketing copy on cream needs the darkened gold. The
+	 * fallback repeats `accent-ink`'s recipe for surfaces (plain audience) that
+	 * do not emit site roles.
+	 */
 	'eyebrow-accent': {
 		fontSize: 'var(--fs-micro)',
 		fontWeight: '700',
 		textTransform: 'uppercase',
 		letterSpacing: 'var(--tracking-widest)',
-		color: 'var(--color-accent, var(--color-sunflower))'
+		color: 'var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black))'
 	},
 	/**
 	 * The quiet eyebrow: the same idiom in ink rather than gold, one step
@@ -274,7 +291,7 @@ export const COMPONENTS: Record<string, Decl> = {
 		fontWeight: '700',
 		textTransform: 'uppercase',
 		letterSpacing: 'var(--tracking-widest)',
-		color: 'color-mix(in srgb, var(--color-foreground) 35%, transparent)'
+		color: 'color-mix(in srgb, var(--color-foreground) 65%, transparent)'
 	},
 	/**
 	 * A section's heading on the marketing site — the line that opens a band.
@@ -306,7 +323,7 @@ export const COMPONENTS: Record<string, Decl> = {
 	'mono-meta': {
 		fontFamily: 'var(--font-mono)',
 		fontSize: 'var(--fs-micro)',
-		color: 'color-mix(in srgb, var(--color-foreground) 35%, transparent)'
+		color: 'color-mix(in srgb, var(--color-foreground) 65%, transparent)'
 	},
 	/** The dot that opens a list item, aligned to the first line of text. */
 	bullet: {
@@ -472,7 +489,9 @@ export const COMPONENTS: Record<string, Decl> = {
 		border: '1px solid color-mix(in srgb, var(--color-terracotta) 35%, transparent)',
 		borderRadius: 'var(--radius-inner)',
 		background: 'color-mix(in srgb, var(--color-terracotta) 8%, transparent)',
-		color: 'var(--color-terracotta)',
+		/* The error INK face, not the raw tone: terracotta on the tinted wash
+		   measures 3.45:1. Fallback repeats `error-ink`'s recipe. */
+		color: 'var(--color-error-ink, color-mix(in oklab, var(--color-terracotta) 85%, black))',
 		fontSize: 'var(--fs-body)',
 		lineHeight: '1.5',
 		textAlign: 'left'
@@ -489,9 +508,12 @@ export const COMPONENTS: Record<string, Decl> = {
 		borderRadius: 'var(--radius-pill)',
 		background: 'color-mix(in srgb, var(--color-ink) 12%, transparent)'
 	},
-	/** A completed stage on the rail. Applied alongside `step`, never instead. */
+	/** A completed stage on the rail. Applied alongside `step`, never instead.
+	    Carries the primary's contrast ink so anything textual inside a filled
+	    step (a count, a label, a specimen) reads chalk on marine, never ink. */
 	'step-done': {
-		background: 'var(--color-primary)'
+		background: 'var(--color-primary)',
+		color: 'var(--color-primary-foreground, var(--color-chalk))'
 	},
 	/** A labelled form row: label above control, left aligned, full width. */
 	field: {
@@ -522,7 +544,7 @@ export const COMPONENTS: Record<string, Decl> = {
 	/** Meta text: the quiet line under a title. */
 	meta: {
 		fontSize: 'var(--fs-meta)',
-		color: 'color-mix(in srgb, var(--color-foreground) 50%, transparent)'
+		color: 'color-mix(in srgb, var(--color-foreground) 65%, transparent)'
 	}
 }
 

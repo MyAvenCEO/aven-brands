@@ -110,15 +110,15 @@ export const ROLES: Record<string, string> = {
 
 	progress: 'var(--color-tidal-blue)',
 	'progress-foreground': 'var(--color-chalk)',
-	'progress-ink': 'var(--color-tidal-blue)',
+	'progress-ink': 'color-mix(in oklab, var(--color-tidal-blue) 72%, black)',
 
 	success: 'var(--color-paradise-water)',
 	'success-foreground': CONTRAST_INK['success-foreground'],
-	'success-ink': 'var(--color-paradise-water)',
+	'success-ink': 'color-mix(in oklab, var(--color-paradise-water) 68%, black)',
 
 	warning: 'var(--color-sunflower)',
 	'warning-foreground': CONTRAST_INK['warning-foreground'],
-	'warning-ink': 'color-mix(in oklab, var(--color-sunflower) 74%, black)',
+	'warning-ink': 'color-mix(in oklab, var(--color-sunflower) 62%, black)',
 
 	error: 'var(--color-terracotta)',
 	'error-foreground': CONTRAST_INK['error-foreground'],
@@ -147,14 +147,16 @@ export const ROLES: Record<string, string> = {
  * BETA window, which closes, and borrows the failure tone's urgency. It sits
  * opposite the gold on purpose, so an offer never reads as just a highlight.
  *
- * The two `-ink` faces darken further than their app counterparts (72%/88% vs
- * warning's 74% and error's 85%) because marketing copy sets them as running
- * text on cream, where the raw tones are too light to read.
+ * The `-ink` faces exist because marketing copy sets these as running text on
+ * cream, where the raw tones are too light to read. Gold is the hard case: on
+ * `linen` (#faf9f4), sunflower at 74%/72%/76% measured 3.69/3.92/3.45:1 and
+ * failed AA as text. Every gold-derived ink face is now 62% (5.55:1); the
+ * terracotta and earth faces already passed and are unchanged.
  */
 export const SITE_ROLES: Record<string, string> = {
 	accent: 'var(--color-sunflower)',
 	'accent-foreground': CONTRAST_INK['warning-foreground'],
-	'accent-ink': 'color-mix(in oklab, var(--color-sunflower) 72%, black)',
+	'accent-ink': 'color-mix(in oklab, var(--color-sunflower) 62%, black)',
 	offer: 'var(--color-terracotta)',
 	'offer-foreground': CONTRAST_INK['error-foreground'],
 	'offer-ink': 'color-mix(in oklab, var(--color-terracotta) 88%, black)',
@@ -197,7 +199,7 @@ export const APP_ROLES: Record<string, string> = {
 	 */
 	evidence: 'var(--color-sunflower)',
 	'evidence-soft': 'color-mix(in oklab, var(--color-sunflower) 26%, white)',
-	'evidence-ink': 'color-mix(in oklab, var(--color-sunflower) 76%, black)',
+	'evidence-ink': 'color-mix(in oklab, var(--color-sunflower) 62%, black)',
 	card: CONTRAST_INK.white,
 	/* Preview host behind the sandbox iframe — slight contrast vs. the card. */
 	'sandbox-host': 'color-mix(in srgb, var(--color-background) 94%, var(--color-foreground))'
