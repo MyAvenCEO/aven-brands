@@ -92,4 +92,37 @@ describe('the container contract', () => {
 		}
 		expect(offenders).toEqual([])
 	})
+
+	test('no unit measures the VIEWPORT, except the app shell', () => {
+		/*
+		 * A viewport unit inside a component means the component is reading a box
+		 * it does not own. `hero` asked for `85vh` and therefore wanted 85% of the
+		 * monitor when it was rendered in a 324px preview card; its heading scaled
+		 * on `6.5vw`, so display type sized to the window rather than to the hero.
+		 *
+		 * The exceptions are units whose own box IS the viewport: the application
+		 * root, and anything `position: fixed`. There, measuring the viewport is
+		 * the unit measuring itself.
+		 *
+		 * `--hero-min-block` is how a surface still says "fill the screen": the
+		 * SURFACE knows whether a hero is a landing page or a card, and the unit
+		 * does not.
+		 */
+		const ALLOWED = new Set(['workbench'])
+		const VIEWPORT = /[0-9.]+(?:dv|sv|lv)?(?:vw|vh|vmin|vmax)\b/
+		const offenders: string[] = []
+		for (const u of all) {
+			if (ALLOWED.has(u.name) || isViewport(u)) continue
+			const walk = (node: any, path: string) => {
+				if (typeof node === 'string') {
+					if (VIEWPORT.test(node)) offenders.push(`${u.name}${path} = ${node}`)
+					return
+				}
+				if (node && typeof node === 'object')
+					for (const [k, v] of Object.entries(node)) if (!k.startsWith('$')) walk(v, `${path}.${k}`)
+			}
+			walk(u.styling ?? {}, '')
+		}
+		expect(offenders).toEqual([])
+	})
 })

@@ -508,8 +508,8 @@
 			},
 			"accent-foreground": {
 				"$type": "color",
-				"$value": "var(--color-on-warning)",
-				"$description": "text on accent."
+				"$value": "#4a3208",
+				"$description": "The label on a sunflower fill: a DARK GOLD, not the near-black ink used on every other ground. Black on yellow is a hazard sign \u2014 the pairing has a meaning outside this brand and it is 'caution', which is the opposite of what the primary call to action is for. Sunflower darkened until it is unmistakably text reads as the same colour speaking rather than as a warning label.\n\nMeasured at 6.78:1 on #f2ba3d \u2014 comfortably past AA, and deliberately not the maximum available: #1e293b scores 8.27 and is the thing being replaced. Contrast past the floor is a budget to spend on tone, not a score to maximise."
 			},
 			"accent-ink": {
 				"$type": "color",

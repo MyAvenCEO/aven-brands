@@ -633,9 +633,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-block-size: 85vh;
+		min-block-size: var(--hero-min-block, 34rem);
 		padding-inline: var(--space-comfortable);
-		padding-block: clamp(5rem, 12vh, 9rem);
+		padding-block: clamp(3rem, 9cqi, 6rem);
 		color: var(--color-on-dark);
 		container-type: inline-size;
 		container-name: hero;
@@ -678,7 +678,7 @@
 		margin: 0;
 		max-inline-size: 48rem;
 		margin-inline: auto;
-		font-size: clamp(2rem, 6.5vw, 4rem);
+		font-size: clamp(2rem, 7cqi, 4rem);
 		font-weight: 300;
 		line-height: 1.1;
 		letter-spacing: var(--tracking-tight);
@@ -723,11 +723,11 @@
 	}
 
 	.hero--height-full {
-		min-block-size: 100dvh;
+		min-block-size: 100ddvh;
 	}
 
 	.hero--height-short {
-		min-block-size: min(56dvh, 34rem);
+		min-block-size: min(56ddvh, 34rem);
 	}
 
 	.hero--align-start {
@@ -3027,7 +3027,7 @@
 		display: flex;
 		align-items: flex-start;
 		gap: var(--space-tight);
-		max-inline-size: min(26rem, calc(100vw - 2rem));
+		max-inline-size: min(26rem, calc(100% - 2rem));
 		padding: var(--space-comfortable);
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--color-border);
@@ -3174,7 +3174,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0;
-		inline-size: min(16rem, 78vw);
+		inline-size: 16rem;
 		min-inline-size: 0;
 		padding: var(--space-comfortable);
 		border-inline-end: 1px solid var(--color-border-soft);
@@ -3183,6 +3183,7 @@
 		padding-inline: var(--space-tight);
 		container-type: inline-size;
 		container-name: sidebar;
+		max-inline-size: 100%;
 
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -3290,7 +3291,7 @@
 	}
 
 	.modal {
-		inline-size: min(34rem, calc(100vw - 2rem));
+		inline-size: min(34rem, calc(100% - 2rem));
 		max-block-size: calc(100dvh - 4rem);
 		padding: 0;
 		border: 0;

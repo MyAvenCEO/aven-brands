@@ -202,7 +202,9 @@ const walkAxis = $derived(sceneAxes[0] ?? null)
 const walkSteps = $derived(
 	walkAxis && openUnit
 		? [
-				'default',
+				/* Same word, same reason: this step is "no option applied", and the
+				   sequences it walks all start from the resting card. */
+				'none',
 				...(openUnit.variants
 					.find((a) => a.axis === walkAxis)
 					?.options.filter((o) => specimens[openUnit.name]?.scenes?.[walkAxis]?.[o.name])
@@ -210,13 +212,13 @@ const walkSteps = $derived(
 			]
 		: []
 )
-const walkAt = $derived(walkAxis ? Math.max(0, walkSteps.indexOf(chosen[walkAxis] ?? 'default')) : 0)
+const walkAt = $derived(walkAxis ? Math.max(0, walkSteps.indexOf(chosen[walkAxis] ?? 'none')) : 0)
 
 function walk(delta: number) {
 	if (!walkAxis) return
 	const next = walkSteps[walkAt + delta]
 	if (next === undefined) return
-	if (next === 'default') clear(walkAxis)
+	if (next === 'none') clear(walkAxis)
 	else pick(walkAxis, next)
 }
 
@@ -764,7 +766,7 @@ function inspect(name: string) {
 															class="cb-walk-step"
 															aria-current={walkAt === i ? 'step' : undefined}
 															onclick={() =>
-																name === 'default' ? clear(walkAxis ?? '') : pick(walkAxis ?? '', name)}
+																name === 'none' ? clear(walkAxis ?? '') : pick(walkAxis ?? '', name)}
 														>
 															{name}
 														</button>
@@ -836,16 +838,20 @@ function inspect(name: string) {
 									<div class="cb-controls">
 										<p class="cb-control-label">{axis.axis}</p>
 										<div class="cb-chips">
-											<!-- Every axis gets a `default`. Without it, choosing an
-											     emphasis was a one-way door: there was no way back to the
-											     resting look short of reloading. -->
+											<!-- "None", not "default". Every axis needs a way back —
+											     choosing an emphasis was otherwise a one-way door short of
+											     reloading — but calling it `default` said the same word as
+											     the STATE axis, where `default` is a real declared state
+											     with real declarations behind it. One word, two meanings,
+											     three inches apart. This chip means "no option from this
+											     axis is applied", and no class is emitted for it. -->
 											<button
 												type="button"
 												class="cb-chip-btn"
 												aria-pressed={!chosen[axis.axis]}
 												onclick={() => clear(axis.axis)}
 											>
-												default
+												none
 											</button>
 											{#each axis.options as option (option.name)}
 												<button
