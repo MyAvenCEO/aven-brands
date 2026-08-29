@@ -230,6 +230,16 @@
 				"$value": "#fdfbf3e6",
 				"$description": "The glass bar: the page ground at 90%, so the content behind reads through the blur without the text on top losing its ground. Named, because this lived as an inline `color-mix(surface-page 10%, transparent)` in a `style` attribute in one component — unthemeable, and 10% is far too thin to sit text on."
 			},
+			"scrim": {
+				"$type": "color",
+				"$value": "#1e293b52",
+				"$description": "The veil over hero media. 32% marine — enough that the light ink reads on any frame the video lands on, little enough that the scene is still a scene. It was three stacked `color-mix` stops in one component."
+			},
+			"scrim-strong": {
+				"$type": "color",
+				"$value": "#1e293b8c",
+				"$description": "55% marine, for the top and bottom of a hero where the copy and the nav sit."
+			},
 			"dark-scrim-thin": {
 				"$type": "color",
 				"$value": "#151e30e6",
@@ -657,13 +667,13 @@
 			},
 			"focus": {
 				"$type": "color",
-				"$value": "var(--color-paradise)",
-				"$description": "The focus ring, one colour for the whole estate. Ten components each wrote `2px solid var(--color-accent-ink)` with a 2px offset — ten places to disagree, and a ring that floated away from the control it marked, so in a dense row it was ambiguous which thing had focus. Paradise is the brand's interactive blue and clears 3:1 on every light surface, which is what WCAG 1.4.11 asks of a focus indicator."
+				"$value": "#ab790b",
+				"$description": "The focus ring, one colour for the whole estate — sunflower, the brand's own signal colour. DARKENED, and only as far as legibility: raw sunflower #f2ba3d measures 1.44 to 1.71:1 on the light ladder, which is a focus ring nobody can see, and WCAG 1.4.11 asks 3:1 of the one affordance a keyboard user has. This clears 3.12 to 3.70 on every light surface and still reads as gold."
 			},
 			"dark-focus": {
 				"$type": "color",
-				"$value": "#5cc0d8",
-				"$description": "The ring on dark — paradise lightened, because the same blue that reads on cream disappears on marine."
+				"$value": "var(--color-sunflower)",
+				"$description": "On dark the brand sunflower needs no darkening — it measures 4.99 to 9.84:1 on the marine ladder, so the ring is the tone itself."
 			},
 			"dark-eyebrow-ink": {
 				"$type": "color",

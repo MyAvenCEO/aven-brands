@@ -294,6 +294,20 @@ export const specimens: Record<string, Specimen> = {
 			</a>
 		</span>`
 	},
+	hero: {
+		tall: true,
+		one: `<span class="hero hero--ground-marine hero--height-short" style="display:grid; inline-size:100%; border-radius: var(--radius-lg); overflow:hidden">
+			<span class="hero-content">
+				<p class="hero-eyebrow">The company of the future</p>
+				<h3 class="hero-heading" style="margin:0">avenCEO runs your company, you lead the vision.</h3>
+				<p class="hero-lead">From working to survive to sovereign founder of tomorrow.</p>
+				<span class="hero-actions">
+					<button class="btn btn--accent" type="button">Claim your name</button>
+					<button class="btn btn--secondary" type="button">See the skills</button>
+				</span>
+			</span>
+		</span>`
+	},
 	navbar: {
 		tall: true,
 		one: `<span class="navbar" style="position: static; inline-size: 100%; max-inline-size: 44rem">

@@ -227,6 +227,7 @@
 		cursor: pointer;
 		transition: background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out);
 		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%);
+		border-color: color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary));
 
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(-1px);
@@ -604,6 +605,107 @@
 		}
 	}
 
+	.hero {
+		position: relative;
+		display: grid;
+		place-items: center;
+		isolation: isolate;
+		min-block-size: min(84dvh, 52rem);
+		padding-inline: var(--space-comfortable);
+		padding-block: clamp(5rem, 12vh, 9rem);
+		overflow: clip;
+		color: var(--color-on-dark);
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+	}
+
+	.hero-media {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+	}
+
+	.hero-scrim {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(180deg, var(--color-scrim-strong) 0%, var(--color-scrim) 42%, var(--color-scrim-strong) 100%);
+	}
+
+	.hero-content {
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: 48rem;
+		min-inline-size: 0;
+		text-align: center;
+	}
+
+	.hero-eyebrow {
+		margin: 0 0 var(--space-tight);
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-on-dark);
+	}
+
+	.hero-heading {
+		margin: 0;
+		font-size: clamp(2rem, 6.5vw, 4rem);
+		font-weight: 300;
+		line-height: 1.06;
+		letter-spacing: var(--tracking-tight);
+		text-wrap: balance;
+	}
+
+	.hero-lead {
+		margin-block: var(--space-loose) 0;
+		margin-inline: auto;
+		max-inline-size: 40ch;
+		font-size: var(--fs-lead);
+		font-weight: 300;
+		line-height: 1.4;
+		text-wrap: pretty;
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-tight);
+		margin-block-start: var(--space-section);
+	}
+
+	.hero--height-full {
+		min-block-size: 100dvh;
+	}
+
+	.hero--height-short {
+		min-block-size: min(56dvh, 34rem);
+	}
+
+	.hero--align-start {
+
+		& .hero-content {
+			text-align: start;
+		}
+	}
+
+	.hero--ground-band {
+		background: var(--color-band);
+		color: var(--color-band-foreground);
+	}
+
+	.hero--ground-marine {
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+	}
+
 	.stat {
 		display: grid;
 		gap: 0.15rem;
@@ -806,7 +908,7 @@
 	.btn--primary {
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
-		border-color: var(--color-primary);
+		border-color: color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary));
 		box-shadow: var(--shadow-raised);
 		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%);
 	}
@@ -821,7 +923,7 @@
 	.btn--danger {
 		background: var(--color-error);
 		color: var(--color-error-foreground);
-		border-color: var(--color-error);
+		border-color: color-mix(in oklab, var(--color-error-foreground) 22%, var(--color-error));
 		box-shadow: var(--shadow-raised);
 		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-error-foreground) 12%, var(--color-error)) 0%, var(--color-error) 62%);
 	}
@@ -836,7 +938,7 @@
 	.btn--accent {
 		background: var(--color-accent);
 		color: var(--color-accent-foreground);
-		border-color: var(--color-accent);
+		border-color: color-mix(in oklab, #ffffff 28%, var(--color-accent));
 		box-shadow: var(--shadow-raised);
 		background-image: linear-gradient(180deg, color-mix(in oklab, #ffffff 12%, var(--color-accent)) 0%, var(--color-accent) 62%);
 	}
@@ -970,29 +1072,29 @@
 		flex-shrink: 0;
 		inline-size: 1em;
 		block-size: 1em;
-		font-size: var(--fs-body);
+		font-size: 2rem;
 		color: currentColor;
 		vertical-align: -0.125em;
 	}
 
 	.icon--size-xs {
-		font-size: var(--fs-micro);
+		font-size: 1rem;
 	}
 
 	.icon--size-sm {
-		font-size: var(--fs-meta);
+		font-size: 1.25rem;
 	}
 
 	.icon--size-md {
-		font-size: var(--fs-lead);
+		font-size: 1.5rem;
 	}
 
 	.icon--size-lg {
-		font-size: var(--fs-title);
+		font-size: 2rem;
 	}
 
 	.icon--size-xl {
-		font-size: var(--fs-display);
+		font-size: 2.5rem;
 	}
 
 	.icon--tone-quiet {

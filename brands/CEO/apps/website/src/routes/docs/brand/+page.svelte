@@ -32,7 +32,8 @@ import {
 	spaceScale,
 	tintScale,
 	trackingScale,
-	typeScale
+	typeScale,
+	unitNameList
 } from '$lib/docs/sections'
 import { specimens } from '$lib/docs/specimens'
 
@@ -98,11 +99,18 @@ const unitGroups = [
 let open = $state<string | null>(null)
 let state = $state<string | null>(null)
 let detailView = $state<'preview' | 'config'>('preview')
+let openPart = $state<string | null>(null)
 let chosen = $state<Record<string, string>>({})
 
 const allRows = $derived([...leafRows, ...compositeRows])
 const openUnit = $derived(open ? allRows.find((u) => u.name === open) : undefined)
 const activeState = $derived(openUnit?.states.find((s) => s.name === state))
+const activePart = $derived(openUnit?.parts.find((p) => p.name === openPart))
+/* A part's own declarations, read from the compiled stylesheet rather than
+   restated here — the part is a real class, so the system already knows. */
+const partDecls = $derived(
+	openUnit && openPart ? declarationsOf(`${openUnit.name}-${openPart}`) : []
+)
 
 /** The modifier classes the chosen variants add, as one string. */
 const variantClass = $derived(
@@ -116,6 +124,7 @@ function openDetail(name: string) {
 	state = null
 	chosen = {}
 	detailView = 'preview'
+	openPart = null
 }
 
 function pick(axis: string, option: string) {
@@ -490,7 +499,9 @@ function inspect(name: string) {
 			{:else if active === 'leafs' || active === 'composites'}
 				{#if openUnit}
 					{@const unit = openUnit}
-					<section class="cb-section">
+					<!-- No 62rem cap here. A reading column is right for a page of prose
+					     and wrong for a stage: the specimen should get the screen. -->
+					<section class="cb-section cb-section--full">
 						<button type="button" class="cb-back" onclick={() => (open = null)}>
 							{@html backIcon}
 							<span>All {active}</span>
@@ -609,7 +620,19 @@ function inspect(name: string) {
 										<p class="cb-control-label">Slots</p>
 										<div class="cb-chips">
 											{#each unit.slots as slot (slot)}
-												<span class="cb-tag">{slot}</span>
+												<!-- A slot named after a unit opens that unit; the rest are
+												     labels, because an unnamed opening accepts anything. -->
+												{#if unitNameList.includes(slot)}
+													<button
+														type="button"
+														class="cb-tag cb-tag--link"
+														onclick={() => openDetail(slot)}
+													>
+														{slot}
+													</button>
+												{:else}
+													<span class="cb-tag">{slot}</span>
+												{/if}
 											{/each}
 										</div>
 									</div>
@@ -620,9 +643,27 @@ function inspect(name: string) {
 										<p class="cb-control-label">Parts</p>
 										<div class="cb-chips">
 											{#each unit.parts as part (part.name)}
-												<span class="cb-tag">{part.name}</span>
+												<button
+													type="button"
+													class="cb-tag cb-tag--link"
+													aria-pressed={openPart === part.name}
+													onclick={() => (openPart = openPart === part.name ? null : part.name)}
+												>
+													{part.name}
+												</button>
 											{/each}
 										</div>
+										{#if activePart}
+											<p class="cb-control-note">{activePart.note || 'No note on this part.'}</p>
+											<dl class="cb-decls">
+												{#each partDecls as [prop, value] (prop)}
+													<div class="cb-decl">
+														<dt class="cb-mono">{prop}</dt>
+														<dd class="cb-mono">{value}</dd>
+													</div>
+												{/each}
+											</dl>
+										{/if}
 									</div>
 								{/if}
 							</aside>
@@ -839,6 +880,15 @@ function inspect(name: string) {
 	margin-block-end: var(--space-section);
 	max-inline-size: 62rem;
 }
+.cb-section--full {
+	/* Out to the edge, and AFTER `.cb-section` — they share a specificity, so
+	   only source order separates them, and declared first this lost silently.
+	   `#cb-main` pads the reading sections; the detail view is not one, so the
+	   aside sits against the right of the screen and the stage takes the rest. */
+	max-inline-size: none;
+	margin-inline: -1.25rem;
+	padding-inline: 1.25rem;
+}
 .cb-icons {
 	display: grid;
 	gap: var(--space-comfortable);
@@ -877,7 +927,10 @@ function inspect(name: string) {
 }
 @media (min-width: 60rem) {
 	.cb-detail {
-		grid-template-columns: minmax(0, 1fr) 15rem;
+		/* The specimen takes everything the aside does not. `1fr` and a fixed
+		   sidebar rather than a shared max-width, so a wide screen gives the
+		   preview the width instead of leaving a gutter beside it. */
+		grid-template-columns: minmax(0, 1fr) 14rem;
 		align-items: start;
 	}
 	/* Sticky and self-scrolling, pinned to the top of the viewport, so a long
@@ -904,7 +957,7 @@ function inspect(name: string) {
 .cb-tabs {
 	display: flex;
 	gap: var(--space-hairline);
-	margin-block-end: var(--space-tight);
+	margin-block: var(--space-tight) var(--space-tight);
 	border-block-end: 1px solid var(--color-border-soft);
 }
 .cb-tab {
@@ -942,8 +995,8 @@ function inspect(name: string) {
 	display: inline-flex;
 	align-items: center;
 	gap: var(--space-hairline);
-	min-block-size: 2.25rem;
-	margin-block-end: var(--space-tight);
+	min-block-size: 1.75rem;
+	margin-block-end: 0.15rem;
 	padding: 0;
 	border: 0;
 	background: transparent;
@@ -960,10 +1013,13 @@ function inspect(name: string) {
 	color: var(--color-foreground);
 }
 .cb-detail-name {
+	/* Compact. The name is a label on a page you already navigated to, not a
+	   headline — every line it takes is a line the specimen does not get. */
 	margin: 0;
 	font-family: var(--font-mono);
-	font-size: var(--fs-title);
+	font-size: var(--fs-lead);
 	font-weight: 600;
+	line-height: 1.2;
 	color: var(--color-foreground);
 }
 .cb-detail-note {
@@ -973,8 +1029,8 @@ function inspect(name: string) {
 .cb-detail-stage {
 	display: grid;
 	place-items: center;
-	min-block-size: 12rem;
-	margin-block: var(--space-comfortable);
+	min-block-size: 22rem;
+	margin-block: 0 var(--space-comfortable);
 	padding: var(--space-section);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
@@ -1062,6 +1118,25 @@ function inspect(name: string) {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.375rem;
+}
+/* A tag that goes somewhere. The parts and slots are not decoration — a part
+   is a real class with real declarations, and a slot named after a unit is a
+   link to that unit. */
+.cb-tag--link {
+	border: 1px solid var(--color-border-soft);
+	font: inherit;
+	font-family: var(--font-mono);
+	font-size: var(--fs-nano);
+	cursor: pointer;
+}
+.cb-tag--link:hover {
+	border-color: var(--color-border-strong);
+	color: var(--color-foreground);
+}
+.cb-tag--link[aria-pressed="true"] {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: var(--color-primary-foreground);
 }
 .cb-tag {
 	padding: 0.05rem 0.4rem;

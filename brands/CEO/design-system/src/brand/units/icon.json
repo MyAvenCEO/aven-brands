@@ -2,42 +2,71 @@
 	"name": "icon",
 	"description": "One glyph from the registry, at a size and a tone the system names. Every icon on every surface is this — the geometry lives once in `icons.avenceo.json` and a view supplies only a name, because the engine's tag allowlist admits no SVG and loosening it would let a view emit script. What this unit adds is the part the registry deliberately does not hold: how big, and in what colour, since geometry has no opinion about either.",
 	"interface": {
-		"props": { "name": "string", "title": "string" }
+		"props": {
+			"name": "string",
+			"title": "string"
+		}
 	},
 	"view": {
 		"tag": "span",
-		"$icon": { "name": "$props.name", "size": "1em", "title": "$props.title" }
+		"$icon": {
+			"name": "$props.name",
+			"size": "1em",
+			"title": "$props.title"
+		}
 	},
 	"styling": {
 		"base": {
-			"$description": "Sized in `em`, so an icon beside text scales with that text rather than being pinned to a pixel value that is right in one place and wrong in the next. `flex-shrink:0` because a glyph is never the thing that should give way in a tight row.",
+			"$description": "Sized in `em`, so an icon inside a control scales with that control rather than being pinned to a pixel value that is right in one place and wrong in the next. The DEFAULT is `lg` at 2rem — the type scale here tops out at 38px and bottoms at 9px, so an icon matched to body text lands at 13px, which is smaller than any glyph with a duotone backing can carry. An icon set inline beside a sentence should ask for `sm`. `flex-shrink:0` because a glyph is never the thing that should give way in a tight row.",
 			"display": "inline-flex",
 			"alignItems": "center",
 			"justifyContent": "center",
 			"flexShrink": "0",
 			"inlineSize": "1em",
 			"blockSize": "1em",
-			"fontSize": "var(--fs-body)",
+			"fontSize": "2rem",
 			"color": "currentColor",
 			"verticalAlign": "-0.125em"
 		},
 		"variants": {
 			"size": {
-				"$description": "A ladder, not arbitrary values. `text` is the default and matches the copy beside it; the rest are for icons that stand alone.",
-				"xs": { "fontSize": "var(--fs-micro)" },
-				"sm": { "fontSize": "var(--fs-meta)" },
-				"md": { "fontSize": "var(--fs-lead)" },
-				"lg": { "fontSize": "var(--fs-title)" },
-				"xl": { "fontSize": "var(--fs-display)" }
+				"$description": "A ladder in rem rather than in type steps, because an icon is a shape and the type scale is a reading ladder — matching them made every icon smaller than the thing it labelled.",
+				"xs": {
+					"fontSize": "1rem"
+				},
+				"sm": {
+					"fontSize": "1.25rem"
+				},
+				"md": {
+					"fontSize": "1.5rem"
+				},
+				"lg": {
+					"fontSize": "2rem"
+				},
+				"xl": {
+					"fontSize": "2.5rem"
+				}
 			},
 			"tone": {
 				"$description": "An icon inherits `currentColor` by default, which is right almost everywhere — it is part of the sentence it sits in. These are for the cases where it is not: a status glyph that must carry its own meaning.",
-				"quiet": { "color": "var(--color-foreground-quiet)" },
-				"accent": { "color": "var(--color-accent-ink)" },
-				"progress": { "color": "var(--color-progress-ink)" },
-				"success": { "color": "var(--color-success-ink)" },
-				"warning": { "color": "var(--color-warning-ink)" },
-				"error": { "color": "var(--color-error-ink)" }
+				"quiet": {
+					"color": "var(--color-foreground-quiet)"
+				},
+				"accent": {
+					"color": "var(--color-accent-ink)"
+				},
+				"progress": {
+					"color": "var(--color-progress-ink)"
+				},
+				"success": {
+					"color": "var(--color-success-ink)"
+				},
+				"warning": {
+					"color": "var(--color-warning-ink)"
+				},
+				"error": {
+					"color": "var(--color-error-ink)"
+				}
 			}
 		}
 	},

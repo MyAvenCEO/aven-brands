@@ -31,7 +31,7 @@ import {
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
-import { unitNames, units } from '@myavenceo/aven-ceo/units'
+import { unitNames, unitStyles, units } from '@myavenceo/aven-ceo/units'
 import { renderIcon } from '@myavenceo/aven-vibes'
 
 export type SwatchRow = {
@@ -209,6 +209,9 @@ const unitRow = (name: string): UnitRow => {
 }
 
 export const unitRows: UnitRow[] = unitNames.map(unitRow)
+/** The names, so a surface can ask whether a slot points at a real unit. */
+export const unitNameList: string[] = [...unitNames]
+
 export const leafRows = unitRows.filter((u) => u.kind === 'leaf')
 export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
 
@@ -253,7 +256,13 @@ export const layoutNames = Object.keys(LAYOUTS)
 
 /** The declarations behind a component, for the inspector panel. */
 export function declarationsOf(name: string): Array<[string, string]> {
-	const decl = (COMPONENTS[name] ?? LAYOUTS[name]) as Record<string, unknown> | undefined
+	/* `unitStyles` first: `COMPONENTS` is the legacy map from
+	   `components.avenceo.json`, and a unit's PARTS only exist in the compiled
+	   unit styles — so asking the legacy map for `skill-card-head` returned
+	   nothing and the parts panel showed an empty list. */
+	const decl = (unitStyles[name] ?? COMPONENTS[name] ?? LAYOUTS[name]) as
+		| Record<string, unknown>
+		| undefined
 	if (!decl) return []
 	return Object.entries(decl)
 		.filter(([, v]) => typeof v === 'string')

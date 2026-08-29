@@ -73,6 +73,8 @@
 	--color-band-alt: #377d77;
 	--color-band-foreground: var(--color-on-dark);
 	--color-scrim-thin: #fdfbf3e6;
+	--color-scrim: #1e293b52;
+	--color-scrim-strong: #1e293b8c;
 	--color-secondary: var(--color-surface-selected);
 	--color-secondary-foreground: var(--color-marine);
 	--color-quiet: #57789e;
@@ -120,7 +122,7 @@
 	--color-error-border: #e9c5b7;
 	--color-foreground-quiet: #626770;
 	--color-eyebrow-ink: #1d7084;
-	--color-focus: var(--color-paradise);
+	--color-focus: #ab790b;
 
 	--radius-xs: 0.375rem;
 	--radius-sm: 0.625rem;
@@ -223,6 +225,6 @@
 	--color-error-surface: #2e1c16;
 	--color-error-border: #6b3626;
 	--color-foreground-quiet: #b5bcc7;
-	--color-focus: #5cc0d8;
+	--color-focus: var(--color-sunflower);
 	--color-eyebrow-ink: #6cc3dd;
 }

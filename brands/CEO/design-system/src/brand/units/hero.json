@@ -1,0 +1,138 @@
+{
+	"name": "hero",
+	"description": "The first screen. A full-bleed stage — a video, an image, or nothing — with a scrim over it and the copy centred on top, and it is the one place on any surface where the page's inks do not apply: text over a photograph has no measurable contrast, so everything on a hero is the light ink and the scrim is what makes that true rather than hoped. On the site this was a section with four ids and five hand-written rules, including a scrim written as three stacked `color-mix` stops.",
+	"interface": {
+		"props": { "labelledBy": "string", "poster": "string", "src": "string" },
+		"slots": { "eyebrow": {}, "heading": {}, "lead": {}, "actions": { "accepts": ["btn"] } }
+	},
+	"view": {
+		"tag": "section",
+		"attrs": { "aria-labelledby": "$props.labelledBy" },
+		"$children": [
+			{
+				"tag": "video",
+				"part": "media",
+				"attrs": {
+					"autoplay": "true",
+					"muted": "true",
+					"loop": "true",
+					"playsinline": "true",
+					"preload": "metadata",
+					"poster": "$props.poster",
+					"aria-hidden": "true"
+				}
+			},
+			{ "tag": "div", "part": "scrim", "attrs": { "aria-hidden": "true" } },
+			{
+				"tag": "div",
+				"part": "content",
+				"$children": [
+					{ "tag": "p", "part": "eyebrow", "$children": "eyebrow" },
+					{
+						"tag": "h1",
+						"part": "heading",
+						"attrs": { "id": "$props.labelledBy" },
+						"$children": "heading"
+					},
+					{ "tag": "p", "part": "lead", "$children": "lead" },
+					{ "tag": "div", "part": "actions", "$children": "actions" }
+				]
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"position": "relative",
+			"display": "grid",
+			"placeItems": "center",
+			"isolation": "isolate",
+			"minBlockSize": "min(84dvh, 52rem)",
+			"paddingInline": "var(--space-comfortable)",
+			"paddingBlock": "clamp(5rem, 12vh, 9rem)",
+			"overflow": "clip",
+			"color": "var(--color-on-dark)"
+		},
+		"parts": {
+			"media": {
+				"$description": "Behind everything, and `aria-hidden` — it carries no content, which is why hiding it under `prefers-reduced-motion` and falling back to its own poster is correct rather than a loss.",
+				"position": "absolute",
+				"inset": "0",
+				"zIndex": "-2",
+				"inlineSize": "100%",
+				"blockSize": "100%",
+				"objectFit": "cover"
+			},
+			"scrim": {
+				"$description": "Not decoration. Text over a photograph has no measurable contrast — the gate cannot score it and neither can you — so the scrim is the thing that makes the light ink readable no matter what frame the video is on. Stronger at the top and bottom, lighter through the middle, so the scene still reads where there is no text.",
+				"position": "absolute",
+				"inset": "0",
+				"zIndex": "-1",
+				"background": "linear-gradient(180deg, var(--color-scrim-strong) 0%, var(--color-scrim) 42%, var(--color-scrim-strong) 100%)"
+			},
+			"content": {
+				"marginInline": "auto",
+				"inlineSize": "100%",
+				"maxInlineSize": "48rem",
+				"minInlineSize": "0",
+				"textAlign": "center"
+			},
+			"eyebrow": {
+				"margin": "0 0 var(--space-tight)",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-widest)",
+				"color": "var(--color-on-dark)"
+			},
+			"heading": {
+				"$description": "`clamp` rather than breakpoints: a hero headline has one job at every width, and three step changes on the way down is three chances to break a line badly. `text-wrap: balance` because a two-line headline with one word on the second line is the most visible typographic failure there is.",
+				"margin": "0",
+				"fontSize": "clamp(2rem, 6.5vw, 4rem)",
+				"fontWeight": "300",
+				"lineHeight": "1.06",
+				"letterSpacing": "var(--tracking-tight)",
+				"textWrap": "balance"
+			},
+			"lead": {
+				"marginBlock": "var(--space-loose) 0",
+				"marginInline": "auto",
+				"maxInlineSize": "40ch",
+				"fontSize": "var(--fs-lead)",
+				"fontWeight": "300",
+				"lineHeight": "1.4",
+				"textWrap": "pretty"
+			},
+			"actions": {
+				"display": "flex",
+				"flexWrap": "wrap",
+				"justifyContent": "center",
+				"gap": "var(--space-tight)",
+				"marginBlockStart": "var(--space-section)"
+			}
+		},
+		"variants": {
+			"height": {
+				"full": { "minBlockSize": "100dvh" },
+				"short": { "minBlockSize": "min(56dvh, 34rem)" }
+			},
+			"align": {
+				"start": { "$part": "content", "textAlign": "start" }
+			},
+			"ground": {
+				"$description": "A hero without media still needs its own ground, or the light ink lands on the page.",
+				"band": { "background": "var(--color-band)", "color": "var(--color-band-foreground)" },
+				"marine": {
+					"background": "var(--color-primary)",
+					"color": "var(--color-primary-foreground)"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "The video goes and its own poster frame takes its place — the stage stays, so nothing is lost. Never `display:none` on the media without a ground behind it, or the hero becomes light ink on white.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "The `<h1>`, once per page, and it is what names the section. The video is decorative: `aria-hidden`, muted, and it must not be the only thing carrying meaning. Under `prefers-reduced-motion` the video is replaced by its poster rather than removed — removing it would take the ground with it and leave light text on a white page. Contrast here cannot be measured automatically: the scrim is the guarantee, and it is why it is a part of the unit rather than a decision at the call site."
+	}
+}
