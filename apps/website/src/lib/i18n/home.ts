@@ -87,7 +87,7 @@ export const home: Record<Lang, HomeMessages> = {
 			heading: 'Bald zählt nur noch, was dir gehört.',
 			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom', 'text-foreground/85')} — lohnt sich ${s('Zeit gegen Geld', 'text-foreground/85')} nicht mehr. Nur noch, was dir gehört.`,
 			question:
-				'<span style="color:var(--color-tidal-blue)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
+				'<span style="color:var(--color-paradise)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
 			without: {
 				eyebrow: 'Ohne Assets',
 				title: 'Das fremdbestimmte Drehbuch',
@@ -199,7 +199,7 @@ export const home: Record<Lang, HomeMessages> = {
 			heading: 'Soon only what you own will count.',
 			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity', 'text-foreground/85')} — ${s('trading time for money', 'text-foreground/85')} stops paying. Only what you own will.`,
 			question:
-				'Do you <span style="color:var(--color-tidal-blue)">own</span> the AI doing the new work — or not?',
+				'Do you <span style="color:var(--color-paradise)">own</span> the AI doing the new work — or not?',
 			without: {
 				eyebrow: 'Without assets',
 				title: 'The script someone else wrote',

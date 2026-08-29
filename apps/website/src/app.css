@@ -36,7 +36,7 @@
  * `progress-ink` (72%) also passes but reads as a different, muddier colour —
  * the eyebrow should still look like the brand's blue. */
 .eyebrow-accent {
-	color: color-mix(in oklab, var(--color-tidal-blue) 92%, black);
+	color: color-mix(in oklab, var(--color-paradise) 92%, black);
 	font-size: var(--fs-meta);
 }
 .eyebrow-accent::before {

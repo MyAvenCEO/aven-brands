@@ -35,6 +35,13 @@
 	--color-blush: #fdf5f9;
 	--color-line: #eef3f7;
 
+	/* ══ the inks guaranteed to read on a filled tone ══ */
+	--color-success-foreground: #ffffff;
+	--color-warning-foreground: #2c3646;
+	--color-error-foreground: #ffffff;
+	--color-info-foreground: #ffffff;
+	--color-white: #ffffff;
+
 	/* ══ 2 · THE SURFACES — which rung each part stands on ══ */
 	--color-surface-raised: var(--color-paper);
 	--color-surface-cream: var(--color-mist);

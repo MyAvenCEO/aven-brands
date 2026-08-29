@@ -166,7 +166,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				<!-- The new script: full colour, accent marks — the life you write. -->
 				<div class="border-t border-border/10 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0">
 					<p
-						style="color: var(--color-tidal-blue)"
+						style="color: var(--color-paradise)"
 						class="text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)]"
 					>
 						{t.shift.with.eyebrow}
@@ -180,7 +180,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 						{#each t.shift.with.items as item, i (i)}
 							<li class="flex gap-3">
 								<span
-									style="background-color: var(--color-tidal-blue)"
+									style="background-color: var(--color-paradise)"
 									class="mt-2.5 h-px w-4 shrink-0"
 									aria-hidden="true"
 								></span>
@@ -202,7 +202,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				{t.shift.closingBefore}
 			</p>
 			<p
-				style="color: var(--color-tidal-blue)"
+				style="color: var(--color-paradise)"
 				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight"
 			>
 				{t.shift.closingStrong}
@@ -214,7 +214,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	     brand's bluer teal) — the page's turning point, set against the light
 	     sections around it, with marine accents. -->
 	<section
-		style="background-color: var(--color-tidal-blue)"
+		style="background-color: var(--color-paradise)"
 		class="px-5 py-20 text-primary-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>

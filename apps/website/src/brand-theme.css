@@ -19,20 +19,26 @@
 	/* ══ 1 · THE BRAND TONES — the paint, each spelled exactly once ══ */
 	--color-marine: #1e293b;
 	--color-anchor: #57789e;
-	--color-tidal-blue: #2489a0;
-	--color-paradise-water: #449c94;
 	--color-terracotta: #c15b40;
 	--color-sunflower: #f2ba3d;
 	--color-earth: #d4a373;
 	--color-sand: #f3e7c6;
-	--color-chalk: #f8fafc;
-	--color-ink: #182a47;
+	--color-paradise: #2489a0;
+	--color-turquoise: #449c94;
 
 	/* ══ the cream family, lightest to warmest ══ */
 	--color-porcelain: #fffdf7;
 	--color-linen: #faf9f4;
 	--color-eggshell: #f6f3e8;
 	--color-ivory: #f6f1e2;
+	--color-chalk: #f8fafc;
+
+	/* ══ the inks guaranteed to read on a filled tone ══ */
+	--color-on-warning: #2b2313;
+	--color-on-error: #fffefb;
+	--color-on-success: #fafaf9;
+	--color-on-info: #2b231c;
+	--color-white: #ffffff;
 
 	/* ══ 2 · THE SURFACES — which rung each part stands on ══ */
 	--color-surface-raised: var(--color-porcelain);
@@ -49,34 +55,34 @@
 	--color-quiet: var(--color-anchor);
 	--color-quiet-foreground: var(--color-chalk);
 	--color-quiet-ink: color-mix(in oklab, var(--color-anchor) 82%, black);
-	--color-progress: var(--color-tidal-blue);
+	--color-progress: var(--color-paradise);
 	--color-progress-foreground: var(--color-chalk);
-	--color-progress-ink: color-mix(in oklab, var(--color-tidal-blue) 72%, black);
-	--color-success: var(--color-paradise-water);
-	--color-success-foreground: #fafaf9;
-	--color-success-ink: color-mix(in oklab, var(--color-paradise-water) 68%, black);
+	--color-progress-ink: color-mix(in oklab, var(--color-paradise) 72%, black);
+	--color-success: var(--color-turquoise);
+	--color-success-foreground: var(--color-on-success);
+	--color-success-ink: color-mix(in oklab, var(--color-turquoise) 68%, black);
 	--color-warning: var(--color-sunflower);
-	--color-warning-foreground: #2b2313;
+	--color-warning-foreground: var(--color-on-warning);
 	--color-warning-ink: color-mix(in oklab, var(--color-sunflower) 62%, black);
 	--color-error: var(--color-terracotta);
-	--color-error-foreground: #fffefb;
+	--color-error-foreground: var(--color-on-error);
 	--color-error-ink: color-mix(in oklab, var(--color-terracotta) 85%, black);
 	--color-info: var(--color-earth);
-	--color-info-foreground: #2b231c;
+	--color-info-foreground: var(--color-on-info);
 	--color-info-ink: color-mix(in oklab, var(--color-earth) 72%, black);
 	--color-secondary: var(--color-sand);
 	--color-secondary-foreground: var(--color-marine);
-	--color-foreground: var(--color-ink);
+	--color-foreground: var(--color-marine);
 	--color-card-foreground: var(--color-foreground);
 	--color-muted: color-mix(in srgb, var(--color-marine) 6%, var(--color-surface-cream));
 	--color-muted-foreground: color-mix(in srgb, var(--color-marine) 42%, transparent);
 	--color-border: color-mix(in srgb, var(--color-marine) 14%, transparent);
-	--color-input: color-mix(in srgb, #ffffff 65%, var(--color-surface-cream));
+	--color-input: color-mix(in srgb, var(--color-white) 65%, var(--color-surface-cream));
 	--color-accent: var(--color-sunflower);
-	--color-accent-foreground: #2b2313;
+	--color-accent-foreground: var(--color-on-warning);
 	--color-accent-ink: color-mix(in oklab, var(--color-sunflower) 62%, black);
 	--color-offer: var(--color-terracotta);
-	--color-offer-foreground: #fffefb;
+	--color-offer-foreground: var(--color-on-error);
 	--color-offer-ink: color-mix(in oklab, var(--color-terracotta) 88%, black);
 	--color-card: var(--color-surface-raised);
 

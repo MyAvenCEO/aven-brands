@@ -23,7 +23,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.6",
-		"@myavenceo/aven-vibes": "^0.3.2",
+		"@myavenceo/aven-vibes": "^0.3.3",
 		"typescript": "6.0.2"
 	},
 	"engines": {

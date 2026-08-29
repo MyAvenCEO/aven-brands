@@ -11,7 +11,7 @@
 			"flex": "1",
 			"height": "3px",
 			"borderRadius": "var(--radius-pill)",
-			"background": "color-mix(in srgb, var(--color-ink) 12%, transparent)"
+			"background": "color-mix(in srgb, var(--color-foreground) 12%, transparent)"
 		},
 		"states": {
 			"selected": {

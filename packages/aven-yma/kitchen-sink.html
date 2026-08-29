@@ -44,6 +44,13 @@
 	--color-blush: #fdf5f9;
 	--color-line: #eef3f7;
 
+	/* ══ the inks guaranteed to read on a filled tone ══ */
+	--color-success-foreground: #ffffff;
+	--color-warning-foreground: #2c3646;
+	--color-error-foreground: #ffffff;
+	--color-info-foreground: #ffffff;
+	--color-white: #ffffff;
+
 	/* ══ 2 · THE SURFACES — which rung each part stands on ══ */
 	--color-surface-raised: var(--color-paper);
 	--color-surface-cream: var(--color-mist);
@@ -458,12 +465,12 @@
 	.ks-swatch { inline-size: 7rem; }
 	.ks-swatch-name { font-size: var(--fs-micro); margin: .35rem 0 0; }
 	.ks-chip { block-size: 3rem; border-radius: var(--radius-inner); }
-	.ks-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-block-end: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent); padding-block-end: .4rem; }
+	.ks-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-block-end: 1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent); padding-block-end: .4rem; }
 	.ks-row-meta { flex-shrink: 0; }
 	.ks-tint { block-size: 1.5rem; inline-size: 8rem; border-radius: var(--radius-chip); }
 	.ks-space { block-size: 1rem; background: var(--color-anchor); border-radius: 2px; }
 	.ks-box { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-inner); padding: 1rem; font-size: var(--fs-micro); }
-	.ks-demo { border: 1px dashed color-mix(in srgb, var(--color-ink) 16%, transparent); border-radius: var(--radius-inner); padding: var(--space-snug); }
+	.ks-demo { border: 1px dashed color-mix(in srgb, var(--color-foreground) 16%, transparent); border-radius: var(--radius-inner); padding: var(--space-snug); }
 	.ks-frame { --ratio: 16 / 9; max-inline-size: 20rem; }
 	.ks-full { inline-size: 100%; }
 
@@ -503,14 +510,14 @@
 	.ks-tracking-wide { letter-spacing: var(--tracking-wide); text-transform: uppercase; }
 	.ks-tracking-wider { letter-spacing: var(--tracking-wider); text-transform: uppercase; }
 	.ks-tracking-widest { letter-spacing: var(--tracking-widest); text-transform: uppercase; }
-	.ks-ink-loud { color: color-mix(in srgb, var(--color-ink) calc(var(--ink-loud) * 100%), transparent); }
-	.ks-ink-plain { color: color-mix(in srgb, var(--color-ink) calc(var(--ink-plain) * 100%), transparent); }
-	.ks-ink-quiet { color: color-mix(in srgb, var(--color-ink) calc(var(--ink-quiet) * 100%), transparent); }
-	.ks-ink-faint { color: color-mix(in srgb, var(--color-ink) calc(var(--ink-faint) * 100%), transparent); }
-	.ks-ink-ghost { color: color-mix(in srgb, var(--color-ink) calc(var(--ink-ghost) * 100%), transparent); }
-	.ks-tint-wash { background: color-mix(in srgb, var(--color-ink) calc(var(--tint-wash) * 100%), transparent); }
-	.ks-tint-soft { background: color-mix(in srgb, var(--color-ink) calc(var(--tint-soft) * 100%), transparent); }
-	.ks-tint-firm { background: color-mix(in srgb, var(--color-ink) calc(var(--tint-firm) * 100%), transparent); }
+	.ks-ink-loud { color: color-mix(in srgb, var(--color-foreground) calc(var(--ink-loud) * 100%), transparent); }
+	.ks-ink-plain { color: color-mix(in srgb, var(--color-foreground) calc(var(--ink-plain) * 100%), transparent); }
+	.ks-ink-quiet { color: color-mix(in srgb, var(--color-foreground) calc(var(--ink-quiet) * 100%), transparent); }
+	.ks-ink-faint { color: color-mix(in srgb, var(--color-foreground) calc(var(--ink-faint) * 100%), transparent); }
+	.ks-ink-ghost { color: color-mix(in srgb, var(--color-foreground) calc(var(--ink-ghost) * 100%), transparent); }
+	.ks-tint-wash { background: color-mix(in srgb, var(--color-foreground) calc(var(--tint-wash) * 100%), transparent); }
+	.ks-tint-soft { background: color-mix(in srgb, var(--color-foreground) calc(var(--tint-soft) * 100%), transparent); }
+	.ks-tint-firm { background: color-mix(in srgb, var(--color-foreground) calc(var(--tint-firm) * 100%), transparent); }
 	.ks-shadow-raised { box-shadow: var(--shadow-raised); }
 	.ks-shadow-floating { box-shadow: var(--shadow-floating); }
 	.ks-shadow-overlay { box-shadow: var(--shadow-overlay); }

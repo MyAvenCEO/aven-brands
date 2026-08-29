@@ -36,7 +36,7 @@
 			"color": "var(--color-foreground)"
 		},
 		"section-band": {
-			"borderBottom": "1px solid color-mix(in srgb, var(--color-ink) 25%, transparent)",
+			"borderBottom": "1px solid color-mix(in srgb, var(--color-foreground) 25%, transparent)",
 			"padding": "3.5rem 1.25rem"
 		},
 		"app-shell": {
@@ -110,7 +110,7 @@
 			"width": "min(100%, 34rem)",
 			"marginInline": "auto",
 			"padding": "2.5rem 2rem",
-			"border": "1px solid color-mix(in srgb, var(--color-ink) 8%, transparent)",
+			"border": "1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent)",
 			"borderRadius": "var(--radius-card)",
 			"background": "var(--color-surface-raised)",
 			"boxShadow": "var(--shadow-raised)"
@@ -151,7 +151,7 @@
 			"flex": "1",
 			"height": "3px",
 			"borderRadius": "var(--radius-pill)",
-			"background": "color-mix(in srgb, var(--color-ink) 12%, transparent)"
+			"background": "color-mix(in srgb, var(--color-foreground) 12%, transparent)"
 		},
 		"field": {
 			"display": "grid",

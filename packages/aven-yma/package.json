@@ -48,7 +48,7 @@
 		"build": "tsc -p tsconfig.json"
 	},
 	"dependencies": {
-		"@myavenceo/aven-vibes": "^0.3.2"
+		"@myavenceo/aven-vibes": "^0.3.3"
 	},
 	"devDependencies": {
 		"@types/node": "^26.3.0"

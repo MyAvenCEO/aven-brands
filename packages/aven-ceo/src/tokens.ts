@@ -126,33 +126,33 @@ export const vibeTokens: Record<string, string> = {
 	'font-sans': FONT_STACK.app,
 	'font-mono': FONT_STACK.app,
 
-	ink: TONES.ink,
-	text: TONES.ink,
-	muted: withAlpha(TONES.ink, 0.56),
-	'muted-strong': withAlpha(TONES.ink, 0.72),
+	ink: TONES.marine,
+	text: TONES.marine,
+	muted: withAlpha(TONES.marine, 0.56),
+	'muted-strong': withAlpha(TONES.marine, 0.72),
 
 	'bg-a': CREAMS.linen,
 	surface: withAlpha(CONTRAST_INK.white, 0.42),
 	'surface-2': withAlpha(CONTRAST_INK.white, 0.55),
 	'surface-raised': withAlpha(CONTRAST_INK.white, 0.55),
 
-	border: withAlpha(TONES.ink, 0.14),
-	'border-soft': withAlpha(TONES.ink, 0.08),
-	'border-strong': withAlpha(TONES.ink, 0.2),
+	border: withAlpha(TONES.marine, 0.14),
+	'border-soft': withAlpha(TONES.marine, 0.08),
+	'border-strong': withAlpha(TONES.marine, 0.2),
 
 	primary: TONES.marine,
-	'primary-foreground': TONES.chalk,
+	'primary-foreground': CREAMS.chalk,
 	secondary: TONES.sand,
 	'secondary-foreground': TONES.marine,
 	'brand-accent': TONES.sunflower,
 
-	ok: TONES['paradise-water'],
+	ok: TONES.turquoise,
 	warn: TONES.earth,
 	danger: TONES.terracotta,
 
 	'tech-fill': withAlpha(CONTRAST_INK.white, 0.45),
 	'tech-fill-inner': withAlpha(CONTRAST_INK.white, 0.66),
-	'hitl-dash': withAlpha(TONES.ink, 0.16),
+	'hitl-dash': withAlpha(TONES.marine, 0.16),
 
 	...VIBE_SCALE
 }
