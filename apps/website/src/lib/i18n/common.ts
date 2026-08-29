@@ -4,7 +4,7 @@ import type { Lang } from './index'
 export const common: Record<
 	Lang,
 	{
-		nav: { skills: string; avens: string; pricing: string; cta: string; menu: string }
+		nav: { skills: string; avens: string; pricing: string; docs: string; cta: string; menu: string }
 		switchLabel: string
 		footer: {
 			tagline: string
@@ -50,6 +50,7 @@ export const common: Record<
 			skills: 'Skills',
 			avens: 'Marketplace',
 			pricing: 'Preise',
+			docs: 'Docs',
 			cta: 'Aven einstellen',
 			menu: 'Menü'
 		},
@@ -96,6 +97,7 @@ export const common: Record<
 			skills: 'Skills',
 			avens: 'Marketplace',
 			pricing: 'Pricing',
+			docs: 'Docs',
 			cta: 'Hire your Aven',
 			menu: 'Menu'
 		},
