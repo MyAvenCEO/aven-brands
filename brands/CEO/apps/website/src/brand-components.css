@@ -1115,18 +1115,6 @@
 		text-align: center;
 	}
 
-	.flow-card-glyph {
-		display: grid;
-		place-items: center;
-		inline-size: 3rem;
-		block-size: 3rem;
-		margin-block-end: var(--space-tight);
-		border-radius: var(--radius-full);
-		border: 1px solid var(--color-border-soft);
-		background: var(--color-muted);
-		color: var(--color-foreground-soft);
-	}
-
 	.flow-card-eyebrow {
 		margin: 0;
 		font-size: var(--fs-micro);
@@ -1196,9 +1184,31 @@
 		color: var(--color-foreground-quiet);
 	}
 
+	.flow-card-crest {
+		display: grid;
+		place-items: center;
+		inline-size: 3rem;
+		block-size: 3rem;
+		margin-block-end: var(--space-tight);
+		border-radius: var(--radius-full);
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-muted);
+		color: var(--color-foreground-soft);
+		overflow: hidden;
+	}
+
+	.flow-card-status {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--fs-display);
+		font-weight: 500;
+		line-height: 1.1;
+		color: var(--color-foreground);
+	}
+
 	.flow-card--status-success {
 
-		& .flow-card-glyph {
+		& .flow-card-crest {
 			background: var(--color-success-surface);
 			border-color: var(--color-success-border);
 			color: var(--color-success-ink);
@@ -1207,7 +1217,7 @@
 
 	.flow-card--status-error {
 
-		& .flow-card-glyph {
+		& .flow-card-crest {
 			background: var(--color-error-surface);
 			border-color: var(--color-error-border);
 			color: var(--color-error-ink);
@@ -1216,10 +1226,34 @@
 
 	.flow-card--status-waiting {
 
-		& .flow-card-glyph {
+		& .flow-card-crest {
 			background: var(--color-progress-surface);
 			border-color: var(--color-progress-border);
 			color: var(--color-progress-ink);
+		}
+	}
+
+	.flow-card--crest-brand {
+
+		& .flow-card-crest {
+			background: transparent;
+			border: 0;
+			inline-size: 2.75rem;
+			block-size: 2.75rem;
+		}
+	}
+
+	.flow-card--answer-yes {
+
+		& .flow-card-status {
+			color: var(--color-success-ink);
+		}
+	}
+
+	.flow-card--answer-no {
+
+		& .flow-card-status {
+			color: var(--color-error-ink);
 		}
 	}
 

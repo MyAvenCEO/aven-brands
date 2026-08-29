@@ -1,14 +1,24 @@
 {
 	"name": "flow-card",
-	"description": "One step of a flow that happens away from the main product — authorising a device, confirming a purchase, recovering an account. avenID's device screen is the reference: a status glyph, an eyebrow, a heading, a description, a code to read aloud, an action, and a trust line.\n\nIt is a unit because that screen is where a user is asked to trust something, and every element on it is doing that job. The status glyph is not decoration — it is the difference between 'connected' and 'this link is broken', and on avenID it was three hand-drawn inline SVGs in a `{#if}` chain, which is three chances for the shapes to drift apart and no way for any other surface to reuse them.",
+	"description": "One step of a flow that happens away from the main product. THREE screens across TWO services are this shape, which is what made it a unit rather than a component: avenID's device authorisation, my.aven.ceo's name check, and my.aven.ceo's passkey sign-in. Each one is a mark or a status glyph, an eyebrow, a heading, a description, sometimes a code to read aloud, an action, and a line saying who you are talking to.\n\nIt is a unit because these are the screens where a user is asked to TRUST something, and every element on them is doing that job. On avenID the status glyph was three hand-drawn inline SVGs in an `{#if}` chain — three chances to drift and no way for another surface to reuse them. On checkout the same screen leads with the brand mark instead, which is why `crest` is a slot: what goes at the top of a trust screen is a decision the surface makes, not one this unit should force.",
 	"interface": {
-		"props": { "labelledBy": "string", "status": "string", "icon": "string" },
+		"props": {
+			"labelledBy": "string",
+			"status": "string",
+			"icon": "string"
+		},
 		"slots": {
+			"crest": {
+				"accepts": ["logo", "icon"]
+			},
+			"eyebrow": {},
 			"heading": {},
 			"description": {},
 			"code": {},
 			"alert": {},
-			"actions": { "accepts": ["btn"] },
+			"actions": {
+				"accepts": ["btn"]
+			},
 			"trust": {}
 		}
 	},
@@ -20,19 +30,52 @@
 			"data-status": "$props.status"
 		},
 		"$children": [
-			{ "tag": "div", "part": "glyph", "$icon": { "name": "$props.icon", "size": "1.5rem" } },
-			{ "tag": "p", "part": "eyebrow", "$children": "eyebrow" },
+			{
+				"tag": "div",
+				"part": "crest",
+				"$children": "crest"
+			},
+			{
+				"tag": "p",
+				"part": "eyebrow",
+				"$children": "eyebrow"
+			},
 			{
 				"tag": "h1",
 				"part": "heading",
-				"attrs": { "id": "$props.labelledBy" },
+				"attrs": {
+					"id": "$props.labelledBy"
+				},
 				"$children": "heading"
 			},
-			{ "tag": "p", "part": "description", "$children": "description" },
-			{ "tag": "div", "part": "code", "$children": "code" },
-			{ "tag": "div", "part": "alert", "attrs": { "role": "alert" }, "$children": "alert" },
-			{ "tag": "div", "part": "actions", "$children": "actions" },
-			{ "tag": "p", "part": "trust", "$children": "trust" }
+			{
+				"tag": "p",
+				"part": "description",
+				"$children": "description"
+			},
+			{
+				"tag": "div",
+				"part": "code",
+				"$children": "code"
+			},
+			{
+				"tag": "div",
+				"part": "alert",
+				"attrs": {
+					"role": "alert"
+				},
+				"$children": "alert"
+			},
+			{
+				"tag": "div",
+				"part": "actions",
+				"$children": "actions"
+			},
+			{
+				"tag": "p",
+				"part": "trust",
+				"$children": "trust"
+			}
 		]
 	},
 	"styling": {
@@ -53,18 +96,6 @@
 			"textAlign": "center"
 		},
 		"parts": {
-			"glyph": {
-				"$description": "The status, as a shape. It comes from the icon registry rather than being drawn inline per branch — three hand-written SVGs in an `{#if}` chain is three chances to drift and no way for another surface to reuse them. The tinted disc is the same tint/ink pairing a badge uses, so a status here and a status in a table read as the same system.",
-				"display": "grid",
-				"placeItems": "center",
-				"inlineSize": "3rem",
-				"blockSize": "3rem",
-				"marginBlockEnd": "var(--space-tight)",
-				"borderRadius": "var(--radius-full)",
-				"border": "1px solid var(--color-border-soft)",
-				"background": "var(--color-muted)",
-				"color": "var(--color-foreground-soft)"
-			},
 			"eyebrow": {
 				"margin": "0",
 				"fontSize": "var(--fs-micro)",
@@ -128,28 +159,71 @@
 				"margin": "var(--space-tight) 0 0",
 				"fontSize": "var(--fs-micro)",
 				"color": "var(--color-foreground-quiet)"
+			},
+			"crest": {
+				"$description": "What sits at the top of a trust screen — a status glyph on avenID, the brand mark on checkout. A slot rather than a fixed glyph, because those two surfaces are answering different questions: 'how is this going' and 'who is this'. The tinted disc is the same tint/ink pairing a badge uses, so a status here and a status in a table read as one system.",
+				"display": "grid",
+				"placeItems": "center",
+				"inlineSize": "3rem",
+				"blockSize": "3rem",
+				"marginBlockEnd": "var(--space-tight)",
+				"borderRadius": "var(--radius-full)",
+				"border": "1px solid var(--color-border-soft)",
+				"background": "var(--color-muted)",
+				"color": "var(--color-foreground-soft)",
+				"overflow": "hidden"
+			},
+			"status": {
+				"$description": "The answer, in one word, at the size the eye lands on first — `taken`, `free`, `expired`. On checkout this was a bare `.status` with `.taken` and `.free` beside it, which is colour carrying the meaning; the WORD carries it here and the colour agrees with it.",
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "var(--fs-display)",
+				"fontWeight": "500",
+				"lineHeight": "1.1",
+				"color": "var(--color-foreground)"
 			}
 		},
 		"variants": {
 			"status": {
-				"$description": "Where the flow is. It dresses the GLYPH and nothing else — a whole card turning green says the page succeeded, when what succeeded is one step.",
+				"$description": "Where the flow is. It dresses the CREST and nothing else — a whole card turning green says the page succeeded, when what succeeded is one step.",
 				"success": {
-					"$part": "glyph",
+					"$part": "crest",
 					"background": "var(--color-success-surface)",
 					"borderColor": "var(--color-success-border)",
 					"color": "var(--color-success-ink)"
 				},
 				"error": {
-					"$part": "glyph",
+					"$part": "crest",
 					"background": "var(--color-error-surface)",
 					"borderColor": "var(--color-error-border)",
 					"color": "var(--color-error-ink)"
 				},
 				"waiting": {
-					"$part": "glyph",
+					"$part": "crest",
 					"background": "var(--color-progress-surface)",
 					"borderColor": "var(--color-progress-border)",
 					"color": "var(--color-progress-ink)"
+				}
+			},
+			"crest": {
+				"$description": "What the crest holds. `brand` drops the tinted disc entirely, because a logo inside a coloured circle is a logo with a badge around it.",
+				"brand": {
+					"$part": "crest",
+					"background": "transparent",
+					"border": "0",
+					"inlineSize": "2.75rem",
+					"blockSize": "2.75rem"
+				}
+			},
+			"answer": {
+				"$description": "The colour agreeing with the word, never replacing it.",
+				"yes": {
+					"$part": "status",
+					"color": "var(--color-success-ink)"
+				},
+				"no": {
+					"$part": "status",
+					"color": "var(--color-error-ink)"
 				}
 			}
 		}

@@ -396,17 +396,36 @@ export const specimens: Record<string, Specimen> = {
 	},
 	'flow-card': {
 		tall: true,
-		one: `<span class="flow-card flow-card--status-waiting" style="display:grid">
-			<span class="flow-card-glyph">${icon('info', '1.5rem')}</span>
-			<p class="flow-card-eyebrow">Secure app connection</p>
-			<h3 class="flow-card-heading" style="margin:0">Authorize this device</h3>
-			<p class="flow-card-description">Confirm the connection to give the app access to your Aven account.</p>
-			<span class="flow-card-code">A4F2-9K7Q</span>
+		/* The checkout shape: brand mark, the answer as a word, an action. The
+		   avenID shape is the same unit with a status glyph instead of the mark. */
+		one: `<span class="flow-card flow-card--crest-brand flow-card--answer-no" style="display:grid">
+			<span class="flow-card-crest"><img src="/aven-logo.svg" alt="" width="44" height="44"></span>
+			<p class="flow-card-eyebrow">maia.aven.ceo</p>
+			<p class="flow-card-status">Taken</p>
+			<p class="flow-card-description">Someone claimed this one already. Every name exists exactly once — try another.</p>
 			<span class="flow-card-actions">
-				<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
-				<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
+				<button class="btn btn--primary" type="button"><span class="btn-label">Try another name</span></button>
 			</span>
-			<p class="flow-card-trust">Securely connected through aven.id</p>
+			<p class="flow-card-trust">Securely checked through aven.id</p>
+		</span>`,
+		html: `<span class="sp-row sp-row--cards">
+			<span class="flow-card flow-card--status-waiting" style="display:grid; inline-size:19rem">
+				<span class="flow-card-crest">${icon('info', '1.5rem')}</span>
+				<p class="flow-card-eyebrow">Secure app connection</p>
+				<p class="flow-card-heading" style="margin:0">Authorize this device</p>
+				<p class="flow-card-description">Confirm the connection to give the app access.</p>
+				<span class="flow-card-code">A4F2-9K7Q</span>
+				<span class="flow-card-actions"><button class="btn btn--primary btn--size-sm" type="button"><span class="btn-label">Authorize</span></button></span>
+				<p class="flow-card-trust">Securely connected through aven.id</p>
+			</span>
+			<span class="flow-card flow-card--status-success" style="display:grid; inline-size:19rem">
+				<span class="flow-card-crest">${icon('check', '1.5rem')}</span>
+				<p class="flow-card-eyebrow">Payment received</p>
+				<p class="flow-card-heading" style="margin:0">maia.aven.ceo is yours</p>
+				<p class="flow-card-description">We emailed the confirmation. You can close this page.</p>
+				<span class="flow-card-actions"><button class="btn btn--secondary btn--size-sm" type="button"><span class="btn-label">Open avenOS</span></button></span>
+				<p class="flow-card-trust">Securely paid through my.aven.ceo</p>
+			</span>
 		</span>`
 	},
 	'claim-card': {
