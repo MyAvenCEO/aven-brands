@@ -37,6 +37,10 @@
 			"types": "./dist/kitchen-sink.d.ts",
 			"import": "./dist/kitchen-sink.js"
 		},
+		"./vibes": {
+			"types": "./dist/vibes/index.d.ts",
+			"import": "./dist/vibes/index.js"
+		},
 		"./utilities": {
 			"types": "./dist/utilities.d.ts",
 			"import": "./dist/utilities.js"

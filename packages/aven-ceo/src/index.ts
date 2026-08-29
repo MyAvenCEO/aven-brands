@@ -15,6 +15,7 @@
  *   @myavenceo/aven-ceo/skills      the skill catalog on its own
  *   @myavenceo/aven-ceo/tokens      the palette — the one place a hex is spelled
  *   @myavenceo/aven-ceo/generate    the emitters each repo runs
+ *   @myavenceo/aven-ceo/vibes       the brand's vibes — brand style, chat, todo
  *   @myavenceo/aven-ceo/assets/*    logo.svg, favicon.svg, app-icon.svg
  */
 export * from './company.js'
