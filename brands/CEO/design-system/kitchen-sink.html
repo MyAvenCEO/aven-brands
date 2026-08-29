@@ -44,6 +44,10 @@
 	--color-on-success: #fafaf9;
 	--color-on-info: #2b231c;
 	--color-white: #ffffff;
+	--color-on-primary-soft: #ccd0d5;
+	--color-on-primary-quiet: #acb1b8;
+	--color-on-dark-soft: #f8fafcf0;
+	--color-on-dark-quiet: #f8fafcb8;
 
 	/* ══ 2 · THE SURFACES — every rung, both themes ══ */
 	--color-light-page: #fdfbf3;
@@ -63,55 +67,27 @@
 	--color-surface-sunken: var(--color-light-sunken);
 	--color-surface-card: var(--color-light-card);
 	--color-surface-selected: var(--color-light-selected);
-}
-
-/* The dark theme. Inert until something sets data-theme. */
-[data-theme="dark"] {
-	--color-surface-page: var(--color-dark-page);
-	--color-surface-raised: var(--color-dark-raised);
-	--color-surface-sunken: var(--color-dark-sunken);
-	--color-surface-card: var(--color-dark-card);
-	--color-surface-selected: var(--color-dark-selected);
-
-	/* roles that differ in the dark. */
-	--color-foreground: var(--color-on-dark);
-	--color-card-foreground: var(--color-on-dark);
-	--color-muted: #1c2637;
-	--color-muted-foreground: #8e9bb0;
-	--color-border: #2c3a4f;
-	--color-input: #1a2434;
-	--color-secondary: #2a3a56;
-	--color-secondary-foreground: var(--color-on-dark);
-	--color-primary: #f8fafc;
-	--color-primary-foreground: #1e293b;
-	--color-quiet-ink: #9fb3cc;
-	--color-progress-ink: #5cc0d8;
-	--color-success-ink: #6fc9c0;
-	--color-warning-ink: #f2c766;
-	--color-error-ink: #e08b73;
-	--color-info-ink: #e0b98f;
-	--color-accent-ink: #f2c766;
-	--color-offer-ink: #e08b73;
-	--color-border-strong: #44536b;
-	--color-border-soft: #232d3e;
-	--color-track: #2a3548;
-	--color-error-surface: #2e1c16;
-	--color-error-border: #6b3626;
-	--color-foreground-quiet: #a8b0bd;
-	--color-eyebrow-ink: #6cc3dd;
-}
-
-:root {
 
 	/* ══ 3 · THE ROLES — what a colour MEANS ══ */
 	--color-background: var(--color-surface-page);
 	--color-foreground: var(--color-on-light);
+	--color-foreground-soft: #4b5360;
 	--color-muted: #f4f4f0;
 	--color-muted-foreground: #7d8593;
 	--color-border: #dfe1e6;
 	--color-input: #fefdfa;
 	--color-primary: var(--color-marine);
 	--color-primary-foreground: var(--color-on-primary);
+	--color-primary-foreground-soft: var(--color-on-primary-soft);
+	--color-primary-foreground-quiet: var(--color-on-primary-quiet);
+	--color-band: #217c91;
+	--color-band-alt: #377d77;
+	--color-band-foreground: var(--color-on-dark);
+	--color-scrim-thin: #fdfbf3e6;
+	--color-scrim: #1e293b52;
+	--color-scrim-strong: #1e293b80;
+	--color-scrim-heavy: #1e293b8c;
+	--color-scrim-text: #1e293b73;
 	--color-secondary: var(--color-surface-selected);
 	--color-secondary-foreground: var(--color-marine);
 	--color-quiet: #57789e;
@@ -120,24 +96,36 @@
 	--color-progress: var(--color-paradise);
 	--color-progress-foreground: var(--color-on-dark);
 	--color-progress-ink: #135665;
+	--color-progress-surface: #dceae7;
+	--color-progress-border: #b8d7d8;
 	--color-success: var(--color-turquoise);
 	--color-success-foreground: var(--color-on-success);
 	--color-success-ink: #255b56;
+	--color-success-surface: #e1ede5;
+	--color-success-border: #c2ddd5;
 	--color-warning: var(--color-sunflower);
 	--color-warning-foreground: var(--color-on-warning);
 	--color-warning-ink: #7f601b;
+	--color-warning-surface: #fbf1d8;
+	--color-warning-border: #f9e6b9;
 	--color-error: var(--color-terracotta);
 	--color-error-foreground: var(--color-on-error);
 	--color-error-ink: #9b4832;
 	--color-info: var(--color-earth);
 	--color-info-foreground: var(--color-on-info);
 	--color-info-ink: #886748;
+	--color-info-surface: #f7eee0;
+	--color-info-border: #f0dfca;
 	--color-accent: var(--color-sunflower);
 	--color-accent-foreground: var(--color-on-warning);
 	--color-accent-ink: #7f601b;
+	--color-accent-surface: #fbf1d8;
+	--color-accent-border: #f9e6b9;
 	--color-offer: var(--color-terracotta);
 	--color-offer-foreground: var(--color-on-error);
 	--color-offer-ink: #a24b34;
+	--color-offer-surface: #f4e3d8;
+	--color-offer-border: #eac8ba;
 	--color-card: var(--color-surface-card);
 	--color-card-foreground: var(--color-on-light);
 	--color-border-strong: #c7c7c8;
@@ -145,12 +133,15 @@
 	--color-track: #e4e3e0;
 	--color-error-surface: #faf0e8;
 	--color-error-border: #e9c5b7;
-	--color-foreground-quiet: #6d737c;
-	--color-eyebrow-ink: #1f7a8f;
+	--color-foreground-quiet: #626770;
+	--color-eyebrow-ink: #1d7084;
+	--color-focus: #ab790b;
 
-	--radius-lg: 1rem;
-	--radius-xl: 1.5rem;
-	--radius-2xl: 2rem;
+	--radius-xs: 0.375rem;
+	--radius-sm: 0.625rem;
+	--radius-md: 0.875rem;
+	--radius-lg: 1.25rem;
+	--radius-xl: 1.75rem;
 	--radius-full: 9999px;
 
 	/* ══ 4 · THE SCALES — type, tracking, emphasis, elevation, geometry ══
@@ -177,11 +168,12 @@
 	--shadow-raised: 0 1px 3px rgba(30, 41, 59, 0.05);
 	--shadow-floating: 0 4px 16px rgba(30, 41, 59, 0.12);
 	--shadow-overlay: 0 12px 40px rgba(30, 41, 59, 0.18);
-	--radius-chip: 0.5rem;
-	--radius-inner: 0.75rem;
-	--radius-card: 1.5rem;
-	--radius-panel: 2rem;
-	--radius-pill: 9999px;
+	--radius-xs: 0.375rem;
+	--radius-sm: 0.625rem;
+	--radius-md: 0.875rem;
+	--radius-lg: 1.25rem;
+	--radius-xl: 1.75rem;
+	--radius-full: 9999px;
 	--space-tight: 0.5rem;
 	--space-snug: 0.75rem;
 	--space-comfortable: 1rem;
@@ -197,6 +189,59 @@
 	--tint-firm: 0.25;
 }
 
+/* The dark theme. Inert until something sets data-theme, and LAST so it
+ * wins — it shares a specificity with `:root`, so only order separates
+ * them. */
+[data-theme="dark"] {
+	--color-surface-page: var(--color-dark-page);
+	--color-surface-raised: var(--color-dark-raised);
+	--color-surface-sunken: var(--color-dark-sunken);
+	--color-surface-card: var(--color-dark-card);
+	--color-surface-selected: var(--color-dark-selected);
+
+	/* roles that differ in the dark. */
+	--color-scrim-thin: #151e30e6;
+	--color-progress-surface: #193649;
+	--color-progress-border: #1c4c5f;
+	--color-success-surface: #203a46;
+	--color-success-border: #29545a;
+	--color-warning-surface: #464133;
+	--color-warning-border: #726035;
+	--color-info-surface: #403c3f;
+	--color-info-border: #66564c;
+	--color-accent-surface: #464133;
+	--color-accent-border: #726035;
+	--color-offer-surface: #3c2c34;
+	--color-offer-border: #5e3837;
+	--color-foreground: var(--color-on-dark);
+	--color-foreground-soft: #cbced3;
+	--color-card-foreground: var(--color-on-dark);
+	--color-muted: #1c2637;
+	--color-muted-foreground: #8e9bb0;
+	--color-border: #2c3a4f;
+	--color-input: #1a2434;
+	--color-secondary: #2a3a56;
+	--color-secondary-foreground: var(--color-on-dark);
+	--color-primary: #f8fafc;
+	--color-primary-foreground: #1e293b;
+	--color-quiet-ink: #9fb3cc;
+	--color-progress-ink: #5cc0d8;
+	--color-success-ink: #6fc9c0;
+	--color-warning-ink: #f2c766;
+	--color-error-ink: #e08b73;
+	--color-info-ink: #e0b98f;
+	--color-accent-ink: #f2c766;
+	--color-offer-ink: #e08b73;
+	--color-border-strong: #44536b;
+	--color-border-soft: #232d3e;
+	--color-track: #2a3548;
+	--color-error-surface: #2e1c16;
+	--color-error-border: #6b3626;
+	--color-foreground-quiet: #b5bcc7;
+	--color-focus: var(--color-sunflower);
+	--color-eyebrow-ink: #6cc3dd;
+}
+
 /* GENERATED by avenCEO via @myavenceo/aven-vibes — do not edit.
  * Every value here comes from the aven-ceo brand definition.
  * Re-generate with `bun run brand:generate`; edits are overwritten. */
@@ -209,7 +254,13 @@
  * after every declared one, so leaving the reset off this line would have
  * given it the last word over every utility in the codebase — a reset that
  * wins is not a reset. */
-@layer reset, tokens, base, primitives, components, utilities;
+@layer reset, tokens, base, primitives, components, utilities, motion;
+
+/* `motion` is LAST on purpose. The reduced-motion floor lives there, and
+ * layer order beats specificity: a floor written into the reset layer is
+ * overridden by any utility, which is how `.transition-all` kept its 0.15s
+ * through a correctly written reset. Last means it wins by cascade rather
+ * than by `!important`. */
 
 @layer primitives {
 	/* The shapes almost every layout is made of. Each is one idea, tuned
@@ -290,11 +341,43 @@
 
 @layer components {
 	.card {
-		border-radius: var(--radius-card);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-tight);
+		min-inline-size: 0;
+		padding: var(--space-loose);
+		border-radius: var(--radius-lg);
 		border: 1px solid var(--color-border);
 		background: var(--color-surface-raised);
-		padding: var(--space-loose);
-		box-shadow: var(--shadow-raised);
+		color: inherit;
+		text-decoration: none;
+		transition: border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out);
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			transform: translateY(-2px);
+			border-color: var(--color-border-strong);
+			box-shadow: var(--shadow-raised);
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			transform: translateY(0);
+			box-shadow: none;
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+			box-shadow: none;
+			transform: none;
+		}
+		&[aria-selected="true"], &[aria-pressed="true"] {
+			border-color: var(--color-primary);
+			box-shadow: inset 0 0 0 1px var(--color-primary);
+		}
+		@media (prefers-reduced-motion: reduce) {
+			transition: border-color 0.01ms;
+		}
 	}
 
 	.eyebrow {
@@ -372,28 +455,49 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--space-tight);
-		min-height: 2.75rem;
-		padding: 0 1.75rem;
-		border: 0;
-		border-radius: var(--radius-pill);
+		gap: var(--space-hairline);
+		min-block-size: 2.5rem;
+		padding-inline: 1.25rem;
+		border: 1px solid transparent;
+		border-radius: var(--radius-full);
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
 		font: inherit;
-		font-size: var(--fs-section);
+		font-size: var(--fs-meta);
 		font-weight: 600;
+		line-height: 1;
+		letter-spacing: var(--tracking-tight);
+		white-space: nowrap;
 		cursor: pointer;
-		transition: opacity 0.15s ease;
+		transition: background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out);
+		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%);
+		border-color: color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary));
 
-		&:hover:not(:disabled) {
-			opacity: 0.9;
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			transform: translateY(-1px);
+			box-shadow: var(--shadow-overlay);
 		}
-		&:disabled {
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			transform: translateY(0);
+			box-shadow: none;
+		}
+		&[disabled], &[aria-disabled="true"] {
+			background: var(--color-muted);
+			color: var(--color-foreground-quiet);
+			border-color: var(--color-border-soft);
+			box-shadow: none;
+			transform: none;
 			cursor: default;
-			opacity: 0.55;
 		}
-		@container (width < 22rem) {
-			width: 100%;
+		&[aria-busy="true"] {
+			cursor: progress;
+			opacity: 1;
+		}
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
 		}
 	}
 
@@ -401,7 +505,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
-		border-radius: var(--radius-chip);
+		border-radius: var(--radius-xs);
 		background: var(--color-surface-sunken);
 		font-size: var(--fs-micro);
 		padding: 0.125rem 0.375rem;
@@ -413,7 +517,7 @@
 		margin-inline: auto;
 		padding: 2.5rem 2rem;
 		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius-card);
+		border-radius: var(--radius-lg);
 		background: var(--color-surface-raised);
 		box-shadow: var(--shadow-raised);
 	}
@@ -421,7 +525,7 @@
 	.well {
 		padding: var(--space-comfortable);
 		border: 1px solid var(--color-border);
-		border-radius: var(--radius-inner);
+		border-radius: var(--radius-sm);
 		background: var(--color-surface-sunken);
 	}
 
@@ -441,7 +545,7 @@
 	.alert {
 		padding: 0.75rem 1rem;
 		border: 1px solid var(--color-error-border);
-		border-radius: var(--radius-inner);
+		border-radius: var(--radius-sm);
 		background: var(--color-error-surface);
 		color: var(--color-error-ink, color-mix(in oklab, var(--color-terracotta) 85%, black));
 		font-size: var(--fs-body);
@@ -458,15 +562,18 @@
 	.step {
 		flex: 1;
 		height: 3px;
-		border-radius: var(--radius-pill);
-		background: var(--color-track);
+		border-radius: var(--radius-full);
+		background: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+
+		&[aria-selected="true"], &[aria-pressed="true"] {
+			background: var(--color-primary);
+			color: var(--color-primary-foreground);
+		}
 	}
 
 	.field {
 		display: grid;
-		gap: var(--space-tight);
-		width: 100%;
-		text-align: left;
+		gap: var(--space-hairline);
 	}
 
 	.ghost {
@@ -476,7 +583,7 @@
 		min-height: 2.75rem;
 		padding: 0 1.25rem;
 		border: 1px solid var(--color-border);
-		border-radius: var(--radius-pill);
+		border-radius: var(--radius-full);
 		background: transparent;
 		color: var(--color-foreground-quiet);
 		font: inherit;
@@ -491,6 +598,1605 @@
 	.meta {
 		font-size: var(--fs-meta);
 		color: var(--color-foreground-quiet);
+	}
+
+	.logo-mark {
+		inline-size: 1.75rem;
+		block-size: 1.75rem;
+		flex-shrink: 0;
+	}
+
+	.logo-wordmark {
+		display: inline-flex;
+		align-items: baseline;
+		white-space: nowrap;
+	}
+
+	.logo-word-aven {
+		font-family: var(--font-display);
+		font-weight: 300;
+		font-size: 1.4em;
+		line-height: 1;
+	}
+
+	.logo-word-ceo {
+		font-family: var(--font-sans);
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-tight);
+		text-decoration: none;
+		color: inherit;
+		font-size: var(--fs-lead);
+		letter-spacing: var(--tracking-tight);
+	}
+
+	.logo--mark {
+		gap: 0;
+	}
+
+	.logo--wordmark {
+		gap: 0;
+	}
+
+	.text {
+		margin: 0;
+	}
+
+	.text--title {
+		font-size: var(--fs-hero);
+		font-weight: 600;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-foreground);
+	}
+
+	.text--section-title {
+		font-size: var(--fs-amount);
+		font-weight: 600;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-foreground);
+	}
+
+	.text--lede {
+		font-size: var(--fs-lead);
+		line-height: 1.5;
+		color: color-mix(in srgb, var(--color-foreground) 75%, transparent);
+	}
+
+	.text--meta {
+		font-size: var(--fs-meta);
+		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+	}
+
+	.text--mono-meta {
+		font-family: var(--font-mono);
+		font-size: var(--fs-micro);
+		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+	}
+
+	.text--digits {
+		font-size: var(--fs-amount);
+		font-weight: 500;
+		letter-spacing: var(--tracking-tight);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.text--eyebrow {
+		font-size: var(--fs-eyebrow);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+	}
+
+	.text--eyebrow-accent {
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black));
+	}
+
+	.text--eyebrow-quiet {
+		font-size: var(--fs-nano);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: color-mix(in srgb, var(--color-foreground) 65%, transparent);
+	}
+
+	.prose {
+		max-inline-size: 65ch;
+		min-inline-size: 0;
+		font-size: var(--fs-body);
+		line-height: 1.6;
+		color: var(--color-foreground-soft);
+		text-wrap: pretty;
+	}
+
+	.prose--measure-narrow {
+		max-inline-size: 48ch;
+	}
+
+	.prose--measure-wide {
+		max-inline-size: 75ch;
+	}
+
+	.prose--align-center {
+		margin-inline: auto;
+		text-align: center;
+	}
+
+	.prose--size-lead {
+		font-size: var(--fs-lead);
+		font-weight: 300;
+		line-height: 1.45;
+		max-inline-size: 52ch;
+	}
+
+	.prose--size-fine {
+		font-size: var(--fs-micro);
+		color: var(--color-foreground-quiet);
+	}
+
+	.surface {
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		background: var(--color-surface-raised);
+		padding: var(--space-loose);
+		box-shadow: var(--shadow-raised);
+	}
+
+	.surface--raised {
+		background: var(--color-surface-raised);
+	}
+
+	.surface--sunken {
+		background: var(--color-muted);
+		box-shadow: none;
+	}
+
+	.surface--plain {
+		background: transparent;
+		box-shadow: none;
+	}
+
+	.surface--size-sm {
+		border-radius: var(--radius-sm);
+		padding: var(--space-comfortable);
+	}
+
+	.surface--size-lg {
+		border-radius: var(--radius-xl);
+		padding: var(--space-section);
+	}
+
+	.card--emphasis-featured {
+		border-color: var(--color-accent);
+		box-shadow: var(--shadow-raised);
+	}
+
+	.card--emphasis-quiet {
+		border-style: dashed;
+		background: var(--color-surface-sunken);
+	}
+
+	.card--density-compact {
+		padding: var(--space-comfortable);
+		border-radius: var(--radius-sm);
+	}
+
+	.card--density-roomy {
+		padding: var(--space-section);
+	}
+
+	.section {
+		padding-inline: var(--space-comfortable);
+		padding-block: var(--space-section);
+		border-block-end: 1px solid var(--color-border-soft);
+	}
+
+	.section-inner {
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: 72rem;
+		min-inline-size: 0;
+	}
+
+	.section--rhythm-tight {
+		padding-block: var(--space-loose);
+	}
+
+	.section--rhythm-loose {
+		padding-block: calc(var(--space-section) * 1.4);
+	}
+
+	.section--ground-band {
+		background: var(--color-band);
+		color: var(--color-band-foreground);
+		border-block-end-color: transparent;
+	}
+
+	.section--ground-band-alt {
+		background: var(--color-band-alt);
+		color: var(--color-band-foreground);
+		border-block-end-color: transparent;
+	}
+
+	.section--ground-raised {
+		background: var(--color-surface-raised);
+	}
+
+	.section--ground-plain {
+		border-block-end-color: transparent;
+	}
+
+	.section--measure-prose {
+
+		& .section-inner {
+			max-inline-size: 44rem;
+		}
+	}
+
+	.section--measure-wide {
+
+		& .section-inner {
+			max-inline-size: 84rem;
+		}
+	}
+
+	.hero {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-block-size: 85vh;
+		padding-inline: var(--space-comfortable);
+		padding-block: clamp(5rem, 12vh, 9rem);
+		color: var(--color-on-dark);
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+	}
+
+	.hero-media {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+	}
+
+	.hero-scrim {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(to bottom, var(--color-scrim-strong) 0%, var(--color-scrim) 42%, var(--color-scrim-heavy) 100%);
+	}
+
+	.hero-content {
+		position: relative;
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: 48rem;
+		min-inline-size: 0;
+		text-align: center;
+	}
+
+	.hero-eyebrow {
+		margin: 0 0 var(--space-tight);
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-on-dark);
+	}
+
+	.hero-heading {
+		margin: 0;
+		max-inline-size: 48rem;
+		margin-inline: auto;
+		font-size: clamp(2rem, 6.5vw, 4rem);
+		font-weight: 300;
+		line-height: 1.1;
+		letter-spacing: var(--tracking-tight);
+		text-wrap: pretty;
+		color: var(--color-on-dark);
+		text-shadow: 0 2px 24px var(--color-scrim-text);
+	}
+
+	.hero-lead {
+		margin-block: var(--space-section) 0;
+		margin-inline: auto;
+		max-inline-size: 42rem;
+		font-size: var(--fs-lead);
+		font-weight: 300;
+		line-height: 1.25;
+		text-wrap: pretty;
+		color: var(--color-on-dark-soft);
+		text-shadow: 0 1px 16px var(--color-scrim-text);
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-tight);
+		margin-block-start: var(--space-section);
+	}
+
+	.hero-helper {
+		margin-block: var(--space-comfortable) 0;
+		font-size: var(--fs-section);
+		line-height: 1.25;
+		color: var(--color-on-dark-quiet);
+		text-shadow: 0 1px 12px var(--color-scrim-text);
+	}
+
+	.hero--height-full {
+		min-block-size: 100dvh;
+	}
+
+	.hero--height-short {
+		min-block-size: min(56dvh, 34rem);
+	}
+
+	.hero--align-start {
+
+		& .hero-content {
+			text-align: start;
+		}
+	}
+
+	.hero--ground-band {
+		background: var(--color-band);
+		color: var(--color-band-foreground);
+	}
+
+	.hero--ground-marine {
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+	}
+
+	.media {
+		display: block;
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+		object-position: center;
+		background-color: var(--color-primary);
+
+		@media (prefers-reduced-motion: reduce) {
+			background-image: var(--media-poster, none);
+			background-size: cover;
+			background-position: center;
+		}
+	}
+
+	.media--placement-behind {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+	}
+
+	.media--ratio-wide {
+		aspect-ratio: 16 / 9;
+		block-size: auto;
+	}
+
+	.media--ratio-square {
+		aspect-ratio: 1;
+		block-size: auto;
+	}
+
+	.media--ratio-portrait {
+		aspect-ratio: 3 / 4;
+		block-size: auto;
+	}
+
+	.media--fit-contain {
+		object-fit: contain;
+	}
+
+	.stat {
+		display: grid;
+		gap: 0.15rem;
+		min-inline-size: 0;
+	}
+
+	.stat-value {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--fs-display);
+		font-weight: 500;
+		line-height: 1;
+		font-variant-numeric: tabular-nums;
+		color: var(--color-foreground);
+	}
+
+	.stat-label {
+		margin: 0;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wider);
+		color: var(--color-foreground-quiet);
+	}
+
+	.stat-caption {
+		margin: 0;
+		font-size: var(--fs-micro);
+		color: var(--color-foreground-soft);
+	}
+
+	.stat--align-center {
+		justify-items: center;
+		text-align: center;
+	}
+
+	.stat--tone-accent {
+
+		& .stat-value {
+			color: var(--color-accent-ink);
+		}
+	}
+
+	.stat--tone-progress {
+
+		& .stat-value {
+			color: var(--color-progress-ink);
+		}
+	}
+
+	.stat--size-sm {
+
+		& .stat-value {
+			font-size: var(--fs-amount);
+		}
+	}
+
+	.stat--size-lg {
+
+		& .stat-value {
+			font-size: var(--fs-hero);
+		}
+	}
+
+	.skill-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-tight);
+		min-inline-size: 0;
+		block-size: 100%;
+		padding: var(--space-loose);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		background: var(--color-surface-raised);
+		color: inherit;
+		text-decoration: none;
+		transition: border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out);
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			transform: translateY(-2px);
+			border-color: var(--color-border-strong);
+			box-shadow: var(--shadow-raised);
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			transform: translateY(0);
+			box-shadow: none;
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+			transform: none;
+			box-shadow: none;
+		}
+		@media (prefers-reduced-motion: reduce) {
+			transition: border-color 0.01ms;
+		}
+	}
+
+	.skill-card-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-tight);
+	}
+
+	.skill-card-title {
+		margin: 0;
+		font-size: var(--fs-title);
+		font-weight: 600;
+		color: var(--color-foreground);
+	}
+
+	.skill-card-summary {
+		margin: 0;
+		max-inline-size: 42ch;
+		font-size: var(--fs-meta);
+		line-height: 1.55;
+		color: var(--color-foreground-soft);
+	}
+
+	.skill-card-rail {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-tight);
+		margin-block-start: auto;
+		padding-block-start: var(--space-tight);
+		border-block-start: 1px solid var(--color-border-soft);
+	}
+
+	.skill-card-promise {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.125rem 0.5rem;
+		border-radius: var(--radius-full);
+		border: 1px solid var(--color-progress-border);
+		background: var(--color-progress-surface);
+		color: var(--color-progress-ink);
+		font-size: var(--fs-nano);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+	}
+
+	.skill-card-more {
+		font-size: var(--fs-meta);
+		font-weight: 600;
+		color: var(--color-foreground-quiet);
+	}
+
+	.skill-card-eyebrow {
+		margin: 0;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-foreground-quiet);
+	}
+
+	.skill-card-quote {
+		margin: 0;
+		font-size: var(--fs-meta);
+		font-style: italic;
+		line-height: 1.5;
+		color: var(--color-foreground-quiet);
+	}
+
+	.skill-card-chains {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+	}
+
+	.skill-card-chain {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.2rem;
+		padding: 0.1rem 0.45rem;
+		border-radius: var(--radius-full);
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-surface-page);
+		font-size: var(--fs-nano);
+		font-weight: 600;
+		color: var(--color-foreground-quiet);
+	}
+
+	.skill-card--emphasis-featured {
+		border-color: var(--color-accent);
+		box-shadow: var(--shadow-raised);
+	}
+
+	.skill-card--emphasis-soon {
+		border-style: dashed;
+		background: var(--color-surface-sunken);
+	}
+
+	.btn--primary {
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+		border-color: color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary));
+		box-shadow: var(--shadow-raised);
+		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%);
+	}
+
+	.btn--secondary {
+		background: transparent;
+		color: var(--color-foreground);
+		border-color: var(--color-border-strong);
+		background-image: none;
+	}
+
+	.btn--danger {
+		background: var(--color-error);
+		color: var(--color-error-foreground);
+		border-color: color-mix(in oklab, var(--color-error-foreground) 22%, var(--color-error));
+		box-shadow: var(--shadow-raised);
+		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-error-foreground) 12%, var(--color-error)) 0%, var(--color-error) 62%);
+	}
+
+	.btn--ghost {
+		background: transparent;
+		color: var(--color-foreground-soft);
+		border-color: transparent;
+		background-image: none;
+	}
+
+	.btn--accent {
+		background: var(--color-accent);
+		color: var(--color-accent-foreground);
+		border-color: color-mix(in oklab, #ffffff 28%, var(--color-accent));
+		box-shadow: var(--shadow-raised);
+		background-image: linear-gradient(180deg, color-mix(in oklab, #ffffff 12%, var(--color-accent)) 0%, var(--color-accent) 62%);
+	}
+
+	.btn--unavailable {
+		background: var(--color-muted);
+		color: var(--color-foreground-quiet);
+		border-color: var(--color-border-soft);
+		cursor: default;
+		box-shadow: none;
+		background-image: none;
+	}
+
+	.btn--icon {
+		padding-inline: 0;
+		inline-size: 2.5rem;
+		background: transparent;
+		background-image: none;
+		color: var(--color-foreground-soft);
+		border-color: transparent;
+		box-shadow: none;
+	}
+
+	.btn--size-sm {
+		min-block-size: 2rem;
+		padding-inline: 0.875rem;
+		font-size: var(--fs-eyebrow);
+	}
+
+	.btn--size-md {
+		min-block-size: 2.5rem;
+		padding-inline: 1.25rem;
+		font-size: var(--fs-meta);
+	}
+
+	.btn--size-lg {
+		min-block-size: 2.75rem;
+		padding-inline: 1.75rem;
+		font-size: var(--fs-body);
+	}
+
+	.btn--size-xl {
+		min-block-size: 3.5rem;
+		padding-inline: 2rem;
+		font-size: var(--fs-lead);
+	}
+
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-hairline);
+		padding: 0.125rem 0.5rem;
+		border-radius: var(--radius-full);
+		font-size: var(--fs-nano);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wider);
+		white-space: nowrap;
+		background: var(--color-muted);
+		color: var(--color-foreground-soft);
+		border: 1px solid var(--color-border-soft);
+	}
+
+	.badge--tone-neutral {
+		background: var(--color-muted);
+		color: var(--color-foreground-soft);
+		border-color: var(--color-border-soft);
+	}
+
+	.badge--tone-accent {
+		background: var(--color-accent-surface);
+		color: var(--color-accent-ink);
+		border-color: var(--color-accent-border);
+	}
+
+	.badge--tone-progress {
+		background: var(--color-progress-surface);
+		color: var(--color-progress-ink);
+		border-color: var(--color-progress-border);
+	}
+
+	.badge--tone-success {
+		background: var(--color-success-surface);
+		color: var(--color-success-ink);
+		border-color: var(--color-success-border);
+	}
+
+	.badge--tone-warning {
+		background: var(--color-warning-surface);
+		color: var(--color-warning-ink);
+		border-color: var(--color-warning-border);
+	}
+
+	.badge--tone-error {
+		background: var(--color-error-surface);
+		color: var(--color-error-ink);
+		border-color: var(--color-error-border);
+	}
+
+	.badge--emphasis-solid {
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+		border-color: var(--color-primary);
+	}
+
+	.badge--emphasis-quiet {
+		background: transparent;
+		border-color: var(--color-border-strong);
+		color: var(--color-foreground-quiet);
+	}
+
+	.badge--size-sm {
+		padding: 0.05rem 0.4rem;
+		font-size: var(--fs-nano);
+	}
+
+	.badge--size-md {
+		padding: 0.125rem 0.5rem;
+		font-size: var(--fs-nano);
+	}
+
+	.badge--size-lg {
+		padding: 0.25rem 0.7rem;
+		font-size: var(--fs-micro);
+	}
+
+	.icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		inline-size: 1em;
+		block-size: 1em;
+		font-size: 2rem;
+		color: currentColor;
+		vertical-align: -0.125em;
+	}
+
+	.icon--size-xs {
+		font-size: 1rem;
+	}
+
+	.icon--size-sm {
+		font-size: 1.25rem;
+	}
+
+	.icon--size-md {
+		font-size: 1.5rem;
+	}
+
+	.icon--size-lg {
+		font-size: 2rem;
+	}
+
+	.icon--size-xl {
+		font-size: 2.5rem;
+	}
+
+	.icon--tone-quiet {
+		color: var(--color-foreground-quiet);
+	}
+
+	.icon--tone-accent {
+		color: var(--color-accent-ink);
+	}
+
+	.icon--tone-progress {
+		color: var(--color-progress-ink);
+	}
+
+	.icon--tone-success {
+		color: var(--color-success-ink);
+	}
+
+	.icon--tone-warning {
+		color: var(--color-warning-ink);
+	}
+
+	.icon--tone-error {
+		color: var(--color-error-ink);
+	}
+
+	.tabs {
+		display: grid;
+		gap: var(--space-comfortable);
+	}
+
+	.tabs-list {
+		display: flex;
+		gap: var(--space-hairline);
+		overflow-x: auto;
+		scrollbar-width: thin;
+		border-block-end: 1px solid var(--color-border);
+		mask-image: linear-gradient(to right, #000 calc(100% - 1.5rem), transparent);
+	}
+
+	.tabs-tab {
+		min-block-size: 2.75rem;
+		padding: 0 var(--space-comfortable);
+		border: 0;
+		background: transparent;
+		color: var(--color-foreground-quiet);
+		font: inherit;
+		font-size: var(--fs-meta);
+		font-weight: 600;
+		white-space: nowrap;
+		cursor: pointer;
+		border-block-end: 2px solid transparent;
+
+		&[aria-selected="true"], &[aria-pressed="true"] {
+			color: var(--color-foreground);
+			border-block-end-color: var(--color-primary);
+		}
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			color: var(--color-foreground);
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+	}
+
+	.tabs-panel {
+		min-inline-size: 0;
+	}
+
+	.field-label {
+		font-size: var(--fs-meta);
+		font-weight: 500;
+		color: var(--color-foreground);
+	}
+
+	.field-control {
+		inline-size: 100%;
+		min-inline-size: 0;
+		min-block-size: 2.75rem;
+		padding: 0 var(--space-comfortable);
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--color-border-strong);
+		background: var(--color-input);
+		color: var(--color-foreground);
+		font: inherit;
+		font-size: var(--fs-body);
+
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+		}
+	}
+
+	.field-hint {
+		font-size: var(--fs-micro);
+		color: var(--color-foreground-quiet);
+	}
+
+	.field-error {
+		font-size: var(--fs-micro);
+		color: var(--color-error-ink);
+	}
+
+	.field--size-sm {
+
+		& .field-control {
+			min-block-size: 2.25rem;
+			font-size: var(--fs-meta);
+		}
+	}
+
+	.toast {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--space-tight);
+		max-inline-size: min(26rem, calc(100vw - 2rem));
+		padding: var(--space-comfortable);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		background: var(--color-surface-raised);
+		box-shadow: var(--shadow-overlay);
+		color: var(--color-foreground);
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: opacity var(--duration-quick) ease-out;
+		}
+	}
+
+	.toast-icon {
+		flex-shrink: 0;
+		margin-block-start: 0.125rem;
+	}
+
+	.toast-copy {
+		display: grid;
+		gap: var(--space-hairline);
+		min-inline-size: 0;
+	}
+
+	.toast-title {
+		font-size: var(--fs-meta);
+		font-weight: 600;
+	}
+
+	.toast-body {
+		font-size: var(--fs-micro);
+		color: var(--color-foreground-soft);
+		overflow-wrap: anywhere;
+	}
+
+	.toast-dismiss {
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 1.5rem;
+		block-size: 1.5rem;
+		border: 0;
+		border-radius: var(--radius-sm);
+		background: transparent;
+		color: var(--color-foreground-quiet);
+		cursor: pointer;
+	}
+
+	.toast--tone-success {
+
+		& .toast-icon {
+			color: var(--color-success-ink);
+		}
+	}
+
+	.toast--tone-error {
+
+		& .toast-icon {
+			color: var(--color-error-ink);
+		}
+	}
+
+	.toast--tone-warning {
+
+		& .toast-icon {
+			color: var(--color-warning-ink);
+		}
+	}
+
+	.toast--tone-info {
+
+		& .toast-icon {
+			color: var(--color-progress-ink);
+		}
+	}
+
+	.table {
+		inline-size: 100%;
+		min-inline-size: 0;
+	}
+
+	.table-scroller {
+		overflow-x: auto;
+		min-inline-size: 0;
+		mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+	}
+
+	.table-cell {
+		padding: var(--space-tight) var(--space-comfortable);
+		text-align: start;
+		font-size: var(--fs-meta);
+		border-block-end: 1px solid var(--color-border-soft);
+	}
+
+	.table-header {
+		padding: var(--space-tight) var(--space-comfortable);
+		text-align: start;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wider);
+		color: var(--color-foreground-quiet);
+		white-space: nowrap;
+		border-block-end: 1px solid var(--color-border-strong);
+	}
+
+	.table-numeric {
+		text-align: end;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.table-row {
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			background: var(--color-muted);
+		}
+		&[aria-selected="true"], &[aria-pressed="true"] {
+			background: var(--color-surface-selected);
+		}
+	}
+
+	.table--density-compact {
+
+		& .table-cell {
+			padding: var(--space-hairline) var(--space-tight);
+		}
+	}
+
+	.sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-comfortable);
+		inline-size: min(16rem, 78vw);
+		min-inline-size: 0;
+		padding: var(--space-comfortable);
+		border-inline-end: 1px solid var(--color-border);
+		background: var(--color-surface-raised);
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+	}
+
+	.sidebar-items {
+		display: grid;
+		gap: var(--space-hairline);
+		min-block-size: 0;
+		overflow-y: auto;
+	}
+
+	.sidebar-footer {
+		margin-block-start: auto;
+		padding-block-start: var(--space-tight);
+	}
+
+	.sidebar--placement-drawer {
+		position: fixed;
+		inset-block: 0;
+		inset-inline-start: 0;
+		z-index: var(--z-overlay);
+		transform: translateX(-100%);
+		transition: transform var(--duration-moderate) var(--ease-out);
+		box-shadow: var(--shadow-overlay);
+	}
+
+	.modal {
+		inline-size: min(34rem, calc(100vw - 2rem));
+		max-block-size: calc(100dvh - 4rem);
+		padding: 0;
+		border: 0;
+		border-radius: var(--radius-xl);
+		background: var(--color-surface-raised);
+		color: var(--color-foreground);
+		box-shadow: var(--shadow-overlay);
+	}
+
+	.modal-backdrop {
+		background: var(--color-scrim);
+	}
+
+	.modal-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: var(--space-tight);
+		padding: var(--space-loose) var(--space-loose) var(--space-tight);
+	}
+
+	.modal-title {
+		font-size: var(--fs-title);
+		font-weight: 600;
+		min-inline-size: 0;
+	}
+
+	.modal-close {
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 2rem;
+		block-size: 2rem;
+		border: 0;
+		border-radius: var(--radius-sm);
+		background: transparent;
+		color: var(--color-foreground-quiet);
+		cursor: pointer;
+	}
+
+	.modal-body {
+		padding: 0 var(--space-loose);
+		overflow-y: auto;
+		color: var(--color-foreground-soft);
+	}
+
+	.modal-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: var(--space-tight);
+		padding: var(--space-loose);
+	}
+
+	.accordion {
+		border-block-end: 1px solid var(--color-border-soft);
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+	}
+
+	.accordion-summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-tight);
+		min-block-size: 2.75rem;
+		padding: var(--space-tight) 0;
+		list-style: none;
+		cursor: pointer;
+		font-size: var(--fs-body);
+		font-weight: 600;
+		color: var(--color-foreground);
+
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+	}
+
+	.accordion-marker {
+		flex-shrink: 0;
+		color: var(--color-foreground-quiet);
+		transition: transform var(--duration-quick) var(--ease-out);
+	}
+
+	.accordion-content {
+		padding: 0 0 var(--space-comfortable);
+		font-size: var(--fs-body);
+		color: var(--color-foreground-soft);
+	}
+
+	.accordion-label {
+		min-inline-size: 0;
+		overflow-wrap: anywhere;
+	}
+
+	.select {
+		display: grid;
+		gap: var(--space-hairline);
+	}
+
+	.select-label {
+		font-size: var(--fs-meta);
+		font-weight: 500;
+		color: var(--color-foreground);
+	}
+
+	.select-shell {
+		position: relative;
+		display: grid;
+		min-inline-size: 0;
+	}
+
+	.select-control {
+		appearance: none;
+		inline-size: 100%;
+		min-inline-size: 0;
+		min-block-size: 2.75rem;
+		padding: 0 2.5rem 0 var(--space-comfortable);
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--color-border-strong);
+		background: var(--color-input);
+		color: var(--color-foreground);
+		font: inherit;
+		font-size: var(--fs-body);
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+		}
+	}
+
+	.select-marker {
+		position: absolute;
+		inset-inline-end: var(--space-comfortable);
+		inset-block-start: 50%;
+		transform: translateY(-50%);
+		pointer-events: none;
+		color: var(--color-foreground-quiet);
+	}
+
+	.avatar {
+		display: inline-grid;
+		place-items: center;
+		inline-size: 2.5rem;
+		block-size: 2.5rem;
+		flex-shrink: 0;
+		overflow: hidden;
+		border-radius: var(--radius-full);
+		background: var(--color-muted);
+		color: var(--color-foreground-soft);
+		font-size: var(--fs-micro);
+		font-weight: 600;
+	}
+
+	.avatar-image {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+	}
+
+	.avatar-initials {
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+	}
+
+	.avatar--size-sm {
+		inline-size: 1.75rem;
+		block-size: 1.75rem;
+		font-size: var(--fs-nano);
+	}
+
+	.avatar--size-lg {
+		inline-size: 3.5rem;
+		block-size: 3.5rem;
+		font-size: var(--fs-meta);
+	}
+
+	.avatar--size-xl {
+		inline-size: 5rem;
+		block-size: 5rem;
+		font-size: var(--fs-body);
+	}
+
+	.avatar--ring-page {
+		box-shadow: 0 0 0 2px var(--color-surface-page);
+	}
+
+	.empty-state {
+		display: grid;
+		place-content: center;
+		justify-items: center;
+		gap: var(--space-tight);
+		min-block-size: 18rem;
+		block-size: 100%;
+		padding: var(--space-section);
+		text-align: center;
+	}
+
+	.empty-state-icon {
+		color: var(--color-foreground-quiet);
+	}
+
+	.empty-state-title {
+		font-size: var(--fs-title);
+		font-weight: 600;
+		color: var(--color-foreground);
+	}
+
+	.empty-state-body {
+		max-inline-size: 38ch;
+		font-size: var(--fs-body);
+		color: var(--color-foreground-soft);
+	}
+
+	.empty-state-action {
+		margin-block-start: var(--space-tight);
+	}
+
+	.spinner {
+		display: inline-flex;
+		inline-size: 1em;
+		block-size: 1em;
+		color: currentColor;
+		animation: aven-spin 900ms linear infinite;
+
+		@media (prefers-reduced-motion: reduce) {
+			animation-duration: 2400ms;
+		}
+	}
+
+	.spinner--size-sm {
+		font-size: var(--fs-meta);
+	}
+
+	.spinner--size-lg {
+		font-size: var(--fs-lead);
+	}
+
+	@keyframes aven-spin {
+
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.skeleton {
+		border-radius: var(--radius-sm);
+		background: var(--color-track);
+		block-size: 1em;
+		animation: aven-skeleton 1600ms ease-in-out infinite;
+
+		@media (prefers-reduced-motion: reduce) {
+			animation: none;
+		}
+	}
+
+	.skeleton--shape-text {
+		block-size: 1em;
+		border-radius: var(--radius-full);
+	}
+
+	.skeleton--shape-block {
+		block-size: 8rem;
+	}
+
+	.skeleton--shape-circle {
+		inline-size: 2.5rem;
+		block-size: 2.5rem;
+		border-radius: var(--radius-full);
+	}
+
+	@keyframes aven-skeleton {
+
+		0%,100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.55;
+		}
+	}
+
+	.logo--lockup {
+
+	}
+
+	.nav-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.75rem;
+		padding: 0 var(--space-tight);
+		text-decoration: none;
+		color: inherit;
+		font-size: var(--fs-eyebrow);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wider);
+		opacity: 0.7;
+		transition: opacity 0.15s ease;
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			opacity: 1;
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			opacity: 0.85;
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.4;
+			pointer-events: none;
+		}
+		&[aria-selected="true"], &[aria-pressed="true"] {
+			opacity: 1;
+		}
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+	}
+
+	.navbar {
+		position: sticky;
+		inset-block-start: 0;
+		inset-inline: 0;
+		z-index: 50;
+		background: var(--color-surface-page);
+		border-block-end: 1px solid var(--color-border-soft);
+		transition: background var(--duration-moderate) var(--ease-out), border-color var(--duration-moderate) var(--ease-out);
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+	}
+
+	.navbar-bar {
+		display: flex;
+		align-items: center;
+		gap: var(--space-comfortable);
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: 84rem;
+		min-block-size: 3.5rem;
+		padding-inline: var(--space-comfortable);
+	}
+
+	.navbar-brand {
+		display: flex;
+		align-items: center;
+		gap: var(--space-tight);
+		flex-shrink: 0;
+	}
+
+	.navbar-links {
+		display: none;
+		align-items: center;
+		gap: var(--space-comfortable);
+		margin-inline-start: auto;
+	}
+
+	.navbar-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-tight);
+		margin-inline-start: auto;
+	}
+
+	.navbar-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 2.75rem;
+		block-size: 2.75rem;
+		margin-inline-end: calc(var(--space-tight) * -1);
+		border: 0;
+		border-radius: var(--radius-full);
+		background: transparent;
+		color: inherit;
+		cursor: pointer;
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			background: var(--color-muted);
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			background: var(--color-surface-sunken);
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+		}
+	}
+
+	.navbar-drawer {
+		position: fixed;
+		inset-block-start: 3.5rem;
+		inset-inline: 0;
+		inset-block-end: 0;
+		display: grid;
+		align-content: start;
+		gap: var(--space-tight);
+		padding: var(--space-loose);
+		background: var(--color-surface-page);
+		transform: translateY(-100%);
+		visibility: hidden;
+		transition: transform var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate);
+	}
+
+	.navbar--placement-overlay {
+		position: fixed;
+		background: transparent;
+		border-block-end-color: transparent;
+		color: var(--color-on-dark);
+	}
+
+	.navbar--tone-glass {
+		background: var(--color-scrim-thin);
+		backdrop-filter: blur(10px);
+		border-block-end-color: var(--color-border-soft);
+	}
+
+	.navbar--breakpoint-md {
+
+		& .navbar-links {
+			display: none;
+		}
+	}
+
+	.site-footer {
+		padding-inline: var(--space-comfortable);
+		padding-block: var(--space-section);
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+	}
+
+	.site-footer-inner {
+		display: grid;
+		gap: var(--space-section);
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: 72rem;
+		min-inline-size: 0;
+	}
+
+	.site-footer-brand {
+		display: grid;
+		gap: var(--space-tight);
+		max-inline-size: 28ch;
+	}
+
+	.site-footer-groups {
+		display: grid;
+		gap: var(--space-loose);
+		grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+	}
+
+	.site-footer-group {
+		display: grid;
+		gap: 0.4rem;
+		align-content: start;
+		min-inline-size: 0;
+	}
+
+	.site-footer-group-title {
+		margin: 0;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wider);
+		color: var(--color-primary-foreground-quiet);
+	}
+
+	.site-footer-link {
+		font-size: var(--fs-meta);
+		color: var(--color-primary-foreground-soft);
+		text-decoration: none;
+		overflow-wrap: anywhere;
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			color: var(--color-primary-foreground);
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			color: var(--color-primary-foreground);
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+		}
+	}
+
+	.site-footer-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-tight);
+		justify-content: space-between;
+		margin-inline: auto;
+		margin-block-start: var(--space-section);
+		padding-block-start: var(--space-comfortable);
+		inline-size: 100%;
+		max-inline-size: 72rem;
+		border-block-start: 1px solid var(--color-primary-foreground-quiet);
+		font-size: var(--fs-micro);
+		color: var(--color-primary-foreground-quiet);
+	}
+
+	.site-footer--ground-page {
+		background: var(--color-surface-raised);
+		color: var(--color-foreground);
 	}
 }
 
@@ -560,11 +2266,12 @@
 	.ks-shadow-raised { box-shadow: var(--shadow-raised); }
 	.ks-shadow-floating { box-shadow: var(--shadow-floating); }
 	.ks-shadow-overlay { box-shadow: var(--shadow-overlay); }
-	.ks-radius-chip { border-radius: var(--radius-chip); }
-	.ks-radius-inner { border-radius: var(--radius-inner); }
-	.ks-radius-card { border-radius: var(--radius-card); }
-	.ks-radius-panel { border-radius: var(--radius-panel); }
-	.ks-radius-pill { border-radius: var(--radius-pill); }
+	.ks-radius-xs { border-radius: var(--radius-xs); }
+	.ks-radius-sm { border-radius: var(--radius-sm); }
+	.ks-radius-md { border-radius: var(--radius-md); }
+	.ks-radius-lg { border-radius: var(--radius-lg); }
+	.ks-radius-xl { border-radius: var(--radius-xl); }
+	.ks-radius-full { border-radius: var(--radius-full); }
 	.ks-space-tight { inline-size: var(--space-tight); }
 	.ks-space-snug { inline-size: var(--space-snug); }
 	.ks-space-comfortable { inline-size: var(--space-comfortable); }
@@ -574,5 +2281,5 @@
 
 body { font-family: var(--font-sans); background: var(--color-background); color: var(--color-foreground); margin: 0; -webkit-font-smoothing: antialiased; }
 </style>
-<main data-aven-path="0" class="ks"><header data-aven-path="0.0" class="ks-header"><p data-aven-path="0.0.0" class="ks-eyebrow">@myavenceo/aven-ceo</p><h1 data-aven-path="0.0.1" class="ks-title">Design system</h1><p data-aven-path="0.0.2" class="ks-lede">Rendered by aven-ui from the configs themselves — 14 colours, 12 type steps, 8 primitives, 23 components. Nothing here is written by hand; if it renders wrong, the system is wrong.</p></header><section data-aven-path="0.1" class="ks-section"><p data-aven-path="0.1.0" class="ks-eyebrow">Colour · tones</p><p data-aven-path="0.1.1" class="ks-lede">The paint. Every colour spelled exactly once.</p><div data-aven-path="0.1.2" class="ks-swatches"><div data-aven-path="0.1.2.0" class="ks-swatch"><div data-aven-path="0.1.2.0.0" class="ks-chip ks-chip-marine"></div><p data-aven-path="0.1.2.0.1" class="ks-swatch-name">marine</p><p data-aven-path="0.1.2.0.2" class="ks-mono">#1e293b</p></div><div data-aven-path="0.1.2.1" class="ks-swatch"><div data-aven-path="0.1.2.1.0" class="ks-chip ks-chip-paradise"></div><p data-aven-path="0.1.2.1.1" class="ks-swatch-name">paradise</p><p data-aven-path="0.1.2.1.2" class="ks-mono">#2489a0</p></div><div data-aven-path="0.1.2.2" class="ks-swatch"><div data-aven-path="0.1.2.2.0" class="ks-chip ks-chip-turquoise"></div><p data-aven-path="0.1.2.2.1" class="ks-swatch-name">turquoise</p><p data-aven-path="0.1.2.2.2" class="ks-mono">#449c94</p></div><div data-aven-path="0.1.2.3" class="ks-swatch"><div data-aven-path="0.1.2.3.0" class="ks-chip ks-chip-sunflower"></div><p data-aven-path="0.1.2.3.1" class="ks-swatch-name">sunflower</p><p data-aven-path="0.1.2.3.2" class="ks-mono">#f2ba3d</p></div></div></section><section data-aven-path="0.2" class="ks-section"><p data-aven-path="0.2.0" class="ks-eyebrow">Colour · creams</p><p data-aven-path="0.2.1" class="ks-lede">The ladder every surface stands on.</p><div data-aven-path="0.2.2" class="ks-swatches"><div data-aven-path="0.2.2.0" class="ks-swatch"><div data-aven-path="0.2.2.0.0" class="ks-chip ks-chip-light-page"></div><p data-aven-path="0.2.2.0.1" class="ks-swatch-name">light-page</p><p data-aven-path="0.2.2.0.2" class="ks-mono">#fdfbf3</p></div><div data-aven-path="0.2.2.1" class="ks-swatch"><div data-aven-path="0.2.2.1.0" class="ks-chip ks-chip-light-raised"></div><p data-aven-path="0.2.2.1.1" class="ks-swatch-name">light-raised</p><p data-aven-path="0.2.2.1.2" class="ks-mono">#f8f6ed</p></div><div data-aven-path="0.2.2.2" class="ks-swatch"><div data-aven-path="0.2.2.2.0" class="ks-chip ks-chip-light-sunken"></div><p data-aven-path="0.2.2.2.1" class="ks-swatch-name">light-sunken</p><p data-aven-path="0.2.2.2.2" class="ks-mono">#f6f3e8</p></div><div data-aven-path="0.2.2.3" class="ks-swatch"><div data-aven-path="0.2.2.3.0" class="ks-chip ks-chip-light-card"></div><p data-aven-path="0.2.2.3.1" class="ks-swatch-name">light-card</p><p data-aven-path="0.2.2.3.2" class="ks-mono">#f6f1e2</p></div><div data-aven-path="0.2.2.4" class="ks-swatch"><div data-aven-path="0.2.2.4.0" class="ks-chip ks-chip-light-selected"></div><p data-aven-path="0.2.2.4.1" class="ks-swatch-name">light-selected</p><p data-aven-path="0.2.2.4.2" class="ks-mono">#f3e7c6</p></div><div data-aven-path="0.2.2.5" class="ks-swatch"><div data-aven-path="0.2.2.5.0" class="ks-chip ks-chip-dark-page"></div><p data-aven-path="0.2.2.5.1" class="ks-swatch-name">dark-page</p><p data-aven-path="0.2.2.5.2" class="ks-mono">#161f30</p></div><div data-aven-path="0.2.2.6" class="ks-swatch"><div data-aven-path="0.2.2.6.0" class="ks-chip ks-chip-dark-raised"></div><p data-aven-path="0.2.2.6.1" class="ks-swatch-name">dark-raised</p><p data-aven-path="0.2.2.6.2" class="ks-mono">#1e293b</p></div><div data-aven-path="0.2.2.7" class="ks-swatch"><div data-aven-path="0.2.2.7.0" class="ks-chip ks-chip-dark-sunken"></div><p data-aven-path="0.2.2.7.1" class="ks-swatch-name">dark-sunken</p><p data-aven-path="0.2.2.7.2" class="ks-mono">#131a28</p></div><div data-aven-path="0.2.2.8" class="ks-swatch"><div data-aven-path="0.2.2.8.0" class="ks-chip ks-chip-dark-card"></div><p data-aven-path="0.2.2.8.1" class="ks-swatch-name">dark-card</p><p data-aven-path="0.2.2.8.2" class="ks-mono">#243448</p></div><div data-aven-path="0.2.2.9" class="ks-swatch"><div data-aven-path="0.2.2.9.0" class="ks-chip ks-chip-dark-selected"></div><p data-aven-path="0.2.2.9.1" class="ks-swatch-name">dark-selected</p><p data-aven-path="0.2.2.9.2" class="ks-mono">#3e4b60</p></div></div></section><section data-aven-path="0.3" class="ks-section"><p data-aven-path="0.3.0" class="ks-eyebrow">Type</p><p data-aven-path="0.3.1" class="ks-lede">Twelve steps. A size not on the ramp is not available.</p><div data-aven-path="0.3.2" class="stack"><div data-aven-path="0.3.2.0" class="ks-row"><span data-aven-path="0.3.2.0.0" class="ks-type ks-fs-nano">The quick brown fox</span><span data-aven-path="0.3.2.0.1" class="ks-row-meta"><span data-aven-path="0.3.2.0.1.0" class="ks-mono">fs-nano · 9px</span></span></div><div data-aven-path="0.3.2.1" class="ks-row"><span data-aven-path="0.3.2.1.0" class="ks-type ks-fs-micro">The quick brown fox</span><span data-aven-path="0.3.2.1.1" class="ks-row-meta"><span data-aven-path="0.3.2.1.1.0" class="ks-mono">fs-micro · 10px</span></span></div><div data-aven-path="0.3.2.2" class="ks-row"><span data-aven-path="0.3.2.2.0" class="ks-type ks-fs-eyebrow">The quick brown fox</span><span data-aven-path="0.3.2.2.1" class="ks-row-meta"><span data-aven-path="0.3.2.2.1.0" class="ks-mono">fs-eyebrow · 11px</span></span></div><div data-aven-path="0.3.2.3" class="ks-row"><span data-aven-path="0.3.2.3.0" class="ks-type ks-fs-meta">The quick brown fox</span><span data-aven-path="0.3.2.3.1" class="ks-row-meta"><span data-aven-path="0.3.2.3.1.0" class="ks-mono">fs-meta · 12px</span></span></div><div data-aven-path="0.3.2.4" class="ks-row"><span data-aven-path="0.3.2.4.0" class="ks-type ks-fs-body">The quick brown fox</span><span data-aven-path="0.3.2.4.1" class="ks-row-meta"><span data-aven-path="0.3.2.4.1.0" class="ks-mono">fs-body · 13px</span></span></div><div data-aven-path="0.3.2.5" class="ks-row"><span data-aven-path="0.3.2.5.0" class="ks-type ks-fs-section">The quick brown fox</span><span data-aven-path="0.3.2.5.1" class="ks-row-meta"><span data-aven-path="0.3.2.5.1.0" class="ks-mono">fs-section · 14px</span></span></div><div data-aven-path="0.3.2.6" class="ks-row"><span data-aven-path="0.3.2.6.0" class="ks-type ks-fs-title">The quick brown fox</span><span data-aven-path="0.3.2.6.1" class="ks-row-meta"><span data-aven-path="0.3.2.6.1.0" class="ks-mono">fs-title · 15px</span></span></div><div data-aven-path="0.3.2.7" class="ks-row"><span data-aven-path="0.3.2.7.0" class="ks-type ks-fs-lead">The quick brown fox</span><span data-aven-path="0.3.2.7.1" class="ks-row-meta"><span data-aven-path="0.3.2.7.1.0" class="ks-mono">fs-lead · 17px</span></span></div><div data-aven-path="0.3.2.8" class="ks-row"><span data-aven-path="0.3.2.8.0" class="ks-type ks-fs-hero">The quick brown fox</span><span data-aven-path="0.3.2.8.1" class="ks-row-meta"><span data-aven-path="0.3.2.8.1.0" class="ks-mono">fs-hero · 20px</span></span></div><div data-aven-path="0.3.2.9" class="ks-row"><span data-aven-path="0.3.2.9.0" class="ks-type ks-fs-amount">The quick brown fox</span><span data-aven-path="0.3.2.9.1" class="ks-row-meta"><span data-aven-path="0.3.2.9.1.0" class="ks-mono">fs-amount · 24px</span></span></div><div data-aven-path="0.3.2.10" class="ks-row"><span data-aven-path="0.3.2.10.0" class="ks-type ks-fs-display">The quick brown fox</span><span data-aven-path="0.3.2.10.1" class="ks-row-meta"><span data-aven-path="0.3.2.10.1.0" class="ks-mono">fs-display · 28px</span></span></div><div data-aven-path="0.3.2.11" class="ks-row"><span data-aven-path="0.3.2.11.0" class="ks-type ks-fs-display-lg">The quick brown fox</span><span data-aven-path="0.3.2.11.1" class="ks-row-meta"><span data-aven-path="0.3.2.11.1.0" class="ks-mono">fs-display-lg · 38px</span></span></div></div></section><section data-aven-path="0.4" class="ks-section"><p data-aven-path="0.4.0" class="ks-eyebrow">Tracking</p><p data-aven-path="0.4.1" class="ks-lede">Five steps, for what was fourteen values.</p><div data-aven-path="0.4.2" class="stack"><div data-aven-path="0.4.2.0" class="ks-row"><span data-aven-path="0.4.2.0.0" class="ks-track ks-tracking-tight">TRACKING SAMPLE</span><span data-aven-path="0.4.2.0.1" class="ks-row-meta"><span data-aven-path="0.4.2.0.1.0" class="ks-mono">tracking-tight · -0.02em</span></span></div><div data-aven-path="0.4.2.1" class="ks-row"><span data-aven-path="0.4.2.1.0" class="ks-track ks-tracking-normal">TRACKING SAMPLE</span><span data-aven-path="0.4.2.1.1" class="ks-row-meta"><span data-aven-path="0.4.2.1.1.0" class="ks-mono">tracking-normal · 0</span></span></div><div data-aven-path="0.4.2.2" class="ks-row"><span data-aven-path="0.4.2.2.0" class="ks-track ks-tracking-wide">TRACKING SAMPLE</span><span data-aven-path="0.4.2.2.1" class="ks-row-meta"><span data-aven-path="0.4.2.2.1.0" class="ks-mono">tracking-wide · 0.08em</span></span></div><div data-aven-path="0.4.2.3" class="ks-row"><span data-aven-path="0.4.2.3.0" class="ks-track ks-tracking-wider">TRACKING SAMPLE</span><span data-aven-path="0.4.2.3.1" class="ks-row-meta"><span data-aven-path="0.4.2.3.1.0" class="ks-mono">tracking-wider · 0.14em</span></span></div><div data-aven-path="0.4.2.4" class="ks-row"><span data-aven-path="0.4.2.4.0" class="ks-track ks-tracking-widest">TRACKING SAMPLE</span><span data-aven-path="0.4.2.4.1" class="ks-row-meta"><span data-aven-path="0.4.2.4.1.0" class="ks-mono">tracking-widest · 0.22em</span></span></div></div></section><section data-aven-path="0.5" class="ks-section"><p data-aven-path="0.5.0" class="ks-eyebrow">Ink</p><p data-aven-path="0.5.1" class="ks-lede">Text emphasis, as four steps rather than a continuum.</p><div data-aven-path="0.5.2" class="stack"><div data-aven-path="0.5.2.0" class="ks-row"><span data-aven-path="0.5.2.0.0" class="ks-ink ks-ink-faint">Readable at this weight</span><span data-aven-path="0.5.2.0.1" class="ks-row-meta"><span data-aven-path="0.5.2.0.1.0" class="ks-mono">ink-faint · 0.35</span></span></div><div data-aven-path="0.5.2.1" class="ks-row"><span data-aven-path="0.5.2.1.0" class="ks-ink ks-ink-quiet">Readable at this weight</span><span data-aven-path="0.5.2.1.1" class="ks-row-meta"><span data-aven-path="0.5.2.1.1.0" class="ks-mono">ink-quiet · 0.65</span></span></div><div data-aven-path="0.5.2.2" class="ks-row"><span data-aven-path="0.5.2.2.0" class="ks-ink ks-ink-muted">Readable at this weight</span><span data-aven-path="0.5.2.2.1" class="ks-row-meta"><span data-aven-path="0.5.2.2.1.0" class="ks-mono">ink-muted · 0.75</span></span></div><div data-aven-path="0.5.2.3" class="ks-row"><span data-aven-path="0.5.2.3.0" class="ks-ink ks-ink-strong">Readable at this weight</span><span data-aven-path="0.5.2.3.1" class="ks-row-meta"><span data-aven-path="0.5.2.3.1.0" class="ks-mono">ink-strong · 0.85</span></span></div><div data-aven-path="0.5.2.4" class="ks-row"><span data-aven-path="0.5.2.4.0" class="ks-ink ks-ink-full">Readable at this weight</span><span data-aven-path="0.5.2.4.1" class="ks-row-meta"><span data-aven-path="0.5.2.4.1.0" class="ks-mono">ink-full · 0.9</span></span></div></div></section><section data-aven-path="0.6" class="ks-section"><p data-aven-path="0.6.0" class="ks-eyebrow">Tint</p><p data-aven-path="0.6.1" class="ks-lede">Surfaces, not text — hairlines and washes.</p><div data-aven-path="0.6.2" class="stack"><div data-aven-path="0.6.2.0" class="ks-row"><span data-aven-path="0.6.2.0.0" class="ks-tint ks-tint-hairline"></span><span data-aven-path="0.6.2.0.1" class="ks-mono">tint-hairline · 0.08</span></div><div data-aven-path="0.6.2.1" class="ks-row"><span data-aven-path="0.6.2.1.0" class="ks-tint ks-tint-soft"></span><span data-aven-path="0.6.2.1.1" class="ks-mono">tint-soft · 0.15</span></div><div data-aven-path="0.6.2.2" class="ks-row"><span data-aven-path="0.6.2.2.0" class="ks-tint ks-tint-firm"></span><span data-aven-path="0.6.2.2.1" class="ks-mono">tint-firm · 0.25</span></div></div></section><section data-aven-path="0.7" class="ks-section"><p data-aven-path="0.7.0" class="ks-eyebrow">Elevation</p><div data-aven-path="0.7.1" class="cluster"><div data-aven-path="0.7.1.0" class="ks-box ks-shadow-raised">shadow-raised</div><div data-aven-path="0.7.1.1" class="ks-box ks-shadow-floating">shadow-floating</div><div data-aven-path="0.7.1.2" class="ks-box ks-shadow-overlay">shadow-overlay</div></div></section><section data-aven-path="0.8" class="ks-section"><p data-aven-path="0.8.0" class="ks-eyebrow">Radius</p><div data-aven-path="0.8.1" class="cluster"><div data-aven-path="0.8.1.0" class="ks-box ks-radius-chip">radius-chip · 0.5rem</div><div data-aven-path="0.8.1.1" class="ks-box ks-radius-inner">radius-inner · 0.75rem</div><div data-aven-path="0.8.1.2" class="ks-box ks-radius-card">radius-card · 1.5rem</div><div data-aven-path="0.8.1.3" class="ks-box ks-radius-panel">radius-panel · 2rem</div><div data-aven-path="0.8.1.4" class="ks-box ks-radius-pill">radius-pill · 9999px</div></div></section><section data-aven-path="0.9" class="ks-section"><p data-aven-path="0.9.0" class="ks-eyebrow">Space</p><div data-aven-path="0.9.1" class="stack"><div data-aven-path="0.9.1.0" class="ks-row"><span data-aven-path="0.9.1.0.0" class="ks-space ks-space-tight"></span><span data-aven-path="0.9.1.0.1" class="ks-mono">space-tight · 0.5rem</span></div><div data-aven-path="0.9.1.1" class="ks-row"><span data-aven-path="0.9.1.1.0" class="ks-space ks-space-snug"></span><span data-aven-path="0.9.1.1.1" class="ks-mono">space-snug · 0.75rem</span></div><div data-aven-path="0.9.1.2" class="ks-row"><span data-aven-path="0.9.1.2.0" class="ks-space ks-space-comfortable"></span><span data-aven-path="0.9.1.2.1" class="ks-mono">space-comfortable · 1rem</span></div><div data-aven-path="0.9.1.3" class="ks-row"><span data-aven-path="0.9.1.3.0" class="ks-space ks-space-loose"></span><span data-aven-path="0.9.1.3.1" class="ks-mono">space-loose · 1.5rem</span></div><div data-aven-path="0.9.1.4" class="ks-row"><span data-aven-path="0.9.1.4.0" class="ks-space ks-space-section"></span><span data-aven-path="0.9.1.4.1" class="ks-mono">space-section · 2.5rem</span></div></div></section><section data-aven-path="0.10" class="ks-section"><p data-aven-path="0.10.0" class="ks-eyebrow">Primitives · 8</p><p data-aven-path="0.10.1" class="ks-lede">The shapes almost every layout is made of. Each tuned at the call site by a custom property rather than by a class per value.</p><p data-aven-path="0.10.2" class="ks-eyebrow">stack</p><div data-aven-path="0.10.3" class="stack ks-demo"><div data-aven-path="0.10.3.0" class="ks-box">one</div><div data-aven-path="0.10.3.1" class="ks-box">two</div><div data-aven-path="0.10.3.2" class="ks-box">three</div></div><p data-aven-path="0.10.4" class="ks-eyebrow">stack-center</p><div data-aven-path="0.10.5" class="stack-center ks-demo"><div data-aven-path="0.10.5.0" class="ks-box">one</div><div data-aven-path="0.10.5.1" class="ks-box">two</div><div data-aven-path="0.10.5.2" class="ks-box">three</div></div><p data-aven-path="0.10.6" class="ks-eyebrow">cluster</p><div data-aven-path="0.10.7" class="cluster ks-demo"><div data-aven-path="0.10.7.0" class="ks-box">one</div><div data-aven-path="0.10.7.1" class="ks-box">two</div><div data-aven-path="0.10.7.2" class="ks-box">three</div></div><p data-aven-path="0.10.8" class="ks-eyebrow">center</p><div data-aven-path="0.10.9" class="center ks-demo"><div data-aven-path="0.10.9.0" class="ks-box">one</div><div data-aven-path="0.10.9.1" class="ks-box">two</div><div data-aven-path="0.10.9.2" class="ks-box">three</div></div><p data-aven-path="0.10.10" class="ks-eyebrow">grid-auto</p><div data-aven-path="0.10.11" class="grid-auto ks-demo"><div data-aven-path="0.10.11.0" class="ks-box">one</div><div data-aven-path="0.10.11.1" class="ks-box">two</div><div data-aven-path="0.10.11.2" class="ks-box">three</div></div><p data-aven-path="0.10.12" class="ks-eyebrow">sidebar</p><div data-aven-path="0.10.13" class="sidebar ks-demo"><div data-aven-path="0.10.13.0" class="ks-box">one</div><div data-aven-path="0.10.13.1" class="ks-box">two</div><div data-aven-path="0.10.13.2" class="ks-box">three</div></div><p data-aven-path="0.10.14" class="ks-eyebrow">switcher</p><div data-aven-path="0.10.15" class="switcher ks-demo"><div data-aven-path="0.10.15.0" class="ks-box">one</div><div data-aven-path="0.10.15.1" class="ks-box">two</div><div data-aven-path="0.10.15.2" class="ks-box">three</div></div><p data-aven-path="0.10.16" class="ks-eyebrow">frame</p><div data-aven-path="0.10.17" class="frame ks-demo"><div data-aven-path="0.10.17.0" class="ks-box">one</div><div data-aven-path="0.10.17.1" class="ks-box">two</div><div data-aven-path="0.10.17.2" class="ks-box">three</div></div></section><section data-aven-path="0.11" class="ks-section"><p data-aven-path="0.11.0" class="ks-eyebrow">Components · 23</p><p data-aven-path="0.11.1" class="ks-lede">Each rendered as itself, from the same definitions aven-ui applies as a StyleDef.</p><div data-aven-path="0.11.2" class="stack"><div data-aven-path="0.11.2.0" class="ks-row"><div data-aven-path="0.11.2.0.0" class="ks-specimen card">card</div><span data-aven-path="0.11.2.0.1" class="ks-row-meta"><span data-aven-path="0.11.2.0.1.0" class="ks-mono">.card</span></span></div><div data-aven-path="0.11.2.1" class="ks-row"><div data-aven-path="0.11.2.1.0" class="ks-specimen eyebrow">EYEBROW</div><span data-aven-path="0.11.2.1.1" class="ks-row-meta"><span data-aven-path="0.11.2.1.1.0" class="ks-mono">.eyebrow</span></span></div><div data-aven-path="0.11.2.2" class="ks-row"><div data-aven-path="0.11.2.2.0" class="ks-specimen eyebrow-accent">EYEBROW-ACCENT</div><span data-aven-path="0.11.2.2.1" class="ks-row-meta"><span data-aven-path="0.11.2.2.1.0" class="ks-mono">.eyebrow-accent</span></span></div><div data-aven-path="0.11.2.3" class="ks-row"><div data-aven-path="0.11.2.3.0" class="ks-specimen eyebrow-quiet">EYEBROW-QUIET</div><span data-aven-path="0.11.2.3.1" class="ks-row-meta"><span data-aven-path="0.11.2.3.1.0" class="ks-mono">.eyebrow-quiet</span></span></div><div data-aven-path="0.11.2.4" class="ks-row"><div data-aven-path="0.11.2.4.0" class="ks-specimen section-title">A heading, set as itself</div><span data-aven-path="0.11.2.4.1" class="ks-row-meta"><span data-aven-path="0.11.2.4.1.0" class="ks-mono">.section-title</span></span></div><div data-aven-path="0.11.2.5" class="ks-row"><div data-aven-path="0.11.2.5.0" class="ks-specimen section-band">section-band</div><span data-aven-path="0.11.2.5.1" class="ks-row-meta"><span data-aven-path="0.11.2.5.1.0" class="ks-mono">.section-band</span></span></div><div data-aven-path="0.11.2.6" class="ks-row"><div data-aven-path="0.11.2.6.0" class="ks-specimen app-shell">app-shell</div><span data-aven-path="0.11.2.6.1" class="ks-row-meta"><span data-aven-path="0.11.2.6.1.0" class="ks-mono">.app-shell</span></span></div><div data-aven-path="0.11.2.7" class="ks-row"><div data-aven-path="0.11.2.7.0" class="ks-specimen mono-meta">MONO-META</div><span data-aven-path="0.11.2.7.1" class="ks-row-meta"><span data-aven-path="0.11.2.7.1.0" class="ks-mono">.mono-meta</span></span></div><div data-aven-path="0.11.2.8" class="ks-row"><div data-aven-path="0.11.2.8.0" class="ks-specimen title">A heading, set as itself</div><span data-aven-path="0.11.2.8.1" class="ks-row-meta"><span data-aven-path="0.11.2.8.1.0" class="ks-mono">.title</span></span></div><div data-aven-path="0.11.2.9" class="ks-row"><div data-aven-path="0.11.2.9.0" class="ks-specimen lede">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.9.1" class="ks-row-meta"><span data-aven-path="0.11.2.9.1.0" class="ks-mono">.lede</span></span></div><div data-aven-path="0.11.2.10" class="ks-row"><div data-aven-path="0.11.2.10.0" class="ks-specimen label">LABEL</div><span data-aven-path="0.11.2.10.1" class="ks-row-meta"><span data-aven-path="0.11.2.10.1.0" class="ks-mono">.label</span></span></div><div data-aven-path="0.11.2.11" class="ks-row"><button data-aven-path="0.11.2.11.0" class="btn">btn</button><span data-aven-path="0.11.2.11.1" class="ks-row-meta"><span data-aven-path="0.11.2.11.1.0" class="ks-mono">.btn</span></span></div><div data-aven-path="0.11.2.12" class="ks-row"><div data-aven-path="0.11.2.12.0" class="ks-specimen chip">CHIP</div><span data-aven-path="0.11.2.12.1" class="ks-row-meta"><span data-aven-path="0.11.2.12.1.0" class="ks-mono">.chip</span></span></div><div data-aven-path="0.11.2.13" class="ks-row"><div data-aven-path="0.11.2.13.0" class="ks-specimen panel">panel</div><span data-aven-path="0.11.2.13.1" class="ks-row-meta"><span data-aven-path="0.11.2.13.1.0" class="ks-mono">.panel</span></span></div><div data-aven-path="0.11.2.14" class="ks-row"><div data-aven-path="0.11.2.14.0" class="ks-specimen well">well</div><span data-aven-path="0.11.2.14.1" class="ks-row-meta"><span data-aven-path="0.11.2.14.1.0" class="ks-mono">.well</span></span></div><div data-aven-path="0.11.2.15" class="ks-row"><div data-aven-path="0.11.2.15.0" class="ks-specimen mark">mark</div><span data-aven-path="0.11.2.15.1" class="ks-row-meta"><span data-aven-path="0.11.2.15.1.0" class="ks-mono">.mark</span></span></div><div data-aven-path="0.11.2.16" class="ks-row"><div data-aven-path="0.11.2.16.0" class="ks-specimen digits">DIGITS</div><span data-aven-path="0.11.2.16.1" class="ks-row-meta"><span data-aven-path="0.11.2.16.1.0" class="ks-mono">.digits</span></span></div><div data-aven-path="0.11.2.17" class="ks-row"><div data-aven-path="0.11.2.17.0" class="ks-specimen alert">alert</div><span data-aven-path="0.11.2.17.1" class="ks-row-meta"><span data-aven-path="0.11.2.17.1.0" class="ks-mono">.alert</span></span></div><div data-aven-path="0.11.2.18" class="ks-row"><div data-aven-path="0.11.2.18.0" class="ks-specimen steps">steps</div><span data-aven-path="0.11.2.18.1" class="ks-row-meta"><span data-aven-path="0.11.2.18.1.0" class="ks-mono">.steps</span></span></div><div data-aven-path="0.11.2.19" class="ks-row"><div data-aven-path="0.11.2.19.0" class="ks-specimen step">step</div><span data-aven-path="0.11.2.19.1" class="ks-row-meta"><span data-aven-path="0.11.2.19.1.0" class="ks-mono">.step</span></span></div><div data-aven-path="0.11.2.20" class="ks-row"><div data-aven-path="0.11.2.20.0" class="ks-specimen field">field</div><span data-aven-path="0.11.2.20.1" class="ks-row-meta"><span data-aven-path="0.11.2.20.1.0" class="ks-mono">.field</span></span></div><div data-aven-path="0.11.2.21" class="ks-row"><div data-aven-path="0.11.2.21.0" class="ks-specimen ghost">ghost</div><span data-aven-path="0.11.2.21.1" class="ks-row-meta"><span data-aven-path="0.11.2.21.1.0" class="ks-mono">.ghost</span></span></div><div data-aven-path="0.11.2.22" class="ks-row"><div data-aven-path="0.11.2.22.0" class="ks-specimen meta">META</div><span data-aven-path="0.11.2.22.1" class="ks-row-meta"><span data-aven-path="0.11.2.22.1.0" class="ks-mono">.meta</span></span></div></div></section></main>
+<main data-aven-path="0" class="ks"><header data-aven-path="0.0" class="ks-header"><p data-aven-path="0.0.0" class="ks-eyebrow">@myavenceo/aven-ceo</p><h1 data-aven-path="0.0.1" class="ks-title">Design system</h1><p data-aven-path="0.0.2" class="ks-lede">Rendered by aven-ui from the configs themselves — 14 colours, 12 type steps, 8 primitives, 232 components. Nothing here is written by hand; if it renders wrong, the system is wrong.</p></header><section data-aven-path="0.1" class="ks-section"><p data-aven-path="0.1.0" class="ks-eyebrow">Colour · tones</p><p data-aven-path="0.1.1" class="ks-lede">The paint. Every colour spelled exactly once.</p><div data-aven-path="0.1.2" class="ks-swatches"><div data-aven-path="0.1.2.0" class="ks-swatch"><div data-aven-path="0.1.2.0.0" class="ks-chip ks-chip-marine"></div><p data-aven-path="0.1.2.0.1" class="ks-swatch-name">marine</p><p data-aven-path="0.1.2.0.2" class="ks-mono">#1e293b</p></div><div data-aven-path="0.1.2.1" class="ks-swatch"><div data-aven-path="0.1.2.1.0" class="ks-chip ks-chip-paradise"></div><p data-aven-path="0.1.2.1.1" class="ks-swatch-name">paradise</p><p data-aven-path="0.1.2.1.2" class="ks-mono">#2489a0</p></div><div data-aven-path="0.1.2.2" class="ks-swatch"><div data-aven-path="0.1.2.2.0" class="ks-chip ks-chip-turquoise"></div><p data-aven-path="0.1.2.2.1" class="ks-swatch-name">turquoise</p><p data-aven-path="0.1.2.2.2" class="ks-mono">#449c94</p></div><div data-aven-path="0.1.2.3" class="ks-swatch"><div data-aven-path="0.1.2.3.0" class="ks-chip ks-chip-sunflower"></div><p data-aven-path="0.1.2.3.1" class="ks-swatch-name">sunflower</p><p data-aven-path="0.1.2.3.2" class="ks-mono">#f2ba3d</p></div></div></section><section data-aven-path="0.2" class="ks-section"><p data-aven-path="0.2.0" class="ks-eyebrow">Colour · creams</p><p data-aven-path="0.2.1" class="ks-lede">The ladder every surface stands on.</p><div data-aven-path="0.2.2" class="ks-swatches"><div data-aven-path="0.2.2.0" class="ks-swatch"><div data-aven-path="0.2.2.0.0" class="ks-chip ks-chip-light-page"></div><p data-aven-path="0.2.2.0.1" class="ks-swatch-name">light-page</p><p data-aven-path="0.2.2.0.2" class="ks-mono">#fdfbf3</p></div><div data-aven-path="0.2.2.1" class="ks-swatch"><div data-aven-path="0.2.2.1.0" class="ks-chip ks-chip-light-raised"></div><p data-aven-path="0.2.2.1.1" class="ks-swatch-name">light-raised</p><p data-aven-path="0.2.2.1.2" class="ks-mono">#f8f6ed</p></div><div data-aven-path="0.2.2.2" class="ks-swatch"><div data-aven-path="0.2.2.2.0" class="ks-chip ks-chip-light-sunken"></div><p data-aven-path="0.2.2.2.1" class="ks-swatch-name">light-sunken</p><p data-aven-path="0.2.2.2.2" class="ks-mono">#f6f3e8</p></div><div data-aven-path="0.2.2.3" class="ks-swatch"><div data-aven-path="0.2.2.3.0" class="ks-chip ks-chip-light-card"></div><p data-aven-path="0.2.2.3.1" class="ks-swatch-name">light-card</p><p data-aven-path="0.2.2.3.2" class="ks-mono">#f6f1e2</p></div><div data-aven-path="0.2.2.4" class="ks-swatch"><div data-aven-path="0.2.2.4.0" class="ks-chip ks-chip-light-selected"></div><p data-aven-path="0.2.2.4.1" class="ks-swatch-name">light-selected</p><p data-aven-path="0.2.2.4.2" class="ks-mono">#f3e7c6</p></div><div data-aven-path="0.2.2.5" class="ks-swatch"><div data-aven-path="0.2.2.5.0" class="ks-chip ks-chip-dark-page"></div><p data-aven-path="0.2.2.5.1" class="ks-swatch-name">dark-page</p><p data-aven-path="0.2.2.5.2" class="ks-mono">#161f30</p></div><div data-aven-path="0.2.2.6" class="ks-swatch"><div data-aven-path="0.2.2.6.0" class="ks-chip ks-chip-dark-raised"></div><p data-aven-path="0.2.2.6.1" class="ks-swatch-name">dark-raised</p><p data-aven-path="0.2.2.6.2" class="ks-mono">#1e293b</p></div><div data-aven-path="0.2.2.7" class="ks-swatch"><div data-aven-path="0.2.2.7.0" class="ks-chip ks-chip-dark-sunken"></div><p data-aven-path="0.2.2.7.1" class="ks-swatch-name">dark-sunken</p><p data-aven-path="0.2.2.7.2" class="ks-mono">#131a28</p></div><div data-aven-path="0.2.2.8" class="ks-swatch"><div data-aven-path="0.2.2.8.0" class="ks-chip ks-chip-dark-card"></div><p data-aven-path="0.2.2.8.1" class="ks-swatch-name">dark-card</p><p data-aven-path="0.2.2.8.2" class="ks-mono">#243448</p></div><div data-aven-path="0.2.2.9" class="ks-swatch"><div data-aven-path="0.2.2.9.0" class="ks-chip ks-chip-dark-selected"></div><p data-aven-path="0.2.2.9.1" class="ks-swatch-name">dark-selected</p><p data-aven-path="0.2.2.9.2" class="ks-mono">#3e4b60</p></div></div></section><section data-aven-path="0.3" class="ks-section"><p data-aven-path="0.3.0" class="ks-eyebrow">Type</p><p data-aven-path="0.3.1" class="ks-lede">Twelve steps. A size not on the ramp is not available.</p><div data-aven-path="0.3.2" class="stack"><div data-aven-path="0.3.2.0" class="ks-row"><span data-aven-path="0.3.2.0.0" class="ks-type ks-fs-nano">The quick brown fox</span><span data-aven-path="0.3.2.0.1" class="ks-row-meta"><span data-aven-path="0.3.2.0.1.0" class="ks-mono">fs-nano · 9px</span></span></div><div data-aven-path="0.3.2.1" class="ks-row"><span data-aven-path="0.3.2.1.0" class="ks-type ks-fs-micro">The quick brown fox</span><span data-aven-path="0.3.2.1.1" class="ks-row-meta"><span data-aven-path="0.3.2.1.1.0" class="ks-mono">fs-micro · 10px</span></span></div><div data-aven-path="0.3.2.2" class="ks-row"><span data-aven-path="0.3.2.2.0" class="ks-type ks-fs-eyebrow">The quick brown fox</span><span data-aven-path="0.3.2.2.1" class="ks-row-meta"><span data-aven-path="0.3.2.2.1.0" class="ks-mono">fs-eyebrow · 11px</span></span></div><div data-aven-path="0.3.2.3" class="ks-row"><span data-aven-path="0.3.2.3.0" class="ks-type ks-fs-meta">The quick brown fox</span><span data-aven-path="0.3.2.3.1" class="ks-row-meta"><span data-aven-path="0.3.2.3.1.0" class="ks-mono">fs-meta · 12px</span></span></div><div data-aven-path="0.3.2.4" class="ks-row"><span data-aven-path="0.3.2.4.0" class="ks-type ks-fs-body">The quick brown fox</span><span data-aven-path="0.3.2.4.1" class="ks-row-meta"><span data-aven-path="0.3.2.4.1.0" class="ks-mono">fs-body · 13px</span></span></div><div data-aven-path="0.3.2.5" class="ks-row"><span data-aven-path="0.3.2.5.0" class="ks-type ks-fs-section">The quick brown fox</span><span data-aven-path="0.3.2.5.1" class="ks-row-meta"><span data-aven-path="0.3.2.5.1.0" class="ks-mono">fs-section · 14px</span></span></div><div data-aven-path="0.3.2.6" class="ks-row"><span data-aven-path="0.3.2.6.0" class="ks-type ks-fs-title">The quick brown fox</span><span data-aven-path="0.3.2.6.1" class="ks-row-meta"><span data-aven-path="0.3.2.6.1.0" class="ks-mono">fs-title · 15px</span></span></div><div data-aven-path="0.3.2.7" class="ks-row"><span data-aven-path="0.3.2.7.0" class="ks-type ks-fs-lead">The quick brown fox</span><span data-aven-path="0.3.2.7.1" class="ks-row-meta"><span data-aven-path="0.3.2.7.1.0" class="ks-mono">fs-lead · 17px</span></span></div><div data-aven-path="0.3.2.8" class="ks-row"><span data-aven-path="0.3.2.8.0" class="ks-type ks-fs-hero">The quick brown fox</span><span data-aven-path="0.3.2.8.1" class="ks-row-meta"><span data-aven-path="0.3.2.8.1.0" class="ks-mono">fs-hero · 20px</span></span></div><div data-aven-path="0.3.2.9" class="ks-row"><span data-aven-path="0.3.2.9.0" class="ks-type ks-fs-amount">The quick brown fox</span><span data-aven-path="0.3.2.9.1" class="ks-row-meta"><span data-aven-path="0.3.2.9.1.0" class="ks-mono">fs-amount · 24px</span></span></div><div data-aven-path="0.3.2.10" class="ks-row"><span data-aven-path="0.3.2.10.0" class="ks-type ks-fs-display">The quick brown fox</span><span data-aven-path="0.3.2.10.1" class="ks-row-meta"><span data-aven-path="0.3.2.10.1.0" class="ks-mono">fs-display · 28px</span></span></div><div data-aven-path="0.3.2.11" class="ks-row"><span data-aven-path="0.3.2.11.0" class="ks-type ks-fs-display-lg">The quick brown fox</span><span data-aven-path="0.3.2.11.1" class="ks-row-meta"><span data-aven-path="0.3.2.11.1.0" class="ks-mono">fs-display-lg · 38px</span></span></div></div></section><section data-aven-path="0.4" class="ks-section"><p data-aven-path="0.4.0" class="ks-eyebrow">Tracking</p><p data-aven-path="0.4.1" class="ks-lede">Five steps, for what was fourteen values.</p><div data-aven-path="0.4.2" class="stack"><div data-aven-path="0.4.2.0" class="ks-row"><span data-aven-path="0.4.2.0.0" class="ks-track ks-tracking-tight">TRACKING SAMPLE</span><span data-aven-path="0.4.2.0.1" class="ks-row-meta"><span data-aven-path="0.4.2.0.1.0" class="ks-mono">tracking-tight · -0.02em</span></span></div><div data-aven-path="0.4.2.1" class="ks-row"><span data-aven-path="0.4.2.1.0" class="ks-track ks-tracking-normal">TRACKING SAMPLE</span><span data-aven-path="0.4.2.1.1" class="ks-row-meta"><span data-aven-path="0.4.2.1.1.0" class="ks-mono">tracking-normal · 0</span></span></div><div data-aven-path="0.4.2.2" class="ks-row"><span data-aven-path="0.4.2.2.0" class="ks-track ks-tracking-wide">TRACKING SAMPLE</span><span data-aven-path="0.4.2.2.1" class="ks-row-meta"><span data-aven-path="0.4.2.2.1.0" class="ks-mono">tracking-wide · 0.08em</span></span></div><div data-aven-path="0.4.2.3" class="ks-row"><span data-aven-path="0.4.2.3.0" class="ks-track ks-tracking-wider">TRACKING SAMPLE</span><span data-aven-path="0.4.2.3.1" class="ks-row-meta"><span data-aven-path="0.4.2.3.1.0" class="ks-mono">tracking-wider · 0.14em</span></span></div><div data-aven-path="0.4.2.4" class="ks-row"><span data-aven-path="0.4.2.4.0" class="ks-track ks-tracking-widest">TRACKING SAMPLE</span><span data-aven-path="0.4.2.4.1" class="ks-row-meta"><span data-aven-path="0.4.2.4.1.0" class="ks-mono">tracking-widest · 0.22em</span></span></div></div></section><section data-aven-path="0.5" class="ks-section"><p data-aven-path="0.5.0" class="ks-eyebrow">Ink</p><p data-aven-path="0.5.1" class="ks-lede">Text emphasis, as four steps rather than a continuum.</p><div data-aven-path="0.5.2" class="stack"><div data-aven-path="0.5.2.0" class="ks-row"><span data-aven-path="0.5.2.0.0" class="ks-ink ks-ink-faint">Readable at this weight</span><span data-aven-path="0.5.2.0.1" class="ks-row-meta"><span data-aven-path="0.5.2.0.1.0" class="ks-mono">ink-faint · 0.35</span></span></div><div data-aven-path="0.5.2.1" class="ks-row"><span data-aven-path="0.5.2.1.0" class="ks-ink ks-ink-quiet">Readable at this weight</span><span data-aven-path="0.5.2.1.1" class="ks-row-meta"><span data-aven-path="0.5.2.1.1.0" class="ks-mono">ink-quiet · 0.65</span></span></div><div data-aven-path="0.5.2.2" class="ks-row"><span data-aven-path="0.5.2.2.0" class="ks-ink ks-ink-muted">Readable at this weight</span><span data-aven-path="0.5.2.2.1" class="ks-row-meta"><span data-aven-path="0.5.2.2.1.0" class="ks-mono">ink-muted · 0.75</span></span></div><div data-aven-path="0.5.2.3" class="ks-row"><span data-aven-path="0.5.2.3.0" class="ks-ink ks-ink-strong">Readable at this weight</span><span data-aven-path="0.5.2.3.1" class="ks-row-meta"><span data-aven-path="0.5.2.3.1.0" class="ks-mono">ink-strong · 0.85</span></span></div><div data-aven-path="0.5.2.4" class="ks-row"><span data-aven-path="0.5.2.4.0" class="ks-ink ks-ink-full">Readable at this weight</span><span data-aven-path="0.5.2.4.1" class="ks-row-meta"><span data-aven-path="0.5.2.4.1.0" class="ks-mono">ink-full · 0.9</span></span></div></div></section><section data-aven-path="0.6" class="ks-section"><p data-aven-path="0.6.0" class="ks-eyebrow">Tint</p><p data-aven-path="0.6.1" class="ks-lede">Surfaces, not text — hairlines and washes.</p><div data-aven-path="0.6.2" class="stack"><div data-aven-path="0.6.2.0" class="ks-row"><span data-aven-path="0.6.2.0.0" class="ks-tint ks-tint-hairline"></span><span data-aven-path="0.6.2.0.1" class="ks-mono">tint-hairline · 0.08</span></div><div data-aven-path="0.6.2.1" class="ks-row"><span data-aven-path="0.6.2.1.0" class="ks-tint ks-tint-soft"></span><span data-aven-path="0.6.2.1.1" class="ks-mono">tint-soft · 0.15</span></div><div data-aven-path="0.6.2.2" class="ks-row"><span data-aven-path="0.6.2.2.0" class="ks-tint ks-tint-firm"></span><span data-aven-path="0.6.2.2.1" class="ks-mono">tint-firm · 0.25</span></div></div></section><section data-aven-path="0.7" class="ks-section"><p data-aven-path="0.7.0" class="ks-eyebrow">Elevation</p><div data-aven-path="0.7.1" class="cluster"><div data-aven-path="0.7.1.0" class="ks-box ks-shadow-raised">shadow-raised</div><div data-aven-path="0.7.1.1" class="ks-box ks-shadow-floating">shadow-floating</div><div data-aven-path="0.7.1.2" class="ks-box ks-shadow-overlay">shadow-overlay</div></div></section><section data-aven-path="0.8" class="ks-section"><p data-aven-path="0.8.0" class="ks-eyebrow">Radius</p><div data-aven-path="0.8.1" class="cluster"><div data-aven-path="0.8.1.0" class="ks-box ks-radius-xs">radius-xs · 0.375rem</div><div data-aven-path="0.8.1.1" class="ks-box ks-radius-sm">radius-sm · 0.625rem</div><div data-aven-path="0.8.1.2" class="ks-box ks-radius-md">radius-md · 0.875rem</div><div data-aven-path="0.8.1.3" class="ks-box ks-radius-lg">radius-lg · 1.25rem</div><div data-aven-path="0.8.1.4" class="ks-box ks-radius-xl">radius-xl · 1.75rem</div><div data-aven-path="0.8.1.5" class="ks-box ks-radius-full">radius-full · 9999px</div></div></section><section data-aven-path="0.9" class="ks-section"><p data-aven-path="0.9.0" class="ks-eyebrow">Space</p><div data-aven-path="0.9.1" class="stack"><div data-aven-path="0.9.1.0" class="ks-row"><span data-aven-path="0.9.1.0.0" class="ks-space ks-space-tight"></span><span data-aven-path="0.9.1.0.1" class="ks-mono">space-tight · 0.5rem</span></div><div data-aven-path="0.9.1.1" class="ks-row"><span data-aven-path="0.9.1.1.0" class="ks-space ks-space-snug"></span><span data-aven-path="0.9.1.1.1" class="ks-mono">space-snug · 0.75rem</span></div><div data-aven-path="0.9.1.2" class="ks-row"><span data-aven-path="0.9.1.2.0" class="ks-space ks-space-comfortable"></span><span data-aven-path="0.9.1.2.1" class="ks-mono">space-comfortable · 1rem</span></div><div data-aven-path="0.9.1.3" class="ks-row"><span data-aven-path="0.9.1.3.0" class="ks-space ks-space-loose"></span><span data-aven-path="0.9.1.3.1" class="ks-mono">space-loose · 1.5rem</span></div><div data-aven-path="0.9.1.4" class="ks-row"><span data-aven-path="0.9.1.4.0" class="ks-space ks-space-section"></span><span data-aven-path="0.9.1.4.1" class="ks-mono">space-section · 2.5rem</span></div></div></section><section data-aven-path="0.10" class="ks-section"><p data-aven-path="0.10.0" class="ks-eyebrow">Primitives · 8</p><p data-aven-path="0.10.1" class="ks-lede">The shapes almost every layout is made of. Each tuned at the call site by a custom property rather than by a class per value.</p><p data-aven-path="0.10.2" class="ks-eyebrow">stack</p><div data-aven-path="0.10.3" class="stack ks-demo"><div data-aven-path="0.10.3.0" class="ks-box">one</div><div data-aven-path="0.10.3.1" class="ks-box">two</div><div data-aven-path="0.10.3.2" class="ks-box">three</div></div><p data-aven-path="0.10.4" class="ks-eyebrow">stack-center</p><div data-aven-path="0.10.5" class="stack-center ks-demo"><div data-aven-path="0.10.5.0" class="ks-box">one</div><div data-aven-path="0.10.5.1" class="ks-box">two</div><div data-aven-path="0.10.5.2" class="ks-box">three</div></div><p data-aven-path="0.10.6" class="ks-eyebrow">cluster</p><div data-aven-path="0.10.7" class="cluster ks-demo"><div data-aven-path="0.10.7.0" class="ks-box">one</div><div data-aven-path="0.10.7.1" class="ks-box">two</div><div data-aven-path="0.10.7.2" class="ks-box">three</div></div><p data-aven-path="0.10.8" class="ks-eyebrow">center</p><div data-aven-path="0.10.9" class="center ks-demo"><div data-aven-path="0.10.9.0" class="ks-box">one</div><div data-aven-path="0.10.9.1" class="ks-box">two</div><div data-aven-path="0.10.9.2" class="ks-box">three</div></div><p data-aven-path="0.10.10" class="ks-eyebrow">grid-auto</p><div data-aven-path="0.10.11" class="grid-auto ks-demo"><div data-aven-path="0.10.11.0" class="ks-box">one</div><div data-aven-path="0.10.11.1" class="ks-box">two</div><div data-aven-path="0.10.11.2" class="ks-box">three</div></div><p data-aven-path="0.10.12" class="ks-eyebrow">sidebar</p><div data-aven-path="0.10.13" class="sidebar ks-demo"><div data-aven-path="0.10.13.0" class="ks-box">one</div><div data-aven-path="0.10.13.1" class="ks-box">two</div><div data-aven-path="0.10.13.2" class="ks-box">three</div></div><p data-aven-path="0.10.14" class="ks-eyebrow">switcher</p><div data-aven-path="0.10.15" class="switcher ks-demo"><div data-aven-path="0.10.15.0" class="ks-box">one</div><div data-aven-path="0.10.15.1" class="ks-box">two</div><div data-aven-path="0.10.15.2" class="ks-box">three</div></div><p data-aven-path="0.10.16" class="ks-eyebrow">frame</p><div data-aven-path="0.10.17" class="frame ks-demo"><div data-aven-path="0.10.17.0" class="ks-box">one</div><div data-aven-path="0.10.17.1" class="ks-box">two</div><div data-aven-path="0.10.17.2" class="ks-box">three</div></div></section><section data-aven-path="0.11" class="ks-section"><p data-aven-path="0.11.0" class="ks-eyebrow">Components · 232</p><p data-aven-path="0.11.1" class="ks-lede">Each rendered as itself, from the same definitions aven-ui applies as a StyleDef.</p><div data-aven-path="0.11.2" class="stack"><div data-aven-path="0.11.2.0" class="ks-row"><div data-aven-path="0.11.2.0.0" class="ks-specimen card">card</div><span data-aven-path="0.11.2.0.1" class="ks-row-meta"><span data-aven-path="0.11.2.0.1.0" class="ks-mono">.card</span></span></div><div data-aven-path="0.11.2.1" class="ks-row"><div data-aven-path="0.11.2.1.0" class="ks-specimen eyebrow">EYEBROW</div><span data-aven-path="0.11.2.1.1" class="ks-row-meta"><span data-aven-path="0.11.2.1.1.0" class="ks-mono">.eyebrow</span></span></div><div data-aven-path="0.11.2.2" class="ks-row"><div data-aven-path="0.11.2.2.0" class="ks-specimen eyebrow-accent">EYEBROW-ACCENT</div><span data-aven-path="0.11.2.2.1" class="ks-row-meta"><span data-aven-path="0.11.2.2.1.0" class="ks-mono">.eyebrow-accent</span></span></div><div data-aven-path="0.11.2.3" class="ks-row"><div data-aven-path="0.11.2.3.0" class="ks-specimen eyebrow-quiet">EYEBROW-QUIET</div><span data-aven-path="0.11.2.3.1" class="ks-row-meta"><span data-aven-path="0.11.2.3.1.0" class="ks-mono">.eyebrow-quiet</span></span></div><div data-aven-path="0.11.2.4" class="ks-row"><div data-aven-path="0.11.2.4.0" class="ks-specimen section-title">A heading, set as itself</div><span data-aven-path="0.11.2.4.1" class="ks-row-meta"><span data-aven-path="0.11.2.4.1.0" class="ks-mono">.section-title</span></span></div><div data-aven-path="0.11.2.5" class="ks-row"><div data-aven-path="0.11.2.5.0" class="ks-specimen section-band">section-band</div><span data-aven-path="0.11.2.5.1" class="ks-row-meta"><span data-aven-path="0.11.2.5.1.0" class="ks-mono">.section-band</span></span></div><div data-aven-path="0.11.2.6" class="ks-row"><div data-aven-path="0.11.2.6.0" class="ks-specimen app-shell">app-shell</div><span data-aven-path="0.11.2.6.1" class="ks-row-meta"><span data-aven-path="0.11.2.6.1.0" class="ks-mono">.app-shell</span></span></div><div data-aven-path="0.11.2.7" class="ks-row"><div data-aven-path="0.11.2.7.0" class="ks-specimen mono-meta">MONO-META</div><span data-aven-path="0.11.2.7.1" class="ks-row-meta"><span data-aven-path="0.11.2.7.1.0" class="ks-mono">.mono-meta</span></span></div><div data-aven-path="0.11.2.8" class="ks-row"><div data-aven-path="0.11.2.8.0" class="ks-specimen title">A heading, set as itself</div><span data-aven-path="0.11.2.8.1" class="ks-row-meta"><span data-aven-path="0.11.2.8.1.0" class="ks-mono">.title</span></span></div><div data-aven-path="0.11.2.9" class="ks-row"><div data-aven-path="0.11.2.9.0" class="ks-specimen lede">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.9.1" class="ks-row-meta"><span data-aven-path="0.11.2.9.1.0" class="ks-mono">.lede</span></span></div><div data-aven-path="0.11.2.10" class="ks-row"><div data-aven-path="0.11.2.10.0" class="ks-specimen label">LABEL</div><span data-aven-path="0.11.2.10.1" class="ks-row-meta"><span data-aven-path="0.11.2.10.1.0" class="ks-mono">.label</span></span></div><div data-aven-path="0.11.2.11" class="ks-row"><button data-aven-path="0.11.2.11.0" class="btn">btn</button><span data-aven-path="0.11.2.11.1" class="ks-row-meta"><span data-aven-path="0.11.2.11.1.0" class="ks-mono">.btn</span></span></div><div data-aven-path="0.11.2.12" class="ks-row"><div data-aven-path="0.11.2.12.0" class="ks-specimen chip">CHIP</div><span data-aven-path="0.11.2.12.1" class="ks-row-meta"><span data-aven-path="0.11.2.12.1.0" class="ks-mono">.chip</span></span></div><div data-aven-path="0.11.2.13" class="ks-row"><div data-aven-path="0.11.2.13.0" class="ks-specimen panel">panel</div><span data-aven-path="0.11.2.13.1" class="ks-row-meta"><span data-aven-path="0.11.2.13.1.0" class="ks-mono">.panel</span></span></div><div data-aven-path="0.11.2.14" class="ks-row"><div data-aven-path="0.11.2.14.0" class="ks-specimen well">well</div><span data-aven-path="0.11.2.14.1" class="ks-row-meta"><span data-aven-path="0.11.2.14.1.0" class="ks-mono">.well</span></span></div><div data-aven-path="0.11.2.15" class="ks-row"><div data-aven-path="0.11.2.15.0" class="ks-specimen mark">mark</div><span data-aven-path="0.11.2.15.1" class="ks-row-meta"><span data-aven-path="0.11.2.15.1.0" class="ks-mono">.mark</span></span></div><div data-aven-path="0.11.2.16" class="ks-row"><div data-aven-path="0.11.2.16.0" class="ks-specimen digits">DIGITS</div><span data-aven-path="0.11.2.16.1" class="ks-row-meta"><span data-aven-path="0.11.2.16.1.0" class="ks-mono">.digits</span></span></div><div data-aven-path="0.11.2.17" class="ks-row"><div data-aven-path="0.11.2.17.0" class="ks-specimen alert">alert</div><span data-aven-path="0.11.2.17.1" class="ks-row-meta"><span data-aven-path="0.11.2.17.1.0" class="ks-mono">.alert</span></span></div><div data-aven-path="0.11.2.18" class="ks-row"><div data-aven-path="0.11.2.18.0" class="ks-specimen steps">steps</div><span data-aven-path="0.11.2.18.1" class="ks-row-meta"><span data-aven-path="0.11.2.18.1.0" class="ks-mono">.steps</span></span></div><div data-aven-path="0.11.2.19" class="ks-row"><div data-aven-path="0.11.2.19.0" class="ks-specimen step">step</div><span data-aven-path="0.11.2.19.1" class="ks-row-meta"><span data-aven-path="0.11.2.19.1.0" class="ks-mono">.step</span></span></div><div data-aven-path="0.11.2.20" class="ks-row"><div data-aven-path="0.11.2.20.0" class="ks-specimen field">field</div><span data-aven-path="0.11.2.20.1" class="ks-row-meta"><span data-aven-path="0.11.2.20.1.0" class="ks-mono">.field</span></span></div><div data-aven-path="0.11.2.21" class="ks-row"><div data-aven-path="0.11.2.21.0" class="ks-specimen ghost">ghost</div><span data-aven-path="0.11.2.21.1" class="ks-row-meta"><span data-aven-path="0.11.2.21.1.0" class="ks-mono">.ghost</span></span></div><div data-aven-path="0.11.2.22" class="ks-row"><div data-aven-path="0.11.2.22.0" class="ks-specimen meta">META</div><span data-aven-path="0.11.2.22.1" class="ks-row-meta"><span data-aven-path="0.11.2.22.1.0" class="ks-mono">.meta</span></span></div><div data-aven-path="0.11.2.23" class="ks-row"><div data-aven-path="0.11.2.23.0" class="ks-specimen logo-mark">logo-mark</div><span data-aven-path="0.11.2.23.1" class="ks-row-meta"><span data-aven-path="0.11.2.23.1.0" class="ks-mono">.logo-mark</span></span></div><div data-aven-path="0.11.2.24" class="ks-row"><div data-aven-path="0.11.2.24.0" class="ks-specimen logo-wordmark">logo-wordmark</div><span data-aven-path="0.11.2.24.1" class="ks-row-meta"><span data-aven-path="0.11.2.24.1.0" class="ks-mono">.logo-wordmark</span></span></div><div data-aven-path="0.11.2.25" class="ks-row"><div data-aven-path="0.11.2.25.0" class="ks-specimen logo-word-aven">logo-word-aven</div><span data-aven-path="0.11.2.25.1" class="ks-row-meta"><span data-aven-path="0.11.2.25.1.0" class="ks-mono">.logo-word-aven</span></span></div><div data-aven-path="0.11.2.26" class="ks-row"><div data-aven-path="0.11.2.26.0" class="ks-specimen logo-word-ceo">logo-word-ceo</div><span data-aven-path="0.11.2.26.1" class="ks-row-meta"><span data-aven-path="0.11.2.26.1.0" class="ks-mono">.logo-word-ceo</span></span></div><div data-aven-path="0.11.2.27" class="ks-row"><div data-aven-path="0.11.2.27.0" class="ks-specimen logo">logo</div><span data-aven-path="0.11.2.27.1" class="ks-row-meta"><span data-aven-path="0.11.2.27.1.0" class="ks-mono">.logo</span></span></div><div data-aven-path="0.11.2.28" class="ks-row"><div data-aven-path="0.11.2.28.0" class="ks-specimen logo--mark">logo--mark</div><span data-aven-path="0.11.2.28.1" class="ks-row-meta"><span data-aven-path="0.11.2.28.1.0" class="ks-mono">.logo--mark</span></span></div><div data-aven-path="0.11.2.29" class="ks-row"><div data-aven-path="0.11.2.29.0" class="ks-specimen logo--wordmark">logo--wordmark</div><span data-aven-path="0.11.2.29.1" class="ks-row-meta"><span data-aven-path="0.11.2.29.1.0" class="ks-mono">.logo--wordmark</span></span></div><div data-aven-path="0.11.2.30" class="ks-row"><div data-aven-path="0.11.2.30.0" class="ks-specimen text">text</div><span data-aven-path="0.11.2.30.1" class="ks-row-meta"><span data-aven-path="0.11.2.30.1.0" class="ks-mono">.text</span></span></div><div data-aven-path="0.11.2.31" class="ks-row"><div data-aven-path="0.11.2.31.0" class="ks-specimen text--title">A heading, set as itself</div><span data-aven-path="0.11.2.31.1" class="ks-row-meta"><span data-aven-path="0.11.2.31.1.0" class="ks-mono">.text--title</span></span></div><div data-aven-path="0.11.2.32" class="ks-row"><div data-aven-path="0.11.2.32.0" class="ks-specimen text--section-title">A heading, set as itself</div><span data-aven-path="0.11.2.32.1" class="ks-row-meta"><span data-aven-path="0.11.2.32.1.0" class="ks-mono">.text--section-title</span></span></div><div data-aven-path="0.11.2.33" class="ks-row"><div data-aven-path="0.11.2.33.0" class="ks-specimen text--lede">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.33.1" class="ks-row-meta"><span data-aven-path="0.11.2.33.1.0" class="ks-mono">.text--lede</span></span></div><div data-aven-path="0.11.2.34" class="ks-row"><div data-aven-path="0.11.2.34.0" class="ks-specimen text--meta">TEXT--META</div><span data-aven-path="0.11.2.34.1" class="ks-row-meta"><span data-aven-path="0.11.2.34.1.0" class="ks-mono">.text--meta</span></span></div><div data-aven-path="0.11.2.35" class="ks-row"><div data-aven-path="0.11.2.35.0" class="ks-specimen text--mono-meta">TEXT--MONO-META</div><span data-aven-path="0.11.2.35.1" class="ks-row-meta"><span data-aven-path="0.11.2.35.1.0" class="ks-mono">.text--mono-meta</span></span></div><div data-aven-path="0.11.2.36" class="ks-row"><div data-aven-path="0.11.2.36.0" class="ks-specimen text--digits">TEXT--DIGITS</div><span data-aven-path="0.11.2.36.1" class="ks-row-meta"><span data-aven-path="0.11.2.36.1.0" class="ks-mono">.text--digits</span></span></div><div data-aven-path="0.11.2.37" class="ks-row"><div data-aven-path="0.11.2.37.0" class="ks-specimen text--eyebrow">TEXT--EYEBROW</div><span data-aven-path="0.11.2.37.1" class="ks-row-meta"><span data-aven-path="0.11.2.37.1.0" class="ks-mono">.text--eyebrow</span></span></div><div data-aven-path="0.11.2.38" class="ks-row"><div data-aven-path="0.11.2.38.0" class="ks-specimen text--eyebrow-accent">TEXT--EYEBROW-ACCENT</div><span data-aven-path="0.11.2.38.1" class="ks-row-meta"><span data-aven-path="0.11.2.38.1.0" class="ks-mono">.text--eyebrow-accent</span></span></div><div data-aven-path="0.11.2.39" class="ks-row"><div data-aven-path="0.11.2.39.0" class="ks-specimen text--eyebrow-quiet">TEXT--EYEBROW-QUIET</div><span data-aven-path="0.11.2.39.1" class="ks-row-meta"><span data-aven-path="0.11.2.39.1.0" class="ks-mono">.text--eyebrow-quiet</span></span></div><div data-aven-path="0.11.2.40" class="ks-row"><div data-aven-path="0.11.2.40.0" class="ks-specimen prose">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.40.1" class="ks-row-meta"><span data-aven-path="0.11.2.40.1.0" class="ks-mono">.prose</span></span></div><div data-aven-path="0.11.2.41" class="ks-row"><div data-aven-path="0.11.2.41.0" class="ks-specimen prose--measure-narrow">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.41.1" class="ks-row-meta"><span data-aven-path="0.11.2.41.1.0" class="ks-mono">.prose--measure-narrow</span></span></div><div data-aven-path="0.11.2.42" class="ks-row"><div data-aven-path="0.11.2.42.0" class="ks-specimen prose--measure-wide">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.42.1" class="ks-row-meta"><span data-aven-path="0.11.2.42.1.0" class="ks-mono">.prose--measure-wide</span></span></div><div data-aven-path="0.11.2.43" class="ks-row"><div data-aven-path="0.11.2.43.0" class="ks-specimen prose--align-center">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.43.1" class="ks-row-meta"><span data-aven-path="0.11.2.43.1.0" class="ks-mono">.prose--align-center</span></span></div><div data-aven-path="0.11.2.44" class="ks-row"><div data-aven-path="0.11.2.44.0" class="ks-specimen prose--size-lead">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.44.1" class="ks-row-meta"><span data-aven-path="0.11.2.44.1.0" class="ks-mono">.prose--size-lead</span></span></div><div data-aven-path="0.11.2.45" class="ks-row"><div data-aven-path="0.11.2.45.0" class="ks-specimen prose--size-fine">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.45.1" class="ks-row-meta"><span data-aven-path="0.11.2.45.1.0" class="ks-mono">.prose--size-fine</span></span></div><div data-aven-path="0.11.2.46" class="ks-row"><div data-aven-path="0.11.2.46.0" class="ks-specimen surface">surface</div><span data-aven-path="0.11.2.46.1" class="ks-row-meta"><span data-aven-path="0.11.2.46.1.0" class="ks-mono">.surface</span></span></div><div data-aven-path="0.11.2.47" class="ks-row"><div data-aven-path="0.11.2.47.0" class="ks-specimen surface--raised">surface--raised</div><span data-aven-path="0.11.2.47.1" class="ks-row-meta"><span data-aven-path="0.11.2.47.1.0" class="ks-mono">.surface--raised</span></span></div><div data-aven-path="0.11.2.48" class="ks-row"><div data-aven-path="0.11.2.48.0" class="ks-specimen surface--sunken">surface--sunken</div><span data-aven-path="0.11.2.48.1" class="ks-row-meta"><span data-aven-path="0.11.2.48.1.0" class="ks-mono">.surface--sunken</span></span></div><div data-aven-path="0.11.2.49" class="ks-row"><div data-aven-path="0.11.2.49.0" class="ks-specimen surface--plain">surface--plain</div><span data-aven-path="0.11.2.49.1" class="ks-row-meta"><span data-aven-path="0.11.2.49.1.0" class="ks-mono">.surface--plain</span></span></div><div data-aven-path="0.11.2.50" class="ks-row"><div data-aven-path="0.11.2.50.0" class="ks-specimen surface--size-sm">surface--size-sm</div><span data-aven-path="0.11.2.50.1" class="ks-row-meta"><span data-aven-path="0.11.2.50.1.0" class="ks-mono">.surface--size-sm</span></span></div><div data-aven-path="0.11.2.51" class="ks-row"><div data-aven-path="0.11.2.51.0" class="ks-specimen surface--size-lg">surface--size-lg</div><span data-aven-path="0.11.2.51.1" class="ks-row-meta"><span data-aven-path="0.11.2.51.1.0" class="ks-mono">.surface--size-lg</span></span></div><div data-aven-path="0.11.2.52" class="ks-row"><div data-aven-path="0.11.2.52.0" class="ks-specimen card--emphasis-featured">card--emphasis-featured</div><span data-aven-path="0.11.2.52.1" class="ks-row-meta"><span data-aven-path="0.11.2.52.1.0" class="ks-mono">.card--emphasis-featured</span></span></div><div data-aven-path="0.11.2.53" class="ks-row"><div data-aven-path="0.11.2.53.0" class="ks-specimen card--emphasis-quiet">card--emphasis-quiet</div><span data-aven-path="0.11.2.53.1" class="ks-row-meta"><span data-aven-path="0.11.2.53.1.0" class="ks-mono">.card--emphasis-quiet</span></span></div><div data-aven-path="0.11.2.54" class="ks-row"><div data-aven-path="0.11.2.54.0" class="ks-specimen card--density-compact">card--density-compact</div><span data-aven-path="0.11.2.54.1" class="ks-row-meta"><span data-aven-path="0.11.2.54.1.0" class="ks-mono">.card--density-compact</span></span></div><div data-aven-path="0.11.2.55" class="ks-row"><div data-aven-path="0.11.2.55.0" class="ks-specimen card--density-roomy">card--density-roomy</div><span data-aven-path="0.11.2.55.1" class="ks-row-meta"><span data-aven-path="0.11.2.55.1.0" class="ks-mono">.card--density-roomy</span></span></div><div data-aven-path="0.11.2.56" class="ks-row"><div data-aven-path="0.11.2.56.0" class="ks-specimen section">section</div><span data-aven-path="0.11.2.56.1" class="ks-row-meta"><span data-aven-path="0.11.2.56.1.0" class="ks-mono">.section</span></span></div><div data-aven-path="0.11.2.57" class="ks-row"><div data-aven-path="0.11.2.57.0" class="ks-specimen section-inner">section-inner</div><span data-aven-path="0.11.2.57.1" class="ks-row-meta"><span data-aven-path="0.11.2.57.1.0" class="ks-mono">.section-inner</span></span></div><div data-aven-path="0.11.2.58" class="ks-row"><div data-aven-path="0.11.2.58.0" class="ks-specimen section--rhythm-tight">section--rhythm-tight</div><span data-aven-path="0.11.2.58.1" class="ks-row-meta"><span data-aven-path="0.11.2.58.1.0" class="ks-mono">.section--rhythm-tight</span></span></div><div data-aven-path="0.11.2.59" class="ks-row"><div data-aven-path="0.11.2.59.0" class="ks-specimen section--rhythm-loose">section--rhythm-loose</div><span data-aven-path="0.11.2.59.1" class="ks-row-meta"><span data-aven-path="0.11.2.59.1.0" class="ks-mono">.section--rhythm-loose</span></span></div><div data-aven-path="0.11.2.60" class="ks-row"><div data-aven-path="0.11.2.60.0" class="ks-specimen section--ground-band">section--ground-band</div><span data-aven-path="0.11.2.60.1" class="ks-row-meta"><span data-aven-path="0.11.2.60.1.0" class="ks-mono">.section--ground-band</span></span></div><div data-aven-path="0.11.2.61" class="ks-row"><div data-aven-path="0.11.2.61.0" class="ks-specimen section--ground-band-alt">section--ground-band-alt</div><span data-aven-path="0.11.2.61.1" class="ks-row-meta"><span data-aven-path="0.11.2.61.1.0" class="ks-mono">.section--ground-band-alt</span></span></div><div data-aven-path="0.11.2.62" class="ks-row"><div data-aven-path="0.11.2.62.0" class="ks-specimen section--ground-raised">section--ground-raised</div><span data-aven-path="0.11.2.62.1" class="ks-row-meta"><span data-aven-path="0.11.2.62.1.0" class="ks-mono">.section--ground-raised</span></span></div><div data-aven-path="0.11.2.63" class="ks-row"><div data-aven-path="0.11.2.63.0" class="ks-specimen section--ground-plain">section--ground-plain</div><span data-aven-path="0.11.2.63.1" class="ks-row-meta"><span data-aven-path="0.11.2.63.1.0" class="ks-mono">.section--ground-plain</span></span></div><div data-aven-path="0.11.2.64" class="ks-row"><div data-aven-path="0.11.2.64.0" class="ks-specimen section--measure-prose">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.64.1" class="ks-row-meta"><span data-aven-path="0.11.2.64.1.0" class="ks-mono">.section--measure-prose</span></span></div><div data-aven-path="0.11.2.65" class="ks-row"><div data-aven-path="0.11.2.65.0" class="ks-specimen section--measure-wide">section--measure-wide</div><span data-aven-path="0.11.2.65.1" class="ks-row-meta"><span data-aven-path="0.11.2.65.1.0" class="ks-mono">.section--measure-wide</span></span></div><div data-aven-path="0.11.2.66" class="ks-row"><div data-aven-path="0.11.2.66.0" class="ks-specimen hero">hero</div><span data-aven-path="0.11.2.66.1" class="ks-row-meta"><span data-aven-path="0.11.2.66.1.0" class="ks-mono">.hero</span></span></div><div data-aven-path="0.11.2.67" class="ks-row"><div data-aven-path="0.11.2.67.0" class="ks-specimen hero-media">hero-media</div><span data-aven-path="0.11.2.67.1" class="ks-row-meta"><span data-aven-path="0.11.2.67.1.0" class="ks-mono">.hero-media</span></span></div><div data-aven-path="0.11.2.68" class="ks-row"><div data-aven-path="0.11.2.68.0" class="ks-specimen hero-scrim">hero-scrim</div><span data-aven-path="0.11.2.68.1" class="ks-row-meta"><span data-aven-path="0.11.2.68.1.0" class="ks-mono">.hero-scrim</span></span></div><div data-aven-path="0.11.2.69" class="ks-row"><div data-aven-path="0.11.2.69.0" class="ks-specimen hero-content">hero-content</div><span data-aven-path="0.11.2.69.1" class="ks-row-meta"><span data-aven-path="0.11.2.69.1.0" class="ks-mono">.hero-content</span></span></div><div data-aven-path="0.11.2.70" class="ks-row"><div data-aven-path="0.11.2.70.0" class="ks-specimen hero-eyebrow">HERO-EYEBROW</div><span data-aven-path="0.11.2.70.1" class="ks-row-meta"><span data-aven-path="0.11.2.70.1.0" class="ks-mono">.hero-eyebrow</span></span></div><div data-aven-path="0.11.2.71" class="ks-row"><div data-aven-path="0.11.2.71.0" class="ks-specimen hero-heading">A heading, set as itself</div><span data-aven-path="0.11.2.71.1" class="ks-row-meta"><span data-aven-path="0.11.2.71.1.0" class="ks-mono">.hero-heading</span></span></div><div data-aven-path="0.11.2.72" class="ks-row"><div data-aven-path="0.11.2.72.0" class="ks-specimen hero-lead">hero-lead</div><span data-aven-path="0.11.2.72.1" class="ks-row-meta"><span data-aven-path="0.11.2.72.1.0" class="ks-mono">.hero-lead</span></span></div><div data-aven-path="0.11.2.73" class="ks-row"><div data-aven-path="0.11.2.73.0" class="ks-specimen hero-actions">hero-actions</div><span data-aven-path="0.11.2.73.1" class="ks-row-meta"><span data-aven-path="0.11.2.73.1.0" class="ks-mono">.hero-actions</span></span></div><div data-aven-path="0.11.2.74" class="ks-row"><div data-aven-path="0.11.2.74.0" class="ks-specimen hero-helper">hero-helper</div><span data-aven-path="0.11.2.74.1" class="ks-row-meta"><span data-aven-path="0.11.2.74.1.0" class="ks-mono">.hero-helper</span></span></div><div data-aven-path="0.11.2.75" class="ks-row"><div data-aven-path="0.11.2.75.0" class="ks-specimen hero--height-full">hero--height-full</div><span data-aven-path="0.11.2.75.1" class="ks-row-meta"><span data-aven-path="0.11.2.75.1.0" class="ks-mono">.hero--height-full</span></span></div><div data-aven-path="0.11.2.76" class="ks-row"><div data-aven-path="0.11.2.76.0" class="ks-specimen hero--height-short">hero--height-short</div><span data-aven-path="0.11.2.76.1" class="ks-row-meta"><span data-aven-path="0.11.2.76.1.0" class="ks-mono">.hero--height-short</span></span></div><div data-aven-path="0.11.2.77" class="ks-row"><div data-aven-path="0.11.2.77.0" class="ks-specimen hero--align-start">hero--align-start</div><span data-aven-path="0.11.2.77.1" class="ks-row-meta"><span data-aven-path="0.11.2.77.1.0" class="ks-mono">.hero--align-start</span></span></div><div data-aven-path="0.11.2.78" class="ks-row"><div data-aven-path="0.11.2.78.0" class="ks-specimen hero--ground-band">hero--ground-band</div><span data-aven-path="0.11.2.78.1" class="ks-row-meta"><span data-aven-path="0.11.2.78.1.0" class="ks-mono">.hero--ground-band</span></span></div><div data-aven-path="0.11.2.79" class="ks-row"><div data-aven-path="0.11.2.79.0" class="ks-specimen hero--ground-marine">hero--ground-marine</div><span data-aven-path="0.11.2.79.1" class="ks-row-meta"><span data-aven-path="0.11.2.79.1.0" class="ks-mono">.hero--ground-marine</span></span></div><div data-aven-path="0.11.2.80" class="ks-row"><div data-aven-path="0.11.2.80.0" class="ks-specimen media">media</div><span data-aven-path="0.11.2.80.1" class="ks-row-meta"><span data-aven-path="0.11.2.80.1.0" class="ks-mono">.media</span></span></div><div data-aven-path="0.11.2.81" class="ks-row"><div data-aven-path="0.11.2.81.0" class="ks-specimen media--placement-behind">media--placement-behind</div><span data-aven-path="0.11.2.81.1" class="ks-row-meta"><span data-aven-path="0.11.2.81.1.0" class="ks-mono">.media--placement-behind</span></span></div><div data-aven-path="0.11.2.82" class="ks-row"><div data-aven-path="0.11.2.82.0" class="ks-specimen media--ratio-wide">media--ratio-wide</div><span data-aven-path="0.11.2.82.1" class="ks-row-meta"><span data-aven-path="0.11.2.82.1.0" class="ks-mono">.media--ratio-wide</span></span></div><div data-aven-path="0.11.2.83" class="ks-row"><div data-aven-path="0.11.2.83.0" class="ks-specimen media--ratio-square">media--ratio-square</div><span data-aven-path="0.11.2.83.1" class="ks-row-meta"><span data-aven-path="0.11.2.83.1.0" class="ks-mono">.media--ratio-square</span></span></div><div data-aven-path="0.11.2.84" class="ks-row"><div data-aven-path="0.11.2.84.0" class="ks-specimen media--ratio-portrait">media--ratio-portrait</div><span data-aven-path="0.11.2.84.1" class="ks-row-meta"><span data-aven-path="0.11.2.84.1.0" class="ks-mono">.media--ratio-portrait</span></span></div><div data-aven-path="0.11.2.85" class="ks-row"><div data-aven-path="0.11.2.85.0" class="ks-specimen media--fit-contain">media--fit-contain</div><span data-aven-path="0.11.2.85.1" class="ks-row-meta"><span data-aven-path="0.11.2.85.1.0" class="ks-mono">.media--fit-contain</span></span></div><div data-aven-path="0.11.2.86" class="ks-row"><div data-aven-path="0.11.2.86.0" class="ks-specimen stat">stat</div><span data-aven-path="0.11.2.86.1" class="ks-row-meta"><span data-aven-path="0.11.2.86.1.0" class="ks-mono">.stat</span></span></div><div data-aven-path="0.11.2.87" class="ks-row"><div data-aven-path="0.11.2.87.0" class="ks-specimen stat-value">stat-value</div><span data-aven-path="0.11.2.87.1" class="ks-row-meta"><span data-aven-path="0.11.2.87.1.0" class="ks-mono">.stat-value</span></span></div><div data-aven-path="0.11.2.88" class="ks-row"><div data-aven-path="0.11.2.88.0" class="ks-specimen stat-label">STAT-LABEL</div><span data-aven-path="0.11.2.88.1" class="ks-row-meta"><span data-aven-path="0.11.2.88.1.0" class="ks-mono">.stat-label</span></span></div><div data-aven-path="0.11.2.89" class="ks-row"><div data-aven-path="0.11.2.89.0" class="ks-specimen stat-caption">stat-caption</div><span data-aven-path="0.11.2.89.1" class="ks-row-meta"><span data-aven-path="0.11.2.89.1.0" class="ks-mono">.stat-caption</span></span></div><div data-aven-path="0.11.2.90" class="ks-row"><div data-aven-path="0.11.2.90.0" class="ks-specimen stat--align-center">stat--align-center</div><span data-aven-path="0.11.2.90.1" class="ks-row-meta"><span data-aven-path="0.11.2.90.1.0" class="ks-mono">.stat--align-center</span></span></div><div data-aven-path="0.11.2.91" class="ks-row"><div data-aven-path="0.11.2.91.0" class="ks-specimen stat--tone-accent">stat--tone-accent</div><span data-aven-path="0.11.2.91.1" class="ks-row-meta"><span data-aven-path="0.11.2.91.1.0" class="ks-mono">.stat--tone-accent</span></span></div><div data-aven-path="0.11.2.92" class="ks-row"><div data-aven-path="0.11.2.92.0" class="ks-specimen stat--tone-progress">stat--tone-progress</div><span data-aven-path="0.11.2.92.1" class="ks-row-meta"><span data-aven-path="0.11.2.92.1.0" class="ks-mono">.stat--tone-progress</span></span></div><div data-aven-path="0.11.2.93" class="ks-row"><div data-aven-path="0.11.2.93.0" class="ks-specimen stat--size-sm">stat--size-sm</div><span data-aven-path="0.11.2.93.1" class="ks-row-meta"><span data-aven-path="0.11.2.93.1.0" class="ks-mono">.stat--size-sm</span></span></div><div data-aven-path="0.11.2.94" class="ks-row"><div data-aven-path="0.11.2.94.0" class="ks-specimen stat--size-lg">stat--size-lg</div><span data-aven-path="0.11.2.94.1" class="ks-row-meta"><span data-aven-path="0.11.2.94.1.0" class="ks-mono">.stat--size-lg</span></span></div><div data-aven-path="0.11.2.95" class="ks-row"><div data-aven-path="0.11.2.95.0" class="ks-specimen skill-card">skill-card</div><span data-aven-path="0.11.2.95.1" class="ks-row-meta"><span data-aven-path="0.11.2.95.1.0" class="ks-mono">.skill-card</span></span></div><div data-aven-path="0.11.2.96" class="ks-row"><div data-aven-path="0.11.2.96.0" class="ks-specimen skill-card-head">skill-card-head</div><span data-aven-path="0.11.2.96.1" class="ks-row-meta"><span data-aven-path="0.11.2.96.1.0" class="ks-mono">.skill-card-head</span></span></div><div data-aven-path="0.11.2.97" class="ks-row"><div data-aven-path="0.11.2.97.0" class="ks-specimen skill-card-title">A heading, set as itself</div><span data-aven-path="0.11.2.97.1" class="ks-row-meta"><span data-aven-path="0.11.2.97.1.0" class="ks-mono">.skill-card-title</span></span></div><div data-aven-path="0.11.2.98" class="ks-row"><div data-aven-path="0.11.2.98.0" class="ks-specimen skill-card-summary">skill-card-summary</div><span data-aven-path="0.11.2.98.1" class="ks-row-meta"><span data-aven-path="0.11.2.98.1.0" class="ks-mono">.skill-card-summary</span></span></div><div data-aven-path="0.11.2.99" class="ks-row"><div data-aven-path="0.11.2.99.0" class="ks-specimen skill-card-rail">skill-card-rail</div><span data-aven-path="0.11.2.99.1" class="ks-row-meta"><span data-aven-path="0.11.2.99.1.0" class="ks-mono">.skill-card-rail</span></span></div><div data-aven-path="0.11.2.100" class="ks-row"><div data-aven-path="0.11.2.100.0" class="ks-specimen skill-card-promise">skill-card-promise</div><span data-aven-path="0.11.2.100.1" class="ks-row-meta"><span data-aven-path="0.11.2.100.1.0" class="ks-mono">.skill-card-promise</span></span></div><div data-aven-path="0.11.2.101" class="ks-row"><div data-aven-path="0.11.2.101.0" class="ks-specimen skill-card-more">skill-card-more</div><span data-aven-path="0.11.2.101.1" class="ks-row-meta"><span data-aven-path="0.11.2.101.1.0" class="ks-mono">.skill-card-more</span></span></div><div data-aven-path="0.11.2.102" class="ks-row"><div data-aven-path="0.11.2.102.0" class="ks-specimen skill-card-eyebrow">SKILL-CARD-EYEBROW</div><span data-aven-path="0.11.2.102.1" class="ks-row-meta"><span data-aven-path="0.11.2.102.1.0" class="ks-mono">.skill-card-eyebrow</span></span></div><div data-aven-path="0.11.2.103" class="ks-row"><div data-aven-path="0.11.2.103.0" class="ks-specimen skill-card-quote">The quick brown fox jumps over the lazy dog.</div><span data-aven-path="0.11.2.103.1" class="ks-row-meta"><span data-aven-path="0.11.2.103.1.0" class="ks-mono">.skill-card-quote</span></span></div><div data-aven-path="0.11.2.104" class="ks-row"><div data-aven-path="0.11.2.104.0" class="ks-specimen skill-card-chains">skill-card-chains</div><span data-aven-path="0.11.2.104.1" class="ks-row-meta"><span data-aven-path="0.11.2.104.1.0" class="ks-mono">.skill-card-chains</span></span></div><div data-aven-path="0.11.2.105" class="ks-row"><div data-aven-path="0.11.2.105.0" class="ks-specimen skill-card-chain">skill-card-chain</div><span data-aven-path="0.11.2.105.1" class="ks-row-meta"><span data-aven-path="0.11.2.105.1.0" class="ks-mono">.skill-card-chain</span></span></div><div data-aven-path="0.11.2.106" class="ks-row"><div data-aven-path="0.11.2.106.0" class="ks-specimen skill-card--emphasis-featured">skill-card--emphasis-featured</div><span data-aven-path="0.11.2.106.1" class="ks-row-meta"><span data-aven-path="0.11.2.106.1.0" class="ks-mono">.skill-card--emphasis-featured</span></span></div><div data-aven-path="0.11.2.107" class="ks-row"><div data-aven-path="0.11.2.107.0" class="ks-specimen skill-card--emphasis-soon">skill-card--emphasis-soon</div><span data-aven-path="0.11.2.107.1" class="ks-row-meta"><span data-aven-path="0.11.2.107.1.0" class="ks-mono">.skill-card--emphasis-soon</span></span></div><div data-aven-path="0.11.2.108" class="ks-row"><button data-aven-path="0.11.2.108.0" class="btn--primary">btn--primary</button><span data-aven-path="0.11.2.108.1" class="ks-row-meta"><span data-aven-path="0.11.2.108.1.0" class="ks-mono">.btn--primary</span></span></div><div data-aven-path="0.11.2.109" class="ks-row"><button data-aven-path="0.11.2.109.0" class="btn--secondary">btn--secondary</button><span data-aven-path="0.11.2.109.1" class="ks-row-meta"><span data-aven-path="0.11.2.109.1.0" class="ks-mono">.btn--secondary</span></span></div><div data-aven-path="0.11.2.110" class="ks-row"><button data-aven-path="0.11.2.110.0" class="btn--danger">btn--danger</button><span data-aven-path="0.11.2.110.1" class="ks-row-meta"><span data-aven-path="0.11.2.110.1.0" class="ks-mono">.btn--danger</span></span></div><div data-aven-path="0.11.2.111" class="ks-row"><button data-aven-path="0.11.2.111.0" class="btn--ghost">btn--ghost</button><span data-aven-path="0.11.2.111.1" class="ks-row-meta"><span data-aven-path="0.11.2.111.1.0" class="ks-mono">.btn--ghost</span></span></div><div data-aven-path="0.11.2.112" class="ks-row"><button data-aven-path="0.11.2.112.0" class="btn--accent">btn--accent</button><span data-aven-path="0.11.2.112.1" class="ks-row-meta"><span data-aven-path="0.11.2.112.1.0" class="ks-mono">.btn--accent</span></span></div><div data-aven-path="0.11.2.113" class="ks-row"><button data-aven-path="0.11.2.113.0" class="btn--unavailable">btn--unavailable</button><span data-aven-path="0.11.2.113.1" class="ks-row-meta"><span data-aven-path="0.11.2.113.1.0" class="ks-mono">.btn--unavailable</span></span></div><div data-aven-path="0.11.2.114" class="ks-row"><button data-aven-path="0.11.2.114.0" class="btn--icon">btn--icon</button><span data-aven-path="0.11.2.114.1" class="ks-row-meta"><span data-aven-path="0.11.2.114.1.0" class="ks-mono">.btn--icon</span></span></div><div data-aven-path="0.11.2.115" class="ks-row"><button data-aven-path="0.11.2.115.0" class="btn--size-sm">btn--size-sm</button><span data-aven-path="0.11.2.115.1" class="ks-row-meta"><span data-aven-path="0.11.2.115.1.0" class="ks-mono">.btn--size-sm</span></span></div><div data-aven-path="0.11.2.116" class="ks-row"><button data-aven-path="0.11.2.116.0" class="btn--size-md">btn--size-md</button><span data-aven-path="0.11.2.116.1" class="ks-row-meta"><span data-aven-path="0.11.2.116.1.0" class="ks-mono">.btn--size-md</span></span></div><div data-aven-path="0.11.2.117" class="ks-row"><button data-aven-path="0.11.2.117.0" class="btn--size-lg">btn--size-lg</button><span data-aven-path="0.11.2.117.1" class="ks-row-meta"><span data-aven-path="0.11.2.117.1.0" class="ks-mono">.btn--size-lg</span></span></div><div data-aven-path="0.11.2.118" class="ks-row"><button data-aven-path="0.11.2.118.0" class="btn--size-xl">btn--size-xl</button><span data-aven-path="0.11.2.118.1" class="ks-row-meta"><span data-aven-path="0.11.2.118.1.0" class="ks-mono">.btn--size-xl</span></span></div><div data-aven-path="0.11.2.119" class="ks-row"><div data-aven-path="0.11.2.119.0" class="ks-specimen badge">BADGE</div><span data-aven-path="0.11.2.119.1" class="ks-row-meta"><span data-aven-path="0.11.2.119.1.0" class="ks-mono">.badge</span></span></div><div data-aven-path="0.11.2.120" class="ks-row"><div data-aven-path="0.11.2.120.0" class="ks-specimen badge--tone-neutral">BADGE--TONE-NEUTRAL</div><span data-aven-path="0.11.2.120.1" class="ks-row-meta"><span data-aven-path="0.11.2.120.1.0" class="ks-mono">.badge--tone-neutral</span></span></div><div data-aven-path="0.11.2.121" class="ks-row"><div data-aven-path="0.11.2.121.0" class="ks-specimen badge--tone-accent">BADGE--TONE-ACCENT</div><span data-aven-path="0.11.2.121.1" class="ks-row-meta"><span data-aven-path="0.11.2.121.1.0" class="ks-mono">.badge--tone-accent</span></span></div><div data-aven-path="0.11.2.122" class="ks-row"><div data-aven-path="0.11.2.122.0" class="ks-specimen badge--tone-progress">BADGE--TONE-PROGRESS</div><span data-aven-path="0.11.2.122.1" class="ks-row-meta"><span data-aven-path="0.11.2.122.1.0" class="ks-mono">.badge--tone-progress</span></span></div><div data-aven-path="0.11.2.123" class="ks-row"><div data-aven-path="0.11.2.123.0" class="ks-specimen badge--tone-success">BADGE--TONE-SUCCESS</div><span data-aven-path="0.11.2.123.1" class="ks-row-meta"><span data-aven-path="0.11.2.123.1.0" class="ks-mono">.badge--tone-success</span></span></div><div data-aven-path="0.11.2.124" class="ks-row"><div data-aven-path="0.11.2.124.0" class="ks-specimen badge--tone-warning">BADGE--TONE-WARNING</div><span data-aven-path="0.11.2.124.1" class="ks-row-meta"><span data-aven-path="0.11.2.124.1.0" class="ks-mono">.badge--tone-warning</span></span></div><div data-aven-path="0.11.2.125" class="ks-row"><div data-aven-path="0.11.2.125.0" class="ks-specimen badge--tone-error">BADGE--TONE-ERROR</div><span data-aven-path="0.11.2.125.1" class="ks-row-meta"><span data-aven-path="0.11.2.125.1.0" class="ks-mono">.badge--tone-error</span></span></div><div data-aven-path="0.11.2.126" class="ks-row"><div data-aven-path="0.11.2.126.0" class="ks-specimen badge--emphasis-solid">BADGE--EMPHASIS-SOLID</div><span data-aven-path="0.11.2.126.1" class="ks-row-meta"><span data-aven-path="0.11.2.126.1.0" class="ks-mono">.badge--emphasis-solid</span></span></div><div data-aven-path="0.11.2.127" class="ks-row"><div data-aven-path="0.11.2.127.0" class="ks-specimen badge--emphasis-quiet">BADGE--EMPHASIS-QUIET</div><span data-aven-path="0.11.2.127.1" class="ks-row-meta"><span data-aven-path="0.11.2.127.1.0" class="ks-mono">.badge--emphasis-quiet</span></span></div><div data-aven-path="0.11.2.128" class="ks-row"><div data-aven-path="0.11.2.128.0" class="ks-specimen badge--size-sm">BADGE--SIZE-SM</div><span data-aven-path="0.11.2.128.1" class="ks-row-meta"><span data-aven-path="0.11.2.128.1.0" class="ks-mono">.badge--size-sm</span></span></div><div data-aven-path="0.11.2.129" class="ks-row"><div data-aven-path="0.11.2.129.0" class="ks-specimen badge--size-md">BADGE--SIZE-MD</div><span data-aven-path="0.11.2.129.1" class="ks-row-meta"><span data-aven-path="0.11.2.129.1.0" class="ks-mono">.badge--size-md</span></span></div><div data-aven-path="0.11.2.130" class="ks-row"><div data-aven-path="0.11.2.130.0" class="ks-specimen badge--size-lg">BADGE--SIZE-LG</div><span data-aven-path="0.11.2.130.1" class="ks-row-meta"><span data-aven-path="0.11.2.130.1.0" class="ks-mono">.badge--size-lg</span></span></div><div data-aven-path="0.11.2.131" class="ks-row"><div data-aven-path="0.11.2.131.0" class="ks-specimen icon">icon</div><span data-aven-path="0.11.2.131.1" class="ks-row-meta"><span data-aven-path="0.11.2.131.1.0" class="ks-mono">.icon</span></span></div><div data-aven-path="0.11.2.132" class="ks-row"><div data-aven-path="0.11.2.132.0" class="ks-specimen icon--size-xs">icon--size-xs</div><span data-aven-path="0.11.2.132.1" class="ks-row-meta"><span data-aven-path="0.11.2.132.1.0" class="ks-mono">.icon--size-xs</span></span></div><div data-aven-path="0.11.2.133" class="ks-row"><div data-aven-path="0.11.2.133.0" class="ks-specimen icon--size-sm">icon--size-sm</div><span data-aven-path="0.11.2.133.1" class="ks-row-meta"><span data-aven-path="0.11.2.133.1.0" class="ks-mono">.icon--size-sm</span></span></div><div data-aven-path="0.11.2.134" class="ks-row"><div data-aven-path="0.11.2.134.0" class="ks-specimen icon--size-md">icon--size-md</div><span data-aven-path="0.11.2.134.1" class="ks-row-meta"><span data-aven-path="0.11.2.134.1.0" class="ks-mono">.icon--size-md</span></span></div><div data-aven-path="0.11.2.135" class="ks-row"><div data-aven-path="0.11.2.135.0" class="ks-specimen icon--size-lg">icon--size-lg</div><span data-aven-path="0.11.2.135.1" class="ks-row-meta"><span data-aven-path="0.11.2.135.1.0" class="ks-mono">.icon--size-lg</span></span></div><div data-aven-path="0.11.2.136" class="ks-row"><div data-aven-path="0.11.2.136.0" class="ks-specimen icon--size-xl">icon--size-xl</div><span data-aven-path="0.11.2.136.1" class="ks-row-meta"><span data-aven-path="0.11.2.136.1.0" class="ks-mono">.icon--size-xl</span></span></div><div data-aven-path="0.11.2.137" class="ks-row"><div data-aven-path="0.11.2.137.0" class="ks-specimen icon--tone-quiet">icon--tone-quiet</div><span data-aven-path="0.11.2.137.1" class="ks-row-meta"><span data-aven-path="0.11.2.137.1.0" class="ks-mono">.icon--tone-quiet</span></span></div><div data-aven-path="0.11.2.138" class="ks-row"><div data-aven-path="0.11.2.138.0" class="ks-specimen icon--tone-accent">icon--tone-accent</div><span data-aven-path="0.11.2.138.1" class="ks-row-meta"><span data-aven-path="0.11.2.138.1.0" class="ks-mono">.icon--tone-accent</span></span></div><div data-aven-path="0.11.2.139" class="ks-row"><div data-aven-path="0.11.2.139.0" class="ks-specimen icon--tone-progress">icon--tone-progress</div><span data-aven-path="0.11.2.139.1" class="ks-row-meta"><span data-aven-path="0.11.2.139.1.0" class="ks-mono">.icon--tone-progress</span></span></div><div data-aven-path="0.11.2.140" class="ks-row"><div data-aven-path="0.11.2.140.0" class="ks-specimen icon--tone-success">icon--tone-success</div><span data-aven-path="0.11.2.140.1" class="ks-row-meta"><span data-aven-path="0.11.2.140.1.0" class="ks-mono">.icon--tone-success</span></span></div><div data-aven-path="0.11.2.141" class="ks-row"><div data-aven-path="0.11.2.141.0" class="ks-specimen icon--tone-warning">icon--tone-warning</div><span data-aven-path="0.11.2.141.1" class="ks-row-meta"><span data-aven-path="0.11.2.141.1.0" class="ks-mono">.icon--tone-warning</span></span></div><div data-aven-path="0.11.2.142" class="ks-row"><div data-aven-path="0.11.2.142.0" class="ks-specimen icon--tone-error">icon--tone-error</div><span data-aven-path="0.11.2.142.1" class="ks-row-meta"><span data-aven-path="0.11.2.142.1.0" class="ks-mono">.icon--tone-error</span></span></div><div data-aven-path="0.11.2.143" class="ks-row"><div data-aven-path="0.11.2.143.0" class="ks-specimen tabs">tabs</div><span data-aven-path="0.11.2.143.1" class="ks-row-meta"><span data-aven-path="0.11.2.143.1.0" class="ks-mono">.tabs</span></span></div><div data-aven-path="0.11.2.144" class="ks-row"><div data-aven-path="0.11.2.144.0" class="ks-specimen tabs-list">tabs-list</div><span data-aven-path="0.11.2.144.1" class="ks-row-meta"><span data-aven-path="0.11.2.144.1.0" class="ks-mono">.tabs-list</span></span></div><div data-aven-path="0.11.2.145" class="ks-row"><div data-aven-path="0.11.2.145.0" class="ks-specimen tabs-tab">tabs-tab</div><span data-aven-path="0.11.2.145.1" class="ks-row-meta"><span data-aven-path="0.11.2.145.1.0" class="ks-mono">.tabs-tab</span></span></div><div data-aven-path="0.11.2.146" class="ks-row"><div data-aven-path="0.11.2.146.0" class="ks-specimen tabs-panel">tabs-panel</div><span data-aven-path="0.11.2.146.1" class="ks-row-meta"><span data-aven-path="0.11.2.146.1.0" class="ks-mono">.tabs-panel</span></span></div><div data-aven-path="0.11.2.147" class="ks-row"><div data-aven-path="0.11.2.147.0" class="ks-specimen field-label">FIELD-LABEL</div><span data-aven-path="0.11.2.147.1" class="ks-row-meta"><span data-aven-path="0.11.2.147.1.0" class="ks-mono">.field-label</span></span></div><div data-aven-path="0.11.2.148" class="ks-row"><div data-aven-path="0.11.2.148.0" class="ks-specimen field-control">field-control</div><span data-aven-path="0.11.2.148.1" class="ks-row-meta"><span data-aven-path="0.11.2.148.1.0" class="ks-mono">.field-control</span></span></div><div data-aven-path="0.11.2.149" class="ks-row"><div data-aven-path="0.11.2.149.0" class="ks-specimen field-hint">field-hint</div><span data-aven-path="0.11.2.149.1" class="ks-row-meta"><span data-aven-path="0.11.2.149.1.0" class="ks-mono">.field-hint</span></span></div><div data-aven-path="0.11.2.150" class="ks-row"><div data-aven-path="0.11.2.150.0" class="ks-specimen field-error">field-error</div><span data-aven-path="0.11.2.150.1" class="ks-row-meta"><span data-aven-path="0.11.2.150.1.0" class="ks-mono">.field-error</span></span></div><div data-aven-path="0.11.2.151" class="ks-row"><div data-aven-path="0.11.2.151.0" class="ks-specimen field--size-sm">field--size-sm</div><span data-aven-path="0.11.2.151.1" class="ks-row-meta"><span data-aven-path="0.11.2.151.1.0" class="ks-mono">.field--size-sm</span></span></div><div data-aven-path="0.11.2.152" class="ks-row"><div data-aven-path="0.11.2.152.0" class="ks-specimen toast">toast</div><span data-aven-path="0.11.2.152.1" class="ks-row-meta"><span data-aven-path="0.11.2.152.1.0" class="ks-mono">.toast</span></span></div><div data-aven-path="0.11.2.153" class="ks-row"><div data-aven-path="0.11.2.153.0" class="ks-specimen toast-icon">toast-icon</div><span data-aven-path="0.11.2.153.1" class="ks-row-meta"><span data-aven-path="0.11.2.153.1.0" class="ks-mono">.toast-icon</span></span></div><div data-aven-path="0.11.2.154" class="ks-row"><div data-aven-path="0.11.2.154.0" class="ks-specimen toast-copy">toast-copy</div><span data-aven-path="0.11.2.154.1" class="ks-row-meta"><span data-aven-path="0.11.2.154.1.0" class="ks-mono">.toast-copy</span></span></div><div data-aven-path="0.11.2.155" class="ks-row"><div data-aven-path="0.11.2.155.0" class="ks-specimen toast-title">A heading, set as itself</div><span data-aven-path="0.11.2.155.1" class="ks-row-meta"><span data-aven-path="0.11.2.155.1.0" class="ks-mono">.toast-title</span></span></div><div data-aven-path="0.11.2.156" class="ks-row"><div data-aven-path="0.11.2.156.0" class="ks-specimen toast-body">toast-body</div><span data-aven-path="0.11.2.156.1" class="ks-row-meta"><span data-aven-path="0.11.2.156.1.0" class="ks-mono">.toast-body</span></span></div><div data-aven-path="0.11.2.157" class="ks-row"><div data-aven-path="0.11.2.157.0" class="ks-specimen toast-dismiss">toast-dismiss</div><span data-aven-path="0.11.2.157.1" class="ks-row-meta"><span data-aven-path="0.11.2.157.1.0" class="ks-mono">.toast-dismiss</span></span></div><div data-aven-path="0.11.2.158" class="ks-row"><div data-aven-path="0.11.2.158.0" class="ks-specimen toast--tone-success">toast--tone-success</div><span data-aven-path="0.11.2.158.1" class="ks-row-meta"><span data-aven-path="0.11.2.158.1.0" class="ks-mono">.toast--tone-success</span></span></div><div data-aven-path="0.11.2.159" class="ks-row"><div data-aven-path="0.11.2.159.0" class="ks-specimen toast--tone-error">toast--tone-error</div><span data-aven-path="0.11.2.159.1" class="ks-row-meta"><span data-aven-path="0.11.2.159.1.0" class="ks-mono">.toast--tone-error</span></span></div><div data-aven-path="0.11.2.160" class="ks-row"><div data-aven-path="0.11.2.160.0" class="ks-specimen toast--tone-warning">toast--tone-warning</div><span data-aven-path="0.11.2.160.1" class="ks-row-meta"><span data-aven-path="0.11.2.160.1.0" class="ks-mono">.toast--tone-warning</span></span></div><div data-aven-path="0.11.2.161" class="ks-row"><div data-aven-path="0.11.2.161.0" class="ks-specimen toast--tone-info">toast--tone-info</div><span data-aven-path="0.11.2.161.1" class="ks-row-meta"><span data-aven-path="0.11.2.161.1.0" class="ks-mono">.toast--tone-info</span></span></div><div data-aven-path="0.11.2.162" class="ks-row"><div data-aven-path="0.11.2.162.0" class="ks-specimen table">table</div><span data-aven-path="0.11.2.162.1" class="ks-row-meta"><span data-aven-path="0.11.2.162.1.0" class="ks-mono">.table</span></span></div><div data-aven-path="0.11.2.163" class="ks-row"><div data-aven-path="0.11.2.163.0" class="ks-specimen table-scroller">table-scroller</div><span data-aven-path="0.11.2.163.1" class="ks-row-meta"><span data-aven-path="0.11.2.163.1.0" class="ks-mono">.table-scroller</span></span></div><div data-aven-path="0.11.2.164" class="ks-row"><div data-aven-path="0.11.2.164.0" class="ks-specimen table-cell">table-cell</div><span data-aven-path="0.11.2.164.1" class="ks-row-meta"><span data-aven-path="0.11.2.164.1.0" class="ks-mono">.table-cell</span></span></div><div data-aven-path="0.11.2.165" class="ks-row"><div data-aven-path="0.11.2.165.0" class="ks-specimen table-header">table-header</div><span data-aven-path="0.11.2.165.1" class="ks-row-meta"><span data-aven-path="0.11.2.165.1.0" class="ks-mono">.table-header</span></span></div><div data-aven-path="0.11.2.166" class="ks-row"><div data-aven-path="0.11.2.166.0" class="ks-specimen table-numeric">table-numeric</div><span data-aven-path="0.11.2.166.1" class="ks-row-meta"><span data-aven-path="0.11.2.166.1.0" class="ks-mono">.table-numeric</span></span></div><div data-aven-path="0.11.2.167" class="ks-row"><div data-aven-path="0.11.2.167.0" class="ks-specimen table-row">table-row</div><span data-aven-path="0.11.2.167.1" class="ks-row-meta"><span data-aven-path="0.11.2.167.1.0" class="ks-mono">.table-row</span></span></div><div data-aven-path="0.11.2.168" class="ks-row"><div data-aven-path="0.11.2.168.0" class="ks-specimen table--density-compact">table--density-compact</div><span data-aven-path="0.11.2.168.1" class="ks-row-meta"><span data-aven-path="0.11.2.168.1.0" class="ks-mono">.table--density-compact</span></span></div><div data-aven-path="0.11.2.169" class="ks-row"><div data-aven-path="0.11.2.169.0" class="ks-specimen sidebar">sidebar</div><span data-aven-path="0.11.2.169.1" class="ks-row-meta"><span data-aven-path="0.11.2.169.1.0" class="ks-mono">.sidebar</span></span></div><div data-aven-path="0.11.2.170" class="ks-row"><div data-aven-path="0.11.2.170.0" class="ks-specimen sidebar-items">sidebar-items</div><span data-aven-path="0.11.2.170.1" class="ks-row-meta"><span data-aven-path="0.11.2.170.1.0" class="ks-mono">.sidebar-items</span></span></div><div data-aven-path="0.11.2.171" class="ks-row"><div data-aven-path="0.11.2.171.0" class="ks-specimen sidebar-footer">sidebar-footer</div><span data-aven-path="0.11.2.171.1" class="ks-row-meta"><span data-aven-path="0.11.2.171.1.0" class="ks-mono">.sidebar-footer</span></span></div><div data-aven-path="0.11.2.172" class="ks-row"><div data-aven-path="0.11.2.172.0" class="ks-specimen sidebar--placement-drawer">sidebar--placement-drawer</div><span data-aven-path="0.11.2.172.1" class="ks-row-meta"><span data-aven-path="0.11.2.172.1.0" class="ks-mono">.sidebar--placement-drawer</span></span></div><div data-aven-path="0.11.2.173" class="ks-row"><div data-aven-path="0.11.2.173.0" class="ks-specimen modal">modal</div><span data-aven-path="0.11.2.173.1" class="ks-row-meta"><span data-aven-path="0.11.2.173.1.0" class="ks-mono">.modal</span></span></div><div data-aven-path="0.11.2.174" class="ks-row"><div data-aven-path="0.11.2.174.0" class="ks-specimen modal-backdrop">modal-backdrop</div><span data-aven-path="0.11.2.174.1" class="ks-row-meta"><span data-aven-path="0.11.2.174.1.0" class="ks-mono">.modal-backdrop</span></span></div><div data-aven-path="0.11.2.175" class="ks-row"><div data-aven-path="0.11.2.175.0" class="ks-specimen modal-head">modal-head</div><span data-aven-path="0.11.2.175.1" class="ks-row-meta"><span data-aven-path="0.11.2.175.1.0" class="ks-mono">.modal-head</span></span></div><div data-aven-path="0.11.2.176" class="ks-row"><div data-aven-path="0.11.2.176.0" class="ks-specimen modal-title">A heading, set as itself</div><span data-aven-path="0.11.2.176.1" class="ks-row-meta"><span data-aven-path="0.11.2.176.1.0" class="ks-mono">.modal-title</span></span></div><div data-aven-path="0.11.2.177" class="ks-row"><div data-aven-path="0.11.2.177.0" class="ks-specimen modal-close">modal-close</div><span data-aven-path="0.11.2.177.1" class="ks-row-meta"><span data-aven-path="0.11.2.177.1.0" class="ks-mono">.modal-close</span></span></div><div data-aven-path="0.11.2.178" class="ks-row"><div data-aven-path="0.11.2.178.0" class="ks-specimen modal-body">modal-body</div><span data-aven-path="0.11.2.178.1" class="ks-row-meta"><span data-aven-path="0.11.2.178.1.0" class="ks-mono">.modal-body</span></span></div><div data-aven-path="0.11.2.179" class="ks-row"><div data-aven-path="0.11.2.179.0" class="ks-specimen modal-actions">modal-actions</div><span data-aven-path="0.11.2.179.1" class="ks-row-meta"><span data-aven-path="0.11.2.179.1.0" class="ks-mono">.modal-actions</span></span></div><div data-aven-path="0.11.2.180" class="ks-row"><div data-aven-path="0.11.2.180.0" class="ks-specimen accordion">accordion</div><span data-aven-path="0.11.2.180.1" class="ks-row-meta"><span data-aven-path="0.11.2.180.1.0" class="ks-mono">.accordion</span></span></div><div data-aven-path="0.11.2.181" class="ks-row"><div data-aven-path="0.11.2.181.0" class="ks-specimen accordion-summary">accordion-summary</div><span data-aven-path="0.11.2.181.1" class="ks-row-meta"><span data-aven-path="0.11.2.181.1.0" class="ks-mono">.accordion-summary</span></span></div><div data-aven-path="0.11.2.182" class="ks-row"><div data-aven-path="0.11.2.182.0" class="ks-specimen accordion-marker">accordion-marker</div><span data-aven-path="0.11.2.182.1" class="ks-row-meta"><span data-aven-path="0.11.2.182.1.0" class="ks-mono">.accordion-marker</span></span></div><div data-aven-path="0.11.2.183" class="ks-row"><div data-aven-path="0.11.2.183.0" class="ks-specimen accordion-content">accordion-content</div><span data-aven-path="0.11.2.183.1" class="ks-row-meta"><span data-aven-path="0.11.2.183.1.0" class="ks-mono">.accordion-content</span></span></div><div data-aven-path="0.11.2.184" class="ks-row"><div data-aven-path="0.11.2.184.0" class="ks-specimen accordion-label">ACCORDION-LABEL</div><span data-aven-path="0.11.2.184.1" class="ks-row-meta"><span data-aven-path="0.11.2.184.1.0" class="ks-mono">.accordion-label</span></span></div><div data-aven-path="0.11.2.185" class="ks-row"><div data-aven-path="0.11.2.185.0" class="ks-specimen select">select</div><span data-aven-path="0.11.2.185.1" class="ks-row-meta"><span data-aven-path="0.11.2.185.1.0" class="ks-mono">.select</span></span></div><div data-aven-path="0.11.2.186" class="ks-row"><div data-aven-path="0.11.2.186.0" class="ks-specimen select-label">SELECT-LABEL</div><span data-aven-path="0.11.2.186.1" class="ks-row-meta"><span data-aven-path="0.11.2.186.1.0" class="ks-mono">.select-label</span></span></div><div data-aven-path="0.11.2.187" class="ks-row"><div data-aven-path="0.11.2.187.0" class="ks-specimen select-shell">select-shell</div><span data-aven-path="0.11.2.187.1" class="ks-row-meta"><span data-aven-path="0.11.2.187.1.0" class="ks-mono">.select-shell</span></span></div><div data-aven-path="0.11.2.188" class="ks-row"><div data-aven-path="0.11.2.188.0" class="ks-specimen select-control">select-control</div><span data-aven-path="0.11.2.188.1" class="ks-row-meta"><span data-aven-path="0.11.2.188.1.0" class="ks-mono">.select-control</span></span></div><div data-aven-path="0.11.2.189" class="ks-row"><div data-aven-path="0.11.2.189.0" class="ks-specimen select-marker">select-marker</div><span data-aven-path="0.11.2.189.1" class="ks-row-meta"><span data-aven-path="0.11.2.189.1.0" class="ks-mono">.select-marker</span></span></div><div data-aven-path="0.11.2.190" class="ks-row"><div data-aven-path="0.11.2.190.0" class="ks-specimen avatar">avatar</div><span data-aven-path="0.11.2.190.1" class="ks-row-meta"><span data-aven-path="0.11.2.190.1.0" class="ks-mono">.avatar</span></span></div><div data-aven-path="0.11.2.191" class="ks-row"><div data-aven-path="0.11.2.191.0" class="ks-specimen avatar-image">avatar-image</div><span data-aven-path="0.11.2.191.1" class="ks-row-meta"><span data-aven-path="0.11.2.191.1.0" class="ks-mono">.avatar-image</span></span></div><div data-aven-path="0.11.2.192" class="ks-row"><div data-aven-path="0.11.2.192.0" class="ks-specimen avatar-initials">avatar-initials</div><span data-aven-path="0.11.2.192.1" class="ks-row-meta"><span data-aven-path="0.11.2.192.1.0" class="ks-mono">.avatar-initials</span></span></div><div data-aven-path="0.11.2.193" class="ks-row"><div data-aven-path="0.11.2.193.0" class="ks-specimen avatar--size-sm">avatar--size-sm</div><span data-aven-path="0.11.2.193.1" class="ks-row-meta"><span data-aven-path="0.11.2.193.1.0" class="ks-mono">.avatar--size-sm</span></span></div><div data-aven-path="0.11.2.194" class="ks-row"><div data-aven-path="0.11.2.194.0" class="ks-specimen avatar--size-lg">avatar--size-lg</div><span data-aven-path="0.11.2.194.1" class="ks-row-meta"><span data-aven-path="0.11.2.194.1.0" class="ks-mono">.avatar--size-lg</span></span></div><div data-aven-path="0.11.2.195" class="ks-row"><div data-aven-path="0.11.2.195.0" class="ks-specimen avatar--size-xl">avatar--size-xl</div><span data-aven-path="0.11.2.195.1" class="ks-row-meta"><span data-aven-path="0.11.2.195.1.0" class="ks-mono">.avatar--size-xl</span></span></div><div data-aven-path="0.11.2.196" class="ks-row"><div data-aven-path="0.11.2.196.0" class="ks-specimen avatar--ring-page">avatar--ring-page</div><span data-aven-path="0.11.2.196.1" class="ks-row-meta"><span data-aven-path="0.11.2.196.1.0" class="ks-mono">.avatar--ring-page</span></span></div><div data-aven-path="0.11.2.197" class="ks-row"><div data-aven-path="0.11.2.197.0" class="ks-specimen empty-state">empty-state</div><span data-aven-path="0.11.2.197.1" class="ks-row-meta"><span data-aven-path="0.11.2.197.1.0" class="ks-mono">.empty-state</span></span></div><div data-aven-path="0.11.2.198" class="ks-row"><div data-aven-path="0.11.2.198.0" class="ks-specimen empty-state-icon">empty-state-icon</div><span data-aven-path="0.11.2.198.1" class="ks-row-meta"><span data-aven-path="0.11.2.198.1.0" class="ks-mono">.empty-state-icon</span></span></div><div data-aven-path="0.11.2.199" class="ks-row"><div data-aven-path="0.11.2.199.0" class="ks-specimen empty-state-title">A heading, set as itself</div><span data-aven-path="0.11.2.199.1" class="ks-row-meta"><span data-aven-path="0.11.2.199.1.0" class="ks-mono">.empty-state-title</span></span></div><div data-aven-path="0.11.2.200" class="ks-row"><div data-aven-path="0.11.2.200.0" class="ks-specimen empty-state-body">empty-state-body</div><span data-aven-path="0.11.2.200.1" class="ks-row-meta"><span data-aven-path="0.11.2.200.1.0" class="ks-mono">.empty-state-body</span></span></div><div data-aven-path="0.11.2.201" class="ks-row"><div data-aven-path="0.11.2.201.0" class="ks-specimen empty-state-action">empty-state-action</div><span data-aven-path="0.11.2.201.1" class="ks-row-meta"><span data-aven-path="0.11.2.201.1.0" class="ks-mono">.empty-state-action</span></span></div><div data-aven-path="0.11.2.202" class="ks-row"><div data-aven-path="0.11.2.202.0" class="ks-specimen spinner">spinner</div><span data-aven-path="0.11.2.202.1" class="ks-row-meta"><span data-aven-path="0.11.2.202.1.0" class="ks-mono">.spinner</span></span></div><div data-aven-path="0.11.2.203" class="ks-row"><div data-aven-path="0.11.2.203.0" class="ks-specimen spinner--size-sm">spinner--size-sm</div><span data-aven-path="0.11.2.203.1" class="ks-row-meta"><span data-aven-path="0.11.2.203.1.0" class="ks-mono">.spinner--size-sm</span></span></div><div data-aven-path="0.11.2.204" class="ks-row"><div data-aven-path="0.11.2.204.0" class="ks-specimen spinner--size-lg">spinner--size-lg</div><span data-aven-path="0.11.2.204.1" class="ks-row-meta"><span data-aven-path="0.11.2.204.1.0" class="ks-mono">.spinner--size-lg</span></span></div><div data-aven-path="0.11.2.205" class="ks-row"><div data-aven-path="0.11.2.205.0" class="ks-specimen @keyframes aven-spin">@keyframes aven-spin</div><span data-aven-path="0.11.2.205.1" class="ks-row-meta"><span data-aven-path="0.11.2.205.1.0" class="ks-mono">.@keyframes aven-spin</span></span></div><div data-aven-path="0.11.2.206" class="ks-row"><div data-aven-path="0.11.2.206.0" class="ks-specimen skeleton">skeleton</div><span data-aven-path="0.11.2.206.1" class="ks-row-meta"><span data-aven-path="0.11.2.206.1.0" class="ks-mono">.skeleton</span></span></div><div data-aven-path="0.11.2.207" class="ks-row"><div data-aven-path="0.11.2.207.0" class="ks-specimen skeleton--shape-text">skeleton--shape-text</div><span data-aven-path="0.11.2.207.1" class="ks-row-meta"><span data-aven-path="0.11.2.207.1.0" class="ks-mono">.skeleton--shape-text</span></span></div><div data-aven-path="0.11.2.208" class="ks-row"><div data-aven-path="0.11.2.208.0" class="ks-specimen skeleton--shape-block">skeleton--shape-block</div><span data-aven-path="0.11.2.208.1" class="ks-row-meta"><span data-aven-path="0.11.2.208.1.0" class="ks-mono">.skeleton--shape-block</span></span></div><div data-aven-path="0.11.2.209" class="ks-row"><div data-aven-path="0.11.2.209.0" class="ks-specimen skeleton--shape-circle">skeleton--shape-circle</div><span data-aven-path="0.11.2.209.1" class="ks-row-meta"><span data-aven-path="0.11.2.209.1.0" class="ks-mono">.skeleton--shape-circle</span></span></div><div data-aven-path="0.11.2.210" class="ks-row"><div data-aven-path="0.11.2.210.0" class="ks-specimen @keyframes aven-skeleton">@keyframes aven-skeleton</div><span data-aven-path="0.11.2.210.1" class="ks-row-meta"><span data-aven-path="0.11.2.210.1.0" class="ks-mono">.@keyframes aven-skeleton</span></span></div><div data-aven-path="0.11.2.211" class="ks-row"><div data-aven-path="0.11.2.211.0" class="ks-specimen logo--lockup">logo--lockup</div><span data-aven-path="0.11.2.211.1" class="ks-row-meta"><span data-aven-path="0.11.2.211.1.0" class="ks-mono">.logo--lockup</span></span></div><div data-aven-path="0.11.2.212" class="ks-row"><div data-aven-path="0.11.2.212.0" class="ks-specimen nav-link">nav-link</div><span data-aven-path="0.11.2.212.1" class="ks-row-meta"><span data-aven-path="0.11.2.212.1.0" class="ks-mono">.nav-link</span></span></div><div data-aven-path="0.11.2.213" class="ks-row"><div data-aven-path="0.11.2.213.0" class="ks-specimen navbar">navbar</div><span data-aven-path="0.11.2.213.1" class="ks-row-meta"><span data-aven-path="0.11.2.213.1.0" class="ks-mono">.navbar</span></span></div><div data-aven-path="0.11.2.214" class="ks-row"><div data-aven-path="0.11.2.214.0" class="ks-specimen navbar-bar">navbar-bar</div><span data-aven-path="0.11.2.214.1" class="ks-row-meta"><span data-aven-path="0.11.2.214.1.0" class="ks-mono">.navbar-bar</span></span></div><div data-aven-path="0.11.2.215" class="ks-row"><div data-aven-path="0.11.2.215.0" class="ks-specimen navbar-brand">navbar-brand</div><span data-aven-path="0.11.2.215.1" class="ks-row-meta"><span data-aven-path="0.11.2.215.1.0" class="ks-mono">.navbar-brand</span></span></div><div data-aven-path="0.11.2.216" class="ks-row"><div data-aven-path="0.11.2.216.0" class="ks-specimen navbar-links">navbar-links</div><span data-aven-path="0.11.2.216.1" class="ks-row-meta"><span data-aven-path="0.11.2.216.1.0" class="ks-mono">.navbar-links</span></span></div><div data-aven-path="0.11.2.217" class="ks-row"><div data-aven-path="0.11.2.217.0" class="ks-specimen navbar-actions">navbar-actions</div><span data-aven-path="0.11.2.217.1" class="ks-row-meta"><span data-aven-path="0.11.2.217.1.0" class="ks-mono">.navbar-actions</span></span></div><div data-aven-path="0.11.2.218" class="ks-row"><div data-aven-path="0.11.2.218.0" class="ks-specimen navbar-toggle">navbar-toggle</div><span data-aven-path="0.11.2.218.1" class="ks-row-meta"><span data-aven-path="0.11.2.218.1.0" class="ks-mono">.navbar-toggle</span></span></div><div data-aven-path="0.11.2.219" class="ks-row"><div data-aven-path="0.11.2.219.0" class="ks-specimen navbar-drawer">navbar-drawer</div><span data-aven-path="0.11.2.219.1" class="ks-row-meta"><span data-aven-path="0.11.2.219.1.0" class="ks-mono">.navbar-drawer</span></span></div><div data-aven-path="0.11.2.220" class="ks-row"><div data-aven-path="0.11.2.220.0" class="ks-specimen navbar--placement-overlay">navbar--placement-overlay</div><span data-aven-path="0.11.2.220.1" class="ks-row-meta"><span data-aven-path="0.11.2.220.1.0" class="ks-mono">.navbar--placement-overlay</span></span></div><div data-aven-path="0.11.2.221" class="ks-row"><div data-aven-path="0.11.2.221.0" class="ks-specimen navbar--tone-glass">navbar--tone-glass</div><span data-aven-path="0.11.2.221.1" class="ks-row-meta"><span data-aven-path="0.11.2.221.1.0" class="ks-mono">.navbar--tone-glass</span></span></div><div data-aven-path="0.11.2.222" class="ks-row"><div data-aven-path="0.11.2.222.0" class="ks-specimen navbar--breakpoint-md">navbar--breakpoint-md</div><span data-aven-path="0.11.2.222.1" class="ks-row-meta"><span data-aven-path="0.11.2.222.1.0" class="ks-mono">.navbar--breakpoint-md</span></span></div><div data-aven-path="0.11.2.223" class="ks-row"><div data-aven-path="0.11.2.223.0" class="ks-specimen site-footer">site-footer</div><span data-aven-path="0.11.2.223.1" class="ks-row-meta"><span data-aven-path="0.11.2.223.1.0" class="ks-mono">.site-footer</span></span></div><div data-aven-path="0.11.2.224" class="ks-row"><div data-aven-path="0.11.2.224.0" class="ks-specimen site-footer-inner">site-footer-inner</div><span data-aven-path="0.11.2.224.1" class="ks-row-meta"><span data-aven-path="0.11.2.224.1.0" class="ks-mono">.site-footer-inner</span></span></div><div data-aven-path="0.11.2.225" class="ks-row"><div data-aven-path="0.11.2.225.0" class="ks-specimen site-footer-brand">site-footer-brand</div><span data-aven-path="0.11.2.225.1" class="ks-row-meta"><span data-aven-path="0.11.2.225.1.0" class="ks-mono">.site-footer-brand</span></span></div><div data-aven-path="0.11.2.226" class="ks-row"><div data-aven-path="0.11.2.226.0" class="ks-specimen site-footer-groups">site-footer-groups</div><span data-aven-path="0.11.2.226.1" class="ks-row-meta"><span data-aven-path="0.11.2.226.1.0" class="ks-mono">.site-footer-groups</span></span></div><div data-aven-path="0.11.2.227" class="ks-row"><div data-aven-path="0.11.2.227.0" class="ks-specimen site-footer-group">site-footer-group</div><span data-aven-path="0.11.2.227.1" class="ks-row-meta"><span data-aven-path="0.11.2.227.1.0" class="ks-mono">.site-footer-group</span></span></div><div data-aven-path="0.11.2.228" class="ks-row"><div data-aven-path="0.11.2.228.0" class="ks-specimen site-footer-group-title">A heading, set as itself</div><span data-aven-path="0.11.2.228.1" class="ks-row-meta"><span data-aven-path="0.11.2.228.1.0" class="ks-mono">.site-footer-group-title</span></span></div><div data-aven-path="0.11.2.229" class="ks-row"><div data-aven-path="0.11.2.229.0" class="ks-specimen site-footer-link">site-footer-link</div><span data-aven-path="0.11.2.229.1" class="ks-row-meta"><span data-aven-path="0.11.2.229.1.0" class="ks-mono">.site-footer-link</span></span></div><div data-aven-path="0.11.2.230" class="ks-row"><div data-aven-path="0.11.2.230.0" class="ks-specimen site-footer-meta">SITE-FOOTER-META</div><span data-aven-path="0.11.2.230.1" class="ks-row-meta"><span data-aven-path="0.11.2.230.1.0" class="ks-mono">.site-footer-meta</span></span></div><div data-aven-path="0.11.2.231" class="ks-row"><div data-aven-path="0.11.2.231.0" class="ks-specimen site-footer--ground-page">site-footer--ground-page</div><span data-aven-path="0.11.2.231.1" class="ks-row-meta"><span data-aven-path="0.11.2.231.1.0" class="ks-mono">.site-footer--ground-page</span></span></div></div></section></main>
 </html>
