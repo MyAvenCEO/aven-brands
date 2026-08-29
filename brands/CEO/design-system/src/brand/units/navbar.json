@@ -112,7 +112,7 @@
 				"maxInlineSize": "84rem",
 				"minBlockSize": "3.5rem",
 				"paddingInline": "var(--space-comfortable)",
-				"$description": "When the bar is narrow, EVERYTHING except the brand and the toggle goes. It was only the links: the social row and the language switch stayed, crowding a 320px bar beside a hamburger that offers the same things one tap away. The menu is where they live at that width \u2014 which is what the menu is for.\n\nIT COLLAPSES IN TWO STAGES, because the things in it are not equally important. Below 62rem the social row and the language switch go \u2014 they are reachable in the menu and neither is why anyone came. Below 34rem the LINKS go too. Between those two widths, which is where a tablet sits, you get the navigation and the call to action and nothing else: the destinations survive longest because they are the bar's actual job.\n\nOne stage was wrong in both directions. At 768px it hid the nav \u2014 a tablet has room for four links \u2014 and at 400px it kept the social row beside a hamburger offering the same four marks one tap away.",
+				"$description": "When the bar is narrow, EVERYTHING except the brand and the toggle goes. It was only the links: the social row and the language switch stayed, crowding a 320px bar beside a hamburger that offers the same things one tap away. The menu is where they live at that width \u2014 which is what the menu is for.\n\nIT COLLAPSES IN TWO STAGES, because the things in it are not equally important. Below 62rem the social row and the language switch go \u2014 they are reachable in the menu and neither is why anyone came. Below 34rem the LINKS go too. Between those two widths, which is where a tablet sits, you get the navigation and the call to action and nothing else: the destinations survive longest because they are the bar's actual job.\n\nOne stage was wrong in both directions. At 768px it hid the nav \u2014 a tablet has room for four links \u2014 and at 400px it kept the social row beside a hamburger offering the same four marks one tap away.\n\nThe call to action SHRINKS with the bar. At full width it is the page's main affordance and earns its size; beside a hamburger on a 390px bar the same button is most of the row. It sets the button's own size properties rather than restating what `sm` means, so the two cannot drift apart.",
 				"@container navbar (max-width: 61.999rem)": {
 					"& .social-row": {
 						"display": "none"
@@ -122,6 +122,11 @@
 					},
 					"& .navbar-actions": {
 						"marginInlineStart": "auto"
+					},
+					"& .btn": {
+						"--btn-block": "2rem",
+						"--btn-pad": "0.875rem",
+						"--btn-fs": "var(--fs-eyebrow)"
 					}
 				}
 			},

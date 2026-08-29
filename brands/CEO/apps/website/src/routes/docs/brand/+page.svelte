@@ -127,21 +127,23 @@ const VIEWPORTS = [
 	   widths a specimen is being INSPECTED at, and each label says its number out
 	   loud because the reader needs to know where they are.
 
-	   TABLET FIRST, and it is the default. It is the width where the most
-	   decisions are visible at once — the navigation has survived, the social row
-	   and the language switch have not, and the hamburger has appeared — so it
-	   shows a composite doing something rather than sitting at either extreme. */
-	{
-		id: 'tablet',
-		label: 'Tablet — 768px',
-		width: 768,
-		icon: renderIcon('device-tablet', icons, { size: '1em' })
-	},
+	   SMALLEST TO LARGEST, left to right. The row is a scale, and a scale that
+	   does not run in order is a scale you have to read rather than recognise.
+	   Tablet is still the DEFAULT — it is the width where the most decisions are
+	   visible at once, with the navigation surviving, the extras gone and the
+	   hamburger present — but the default is which one is selected, not which one
+	   comes first. */
 	{
 		id: 'mobile',
 		label: 'Mobile — 390px',
 		width: 390,
 		icon: renderIcon('device-phone', icons, { size: '1em' })
+	},
+	{
+		id: 'tablet',
+		label: 'Tablet — 768px',
+		width: 768,
+		icon: renderIcon('device-tablet', icons, { size: '1em' })
 	},
 	{
 		id: 'desktop',

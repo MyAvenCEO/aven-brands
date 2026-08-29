@@ -26,26 +26,26 @@
 	"styling": {
 		"interactive": true,
 		"base": {
-			"$description": "Fully rounded, and the only thing in the system that is \u2014 a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nThe RING is on by default, not only on hover. That is the reference set's actual look and it is the better resting state: a button that only grows a halo when you point at it is a button that reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something \u2014 the ring says 'this is a control', the lift says 'and you are on it'.",
+			"$description": "Fully rounded, and the only thing in the system that is \u2014 a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nTHE RING IS INSET, and that is the correction worth recording. It was a 4px spread OUTSIDE the border box, so a ringed button painted eight pixels wider and taller than an identically sized plain one beside it \u2014 same layout box, different silhouette, and in a row of buttons the accent one simply looked bigger. Inside, every button occupies exactly its own bounds and the ring becomes an inner rim: the same double-edge signature, bounded.\n\nThe ring is on by default, not only on hover. That is the reference set's actual look and the better resting state: a button that only grows a rim when you point at it reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something.\n\nSIZE IS THREE CUSTOM PROPERTIES rather than three declarations, so a container can shrink a button it was handed without restating what `sm` means. A navbar cannot add a class to a slotted child \u2014 it can set a property on it, and that is the difference between the size axis being reusable and being copied.",
 			"position": "relative",
 			"display": "inline-flex",
 			"alignItems": "center",
 			"justifyContent": "center",
 			"gap": "var(--space-tight)",
-			"minBlockSize": "2.5rem",
-			"paddingInline": "1.25rem",
+			"minBlockSize": "var(--btn-block, 2.5rem)",
+			"paddingInline": "var(--btn-pad, 1.25rem)",
 			"border": "1px solid var(--color-primary-edge)",
 			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
 			"font": "inherit",
-			"fontSize": "var(--fs-meta)",
+			"fontSize": "var(--btn-fs, var(--fs-meta))",
 			"fontWeight": "600",
 			"lineHeight": "1",
 			"letterSpacing": "var(--tracking-tight)",
 			"whiteSpace": "nowrap",
 			"cursor": "pointer",
-			"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised)",
+			"boxShadow": "inset 0 0 0 3px var(--btn-ring, transparent), var(--shadow-raised)",
 			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)",
 			"--btn-ring": "var(--color-primary-ring)",
 			"--btn-badge": "color-mix(in oklab, var(--color-primary-foreground) 22%, transparent)"
@@ -116,24 +116,24 @@
 			"size": {
 				"$description": "How big. The ladder, and nothing here touches colour or shape.",
 				"sm": {
-					"minBlockSize": "2rem",
-					"paddingInline": "0.875rem",
-					"fontSize": "var(--fs-eyebrow)"
+					"--btn-block": "2rem",
+					"--btn-pad": "0.875rem",
+					"--btn-fs": "var(--fs-eyebrow)"
 				},
 				"md": {
-					"minBlockSize": "2.5rem",
-					"paddingInline": "1.25rem",
-					"fontSize": "var(--fs-meta)"
+					"--btn-block": "2.5rem",
+					"--btn-pad": "1.25rem",
+					"--btn-fs": "var(--fs-meta)"
 				},
 				"lg": {
-					"minBlockSize": "2.75rem",
-					"paddingInline": "1.75rem",
-					"fontSize": "var(--fs-body)"
+					"--btn-block": "2.75rem",
+					"--btn-pad": "1.75rem",
+					"--btn-fs": "var(--fs-body)"
 				},
 				"xl": {
-					"minBlockSize": "3.5rem",
-					"paddingInline": "2rem",
-					"fontSize": "var(--fs-lead)"
+					"--btn-block": "3.5rem",
+					"--btn-pad": "2rem",
+					"--btn-fs": "var(--fs-lead)"
 				}
 			}
 		},
