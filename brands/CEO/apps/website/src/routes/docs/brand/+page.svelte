@@ -125,8 +125,14 @@ const VIEWPORTS = [
 	},
 	{
 		id: 'mobile',
+		/* ds-allow-hardcode:start — the label and the width both. This IS the
+		   specification: the stage is checked AT a width, and a token would name a
+		   breakpoint the design system uses for LAYOUT rather than the width a
+		   specimen is being inspected at. The label says the number out loud
+		   because the person reading it needs to know which width they are on. */
 		label: 'Mobile — 390px',
 		width: '390px',
+		/* ds-allow-hardcode:end */
 		icon: renderIcon('menu', icons, { size: '1em' })
 	}
 ] as const
@@ -923,7 +929,7 @@ function inspect(name: string) {
 				{:else}
 					{#each unitGroups.filter((g) => g.id === active) as group (group.id)}
 						<!-- Full width. A 62rem reading column is right for prose and wrong for a
-						     gallery: it gave a 1216px main two columns of cards and left a third of
+						     gallery: it gave a 1216px-wide main two columns of cards and left a third
 						     the screen empty. -->
 						<section class="cb-section cb-section--full">
 							<p class="text text--eyebrow">{group.title}</p>
@@ -1219,6 +1225,9 @@ function inspect(name: string) {
 	min-block-size: 2.25rem;
 	padding-inline: var(--space-tight);
 	border: 0;
+	/* A tab's underline: 1px does not read as a selection, and the scale has no
+	   equivalent because this is a marker rather than a border. */
+	/* ds-allow-hardcode */
 	border-block-end: 2px solid transparent;
 	background: transparent;
 	font: inherit;

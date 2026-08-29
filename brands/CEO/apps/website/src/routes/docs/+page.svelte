@@ -79,12 +79,18 @@ const entries = [
 	text-decoration: none;
 	color: inherit;
 	block-size: 100%;
+	/* The motion scale exists now. 160ms hand-written here was the same value
+	   `--duration-quick` holds, arrived at independently — which is exactly the
+	   drift a scale prevents. */
 	transition:
-		box-shadow 160ms ease-out,
-		transform 160ms ease-out;
+		box-shadow var(--duration-quick) var(--ease-out),
+		transform var(--duration-quick) var(--ease-out);
 }
 #docs-grid a:hover {
 	box-shadow: var(--shadow-floating);
+	/* A 2px lift. The spacing scale starts at 0.25rem, twice this — a hover that
+	   moves four pixels is a jump rather than a lift. */
+	/* ds-allow-hardcode */
 	transform: translateY(-2px);
 }
 @media (prefers-reduced-motion: reduce) {

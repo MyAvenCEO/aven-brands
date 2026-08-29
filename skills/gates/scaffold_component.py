@@ -11,7 +11,29 @@ Prints to stdout, or writes to --out.
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# Two different roots, and conflating them is what broke this file.
+#
+# KIT is where the kit's own material lives — components/, tokens/, taste/,
+# accessibility/. It is one level above the gates, and that has stayed true
+# through the move from `scripts/` to `skills/gates/`, because the kit moved
+# with them.
+#
+# REPO is the project being checked: the directory that holds CLAUDE.md. Only
+# gates that read the project need it. `validate_instruction_surface` did, used
+# `parent.parent`, and looked for `skills/CLAUDE.md` — it had been crashing
+# since the move. Naming both stops the next person picking the wrong one.
+KIT = Path(__file__).resolve().parent.parent
+
+
+def _repo_root() -> Path:
+    here = Path(__file__).resolve()
+    for candidate in here.parents:
+        if (candidate / "CLAUDE.md").is_file():
+            return candidate
+    raise SystemExit(f"{Path(__file__).name}: no CLAUDE.md above this script")
+
+
+ROOT = KIT
 
 TEMPLATE = """## {name}
 
