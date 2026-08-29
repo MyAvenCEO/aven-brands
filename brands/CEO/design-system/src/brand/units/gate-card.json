@@ -1,41 +1,86 @@
 {
 	"name": "gate-card",
-	"description": "The human gate — where an autonomous process stops and asks. The app calls it HITL and it is the most consequential shape in the estate: it is the one interface where a person takes responsibility for what a machine is about to do.\n\nThat gives it two rules nothing else has. It must say what will happen if you say yes, in the same card, at the same time as the buttons — an approve button whose consequence is on another screen is a signature on a blank page. And a pending gate never lives only in a log: it surfaces in one global place, because a decision that is waiting somewhere you are not looking is a process quietly stalled.",
+	"description": "The human gate — where an autonomous process stops and asks. The app calls it HITL and it is the most consequential shape in the estate: the one interface where a person takes responsibility for what a machine is about to do.\n\nTwo things in the original carry that weight and I had lost both by writing the unit from its class names rather than its render. The border is 2px MARINE, not a tint — this card is meant to stop the eye in a scrolling log, and a soft accent wash does the opposite. And the action lives in a marine FOOTER BAR across the bottom, inverted: a light pill on a dark ground, which is the only place the gate opens. Putting the buttons in a plain row made it look like any other card with two buttons.\n\nThe rule underneath: the preview of what will happen is in the same card as the action. An approve button whose consequence is on another screen is a signature on a blank page.",
 	"interface": {
-		"props": { "labelledBy": "string", "asked": "string" },
-		"slots": { "question": {}, "detail": {}, "preview": {}, "actions": { "accepts": ["btn"] } }
+		"props": {
+			"labelledBy": "string",
+			"asked": "string",
+			"kind": "string"
+		},
+		"slots": {
+			"question": {},
+			"detail": {},
+			"preview": {},
+			"actions": {
+				"accepts": ["btn"]
+			}
+		}
 	},
 	"view": {
 		"tag": "section",
-		"attrs": { "aria-labelledby": "$props.labelledBy", "role": "group" },
+		"attrs": {
+			"aria-labelledby": "$props.labelledBy",
+			"role": "group"
+		},
 		"$children": [
 			{
 				"tag": "div",
-				"part": "head",
+				"part": "body",
 				"$children": [
 					{
-						"tag": "p",
-						"part": "question",
-						"attrs": { "id": "$props.labelledBy" },
-						"$children": "question"
+						"tag": "div",
+						"part": "head",
+						"$children": [
+							{
+								"tag": "span",
+								"part": "kind",
+								"text": "$props.kind"
+							},
+							{
+								"tag": "p",
+								"part": "question",
+								"attrs": {
+									"id": "$props.labelledBy"
+								},
+								"$children": "question"
+							},
+							{
+								"tag": "span",
+								"part": "asked",
+								"text": "$props.asked"
+							}
+						]
 					},
-					{ "tag": "span", "part": "asked", "text": "$props.asked" }
+					{
+						"tag": "p",
+						"part": "detail",
+						"$children": "detail"
+					},
+					{
+						"tag": "div",
+						"part": "preview",
+						"$children": "preview"
+					}
 				]
 			},
-			{ "tag": "p", "part": "detail", "$children": "detail" },
-			{ "tag": "div", "part": "preview", "$children": "preview" },
-			{ "tag": "div", "part": "actions", "$children": "actions" }
+			{
+				"tag": "div",
+				"part": "actions",
+				"$children": "actions"
+			}
 		]
 	},
 	"styling": {
 		"base": {
+			"$description": "A 2px marine edge and a real shadow. This has to stop the eye in a scrolling log.",
 			"display": "grid",
-			"gap": "var(--space-tight)",
 			"minInlineSize": "0",
-			"padding": "var(--space-comfortable) var(--space-loose)",
-			"borderRadius": "var(--radius-md)",
-			"border": "1px solid var(--color-accent-border)",
-			"background": "var(--color-accent-surface)",
+			"inlineSize": "100%",
+			"overflow": "hidden",
+			"borderRadius": "var(--radius-lg)",
+			"border": "2px solid var(--color-primary)",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "0 4px 16px color-mix(in oklab, var(--color-primary) 12%, transparent)",
 			"color": "var(--color-foreground)"
 		},
 		"parts": {
@@ -51,12 +96,12 @@
 				"minInlineSize": "0",
 				"flex": "1 1 auto",
 				"fontSize": "var(--fs-meta)",
-				"fontWeight": "600"
+				"fontWeight": "500"
 			},
 			"asked": {
 				"flexShrink": "0",
 				"fontFamily": "var(--font-mono)",
-				"fontSize": "var(--fs-nano)",
+				"fontSize": "var(--fs-micro)",
 				"color": "var(--color-foreground-quiet)"
 			},
 			"detail": {
@@ -64,27 +109,50 @@
 				"maxInlineSize": "62ch",
 				"fontSize": "var(--fs-micro)",
 				"lineHeight": "1.55",
-				"color": "var(--color-foreground-soft)"
+				"color": "var(--color-foreground-soft)",
+				"paddingBlock": "var(--space-hairline) var(--space-tight)"
 			},
 			"preview": {
-				"$description": "WHAT WILL HAPPEN, shown rather than described — the draft that will be sent, the rows that will change. This is the part that makes the gate a decision instead of a formality, and it is the part that gets dropped first when the card is rebuilt by hand.",
+				"$description": "WHAT WILL HAPPEN, shown rather than described — on its own white ground inside the card, so it reads as the artefact and not as more of the card's copy. `white-space: pre-wrap` because a draft's line breaks are part of the draft.",
 				"maxBlockSize": "16rem",
 				"overflow": "auto",
-				"padding": "var(--space-tight) var(--space-comfortable)",
-				"borderRadius": "var(--radius-sm)",
-				"border": "1px solid var(--color-border-soft)",
-				"background": "var(--color-surface-raised)",
-				"fontSize": "var(--fs-micro)",
-				"lineHeight": "1.5"
+				"padding": "var(--space-comfortable) var(--space-loose)",
+				"borderRadius": "var(--radius-md)",
+				"border": "1px solid var(--color-border)",
+				"background": "var(--color-input)",
+				"fontSize": "var(--fs-body)",
+				"lineHeight": "1.6",
+				"whiteSpace": "pre-wrap",
+				"color": "var(--color-foreground-soft)"
 			},
 			"actions": {
-				"$description": "The way out first, the commitment last. Reading order is the direction of travel, and the end of the row is the thing you came to do — putting approve first puts it under the thumb before the eye has read what it is approving.",
+				"$description": "A marine bar across the bottom — the only place the gate opens. Full-bleed, which `overflow: hidden` on the card makes possible without negative margins, and the action inside it is INVERTED: a light pill on a dark ground. In a plain row this card looked like any other card with two buttons; the bar is what says a decision is required here. The way out first, the commit last.",
 				"display": "flex",
+				"alignItems": "center",
+				"justifyContent": "center",
 				"flexWrap": "wrap",
 				"gap": "var(--space-tight)",
-				"marginBlockStart": "var(--space-hairline)",
-				"paddingBlockStart": "var(--space-tight)",
-				"borderBlockStart": "1px solid var(--color-accent-border)"
+				"padding": "var(--space-tight) var(--space-loose)",
+				"background": "var(--color-primary)",
+				"color": "var(--color-primary-foreground)"
+			},
+			"body": {
+				"$description": "Everything above the bar.",
+				"display": "grid",
+				"gap": "var(--space-hairline)",
+				"padding": "var(--space-comfortable) var(--space-loose)"
+			},
+			"kind": {
+				"$description": "What KIND of decision this is, as a mono pill in the primary tint. It is the first thing read and it is what lets someone triage a queue of gates without opening each one.",
+				"flexShrink": "0",
+				"padding": "0.1rem 0.5rem",
+				"borderRadius": "var(--radius-full)",
+				"background": "color-mix(in oklab, var(--color-primary) 8%, transparent)",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-nano)",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-wide)",
+				"color": "var(--color-primary)"
 			}
 		},
 		"variants": {
@@ -93,12 +161,21 @@
 				"routine": {
 					"$description": "A confirmation the answer to which is almost always yes. Quiet, so it does not cry wolf and train the eye to click through.",
 					"borderColor": "var(--color-border)",
-					"background": "var(--color-surface-raised)"
+					"background": "var(--color-surface-raised)",
+					"borderWidth": "1px",
+					"boxShadow": "var(--shadow-raised)",
+					"& .gate-card-actions": {
+						"background": "var(--color-surface-sunken)",
+						"color": "var(--color-foreground)"
+					}
 				},
 				"grave": {
 					"$description": "Irreversible — money moving, data deleted, a message sent to a customer. The commit here wears `btn--danger` regardless of whether the action sounds destructive, because irreversible IS the destructive property.",
-					"borderColor": "var(--color-error-border)",
-					"background": "var(--color-error-surface)"
+					"borderColor": "var(--color-error)",
+					"background": "var(--color-error-surface)",
+					"& .gate-card-actions": {
+						"background": "var(--color-error)"
+					}
 				}
 			}
 		}

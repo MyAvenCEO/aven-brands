@@ -84,7 +84,8 @@
 			"blockSize": "100%",
 			"$description": "COMPOSES `card` rather than redeclaring it. The box, the border, the ground, the hover lift and the transition all come from `card`; what is left here is the two things that are genuinely this unit's — a full-height column so a grid of them lines up, and the rail pinned to the bottom. Redeclaring the shared eleven declarations meant a change to `card` reached every card except this one.",
 			"display": "flex",
-			"flexDirection": "column"
+			"flexDirection": "column",
+			"gap": "var(--space-tight)"
 		},
 		"parts": {
 			"head": {
@@ -96,16 +97,20 @@
 			"title": {
 				"margin": "0",
 				"fontSize": "var(--fs-title)",
-				"fontWeight": "600",
-				"color": "var(--color-foreground)"
+				"fontWeight": "700",
+				"color": "var(--color-foreground)",
+				"$description": "The skill's name. Bold sans with WIDE tracking, not the display face — the original set `font-bold tracking-[var(--tracking-wide)]` and the unit had drifted to a 600-weight display serif with tight tracking, which reads as a magazine headline where the original reads as a label on a product. Extracted units drift exactly here: the class names survive and the values do not.",
+				"fontFamily": "var(--font-sans)",
+				"letterSpacing": "var(--tracking-wide)"
 			},
 			"summary": {
 				"$description": "The measure is in `ch` and it is the reason a grid of these reads: at a fixed pixel width the summaries wrap differently at every card and the row loses its baseline.",
 				"margin": "0",
 				"maxInlineSize": "42ch",
-				"fontSize": "var(--fs-meta)",
-				"lineHeight": "1.55",
-				"color": "var(--color-foreground-soft)"
+				"fontSize": "var(--fs-section)",
+				"lineHeight": "1.375",
+				"color": "var(--color-foreground-soft)",
+				"fontWeight": "500"
 			},
 			"rail": {
 				"$description": "`margin-block-start:auto` pins it to the bottom, so a row of cards with summaries of different lengths still lines its rails up. Without it the cards are the same height and the content floats at three different depths.",
@@ -114,13 +119,13 @@
 				"justifyContent": "space-between",
 				"gap": "var(--space-tight)",
 				"marginBlockStart": "auto",
-				"paddingBlockStart": "var(--space-tight)",
+				"paddingBlockStart": "var(--space-comfortable)",
 				"borderBlockStart": "1px solid var(--color-border-soft)"
 			},
 			"promise": {
 				"display": "inline-flex",
 				"alignItems": "center",
-				"padding": "0.125rem 0.5rem",
+				"padding": "0.25rem 0.625rem",
 				"borderRadius": "var(--radius-full)",
 				"border": "1px solid var(--color-progress-border)",
 				"background": "var(--color-progress-surface)",
@@ -147,9 +152,9 @@
 			"quote": {
 				"$description": "a founder's own words about the skill. Italic and quiet — it is evidence under the claim, not a second claim.",
 				"margin": "0",
-				"fontSize": "var(--fs-meta)",
+				"fontSize": "var(--fs-body)",
 				"fontStyle": "italic",
-				"lineHeight": "1.5",
+				"lineHeight": "1.375",
 				"color": "var(--color-foreground-quiet)"
 			},
 			"chains": {
@@ -162,7 +167,7 @@
 				"display": "inline-flex",
 				"alignItems": "center",
 				"gap": "0.2rem",
-				"padding": "0.1rem 0.45rem",
+				"padding": "0.1rem 0.5rem",
 				"borderRadius": "var(--radius-full)",
 				"border": "1px solid var(--color-border-soft)",
 				"background": "var(--color-surface-page)",

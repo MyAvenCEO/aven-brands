@@ -590,16 +590,20 @@ export const specimens: Record<string, Specimen> = {
 	'gate-card': {
 		tall: true,
 		one: `<span class="gate-card" style="display:grid; inline-size:100%; max-inline-size:30rem">
-			<span class="gate-card-head">
-				<p class="gate-card-question">Send this reply to Anna Weber?</p>
-				<span class="gate-card-asked">2 min ago</span>
+			<span class="gate-card-body">
+				<span class="gate-card-head">
+					<span class="gate-card-kind">Send</span>
+					<p class="gate-card-question">Send this reply to Anna Weber?</p>
+					<span class="gate-card-asked">2 min ago</span>
+				</span>
+				<p class="gate-card-detail">Your aven drafted an answer about the Q3 invoice. Nothing is sent until you say so.</p>
+				<span class="gate-card-preview">Hi Anna — the Q3 invoice went out on the 14th to accounts@…; I have attached it again here.
+
+Let me know if anything is missing.</span>
 			</span>
-			<p class="gate-card-detail">Your aven drafted an answer to her question about the Q3 invoice. Nothing is sent until you say so.</p>
-			<span class="gate-card-preview">Hi Anna — the Q3 invoice went out on the 14th to accounts@…; I have attached it again here. Let me know if anything is missing.</span>
 			<span class="gate-card-actions">
 				<button class="btn btn--neutral btn--size-sm" type="button"><span class="btn-label">Edit draft</span></button>
-				<button class="btn btn--ghost btn--size-sm" type="button"><span class="btn-label">Not now</span></button>
-				<button class="btn btn--primary btn--size-sm" type="button"><span class="btn-label">Send it</span></button>
+				<button class="btn btn--size-sm" type="button" style="background:var(--color-primary-foreground); color:var(--color-primary); border-color:var(--color-primary-foreground)"><span class="btn-label">Send it</span></button>
 			</span>
 		</span>`
 	},

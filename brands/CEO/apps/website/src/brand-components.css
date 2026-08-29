@@ -837,6 +837,7 @@
 		block-size: 100%;
 		display: flex;
 		flex-direction: column;
+		gap: var(--space-tight);
 
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(-2px);
@@ -871,16 +872,19 @@
 	.skill-card-title {
 		margin: 0;
 		font-size: var(--fs-title);
-		font-weight: 600;
+		font-weight: 700;
 		color: var(--color-foreground);
+		font-family: var(--font-sans);
+		letter-spacing: var(--tracking-wide);
 	}
 
 	.skill-card-summary {
 		margin: 0;
 		max-inline-size: 42ch;
-		font-size: var(--fs-meta);
-		line-height: 1.55;
+		font-size: var(--fs-section);
+		line-height: 1.375;
 		color: var(--color-foreground-soft);
+		font-weight: 500;
 	}
 
 	.skill-card-rail {
@@ -889,14 +893,14 @@
 		justify-content: space-between;
 		gap: var(--space-tight);
 		margin-block-start: auto;
-		padding-block-start: var(--space-tight);
+		padding-block-start: var(--space-comfortable);
 		border-block-start: 1px solid var(--color-border-soft);
 	}
 
 	.skill-card-promise {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.125rem 0.5rem;
+		padding: 0.25rem 0.625rem;
 		border-radius: var(--radius-full);
 		border: 1px solid var(--color-progress-border);
 		background: var(--color-progress-surface);
@@ -924,9 +928,9 @@
 
 	.skill-card-quote {
 		margin: 0;
-		font-size: var(--fs-meta);
+		font-size: var(--fs-body);
 		font-style: italic;
-		line-height: 1.5;
+		line-height: 1.375;
 		color: var(--color-foreground-quiet);
 	}
 
@@ -940,7 +944,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.2rem;
-		padding: 0.1rem 0.45rem;
+		padding: 0.1rem 0.5rem;
 		border-radius: var(--radius-full);
 		border: 1px solid var(--color-border-soft);
 		background: var(--color-surface-page);
@@ -1799,6 +1803,16 @@
 		&[aria-selected="true"], &[aria-pressed="true"] {
 			background: var(--color-primary);
 			color: var(--color-primary-foreground);
+
+			& .thread-item-title {
+				color: var(--color-primary-foreground);
+			}
+			& .thread-item-preview {
+				color: var(--color-primary-foreground-soft);
+			}
+			& .thread-item-time {
+				color: var(--color-primary-foreground-quiet);
+			}
 		}
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -1925,12 +1939,13 @@
 
 	.gate-card {
 		display: grid;
-		gap: var(--space-tight);
 		min-inline-size: 0;
-		padding: var(--space-comfortable) var(--space-loose);
-		border-radius: var(--radius-md);
-		border: 1px solid var(--color-accent-border);
-		background: var(--color-accent-surface);
+		inline-size: 100%;
+		overflow: hidden;
+		border-radius: var(--radius-lg);
+		border: 2px solid var(--color-primary);
+		background: var(--color-surface-raised);
+		box-shadow: 0 4px 16px color-mix(in oklab, var(--color-primary) 12%, transparent);
 		color: var(--color-foreground);
 	}
 
@@ -1946,13 +1961,13 @@
 		min-inline-size: 0;
 		flex: 1 1 auto;
 		font-size: var(--fs-meta);
-		font-weight: 600;
+		font-weight: 500;
 	}
 
 	.gate-card-asked {
 		flex-shrink: 0;
 		font-family: var(--font-mono);
-		font-size: var(--fs-nano);
+		font-size: var(--fs-micro);
 		color: var(--color-foreground-quiet);
 	}
 
@@ -1962,36 +1977,70 @@
 		font-size: var(--fs-micro);
 		line-height: 1.55;
 		color: var(--color-foreground-soft);
+		padding-block: var(--space-hairline) var(--space-tight);
 	}
 
 	.gate-card-preview {
 		max-block-size: 16rem;
 		overflow: auto;
-		padding: var(--space-tight) var(--space-comfortable);
-		border-radius: var(--radius-sm);
-		border: 1px solid var(--color-border-soft);
-		background: var(--color-surface-raised);
-		font-size: var(--fs-micro);
-		line-height: 1.5;
+		padding: var(--space-comfortable) var(--space-loose);
+		border-radius: var(--radius-md);
+		border: 1px solid var(--color-border);
+		background: var(--color-input);
+		font-size: var(--fs-body);
+		line-height: 1.6;
+		white-space: pre-wrap;
+		color: var(--color-foreground-soft);
 	}
 
 	.gate-card-actions {
 		display: flex;
+		align-items: center;
+		justify-content: center;
 		flex-wrap: wrap;
 		gap: var(--space-tight);
-		margin-block-start: var(--space-hairline);
-		padding-block-start: var(--space-tight);
-		border-block-start: 1px solid var(--color-accent-border);
+		padding: var(--space-tight) var(--space-loose);
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+	}
+
+	.gate-card-body {
+		display: grid;
+		gap: var(--space-hairline);
+		padding: var(--space-comfortable) var(--space-loose);
+	}
+
+	.gate-card-kind {
+		flex-shrink: 0;
+		padding: 0.1rem 0.5rem;
+		border-radius: var(--radius-full);
+		background: color-mix(in oklab, var(--color-primary) 8%, transparent);
+		font-family: var(--font-mono);
+		font-size: var(--fs-nano);
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-wide);
+		color: var(--color-primary);
 	}
 
 	.gate-card--weight-routine {
 		border-color: var(--color-border);
 		background: var(--color-surface-raised);
+		border-width: 1px;
+		box-shadow: var(--shadow-raised);
+
+		& .gate-card-actions {
+			background: var(--color-surface-sunken);
+			color: var(--color-foreground);
+		}
 	}
 
 	.gate-card--weight-grave {
-		border-color: var(--color-error-border);
+		border-color: var(--color-error);
 		background: var(--color-error-surface);
+
+		& .gate-card-actions {
+			background: var(--color-error);
+		}
 	}
 
 	.prompt-bar {

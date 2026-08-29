@@ -2,27 +2,54 @@
 	"name": "thread-item",
 	"description": "One entry in a scrolling list of conversations, jobs or intents — the app's intent list, and the shape any inbox is. A title that truncates, a preview line under it, and a timestamp pinned to the trailing edge.\n\nWhat makes it a unit rather than a row: the SELECTED state inverts the whole item, and everything inside it has to follow. The app spelled that as a ternary on every child — `{sel ? 'text-current' : ''}`, `{sel ? 'opacity-75' : 'text-foreground/50'}`, `{sel ? 'opacity-60' : 'text-foreground/35'}` — three conditionals to say one thing, and three places for the selected treatment to drift from itself.",
 	"interface": {
-		"props": { "title": "string", "preview": "string", "time": "string", "href": "string" },
-		"slots": { "badge": { "accepts": ["badge"] } }
+		"props": {
+			"title": "string",
+			"preview": "string",
+			"time": "string",
+			"href": "string"
+		},
+		"slots": {
+			"badge": {
+				"accepts": ["badge"]
+			}
+		}
 	},
 	"view": {
 		"tag": "a",
-		"attrs": { "href": "$props.href" },
+		"attrs": {
+			"href": "$props.href"
+		},
 		"$children": [
 			{
 				"tag": "div",
 				"part": "head",
 				"$children": [
-					{ "tag": "span", "part": "title", "text": "$props.title" },
-					{ "tag": "span", "part": "time", "text": "$props.time" }
+					{
+						"tag": "span",
+						"part": "title",
+						"text": "$props.title"
+					},
+					{
+						"tag": "span",
+						"part": "time",
+						"text": "$props.time"
+					}
 				]
 			},
 			{
 				"tag": "div",
 				"part": "foot",
 				"$children": [
-					{ "tag": "span", "part": "preview", "text": "$props.preview" },
-					{ "tag": "span", "part": "badge", "$children": "badge" }
+					{
+						"tag": "span",
+						"part": "preview",
+						"text": "$props.preview"
+					},
+					{
+						"tag": "span",
+						"part": "badge",
+						"$children": "badge"
+					}
 				]
 			}
 		]
@@ -80,20 +107,44 @@
 				"fontSize": "var(--fs-eyebrow)",
 				"color": "var(--color-foreground-quiet)"
 			},
-			"badge": { "flexShrink": "0" }
+			"badge": {
+				"flexShrink": "0"
+			}
 		},
 		"variants": {
-			"density": { "compact": { "paddingBlock": "0.25rem" } }
+			"density": {
+				"compact": {
+					"paddingBlock": "0.25rem"
+				}
+			}
 		},
 		"states": {
-			"hover": { "background": "var(--color-muted)" },
-			"focus": { "outline": "1px solid var(--color-focus)" },
-			"active": { "background": "var(--color-surface-sunken)" },
-			"disabled": { "opacity": "0.55", "cursor": "default" },
+			"hover": {
+				"background": "var(--color-muted)"
+			},
+			"focus": {
+				"outline": "1px solid var(--color-focus)"
+			},
+			"active": {
+				"background": "var(--color-surface-sunken)"
+			},
+			"disabled": {
+				"opacity": "0.55",
+				"cursor": "default"
+			},
 			"selected": {
-				"$description": "The whole item inverts, and `color: inherit` on the children is what carries it — the app wrote a ternary on each child instead, which is three places for one decision to drift.",
+				"$description": "The whole item inverts, and every part follows — which needs saying explicitly, because the parts set their own colours. The description here used to claim `color: inherit` carried it; it did not, and the result was a dark title on a dark ground with only the quiet parts still legible. A state that inverts a container has to name what it does to the container's children, or it inverts the box and leaves the contents behind.",
 				"background": "var(--color-primary)",
-				"color": "var(--color-primary-foreground)"
+				"color": "var(--color-primary-foreground)",
+				"& .thread-item-title": {
+					"color": "var(--color-primary-foreground)"
+				},
+				"& .thread-item-preview": {
+					"color": "var(--color-primary-foreground-soft)"
+				},
+				"& .thread-item-time": {
+					"color": "var(--color-primary-foreground-quiet)"
+				}
 			}
 		},
 		"reducedMotion": {
