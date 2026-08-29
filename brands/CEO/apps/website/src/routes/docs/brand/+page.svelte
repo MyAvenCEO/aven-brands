@@ -392,9 +392,14 @@ function fitScaledStage(node: HTMLElement) {
 		const declared = parseFloat(getComputedStyle(node).blockSize)
 		const target = Number.isFinite(declared) ? declared : node.clientHeight
 		node.style.setProperty('--cb-screen-h', scale < 1 ? `${target / scale}px` : '100%')
-		/* Centre the scaled result: the layout box keeps its believed width, so
-		   the visible box is narrower and would otherwise hug the left edge. */
-		node.style.setProperty('--cb-inset', `${Math.max(0, (available - believes * scale) / 2)}px`)
+		/* NO horizontal offset. This used to centre the scaled screen inside the
+		   PANEL, which was right while the bezel was panel-width and became a
+		   double-count the moment the bezel started sizing itself to the device:
+		   the frame centres itself with `margin-inline: auto`, and the screen then
+		   shifted again inside it — so the earth showed only on the left and the
+		   screen ran past the right edge. The bezel's content box is exactly the
+		   scaled screen; the screen sits at its origin. */
+		node.style.setProperty('--cb-inset', '0px')
 	}
 	apply()
 	const observer = new ResizeObserver(apply)
@@ -1848,7 +1853,7 @@ function inspect(name: string) {
 	   the box keeps its believed size — so the 1440px desktop preview would paint
 	   over the controls beside it; the bezel's `overflow: hidden` is what stops
 	   that, and the measured height is what stops the gap below. */
-	transform: translateX(var(--cb-inset, 0)) scale(var(--cb-scale, 1));
+	transform: scale(var(--cb-scale, 1));
 	transform-origin: top left;
 	block-size: var(--cb-screen-h, 100%);
 }
