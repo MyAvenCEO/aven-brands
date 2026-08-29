@@ -2769,12 +2769,14 @@
 	.sidebar {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-comfortable);
+		gap: 0;
 		inline-size: min(16rem, 78vw);
 		min-inline-size: 0;
 		padding: var(--space-comfortable);
-		border-inline-end: 1px solid var(--color-border);
+		border-inline-end: 1px solid var(--color-border-soft);
 		background: var(--color-surface-raised);
+		padding-block: var(--space-comfortable);
+		padding-inline: var(--space-tight);
 
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -2783,14 +2785,70 @@
 
 	.sidebar-items {
 		display: grid;
-		gap: var(--space-hairline);
+		gap: 0.1rem;
 		min-block-size: 0;
 		overflow-y: auto;
+		padding-inline: 0.25rem;
 	}
 
 	.sidebar-footer {
 		margin-block-start: auto;
 		padding-block-start: var(--space-tight);
+		padding: var(--space-tight) 0.75rem 0;
+		border-block-start: 1px solid var(--color-border-soft);
+	}
+
+	.sidebar-group {
+		display: grid;
+		gap: 0.1rem;
+		padding-block-end: var(--space-comfortable);
+	}
+
+	.sidebar-group-title {
+		padding: 0.35rem 0.75rem 0.2rem;
+		color: var(--color-foreground-quiet);
+	}
+
+	.sidebar-item {
+		display: flex;
+		align-items: center;
+		gap: var(--space-tight);
+		min-block-size: 2rem;
+		padding: 0 0.75rem;
+		border-radius: var(--radius-sm);
+		font-size: var(--fs-meta);
+		font-weight: 500;
+		color: var(--color-foreground-soft);
+		text-decoration: none;
+		position: relative;
+		transition: background var(--duration-quick) var(--ease-out), color var(--duration-quick) var(--ease-out);
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			background: var(--color-muted);
+			color: var(--color-foreground);
+		}
+		&:focus-visible {
+			outline: 1px solid var(--color-focus);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			background: var(--color-surface-sunken);
+		}
+		&[disabled], &[aria-disabled="true"] {
+			opacity: 0.5;
+			cursor: default;
+		}
+		&[aria-selected="true"], &[aria-pressed="true"] {
+			background: var(--color-surface-sunken);
+			color: var(--color-foreground);
+			font-weight: 600;
+		}
+	}
+
+	.sidebar-count {
+		margin-inline-start: auto;
+		font-size: var(--fs-nano);
+		font-variant-numeric: tabular-nums;
+		color: var(--color-foreground-quiet);
 	}
 
 	.sidebar--placement-drawer {
@@ -2801,6 +2859,11 @@
 		transform: translateX(-100%);
 		transition: transform var(--duration-moderate) var(--ease-out);
 		box-shadow: var(--shadow-overlay);
+	}
+
+	.sidebar--tone-plain {
+		background: transparent;
+		border-inline-end-color: transparent;
 	}
 
 	.modal {

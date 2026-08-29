@@ -258,13 +258,21 @@ export const specimens: Record<string, Specimen> = {
 	},
 	sidebar: {
 		tall: true,
-		html: `<span class="sidebar" style="inline-size: 14rem">
+		one: `<span class="sidebar" style="display:flex; inline-size:15rem">
 			<span class="sidebar-items">
-				<a class="nav-link" href="#specimen" aria-current="page">Overview</a>
-				<a class="nav-link" href="#specimen">Skills</a>
-				<a class="nav-link" href="#specimen">Billing</a>
+				<span class="sidebar-group">
+					<p class="text text--eyebrow sidebar-group-title">Workspace</p>
+					<a class="sidebar-item" href="#specimen" aria-current="page">${icon('check', '1em')}<span>Overview</span></a>
+					<a class="sidebar-item" href="#specimen">${icon('search', '1em')}<span>Skills</span><span class="sidebar-count">13</span></a>
+					<a class="sidebar-item" href="#specimen">${icon('external', '1em')}<span>Artifacts</span><span class="sidebar-count">42</span></a>
+				</span>
+				<span class="sidebar-group">
+					<p class="text text--eyebrow sidebar-group-title">Account</p>
+					<a class="sidebar-item" href="#specimen">${icon('info', '1em')}<span>Billing</span></a>
+					<a class="sidebar-item" href="#specimen">${icon('menu', '1em')}<span>Settings</span></a>
+				</span>
 			</span>
-			<span class="sidebar-footer"><span class="badge badge--emphasis-quiet">Beta</span></span>
+			<span class="sidebar-footer"><span class="badge badge--emphasis-quiet badge--size-sm">Beta</span></span>
 		</span>`
 	},
 	surface: {
@@ -322,29 +330,29 @@ export const specimens: Record<string, Specimen> = {
 	'skill-card': {
 		tall: true,
 		one: `<a class="card skill-card" href="#specimen" style="inline-size: 19rem">
-			<span class="card skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
-			<p class="card skill-card-title">Inbox router</p>
-			<p class="card skill-card-summary">Reads every mail as it lands, answers what it can in your voice, and hands you only the ones that need you.</p>
-			<span class="card skill-card-rail"><span class="card skill-card-promise">6 hrs/week</span><span class="card skill-card-more">View</span></span>
+			<span class="skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
+			<p class="skill-card-title">Inbox router</p>
+			<p class="skill-card-summary">Reads every mail as it lands, answers what it can in your voice, and hands you only the ones that need you.</p>
+			<span class="skill-card-rail"><span class="skill-card-promise">6 hrs/week</span><span class="skill-card-more">View</span></span>
 		</a>`,
 		html: `<span class="sp-row sp-row--cards">
 			<a class="card skill-card" href="#specimen" style="inline-size: 15rem">
-				<span class="card skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
-				<p class="card skill-card-title">Inbox router</p>
-				<p class="card skill-card-summary">Answers what it can in your voice, and hands you the rest.</p>
-				<span class="card skill-card-rail"><span class="card skill-card-promise">6 hrs/week</span><span class="card skill-card-more">View</span></span>
+				<span class="skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
+				<p class="skill-card-title">Inbox router</p>
+				<p class="skill-card-summary">Answers what it can in your voice, and hands you the rest.</p>
+				<span class="skill-card-rail"><span class="skill-card-promise">6 hrs/week</span><span class="skill-card-more">View</span></span>
 			</a>
 			<a class="skill-card skill-card--emphasis-featured" href="#specimen" style="inline-size: 15rem">
-				<span class="card skill-card-head"><span class="badge badge--tone-accent">Most picked</span></span>
-				<p class="card skill-card-title">Book keeper</p>
-				<p class="card skill-card-summary">Files every receipt the day it arrives.</p>
-				<span class="card skill-card-rail"><span class="card skill-card-promise">4 hrs/week</span><span class="card skill-card-more">View</span></span>
+				<span class="skill-card-head"><span class="badge badge--tone-accent">Most picked</span></span>
+				<p class="skill-card-title">Book keeper</p>
+				<p class="skill-card-summary">Files every receipt the day it arrives.</p>
+				<span class="skill-card-rail"><span class="skill-card-promise">4 hrs/week</span><span class="skill-card-more">View</span></span>
 			</a>
 			<a class="skill-card skill-card--emphasis-soon" href="#specimen" style="inline-size: 15rem">
-				<span class="card skill-card-head"><span class="badge">Soon</span></span>
-				<p class="card skill-card-title">Blog writer</p>
-				<p class="card skill-card-summary">Drafts in your voice, from what you already published.</p>
-				<span class="card skill-card-rail"><span class="card skill-card-promise">2 hrs/week</span><span class="card skill-card-more">Join list</span></span>
+				<span class="skill-card-head"><span class="badge">Soon</span></span>
+				<p class="skill-card-title">Blog writer</p>
+				<p class="skill-card-summary">Drafts in your voice, from what you already published.</p>
+				<span class="skill-card-rail"><span class="skill-card-promise">2 hrs/week</span><span class="skill-card-more">Join list</span></span>
 			</a>
 		</span>`
 	},
