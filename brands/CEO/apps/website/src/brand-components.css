@@ -2108,8 +2108,6 @@
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
 		transition: background var(--duration-moderate) var(--ease-out);
-		container-type: inline-size;
-		container-name: voice-pill;
 
 		@media (prefers-reduced-motion: reduce) {
 			animation: none;

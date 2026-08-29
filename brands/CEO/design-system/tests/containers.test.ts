@@ -23,9 +23,19 @@ import { units } from '../src/units.js'
  * LEAFS ARE EXCLUDED, deliberately. A badge, a button, an icon size to their
  * CONTENT, and containment is precisely what takes that away.
  */
-const all = Array.isArray(units) ? units : Object.values(units)
-const composites = all.filter((u: any) => Object.keys(u.interface?.slots ?? {}).length)
-const leafs = all.filter((u: any) => !Object.keys(u.interface?.slots ?? {}).length)
+/**
+ * Widths that come FROM THE CONTENT. A container's width may not, so a unit
+ * declaring one of these cannot be a container — the two are circular, and the
+ * box collapses. `voice-pill` is the case: the notch must hug what it holds,
+ * because a notch that spans the footer is a toolbar.
+ */
+const CONTENT_SIZED = new Set(['fit-content', 'max-content', 'min-content', 'auto'])
+
+const all = (Array.isArray(units) ? units : Object.values(units)) as any[]
+const hugs = (u: any) => CONTENT_SIZED.has(u.styling?.base?.inlineSize)
+const composites = all.filter((u) => Object.keys(u.interface?.slots ?? {}).length && !hugs(u))
+const hugging = all.filter((u) => Object.keys(u.interface?.slots ?? {}).length && hugs(u))
+const leafs = all.filter((u) => !Object.keys(u.interface?.slots ?? {}).length)
 
 describe('the container contract', () => {
 	test('every composite establishes a container named after itself', () => {
@@ -45,6 +55,13 @@ describe('the container contract', () => {
 		).toEqual([])
 	})
 
+	test('a unit that hugs its content is never a container', () => {
+		/* The two are circular: containment removes content-based sizing, and
+		   `fit-content` IS content-based sizing. `voice-pill` collapsed to a
+		   sliver with its orb hanging outside it. */
+		expect(hugging.filter((u) => u.styling?.base?.containerType).map((u) => u.name)).toEqual([])
+	})
+
 	test('no leaf is a container', () => {
 		expect(
 			leafs.filter((u: any) => u.styling?.base?.containerType).map((u: any) => u.name)
@@ -56,7 +73,7 @@ describe('the container contract', () => {
 		   A `min-width` media query inside a unit means that unit is answering to
 		   the window instead of to the box it was handed. */
 		const offenders: string[] = []
-		for (const u of all as any[]) {
+		for (const u of all) {
 			for (const m of JSON.stringify(u.styling ?? {}).matchAll(/@media \(([^"]*?)\)/g)) {
 				if (/\b(min|max)-(width|inline-size)\b/.test(m[1])) offenders.push(`${u.name}: ${m[0]}`)
 			}
