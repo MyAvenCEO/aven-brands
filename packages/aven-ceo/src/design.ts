@@ -24,6 +24,8 @@
  * broken deliberately is emphasis, where several steps were raised to where
  * they MEASURE against WCAG rather than where they looked right.
  */
+import { nearestStepOn } from '@myavenceo/aven-vibes/brand'
+
 import {
 	COMPONENTS_MAP,
 	type Decl,
@@ -91,17 +93,7 @@ export const TINT_SCALE: Record<string, string> = flatScale('tint')
  * `role` picks the axis: text reads, surfaces do not.
  */
 export function nearestAlphaStep(percent: number, role: 'ink' | 'tint'): string {
-	const scale = role === 'ink' ? INK_SCALE : TINT_SCALE
-	let best = ''
-	let distance = Number.POSITIVE_INFINITY
-	for (const [name, value] of Object.entries(scale)) {
-		const d = Math.abs(Number(value) * 100 - percent)
-		if (d < distance) {
-			distance = d
-			best = name
-		}
-	}
-	return best
+	return nearestStepOn(role === 'ink' ? INK_SCALE : TINT_SCALE, percent)
 }
 
 /* ══ 4 · ELEVATION ═════════════════════════════════════════════════════════

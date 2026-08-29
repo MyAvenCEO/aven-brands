@@ -29,6 +29,8 @@
  * MEANS). Components speak roles — `bg-primary`, `text-error` — never tones,
  * so re-pointing a role in the JSON re-skins every surface that uses it.
  */
+import { withAlpha } from '@myavenceo/aven-vibes/brand'
+
 import {
 	APP_ICON_PLATE_VALUE,
 	FONT_STACK_MAP,
@@ -106,22 +108,9 @@ export const RADII: Record<string, string> = RADII_MAP
 export const VIBE_SCALE: Record<string, string> = VIBE_SCALE_MAP
 
 /* ══ 5 · DERIVED ═══════════════════════════════════════════════════════════
- * Below this line is MACHINERY, not data: functions and the maps they build.
- * Nothing here spells a value that belongs in the JSON. */
-
-/** `#1f2a3d` + 0.56 → `rgba(31, 42, 61, 0.56)`. Used to build the vibe tokens. */
-export function withAlpha(hex: string, alpha: number): string {
-	const h = hex.replace('#', '')
-	const full =
-		h.length === 3
-			? h
-					.split('')
-					.map((c) => c + c)
-					.join('')
-			: h
-	const channel = (i: number) => Number.parseInt(full.slice(i, i + 2), 16)
-	return `rgba(${channel(0)}, ${channel(2)}, ${channel(4)}, ${alpha})`
-}
+ * Below this line is a DERIVATION: a mapping this brand chose, built with the
+ * engine's arithmetic. `withAlpha` is imported rather than defined because
+ * arithmetic is not a brand decision. */
 
 /**
  * The flat token map the vibe StyleEngine flattens onto `:host` (`text` →
@@ -170,3 +159,6 @@ export const vibeTokens: Record<string, string> = {
 
 /** The plate an app icon is drawn on — a brand cream, not a fifth one. */
 export const APP_ICON_PLATE: string = APP_ICON_PLATE_VALUE
+
+/** Re-exported so existing importers of this package keep resolving. */
+export { withAlpha }

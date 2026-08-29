@@ -1,74 +1,29 @@
 /**
  * avenCEO, as a `Brand`.
  *
- * Everything the design system renders for this company is assembled here and
- * handed to the kit. The file is deliberately dull — it names values defined in
- * `tokens.ts` and `design.ts` and does nothing with them. That dullness is the
- * point: it is the whole surface a SECOND brand has to fill in, and if it grew
- * logic, that logic would be avenCEO's alone and the next brand would not get
- * it.
+ * The file used to be sixty lines of dull assembly — naming values from
+ * `tokens.ts` and `design.ts` and doing nothing with them — and its dullness
+ * was the point: it was the surface a second brand had to fill in, so any logic
+ * here would have been avenCEO's alone.
+ *
+ * It is now four lines, because that assembly was the same for every brand and
+ * moved to `brandFromDocuments` in the kit. What is left is a call: two JSON
+ * documents in, a validated brand out. A second brand writes the documents and
+ * gets everything after them for free, which is what "a brand is a config" was
+ * always supposed to mean.
+ *
+ * The validation is not incidental. A missing group used to flatten to `{}`,
+ * emit `var(--color-)` everywhere it was referenced, and render the page in the
+ * browser's defaults rather than failing. It now throws at load, naming every
+ * missing part at once.
  */
+
 import type { Brand } from '@myavenceo/aven-vibes/brand'
-import {
-	COMPONENTS,
-	ELEVATION_SCALE,
-	INK_SCALE,
-	PRIMITIVES,
-	RADIUS_SCALE,
-	SCALE_TOKENS,
-	SPACE_SCALE,
-	TINT_SCALE,
-	TRACKING_SCALE,
-	TYPE_SCALE
-} from './design.js'
-import {
-	APP_ICON_PLATE,
-	APP_ROLES,
-	CONTRAST_INK,
-	CREAMS,
-	FONT_STACK,
-	FONT_WEIGHTS,
-	RADII,
-	ROLES,
-	SITE_ROLES,
-	SURFACES,
-	TONES
-} from './tokens.js'
+import { brandFromDocuments } from '@myavenceo/aven-vibes/brand'
 
-export const avenCeo: Brand = {
-	name: 'avenCEO',
-	slug: 'aven-ceo',
+import brandDocument from './brand/brand.avenceo.json' with { type: 'json' }
+import componentsDocument from './brand/components.avenceo.json' with { type: 'json' }
 
-	tones: TONES,
-	creams: CREAMS,
-	contrastInk: CONTRAST_INK,
-
-	surfaces: SURFACES,
-	roles: ROLES,
-	siteRoles: SITE_ROLES,
-	appRoles: APP_ROLES,
-
-	fonts: FONT_STACK,
-	fontWeights: FONT_WEIGHTS,
-	radii: RADII,
-	scales: {
-		type: TYPE_SCALE,
-		tracking: TRACKING_SCALE,
-		ink: INK_SCALE,
-		tint: TINT_SCALE,
-		elevation: ELEVATION_SCALE,
-		radius: RADIUS_SCALE,
-		space: SPACE_SCALE
-	},
-	scaleTokens: SCALE_TOKENS,
-
-	primitives: PRIMITIVES,
-	components: COMPONENTS,
-
-	/* The three bare elements avenCEO styles without a class. */
-	elements: { h1: 'title', button: 'btn', label: 'label' },
-
-	appIconPlate: APP_ICON_PLATE
-}
+export const avenCeo: Brand = brandFromDocuments(brandDocument, componentsDocument)
 
 export default avenCeo

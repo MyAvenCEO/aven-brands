@@ -669,5 +669,10 @@
 			}
 		}
 	},
+	"elements": {
+		"h1": "title",
+		"button": "btn",
+		"label": "label"
+	},
 	"appIconPlate": "#faf9f4"
 }
