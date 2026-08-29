@@ -550,7 +550,10 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
  * So on a band the emphasis is weight, and the copy says `<b>`, which is what
  * it meant.
  */
-#company-heading b {
+/* `:global` for the same reason the emphasis rules are: the heading's `<b>`
+   arrives through `{@html}`, which Svelte never compiled, so it carries no
+   scoping class for a scoped selector to match. */
+#company-heading :global(b) {
 	font-weight: 600;
 }
 

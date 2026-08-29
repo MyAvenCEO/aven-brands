@@ -97,14 +97,21 @@ const unitGroups = [
    page, and a second hand-written copy of what hover looks like is precisely
    the drift the system exists to stop. */
 let open = $state<string | null>(null)
-let state = $state<string | null>(null)
-let detailView = $state<'preview' | 'config'>('preview')
+/* NOT `state`. In Svelte a leading `$` is store auto-subscription, so a local
+   named `state` turns every `$state(...)` rune in the file into "subscribe to
+   the store `state`" — which type-checks as a use-before-declaration and breaks
+   every rune above this line. */
+let forcedState = $state<string | null>(null)
+/* `as const` so the each-block yields the union rather than `string` — an
+   inline array literal widens, and the assignment then fails to type. */
+const DETAIL_VIEWS = ['preview', 'config'] as const
+let detailView = $state<(typeof DETAIL_VIEWS)[number]>('preview')
 let openPart = $state<string | null>(null)
 let chosen = $state<Record<string, string>>({})
 
 const allRows = $derived([...leafRows, ...compositeRows])
 const openUnit = $derived(open ? allRows.find((u) => u.name === open) : undefined)
-const activeState = $derived(openUnit?.states.find((s) => s.name === state))
+const activeState = $derived(openUnit?.states.find((s) => s.name === forcedState))
 const activePart = $derived(openUnit?.parts.find((p) => p.name === openPart))
 /* A part's own declarations, read from the compiled stylesheet rather than
    restated here — the part is a real class, so the system already knows. */
@@ -121,7 +128,7 @@ const variantClass = $derived(
 
 function openDetail(name: string) {
 	open = name
-	state = null
+	forcedState = null
 	chosen = {}
 	detailView = 'preview'
 	openPart = null
@@ -511,7 +518,7 @@ function inspect(name: string) {
 							</button>
 							<h2 class="cb-detail-name">{unit.name}</h2>
 							<div class="cb-tabs" role="tablist" aria-label="View">
-								{#each ['preview', 'config'] as view (view)}
+								{#each DETAIL_VIEWS as view (view)}
 									<button
 										type="button"
 										class="cb-tab"
@@ -533,7 +540,7 @@ function inspect(name: string) {
 									<div
 										class="cb-detail-stage"
 										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
-										{@attach applyPreview(unit, variantClass, state)}
+										{@attach applyPreview(unit, variantClass, forcedState)}
 									>
 										{#if specimens[unit.name]?.one ?? specimens[unit.name]}
 											{@html specimens[unit.name].one ?? specimens[unit.name].html}
@@ -561,8 +568,8 @@ function inspect(name: string) {
 											<button
 												type="button"
 												class="cb-chip-btn"
-												aria-pressed={state === null}
-												onclick={() => (state = null)}
+												aria-pressed={forcedState === null}
+												onclick={() => (forcedState = null)}
 											>
 												default
 											</button>
@@ -570,8 +577,8 @@ function inspect(name: string) {
 												<button
 													type="button"
 													class="cb-chip-btn"
-													aria-pressed={state === st.name}
-													onclick={() => (state = st.name)}
+													aria-pressed={forcedState === st.name}
+													onclick={() => (forcedState = st.name)}
 												>
 													{st.name}
 												</button>

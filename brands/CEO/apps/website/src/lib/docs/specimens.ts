@@ -23,8 +23,12 @@ export type Specimen = {
 	 *
 	 * Its job is to answer "what is this unit" at a glance, which needs the
 	 * range visible.
+	 *
+	 * Optional: a unit whose range IS one thing — a hero, a navbar, a footer —
+	 * has nothing to show a row of, and inventing three of them to satisfy a
+	 * type would be three lies about the unit.
 	 */
-	html: string
+	html?: string
 	/**
 	 * The explorer view: ONE instance, for the detail page.
 	 *
