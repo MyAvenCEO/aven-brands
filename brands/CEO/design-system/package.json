@@ -45,6 +45,10 @@
 			"types": "./dist/units.d.ts",
 			"import": "./dist/units.js"
 		},
+		"./icons": {
+			"types": "./dist/icons.d.ts",
+			"import": "./dist/icons.js"
+		},
 		"./utilities": {
 			"types": "./dist/utilities.d.ts",
 			"import": "./dist/utilities.js"

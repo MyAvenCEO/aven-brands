@@ -22,6 +22,7 @@ import {
 	fontWeights,
 	inkScale,
 	layoutNames,
+	iconMarkup,
 	logoVariants,
 	radiusScale,
 	sections,
@@ -171,6 +172,25 @@ function inspect(name: string) {
 										{/if}
 									</span>
 								</div>
+							</div>
+						{/each}
+					</div>
+				</section>
+			{:else if active === 'icons'}
+				<section class="cb-section">
+					<p class="eyebrow-quiet">Icons</p>
+					<p class="meta">
+						Geometry only, drawn on the lucide 24 grid at stroke width 2. A view names an icon and
+						nothing more — the engine writes every attribute, so no string a view controls reaches
+						the markup. Each one paints in <span class="cb-mono">currentColor</span>, which is why
+						the row below inverts with the theme instead of needing a second file. The logo mark is
+						not here on purpose: it is ten brand colours, so it stays an image.
+					</p>
+					<div class="cb-icons">
+						{#each iconMarkup as icon (icon.name)}
+							<div class="cb-icon">
+								<span class="cb-icon-stage">{@html icon.svg}</span>
+								<span class="cb-mono">{icon.name}</span>
 							</div>
 						{/each}
 					</div>
@@ -449,7 +469,9 @@ function inspect(name: string) {
 	background: transparent;
 	font: inherit;
 	font-size: var(--fs-meta);
-	color: var(--color-muted-foreground);
+	/* Not muted-foreground: it measures 3.59:1 here and fails AA. The unselected
+	   half of a switch is still a label someone has to read to operate it. */
+	color: var(--color-foreground-quiet);
 	cursor: pointer;
 	text-transform: capitalize;
 }
@@ -535,6 +557,30 @@ function inspect(name: string) {
 	gap: var(--space-tight);
 	margin-block-end: var(--space-section);
 	max-inline-size: 62rem;
+}
+.cb-icons {
+	display: grid;
+	gap: var(--space-comfortable);
+	grid-template-columns: repeat(auto-fill, minmax(min(7rem, 100%), 1fr));
+	margin-block-start: var(--space-tight);
+}
+.cb-icon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	min-inline-size: 0;
+}
+.cb-icon-stage {
+	display: grid;
+	place-items: center;
+	inline-size: 100%;
+	block-size: 4.5rem;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-chip);
+	background: var(--color-surface-raised);
+	/* The reason the registry exists: one glyph, both themes. */
+	color: var(--color-foreground);
 }
 .cb-swatches {
 	display: grid;

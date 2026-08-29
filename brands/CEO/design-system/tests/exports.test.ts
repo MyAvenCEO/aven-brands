@@ -115,3 +115,20 @@ describe('the kitchen sink surface', () => {
 		}
 	})
 })
+
+describe('the icon surface', () => {
+	test('every registered icon survives the engine validator', async () => {
+		/* The validator runs at module load, so importing IS the assertion — but
+		   only if the import happens somewhere. Before this test it happened only
+		   on a page that used an icon, which meant a malformed one shipped and
+		   failed in a browser rather than here. */
+		const { icons, iconNames } = await import('../src/icons.js')
+		expect(iconNames.length).toBeGreaterThan(0)
+		for (const name of iconNames) expect(icons[name].paths.length).toBeGreaterThan(0)
+	})
+
+	test('no icon carries its own colour, so one file serves both themes', async () => {
+		const { icons } = await import('../src/icons.js')
+		expect(JSON.stringify(icons)).not.toMatch(/#[0-9a-f]{3,6}|fill=|rgb\(/i)
+	})
+})

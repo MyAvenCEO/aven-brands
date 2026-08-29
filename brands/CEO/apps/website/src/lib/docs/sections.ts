@@ -1,3 +1,5 @@
+import { icons, iconNames } from '@myavenceo/aven-ceo/icons'
+import { renderIcon } from '@myavenceo/aven-vibes'
 /**
  * ceoBRAND — the docs surface, derived from the SSOT.
  *
@@ -133,8 +135,21 @@ export type DocSection = { id: string; label: string; count: number }
 /** The logo's variants, from the unit rather than from a list kept here. */
 export const logoVariants = ['lockup', 'mark', 'wordmark'] as const
 
+/**
+ * Each icon as markup, rendered by the ENGINE rather than by this page.
+ *
+ * The same `renderIcon` a view uses, so what the gallery shows is what a
+ * component gets — a docs page that draws its own SVG would be documenting
+ * itself instead of the system.
+ */
+export const iconMarkup = iconNames.map((name) => ({
+	name,
+	svg: renderIcon(name, icons, { size: '1.75rem' })
+}))
+
 export const sections: DocSection[] = [
 	{ id: 'logo', label: 'Logo', count: logoVariants.length },
+	{ id: 'icons', label: 'Icons', count: iconNames.length },
 	{
 		id: 'colour',
 		label: 'Colour',
