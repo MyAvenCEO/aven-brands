@@ -164,13 +164,9 @@
 				"background": "transparent",
 				"color": "inherit",
 				"cursor": "pointer",
-				"$description": "The inverse of `links`, on the same container width, so exactly one of the two is ever visible. Both were shown at once before \u2014 the desktop links AND the hamburger \u2014 which offers the same navigation twice and makes the hamburger look broken when pressing it reveals nothing new.\n\nIt appears the moment ANYTHING has been folded away \u2014 below 62rem, not below 34 \u2014 because that is when there is something behind it. A hamburger that opens a menu holding nothing the bar was not already showing is a control that teaches you to ignore it.\n\nPushed to the trailing edge whenever it is visible, so it sits on the container's own edge rather than floating beside the call to action.",
+				"$description": "The inverse of `links`, on the same container width, so exactly one of the two is ever visible. Both were shown at once before \u2014 the desktop links AND the hamburger \u2014 which offers the same navigation twice and makes the hamburger look broken when pressing it reveals nothing new.\n\nIt appears the moment ANYTHING has been folded away \u2014 below 62rem, not below 34 \u2014 because that is when there is something behind it. A hamburger that opens a menu holding nothing the bar was not already showing is a control that teaches you to ignore it.\n\nIt does NOT push itself. `navbar-actions` carries the only auto margin, and the toggle sits immediately after it \u2014 so the call to action and the hamburger travel to the trailing edge as a pair. Both having `margin-inline-start: auto` split the free space between them and parked the button in the middle of the bar with a gap before the menu, which reads as two unrelated controls rather than one group.",
 				"@container navbar (min-width: 62rem)": {
 					"display": "none"
-				},
-				"marginInlineStart": "var(--navbar-toggle-push, 0)",
-				"@container navbar (max-width: 61.999rem)": {
-					"--navbar-toggle-push": "auto"
 				}
 			},
 			"drawer": {

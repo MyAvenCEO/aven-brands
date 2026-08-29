@@ -3813,13 +3813,9 @@
 		background: transparent;
 		color: inherit;
 		cursor: pointer;
-		margin-inline-start: var(--navbar-toggle-push, 0);
 
 		@container navbar (min-width: 62rem) {
 			display: none;
-		}
-		@container navbar (max-width: 61.999rem) {
-			--navbar-toggle-push: auto;
 		}
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			background: var(--color-muted);

@@ -364,17 +364,34 @@ function fitScaledStage(node: HTMLElement) {
 	if (!stage) return
 	const apply = () => {
 		const believes = Number(getComputedStyle(node).getPropertyValue('--cb-believes')) || 0
-		const available = node.clientWidth
+		/* Measured on the PARENT: the bezel is now sized to the device, so reading
+		   its own width would feed its previous answer back into the next one. */
+		const bezel = parseFloat(getComputedStyle(node).paddingLeft) || 0
+		const available = (node.parentElement?.clientWidth ?? node.clientWidth) - bezel * 2
 		if (!believes || !available) return
 		/* Never scale UP. A 390px phone preview inside a 700px panel should be a
 		   390px phone, not a blurry enlargement of one. */
 		const scale = Math.min(1, available / believes)
 		node.style.setProperty('--cb-scale', String(scale))
+		/* The bezel is the size of the DEVICE, not of the panel. A 390px phone in
+		   an 830px column should be a phone with space either side, not a wide
+		   earth rectangle with a narrow screen down the middle. */
+		node.style.setProperty('--cb-device-w', `${believes * scale + bezel * 2}px`)
 		/* `scrollHeight`, not `offsetHeight`: the stage is a scroll container, so
 		   its offset height is the box it was GIVEN and its scroll height is what
 		   the specimen needs. Reserving the former clipped every specimen taller
 		   than the panel. */
-		node.style.setProperty('--cb-frame-h', `${stage.scrollHeight * scale}px`)
+		/* The screen fills the bezel; only a SCALED one needs its height reserved,
+		   because the transform gives the space back.
+
+		   Read from the frame's DECLARED height, a `calc()` on the viewport that
+		   cannot depend on its own children. Reading the RENDERED height made this
+		   a ResizeObserver loop — the frame grew to fit the screen, the screen was
+		   sized from the frame — and the desktop bezel reached 6,916,904px within
+		   a few frames. */
+		const declared = parseFloat(getComputedStyle(node).blockSize)
+		const target = Number.isFinite(declared) ? declared : node.clientHeight
+		node.style.setProperty('--cb-screen-h', scale < 1 ? `${target / scale}px` : '100%')
 		/* Centre the scaled result: the layout box keeps its believed width, so
 		   the visible box is narrower and would otherwise hug the left edge. */
 		node.style.setProperty('--cb-inset', `${Math.max(0, (available - believes * scale) / 2)}px`)
@@ -1471,6 +1488,9 @@ function inspect(name: string) {
 }
 .cb-detail-stage {
 	display: grid;
+	/* The screen's own edge, inside the bezel. Slightly tighter than the frame's
+	   radius so the two curves nest rather than fight. */
+	border-radius: var(--radius-lg);
 	/* Content starts at the TOP, like a page. The stage stands in for a viewport,
 	   and `place-items: center` floated a navbar sixteen pixels below the top
 	   edge — which is the one place a navbar can never be. A leaf then sits at
@@ -1488,10 +1508,9 @@ function inspect(name: string) {
 	   height is its content, so the stage was only ever as tall as the specimen —
 	   a navbar preview 60px high in a panel with room for six hundred. */
 	min-block-size: min(68dvh, 44rem);
-	margin-block: 0 var(--space-comfortable);
+	margin-block: 0;
 	padding: 0;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-lg);
 	background: var(--color-surface-page);
 	overflow: hidden;
 }
@@ -1799,22 +1818,39 @@ function inspect(name: string) {
 /* Walking a flow, not choosing a look. A rail under the stage: where you are,
    what is either side of you, and two arrows — the sequence read left to right,
    which is the direction the flow itself runs. */
+/* THE DEVICE. An earth-tinted bezel with a thin edge around the screen, so the
+   preview reads as a thing being simulated rather than as a panel of the docs
+   page that happens to be a different width. The bezel is what makes 390px look
+   like a phone instead of a narrow column. */
 .cb-detail-frame {
-	/* Holds the scaled stage. A transform costs no layout WIDTH or HEIGHT — the
-	   box keeps its believed size — so without this the 1440px desktop preview
-	   painted straight over the controls beside it and left a panel of empty
-	   space below. The height is measured; `overflow: hidden` handles the width.
-
-	   The height cannot be a percentage margin: percentage margins resolve
-	   against the containing block's INLINE size, which is how the first attempt
-	   collapsed the stage to nothing at all. */
-	display: block;
-	block-size: var(--cb-frame-h, auto);
+	display: grid;
+	/* As wide as the device it is drawing, centred in the panel. */
+	inline-size: var(--cb-device-w, 100%);
+	max-inline-size: 100%;
+	margin-inline: auto;
+	/* Fills the panel. The stage was only ever as tall as its specimen, so a
+	   60px navbar sat in a screen 60px high — a device preview has to be the
+	   size of the device, whatever is on it. */
+	/* `block-size`, not `min-`. The screen inside reserves its UNSCALED height so
+	   the transform has something to shrink, and a `min-` frame grew to fit that
+	   rather than clipping it — the desktop device came out 1226px tall beside a
+	   705px phone. A fixed height plus `overflow: hidden` is what makes all three
+	   devices the same size, which is the point of standing them side by side. */
+	block-size: calc(100dvh - var(--cb-top, 0px) - 11rem);
+	padding: var(--space-tight);
+	border: 1px solid var(--color-border-strong);
+	border-radius: var(--radius-xl);
+	background: color-mix(in oklab, var(--color-earth) 14%, var(--color-surface-page));
 	overflow: hidden;
 }
 .cb-detail-frame > .cb-detail-stage {
+	/* The SCREEN inside the bezel. A transform costs no layout width or height —
+	   the box keeps its believed size — so the 1440px desktop preview would paint
+	   over the controls beside it; the bezel's `overflow: hidden` is what stops
+	   that, and the measured height is what stops the gap below. */
 	transform: translateX(var(--cb-inset, 0)) scale(var(--cb-scale, 1));
 	transform-origin: top left;
+	block-size: var(--cb-screen-h, 100%);
 }
 .cb-walk {
 	display: flex;

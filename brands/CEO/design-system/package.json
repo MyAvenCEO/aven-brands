@@ -84,6 +84,6 @@
 		"@types/node": "^26.3.0"
 	},
 	"dependencies": {
-		"@myavenceo/aven-vibes": "^0.5.4"
+		"@myavenceo/aven-vibes": "^0.6.1"
 	}
 }

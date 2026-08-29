@@ -33,7 +33,7 @@
       "name": "@myavenceo/aven-ceo",
       "version": "0.10.0",
       "dependencies": {
-        "@myavenceo/aven-vibes": "^0.5.4",
+        "@myavenceo/aven-vibes": "^0.6.1",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -280,6 +280,8 @@
     "yma-website": ["yma-website@workspace:brands/YMA/apps/website"],
 
     "zimmerframe": ["zimmerframe@1.1.4", "", {}, "sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ=="],
+
+    "@myavenceo/aven-ceo/@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.6.1", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.6.1/355943199fceda83deda04ce35633f9adde79b51", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-/QeVj4oifwMSKz0x+ZNlRCuzjNWzExPg5exuqe/lmaBt9SEJNwBJ23o0WddvWf9A/Prtyi4OrUTXsfqL7fO1Pg=="],
 
     "@myavenceo/aven-yma/@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.4.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.4.0/fb46b669cf4fa076e99945e9df5c1417d38f0297", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-dJ8RAo+KNfJmn77xLyzf2z+UiJjW1hfZoM4q6DkTIotF1h+u3pZB+c8OG6amskmwvf3ake5e+EE4pkv4Yrutzw=="],
 
