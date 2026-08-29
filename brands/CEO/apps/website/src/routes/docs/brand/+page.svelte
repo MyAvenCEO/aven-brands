@@ -32,6 +32,34 @@ import {
 } from '$lib/docs/sections'
 
 let active = $state('colour')
+
+/**
+ * The theme switch, and why this page of all pages needs one.
+ *
+ * The surface rungs are theme-neutral by construction — a component says
+ * `bg-surface-card` and the theme decides what that is. That claim is either
+ * true or it is not, and the only way to find out is to switch the theme and
+ * LOOK. A design system that documents a dark mode it has never rendered is
+ * documenting an intention.
+ *
+ * It writes `data-theme` on the document element, which is exactly what a real
+ * surface would do, so this is the same mechanism rather than a preview of one.
+ */
+let theme = $state<'light' | 'dark'>('light')
+
+/*
+ * Scoped to THIS section, not the document.
+ *
+ * Two reasons, and the second is the one that matters. The nav, the site header
+ * and the rest of /docs are not part of the specimen, so flipping them would be
+ * showing the theme rather than testing it.
+ *
+ * And custom properties inherit from the nearest ancestor that declares them,
+ * so `data-theme` on this element beats the `:root` block no matter what order
+ * the stylesheet emits in. On the document element the two selectors have equal
+ * specificity and source order decides — which is how the first attempt
+ * rendered a dark page with light text at 1.13:1.
+ */
 let inspecting = $state<string | null>(null)
 
 const inspectedDecls = $derived(inspecting ? declarationsOf(inspecting) : [])
@@ -51,7 +79,7 @@ function inspect(name: string) {
 
 <MarketingSiteHeader active="docs" lang="en" />
 
-<div id="ceobrand" class="app-shell">
+<div id="ceobrand" class="app-shell" data-theme={theme}>
 	<header id="cb-head">
 		<div>
 			<p class="eyebrow-accent">ceoBRAND</p>
@@ -60,7 +88,23 @@ function inspect(name: string) {
 				Rendered from the brand config itself. If it renders wrong, the system is wrong.
 			</p>
 		</div>
-		<a class="meta" href="/docs/">Back to docs</a>
+		<div id="cb-head-actions">
+			<div id="cb-theme" role="group" aria-label="Theme">
+				{#each ['light', 'dark'] as const as option (option)}
+					<button
+						type="button"
+						class="cb-theme-option"
+						aria-pressed={theme === option}
+						onclick={() => {
+							theme = option
+						}}
+					>
+						{option}
+					</button>
+				{/each}
+			</div>
+			<a class="meta" href="/docs/">Back to docs</a>
+		</div>
 	</header>
 
 	<div id="cb-body">
@@ -329,6 +373,36 @@ function inspect(name: string) {
 #cb-head > div {
 	display: grid;
 	gap: 0.25rem;
+}
+#cb-head-actions {
+	display: flex;
+	align-items: center;
+	gap: var(--space-comfortable);
+}
+#cb-theme {
+	display: inline-flex;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	overflow: hidden;
+}
+.cb-theme-option {
+	min-block-size: 2.25rem;
+	padding-inline: var(--space-comfortable);
+	border: 0;
+	background: transparent;
+	font: inherit;
+	font-size: var(--fs-meta);
+	color: var(--color-muted-foreground);
+	cursor: pointer;
+	text-transform: capitalize;
+}
+.cb-theme-option[aria-pressed="true"] {
+	background: var(--color-primary);
+	color: var(--color-primary-foreground);
+}
+.cb-theme-option:focus-visible {
+	outline: 2px solid var(--color-accent-ink);
+	outline-offset: -2px;
 }
 #cb-body {
 	display: grid;

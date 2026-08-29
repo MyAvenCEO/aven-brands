@@ -6,7 +6,7 @@
       "name": "@myavenceo/workspace",
       "devDependencies": {
         "@biomejs/biome": "2.5.6",
-        "@myavenceo/aven-vibes": "^0.3.3",
+        "@myavenceo/aven-vibes": "^0.4.0",
         "typescript": "6.0.2",
       },
     },
@@ -33,7 +33,7 @@
       "name": "@myavenceo/aven-ceo",
       "version": "0.10.0",
       "dependencies": {
-        "@myavenceo/aven-vibes": "^0.3.3",
+        "@myavenceo/aven-vibes": "^0.4.0",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -61,7 +61,7 @@
       "name": "@myavenceo/aven-yma",
       "version": "0.1.0",
       "dependencies": {
-        "@myavenceo/aven-vibes": "^0.3.3",
+        "@myavenceo/aven-vibes": "^0.4.0",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -99,7 +99,7 @@
 
     "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:brands/CEO/design-system"],
 
-    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.3.3", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.3.3/2b9204dc4a6c4a25032ac46849cf8f0fcfea63ae", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-9FWpmD6ygeB1piLjk0MP8Jsr5cd/APucZxGT/dJ08zckEK68MuTaL28rUpe7D3xWoERIGhG1FJEelkpWA6qT/A=="],
+    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.4.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.4.0/fb46b669cf4fa076e99945e9df5c1417d38f0297", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-dJ8RAo+KNfJmn77xLyzf2z+UiJjW1hfZoM4q6DkTIotF1h+u3pZB+c8OG6amskmwvf3ake5e+EE4pkv4Yrutzw=="],
 
     "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:brands/YMA/design-system"],
 

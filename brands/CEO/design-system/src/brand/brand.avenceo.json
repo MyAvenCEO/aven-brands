@@ -136,7 +136,7 @@
 			}
 		},
 		"roles": {
-			"$description": "What the paint MEANS. ONE group: the site/app split it replaced held six tokens that aliased shared roles under different names and one that differed, which is not a vocabulary, it is a synonym list. A surface that does not use `evidence` simply does not use it.",
+			"$description": "What the paint MEANS. ONE group: the site/app split it replaced held six tokens that aliased shared roles under different names and one that differed, which is not a vocabulary, it is a synonym list. A surface that does not use `evidence` simply does not use it. A role prefixed `dark-` is that role's value under `[data-theme=\"dark\"]`: the generator strips the prefix and emits it in the dark block, the same derivation the surfaces use. Only roles that actually differ need one.",
 			"background": {
 				"$type": "color",
 				"$value": "var(--color-surface-page)",
@@ -316,6 +316,96 @@
 				"$type": "color",
 				"$value": "var(--color-on-light)",
 				"$description": "text on a card."
+			},
+			"dark-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "body copy on a dark ground."
+			},
+			"dark-card-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on a dark card."
+			},
+			"dark-muted": {
+				"$type": "color",
+				"$value": "#1c2637",
+				"$description": "a quiet fill on dark."
+			},
+			"dark-muted-foreground": {
+				"$type": "color",
+				"$value": "#8e9bb0",
+				"$description": "quiet copy on dark."
+			},
+			"dark-border": {
+				"$type": "color",
+				"$value": "#2c3a4f",
+				"$description": "a hairline on dark."
+			},
+			"dark-input": {
+				"$type": "color",
+				"$value": "#1a2434",
+				"$description": "a field on dark."
+			},
+			"dark-secondary": {
+				"$type": "color",
+				"$value": "#2a3a56",
+				"$description": "the second action on dark."
+			},
+			"dark-secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on it."
+			},
+			"dark-primary": {
+				"$type": "color",
+				"$value": "#f8fafc",
+				"$description": "on dark the primary action inverts — a marine button on a marine page is invisible."
+			},
+			"dark-primary-foreground": {
+				"$type": "color",
+				"$value": "#1e293b",
+				"$description": "text on the inverted primary."
+			},
+			"dark-quiet-ink": {
+				"$type": "color",
+				"$value": "#9fb3cc",
+				"$description": "quiet running text, lightened for a dark ground."
+			},
+			"dark-progress-ink": {
+				"$type": "color",
+				"$value": "#5cc0d8",
+				"$description": "progress running text on dark."
+			},
+			"dark-success-ink": {
+				"$type": "color",
+				"$value": "#6fc9c0",
+				"$description": "success running text on dark."
+			},
+			"dark-warning-ink": {
+				"$type": "color",
+				"$value": "#f2c766",
+				"$description": "warning running text on dark."
+			},
+			"dark-error-ink": {
+				"$type": "color",
+				"$value": "#e08b73",
+				"$description": "error running text on dark."
+			},
+			"dark-info-ink": {
+				"$type": "color",
+				"$value": "#e0b98f",
+				"$description": "info running text on dark."
+			},
+			"dark-accent-ink": {
+				"$type": "color",
+				"$value": "#f2c766",
+				"$description": "accent running text on dark."
+			},
+			"dark-offer-ink": {
+				"$type": "color",
+				"$value": "#e08b73",
+				"$description": "offer running text on dark."
 			}
 		}
 	},
