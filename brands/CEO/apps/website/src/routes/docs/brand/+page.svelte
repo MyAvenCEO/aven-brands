@@ -31,6 +31,15 @@ import {
 	typeScale
 } from '$lib/docs/sections'
 
+/**
+ * Which steps the brand sets in its DISPLAY face rather than its body face.
+ *
+ * The ramp used to render every step in the body font, which showed twelve
+ * sizes and only one of the two typefaces — so the face that actually carries
+ * every title on the site never appeared in the document describing the type.
+ */
+const DISPLAY_STEPS = ['fs-hero', 'fs-amount', 'fs-display', 'fs-display-lg']
+
 let active = $state('colour')
 
 /**
@@ -89,6 +98,7 @@ function inspect(name: string) {
 			</p>
 		</div>
 		<div id="cb-head-actions">
+			<img id="cb-logo" src="/aven-logo.svg" alt="" width="40" height="40">
 			<div id="cb-theme" role="group" aria-label="Theme">
 				{#each ['light', 'dark'] as const as option (option)}
 					<button
@@ -181,9 +191,19 @@ function inspect(name: string) {
 					<p class="meta">Twelve steps. A size not on the ramp is not available.</p>
 					<div class="cb-rows">
 						{#each typeScale as step (step.name)}
+							{@const display = DISPLAY_STEPS.includes(step.name)}
 							<div class="cb-row">
-								<span style="font-size: var({step.cssVar})">Every brand is a config</span>
-								<span class="cb-mono">{step.name} · {step.value}</span>
+								<span
+									style="font-size: var({step.cssVar}); font-family: var({display
+										? '--font-display'
+										: '--font-sans'})"
+								>
+									Every brand is a config
+								</span>
+								<span class="cb-mono">
+									{step.name}
+									· {step.value} · {display ? 'display' : 'sans'}
+								</span>
 							</div>
 						{/each}
 					</div>
@@ -214,7 +234,7 @@ function inspect(name: string) {
 						{#each inkScale as step (step.name)}
 							<div class="cb-row">
 								<span
-									style="color: color-mix(in srgb, var(--color-marine) calc(var({step.cssVar}) * 100%), transparent)"
+									style="color: color-mix(in srgb, var(--color-foreground) calc(var({step.cssVar}) * 100%), transparent)"
 								>
 									Readable at this weight
 								</span>
@@ -231,7 +251,7 @@ function inspect(name: string) {
 							<div class="cb-row">
 								<span
 									class="cb-tint"
-									style="background: color-mix(in srgb, var(--color-marine) calc(var({step.cssVar}) * 100%), transparent)"
+									style="background: color-mix(in srgb, var(--color-foreground) calc(var({step.cssVar}) * 100%), transparent)"
 								></span>
 								<span class="cb-mono">{step.name} · {step.value}</span>
 							</div>
@@ -379,6 +399,10 @@ function inspect(name: string) {
 	align-items: center;
 	gap: var(--space-comfortable);
 }
+#cb-logo {
+	inline-size: 2.5rem;
+	block-size: 2.5rem;
+}
 #cb-theme {
 	display: inline-flex;
 	border: 1px solid var(--color-border);
@@ -452,11 +476,11 @@ function inspect(name: string) {
 	min-block-size: 2.25rem;
 }
 .cb-nav:hover {
-	background: color-mix(in srgb, var(--color-marine) 8%, transparent);
+	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
 	color: var(--color-foreground);
 }
 .cb-nav[aria-current="true"] {
-	background: color-mix(in srgb, var(--color-marine) 8%, transparent);
+	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
 	color: var(--color-foreground);
 	font-weight: 600;
 }
@@ -516,7 +540,7 @@ function inspect(name: string) {
 	gap: var(--space-comfortable);
 	flex-wrap: wrap;
 	padding: 0.5rem 0;
-	border-block-end: 1px solid color-mix(in srgb, var(--color-marine) 8%, transparent);
+	border-block-end: 1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent);
 }
 .cb-row > span:first-child {
 	min-inline-size: 0;
@@ -563,7 +587,7 @@ function inspect(name: string) {
 	gap: var(--space-tight);
 	padding: 0.5rem 0.75rem;
 	min-block-size: 2.25rem;
-	background: color-mix(in srgb, var(--color-marine) 4%, transparent);
+	background: color-mix(in srgb, var(--color-foreground) 4%, transparent);
 	border: 0;
 	border-block-end: 1px solid var(--color-border);
 	font: inherit;
@@ -571,7 +595,7 @@ function inspect(name: string) {
 	text-align: start;
 }
 .cb-piece-head:hover {
-	background: color-mix(in srgb, var(--color-marine) 8%, transparent);
+	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
 }
 .cb-piece-head:focus-visible {
 	outline: 2px solid var(--color-accent-ink);
@@ -607,6 +631,6 @@ function inspect(name: string) {
 	inline-size: 1.5rem;
 	block-size: 1.5rem;
 	border-radius: var(--radius-chip);
-	background: color-mix(in srgb, var(--color-marine) 15%, transparent);
+	background: color-mix(in srgb, var(--color-foreground) 15%, transparent);
 }
 </style>

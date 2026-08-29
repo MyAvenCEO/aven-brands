@@ -43,12 +43,12 @@
 			"$description": "Every surface a page stands on, in both themes. The LIGHT ladder is the sand family (the brand cream); the DARK ladder is the marine family. Named `<theme>-<rung>`, so a theme is a prefix and adding dark is adding rows. The dark ladder is declared and NOT yet wired — nothing renders from it until a theme selects it.",
 			"light-page": {
 				"$type": "color",
-				"$value": "#fffdf7",
+				"$value": "#fdfbf3",
 				"$description": "the page itself — the lightest sand."
 			},
 			"light-raised": {
 				"$type": "color",
-				"$value": "#faf9f4",
+				"$value": "#f8f6ed",
 				"$description": "lifted off the page."
 			},
 			"light-sunken": {
