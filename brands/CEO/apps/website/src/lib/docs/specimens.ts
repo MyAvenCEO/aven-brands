@@ -394,6 +394,21 @@ export const specimens: Record<string, Specimen> = {
 			<span class="site-footer-meta"><span>&copy; 2026 avenCEO</span><span>Built in Switzerland</span></span>
 		</span>`
 	},
+	'flow-card': {
+		tall: true,
+		one: `<span class="flow-card flow-card--status-waiting" style="display:grid">
+			<span class="flow-card-glyph">${icon('info', '1.5rem')}</span>
+			<p class="flow-card-eyebrow">Secure app connection</p>
+			<h3 class="flow-card-heading" style="margin:0">Authorize this device</h3>
+			<p class="flow-card-description">Confirm the connection to give the app access to your Aven account.</p>
+			<span class="flow-card-code">A4F2-9K7Q</span>
+			<span class="flow-card-actions">
+				<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
+				<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
+			</span>
+			<p class="flow-card-trust">Securely connected through aven.id</p>
+		</span>`
+	},
 	'claim-card': {
 		tall: true,
 		one: `<span class="claim-card" style="inline-size:100%; max-inline-size:44rem">

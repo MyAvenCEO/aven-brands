@@ -1,0 +1,160 @@
+{
+	"name": "flow-card",
+	"description": "One step of a flow that happens away from the main product — authorising a device, confirming a purchase, recovering an account. avenID's device screen is the reference: a status glyph, an eyebrow, a heading, a description, a code to read aloud, an action, and a trust line.\n\nIt is a unit because that screen is where a user is asked to trust something, and every element on it is doing that job. The status glyph is not decoration — it is the difference between 'connected' and 'this link is broken', and on avenID it was three hand-drawn inline SVGs in a `{#if}` chain, which is three chances for the shapes to drift apart and no way for any other surface to reuse them.",
+	"interface": {
+		"props": { "labelledBy": "string", "status": "string", "icon": "string" },
+		"slots": {
+			"heading": {},
+			"description": {},
+			"code": {},
+			"alert": {},
+			"actions": { "accepts": ["btn"] },
+			"trust": {}
+		}
+	},
+	"view": {
+		"tag": "section",
+		"attrs": {
+			"aria-labelledby": "$props.labelledBy",
+			"aria-live": "polite",
+			"data-status": "$props.status"
+		},
+		"$children": [
+			{ "tag": "div", "part": "glyph", "$icon": { "name": "$props.icon", "size": "1.5rem" } },
+			{ "tag": "p", "part": "eyebrow", "$children": "eyebrow" },
+			{
+				"tag": "h1",
+				"part": "heading",
+				"attrs": { "id": "$props.labelledBy" },
+				"$children": "heading"
+			},
+			{ "tag": "p", "part": "description", "$children": "description" },
+			{ "tag": "div", "part": "code", "$children": "code" },
+			{ "tag": "div", "part": "alert", "attrs": { "role": "alert" }, "$children": "alert" },
+			{ "tag": "div", "part": "actions", "$children": "actions" },
+			{ "tag": "p", "part": "trust", "$children": "trust" }
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Centred and narrow. This screen has exactly one job and nothing else on it, so the measure is tight and the whole card is the focal point — the composition rule that an empty-ish screen owns its viewport rather than floating under a header.",
+			"display": "grid",
+			"justifyItems": "center",
+			"gap": "var(--space-tight)",
+			"marginInline": "auto",
+			"inlineSize": "100%",
+			"maxInlineSize": "26rem",
+			"minInlineSize": "0",
+			"padding": "var(--space-section) var(--space-loose)",
+			"borderRadius": "var(--radius-xl)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "var(--shadow-raised)",
+			"textAlign": "center"
+		},
+		"parts": {
+			"glyph": {
+				"$description": "The status, as a shape. It comes from the icon registry rather than being drawn inline per branch — three hand-written SVGs in an `{#if}` chain is three chances to drift and no way for another surface to reuse them. The tinted disc is the same tint/ink pairing a badge uses, so a status here and a status in a table read as the same system.",
+				"display": "grid",
+				"placeItems": "center",
+				"inlineSize": "3rem",
+				"blockSize": "3rem",
+				"marginBlockEnd": "var(--space-tight)",
+				"borderRadius": "var(--radius-full)",
+				"border": "1px solid var(--color-border-soft)",
+				"background": "var(--color-muted)",
+				"color": "var(--color-foreground-soft)"
+			},
+			"eyebrow": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-widest)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"heading": {
+				"margin": "0",
+				"fontSize": "var(--fs-title)",
+				"fontWeight": "600",
+				"lineHeight": "1.25",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			},
+			"description": {
+				"margin": "0",
+				"maxInlineSize": "40ch",
+				"fontSize": "var(--fs-meta)",
+				"lineHeight": "1.55",
+				"color": "var(--color-foreground-soft)"
+			},
+			"code": {
+				"$description": "A code the user reads aloud or types into another device. Tabular, wide-tracked and grouped, because the failure mode here is misreading an 8 as a B — and `user-select: all` so one click selects the whole thing rather than half of it.",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"marginBlock": "var(--space-tight)",
+				"padding": "var(--space-tight) var(--space-comfortable)",
+				"borderRadius": "var(--radius-sm)",
+				"border": "1px solid var(--color-border-soft)",
+				"background": "var(--color-surface-sunken)",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-lead)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-wider)",
+				"fontVariantNumeric": "tabular-nums",
+				"userSelect": "all",
+				"color": "var(--color-foreground)"
+			},
+			"alert": {
+				"inlineSize": "100%",
+				"padding": "var(--space-tight) var(--space-comfortable)",
+				"borderRadius": "var(--radius-sm)",
+				"border": "1px solid var(--color-error-border)",
+				"background": "var(--color-error-surface)",
+				"fontSize": "var(--fs-meta)",
+				"color": "var(--color-error-ink)"
+			},
+			"actions": {
+				"display": "flex",
+				"flexWrap": "wrap",
+				"justifyContent": "center",
+				"gap": "var(--space-tight)",
+				"marginBlockStart": "var(--space-tight)",
+				"inlineSize": "100%"
+			},
+			"trust": {
+				"$description": "Who you are actually talking to. On a screen whose whole purpose is being trusted, this is content and not a footer — it is the sentence that answers 'should I press this'.",
+				"margin": "var(--space-tight) 0 0",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)"
+			}
+		},
+		"variants": {
+			"status": {
+				"$description": "Where the flow is. It dresses the GLYPH and nothing else — a whole card turning green says the page succeeded, when what succeeded is one step.",
+				"success": {
+					"$part": "glyph",
+					"background": "var(--color-success-surface)",
+					"borderColor": "var(--color-success-border)",
+					"color": "var(--color-success-ink)"
+				},
+				"error": {
+					"$part": "glyph",
+					"background": "var(--color-error-surface)",
+					"borderColor": "var(--color-error-border)",
+					"color": "var(--color-error-ink)"
+				},
+				"waiting": {
+					"$part": "glyph",
+					"background": "var(--color-progress-surface)",
+					"borderColor": "var(--color-progress-border)",
+					"color": "var(--color-progress-ink)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "`aria-live=\"polite\"` on the card, because the heading and description CHANGE as the flow advances and a screen-reader user is otherwise left on the previous step with no way to know. The alert is `role=\"alert\"`, which interrupts — correct for a failure the user must act on. The status glyph is decorative: colour is never the only signal, so the heading always says in words what the glyph says in shape. The code is `user-select: all` so it can be copied in one gesture rather than dragged."
+	}
+}

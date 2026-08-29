@@ -1099,6 +1099,130 @@
 		border-color: var(--color-border);
 	}
 
+	.flow-card {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-tight);
+		margin-inline: auto;
+		inline-size: 100%;
+		max-inline-size: 26rem;
+		min-inline-size: 0;
+		padding: var(--space-section) var(--space-loose);
+		border-radius: var(--radius-xl);
+		border: 1px solid var(--color-border);
+		background: var(--color-surface-raised);
+		box-shadow: var(--shadow-raised);
+		text-align: center;
+	}
+
+	.flow-card-glyph {
+		display: grid;
+		place-items: center;
+		inline-size: 3rem;
+		block-size: 3rem;
+		margin-block-end: var(--space-tight);
+		border-radius: var(--radius-full);
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-muted);
+		color: var(--color-foreground-soft);
+	}
+
+	.flow-card-eyebrow {
+		margin: 0;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-foreground-quiet);
+	}
+
+	.flow-card-heading {
+		margin: 0;
+		font-size: var(--fs-title);
+		font-weight: 600;
+		line-height: 1.25;
+		text-wrap: balance;
+		color: var(--color-foreground);
+	}
+
+	.flow-card-description {
+		margin: 0;
+		max-inline-size: 40ch;
+		font-size: var(--fs-meta);
+		line-height: 1.55;
+		color: var(--color-foreground-soft);
+	}
+
+	.flow-card-code {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-tight);
+		margin-block: var(--space-tight);
+		padding: var(--space-tight) var(--space-comfortable);
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-surface-sunken);
+		font-family: var(--font-mono);
+		font-size: var(--fs-lead);
+		font-weight: 600;
+		letter-spacing: var(--tracking-wider);
+		font-variant-numeric: tabular-nums;
+		user-select: all;
+		color: var(--color-foreground);
+	}
+
+	.flow-card-alert {
+		inline-size: 100%;
+		padding: var(--space-tight) var(--space-comfortable);
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--color-error-border);
+		background: var(--color-error-surface);
+		font-size: var(--fs-meta);
+		color: var(--color-error-ink);
+	}
+
+	.flow-card-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-tight);
+		margin-block-start: var(--space-tight);
+		inline-size: 100%;
+	}
+
+	.flow-card-trust {
+		margin: var(--space-tight) 0 0;
+		font-size: var(--fs-micro);
+		color: var(--color-foreground-quiet);
+	}
+
+	.flow-card--status-success {
+
+		& .flow-card-glyph {
+			background: var(--color-success-surface);
+			border-color: var(--color-success-border);
+			color: var(--color-success-ink);
+		}
+	}
+
+	.flow-card--status-error {
+
+		& .flow-card-glyph {
+			background: var(--color-error-surface);
+			border-color: var(--color-error-border);
+			color: var(--color-error-ink);
+		}
+	}
+
+	.flow-card--status-waiting {
+
+		& .flow-card-glyph {
+			background: var(--color-progress-surface);
+			border-color: var(--color-progress-border);
+			color: var(--color-progress-ink);
+		}
+	}
+
 	.btn-badge {
 		display: inline-flex;
 		align-items: center;

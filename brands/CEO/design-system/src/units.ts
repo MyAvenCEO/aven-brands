@@ -52,6 +52,7 @@ import card from './brand/units/card.json' with { type: 'json' }
 import claimCard from './brand/units/claim-card.json' with { type: 'json' }
 import emptyState from './brand/units/empty-state.json' with { type: 'json' }
 import field from './brand/units/field.json' with { type: 'json' }
+import flowCard from './brand/units/flow-card.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
 import hero from './brand/units/hero.json' with { type: 'json' }
 import icon from './brand/units/icon.json' with { type: 'json' }
@@ -93,6 +94,7 @@ const documents = [
 	stat,
 	skillCard,
 	claimCard,
+	flowCard,
 	button,
 	badge,
 	icon,
