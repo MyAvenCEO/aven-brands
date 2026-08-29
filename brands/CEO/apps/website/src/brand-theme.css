@@ -37,6 +37,8 @@
 	--color-white: #ffffff;
 	--color-on-primary-soft: #ccd0d5;
 	--color-on-primary-quiet: #acb1b8;
+	--color-on-dark-soft: #f8fafcf0;
+	--color-on-dark-quiet: #f8fafcb8;
 
 	/* ══ 2 · THE SURFACES — every rung, both themes ══ */
 	--color-light-page: #fdfbf3;
@@ -74,7 +76,9 @@
 	--color-band-foreground: var(--color-on-dark);
 	--color-scrim-thin: #fdfbf3e6;
 	--color-scrim: #1e293b52;
-	--color-scrim-strong: #1e293b8c;
+	--color-scrim-strong: #1e293b80;
+	--color-scrim-heavy: #1e293b8c;
+	--color-scrim-text: #1e293b73;
 	--color-secondary: var(--color-surface-selected);
 	--color-secondary-foreground: var(--color-marine);
 	--color-quiet: #57789e;

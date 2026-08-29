@@ -151,6 +151,16 @@
 				"$type": "color",
 				"$value": "#acb1b8",
 				"$description": "the quiet step of text on a primary fill — footer meta, legal line. 6.78:1."
+			},
+			"on-dark-soft": {
+				"$type": "color",
+				"$value": "#f8fafcf0",
+				"$description": "the lead line over media: on-dark at 94%."
+			},
+			"on-dark-quiet": {
+				"$type": "color",
+				"$value": "#f8fafcb8",
+				"$description": "the helper line over media: on-dark at 72%."
 			}
 		},
 		"roles": {
@@ -237,8 +247,18 @@
 			},
 			"scrim-strong": {
 				"$type": "color",
+				"$value": "#1e293b80",
+				"$description": "50% marine, for the top of a hero where the nav sits."
+			},
+			"scrim-heavy": {
+				"$type": "color",
 				"$value": "#1e293b8c",
-				"$description": "55% marine, for the top and bottom of a hero where the copy and the nav sit."
+				"$description": "55% marine, for the bottom of a hero where the copy ends and the next section begins."
+			},
+			"scrim-text": {
+				"$type": "color",
+				"$value": "#1e293b73",
+				"$description": "The halo under hero text. Not decoration — over a photograph the scrim alone cannot promise contrast on every frame, and this is the second half of that guarantee."
 			},
 			"dark-scrim-thin": {
 				"$type": "color",

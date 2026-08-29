@@ -55,6 +55,7 @@ import footer from './brand/units/footer.json' with { type: 'json' }
 import hero from './brand/units/hero.json' with { type: 'json' }
 import icon from './brand/units/icon.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
+import media from './brand/units/media.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
@@ -87,6 +88,7 @@ const documents = [
 	card,
 	section,
 	hero,
+	media,
 	stat,
 	skillCard,
 	button,

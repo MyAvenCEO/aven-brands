@@ -296,16 +296,30 @@ export const specimens: Record<string, Specimen> = {
 	},
 	hero: {
 		tall: true,
-		one: `<span class="hero hero--ground-marine hero--height-short" style="display:grid; inline-size:100%; border-radius: var(--radius-lg); overflow:hidden">
+		/* The real thing: media behind, scrim over it, three lines of copy on top.
+		   `min-block-size` is overridden only so the specimen fits a stage — every
+		   other value is the unit's. */
+		one: `<span class="hero hero--height-short" style="display:flex; inline-size:100%; border-radius: var(--radius-lg)">
+			<span class="hero-media"><img class="media media--placement-behind" src="/hero-poster.jpg" alt=""></span>
+			<span class="hero-scrim" aria-hidden="true"></span>
 			<span class="hero-content">
 				<p class="hero-eyebrow">The company of the future</p>
 				<h3 class="hero-heading" style="margin:0">avenCEO runs your company, you lead the vision.</h3>
 				<p class="hero-lead">From working to survive to sovereign founder of tomorrow.</p>
+				<p class="hero-helper">— your avenCEO gets you there —</p>
 				<span class="hero-actions">
 					<button class="btn btn--accent" type="button">Claim your name</button>
 					<button class="btn btn--secondary" type="button">See the skills</button>
 				</span>
 			</span>
+		</span>`
+	},
+	media: {
+		one: `<img class="media media--ratio-wide" src="/hero-poster.jpg" alt="" style="inline-size: 22rem">`,
+		html: `<span class="sp-row">
+			<img class="media media--ratio-wide" src="/hero-poster.jpg" alt="" style="inline-size: 13rem">
+			<img class="media media--ratio-square" src="/hero-poster.jpg" alt="" style="inline-size: 7rem">
+			<img class="media media--ratio-portrait" src="/hero-poster.jpg" alt="" style="inline-size: 6rem">
 		</span>`
 	},
 	navbar: {

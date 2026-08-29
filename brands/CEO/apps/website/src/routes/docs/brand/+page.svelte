@@ -502,28 +502,31 @@ function inspect(name: string) {
 					<!-- No 62rem cap here. A reading column is right for a page of prose
 					     and wrong for a stage: the specimen should get the screen. -->
 					<section class="cb-section cb-section--full">
-						<button type="button" class="cb-back" onclick={() => (open = null)}>
-							{@html backIcon}
-							<span>All {active}</span>
-						</button>
-						<h2 class="cb-detail-name">{unit.name}</h2>
+						<!-- Back, name and tabs on ONE line. Three stacked rows of chrome
+						     above a stage is three rows the stage does not get. -->
+						<div class="cb-bar">
+							<button type="button" class="cb-back" onclick={() => (open = null)}>
+								{@html backIcon}
+								<span>All {active}</span>
+							</button>
+							<h2 class="cb-detail-name">{unit.name}</h2>
+							<div class="cb-tabs" role="tablist" aria-label="View">
+								{#each ['preview', 'config'] as view (view)}
+									<button
+										type="button"
+										class="cb-tab"
+										role="tab"
+										aria-selected={detailView === view}
+										onclick={() => (detailView = view)}
+									>
+										{view}
+									</button>
+								{/each}
+							</div>
+						</div>
 
 						<div class="cb-detail">
 							<div class="cb-detail-main">
-								<div class="cb-tabs" role="tablist" aria-label="View">
-									{#each ['preview', 'config'] as view (view)}
-										<button
-											type="button"
-											class="cb-tab"
-											role="tab"
-											aria-selected={detailView === view}
-											onclick={() => (detailView = view)}
-										>
-											{view}
-										</button>
-									{/each}
-								</div>
-
 								{#if detailView === 'preview'}
 									<!-- The `one` specimen. Applying a variant to a stage holding six
 									     buttons turns all six primary at once, which shows nothing. -->
@@ -541,16 +544,16 @@ function inspect(name: string) {
 								{:else}
 									<pre class="cb-config"><code>{unit.json}</code></pre>
 								{/if}
-
-								<!-- Under the specimen, not over it. A paragraph above the stage
-								     pushes the thing being described off the screen. -->
-								<p class="meta cb-detail-note">{unit.description}</p>
 							</div>
 
 							<!-- The controls sit beside the stage, not under it: a unit with four
 							     axes pushed the specimen off the top of the screen, so you were
 							     choosing a variant you could no longer see. -->
 							<aside class="cb-detail-controls" aria-label="Variants and states">
+								<!-- The description belongs where the reading happens, beside the
+								     specimen rather than under it — the stage keeps its height. -->
+								<p class="cb-detail-note">{unit.description}</p>
+
 								{#if unit.states.length}
 									<div class="cb-controls">
 										<p class="cb-control-label">State</p>
@@ -923,7 +926,7 @@ function inspect(name: string) {
 .cb-detail {
 	display: grid;
 	gap: var(--space-loose);
-	margin-block: var(--space-comfortable);
+	margin-block: var(--space-comfortable) 0;
 }
 @media (min-width: 60rem) {
 	.cb-detail {
@@ -991,6 +994,23 @@ function inspect(name: string) {
 	color: var(--color-foreground-soft);
 	tab-size: 2;
 }
+/* One row: back on the left, the unit's name beside it, the view tabs pushed
+   right. It was three stacked rows of chrome above the stage. */
+.cb-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-tight);
+	padding-block-end: var(--space-hairline);
+	border-block-end: 1px solid var(--color-border-soft);
+}
+.cb-bar .cb-tabs {
+	margin: 0 0 -1px auto;
+	border-block-end: 0;
+}
+.cb-bar .cb-detail-name {
+	margin-inline-end: auto;
+}
 .cb-back {
 	display: inline-flex;
 	align-items: center;
@@ -1023,8 +1043,10 @@ function inspect(name: string) {
 	color: var(--color-foreground);
 }
 .cb-detail-note {
-	max-inline-size: 68ch;
-	margin-block-start: var(--space-comfortable);
+	margin: 0 0 var(--space-comfortable);
+	font-size: var(--fs-micro);
+	line-height: 1.6;
+	color: var(--color-foreground-quiet);
 }
 .cb-detail-stage {
 	display: grid;
