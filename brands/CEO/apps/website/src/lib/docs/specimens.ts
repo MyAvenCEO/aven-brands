@@ -67,6 +67,19 @@ export type Specimen = {
 	 * walk the sequence rather than clicking four chips in the right order.
 	 */
 	scenes?: Record<string, Record<string, string>>
+	/**
+	 * Where the specimen sits on the preview screen.
+	 *
+	 * Centred by default, because a button pinned to the top edge of a phone
+	 * reads as a mistake. But some units are ANCHORED — a navbar belongs against
+	 * the top of the screen and a footer against the bottom, and centring one is
+	 * the same mistake in the other direction. Only the specimen can say which:
+	 * the unit's own CSS cannot, because it depends on what the surface puts it
+	 * in.
+	 *
+	 * `fill` is for units that ARE the screen — a shell, a full-screen menu.
+	 */
+	anchor?: 'top' | 'bottom' | 'fill'
 }
 
 /* Through the engine's own `renderIcon`, not hand-written SVG — a docs page
@@ -422,6 +435,7 @@ export const specimens: Record<string, Specimen> = {
 	},
 	navbar: {
 		tall: true,
+		anchor: 'top',
 		/* The hamburger WORKS. `aria-controls` names the menu and the storybook's
 		   generic wiring flips `aria-expanded` and `data-open` — the same two
 		   attributes a real surface drives. A specimen whose declared control does
@@ -486,6 +500,7 @@ export const specimens: Record<string, Specimen> = {
 	},
 	'nav-menu': {
 		tall: true,
+		anchor: 'fill',
 		/* Rendered open and un-fixed, because a `position: fixed` specimen escapes
 		   the stage and covers the docs page. */
 		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:15rem; border-radius:var(--radius-lg); overflow:hidden">
@@ -552,6 +567,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	'site-footer': {
+		anchor: 'bottom',
 		tall: true,
 		one: `<span class="site-footer" style="inline-size: 100%; max-inline-size: 44rem">
 			<span class="site-footer-inner">
@@ -950,6 +966,7 @@ export const specimens: Record<string, Specimen> = {
 	},
 	workbench: {
 		tall: true,
+		anchor: 'fill',
 		/* The rail holds a REAL `sidebar`, not three nav links in a padded box.
 		   The slot has always said `accepts: ["sidebar"]`; the specimen showing
 		   something else made the shell look like it owned a navigation. */

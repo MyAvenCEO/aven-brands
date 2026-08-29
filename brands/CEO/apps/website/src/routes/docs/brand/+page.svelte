@@ -389,9 +389,22 @@ function fitScaledStage(node: HTMLElement) {
 		   a ResizeObserver loop — the frame grew to fit the screen, the screen was
 		   sized from the frame — and the desktop bezel reached 6,916,904px within
 		   a few frames. */
-		const declared = parseFloat(getComputedStyle(node).blockSize)
-		const target = Number.isFinite(declared) ? declared : node.clientHeight
-		node.style.setProperty('--cb-screen-h', scale < 1 ? `${target / scale}px` : '100%')
+		/* The screen fills the bezel's CONTENT box, not its border box. Reserving
+		   the full height meant the scaled screen ran past the bottom padding and
+		   was clipped there — the bezel wrapped three sides and stopped, which is
+		   what made the desktop preview look cut off along its bottom edge. */
+		const cs = getComputedStyle(node)
+		const declared = parseFloat(cs.blockSize)
+		const frame = Number.isFinite(declared) ? declared : node.clientHeight
+		const vertical =
+			(parseFloat(cs.paddingTop) || 0) +
+			(parseFloat(cs.paddingBottom) || 0) +
+			(parseFloat(cs.borderTopWidth) || 0) +
+			(parseFloat(cs.borderBottomWidth) || 0)
+		node.style.setProperty(
+			'--cb-screen-h',
+			scale < 1 ? `${(frame - vertical) / scale}px` : '100%'
+		)
 		/* NO horizontal offset. This used to centre the scaled screen inside the
 		   PANEL, which was right while the bezel was panel-width and became a
 		   double-count the moment the bezel started sizing itself to the device:
@@ -858,6 +871,7 @@ function inspect(name: string) {
 									<div
 										class="cb-detail-stage"
 										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
+										data-anchor={specimens[unit.name]?.anchor}
 										style="inline-size:{believedWidth}px" 
 										{@attach applyPreview(unit, variantClass, forcedState)}
 										{@attach wireSpecimen}
@@ -1496,12 +1510,27 @@ function inspect(name: string) {
 	/* The screen's own edge, inside the bezel. Slightly tighter than the frame's
 	   radius so the two curves nest rather than fight. */
 	border-radius: var(--radius-lg);
-	/* Content starts at the TOP, like a page. The stage stands in for a viewport,
-	   and `place-items: center` floated a navbar sixteen pixels below the top
-	   edge — which is the one place a navbar can never be. A leaf then sits at
-	   top-centre, which is also where content starts on a real page. */
+	/* `safe center`, the same rule the grid uses. A specimen that FITS is centred
+	   — a button pinned to the top edge of a phone screen reads as a mistake —
+	   and one that overflows falls back to the top, so its head and its foot are
+	   not both cut off at once. The `safe` keyword is exactly that switch, and it
+	   is why a navbar still meets the top edge: at 100% width and full height it
+	   fills the screen rather than floating in it. */
+	align-content: safe center;
+	justify-items: safe center;
+}
+/* An ANCHORED specimen. A navbar belongs against the top of the screen and a
+   footer against the bottom; centring either is the same mistake as pinning a
+   button to the top edge, only in the other direction. */
+.cb-detail-stage[data-anchor="top"] {
 	align-content: start;
-	justify-items: center;
+}
+.cb-detail-stage[data-anchor="bottom"] {
+	align-content: end;
+}
+.cb-detail-stage[data-anchor="fill"] {
+	align-content: stretch;
+	justify-items: stretch;
 	/* FULL HEIGHT, and no padding. The stage is standing in for a viewport, so a
 	   navbar has to be able to sit against its top edge and a footer against its
 	   bottom the way they would on a real page. `space-section` of padding meant

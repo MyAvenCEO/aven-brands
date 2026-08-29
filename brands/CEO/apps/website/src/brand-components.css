@@ -210,7 +210,7 @@
 		gap: var(--space-tight);
 		min-block-size: var(--btn-block, 2.5rem);
 		padding-inline: var(--btn-pad, 1.25rem);
-		border: 1px solid var(--color-primary-edge);
+		border: 0;
 		border-radius: var(--radius-full);
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
@@ -228,19 +228,18 @@
 
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(-1px);
-			box-shadow: 0 0 0 5px var(--btn-ring, transparent), var(--shadow-overlay);
+			box-shadow: inset 0 0 0 4px var(--btn-ring, transparent), var(--shadow-overlay);
 		}
 		&:focus-visible {
 			outline: 1px solid var(--color-focus);
 		}
 		&:active:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(0);
-			box-shadow: 0 0 0 3px var(--btn-ring, transparent), none;
+			box-shadow: inset 0 0 0 2px var(--btn-ring, transparent), none;
 		}
 		&[disabled], &[aria-disabled="true"] {
 			background: var(--color-muted);
 			color: var(--color-foreground-quiet);
-			border-color: var(--color-border-soft);
 			box-shadow: none;
 			transform: none;
 			cursor: default;
@@ -248,7 +247,7 @@
 		&[aria-busy="true"] {
 			cursor: progress;
 			opacity: 1;
-			box-shadow: 0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised);
+			box-shadow: inset 0 0 0 3px var(--btn-ring, transparent), var(--shadow-raised);
 		}
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -2750,21 +2749,18 @@
 	.btn--primary {
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
-		border-color: var(--color-primary-edge);
 		--btn-ring: var(--color-primary-ring);
 	}
 
 	.btn--secondary {
 		background: var(--color-secondary-strong);
 		color: var(--color-secondary-foreground);
-		border-color: var(--color-secondary-edge);
 		--btn-ring: var(--color-secondary-ring);
 	}
 
 	.btn--accent {
 		background: var(--color-accent);
 		color: var(--color-accent-foreground);
-		border-color: var(--color-accent-edge);
 		--btn-ring: var(--color-accent-ring);
 		--btn-badge: color-mix(in oklab, var(--color-accent-foreground) 18%, transparent);
 	}
@@ -2772,7 +2768,6 @@
 	.btn--neutral {
 		background: var(--color-surface-raised);
 		color: var(--color-foreground);
-		border-color: var(--color-border-strong);
 		--btn-ring: var(--color-border-soft);
 		--btn-badge: var(--color-muted);
 	}
@@ -2780,7 +2775,6 @@
 	.btn--ghost {
 		background: transparent;
 		color: var(--color-foreground-soft);
-		border-color: transparent;
 		box-shadow: none;
 		--btn-ring: var(--color-border-soft);
 		--btn-badge: var(--color-muted);
@@ -2789,7 +2783,6 @@
 	.btn--danger {
 		background: var(--color-error);
 		color: var(--color-error-foreground);
-		border-color: var(--color-error-edge);
 		--btn-ring: var(--color-error-ring);
 	}
 

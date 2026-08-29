@@ -26,7 +26,7 @@
 	"styling": {
 		"interactive": true,
 		"base": {
-			"$description": "Fully rounded, and the only thing in the system that is \u2014 a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nTHE RING IS INSET, and that is the correction worth recording. It was a 4px spread OUTSIDE the border box, so a ringed button painted eight pixels wider and taller than an identically sized plain one beside it \u2014 same layout box, different silhouette, and in a row of buttons the accent one simply looked bigger. Inside, every button occupies exactly its own bounds and the ring becomes an inner rim: the same double-edge signature, bounded.\n\nThe ring is on by default, not only on hover. That is the reference set's actual look and the better resting state: a button that only grows a rim when you point at it reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something.\n\nSIZE IS THREE CUSTOM PROPERTIES rather than three declarations, so a container can shrink a button it was handed without restating what `sm` means. A navbar cannot add a class to a slotted child \u2014 it can set a property on it, and that is the difference between the size axis being reusable and being copied.",
+			"$description": "Fully rounded, and the only thing in the system that is \u2014 a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nONE EDGE, AND IT IS THE RING. There was also a 1px border outside it \u2014 a thin grey line wrapped around the rim, so the button had two edges of different weights and colours and read as a control inside a box. The ring alone is the signature, and it is the same shape the hover state was already drawing.\n\nTHE RING IS INSET, and that is the other correction worth recording. It was a 4px spread OUTSIDE the border box, so a ringed button painted eight pixels wider and taller than an identically sized plain one beside it \u2014 same layout box, different silhouette, and in a row of buttons the accent one simply looked bigger. Inside, every button occupies exactly its own bounds and the ring becomes an inner rim: the same double-edge signature, bounded.\n\nThe ring is on by default, not only on hover. That is the reference set's actual look and the better resting state: a button that only grows a rim when you point at it reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something.\n\nSIZE IS THREE CUSTOM PROPERTIES rather than three declarations, so a container can shrink a button it was handed without restating what `sm` means. A navbar cannot add a class to a slotted child \u2014 it can set a property on it, and that is the difference between the size axis being reusable and being copied.",
 			"position": "relative",
 			"display": "inline-flex",
 			"alignItems": "center",
@@ -34,7 +34,7 @@
 			"gap": "var(--space-tight)",
 			"minBlockSize": "var(--btn-block, 2.5rem)",
 			"paddingInline": "var(--btn-pad, 1.25rem)",
-			"border": "1px solid var(--color-primary-edge)",
+			"border": "0",
 			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
@@ -52,26 +52,23 @@
 		},
 		"variants": {
 			"variant": {
-				"$description": "What the action MEANS. Five, and a caller picks by intent \u2014 never by colour.",
+				"$description": "What the action MEANS. Five, and a caller picks by intent \u2014 never by colour.\n\nEach option sets `--btn-ring` and nothing else about the edge. They used to set `border-color` as well, which was the second edge \u2014 two colours describing one rim, and a place for them to disagree.",
 				"primary": {
 					"$description": "the one main affirmative action on a surface.",
 					"background": "var(--color-primary)",
 					"color": "var(--color-primary-foreground)",
-					"borderColor": "var(--color-primary-edge)",
 					"--btn-ring": "var(--color-primary-ring)"
 				},
 				"secondary": {
 					"$description": "The second brand colour, filled. For an action that is affirmative but not the main one \u2014 a second real choice rather than a way out. Distinct from `neutral`, which is the way out. The fill is the DARKENED rank, not the tone: white on raw paradise is 3.89:1 and fails AA at body size, which is the same reason the editorial bands are darkened. A brand colour that cannot carry its own label is not a button fill.",
 					"background": "var(--color-secondary-strong)",
 					"color": "var(--color-secondary-foreground)",
-					"borderColor": "var(--color-secondary-edge)",
 					"--btn-ring": "var(--color-secondary-ring)"
 				},
 				"accent": {
 					"$description": "the marketing call to action \u2014 sunflower, the one place the brand shouts. Distinct from primary on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR.",
 					"background": "var(--color-accent)",
 					"color": "var(--color-accent-foreground)",
-					"borderColor": "var(--color-accent-edge)",
 					"--btn-ring": "var(--color-accent-ring)",
 					"--btn-badge": "color-mix(in oklab, var(--color-accent-foreground) 18%, transparent)"
 				},
@@ -79,7 +76,6 @@
 					"$description": "The neutral alternative to primary \u2014 an outline and dark text, never a coloured fill, because a second filled button competes with the first. Called `neutral` and not `secondary`: `secondary` now names the second BRAND COLOUR, and one word meaning both 'paradise' and 'the quiet button' is how a caller ends up reaching for a blue fill on a cancel action.",
 					"background": "var(--color-surface-raised)",
 					"color": "var(--color-foreground)",
-					"borderColor": "var(--color-border-strong)",
 					"--btn-ring": "var(--color-border-soft)",
 					"--btn-badge": "var(--color-muted)"
 				},
@@ -87,7 +83,6 @@
 					"$description": "no chrome at all, for a tertiary action inside dense UI.",
 					"background": "transparent",
 					"color": "var(--color-foreground-soft)",
-					"borderColor": "transparent",
 					"boxShadow": "none",
 					"--btn-ring": "var(--color-border-soft)",
 					"--btn-badge": "var(--color-muted)"
@@ -96,7 +91,6 @@
 					"$description": "destructive. The same variant on the trigger AND on its confirm dialog \u2014 red in one place and blue in the other is the bug this rule exists to stop.",
 					"background": "var(--color-error)",
 					"color": "var(--color-error-foreground)",
-					"borderColor": "var(--color-error-edge)",
 					"--btn-ring": "var(--color-error-ring)"
 				}
 			},
@@ -139,39 +133,37 @@
 		},
 		"states": {
 			"hover": {
-				"$description": "The ring is already there, so hover LIFTS and deepens instead of introducing it. Fading a button on hover says 'less', which is the opposite of what a hover means.",
+				"$description": "The rim thickens and the button lifts. Inset like the resting state \u2014 it was an OUTSIDE shadow, so hovering grew the button's painted footprint by five pixels and nudged whatever sat beside it.",
 				"transform": "translateY(-1px)",
-				"boxShadow": "0 0 0 5px var(--btn-ring, transparent), var(--shadow-overlay)"
+				"boxShadow": "inset 0 0 0 4px var(--btn-ring, transparent), var(--shadow-overlay)"
 			},
 			"focus": {
 				"$description": "The system focus ring: sunflower, 1px, tight on the edge. Deliberately a different shape from the hover ring, so focus and hover are never mistaken for each other.",
 				"outline": "1px solid var(--color-focus)"
 			},
 			"active": {
-				"$description": "Pressed: the ring tightens and the lift goes \u2014 the button settles onto the surface it was floating over.",
+				"$description": "Pressed: the rim thins and the lift goes, so the button reads as settling into the page.",
 				"transform": "translateY(0)",
-				"boxShadow": "0 0 0 3px var(--btn-ring, transparent), none"
+				"boxShadow": "inset 0 0 0 2px var(--btn-ring, transparent), none"
 			},
 			"disabled": {
 				"$description": "Flat and quiet, not a dimmed slab. Reducing a filled button to 55% opacity over a cream page produces a muddy grey that reads as a control that failed rather than one that is not available yet \u2014 so the fill is dropped instead of faded. This replaced an `unavailable` VARIANT that meant the same thing: one of them had to go, and a thing that is true right now is a state.",
 				"background": "var(--color-muted)",
 				"color": "var(--color-foreground-quiet)",
-				"borderColor": "var(--color-border-soft)",
 				"boxShadow": "none",
 				"transform": "none",
 				"cursor": "default"
 			},
 			"loading": {
-				"$description": "Full strength with the ring showing, so an in-flight action reads as busy rather than unavailable. Reusing the disabled treatment says 'you cannot do this' when it means 'this is happening'.",
+				"$description": "Full strength, never dimmed. Reusing the disabled dimming for an in-flight action reads as 'you cannot do this' rather than 'this is happening'.",
 				"cursor": "progress",
 				"opacity": "1",
-				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised)"
+				"boxShadow": "inset 0 0 0 3px var(--btn-ring, transparent), var(--shadow-raised)"
 			},
 			"success": {
 				"$description": "The end of a flow \u2014 the name is claimed, the payment is taken. A STATE and not a variant, because it is a moment: the button was primary a second ago and will be primary again. Reusing the primary fill here would say 'press me again', which is the last thing it means.",
 				"background": "var(--color-success)",
 				"color": "var(--color-success-foreground)",
-				"borderColor": "var(--color-success-edge)",
 				"--btn-ring": "var(--color-success-ring)",
 				"cursor": "default"
 			}
