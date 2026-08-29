@@ -68,6 +68,8 @@
 	--color-border: #dfe1e6;
 	--color-input: #fefdfa;
 	--color-primary: var(--color-marine);
+	--color-primary-edge: #68707d;
+	--color-primary-ring: #c3c4c3;
 	--color-primary-foreground: var(--color-on-primary);
 	--color-primary-foreground-soft: var(--color-on-primary-soft);
 	--color-primary-foreground-quiet: var(--color-on-primary-quiet);
@@ -90,6 +92,8 @@
 	--color-progress-surface: #dceae7;
 	--color-progress-border: #b8d7d8;
 	--color-success: var(--color-turquoise);
+	--color-success-edge: #84beb8;
+	--color-success-ring: #cde2da;
 	--color-success-foreground: var(--color-on-success);
 	--color-success-ink: #255b56;
 	--color-success-surface: #e1ede5;
@@ -100,6 +104,8 @@
 	--color-warning-surface: #fbf1d8;
 	--color-warning-border: #f9e6b9;
 	--color-error: var(--color-terracotta);
+	--color-error-edge: #d69280;
+	--color-error-ring: #edd1c4;
 	--color-error-foreground: var(--color-on-error);
 	--color-error-ink: #9b4832;
 	--color-info: var(--color-earth);
@@ -108,6 +114,8 @@
 	--color-info-surface: #f7eee0;
 	--color-info-border: #f0dfca;
 	--color-accent: var(--color-sunflower);
+	--color-accent-edge: #f6d17f;
+	--color-accent-ring: #faeac4;
 	--color-accent-foreground: var(--color-on-warning);
 	--color-accent-ink: #7f601b;
 	--color-accent-surface: #fbf1d8;

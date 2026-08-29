@@ -205,6 +205,16 @@
 				"$value": "var(--color-marine)",
 				"$description": "the one main affirmative action."
 			},
+			"primary-edge": {
+				"$type": "color",
+				"$value": "#68707d",
+				"$description": "The rim of a primary button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 2.93:1 against the fill."
+			},
+			"primary-ring": {
+				"$type": "color",
+				"$value": "#c3c4c3",
+				"$description": "The halo a primary button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
+			},
 			"primary-foreground": {
 				"$type": "color",
 				"$value": "var(--color-on-primary)",
@@ -330,6 +340,16 @@
 				"$value": "var(--color-turquoise)",
 				"$description": "settled."
 			},
+			"success-edge": {
+				"$type": "color",
+				"$value": "#84beb8",
+				"$description": "The rim of a success button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.56:1 against the fill."
+			},
+			"success-ring": {
+				"$type": "color",
+				"$value": "#cde2da",
+				"$description": "The halo a success button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
+			},
 			"success-foreground": {
 				"$type": "color",
 				"$value": "var(--color-on-success)",
@@ -400,6 +420,16 @@
 				"$value": "var(--color-terracotta)",
 				"$description": "something failed."
 			},
+			"error-edge": {
+				"$type": "color",
+				"$value": "#d69280",
+				"$description": "The rim of a error button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.71:1 against the fill."
+			},
+			"error-ring": {
+				"$type": "color",
+				"$value": "#edd1c4",
+				"$description": "The halo a error button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
+			},
 			"error-foreground": {
 				"$type": "color",
 				"$value": "var(--color-on-error)",
@@ -449,6 +479,16 @@
 				"$type": "color",
 				"$value": "var(--color-sunflower)",
 				"$description": "the marketing highlight. Same paint as `warning`, different job — and the job is the reason the name survives the merge."
+			},
+			"accent-edge": {
+				"$type": "color",
+				"$value": "#f6d17f",
+				"$description": "The rim of a accent button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.21:1 against the fill."
+			},
+			"accent-ring": {
+				"$type": "color",
+				"$value": "#faeac4",
+				"$description": "The halo a accent button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
 			},
 			"accent-foreground": {
 				"$type": "color",

@@ -208,13 +208,14 @@
 	}
 
 	.btn {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--space-hairline);
+		gap: var(--space-tight);
 		min-block-size: 2.5rem;
 		padding-inline: 1.25rem;
-		border: 1px solid transparent;
+		border: 1px solid var(--color-primary-edge);
 		border-radius: var(--radius-full);
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
@@ -225,20 +226,21 @@
 		letter-spacing: var(--tracking-tight);
 		white-space: nowrap;
 		cursor: pointer;
+		box-shadow: var(--shadow-raised);
 		transition: background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out);
-		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%);
-		border-color: color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary));
+		--btn-ring: var(--color-primary-ring);
+		--btn-badge: color-mix(in oklab, var(--color-primary-foreground) 22%, transparent);
 
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(-1px);
-			box-shadow: var(--shadow-overlay);
+			box-shadow: 0 0 0 4px var(--btn-ring, transparent), var(--shadow-overlay);
 		}
 		&:focus-visible {
 			outline: 1px solid var(--color-focus);
 		}
 		&:active:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(0);
-			box-shadow: none;
+			box-shadow: 0 0 0 4px var(--btn-ring, transparent), none;
 		}
 		&[disabled], &[aria-disabled="true"] {
 			background: var(--color-muted);
@@ -251,6 +253,7 @@
 		&[aria-busy="true"] {
 			cursor: progress;
 			opacity: 1;
+			box-shadow: 0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised);
 		}
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -958,42 +961,55 @@
 		background: var(--color-surface-sunken);
 	}
 
+	.btn-badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 1.5rem;
+		block-size: 1.5rem;
+		flex-shrink: 0;
+		margin-inline-end: -0.5rem;
+		margin-inline-start: 0.125rem;
+		border-radius: var(--radius-full);
+		background: var(--color-btn-badge, rgb(255 255 255 / 0.22));
+		color: inherit;
+	}
+
 	.btn--primary {
 		background: var(--color-primary);
 		color: var(--color-primary-foreground);
-		border-color: color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary));
-		box-shadow: var(--shadow-raised);
-		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%);
+		border-color: var(--color-primary-edge);
+		--btn-ring: var(--color-primary-ring);
 	}
 
 	.btn--secondary {
-		background: transparent;
+		background: var(--color-surface-raised);
 		color: var(--color-foreground);
 		border-color: var(--color-border-strong);
-		background-image: none;
+		box-shadow: var(--shadow-raised);
+		--btn-ring: var(--color-border-soft);
 	}
 
 	.btn--danger {
 		background: var(--color-error);
 		color: var(--color-error-foreground);
-		border-color: color-mix(in oklab, var(--color-error-foreground) 22%, var(--color-error));
-		box-shadow: var(--shadow-raised);
-		background-image: linear-gradient(180deg, color-mix(in oklab, var(--color-error-foreground) 12%, var(--color-error)) 0%, var(--color-error) 62%);
+		border-color: var(--color-error-edge);
+		--btn-ring: var(--color-error-ring);
 	}
 
 	.btn--ghost {
 		background: transparent;
 		color: var(--color-foreground-soft);
 		border-color: transparent;
-		background-image: none;
+		box-shadow: none;
+		--btn-ring: var(--color-border-soft);
 	}
 
 	.btn--accent {
 		background: var(--color-accent);
 		color: var(--color-accent-foreground);
-		border-color: color-mix(in oklab, #ffffff 28%, var(--color-accent));
-		box-shadow: var(--shadow-raised);
-		background-image: linear-gradient(180deg, color-mix(in oklab, #ffffff 12%, var(--color-accent)) 0%, var(--color-accent) 62%);
+		border-color: var(--color-accent-edge);
+		--btn-ring: var(--color-accent-ring);
 	}
 
 	.btn--unavailable {
@@ -1002,17 +1018,24 @@
 		border-color: var(--color-border-soft);
 		cursor: default;
 		box-shadow: none;
-		background-image: none;
+		--btn-ring: transparent;
 	}
 
 	.btn--icon {
 		padding-inline: 0;
 		inline-size: 2.5rem;
 		background: transparent;
-		background-image: none;
+		box-shadow: none;
 		color: var(--color-foreground-soft);
 		border-color: transparent;
-		box-shadow: none;
+		--btn-ring: var(--color-border-soft);
+	}
+
+	.btn--success {
+		background: var(--color-success);
+		color: var(--color-success-foreground);
+		border-color: var(--color-success-edge);
+		--btn-ring: var(--color-success-ring);
 	}
 
 	.btn--size-sm {

@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import * as design from '../src/design.js'
 import * as generate from '../src/generate.js'
-import * as kitchenSink from '../src/kitchen-sink.js'
 import * as tokens from '../src/tokens.js'
+import * as units from '../src/units.js'
 
 /**
  * The public surface, pinned.
@@ -111,16 +111,24 @@ describe('the brand surface', () => {
 	})
 })
 
-describe('the kitchen sink surface', () => {
-	test('exports a view and its styling', () => {
-		expect(typeof kitchenSink.kitchenSinkView).toBe('function')
-		expect(typeof kitchenSink.kitchenSinkCss).toBe('function')
+describe('the unit registry', () => {
+	test('every unit compiles to at least its own class', () => {
+		/* Replaces the kitchen-sink checks. That page was a committed HTML file
+		   generated from the brand, and it could go stale between a change and a
+		   regeneration — which it did. The storybook at /docs/brand reads this
+		   registry directly, so there is nothing to keep in sync. */
+		const css = generate.componentCss()
+		for (const name of Object.keys(units.units)) {
+			expect(css).toContain(`.${name} {`)
+		}
 	})
 
-	test('the view names every component and layout somewhere', () => {
-		const serialised = JSON.stringify(kitchenSink.kitchenSinkView())
-		for (const name of [...design.COMPONENT_NAMES, ...design.LAYOUT_NAMES]) {
-			expect(serialised).toContain(name)
+	test('a unit with parts emits every one of them', () => {
+		const css = generate.componentCss()
+		for (const [name, unit] of Object.entries(units.units)) {
+			for (const part of Object.keys(unit.styling?.parts ?? {})) {
+				expect(css).toContain(`.${name}-${part} {`)
+			}
 		}
 	})
 })

@@ -1,6 +1,6 @@
 {
 	"name": "btn",
-	"description": "The one button. Every affirmative, neutral, destructive and marketing action on every surface is this unit with a different variant — six variants and four sizes, which is what the estate actually contains once the hand-written ones are counted.",
+	"description": "The one button. Every affirmative, neutral, destructive and marketing action on every surface is this unit with a different variant.\n\nThe state design follows a reference set whose good idea is that each state changes the FILL and adds a RING — a halo just outside the edge, in the fill's own colour — rather than nudging opacity. A ring reads at a glance and at any size, survives a colourblind eye because it is a shape, and cannot be confused with the focus ring, which sits tight on the edge in sunflower.",
 	"interface": {
 		"props": {
 			"label": "string",
@@ -26,13 +26,15 @@
 	"styling": {
 		"interactive": true,
 		"base": {
+			"$description": "Fully rounded, and the only thing in the system that is — a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it, and a button's depth should come from its ring and its shadow, which the eye can actually see.",
+			"position": "relative",
 			"display": "inline-flex",
 			"alignItems": "center",
 			"justifyContent": "center",
-			"gap": "var(--space-hairline)",
+			"gap": "var(--space-tight)",
 			"minBlockSize": "2.5rem",
 			"paddingInline": "1.25rem",
-			"border": "1px solid transparent",
+			"border": "1px solid var(--color-primary-edge)",
 			"borderRadius": "var(--radius-full)",
 			"background": "var(--color-primary)",
 			"color": "var(--color-primary-foreground)",
@@ -43,50 +45,49 @@
 			"letterSpacing": "var(--tracking-tight)",
 			"whiteSpace": "nowrap",
 			"cursor": "pointer",
+			"boxShadow": "var(--shadow-raised)",
 			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)",
-			"$description": "Fully rounded, and the only thing in the system that is. A stadium is what a button is FOR — it reads as pressable at a glance and nothing else on the page shares the shape, so the affordance is unambiguous. Cards, inputs and panels take the radius ladder instead: a fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button. The fill is DUOTONE and so is the edge: the flat colour, a lighter wash of itself over the top, and a rim a shade lighter still. Two opacities of one colour, like the icons and like a badge's tint — which is what keeps it themeable, since a rim in a second colour would need its own definition per theme. It is a few percent, enough to give the surface a direction and an edge without becoming a gradient or a border anyone would name.",
-			"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%)",
-			"borderColor": "color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary))"
+			"--btn-ring": "var(--color-primary-ring)",
+			"--btn-badge": "color-mix(in oklab, var(--color-primary-foreground) 22%, transparent)"
 		},
 		"variants": {
 			"variant": {
 				"primary": {
-					"$description": "the one main affirmative action on a surface. A duotone fill, like the icons: the flat colour with a lighter wash of itself over the top half. Two opacities of one colour, which is what keeps it themeable — a gradient between two different colours would need a second definition per theme. The effect is a couple of percent, enough to give the surface a direction without becoming a gradient anyone would name.",
+					"$description": "the one main affirmative action on a surface.",
 					"background": "var(--color-primary)",
 					"color": "var(--color-primary-foreground)",
-					"borderColor": "color-mix(in oklab, var(--color-primary-foreground) 22%, var(--color-primary))",
-					"boxShadow": "var(--shadow-raised)",
-					"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, var(--color-primary-foreground) 12%, var(--color-primary)) 0%, var(--color-primary) 62%)"
+					"borderColor": "var(--color-primary-edge)",
+					"--btn-ring": "var(--color-primary-ring)"
 				},
 				"secondary": {
-					"$description": "neutral. An outline and dark text, never a coloured fill — a secondary action that carries a fill competes with the primary beside it.",
-					"background": "transparent",
+					"$description": "neutral. An outline and dark text, never a coloured fill — a secondary action carrying a fill competes with the primary beside it.",
+					"background": "var(--color-surface-raised)",
 					"color": "var(--color-foreground)",
 					"borderColor": "var(--color-border-strong)",
-					"backgroundImage": "none"
+					"boxShadow": "var(--shadow-raised)",
+					"--btn-ring": "var(--color-border-soft)"
 				},
 				"danger": {
 					"$description": "destructive. The same variant on the trigger AND on its confirm dialog — red in one place and blue in the other is the bug this rule exists to stop.",
 					"background": "var(--color-error)",
 					"color": "var(--color-error-foreground)",
-					"borderColor": "color-mix(in oklab, var(--color-error-foreground) 22%, var(--color-error))",
-					"boxShadow": "var(--shadow-raised)",
-					"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, var(--color-error-foreground) 12%, var(--color-error)) 0%, var(--color-error) 62%)"
+					"borderColor": "var(--color-error-edge)",
+					"--btn-ring": "var(--color-error-ring)"
 				},
 				"ghost": {
 					"$description": "no chrome at all, for a tertiary action inside dense UI.",
 					"background": "transparent",
 					"color": "var(--color-foreground-soft)",
 					"borderColor": "transparent",
-					"backgroundImage": "none"
+					"boxShadow": "none",
+					"--btn-ring": "var(--color-border-soft)"
 				},
 				"accent": {
-					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from `primary` on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR. Ink is accent-foreground (8.77:1), never the page greys.",
+					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from `primary` on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR.",
 					"background": "var(--color-accent)",
 					"color": "var(--color-accent-foreground)",
-					"borderColor": "color-mix(in oklab, #ffffff 28%, var(--color-accent))",
-					"boxShadow": "var(--shadow-raised)",
-					"backgroundImage": "linear-gradient(180deg, color-mix(in oklab, #ffffff 12%, var(--color-accent)) 0%, var(--color-accent) 62%)"
+					"borderColor": "var(--color-accent-edge)",
+					"--btn-ring": "var(--color-accent-ring)"
 				},
 				"unavailable": {
 					"$description": "not offered yet. NOT `disabled`: disabled means you may not, and this means there is nothing here to press. A muted fill rather than a dimmed primary, because dimming a primary reads as a control that failed rather than one that has not arrived.",
@@ -95,17 +96,24 @@
 					"borderColor": "var(--color-border-soft)",
 					"cursor": "default",
 					"boxShadow": "none",
-					"backgroundImage": "none"
+					"--btn-ring": "transparent"
 				},
 				"icon": {
 					"$description": "Icon only. Square rather than stadium-wide, because a pill around a single glyph is mostly empty space — but still fully rounded, so it stays visibly the same family as every other button. The label lives in `aria-label`: an icon button with no accessible name is a button a screen reader announces as nothing at all.",
 					"paddingInline": "0",
 					"inlineSize": "2.5rem",
 					"background": "transparent",
-					"backgroundImage": "none",
+					"boxShadow": "none",
 					"color": "var(--color-foreground-soft)",
 					"borderColor": "transparent",
-					"boxShadow": "none"
+					"--btn-ring": "var(--color-border-soft)"
+				},
+				"success": {
+					"$description": "The end of a flow — a name claimed, a payment taken. It exists because a success that reuses the primary fill says 'press me again', which is the last thing it means.",
+					"background": "var(--color-success)",
+					"color": "var(--color-success-foreground)",
+					"borderColor": "var(--color-success-edge)",
+					"--btn-ring": "var(--color-success-ring)"
 				}
 			},
 			"size": {
@@ -137,16 +145,18 @@
 		},
 		"states": {
 			"hover": {
-				"$description": "A lift rather than a fade. Fading a button on hover says \"less\", which is the opposite of what a hover means; 1px of travel and a shadow say \"this is reachable\".",
+				"$description": "A ring and a lift. The ring is the reference set's idea and it is a good one: a halo just outside the edge, in the button's own colour, which reads at any size and does not depend on telling two similar fills apart. It is a `box-shadow` rather than an outline so it can coexist with the focus ring, which is an outline and sits tight on the edge.",
 				"transform": "translateY(-1px)",
-				"boxShadow": "var(--shadow-overlay)"
+				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-overlay)"
 			},
 			"focus": {
+				"$description": "The system focus ring: sunflower, 1px, tight on the edge. Deliberately a different shape from the hover ring, so focus and hover are never mistaken for each other.",
 				"outline": "1px solid var(--color-focus)"
 			},
 			"active": {
+				"$description": "Pressed: the ring stays, the lift goes, and the shadow collapses — the button settles onto the surface it was floating over.",
 				"transform": "translateY(0)",
-				"boxShadow": "none"
+				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), none"
 			},
 			"disabled": {
 				"$description": "Flat and quiet, not a dimmed slab. Reducing a filled button to 55% opacity over a cream page produces a muddy grey that reads as a control that failed rather than one that is not available yet — so the fill is dropped instead of faded.",
@@ -158,14 +168,31 @@
 				"cursor": "default"
 			},
 			"loading": {
-				"$description": "Full strength, cursor progress. Reusing the disabled treatment for an in-flight action reads as \"you cannot do this\" rather than \"this is happening\".",
+				"$description": "Full strength with the ring showing, so an in-flight action reads as busy rather than unavailable. Reusing the disabled treatment says 'you cannot do this' when it means 'this is happening'.",
 				"cursor": "progress",
-				"opacity": "1"
+				"opacity": "1",
+				"boxShadow": "0 0 0 4px var(--btn-ring, transparent), var(--shadow-raised)"
 			}
 		},
 		"reducedMotion": {
 			"$description": "The press feedback goes; the control still responds. Never `animation:none` as a blanket — a button has no entrance animation to lose, but the rule is written per unit because for others it would remove the very thing that reveals the content.",
 			"transition": "none"
+		},
+		"parts": {
+			"badge": {
+				"$description": "The circular affordance at the trailing edge — the reference set's other good idea. It is where a spinner goes while loading and where a chevron goes at rest, so the button's right side has a fixed place for state instead of the label shifting when one appears.",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"inlineSize": "1.5rem",
+				"blockSize": "1.5rem",
+				"flexShrink": "0",
+				"marginInlineEnd": "-0.5rem",
+				"marginInlineStart": "0.125rem",
+				"borderRadius": "var(--radius-full)",
+				"background": "var(--color-btn-badge, rgb(255 255 255 / 0.22))",
+				"color": "inherit"
+			}
 		}
 	},
 	"a11y": {

@@ -33,10 +33,6 @@
 			"types": "./dist/design.d.ts",
 			"import": "./dist/design.js"
 		},
-		"./kitchen-sink": {
-			"types": "./dist/kitchen-sink.d.ts",
-			"import": "./dist/kitchen-sink.js"
-		},
 		"./vibes": {
 			"types": "./dist/vibes/index.d.ts",
 			"import": "./dist/vibes/index.js"

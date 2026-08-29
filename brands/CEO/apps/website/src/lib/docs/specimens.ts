@@ -11,6 +11,15 @@
  * has states worth seeing, more than one of them side by side. Markup rather
  * than a render call because the units are still CSS-only on this surface —
  * when they render through the engine this file becomes the props instead.
+ *
+ * SAFETY. These strings reach the page through Svelte's `{@html}`, which does
+ * no sanitising at all. That is safe here for exactly one reason: every string
+ * in this file is a build-time constant written by hand, and none of it comes
+ * from a config, a network response or a URL. If a specimen ever needs to come
+ * from data, it must go through the engine's renderer instead — which is what
+ * `SAFE_TAGS` and the icon registry exist for — and not through this file.
+ * The engine itself never accepts raw HTML; this is a docs page taking a
+ * shortcut the engine deliberately refuses.
  */
 import { icons } from '@myavenceo/aven-ceo/icons'
 import { renderIcon } from '@myavenceo/aven-vibes'
@@ -48,14 +57,26 @@ const icon = (name: string, size = '1rem') => renderIcon(name, icons, { size })
 export const specimens: Record<string, Specimen> = {
 	btn: {
 		one: `<button class="btn" type="button">Hire your Aven</button>`,
-		html: `<span class="sp-row">
-			<button class="btn btn--primary btn--size-md" type="button">Hire your Aven</button>
-			<button class="btn btn--accent btn--size-md" type="button">Claim your name</button>
-			<button class="btn btn--secondary btn--size-md" type="button">Read the docs</button>
-			<button class="btn btn--danger btn--size-md" type="button">Delete account</button>
-			<button class="btn btn--primary btn--size-md" type="button" disabled>Unavailable</button>
-			<button class="btn btn--unavailable btn--size-md" type="button">Coming soon</button>
-			<button class="btn btn--icon btn--size-md" type="button" aria-label="Search">${icon('search', '1.125rem')}</button>
+		html: `<span class="sp-stack sp-stack--wide" style="justify-items:center">
+			<span class="sp-row">
+				<button class="btn btn--primary" type="button">Hire your Aven</button>
+				<button class="btn btn--accent" type="button">Claim your name</button>
+				<button class="btn btn--success" type="button">Name claimed</button>
+			</span>
+			<span class="sp-row">
+				<button class="btn btn--secondary" type="button">Read the docs</button>
+				<button class="btn btn--danger" type="button">Delete account</button>
+				<button class="btn btn--unavailable" type="button">Coming soon</button>
+				<button class="btn btn--icon" type="button" aria-label="Search">${icon('search', '1.125rem')}</button>
+			</span>
+			<span class="sp-row">
+				<button class="btn btn--primary" type="button" aria-busy="true">
+					Claiming<span class="btn-badge">${icon('spinner', '0.875rem')}</span>
+				</button>
+				<button class="btn btn--accent" type="button">
+					Claim your name<span class="btn-badge">${icon('arrow-right', '0.875rem')}</span>
+				</button>
+			</span>
 		</span>`
 	},
 	icon: {

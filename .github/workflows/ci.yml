@@ -37,11 +37,11 @@ jobs:
         # restores it and the tree goes dirty — this is where that gets caught,
         # before it can be published.
         #
-        # `guidelines` is included because it was not, briefly, and a brand could
-        # have changed while its own documentation kept describing the old one.
+        # The guideline page used to be generated here too. It is gone: the
+        # storybook at /docs/brand replaced it, reads the unit registry directly,
+        # and cannot go stale the way a committed HTML file can.
         run: |
           bun run build:packages
-          bun run guidelines
           git diff --exit-code
       - name: Verify every package is publishable
         # All three, not just the one that used to be the only one.
