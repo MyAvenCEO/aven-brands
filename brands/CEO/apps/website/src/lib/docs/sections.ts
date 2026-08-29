@@ -31,6 +31,7 @@ import {
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
+import { unitNames, units } from '@myavenceo/aven-ceo/units'
 import { renderIcon } from '@myavenceo/aven-vibes'
 
 export type SwatchRow = {
@@ -112,6 +113,63 @@ export const colourGroups = [
 		rows: rows(ROLES)
 	}
 ] as const
+
+/* ── Units ──────────────────────────────────────────────────────────────── */
+
+/**
+ * The library, as it actually is: leafs and composites.
+ *
+ * Not "components". A leaf is a unit with no slots — it renders itself and
+ * nothing goes inside it. A composite has slots, so it is a shape other units
+ * are placed into. That distinction is the architecture, and the docs page was
+ * still showing the pre-unit vocabulary (`.card`, `.chip`, `.well`, `.mark`),
+ * which is a list of class names rather than a library.
+ *
+ * Read from the registry rather than listed here, so a unit that exists appears
+ * and one that does not, does not.
+ */
+export type UnitRow = {
+	name: string
+	kind: 'leaf' | 'composite'
+	description: string
+	slots: string[]
+	variants: Array<{ axis: string; options: string[] }>
+	states: string[]
+	parts: string[]
+	animates: boolean
+}
+
+const unitRow = (name: string): UnitRow => {
+	const u = units[name] as {
+		description?: string
+		interface?: { slots?: Record<string, unknown> }
+		styling?: {
+			variants?: Record<string, Record<string, unknown>>
+			states?: Record<string, unknown>
+			parts?: Record<string, unknown>
+			keyframes?: Record<string, unknown>
+		}
+	}
+	const slots = Object.keys(u.interface?.slots ?? {})
+	const styling = u.styling ?? {}
+	return {
+		name,
+		kind: slots.length ? 'composite' : 'leaf',
+		description: u.description ?? '',
+		slots,
+		variants: Object.entries(styling.variants ?? {}).map(([axis, options]) => ({
+			axis,
+			options: Object.keys(options).filter((o) => !o.startsWith('$'))
+		})),
+		states: Object.keys(styling.states ?? {}),
+		parts: Object.keys(styling.parts ?? {}),
+		animates: Boolean(styling.keyframes)
+	}
+}
+
+export const unitRows: UnitRow[] = unitNames.map(unitRow)
+export const leafRows = unitRows.filter((u) => u.kind === 'leaf')
+export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
 
 /* ── Type ───────────────────────────────────────────────────────────────── */
 
@@ -199,6 +257,6 @@ export const sections: DocSection[] = [
 		label: 'Geometry',
 		count: radiusScale.length + spaceScale.length + elevationScale.length
 	},
-	{ id: 'components', label: 'Components', count: componentNames.length },
+	{ id: 'library', label: 'Library', count: unitRows.length },
 	{ id: 'layouts', label: 'Layouts', count: layoutNames.length }
 ]

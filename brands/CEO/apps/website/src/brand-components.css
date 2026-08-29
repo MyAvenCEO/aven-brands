@@ -901,6 +901,11 @@
 		color: var(--color-foreground-soft);
 	}
 
+	.accordion-label {
+		min-inline-size: 0;
+		overflow-wrap: anywhere;
+	}
+
 	.select {
 		display: grid;
 		gap: var(--space-hairline);

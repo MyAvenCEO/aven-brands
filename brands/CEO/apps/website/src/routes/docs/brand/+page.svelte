@@ -15,7 +15,7 @@
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import {
 	colourGroups,
-	componentNames,
+	compositeRows,
 	declarationsOf,
 	elevationScale,
 	fontStacks,
@@ -23,15 +23,16 @@ import {
 	iconMarkup,
 	inkScale,
 	layoutNames,
+	leafRows,
 	logoVariants,
 	radiusScale,
 	sections,
 	spaceScale,
-	specimenTag,
 	tintScale,
 	trackingScale,
 	typeScale
 } from '$lib/docs/sections'
+import { specimens } from '$lib/docs/specimens'
 
 /**
  * Which steps the brand sets in its DISPLAY face rather than its body face.
@@ -356,46 +357,47 @@ function inspect(name: string) {
 						{/each}
 					</div>
 				</section>
-			{:else if active === 'components'}
-				<section class="cb-section">
-					<p class="eyebrow-quiet">Components</p>
-					<p class="meta">
-						Every named component the brand defines, drawn as itself. Select one to read its
-						declarations.
-					</p>
-					<div class="cb-gallery">
-						{#each componentNames as name (name)}
-							<div class="cb-piece">
-								<button
-									type="button"
-									class="cb-piece-head"
-									aria-expanded={inspecting === name}
-									onclick={() => inspect(name)}
-								>
-									<span class="cb-mono">.{name}</span>
-									<span class="cb-mono">{inspecting === name ? 'Hide' : 'Inspect'}</span>
-								</button>
-								<div class="cb-stage">
-									{#if specimenTag(name) === 'button'}
-										<button type="button" class={name}>Continue</button>
-									{:else}
-										<div class={name}>The quick brown fox</div>
+			{:else if active === 'library'}
+				{#each [{ id: 'leafs', title: 'Leafs', rows: leafRows, lede: 'A unit with no slots. It renders itself and nothing goes inside it.' }, { id: 'composites', title: 'Composites', rows: compositeRows, lede: 'A unit with slots — a shape other units are placed into. The slot names are the contract.' }] as group (group.id)}
+					<section class="cb-section">
+						<p class="eyebrow-quiet">{group.title}</p>
+						<p class="meta">{group.lede}</p>
+						<div class="cb-units">
+							{#each group.rows as unit (unit.name)}
+								<article class="cb-unit" class:cb-unit--tall={specimens[unit.name]?.tall}>
+									<header class="cb-unit-head">
+										<span class="cb-unit-name">{unit.name}</span>
+										<span class="cb-unit-tags">
+											{#if unit.animates}
+												<span class="cb-tag">animates</span>
+											{/if}
+											{#each unit.variants as axis (axis.axis)}
+												<span class="cb-tag">{axis.axis}: {axis.options.length}</span>
+											{/each}
+											{#if unit.parts.length}
+												<span class="cb-tag">{unit.parts.length} parts</span>
+											{/if}
+											{#if unit.states.length}
+												<span class="cb-tag">{unit.states.length} states</span>
+											{/if}
+										</span>
+									</header>
+									<div class="cb-unit-stage">
+										{#if specimens[unit.name]}
+											{@html specimens[unit.name].html}
+										{:else}
+											<p class="cb-mono cb-unit-todo">no specimen yet</p>
+										{/if}
+									</div>
+									<p class="cb-unit-note">{unit.description}</p>
+									{#if unit.slots.length}
+										<p class="cb-mono cb-unit-slots">slots: {unit.slots.join(', ')}</p>
 									{/if}
-								</div>
-								{#if inspecting === name}
-									<dl class="cb-decls">
-										{#each inspectedDecls as [prop, value] (prop)}
-											<div class="cb-decl">
-												<dt class="cb-mono">{prop}</dt>
-												<dd class="cb-mono">{value}</dd>
-											</div>
-										{/each}
-									</dl>
-								{/if}
-							</div>
-						{/each}
-					</div>
-				</section>
+								</article>
+							{/each}
+						</div>
+					</section>
+				{/each}
 			{:else if active === 'layouts'}
 				<section class="cb-section">
 					<p class="eyebrow-quiet">Layouts</p>
@@ -591,6 +593,101 @@ function inspect(name: string) {
 	background: var(--color-surface-raised);
 	/* The reason the registry exists: one glyph, both themes. */
 	color: var(--color-foreground);
+}
+/* ── The library gallery ─────────────────────────────────────────────────
+   One card per unit, each one drawing itself doing its job. Wide, because a
+   toast, a table and a modal do not fit in a third of a column and shrinking
+   them until they do is how a gallery stops showing you the thing. */
+.cb-units {
+	display: grid;
+	gap: var(--space-comfortable);
+	grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr));
+	margin-block-start: var(--space-tight);
+}
+.cb-unit {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-inline-size: 0;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-card);
+	background: var(--color-surface-raised);
+	overflow: hidden;
+}
+.cb-unit--tall .cb-unit-stage {
+	min-block-size: 16rem;
+}
+.cb-unit-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-hairline);
+	padding: var(--space-tight) var(--space-comfortable);
+	border-block-end: 1px solid var(--color-border-soft);
+	background: var(--color-muted);
+}
+.cb-unit-name {
+	font-family: var(--font-mono);
+	font-size: var(--fs-meta);
+	font-weight: 600;
+	color: var(--color-foreground);
+}
+.cb-unit-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+.cb-tag {
+	padding: 0.05rem 0.4rem;
+	border-radius: var(--radius-pill);
+	background: var(--color-surface-page);
+	font-family: var(--font-mono);
+	font-size: var(--fs-nano);
+	color: var(--color-foreground-quiet);
+}
+.cb-unit-stage {
+	display: grid;
+	place-items: center;
+	gap: var(--space-tight);
+	min-block-size: 9rem;
+	padding: var(--space-comfortable);
+	/* The stage is the PAGE ground, not the card's — a specimen has to be seen
+	   against what it will actually sit on. */
+	background: var(--color-surface-page);
+	overflow: hidden;
+}
+.cb-unit-note {
+	margin: 0;
+	padding: var(--space-tight) var(--space-comfortable);
+	border-block-start: 1px solid var(--color-border-soft);
+	font-size: var(--fs-micro);
+	line-height: 1.5;
+	color: var(--color-foreground-quiet);
+}
+.cb-unit-slots,
+.cb-unit-todo {
+	margin: 0;
+	padding: 0 var(--space-comfortable) var(--space-tight);
+	color: var(--color-foreground-quiet);
+}
+/* The specimens' own scaffolding — a row, or a stack. Deliberately only two:
+   a specimen that needs a third layout is a specimen doing too much. */
+.sp-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-tight);
+}
+.sp-stack {
+	display: grid;
+	gap: var(--space-tight);
+	inline-size: 100%;
+	max-inline-size: 22rem;
+	min-inline-size: 0;
+}
+.sp-stack--wide {
+	max-inline-size: 100%;
 }
 .cb-swatches {
 	display: grid;
