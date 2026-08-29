@@ -117,42 +117,38 @@ const DETAIL_VIEWS = ['preview', 'config'] as const
  * to answer the question.
  */
 const VIEWPORTS = [
-	{
-		id: 'desktop',
-		/* ds-allow-hardcode:start — every number here IS the specification. A
-		   token would name a breakpoint the design system uses for LAYOUT; these
-		   are the widths a specimen is being INSPECTED at, and the label says each
-		   one out loud because the reader needs to know where they are. */
-		label: 'Desktop — 1440px',
-		/* The stage is roughly 1000px on a laptop, so a composite that only
-		   misbehaves past 1200 could not be seen at all. `width` is the width the
-		   specimen BELIEVES it has and `scale` shrinks the result to fit — the
-		   container queries then fire at desktop thresholds inside a stage that is
-		   physically much smaller. It is the browser's own device emulation, done
-		   in a box. */
-		width: '1440px',
-		scale: 0.5,
-		icon: renderIcon('external', icons, { size: '1em' })
-	},
+	/* ds-allow-hardcode:start — every number here IS the specification. A token
+	   would name a breakpoint the design system uses for LAYOUT; these are the
+	   widths a specimen is being INSPECTED at, and each label says its number out
+	   loud because the reader needs to know where they are.
+
+	   TABLET FIRST, and it is the default. It is the width where the most
+	   decisions are visible at once — the navigation has survived, the social row
+	   and the language switch have not, and the hamburger has appeared — so it
+	   shows a composite doing something rather than sitting at either extreme. */
 	{
 		id: 'tablet',
 		label: 'Tablet — 768px',
-		width: '768px',
-		scale: 1,
-		icon: renderIcon('menu', icons, { size: '1em' })
+		width: 768,
+		icon: renderIcon('device-tablet', icons, { size: '1em' })
 	},
 	{
 		id: 'mobile',
 		label: 'Mobile — 390px',
-		width: '390px',
-		scale: 1,
+		width: 390,
+		icon: renderIcon('device-phone', icons, { size: '1em' })
+	},
+	{
+		id: 'desktop',
+		label: 'Desktop — 1440px',
+		width: 1440,
 		/* ds-allow-hardcode:end */
-		icon: renderIcon('search', icons, { size: '1em' })
+		icon: renderIcon('device-desktop', icons, { size: '1em' })
 	}
 ] as const
 let detailView = $state<(typeof DETAIL_VIEWS)[number]>('preview')
 let openPart = $state<string | null>(null)
-let viewport = $state<(typeof VIEWPORTS)[number]['id']>('desktop')
+let viewport = $state<(typeof VIEWPORTS)[number]['id']>('tablet')
 let chosen = $state<Record<string, string>>({})
 
 const allRows = $derived([...leafRows, ...compositeRows])
@@ -164,31 +160,22 @@ const activePart = $derived(openUnit?.parts.find((p) => p.name === openPart))
 /**
  * The stage, pretending to be a screen it is not.
  *
- * `inline-size` is what the specimen believes it has; `scale` shrinks the
- * rendered result to fit the panel. A container query inside the specimen then
- * fires at the BELIEVED width — so a navbar in a 500px stage collapses or does
- * not collapse exactly as it would at 1440px, which is the only way to check a
- * desktop layout on a laptop that is showing you a sidebar and a detail pane at
- * the same time.
+ * `inline-size` is the width the specimen BELIEVES it has, so a container query
+ * inside it fires at that width — a navbar in a 700px panel collapses exactly as
+ * it would at 1440px, which is the only way to check a desktop layout on a
+ * laptop already showing a rail and a detail pane.
  *
- * `transform` rather than `zoom`: zoom is not a transform, it re-lays-out at the
- * scaled size and the container queries then see the SMALL width again, which
- * defeats the entire exercise.
+ * The SCALE is computed to fit rather than fixed, so the preview always fills
+ * the panel exactly and never overflows it. A fixed 0.5 left a 1440px box in a
+ * 720px panel: the layout box does not shrink with a transform, so it painted
+ * straight over the controls beside it.
+ *
+ * `transform`, not `zoom` — zoom re-lays-out at the scaled size, so the queries
+ * would see the small width again and the whole exercise cancels itself.
+ * `transform-origin: top left` so the scaled result starts where the box does;
+ * with `center` half of a too-wide element travels leftwards out of the panel.
  */
-const viewportStyle = $derived(
-	(() => {
-		const v = VIEWPORTS.find((x) => x.id === viewport)
-		if (!v?.width) return ''
-		const scale = v.scale ?? 1
-		const box = `inline-size:${v.width};max-inline-size:${v.width};margin-inline:auto;`
-		if (scale === 1) return box
-		/* The wrapper reserves the SCALED height, or a half-size specimen leaves
-		   half a stage of empty space under it. */
-		return `${box}transform:scale(${scale});transform-origin:top center;`
-	})()
-)
-/** What the scaled stage costs in layout height, so the panel does not gap. */
-const viewportShrink = $derived(VIEWPORTS.find((x) => x.id === viewport)?.scale ?? 1)
+const believedWidth = $derived(VIEWPORTS.find((x) => x.id === viewport)?.width ?? 1440)
 const partDecls = $derived(
 	openUnit && openPart ? declarationsOf(`${openUnit.name}-${openPart}`) : []
 )
@@ -369,16 +356,26 @@ function fitScaledStage(node: HTMLElement) {
 	const stage = node.querySelector<HTMLElement>('.cb-detail-stage')
 	if (!stage) return
 	const apply = () => {
-		const scale = Number(getComputedStyle(node).getPropertyValue('--cb-shrink')) || 1
+		const believes = Number(getComputedStyle(node).getPropertyValue('--cb-believes')) || 0
+		const available = node.clientWidth
+		if (!believes || !available) return
+		/* Never scale UP. A 390px phone preview inside a 700px panel should be a
+		   390px phone, not a blurry enlargement of one. */
+		const scale = Math.min(1, available / believes)
+		node.style.setProperty('--cb-scale', String(scale))
 		/* `scrollHeight`, not `offsetHeight`: the stage is a scroll container, so
 		   its offset height is the box it was GIVEN and its scroll height is what
-		   the specimen actually needs. Reserving the former clipped every specimen
-		   taller than the panel. */
+		   the specimen needs. Reserving the former clipped every specimen taller
+		   than the panel. */
 		node.style.setProperty('--cb-frame-h', `${stage.scrollHeight * scale}px`)
+		/* Centre the scaled result: the layout box keeps its believed width, so
+		   the visible box is narrower and would otherwise hug the left edge. */
+		node.style.setProperty('--cb-inset', `${Math.max(0, (available - believes * scale) / 2)}px`)
 	}
 	apply()
 	const observer = new ResizeObserver(apply)
 	observer.observe(stage)
+	observer.observe(node)
 	return () => observer.disconnect()
 }
 
@@ -793,6 +790,7 @@ function inspect(name: string) {
 										class="cb-tab"
 										role="tab"
 										aria-selected={viewport === vp.id}
+										aria-label={vp.label}
 										title={vp.label}
 										onclick={() => (viewport = vp.id)}
 									>
@@ -825,13 +823,13 @@ function inspect(name: string) {
 									     The frame reserves what the transform gave back. -->
 									<div
 										class="cb-detail-frame"
-										style="--cb-shrink:{viewportShrink}"
+										style="--cb-believes:{believedWidth}"
 										{@attach fitScaledStage}
 									>
 									<div
 										class="cb-detail-stage"
 										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
-										style={viewportStyle}
+										style="inline-size:{believedWidth}px" 
 										{@attach applyPreview(unit, variantClass, forcedState)}
 										{@attach wireSpecimen}
 									>
@@ -1720,13 +1718,21 @@ function inspect(name: string) {
    what is either side of you, and two arrows — the sequence read left to right,
    which is the direction the flow itself runs. */
 .cb-detail-frame {
-	/* Holds the scaled stage. A transform costs no layout height, so without this
-	   the panel keeps the FULL height and leaves a gap the size of what the scale
-	   removed. The height is MEASURED — a percentage margin would have resolved
-	   against the containing block's WIDTH, which is how the first attempt
-	   collapsed the stage to nothing. */
-	display: grid;
+	/* Holds the scaled stage. A transform costs no layout WIDTH or HEIGHT — the
+	   box keeps its believed size — so without this the 1440px desktop preview
+	   painted straight over the controls beside it and left a panel of empty
+	   space below. The height is measured; `overflow: hidden` handles the width.
+
+	   The height cannot be a percentage margin: percentage margins resolve
+	   against the containing block's INLINE size, which is how the first attempt
+	   collapsed the stage to nothing at all. */
+	display: block;
 	block-size: var(--cb-frame-h, auto);
+	overflow: hidden;
+}
+.cb-detail-frame > .cb-detail-stage {
+	transform: translateX(var(--cb-inset, 0)) scale(var(--cb-scale, 1));
+	transform-origin: top left;
 }
 .cb-walk {
 	display: flex;

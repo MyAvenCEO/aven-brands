@@ -7,6 +7,11 @@
 			"label": "string"
 		},
 		"slots": {
+			"close": {
+				"accepts": [
+					"icon"
+				]
+			},
 			"crest": {
 				"accepts": [
 					"logo"
@@ -33,6 +38,15 @@
 			{
 				"tag": "div",
 				"part": "scrim"
+			},
+			{
+				"tag": "button",
+				"part": "close",
+				"attrs": {
+					"type": "button",
+					"aria-label": "Close menu"
+				},
+				"$children": "close"
 			},
 			{
 				"tag": "nav",
@@ -84,6 +98,25 @@
 			}
 		},
 		"parts": {
+			"close": {
+				"$description": "A WAY OUT, in the corner. The menu had none: it relied on the bar's own toggle showing through from above, which works only while the bar is rendered above the overlay and is invisible to anyone who does not already know it is there. A full-screen takeover with no visible dismiss is the most common trap-the-user bug there is, and Escape alone does not help a touch user.\n\nOutlined in the ink at 25%, never filled \u2014 the same treatment `voice-pill` gives its side controls, because a filled button here would compete with the nav points that are the whole point of the surface.",
+				"position": "absolute",
+				"insetBlockStart": "var(--space-loose)",
+				"insetInlineEnd": "var(--space-loose)",
+				"zIndex": "1",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"inlineSize": "2.75rem",
+				"blockSize": "2.75rem",
+				"padding": "0",
+				"border": "1px solid color-mix(in oklab, var(--color-primary-foreground) 25%, transparent)",
+				"borderRadius": "var(--radius-full)",
+				"background": "transparent",
+				"color": "var(--color-primary-foreground)",
+				"cursor": "pointer",
+				"transition": "background var(--duration-quick) var(--ease-out)"
+			},
 			"crest": {
 				"$description": "The mark, at the top. Every full-surface moment in this system leads with it \u2014 `flow-card` made `crest` a slot for exactly this reason \u2014 and a takeover that covers the whole page with no identity on it is a page you have to reconstruct from the links.",
 				"display": "grid",
@@ -204,6 +237,6 @@
 		"interactive": true
 	},
 	"a11y": {
-		"note": "A dialog in everything but name: while it is open, focus is trapped inside it, Escape closes it, and focus returns to the toggle that opened it. The page behind it is `inert` \u2014 without that, a screen reader and a Tab key both walk straight through the scrim into a page the sighted user cannot see.\n\nONE navigation landmark, not two. The menu holds the same links the bar does, so it must be the same `<nav>` moved rather than a hidden second copy; two landmarks with the same label is a screen reader announcing the navigation twice and a keyboard user tabbing through it twice.\n\n`visibility: hidden` rather than `display: none` in the closed state, so the open transition has something to animate from \u2014 and so the closed menu is genuinely removed from the tab order, which `opacity: 0` alone does not do."
+		"note": "A visible CLOSE control, not only Escape. A dialog in everything but name: while it is open, focus is trapped inside it, Escape closes it, and focus returns to the toggle that opened it. The page behind it is `inert` \u2014 without that, a screen reader and a Tab key both walk straight through the scrim into a page the sighted user cannot see.\n\nONE navigation landmark, not two. The menu holds the same links the bar does, so it must be the same `<nav>` moved rather than a hidden second copy; two landmarks with the same label is a screen reader announcing the navigation twice and a keyboard user tabbing through it twice.\n\n`visibility: hidden` rather than `display: none` in the closed state, so the open transition has something to animate from \u2014 and so the closed menu is genuinely removed from the tab order, which `opacity: 0` alone does not do."
 	}
 }

@@ -3757,13 +3757,16 @@
 		min-block-size: 3.5rem;
 		padding-inline: var(--space-comfortable);
 
-		@container navbar (max-width: 47.999rem) {
+		@container navbar (max-width: 61.999rem) {
 
 			& .social-row {
 				display: none;
 			}
-			& .navbar-actions {
+			& .segment {
 				display: none;
+			}
+			& .navbar-actions {
+				margin-inline-start: auto;
 			}
 		}
 	}
@@ -3781,7 +3784,7 @@
 		gap: var(--space-comfortable);
 		margin-inline-start: auto;
 
-		@container navbar (max-width: 47.999rem) {
+		@container navbar (max-width: 33.999rem) {
 			display: none;
 		}
 	}
@@ -3805,9 +3808,13 @@
 		background: transparent;
 		color: inherit;
 		cursor: pointer;
+		margin-inline-start: var(--navbar-toggle-push, 0);
 
-		@container navbar (min-width: 48rem) {
+		@container navbar (min-width: 62rem) {
 			display: none;
+		}
+		@container navbar (max-width: 61.999rem) {
+			--navbar-toggle-push: auto;
 		}
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			background: var(--color-muted);
@@ -3872,6 +3879,25 @@
 			transition: none;
 			animation: none;
 		}
+	}
+
+	.nav-menu-close {
+		position: absolute;
+		inset-block-start: var(--space-loose);
+		inset-inline-end: var(--space-loose);
+		z-index: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 2.75rem;
+		block-size: 2.75rem;
+		padding: 0;
+		border: 1px solid color-mix(in oklab, var(--color-primary-foreground) 25%, transparent);
+		border-radius: var(--radius-full);
+		background: transparent;
+		color: var(--color-primary-foreground);
+		cursor: pointer;
+		transition: background var(--duration-quick) var(--ease-out);
 	}
 
 	.nav-menu-crest {

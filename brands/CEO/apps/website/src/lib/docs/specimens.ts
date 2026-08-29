@@ -464,6 +464,7 @@ export const specimens: Record<string, Specimen> = {
 			</span>
 			<span class="nav-menu" id="sp-nav-menu" data-open="false" style="position:absolute">
 				<span class="nav-menu-scrim"></span>
+				<button class="nav-menu-close" type="button" aria-label="Close menu" aria-expanded="true" aria-controls="sp-nav-menu">${icon('close', '1.25rem')}</button>
 				<span class="nav-menu-panel">
 									<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span></span>
 					<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>
@@ -489,6 +490,7 @@ export const specimens: Record<string, Specimen> = {
 		   the stage and covers the docs page. */
 		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; block-size:15rem; border-radius:var(--radius-lg); overflow:hidden">
 			<span class="nav-menu-scrim"></span>
+			<button class="nav-menu-close" type="button" aria-label="Close menu">${icon('close', '1.25rem')}</button>
 			<span class="nav-menu-panel">
 				<span class="nav-menu-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span></span>
 				<p class="text text--eyebrow nav-menu-eyebrow">Where to</p>

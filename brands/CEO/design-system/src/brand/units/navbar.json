@@ -112,15 +112,18 @@
 				"maxInlineSize": "84rem",
 				"minBlockSize": "3.5rem",
 				"paddingInline": "var(--space-comfortable)",
-				"@container navbar (max-width: 47.999rem)": {
+				"$description": "When the bar is narrow, EVERYTHING except the brand and the toggle goes. It was only the links: the social row and the language switch stayed, crowding a 320px bar beside a hamburger that offers the same things one tap away. The menu is where they live at that width \u2014 which is what the menu is for.\n\nIT COLLAPSES IN TWO STAGES, because the things in it are not equally important. Below 62rem the social row and the language switch go \u2014 they are reachable in the menu and neither is why anyone came. Below 34rem the LINKS go too. Between those two widths, which is where a tablet sits, you get the navigation and the call to action and nothing else: the destinations survive longest because they are the bar's actual job.\n\nOne stage was wrong in both directions. At 768px it hid the nav \u2014 a tablet has room for four links \u2014 and at 400px it kept the social row beside a hamburger offering the same four marks one tap away.",
+				"@container navbar (max-width: 61.999rem)": {
 					"& .social-row": {
 						"display": "none"
 					},
-					"& .navbar-actions": {
+					"& .segment": {
 						"display": "none"
+					},
+					"& .navbar-actions": {
+						"marginInlineStart": "auto"
 					}
-				},
-				"$description": "When the bar is narrow, EVERYTHING except the brand and the toggle goes. It was only the links: the social row and the language switch stayed, crowding a 320px bar beside a hamburger that offers the same things one tap away. The menu is where they live at that width \u2014 which is what the menu is for."
+				}
 			},
 			"brand": {
 				"display": "flex",
@@ -129,12 +132,12 @@
 				"flexShrink": "0"
 			},
 			"links": {
-				"$description": "Visible by DEFAULT, hidden when the bar is narrow. It was the other way round \u2014 `display: none` in the base, and a `breakpoint: md` variant that set `display: none` again. So the links were hidden always, the variant that claimed to hide them changed nothing, and the only thing ever revealing them was a surface writing its own rule. Three separate bugs agreeing with each other.\n\nThe threshold is measured, not chosen: brand 118px + links 360px + actions 128px + gaps needs 686px, so 48rem gives about 80px of headroom \u2014 which the German labels use, since MARKTPLATZ runs longer than MARKETPLACE.\n\nHidden on the BAR's width, not the window's. A navbar in a 400px preview card and a navbar on a 400px phone are the same problem; a viewport query gets the first one wrong, which is exactly what the storybook showed.",
+				"$description": "Visible by DEFAULT, hidden when the bar is narrow. It was the other way round \u2014 `display: none` in the base, and a `breakpoint: md` variant that set `display: none` again. So the links were hidden always, the variant that claimed to hide them changed nothing, and the only thing ever revealing them was a surface writing its own rule. Three separate bugs agreeing with each other.\n\nThe threshold is measured, not chosen: brand 118px + links 360px + actions 128px + gaps needs 686px, so 48rem gives about 80px of headroom \u2014 which the German labels use, since MARKTPLATZ runs longer than MARKETPLACE.\n\nHidden on the BAR's width, not the window's. A navbar in a 400px preview card and a navbar on a 400px phone are the same problem; a viewport query gets the first one wrong, which is exactly what the storybook showed.\n\nThe LAST thing to go, at 34rem. The links are what a navigation bar is for, so they outlive the social row and the language switch by nearly thirty rem \u2014 a tablet keeps its navigation, a phone does not have room for it.",
 				"display": "flex",
 				"alignItems": "center",
 				"gap": "var(--space-comfortable)",
 				"marginInlineStart": "auto",
-				"@container navbar (max-width: 47.999rem)": {
+				"@container navbar (max-width: 33.999rem)": {
 					"display": "none"
 				}
 			},
@@ -156,10 +159,14 @@
 				"background": "transparent",
 				"color": "inherit",
 				"cursor": "pointer",
-				"@container navbar (min-width: 48rem)": {
+				"$description": "The inverse of `links`, on the same container width, so exactly one of the two is ever visible. Both were shown at once before \u2014 the desktop links AND the hamburger \u2014 which offers the same navigation twice and makes the hamburger look broken when pressing it reveals nothing new.\n\nIt appears the moment ANYTHING has been folded away \u2014 below 62rem, not below 34 \u2014 because that is when there is something behind it. A hamburger that opens a menu holding nothing the bar was not already showing is a control that teaches you to ignore it.\n\nPushed to the trailing edge whenever it is visible, so it sits on the container's own edge rather than floating beside the call to action.",
+				"@container navbar (min-width: 62rem)": {
 					"display": "none"
 				},
-				"$description": "The inverse of `links`, on the same container width, so exactly one of the two is ever visible. Both were shown at once before \u2014 the desktop links AND the hamburger \u2014 which offers the same navigation twice and makes the hamburger look broken when pressing it reveals nothing new."
+				"marginInlineStart": "var(--navbar-toggle-push, 0)",
+				"@container navbar (max-width: 61.999rem)": {
+					"--navbar-toggle-push": "auto"
+				}
 			},
 			"drawer": {
 				"$description": "Full-height and translated off-screen rather than `display:none`, so it can animate and so focus management has something real to trap. It is `inert` while closed, which is what stops a keyboard from tabbing into a menu nobody can see.",
