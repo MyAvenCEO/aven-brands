@@ -1429,10 +1429,19 @@ function inspect(name: string) {
 .cb-units {
 	display: grid;
 	gap: var(--space-comfortable);
-	/* 21rem, not 24. `auto-fill` fits as many columns as the MINIMUM allows, so
-	   three at 24rem needed 1184px and the main region is 1176 — it missed by
-	   eight pixels and dropped to two columns with a third of the screen empty. */
-	grid-template-columns: repeat(auto-fill, minmax(min(21rem, 100%), 1fr));
+	/* The track has a CEILING as well as a floor, and the ceiling is what the
+	   square made necessary. With `1fr` the tracks absorb every spare pixel, and
+	   a card that is square absorbs them on both axes: at a 1044px main region
+	   that produced two 494x494 cards, each holding one badge in an ocean of
+	   ground. Capping at 22rem keeps a card the size of the thing it is showing.
+	   The floor is 19rem, not 21: `auto-fill` fits as many columns as the MINIMUM
+	   allows, and 21 gave two tracks at this width where 19 gives three, which
+	   then share the space and land at ~337px each.
+	   The cap goes on the CARD, not the track. `auto-fill` counts tracks by the
+	   track's MAX when that max is definite, so capping the track at 22rem gave
+	   two columns and a centred grid with 320px of margin either side. A `1fr`
+	   track still gives three; the card is bounded inside it and centred. */
+	grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr));
 	margin-block-start: var(--space-tight);
 }
 .cb-unit {
@@ -1449,6 +1458,13 @@ function inspect(name: string) {
 	grid-template-rows: auto minmax(0, 1fr);
 	aspect-ratio: 1;
 	min-inline-size: 0;
+	/* Square, and bounded. A square that grows with its track grows on BOTH
+	   axes: at a 1044px main region an unbounded card was 494x494 holding one
+	   badge. 22rem is about the size of the largest thing any specimen actually
+	   is. */
+	max-inline-size: 22rem;
+	margin-inline: auto;
+	inline-size: 100%;
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	background: var(--color-surface-raised);
