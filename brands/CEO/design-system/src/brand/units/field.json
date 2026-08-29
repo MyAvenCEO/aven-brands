@@ -1,6 +1,6 @@
 {
 	"name": "field",
-	"description": "A labelled input and everything that has to travel with it: the label, the hint, the error, and the wiring that ties them together. 30 uses, 26 of them in avenID, where the same four elements were reassembled by hand each time — which is how a field ends up with a visible error that no screen reader announces.",
+	"description": "A labelled input and everything that has to travel with it: the label, the hint, the error, and the wiring that ties them together. 30 uses, 26 of them in avenID, where the same four elements were reassembled by hand each time — which is how a field ends up with a visible error no screen reader announces.\n\nThe `shape` axis is what the claim card needed. A field with a fixed suffix — `.aven.ceo` — is not a placeholder and not a label: it is part of the control, it must not be selectable as text the user could delete, and it has to sit inside the same border so the two read as one field. That was eighty-odd utilities across two elements at the call site.",
 	"interface": {
 		"props": {
 			"id": "string",
@@ -90,20 +90,84 @@
 			"error": {
 				"fontSize": "var(--fs-micro)",
 				"color": "var(--color-error-ink)"
+			},
+			"shell": {
+				"$description": "The border, so a suffix or an affix can sit INSIDE it. The control carries no border of its own in that shape — two borders side by side read as two fields.",
+				"display": "flex",
+				"alignItems": "stretch",
+				"minInlineSize": "0",
+				"borderRadius": "var(--radius-sm)",
+				"border": "1px solid var(--color-border-strong)",
+				"background": "var(--color-input)",
+				"overflow": "hidden"
+			},
+			"suffix": {
+				"$description": "A fixed tail — `.aven.ceo`, a currency, a unit. `user-select:none` because it is chrome and not content: a user who drag-selects the field should get what they typed, not what the system appended.",
+				"display": "flex",
+				"alignItems": "center",
+				"flexShrink": "0",
+				"userSelect": "none",
+				"paddingInline": "var(--space-comfortable)",
+				"borderInlineStart": "1px solid var(--color-border-soft)",
+				"background": "var(--color-surface-sunken)",
+				"color": "var(--color-foreground-soft)"
+			},
+			"prefix": {
+				"$description": "A fixed head — a scheme, a currency symbol. Same rules as suffix.",
+				"display": "flex",
+				"alignItems": "center",
+				"flexShrink": "0",
+				"userSelect": "none",
+				"paddingInline": "var(--space-comfortable)",
+				"borderInlineEnd": "1px solid var(--color-border-soft)",
+				"background": "var(--color-surface-sunken)",
+				"color": "var(--color-foreground-soft)"
 			}
 		},
 		"variants": {
 			"size": {
+				"$description": "How big. `hero` is the single field a landing page is built around — the one the eye lands on after the headline.",
 				"sm": {
 					"$part": "control",
 					"minBlockSize": "2.25rem",
 					"fontSize": "var(--fs-meta)"
+				},
+				"hero": {
+					"$part": "control",
+					"minBlockSize": "5rem",
+					"fontSize": "var(--fs-amount)",
+					"fontWeight": "500",
+					"textAlign": "end",
+					"paddingInline": "var(--space-loose)"
+				}
+			},
+			"shape": {
+				"$description": "What the control is made of. `affixed` moves the border to the shell so a prefix or suffix can live inside it; `pill` is for the one field a page is built around.",
+				"affixed": {
+					"$part": "control",
+					"border": "0",
+					"background": "transparent",
+					"borderRadius": "0"
+				},
+				"pill": {
+					"$part": "shell",
+					"borderRadius": "var(--radius-full)",
+					"borderWidth": "2px",
+					"borderColor": "var(--color-accent-edge)",
+					"boxShadow": "var(--shadow-floating)"
+				}
+			},
+			"align": {
+				"end": {
+					"$part": "control",
+					"textAlign": "end"
 				}
 			}
 		},
 		"states": {
 			"focus": {
-				"$part": "control",
+				"$description": "On the SHELL, not the control — in an affixed field the input has no border of its own, so a ring on it would draw inside the shell and look like a mistake. `:focus-within` is what carries it there.",
+				"$part": "shell",
 				"outline": "1px solid var(--color-focus)"
 			},
 			"invalid": {

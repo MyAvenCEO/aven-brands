@@ -1,0 +1,205 @@
+{
+	"name": "claim-card",
+	"description": "The name-claim offer, and the single most assembled-by-hand thing on the site: a bordered panel, an eyebrow, a heading, a lede, a two-column benefit list, a price block, an affixed field, a submit, and a full-bleed offer strip that bleeds past the panel's own padding using negative margins. Roughly a hundred and forty utilities across nine elements, with the bleed spelled `-mx-5 -mb-9 sm:-mx-10 sm:-mb-11` — four numbers that have to match the panel's padding exactly and had no way of knowing when it changed.\n\nIt is here because it is the page's whole conversion, and because every part of it was a decision nobody could find twice.",
+	"interface": {
+		"props": {
+			"labelledBy": "string"
+		},
+		"slots": {
+			"eyebrow": {},
+			"heading": {},
+			"lede": {},
+			"benefits": {},
+			"price": {},
+			"form": {
+				"accepts": ["field", "btn"]
+			},
+			"offer": {}
+		}
+	},
+	"view": {
+		"tag": "section",
+		"attrs": {
+			"aria-labelledby": "$props.labelledBy"
+		},
+		"$children": [
+			{
+				"tag": "div",
+				"part": "body",
+				"$children": [
+					{
+						"tag": "p",
+						"part": "eyebrow",
+						"$children": "eyebrow"
+					},
+					{
+						"tag": "h2",
+						"part": "heading",
+						"attrs": {
+							"id": "$props.labelledBy"
+						},
+						"$children": "heading"
+					},
+					{
+						"tag": "p",
+						"part": "lede",
+						"$children": "lede"
+					},
+					{
+						"tag": "ul",
+						"part": "benefits",
+						"$children": "benefits"
+					},
+					{
+						"tag": "div",
+						"part": "price",
+						"$children": "price"
+					},
+					{
+						"tag": "div",
+						"part": "form",
+						"$children": "form"
+					}
+				]
+			},
+			{
+				"tag": "div",
+				"part": "offer",
+				"$children": "offer"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "`overflow: clip` is what makes the offer strip work. The strip is full-bleed to the panel's edges and the panel is rounded, so without clipping its square corners escape the radius. The old markup solved this with negative margins that had to match the padding by hand.",
+			"display": "grid",
+			"minInlineSize": "0",
+			"borderRadius": "var(--radius-xl)",
+			"border": "1px solid var(--color-accent-border)",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "var(--shadow-raised)",
+			"overflow": "clip"
+		},
+		"parts": {
+			"body": {
+				"display": "grid",
+				"gap": "var(--space-loose)",
+				"justifyItems": "center",
+				"padding": "var(--space-section) var(--space-loose)",
+				"textAlign": "center"
+			},
+			"eyebrow": {
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-widest)",
+				"color": "var(--color-eyebrow-ink)"
+			},
+			"heading": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "var(--fs-display)",
+				"fontWeight": "400",
+				"lineHeight": "1.15",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			},
+			"lede": {
+				"margin": "0",
+				"maxInlineSize": "52ch",
+				"fontSize": "var(--fs-body)",
+				"lineHeight": "1.55",
+				"color": "var(--color-foreground-soft)"
+			},
+			"benefits": {
+				"$description": "Two columns that become one below the fold-in width, via `auto-fit` rather than a breakpoint — the count varies and a fixed column rule drops the tail. `text-align: start` on purpose: a centred list of four items has four different left edges and reads as ragged.",
+				"display": "grid",
+				"gap": "var(--space-tight) var(--space-loose)",
+				"gridTemplateColumns": "repeat(auto-fit, minmax(min(15rem, 100%), 1fr))",
+				"margin": "0",
+				"padding": "0",
+				"inlineSize": "100%",
+				"listStyle": "none",
+				"textAlign": "start"
+			},
+			"benefit": {
+				"$description": "The bullet is a `::before` dot in the accent, not a list marker — a marker cannot be coloured separately from its text in every engine, and colour is the only thing distinguishing it.",
+				"display": "grid",
+				"gridTemplateColumns": "auto 1fr",
+				"gap": "var(--space-tight)",
+				"alignItems": "start",
+				"fontSize": "var(--fs-meta)",
+				"lineHeight": "1.45",
+				"color": "var(--color-foreground)"
+			},
+			"price": {
+				"display": "flex",
+				"flexWrap": "wrap",
+				"alignItems": "baseline",
+				"justifyContent": "center",
+				"gap": "var(--space-tight)",
+				"inlineSize": "100%",
+				"padding": "var(--space-comfortable)",
+				"borderRadius": "var(--radius-md)",
+				"background": "var(--color-muted)"
+			},
+			"amount": {
+				"fontSize": "var(--fs-display)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-tight)",
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground)"
+			},
+			"terms": {
+				"fontSize": "var(--fs-meta)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"form": {
+				"$description": "Column on a phone, row from `sm` — and `align-items: stretch`, so the submit matches the field's height without either one being told what that height is.",
+				"display": "flex",
+				"flexWrap": "wrap",
+				"alignItems": "stretch",
+				"justifyContent": "center",
+				"gap": "var(--space-tight)",
+				"inlineSize": "100%"
+			},
+			"offer": {
+				"$description": "Full-bleed to the panel's edges, which `overflow: clip` on the panel makes possible without a single negative margin. The old version spelled it `-mx-5 -mb-9 sm:-mx-10 sm:-mb-11` — four numbers that had to track the body's padding and could not know when it changed.",
+				"padding": "var(--space-comfortable) var(--space-loose)",
+				"background": "var(--color-accent)",
+				"color": "var(--color-accent-foreground)",
+				"textAlign": "center"
+			},
+			"offer-line": {
+				"margin": "0",
+				"fontSize": "var(--fs-body)",
+				"fontWeight": "700"
+			},
+			"offer-note": {
+				"margin": "0.15rem 0 0",
+				"fontSize": "var(--fs-micro)"
+			},
+			"dot": {
+				"$description": "The bullet, as an element rather than a list marker — a marker cannot be coloured separately from its text in every engine, and the colour is the only thing that makes it a bullet here.",
+				"inlineSize": "0.4rem",
+				"blockSize": "0.4rem",
+				"marginBlockStart": "0.42rem",
+				"flexShrink": "0",
+				"borderRadius": "var(--radius-full)",
+				"background": "var(--color-accent)"
+			}
+		},
+		"variants": {
+			"tone": {
+				"quiet": {
+					"$description": "Without the offer strip and its accent edge, for a surface where the card is one of several rather than the page's whole point.",
+					"borderColor": "var(--color-border)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "A named `<section>`, so it is a landmark a screen reader can jump to — this is the page's conversion and it should be reachable without reading everything above it. The benefit list is a real `<ul>`, which is what announces 'list, four items'. The offer strip is content, not decoration: it carries the discount and the scarcity count, so it is inside the landmark rather than an `aria-hidden` flourish."
+	}
+}

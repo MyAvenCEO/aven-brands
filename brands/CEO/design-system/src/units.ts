@@ -49,6 +49,7 @@ import avatar from './brand/units/avatar.json' with { type: 'json' }
 import badge from './brand/units/badge.json' with { type: 'json' }
 import button from './brand/units/button.json' with { type: 'json' }
 import card from './brand/units/card.json' with { type: 'json' }
+import claimCard from './brand/units/claim-card.json' with { type: 'json' }
 import emptyState from './brand/units/empty-state.json' with { type: 'json' }
 import field from './brand/units/field.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
@@ -91,6 +92,7 @@ const documents = [
 	media,
 	stat,
 	skillCard,
+	claimCard,
 	button,
 	badge,
 	icon,

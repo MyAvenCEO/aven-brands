@@ -119,7 +119,7 @@
 				"color": "var(--color-on-dark)"
 			},
 			"heading": {
-				"$description": "`clamp` rather than breakpoints — a hero headline has one job at every width, and three step changes on the way down is three chances to break a line badly. The text-shadow is not decoration: it is the second half of the contrast guarantee, and it is what keeps the line readable on a frame the scrim alone cannot carry.",
+				"$description": "`clamp` rather than breakpoints — a hero headline has one job at every width, and three step changes on the way down is three chances to break a line badly. The text-shadow is not decoration: it is the second half of the contrast guarantee, and it is what keeps the line readable on a frame the scrim alone cannot carry. A heading that names the product should use the LOGO's own wordmark rather than retyping it: `avenCEO` set in the body face beside a display headline is two different avenCEOs on one screen. The `logo` leaf goes inline via `logo--wordmark`, and the size rule below is what makes it sit at the headline's own size instead of the logo's default.",
 				"margin": "0",
 				"maxInlineSize": "48rem",
 				"marginInline": "auto",
@@ -156,6 +156,13 @@
 				"lineHeight": "1.25",
 				"color": "var(--color-on-dark-quiet)",
 				"textShadow": "0 1px 12px var(--color-scrim-text)"
+			},
+			"heading-mark": {
+				"$description": "The wordmark, inline in the headline. `font-size: inherit` so it grows with the `clamp` above it rather than staying at the logo's own 1.4em, and `vertical-align: baseline` so the two faces sit on one line rather than the display face riding high.",
+				"display": "inline-flex",
+				"alignItems": "baseline",
+				"fontSize": "inherit",
+				"verticalAlign": "baseline"
 			}
 		},
 		"variants": {

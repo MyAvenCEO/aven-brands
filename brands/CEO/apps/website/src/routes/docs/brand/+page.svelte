@@ -105,8 +105,33 @@ let forcedState = $state<string | null>(null)
 /* `as const` so the each-block yields the union rather than `string` — an
    inline array literal widens, and the assignment then fails to type. */
 const DETAIL_VIEWS = ['preview', 'config'] as const
+
+/**
+ * The widths a specimen is checked at.
+ *
+ * Not a device list — a width list. `mobile` is 390 because that is where a
+ * two-column card becomes one and a nav collapses into a drawer, and those are
+ * the decisions a storybook exists to let you see. The stage constrains the
+ * specimen rather than the browser, so the whole page does not have to reflow
+ * to answer the question.
+ */
+const VIEWPORTS = [
+	{
+		id: 'desktop',
+		label: 'Desktop',
+		width: null,
+		icon: renderIcon('external', icons, { size: '1em' })
+	},
+	{
+		id: 'mobile',
+		label: 'Mobile — 390px',
+		width: '390px',
+		icon: renderIcon('menu', icons, { size: '1em' })
+	}
+] as const
 let detailView = $state<(typeof DETAIL_VIEWS)[number]>('preview')
 let openPart = $state<string | null>(null)
+let viewport = $state<(typeof VIEWPORTS)[number]['id']>('desktop')
 let chosen = $state<Record<string, string>>({})
 
 const allRows = $derived([...leafRows, ...compositeRows])
@@ -115,6 +140,12 @@ const activeState = $derived(openUnit?.states.find((s) => s.name === forcedState
 const activePart = $derived(openUnit?.parts.find((p) => p.name === openPart))
 /* A part's own declarations, read from the compiled stylesheet rather than
    restated here — the part is a real class, so the system already knows. */
+const viewportStyle = $derived(
+	(() => {
+		const w = VIEWPORTS.find((v) => v.id === viewport)?.width
+		return w ? `max-inline-size:${w};margin-inline:auto;` : ''
+	})()
+)
 const partDecls = $derived(
 	openUnit && openPart ? declarationsOf(`${openUnit.name}-${openPart}`) : []
 )
@@ -517,6 +548,20 @@ function inspect(name: string) {
 								<span>All {active}</span>
 							</button>
 							<h2 class="cb-detail-name">{unit.name}</h2>
+							<div class="cb-tabs" role="tablist" aria-label="Viewport">
+								{#each VIEWPORTS as vp (vp.id)}
+									<button
+										type="button"
+										class="cb-tab"
+										role="tab"
+										aria-selected={viewport === vp.id}
+										title={vp.label}
+										onclick={() => (viewport = vp.id)}
+									>
+										{@html vp.icon}
+									</button>
+								{/each}
+							</div>
 							<div class="cb-tabs" role="tablist" aria-label="View">
 								{#each DETAIL_VIEWS as view (view)}
 									<button
@@ -540,6 +585,7 @@ function inspect(name: string) {
 									<div
 										class="cb-detail-stage"
 										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
+										style={viewportStyle}
 										{@attach applyPreview(unit, variantClass, forcedState)}
 									>
 										{#if specimens[unit.name]?.one ?? specimens[unit.name]}
@@ -551,16 +597,14 @@ function inspect(name: string) {
 								{:else}
 									<pre class="cb-config"><code>{unit.json}</code></pre>
 								{/if}
+
+								<p class="cb-detail-note">{unit.description}</p>
 							</div>
 
 							<!-- The controls sit beside the stage, not under it: a unit with four
 							     axes pushed the specimen off the top of the screen, so you were
 							     choosing a variant you could no longer see. -->
 							<aside class="cb-detail-controls" aria-label="Variants and states">
-								<!-- The description belongs where the reading happens, beside the
-								     specimen rather than under it — the stage keeps its height. -->
-								<p class="cb-detail-note">{unit.description}</p>
-
 								{#if unit.states.length}
 									<div class="cb-controls">
 										<p class="cb-control-label">State</p>
@@ -584,8 +628,14 @@ function inspect(name: string) {
 												</button>
 											{/each}
 										</div>
-										{#if activeState}
-											<p class="cb-control-note">{activeState.note || 'No note on this state.'}</p>
+										{#if activeState?.note}
+											<!-- Collapsed. The prose is the reason a decision was made and it
+											     is worth reading once; leaving four of them open at a time
+											     pushes every switch below the fold. -->
+											<details class="cb-why">
+												<summary class="cb-why-summary">Why</summary>
+												<p class="cb-control-note">{activeState.note}</p>
+											</details>
 										{/if}
 									</div>
 								{/if}
@@ -664,7 +714,12 @@ function inspect(name: string) {
 											{/each}
 										</div>
 										{#if activePart}
-											<p class="cb-control-note">{activePart.note || 'No note on this part.'}</p>
+											{#if activePart.note}
+												<details class="cb-why">
+													<summary class="cb-why-summary">Why</summary>
+													<p class="cb-control-note">{activePart.note}</p>
+												</details>
+											{/if}
 											<dl class="cb-decls">
 												{#each partDecls as [prop, value] (prop)}
 													<div class="cb-decl">
@@ -719,7 +774,6 @@ function inspect(name: string) {
 												<span class="cb-mono cb-unit-todo">no specimen yet</span>
 											{/if}
 										</span>
-										<span class="cb-unit-note">{unit.description}</span>
 									</button>
 								{/each}
 							</div>
@@ -1050,10 +1104,12 @@ function inspect(name: string) {
 	color: var(--color-foreground);
 }
 .cb-detail-note {
-	margin: 0 0 var(--space-comfortable);
-	font-size: var(--fs-micro);
+	margin: 0;
+	max-inline-size: 74ch;
+	font-size: var(--fs-meta);
 	line-height: 1.6;
-	color: var(--color-foreground-quiet);
+	white-space: pre-line;
+	color: var(--color-foreground-soft);
 }
 .cb-detail-stage {
 	display: grid;
@@ -1088,6 +1144,33 @@ function inspect(name: string) {
 	line-height: 1.55;
 	color: var(--color-foreground-soft);
 }
+/* The prose behind a decision, collapsed. Worth reading once, not worth four
+   of them open at a time pushing every switch below the fold. */
+.cb-why {
+	margin-block-start: 0.4rem;
+}
+.cb-why-summary {
+	list-style: none;
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 1.5rem;
+	font-family: var(--font-mono);
+	font-size: var(--fs-nano);
+	color: var(--color-foreground-quiet);
+	cursor: pointer;
+}
+.cb-why-summary::-webkit-details-marker {
+	display: none;
+}
+.cb-why-summary::after {
+	content: " +";
+}
+.cb-why[open] .cb-why-summary::after {
+	content: " −";
+}
+.cb-why-summary:hover {
+	color: var(--color-foreground);
+}
 .cb-chips {
 	display: flex;
 	flex-wrap: wrap;
@@ -1116,8 +1199,11 @@ function inspect(name: string) {
 	margin-block-start: var(--space-tight);
 }
 .cb-unit {
+	/* Head and stage. No prose: a grid is for finding a unit, and a paragraph
+	   under each one turns twenty cards into a wall of text you scroll past.
+	   The description lives in the detail view, under the specimen. */
 	display: grid;
-	grid-template-rows: auto 1fr auto;
+	grid-template-rows: auto 1fr;
 	min-inline-size: 0;
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
@@ -1185,14 +1271,6 @@ function inspect(name: string) {
 	   against what it will actually sit on. */
 	background: var(--color-surface-page);
 	overflow: hidden;
-}
-.cb-unit-note {
-	margin: 0;
-	padding: var(--space-tight) var(--space-comfortable);
-	border-block-start: 1px solid var(--color-border-soft);
-	font-size: var(--fs-micro);
-	line-height: 1.5;
-	color: var(--color-foreground-quiet);
 }
 .cb-unit-slots,
 .cb-unit-todo {

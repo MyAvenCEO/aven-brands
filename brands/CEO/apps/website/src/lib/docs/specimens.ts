@@ -56,25 +56,34 @@ const icon = (name: string, size = '1rem') => renderIcon(name, icons, { size })
 
 export const specimens: Record<string, Specimen> = {
 	btn: {
-		one: `<button class="btn" type="button">Hire your Aven</button>`,
+		one: `<button class="btn" type="button"><span class="btn-label">Hire your Aven</span></button>`,
 		html: `<span class="sp-stack sp-stack--wide" style="justify-items:center">
 			<span class="sp-row">
-				<button class="btn btn--primary" type="button">Hire your Aven</button>
-				<button class="btn btn--accent" type="button">Claim your name</button>
-				<button class="btn btn--success" type="button">Name claimed</button>
+				<button class="btn btn--primary" type="button"><span class="btn-label">Hire your Aven</span></button>
+				<button class="btn btn--accent" type="button">
+					<span class="btn-label">Claim your name</span>
+					<span class="btn-icon-end">${icon('arrow-right', '1em')}</span>
+				</button>
+				<button class="btn btn--secondary" type="button">
+					<span class="btn-icon-start">${icon('search', '1em')}</span>
+					<span class="btn-label">Browse skills</span>
+				</button>
 			</span>
 			<span class="sp-row">
-				<button class="btn btn--secondary" type="button">Read the docs</button>
-				<button class="btn btn--danger" type="button">Delete account</button>
-				<button class="btn btn--unavailable" type="button">Coming soon</button>
-				<button class="btn btn--icon" type="button" aria-label="Search">${icon('search', '1.125rem')}</button>
+				<button class="btn btn--danger" type="button"><span class="btn-label">Delete account</span></button>
+				<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
+				<button class="btn btn--primary" type="button" disabled><span class="btn-label">Coming soon</span></button>
+				<button class="btn btn--danger btn--shape-icon" type="button" aria-label="Delete">${icon('close', '1.125rem')}</button>
+				<button class="btn btn--ghost btn--shape-icon" type="button" aria-label="Search">${icon('search', '1.125rem')}</button>
 			</span>
 			<span class="sp-row">
 				<button class="btn btn--primary" type="button" aria-busy="true">
-					Claiming<span class="btn-badge">${icon('spinner', '0.875rem')}</span>
+					<span class="btn-label">Claiming</span>
+					<span class="btn-badge">${icon('spinner', '0.875rem')}</span>
 				</button>
-				<button class="btn btn--accent" type="button">
-					Claim your name<span class="btn-badge">${icon('arrow-right', '0.875rem')}</span>
+				<button class="btn btn--primary" type="button" data-state="success">
+					<span class="btn-label">Name claimed</span>
+					<span class="btn-badge">${icon('check', '0.875rem')}</span>
 				</button>
 			</span>
 		</span>`
@@ -329,7 +338,7 @@ export const specimens: Record<string, Specimen> = {
 			<span class="hero-scrim" aria-hidden="true"></span>
 			<span class="hero-content">
 				<p class="hero-eyebrow">The company of the future</p>
-				<h3 class="hero-heading" style="margin:0">avenCEO runs your company, you lead the vision.</h3>
+				<h3 class="hero-heading" style="margin:0"><span class="hero-heading-mark logo logo--wordmark"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span> runs your company, you lead the vision.</h3>
 				<p class="hero-lead">From working to survive to sovereign founder of tomorrow.</p>
 				<p class="hero-helper">— your avenCEO gets you there —</p>
 				<span class="hero-actions">
@@ -383,6 +392,42 @@ export const specimens: Record<string, Specimen> = {
 				</span>
 			</span>
 			<span class="site-footer-meta"><span>&copy; 2026 avenCEO</span><span>Built in Switzerland</span></span>
+		</span>`
+	},
+	'claim-card': {
+		tall: true,
+		one: `<span class="claim-card" style="inline-size:100%; max-inline-size:44rem">
+			<span class="claim-card-body">
+				<p class="claim-card-eyebrow">— Invite only —</p>
+				<h3 class="claim-card-heading" style="margin:0">Claim your avenCEO name now</h3>
+				<p class="claim-card-lede">Like a domain — but for your avenCEO: e.g. maia.aven.ceo. It exists exactly once — claim it before someone else does.</p>
+				<ul class="claim-card-benefits">
+					<li class="claim-card-benefit"><span class="claim-card-dot"></span><span>100 MIND credits — for early-bird testing</span></li>
+					<li class="claim-card-benefit"><span class="claim-card-dot"></span><span>Your avenCEO name for 1 year</span></li>
+					<li class="claim-card-benefit"><span class="claim-card-dot"></span><span>Your place on the waiting list</span></li>
+					<li class="claim-card-benefit"><span class="claim-card-dot"></span><span>Your profile in the aven Marketplace</span></li>
+				</ul>
+				<span class="claim-card-price">
+					<span class="claim-card-amount">25 €</span>
+					<span class="claim-card-terms">one-time · incl. VAT</span>
+				</span>
+				<span class="claim-card-form">
+					<span class="field field--shape-affixed field--shape-pill field--size-hero field--align-end" style="flex:1 1 16rem; min-inline-size:0">
+						<span class="field-shell">
+							<input class="field-control" type="text" value="maia" readonly aria-label="Your aven name">
+							<span class="field-suffix">.aven.ceo</span>
+						</span>
+					</span>
+					<button class="btn btn--primary btn--size-xl" type="button">
+						<span class="btn-label">Claim your name</span>
+						<span class="btn-icon-end">${icon('arrow-right', '1em')}</span>
+					</button>
+				</span>
+			</span>
+			<span class="claim-card-offer">
+				<p class="claim-card-offer-line">+ 30 % off your first 3 months of avenCEO</p>
+				<p class="claim-card-offer-note">1 / 10 claimed</p>
+			</span>
 		</span>`
 	},
 	section: {
