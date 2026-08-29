@@ -134,6 +134,9 @@ export type UnitRow = {
 	name: string
 	kind: 'leaf' | 'composite'
 	description: string
+	/** The unit's own a11y note, which belongs beside its prose and not in a
+	    config dump nobody reads to the end. */
+	a11yNote: string
 	slots: string[]
 	variants: Array<{ axis: string; options: Array<{ name: string; note: string }> }>
 	/**
@@ -185,6 +188,7 @@ const unitRow = (name: string): UnitRow => {
 		name,
 		kind: slots.length ? 'composite' : 'leaf',
 		description: u.description ?? '',
+		a11yNote: (u as { a11y?: { note?: string } }).a11y?.note ?? '',
 		slots,
 		variants: Object.entries(styling.variants ?? {}).map(([axis, options]) => ({
 			axis,

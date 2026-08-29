@@ -105,7 +105,12 @@ let open = $state<string | null>(null)
 let forcedState = $state<string | null>(null)
 /* `as const` so the each-block yields the union rather than `string` — an
    inline array literal widens, and the assignment then fails to type. */
-const DETAIL_VIEWS = ['preview', 'config'] as const
+/* Three views, and `notes` exists because the prose does not belong under the
+   specimen. A unit's description runs to several paragraphs of reasoning — worth
+   reading once — and printing it beneath the preview pushed the thing you came
+   to look at into the top third of the panel and left the rest to text you had
+   already read. */
+const DETAIL_VIEWS = ['preview', 'notes', 'config'] as const
 
 /**
  * The widths a specimen is checked at.
@@ -885,11 +890,19 @@ function inspect(name: string) {
 											</button>
 										</div>
 									{/if}
+								{:else if detailView === 'notes'}
+									<div class="cb-detail-notes">
+										<p class="cb-detail-note">{unit.description}</p>
+										{#if unit.a11yNote}
+											<div class="cb-detail-a11y">
+												<p class="text text--eyebrow">Accessibility</p>
+												<p class="cb-detail-note">{unit.a11yNote}</p>
+											</div>
+										{/if}
+									</div>
 								{:else}
 									<pre class="cb-config"><code>{unit.json}</code></pre>
 								{/if}
-
-								<p class="cb-detail-note">{unit.description}</p>
 							</div>
 
 							<!-- The controls sit beside the stage, not under it: a unit with four
@@ -1335,7 +1348,23 @@ function inspect(name: string) {
 	}
 }
 .cb-detail-main {
+	/* A column, so the stage can take the height the prose used to. */
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
 	min-inline-size: 0;
+	min-block-size: 0;
+}
+.cb-detail-notes {
+	display: grid;
+	gap: var(--space-loose);
+	align-content: start;
+	padding-block: var(--space-tight);
+}
+.cb-detail-a11y {
+	display: grid;
+	gap: var(--space-tight);
+	padding-block-start: var(--space-comfortable);
+	border-block-start: 1px solid var(--color-border-soft);
 }
 .cb-detail-controls {
 	display: grid;
@@ -1440,13 +1469,29 @@ function inspect(name: string) {
 }
 .cb-detail-stage {
 	display: grid;
-	place-items: center;
-	min-block-size: 22rem;
+	/* Content starts at the TOP, like a page. The stage stands in for a viewport,
+	   and `place-items: center` floated a navbar sixteen pixels below the top
+	   edge — which is the one place a navbar can never be. A leaf then sits at
+	   top-centre, which is also where content starts on a real page. */
+	align-content: start;
+	justify-items: center;
+	/* FULL HEIGHT, and no padding. The stage is standing in for a viewport, so a
+	   navbar has to be able to sit against its top edge and a footer against its
+	   bottom the way they would on a real page. `space-section` of padding meant
+	   every composite floated in the middle of a frame, which is the one thing a
+	   device preview must not do — it hides exactly the edge behaviour the
+	   preview exists to show. */
+	block-size: 100%;
+	/* Tall enough to be a screen. `100%` alone resolves against a row whose
+	   height is its content, so the stage was only ever as tall as the specimen —
+	   a navbar preview 60px high in a panel with room for six hundred. */
+	min-block-size: min(68dvh, 44rem);
 	margin-block: 0 var(--space-comfortable);
-	padding: var(--space-section);
+	padding: 0;
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	background: var(--color-surface-page);
+	overflow: hidden;
 }
 .cb-detail-stage--tall {
 	min-block-size: 22rem;
