@@ -44,8 +44,8 @@
 			"// The kit's gate scripts live in `scripts/`, beside this repo's own",
 			"// `render-guidelines.ts`, so they are named rather than ignored",
 			"// wholesale — the one script this repo authors stays linted.",
-			"!!scripts/*.py",
-			"!!scripts/*.mjs"
+			"!!skills/gates",
+			"!!skills/gates"
 		]
 	},
 	"formatter": {

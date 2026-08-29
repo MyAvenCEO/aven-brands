@@ -75,7 +75,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/MyAvenCEO/avenCEO.git",
-		"directory": "packages/aven-ceo"
+		"directory": "brands/CEO/design-system"
 	},
 	"engines": {
 		"node": ">=20"

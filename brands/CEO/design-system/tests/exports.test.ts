@@ -59,18 +59,18 @@ describe('the design surface', () => {
 			'RADIUS_SCALE',
 			'SPACE_SCALE',
 			'COMPONENTS',
-			'PRIMITIVES',
+			'LAYOUTS',
 			'COMPONENT_NAMES',
-			'PRIMITIVE_NAMES',
+			'LAYOUT_NAMES',
 			'NEAREST_STEP'
 		]) {
 			expect((design as Record<string, unknown>)[name]).toBeDefined()
 		}
 	})
 
-	test('every component and primitive is emitted as a rule', () => {
+	test('every component and layout is emitted as a rule', () => {
 		const css = generate.componentCss()
-		for (const name of [...design.COMPONENT_NAMES, ...design.PRIMITIVE_NAMES]) {
+		for (const name of [...design.COMPONENT_NAMES, ...design.LAYOUT_NAMES]) {
 			expect(css).toContain(`.${name} {`)
 		}
 	})
@@ -88,7 +88,7 @@ describe('the design surface', () => {
 
 describe('the brand surface', () => {
 	test('tones and creams are hex, so a consumer can render them', () => {
-		for (const value of [...Object.values(tokens.TONES), ...Object.values(tokens.CREAMS)]) {
+		for (const value of [...Object.values(tokens.TONES), ...Object.values(tokens.GROUNDS)]) {
 			expect(value).toMatch(/^#[0-9a-f]{6}$/i)
 		}
 	})
@@ -100,9 +100,9 @@ describe('the kitchen sink surface', () => {
 		expect(typeof kitchenSink.kitchenSinkCss).toBe('function')
 	})
 
-	test('the view names every component and primitive somewhere', () => {
+	test('the view names every component and layout somewhere', () => {
 		const serialised = JSON.stringify(kitchenSink.kitchenSinkView())
-		for (const name of [...design.COMPONENT_NAMES, ...design.PRIMITIVE_NAMES]) {
+		for (const name of [...design.COMPONENT_NAMES, ...design.LAYOUT_NAMES]) {
 			expect(serialised).toContain(name)
 		}
 	})

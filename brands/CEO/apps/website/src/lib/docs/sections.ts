@@ -141,7 +141,7 @@ export const sections: DocSection[] = [
 		label: 'Type',
 		count: typeScale.length + trackingScale.length + fontStacks.length
 	},
-	{ id: 'emphasis', label: 'Emphasis', count: inkScale.length + tintScale.length },
+	{ id: 'alpha', label: 'Alpha', count: inkScale.length + tintScale.length },
 	{
 		id: 'geometry',
 		label: 'Geometry',

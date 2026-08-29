@@ -14,7 +14,7 @@ const ROOT = join(import.meta.dir, '../../..')
 
 /** Every slug the website ships an English content file for. */
 function websiteSlugs(): string[] {
-	const dir = join(ROOT, 'apps/website/src/lib/skills/content/en')
+	const dir = join(ROOT, 'CEO/apps/website/src/lib/skills/content/en')
 	return readdirSync(dir)
 		.filter((f) => f.endsWith('.json'))
 		.map((f) => f.replace(/\.json$/, ''))

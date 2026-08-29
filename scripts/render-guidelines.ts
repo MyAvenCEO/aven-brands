@@ -21,8 +21,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { renderViewToString } from '@myavenceo/aven-vibes'
 import { createGenerator, createKitchenSink } from '@myavenceo/aven-vibes/brand'
-import { avenCeo } from '../packages/aven-ceo/dist/brand.js'
-import { avenYma } from '../packages/aven-yma/dist/brand.js'
+import { avenCeo } from '../brands/CEO/design-system/dist/brand.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -30,15 +29,13 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const evaluate = (expression: unknown) => expression
 
 for (const [brand, out, fontLink] of [
+	/* avenYMA is temporarily out: it has not been migrated to the brand contract
+	   that grounds/layouts/alpha introduced, so it does not compile. Restore its
+	   entry here once it has. */
 	[
 		avenCeo,
-		'packages/aven-ceo/kitchen-sink.html',
+		'brands/CEO/design-system/kitchen-sink.html',
 		'<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">'
-	],
-	[
-		avenYma,
-		'packages/aven-yma/kitchen-sink.html',
-		'<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">'
 	]
 ] as const) {
 	const { themeCss, componentCss } = createGenerator(brand)

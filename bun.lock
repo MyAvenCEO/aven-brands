@@ -10,7 +10,7 @@
         "typescript": "6.0.2",
       },
     },
-    "apps/website": {
+    "brands/CEO/apps/website": {
       "name": "@myavenceo/website",
       "version": "0.1.0",
       "dependencies": {
@@ -29,7 +29,17 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
-    "apps/yma": {
+    "brands/CEO/design-system": {
+      "name": "@myavenceo/aven-ceo",
+      "version": "0.10.0",
+      "dependencies": {
+        "@myavenceo/aven-vibes": "^0.3.3",
+      },
+      "devDependencies": {
+        "@types/node": "^26.3.0",
+      },
+    },
+    "brands/YMA/apps/website": {
       "name": "yma-website",
       "dependencies": {
         "@myavenceo/aven-yma": "workspace:*",
@@ -47,17 +57,7 @@
         "vite-plugin-singlefile": "^2.3.0",
       },
     },
-    "packages/aven-ceo": {
-      "name": "@myavenceo/aven-ceo",
-      "version": "0.10.0",
-      "dependencies": {
-        "@myavenceo/aven-vibes": "^0.3.3",
-      },
-      "devDependencies": {
-        "@types/node": "^26.3.0",
-      },
-    },
-    "packages/aven-yma": {
+    "brands/YMA/design-system": {
       "name": "@myavenceo/aven-yma",
       "version": "0.1.0",
       "dependencies": {
@@ -97,13 +97,13 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:packages/aven-ceo"],
+    "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:brands/CEO/design-system"],
 
     "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.3.3", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.3.3/2b9204dc4a6c4a25032ac46849cf8f0fcfea63ae", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-9FWpmD6ygeB1piLjk0MP8Jsr5cd/APucZxGT/dJ08zckEK68MuTaL28rUpe7D3xWoERIGhG1FJEelkpWA6qT/A=="],
 
-    "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:packages/aven-yma"],
+    "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:brands/YMA/design-system"],
 
-    "@myavenceo/website": ["@myavenceo/website@workspace:apps/website"],
+    "@myavenceo/website": ["@myavenceo/website@workspace:brands/CEO/apps/website"],
 
     "@oxc-project/types": ["@oxc-project/types@0.146.0", "", {}, "sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA=="],
 
@@ -277,7 +277,7 @@
 
     "vitefu": ["vitefu@1.1.3", "", { "peerDependencies": { "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" }, "optionalPeers": ["vite"] }, "sha512-ub4okH7Z5KLjb6hDyjqrGXqWtWvoYdU3IGm/NorpgHncKoLTCfRIbvlhBm7r0YstIaQRYlp4yEbFqDcKSzXSSg=="],
 
-    "yma-website": ["yma-website@workspace:apps/yma"],
+    "yma-website": ["yma-website@workspace:brands/YMA/apps/website"],
 
     "zimmerframe": ["zimmerframe@1.1.4", "", {}, "sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ=="],
 

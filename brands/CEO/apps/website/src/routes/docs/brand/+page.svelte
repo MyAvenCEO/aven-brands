@@ -159,9 +159,9 @@ function inspect(name: string) {
 						{/each}
 					</div>
 				</section>
-			{:else if active === 'emphasis'}
+			{:else if active === 'alpha'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Ink</p>
+					<p class="eyebrow-quiet">Alpha · on text</p>
 					<p class="meta">
 						Text emphasis as steps, not a continuum. The faintest step is the disabled and watermark
 						level and deliberately sits below AA, so it must never carry live text.
@@ -180,7 +180,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Tint</p>
+					<p class="eyebrow-quiet">Alpha · on surface</p>
 					<p class="meta">The same ink as a surface rather than as text.</p>
 					<div class="cb-rows">
 						{#each tintScale as step (step.name)}

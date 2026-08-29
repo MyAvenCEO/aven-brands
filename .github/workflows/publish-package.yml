@@ -1,8 +1,8 @@
 name: Publish a brand package
 
 # One workflow for every package in the repo. The tag names which one:
-#   aven-ceo-v0.6.0   a brand
-#   aven-yma-v0.1.0   a brand
+#   aven-ceo-v0.6.0   -> brands/CEO/design-system
+#   aven-yma-v0.1.0   -> brands/YMA/design-system
 #
 # The machinery is not here. It lives in avenVIBES, beside the runtime it is
 # half of, and publishes from that repo.
@@ -41,15 +41,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # aven-ceo-v0.10.0 -> brands/CEO/design-system
           name="${GITHUB_REF_NAME%-v*}"
-          test -d "packages/$name" || { echo "no such package: $name"; exit 1; }
+          brand="${name#aven-}"
+          dir="brands/$(printf '%s' "$brand" | tr '[:lower:]' '[:upper:]')/design-system"
+          test -d "$dir" || { echo "no such brand package: $dir"; exit 1; }
           echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
       - name: Require tag and package versions to match
         shell: bash
         run: |
           set -euo pipefail
           name='${{ steps.pkg.outputs.name }}'
-          package_version=$(node -p "require('./packages/$name/package.json').version")
+          package_version=$(node -p "require('./${{ steps.pkg.outputs.dir }}/package.json').version")
           test "$GITHUB_REF_NAME" = "$name-v$package_version"
       - name: Refuse to publish generated files that drifted
         # The package ships committed, generated assets (the icon primitives) and
@@ -67,7 +71,7 @@ jobs:
         # another repository's build. Cheaper to catch here.
         run: bun run test
       - name: Publish compiled package
-        working-directory: packages/${{ steps.pkg.outputs.name }}
+        working-directory: ${{ steps.pkg.outputs.dir }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish
