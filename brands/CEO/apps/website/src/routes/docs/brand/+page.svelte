@@ -1518,6 +1518,29 @@ function inspect(name: string) {
 	   fills the screen rather than floating in it. */
 	align-content: safe center;
 	justify-items: safe center;
+	block-size: var(--cb-screen-h, 100%);
+	margin-block: 0;
+	padding: 0;
+	border: 1px solid var(--color-border);
+	overflow: hidden;
+	/*
+	 * THE SCREEN'S OWN GROUND — a paper-like dot grid, not the bezel showing
+	 * through. It was transparent, so the earth read straight through the whole
+	 * preview and the screen looked like a solid earth panel: an empty area that
+	 * appeared to be a component rather than the space one sits in.
+	 *
+	 * A near-white surface with a faint dot lattice says "backdrop" the way graph
+	 * paper does — present enough to read as a surface, quiet enough that nothing
+	 * placed on it competes. The dots are a radial-gradient rather than an image,
+	 * so they cost no request and inherit the theme.
+	 */
+	background-color: var(--color-surface-raised);
+	background-image: radial-gradient(
+		circle at 1px 1px,
+		color-mix(in oklab, var(--color-foreground) 10%, transparent) 1px,
+		transparent 0
+	);
+	background-size: 1rem 1rem;
 }
 /* An ANCHORED specimen. A navbar belongs against the top of the screen and a
    footer against the bottom; centring either is the same mistake as pinning a
@@ -1874,7 +1897,10 @@ function inspect(name: string) {
 	padding: var(--space-tight);
 	border: 1px solid var(--color-border-strong);
 	border-radius: var(--radius-xl);
-	background: color-mix(in oklab, var(--color-earth) 14%, var(--color-surface-page));
+	/* A LIGHT earth rim. At 14% it was a field of colour rather than a bezel —
+	   and with the screen transparent it covered the whole preview. 7% is enough
+	   to read as a device edge and not enough to be a surface of its own. */
+	background: color-mix(in oklab, var(--color-earth) 7%, var(--color-surface-page));
 	overflow: hidden;
 }
 .cb-detail-frame > .cb-detail-stage {

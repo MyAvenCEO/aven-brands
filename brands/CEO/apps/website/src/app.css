@@ -6,32 +6,6 @@
  * an @import makes the browser drop the import. */
 @aven-utilities;
 
-/* Self-hosted brand faces — no remote font CDN. The family NAMES come from the
- * SSOT (`--font-sans` / `--font-display` in brand-theme.css); these @font-face
- * rules serve the actual files from /static/fonts. Both cover the full weight
- * range so the single-master display face never gets faux-bolded. */
-/* ds-allow-hardcode:start — an @font-face IS the font definition. A token
-   cannot declare a family; it can only point at one that was declared here. */
-@font-face {
-	font-family: "Google Sans Flex";
-	src: url("/fonts/GoogleSansFlex-latin.woff2") format("woff2");
-	font-weight: 1 1000;
-	font-style: normal;
-	font-display: swap;
-}
-/* ds-allow-hardcode:end */
-
-/* ds-allow-hardcode:start — an @font-face IS the font definition. A token
-   cannot declare a family; it can only point at one that was declared here. */
-@font-face {
-	font-family: "FogtwoNo5";
-	src: url("/fonts/FogtwoNo5.otf") format("opentype");
-	font-weight: 100 900;
-	font-style: normal;
-	font-display: swap;
-}
-/* ds-allow-hardcode:end */
-
 /* Section eyebrows across the site read in brand tidal-blue, a step larger,
  * and framed in em-dashes ("— WHY NOW —"). Un-layered so it overrides the
  * generated `.eyebrow-accent` component.
