@@ -1534,13 +1534,6 @@ function inspect(name: string) {
 	 * placed on it competes. The dots are a radial-gradient rather than an image,
 	 * so they cost no request and inherit the theme.
 	 */
-	background-color: var(--color-surface-raised);
-	background-image: radial-gradient(
-		circle at 1px 1px,
-		color-mix(in oklab, var(--color-foreground) 10%, transparent) 1px,
-		transparent 0
-	);
-	background-size: 1rem 1rem;
 }
 /* An ANCHORED specimen. A navbar belongs against the top of the screen and a
    footer against the bottom; centring either is the same mistake as pinning a
@@ -1804,6 +1797,34 @@ function inspect(name: string) {
 .cb-unit-stage {
 	pointer-events: none;
 }
+/* THE PAPER GROUND, defined once and worn by both stages.
+ *
+ * A specimen needs somewhere to sit that is legibly NOT the specimen. A flat
+ * fill cannot do that job: a component with its own pale surface dissolves
+ * into it, and one without reads as though its background failed to load. A
+ * faint dot grid is the drafting-paper convention for exactly this — it says
+ * "room", and no component in this system is made of dots, so nothing can be
+ * mistaken for it.
+ *
+ * ONE rule, two stages, because the alternative is two copies that agree today
+ * and drift the first time either is touched. The blur values in this brand
+ * were 10px in the navbar and an undefined variable in the menu for precisely
+ * that reason, and both of them RENDERED, so nothing reported it.
+ *
+ * 10% of the foreground: visible at reading distance, gone at a glance. It is
+ * texture, and texture that competes with the thing it sits behind is
+ * decoration.
+ */
+.cb-unit-stage,
+.cb-detail-stage {
+	background-color: var(--color-surface-raised);
+	background-image: radial-gradient(
+		circle at 1px 1px,
+		color-mix(in oklab, var(--color-foreground) 10%, transparent) 1px,
+		transparent 0
+	);
+	background-size: 1rem 1rem;
+}
 .cb-unit-tags {
 	display: flex;
 	flex-wrap: wrap;
@@ -1868,9 +1889,13 @@ function inspect(name: string) {
 	overflow: auto;
 	overscroll-behavior: contain;
 	padding: var(--space-comfortable);
-	/* The stage is the PAGE ground, not the card's — a specimen has to be seen
-	   against what it will actually sit on. */
-	background: var(--color-surface-page);
+	/* The paper ground, shared with the detail stage — see `.cb-paper` below.
+	   This used to be a flat `--color-surface-page` on the reasoning that a
+	   specimen should sit on the ground it will really sit on. True, and it
+	   still left the card unable to say which pixels were the component and
+	   which were the room around it: a specimen with its own pale surface
+	   dissolved into the stage, and one without looked like it was missing a
+	   background. The dots answer that without pretending to be a component. */
 }
 /* Walking a flow, not choosing a look. A rail under the stage: where you are,
    what is either side of you, and two arrows — the sequence read left to right,

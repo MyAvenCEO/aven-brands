@@ -1,6 +1,6 @@
 {
 	"name": "logo",
-	"description": "The avenCEO lockup: the mark, the wordmark, or both. The wordmark is TWO faces in one word \u2014 \"aven\" in the thin display face at 1.4em, \"CEO\" in the heaviest sans, uppercase \u2014 a specification that used to live inline at every call site, including two `style` attributes in the site header.\n\nIt was extracted as a SHELL, and that is worth recording. The unit declared the flex container and nothing else: no parts, and three `variant` options that differed only in `gap`. Everything inside it \u2014 the mark's size, the two faces, the baseline alignment \u2014 resolved through `logo-mark`, `logo-wordmark`, `logo-word-aven` and `logo-word-ceo`, which are LEGACY classes this unit exists to replace. So the unit rendered correctly while owning none of its own appearance, and would have rendered as unstyled text the day the legacy map was deleted.\n\nIt also could not do what its variants claimed. `mark` and `wordmark` only set `gap: 0`; the only thing producing a mark-only logo was the caller omitting the wordmark from the markup. A variant that needs the caller to change the children is not a variant \u2014 it is a naming convention. The variants now HIDE the part that does not belong, so one markup and one class give all three.",
+	"description": "The avenCEO lockup: the mark, the wordmark, or both. The wordmark is TWO faces in one word — \"aven\" in the thin display face at 1.4em, \"CEO\" in the heaviest sans, uppercase — a specification that used to live inline at every call site, including two `style` attributes in the site header.\n\nIt was extracted as a SHELL, and that is worth recording. The unit declared the flex container and nothing else: no parts, and three `variant` options that differed only in `gap`. Everything inside it — the mark's size, the two faces, the baseline alignment — resolved through `logo-mark`, `logo-wordmark`, `logo-word-aven` and `logo-word-ceo`, which are LEGACY classes this unit exists to replace. So the unit rendered correctly while owning none of its own appearance, and would have rendered as unstyled text the day the legacy map was deleted.\n\nIt also could not do what its variants claimed. `mark` and `wordmark` only set `gap: 0`; the only thing producing a mark-only logo was the caller omitting the wordmark from the markup. A variant that needs the caller to change the children is not a variant — it is a naming convention. The variants now HIDE the part that does not belong, so one markup and one class give all three.",
 	"interface": {
 		"props": {
 			"href": "string",
@@ -41,7 +41,7 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "`gap: 0.625rem` is the header's own `gap-2.5`, not `--space-tight` (0.5rem). Extracting it to the nearest token would have moved the wordmark two pixels closer to the mark on every surface \u2014 a silent change to the one element nobody is allowed to change silently.",
+			"$description": "`gap: 0.625rem` is the header's own `gap-2.5`, not `--space-tight` (0.5rem). Extracting it to the nearest token would have moved the wordmark two pixels closer to the mark on every surface — a silent change to the one element nobody is allowed to change silently.",
 			"display": "inline-flex",
 			"alignItems": "center",
 			"gap": "0.625rem",
@@ -52,26 +52,30 @@
 		},
 		"parts": {
 			"mark": {
-				"$description": "1.75rem square, and it never shrinks \u2014 in a flex bar a mark that shrinks is a mark that becomes an oval.",
+				"$description": "1.75rem square, and it never shrinks — in a flex bar a mark that shrinks is a mark that becomes an oval.",
 				"inlineSize": "1.75rem",
 				"blockSize": "1.75rem",
 				"flexShrink": "0"
 			},
 			"wordmark": {
-				"$description": "Two faces in one word, aligned on the BASELINE rather than centred \u2014 the display 'aven' is 1.4em and centring it would leave the two halves sitting at different heights.",
+				"$description": "Two faces in one word, aligned on the BASELINE rather than centred — the display 'aven' is the taller of the two and centring would leave the halves at different heights.\n\nTHE LOCKUP'S SCALE LIVES HERE, on the wordmark, and the two halves are sized in em RELATIVE TO EACH OTHER. It used to live on `word-aven` as `1.4em` with `word-ceo` left at `1em`, which meant the lockup had no size of its own — it was 1.4x whatever contained it, and the only way to make it match a line of running text was to divide by 1.4 at the call site. The hero did the arithmetic wrong (`font-size: inherit` on the `.logo`, which the 1.4em inside then multiplied anyway) and set `aven` 40% larger than the headline it sat in.\n\nThe ratio is unchanged at 0.714, so every existing lockup renders to the same pixel. What changed is where it is expressed: one `font-size` on the lockup sets the whole thing, and the halves keep their proportion whatever it is.",
 				"display": "inline-flex",
 				"alignItems": "baseline",
-				"whiteSpace": "nowrap"
+				"whiteSpace": "nowrap",
+				"fontSize": "1.4em"
 			},
 			"word-aven": {
+				"$description": "The lockup's own size. Lowercase display serif — it sets the scale the caps are measured against.",
 				"fontFamily": "var(--font-display)",
 				"fontWeight": "300",
-				"fontSize": "1.4em",
+				"fontSize": "1em",
 				"lineHeight": "1"
 			},
 			"word-ceo": {
+				"$description": "0.714em of `aven`, because CAPS ARE NOT LOWERCASE AT THE SAME SIZE. Cap-height fills most of the em where lowercase spends half of it on x-height, so uppercase set at 1em beside lowercase reads roughly 40% larger — the two halves are the same measurement and the wrong size. 0.714 is the ratio the lockup already had; it is now stated as a relationship rather than as two absolute numbers that happened to divide correctly.",
 				"fontFamily": "var(--font-sans)",
 				"fontWeight": "700",
+				"fontSize": "0.714em",
 				"textTransform": "uppercase"
 			}
 		},
@@ -79,14 +83,14 @@
 			"variant": {
 				"$description": "Which half is shown. These HIDE a part rather than adjusting the gap around one the caller already left out, so the same markup produces all three and a surface never has to know which children a variant expects.",
 				"mark": {
-					"$description": "The mark alone \u2014 a favicon, an avatar, a collapsed rail.",
+					"$description": "The mark alone — a favicon, an avatar, a collapsed rail.",
 					"gap": "0",
 					"& .logo-wordmark": {
 						"display": "none"
 					}
 				},
 				"wordmark": {
-					"$description": "The word alone \u2014 inside a heading, where a mark would read as a bullet.",
+					"$description": "The word alone — inside a heading, where a mark would read as a bullet.",
 					"gap": "0",
 					"& .logo-mark": {
 						"display": "none"
@@ -96,7 +100,7 @@
 		}
 	},
 	"a11y": {
-		"note": "The mark is `alt=\"\"` \u2014 decorative, because the wordmark beside it already carries the name as real text. On the `mark` variant the wordmark is `display: none` and therefore hidden from assistive tech too, so that variant's container needs its own accessible name (an `aria-label` on the link, or visually hidden text); a bare mark with an empty alt is a link with no name."
+		"note": "The mark is `alt=\"\"` — decorative, because the wordmark beside it already carries the name as real text. On the `mark` variant the wordmark is `display: none` and therefore hidden from assistive tech too, so that variant's container needs its own accessible name (an `aria-label` on the link, or visually hidden text); a bare mark with an empty alt is a link with no name."
 	},
 	"parts": {
 		"logo-mark": {
