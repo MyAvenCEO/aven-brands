@@ -56,7 +56,6 @@ import flowCard from './brand/units/flow-card.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
 import hero from './brand/units/hero.json' with { type: 'json' }
 import icon from './brand/units/icon.json' with { type: 'json' }
-import keyList from './brand/units/key-list.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
 import media from './brand/units/media.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
@@ -65,9 +64,8 @@ import navbar from './brand/units/navbar.json' with { type: 'json' }
 import paymentFrame from './brand/units/payment-frame.json' with { type: 'json' }
 import priceTier from './brand/units/price-tier.json' with { type: 'json' }
 import prose from './brand/units/prose.json' with { type: 'json' }
-import rankList from './brand/units/rank-list.json' with { type: 'json' }
+import rowList from './brand/units/row-list.json' with { type: 'json' }
 import section from './brand/units/section.json' with { type: 'json' }
-import select from './brand/units/select.json' with { type: 'json' }
 import sidebar from './brand/units/sidebar.json' with { type: 'json' }
 import skeleton from './brand/units/skeleton.json' with { type: 'json' }
 import skillCard from './brand/units/skill-card.json' with { type: 'json' }
@@ -100,9 +98,8 @@ const documents = [
 	claimCard,
 	flowCard,
 	priceTier,
-	rankList,
+	rowList,
 	paymentFrame,
-	keyList,
 	button,
 	badge,
 	icon,
@@ -113,7 +110,6 @@ const documents = [
 	sidebar,
 	modal,
 	accordion,
-	select,
 	avatar,
 	emptyState,
 	spinner,

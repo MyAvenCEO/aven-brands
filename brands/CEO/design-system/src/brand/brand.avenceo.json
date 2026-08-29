@@ -230,6 +230,26 @@
 				"$value": "var(--color-on-primary-quiet)",
 				"$description": "the quiet step of text on primary — footer meta, the legal line."
 			},
+			"secondary": {
+				"$type": "color",
+				"$value": "var(--color-paradise)",
+				"$description": "THE SECOND BRAND COLOUR. Paradise. Stated once here so every role that means \"the second colour\" points at this rather than naming the tone — `progress` did, `band` did, and the three had no way of moving together. It replaces a `secondary` that pointed at a sand SURFACE, which was a surface wearing an action name."
+			},
+			"secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on the second brand colour."
+			},
+			"tertiary": {
+				"$type": "color",
+				"$value": "var(--color-turquoise)",
+				"$description": "THE THIRD BRAND COLOUR. Turquoise. Same rule: `success` and `band-alt` both meant this and both named the tone."
+			},
+			"tertiary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on the third brand colour."
+			},
 			"band": {
 				"$type": "color",
 				"$value": "#217c91",
@@ -238,7 +258,7 @@
 			"band-alt": {
 				"$type": "color",
 				"$value": "#377d77",
-				"$description": "the second editorial band, from turquoise. Same rule, same 4.6:1 with white."
+				"$description": "the second editorial band, from the THIRD brand colour. Same rule, same 4.6:1 with white."
 			},
 			"band-foreground": {
 				"$type": "color",
@@ -275,16 +295,6 @@
 				"$value": "#151e30e6",
 				"$description": "the glass bar on dark."
 			},
-			"secondary": {
-				"$type": "color",
-				"$value": "var(--color-surface-selected)",
-				"$description": "the warm second action."
-			},
-			"secondary-foreground": {
-				"$type": "color",
-				"$value": "var(--color-marine)",
-				"$description": "text on secondary."
-			},
 			"quiet": {
 				"$type": "color",
 				"$value": "#57789e",
@@ -302,8 +312,8 @@
 			},
 			"progress": {
 				"$type": "color",
-				"$value": "var(--color-paradise)",
-				"$description": "in motion."
+				"$value": "var(--color-secondary)",
+				"$description": "in motion. Points at the RANK rather than at paradise, so the second brand colour and everything that means it move together."
 			},
 			"progress-foreground": {
 				"$type": "color",
@@ -337,8 +347,8 @@
 			},
 			"success": {
 				"$type": "color",
-				"$value": "var(--color-turquoise)",
-				"$description": "settled."
+				"$value": "var(--color-tertiary)",
+				"$description": "settled. Points at the rank rather than at turquoise."
 			},
 			"success-edge": {
 				"$type": "color",
@@ -520,41 +530,6 @@
 				"$value": "#726035",
 				"$description": "the accent tint edge on dark."
 			},
-			"offer": {
-				"$type": "color",
-				"$value": "var(--color-terracotta)",
-				"$description": "the BETA window, which closes. Borrows the failure tone so an offer never reads as merely a highlight."
-			},
-			"offer-foreground": {
-				"$type": "color",
-				"$value": "var(--color-on-error)",
-				"$description": "text on an offer."
-			},
-			"offer-ink": {
-				"$type": "color",
-				"$value": "#a24b34",
-				"$description": "offer, as running text."
-			},
-			"offer-surface": {
-				"$type": "color",
-				"$value": "#f4e3d8",
-				"$description": "the quiet form of offer — a tint to sit offer-ink on. Concrete, not `bg-offer/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. offer-ink measures 4.68:1 on it."
-			},
-			"offer-border": {
-				"$type": "color",
-				"$value": "#eac8ba",
-				"$description": "the edge of a offer tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
-			},
-			"dark-offer-surface": {
-				"$type": "color",
-				"$value": "#3c2c34",
-				"$description": "the offer tint on dark."
-			},
-			"dark-offer-border": {
-				"$type": "color",
-				"$value": "#5e3837",
-				"$description": "the offer tint edge on dark."
-			},
 			"card": {
 				"$type": "color",
 				"$value": "var(--color-surface-card)",
@@ -655,11 +630,6 @@
 				"$value": "#f2c766",
 				"$description": "accent running text on dark."
 			},
-			"dark-offer-ink": {
-				"$type": "color",
-				"$value": "#e08b73",
-				"$description": "offer running text on dark."
-			},
 			"border-strong": {
 				"$type": "color",
 				"$value": "#c7c7c8",
@@ -739,6 +709,46 @@
 				"$type": "color",
 				"$value": "#6cc3dd",
 				"$description": "the same eyebrow on a dark ground, where the tone must go LIGHTER rather than darker — which is the whole reason this is a role and not a darkening written at the call site."
+			},
+			"secondary-ink": {
+				"$type": "color",
+				"$value": "var(--color-progress-ink)",
+				"$description": "the second brand colour, as running text."
+			},
+			"tertiary-ink": {
+				"$type": "color",
+				"$value": "var(--color-success-ink)",
+				"$description": "the third brand colour, as running text."
+			},
+			"secondary-edge": {
+				"$type": "color",
+				"$value": "#6ca9b6",
+				"$description": "The rim of a secondary button. Lighter than its fill and by enough to see."
+			},
+			"secondary-ring": {
+				"$type": "color",
+				"$value": "#c4dada",
+				"$description": "The halo a secondary button carries. The fill, softened into the page."
+			},
+			"tertiary-edge": {
+				"$type": "color",
+				"$value": "#7ba9a5",
+				"$description": "The rim of a tertiary button. Lighter than its fill and by enough to see."
+			},
+			"tertiary-ring": {
+				"$type": "color",
+				"$value": "#cadad3",
+				"$description": "The halo a tertiary button carries. The fill, softened into the page."
+			},
+			"secondary-strong": {
+				"$type": "color",
+				"$value": "#217c91",
+				"$description": "The second brand colour, darkened until white reads on it — 4.61:1. Raw paradise gives 3.89, so a filled secondary button in the tone itself fails AA at body size. This is the same value the band uses, and for the same reason: a mid-tone cannot carry text without being taken down a step."
+			},
+			"tertiary-strong": {
+				"$type": "color",
+				"$value": "#377d77",
+				"$description": "The third brand colour, darkened until white reads on it — 4.60:1. Raw turquoise gives 3.12."
 			}
 		}
 	},

@@ -1,6 +1,6 @@
 {
 	"name": "field",
-	"description": "A labelled input and everything that has to travel with it: the label, the hint, the error, and the wiring that ties them together. 30 uses, 26 of them in avenID, where the same four elements were reassembled by hand each time — which is how a field ends up with a visible error no screen reader announces.\n\nThe `shape` axis is what the claim card needed. A field with a fixed suffix — `.aven.ceo` — is not a placeholder and not a label: it is part of the control, it must not be selectable as text the user could delete, and it has to sit inside the same border so the two read as one field. That was eighty-odd utilities across two elements at the call site.",
+	"description": "A labelled input and everything that has to travel with it: the label, the hint, the error, and the wiring that ties them together. 30 uses, 26 of them in avenID, where the same four elements were reassembled by hand each time — which is how a field ends up with a visible error no screen reader announces.\n\nThe `shape` axis is what the claim card needed. A field with a fixed suffix — `.aven.ceo` — is not a placeholder and not a label: it is part of the control, it must not be selectable as text the user could delete, and it has to sit inside the same border so the two read as one field. That was eighty-odd utilities across two elements at the call site.\n\nA SELECT is this unit with a different control, not a unit of its own — it was one, and the two shared their label, their shell, their focus rule and their hint. What actually differs is the tag and a marker, which is a `control` variant.",
 	"interface": {
 		"props": {
 			"id": "string",
@@ -17,6 +17,9 @@
 			"input": {
 				"value": "string"
 			}
+		},
+		"slots": {
+			"options": {}
 		}
 	},
 	"view": {
@@ -124,6 +127,15 @@
 				"borderInlineEnd": "1px solid var(--color-border-soft)",
 				"background": "var(--color-surface-sunken)",
 				"color": "var(--color-foreground-soft)"
+			},
+			"marker": {
+				"$description": "The chevron on a select. `pointer-events:none` or it eats the click that should open the picker.",
+				"position": "absolute",
+				"insetInlineEnd": "var(--space-comfortable)",
+				"insetBlockStart": "50%",
+				"transform": "translateY(-50%)",
+				"pointerEvents": "none",
+				"color": "var(--color-foreground-quiet)"
 			}
 		},
 		"variants": {
@@ -193,6 +205,16 @@
 					"paddingBlock": "var(--space-tight)",
 					"resize": "vertical",
 					"lineHeight": "1.5"
+				}
+			},
+			"control": {
+				"$description": "What the control IS. The label, hint, error and focus behaviour are identical across all of them, which is why they are one unit.",
+				"select": {
+					"$description": "A native `<select>`, deliberately: it gets the platform's own picker on a phone, works with a hardware keyboard and a screen reader without a line of JavaScript, and cannot be scrolled out of view. A custom listbox earns its cost only when the options are more than text.",
+					"$part": "control",
+					"appearance": "none",
+					"cursor": "pointer",
+					"paddingInlineEnd": "2.5rem"
 				}
 			}
 		},

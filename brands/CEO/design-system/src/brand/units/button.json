@@ -60,6 +60,13 @@
 					"borderColor": "var(--color-primary-edge)",
 					"--btn-ring": "var(--color-primary-ring)"
 				},
+				"secondary": {
+					"$description": "The second brand colour, filled. For an action that is affirmative but not the main one — a second real choice rather than a way out. Distinct from `neutral`, which is the way out. The fill is the DARKENED rank, not the tone: white on raw paradise is 3.89:1 and fails AA at body size, which is the same reason the editorial bands are darkened. A brand colour that cannot carry its own label is not a button fill.",
+					"background": "var(--color-secondary-strong)",
+					"color": "var(--color-secondary-foreground)",
+					"borderColor": "var(--color-secondary-edge)",
+					"--btn-ring": "var(--color-secondary-ring)"
+				},
 				"accent": {
 					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from primary on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR.",
 					"background": "var(--color-accent)",
@@ -68,8 +75,8 @@
 					"--btn-ring": "var(--color-accent-ring)",
 					"--btn-badge": "color-mix(in oklab, var(--color-accent-foreground) 18%, transparent)"
 				},
-				"secondary": {
-					"$description": "neutral. An outline and dark text, never a coloured fill — a secondary action carrying a fill competes with the primary beside it.",
+				"neutral": {
+					"$description": "The neutral alternative to primary — an outline and dark text, never a coloured fill, because a second filled button competes with the first. Called `neutral` and not `secondary`: `secondary` now names the second BRAND COLOUR, and one word meaning both 'paradise' and 'the quiet button' is how a caller ends up reaching for a blue fill on a cancel action.",
 					"background": "var(--color-surface-raised)",
 					"color": "var(--color-foreground)",
 					"borderColor": "var(--color-border-strong)",

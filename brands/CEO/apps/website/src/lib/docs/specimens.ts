@@ -131,21 +131,16 @@ export const specimens: Record<string, Specimen> = {
 					<span class="field-suffix">.aven.ceo</span>
 				</span>
 			</span>
+			<span class="field field--control-select">
+				<label class="field-label" for="sp-plan">Plan</label>
+				<span class="field-shell">
+					<select class="field-control" id="sp-plan"><option>Founder</option><option>Company</option></select>
+					<span class="field-marker">${icon('chevron-down', '1.125rem')}</span>
+				</span>
+			</span>
 			<span class="field field--type-numeric">
 				<label class="field-label" for="sp-code">Device code</label>
 				<input class="field-control" id="sp-code" type="text" inputmode="numeric" value="4192" readonly>
-			</span>
-		</span>`
-	},
-	select: {
-		html: `<span class="select">
-			<label class="select-label" for="sp-plan">Plan</label>
-			<span class="select-shell">
-				<select class="select-control" id="sp-plan">
-					<option>Founder</option>
-					<option>Company</option>
-				</select>
-				<span class="select-marker">${icon('chevron-down', '1.125rem')}</span>
 			</span>
 		</span>`
 	},
@@ -245,7 +240,7 @@ export const specimens: Record<string, Specimen> = {
 			</span>
 			<span class="modal-body">The name goes back on the list immediately and anyone can take it. This cannot be undone.</span>
 			<span class="modal-actions">
-				<button class="btn btn--secondary btn--size-sm" type="button">Keep it</button>
+				<button class="btn btn--neutral btn--size-sm" type="button">Keep it</button>
 				<button class="btn btn--danger btn--size-sm" type="button">Release the name</button>
 			</span>
 		</span>`
@@ -357,7 +352,7 @@ export const specimens: Record<string, Specimen> = {
 				<p class="hero-helper">— your avenCEO gets you there —</p>
 				<span class="hero-actions">
 					<button class="btn btn--accent" type="button">Claim your name</button>
-					<button class="btn btn--secondary" type="button">See the skills</button>
+					<button class="btn btn--neutral" type="button">See the skills</button>
 				</span>
 			</span>
 		</span>`
@@ -479,13 +474,19 @@ export const specimens: Record<string, Specimen> = {
 			<p class="price-tier-note">Cancel any time. Incl. VAT.</p>
 		</span>`
 	},
-	'rank-list': {
-		one: `<ol class="rank-list" aria-label="Reserved names" style="inline-size:19rem">
-			<li class="rank-list-row"><span class="rank-list-rank">1</span><span class="rank-list-name">maia</span><span class="rank-list-meta">2 days ago</span></li>
-			<li class="rank-list-row"><span class="rank-list-rank">2</span><span class="rank-list-name">samuel</span><span class="rank-list-meta">5 days ago</span></li>
-			<li class="rank-list-row"><span class="rank-list-rank">9</span><span class="rank-list-name">daniel</span><span class="rank-list-meta">last week</span></li>
-			<li class="rank-list-row"><span class="rank-list-rank">10</span><span class="rank-list-name">aven-studio</span><span class="rank-list-meta">last week</span></li>
-		</ol>`
+	'row-list': {
+		one: `<ol class="row-list" aria-label="Reserved names" style="inline-size:20rem">
+			<li class="row-list-row"><span class="row-list-lead">1</span><span class="row-list-name">maia</span><span class="row-list-meta">2 days ago</span></li>
+			<li class="row-list-row"><span class="row-list-lead">2</span><span class="row-list-name">samuel</span><span class="row-list-meta">5 days ago</span></li>
+			<li class="row-list-row"><span class="row-list-lead">9</span><span class="row-list-name">daniel</span><span class="row-list-meta">last week</span></li>
+			<li class="row-list-row"><span class="row-list-lead">10</span><span class="row-list-name">aven-studio</span><span class="row-list-meta">last week</span></li>
+		</ol>`,
+		html: `<span class="sp-stack sp-stack--wide">
+			<ul class="row-list row-list--style-panel row-list--density-roomy" aria-label="Passkeys">
+				<li class="row-list-row"><span class="row-list-lead">${icon('check', '1em')}</span><span class="row-list-name">MacBook Pro — Touch ID</span><span class="row-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span></li>
+				<li class="row-list-row"><span class="row-list-lead">${icon('check', '1em')}</span><span class="row-list-name">iPhone 15</span><span class="row-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span></li>
+			</ul>
+		</span>`
 	},
 	'payment-frame': {
 		tall: true,
@@ -496,21 +497,9 @@ export const specimens: Record<string, Specimen> = {
 			<p class="payment-frame-state">Waiting for the payment provider…</p>
 			<span class="payment-frame-fallback">
 				<span class="prose prose--size-fine">Not loading?</span>
-				<button class="btn btn--secondary btn--size-sm" type="button"><span class="btn-label">Open checkout in a new tab</span></button>
+				<button class="btn btn--neutral btn--size-sm" type="button"><span class="btn-label">Open checkout in a new tab</span></button>
 			</span>
 		</span>`
-	},
-	'key-list': {
-		one: `<ul class="key-list" aria-label="Passkeys" style="inline-size:22rem">
-			<li class="key-list-row">
-				<span><span class="key-list-name">MacBook Pro — Touch ID</span><p class="key-list-meta">Last used 2 hours ago</p></span>
-				<span class="key-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span>
-			</li>
-			<li class="key-list-row">
-				<span><span class="key-list-name">iPhone 15</span><p class="key-list-meta">Last used yesterday</p></span>
-				<span class="key-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span>
-			</li>
-		</ul>`
 	},
 	section: {
 		one: `<span class="section" style="display:block;inline-size:100%"><span class="section-inner" style="display:block"><p class="text text--eyebrow-quiet">Section</p><p class="text text--section-title">One band of a page</p></span></span>`,

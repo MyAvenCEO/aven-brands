@@ -1,0 +1,100 @@
+{
+	"name": "row-list",
+	"description": "A list of rows that share a shape: a fixed leading column, a name that shrinks, and something on the trailing edge. Two units were this — a ranked board and a credential list — and they shared their grid, their overflow rule and their reason for existing. What differed was the tag and what sits at each end, which is a variant.\n\nThe leading column is the whole reason the rows are a grid and not flex: a rank of 9 and 10 must stack without shifting the name beside them, and a `::marker` cannot be given a width.",
+	"interface": {
+		"props": {
+			"label": "string"
+		},
+		"slots": {
+			"rows": {},
+			"empty": {
+				"accepts": ["empty-state"]
+			}
+		}
+	},
+	"view": {
+		"tag": "ul",
+		"attrs": {
+			"aria-label": "$props.label"
+		},
+		"$children": "rows"
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gap": "0.35rem",
+			"margin": "0",
+			"padding": "0",
+			"listStyle": "none",
+			"minInlineSize": "0"
+		},
+		"parts": {
+			"row": {
+				"display": "grid",
+				"gridTemplateColumns": "auto 1fr auto",
+				"alignItems": "baseline",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0",
+				"fontSize": "var(--fs-body)"
+			},
+			"lead": {
+				"$description": "The fixed column — a rank, an icon, a checkbox. Right-aligned and tabular so 9 and 10 stack rather than shifting the name.",
+				"inlineSize": "1.6rem",
+				"flexShrink": "0",
+				"textAlign": "end",
+				"fontWeight": "600",
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"name": {
+				"$description": "Arbitrary user text — a device name, a claimed name. `overflow-wrap:anywhere` because one unbroken string sets the min-content width and pushes the trailing column off a phone.",
+				"minInlineSize": "0",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-tight)",
+				"overflowWrap": "anywhere",
+				"color": "var(--color-foreground)"
+			},
+			"meta": {
+				"$description": "The one thing that varies down the list — a date, a status. Forty identical rows are forty identical rows; something has to differ or the eye has nowhere to land.",
+				"fontSize": "var(--fs-eyebrow)",
+				"whiteSpace": "nowrap",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"action": {
+				"flexShrink": "0"
+			}
+		},
+		"variants": {
+			"style": {
+				"$description": "Bare rows, or a bounded panel of them.",
+				"panel": {
+					"$description": "Bordered and divided — for rows that are managed rather than read.",
+					"gap": "0",
+					"borderRadius": "var(--radius-md)",
+					"border": "1px solid var(--color-border)",
+					"overflow": "hidden"
+				}
+			},
+			"density": {
+				"airy": {
+					"$part": "row",
+					"paddingBlock": "var(--space-tight)"
+				},
+				"roomy": {
+					"$part": "row",
+					"padding": "var(--space-tight) var(--space-comfortable)"
+				}
+			}
+		},
+		"states": {
+			"selected": {
+				"$part": "row",
+				"$description": "The row you are on — the credential you signed in with. Marked with a badge and not only a tint: it is the one row whose action would sign you out.",
+				"background": "var(--color-surface-selected)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "`<ul>` by default, `<ol>` when the position is data — a ranked board loses its meaning the moment one row is filtered out of an unordered list. Either way it carries a label, so the count is announced. A per-row action needs the row's NAME in its accessible name: nine buttons all called 'Revoke' tell a screen-reader user nothing about which one they are on. Where that action is destructive it wears the danger variant here AND in its confirm dialog."
+	}
+}
