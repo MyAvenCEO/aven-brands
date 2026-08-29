@@ -91,7 +91,16 @@ const SNAPSHOT = ({ THRESHOLD, linkedCss }) => {
     const r = el.getBoundingClientRect();
     const shown = cs.display !== 'none' && cs.visibility !== 'hidden'
       && Number(cs.opacity) > 0.05 && r.width > 0 && r.height > 0;
-    if (shown) visible[i] = describe(el, i);
+    /*
+     * Check C asks whether CONTENT is lost. An element the author has marked
+     * `aria-hidden` carries none by definition — it is decoration, and swapping
+     * a looping background video for its own poster frame under `reduce` is the
+     * correct behaviour, not a regression. Counting it as loss meant the gate
+     * failed a page precisely for doing the right thing, which is the fastest
+     * way to teach someone to stop reading a gate.
+     */
+    const decorative = el.closest('[aria-hidden="true"]') !== null;
+    if (shown && !decorative) visible[i] = describe(el, i);
 
     const animMs = Math.max(...String(cs.animationDuration).split(',')
       .map(s => parseFloat(s) * (s.includes('ms') ? 0.001 : 1) || 0));

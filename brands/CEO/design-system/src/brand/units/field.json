@@ -1,0 +1,125 @@
+{
+	"name": "field",
+	"description": "A labelled input and everything that has to travel with it: the label, the hint, the error, and the wiring that ties them together. 30 uses, 26 of them in avenID, where the same four elements were reassembled by hand each time — which is how a field ends up with a visible error that no screen reader announces.",
+	"interface": {
+		"props": {
+			"id": "string",
+			"label": "string",
+			"hint": "string",
+			"error": "string",
+			"required": "boolean",
+			"type": "string",
+			"value": "string"
+		},
+		"events": {
+			"input": {
+				"value": "string"
+			}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "label",
+				"part": "label",
+				"attrs": {
+					"for": "$props.id"
+				},
+				"text": "$props.label"
+			},
+			{
+				"tag": "input",
+				"part": "control",
+				"attrs": {
+					"id": "$props.id",
+					"type": "$props.type",
+					"value": "$props.value",
+					"required": "$props.required",
+					"aria-invalid": "$props.error",
+					"aria-describedby": "$props.describedBy"
+				}
+			},
+			{
+				"tag": "p",
+				"part": "hint",
+				"attrs": {
+					"id": "$props.hintId"
+				},
+				"text": "$props.hint"
+			},
+			{
+				"tag": "p",
+				"part": "error",
+				"attrs": {
+					"id": "$props.errorId",
+					"role": "alert"
+				},
+				"text": "$props.error"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gap": "var(--space-hairline)"
+		},
+		"parts": {
+			"label": {
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "500",
+				"color": "var(--color-foreground)"
+			},
+			"control": {
+				"$description": "`inline-size:100%` and `min-inline-size:0` are not cosmetic. An input keeps an intrinsic width of about twenty characters, and in a grid that intrinsic width sizes the column — which is the single most common cause of a layout that overflows at 320px.",
+				"inlineSize": "100%",
+				"minInlineSize": "0",
+				"minBlockSize": "2.75rem",
+				"padding": "0 var(--space-comfortable)",
+				"borderRadius": "var(--radius-inner)",
+				"border": "1px solid var(--color-border-strong)",
+				"background": "var(--color-input)",
+				"color": "var(--color-foreground)",
+				"font": "inherit",
+				"fontSize": "var(--fs-body)"
+			},
+			"hint": {
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"error": {
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-error-ink)"
+			}
+		},
+		"variants": {
+			"size": {
+				"sm": {
+					"$part": "control",
+					"minBlockSize": "2.25rem",
+					"fontSize": "var(--fs-meta)"
+				}
+			}
+		},
+		"states": {
+			"focus": {
+				"$part": "control",
+				"outline": "2px solid var(--color-accent-ink)",
+				"outlineOffset": "1px"
+			},
+			"invalid": {
+				"$part": "control",
+				"borderColor": "var(--color-error-border)",
+				"background": "var(--color-error-surface)"
+			},
+			"disabled": {
+				"$part": "control",
+				"opacity": "0.55",
+				"cursor": "default"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The label is a real `<label for>`, not a placeholder — a placeholder disappears the moment someone types, taking the question with it. The error carries `role=alert` so it is announced when it appears, and is referenced by `aria-describedby` so it is read again when focus returns. `aria-invalid` is what a screen reader uses to say the field is wrong; the red border says it to everyone else, which is why both are here."
+	}
+}

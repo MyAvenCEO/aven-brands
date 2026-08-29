@@ -1,0 +1,68 @@
+{
+	"name": "badge",
+	"description": "A small label that states a fact about the thing beside it — a status, a category, a count. 69 uses across the three surfaces and no two agreed: the website spelled it as a rounded-full span with an alpha tint and an alpha border, the app as a dozen local classes. The tint/ink pairing is the part worth centralising, because an alpha tint over an unknown ground has no guaranteed contrast and every one of them was picked by eye.",
+	"interface": {
+		"props": {
+			"label": "string"
+		}
+	},
+	"view": {
+		"tag": "span",
+		"text": "$props.label"
+	},
+	"styling": {
+		"base": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"gap": "var(--space-hairline)",
+			"padding": "0.125rem 0.5rem",
+			"borderRadius": "var(--radius-pill)",
+			"fontSize": "var(--fs-nano)",
+			"fontWeight": "700",
+			"textTransform": "uppercase",
+			"letterSpacing": "var(--tracking-wider)",
+			"whiteSpace": "nowrap",
+			"background": "var(--color-muted)",
+			"color": "var(--color-foreground-soft)"
+		},
+		"variants": {
+			"tone": {
+				"neutral": {
+					"background": "var(--color-muted)",
+					"color": "var(--color-foreground-soft)"
+				},
+				"accent": {
+					"background": "var(--color-accent)",
+					"color": "var(--color-accent-foreground)"
+				},
+				"progress": {
+					"background": "var(--color-progress)",
+					"color": "var(--color-progress-foreground)"
+				},
+				"success": {
+					"background": "var(--color-success)",
+					"color": "var(--color-success-foreground)"
+				},
+				"warning": {
+					"background": "var(--color-warning)",
+					"color": "var(--color-warning-foreground)"
+				},
+				"error": {
+					"background": "var(--color-error)",
+					"color": "var(--color-error-foreground)"
+				}
+			},
+			"emphasis": {
+				"quiet": {
+					"$description": "an outline instead of a fill, for a badge that must not outshout the row it sits in. The ink stays the filled variant's ink, so the pairing is still one decision.",
+					"background": "transparent",
+					"boxShadow": "inset 0 0 0 1px var(--color-border-strong)",
+					"color": "var(--color-foreground-soft)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "A badge is a label, not a control. It carries no role — a screen reader reads it as the text it is. When the badge is the ONLY thing saying a row failed, the row needs the word too: colour is never the only signal."
+	}
+}

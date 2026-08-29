@@ -1,10 +1,17 @@
 {
 	"name": "step",
 	"description": "One stage on a progress rail. `step-done` used to be a second component declaring two properties, and its own comment said it was applied alongside step and never instead — which is the definition of a state, not a component.",
-	"interface": { "props": { "done": "string" } },
+	"interface": {
+		"props": {
+			"done": "string"
+		}
+	},
 	"view": {
 		"tag": "span",
-		"attrs": { "aria-selected": "$props.done", "role": "presentation" }
+		"attrs": {
+			"aria-selected": "$props.done",
+			"role": "presentation"
+		}
 	},
 	"styling": {
 		"base": {

@@ -44,20 +44,53 @@
 import type { UnitDef, UnitRegistry } from '@myavenceo/aven-vibes'
 import { registryStyles, validateRegistry } from '@myavenceo/aven-vibes'
 
+import accordion from './brand/units/accordion.json' with { type: 'json' }
+import avatar from './brand/units/avatar.json' with { type: 'json' }
+import badge from './brand/units/badge.json' with { type: 'json' }
 import button from './brand/units/button.json' with { type: 'json' }
+import emptyState from './brand/units/empty-state.json' with { type: 'json' }
+import field from './brand/units/field.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
+import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
+import select from './brand/units/select.json' with { type: 'json' }
+import sidebar from './brand/units/sidebar.json' with { type: 'json' }
+import skeleton from './brand/units/skeleton.json' with { type: 'json' }
+import spinner from './brand/units/spinner.json' with { type: 'json' }
 import step from './brand/units/step.json' with { type: 'json' }
 import surface from './brand/units/surface.json' with { type: 'json' }
+import table from './brand/units/table.json' with { type: 'json' }
+import tabs from './brand/units/tabs.json' with { type: 'json' }
 import text from './brand/units/text.json' with { type: 'json' }
+import toast from './brand/units/toast.json' with { type: 'json' }
 
+/*
+ * Ordered by how much of the estate each one covers, measured across the
+ * website, the Tauri app and avenID rather than guessed. `tabs` is here because
+ * of that measurement: an earlier pass counted the website only, found zero
+ * uses, and left it out — while the app and avenID had forty-seven between
+ * them. A website-only count is not an estate count.
+ */
 const documents = [
 	text,
 	surface,
-	step,
 	button,
+	badge,
+	tabs,
+	field,
+	toast,
+	table,
+	sidebar,
+	modal,
+	accordion,
+	select,
+	avatar,
+	emptyState,
+	spinner,
+	skeleton,
+	step,
 	logo,
 	navLink,
 	navbar,

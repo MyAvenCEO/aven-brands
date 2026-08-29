@@ -2,19 +2,45 @@
 	"name": "navbar",
 	"description": "The bar every surface has. Three implementations existed: a 257-line marketing header, the avenID header, and the avenOS dashboard rail.",
 	"interface": {
-		"props": { "home": "string" },
+		"props": {
+			"home": "string"
+		},
 		"slots": {
-			"links": { "accepts": ["nav-link"] },
-			"actions": { "accepts": ["btn"] }
+			"links": {
+				"accepts": ["nav-link"]
+			},
+			"actions": {
+				"accepts": ["btn"]
+			}
 		}
 	},
-	"layout": { "primitive": "cluster", "gap": "space-comfortable", "align": "center" },
+	"layout": {
+		"primitive": "cluster",
+		"gap": "space-comfortable",
+		"align": "center"
+	},
 	"view": {
 		"tag": "header",
 		"children": [
-			{ "$use": { "unit": "logo", "props": { "href": "$props.home", "variant": "lockup" } } },
-			{ "tag": "nav", "class": "navbar-links", "$children": "links" },
-			{ "tag": "div", "class": "navbar-actions", "$children": "actions" }
+			{
+				"$use": {
+					"unit": "logo",
+					"props": {
+						"href": "$props.home",
+						"variant": "lockup"
+					}
+				}
+			},
+			{
+				"tag": "nav",
+				"class": "navbar-links",
+				"$children": "links"
+			},
+			{
+				"tag": "div",
+				"class": "navbar-actions",
+				"$children": "actions"
+			}
 		]
 	},
 	"styling": {
@@ -27,12 +53,16 @@
 		},
 		"variants": {
 			"variant": {
-				"marketing": { "background": "transparent" },
+				"marketing": {
+					"background": "transparent"
+				},
 				"app": {
 					"background": "var(--color-surface-raised)",
 					"borderBottom": "1px solid var(--color-border)"
 				},
-				"service": { "borderBottom": "1px solid var(--color-border)" }
+				"service": {
+					"borderBottom": "1px solid var(--color-border)"
+				}
 			}
 		}
 	}

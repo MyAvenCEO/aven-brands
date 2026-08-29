@@ -1,0 +1,98 @@
+{
+	"name": "table",
+	"description": "Rows of the same shape, compared. 14 uses, mostly in avenID. Two rules ride along: a table that scrolls sideways inside its own region must SHOW that it does, and a header that draws a sort chevron must actually sort — a control that declares `aria-sort` and changes nothing is worse than one that declares nothing.",
+	"interface": {
+		"props": {
+			"label": "string"
+		},
+		"slots": {
+			"head": {},
+			"body": {}
+		},
+		"events": {
+			"sort": {
+				"column": "string",
+				"direction": "string"
+			}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"part": "scroller",
+		"$children": [
+			{
+				"tag": "table",
+				"attrs": {
+					"aria-label": "$props.label"
+				},
+				"$children": [
+					{
+						"tag": "thead",
+						"$children": "head"
+					},
+					{
+						"tag": "tbody",
+						"$children": "body"
+					}
+				]
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"inlineSize": "100%",
+			"minInlineSize": "0"
+		},
+		"parts": {
+			"scroller": {
+				"$description": "The mask is the visible cue. Without it the columns past the edge simply stop existing for anyone not using a screen reader.",
+				"overflowX": "auto",
+				"minInlineSize": "0",
+				"maskImage": "linear-gradient(to right, #000 calc(100% - 2rem), transparent)"
+			},
+			"cell": {
+				"padding": "var(--space-tight) var(--space-comfortable)",
+				"textAlign": "start",
+				"fontSize": "var(--fs-meta)",
+				"borderBlockEnd": "1px solid var(--color-border-soft)"
+			},
+			"header": {
+				"padding": "var(--space-tight) var(--space-comfortable)",
+				"textAlign": "start",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-wider)",
+				"color": "var(--color-foreground-quiet)",
+				"whiteSpace": "nowrap",
+				"borderBlockEnd": "1px solid var(--color-border-strong)"
+			},
+			"numeric": {
+				"$description": "Digits that line up in a column need tabular figures, or the eye cannot compare them.",
+				"textAlign": "end",
+				"fontVariantNumeric": "tabular-nums"
+			}
+		},
+		"variants": {
+			"density": {
+				"compact": {
+					"$part": "cell",
+					"padding": "var(--space-hairline) var(--space-tight)"
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$part": "row",
+				"background": "var(--color-muted)"
+			},
+			"selected": {
+				"$part": "row",
+				"background": "var(--color-surface-selected)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "A real `<table>` with `<th scope>`, so a screen reader can say which column a cell belongs to. A sortable header is a `<button>` inside the `<th>`, and the `<th>` carries `aria-sort=ascending|descending|none` — which must reflect the data, not the chevron. The scroller needs `tabindex=0` so a keyboard can reach the overflow; without it the hidden columns are unreachable without a mouse."
+	}
+}

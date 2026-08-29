@@ -1,0 +1,86 @@
+{
+	"name": "avatar",
+	"description": "A person or an aven, as a circle. The generated fallback draws from `color.palettes.avatar` in the brand — five hexes that used to sit in the website, which meant a second brand could not have its own.",
+	"interface": {
+		"props": {
+			"src": "string",
+			"name": "string",
+			"initials": "string"
+		}
+	},
+	"view": {
+		"tag": "span",
+		"attrs": {
+			"title": "$props.name"
+		},
+		"$children": [
+			{
+				"tag": "img",
+				"part": "image",
+				"attrs": {
+					"src": "$props.src",
+					"alt": ""
+				}
+			},
+			{
+				"tag": "span",
+				"part": "initials",
+				"text": "$props.initials"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "inline-grid",
+			"placeItems": "center",
+			"inlineSize": "2.5rem",
+			"blockSize": "2.5rem",
+			"flexShrink": "0",
+			"overflow": "hidden",
+			"borderRadius": "var(--radius-pill)",
+			"background": "var(--color-muted)",
+			"color": "var(--color-foreground-soft)",
+			"fontSize": "var(--fs-micro)",
+			"fontWeight": "600"
+		},
+		"parts": {
+			"image": {
+				"inlineSize": "100%",
+				"blockSize": "100%",
+				"objectFit": "cover"
+			},
+			"initials": {
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-wide)"
+			}
+		},
+		"variants": {
+			"size": {
+				"sm": {
+					"inlineSize": "1.75rem",
+					"blockSize": "1.75rem",
+					"fontSize": "var(--fs-nano)"
+				},
+				"lg": {
+					"inlineSize": "3.5rem",
+					"blockSize": "3.5rem",
+					"fontSize": "var(--fs-meta)"
+				},
+				"xl": {
+					"inlineSize": "5rem",
+					"blockSize": "5rem",
+					"fontSize": "var(--fs-body)"
+				}
+			},
+			"ring": {
+				"page": {
+					"$description": "A ring in the PAGE colour, for avatars that overlap in a stack — it reads as a gap rather than as a border.",
+					"boxShadow": "0 0 0 2px var(--color-surface-page)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "`alt=\"\"` on the image, deliberately: the name is beside the avatar in every real use, and repeating it makes a screen reader say it twice. When an avatar is the ONLY thing identifying the person, the name goes in the alt instead."
+	}
+}

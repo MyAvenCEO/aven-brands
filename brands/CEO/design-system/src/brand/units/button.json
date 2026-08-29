@@ -1,6 +1,6 @@
 {
 	"name": "btn",
-	"description": "The one button. Every affirmative, neutral and destructive action on every surface is this unit with a different variant.",
+	"description": "The one button. Every affirmative, neutral, destructive and marketing action on every surface is this unit with a different variant — six variants and four sizes, which is what the estate actually contains once the hand-written ones are counted.",
 	"interface": {
 		"props": {
 			"label": "string",
@@ -9,7 +9,9 @@
 			"busy": "boolean"
 		},
 		"events": {
-			"press": { "id": "string" }
+			"press": {
+				"id": "string"
+			}
 		}
 	},
 	"view": {
@@ -58,22 +60,71 @@
 				"ghost": {
 					"background": "transparent",
 					"color": "var(--color-foreground)"
+				},
+				"accent": {
+					"$description": "the marketing call to action — sunflower, the one place the brand shouts. Distinct from `primary` on purpose: primary is the main affirmative action on a form, accent is the thing the page is FOR. Ink is accent-foreground (8.77:1), never the page greys.",
+					"background": "var(--color-accent)",
+					"color": "var(--color-accent-foreground)",
+					"boxShadow": "var(--shadow-raised)"
+				},
+				"unavailable": {
+					"$description": "not offered yet. NOT `disabled`: disabled means you may not, and this means there is nothing here to press. A muted fill rather than a dimmed primary, because dimming a primary reads as a control that failed rather than one that has not arrived.",
+					"background": "var(--color-muted)",
+					"color": "var(--color-foreground-soft)",
+					"cursor": "default"
 				}
 			},
 			"size": {
-				"sm": { "minHeight": "2.25rem", "padding": "0 1.25rem", "fontSize": "var(--fs-meta)" },
-				"lg": { "minHeight": "3.5rem", "padding": "0 2.25rem", "fontSize": "var(--fs-lead)" }
+				"sm": {
+					"$description": "a nav pill.",
+					"minHeight": "2rem",
+					"padding": "0 1rem",
+					"fontSize": "var(--fs-eyebrow)"
+				},
+				"md": {
+					"$description": "the default. 2.75rem clears the 44px touch target.",
+					"minHeight": "2.75rem",
+					"padding": "0 1.75rem",
+					"fontSize": "var(--fs-section)"
+				},
+				"lg": {
+					"$description": "a section CTA.",
+					"minHeight": "3.5rem",
+					"padding": "0 2.25rem",
+					"fontSize": "var(--fs-lead)"
+				},
+				"xl": {
+					"$description": "the one submit a page is built around — the name check.",
+					"minHeight": "5rem",
+					"padding": "0 2.25rem",
+					"fontSize": "var(--fs-lead)"
+				}
 			}
 		},
 		"states": {
-			"hover": { "opacity": "0.9" },
+			"hover": {
+				"opacity": "0.9"
+			},
 			"focus": {
 				"outline": "2px solid var(--color-accent-ink)",
 				"outlineOffset": "2px"
 			},
-			"active": { "transform": "translateY(1px)" },
-			"disabled": { "cursor": "default", "opacity": "0.55" },
-			"loading": { "cursor": "progress", "opacity": "1" }
+			"active": {
+				"transform": "translateY(1px)"
+			},
+			"disabled": {
+				"cursor": "default",
+				"opacity": "0.55"
+			},
+			"loading": {
+				"cursor": "progress",
+				"opacity": "1",
+				"$description": "full strength, cursor progress. Reusing the disabled dimming for an in-flight action reads as `you cannot do this` rather than `this is happening`."
+			}
+		},
+		"reducedMotion": {
+			"$description": "The press feedback goes; the control still responds. Never `animation:none` as a blanket — a button has no entrance animation to lose, but the rule is written per unit because for others it would remove the very thing that reveals the content.",
+			"transition": "none"
 		}
 	},
 	"a11y": {

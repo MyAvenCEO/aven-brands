@@ -1,0 +1,53 @@
+{
+	"name": "spinner",
+	"description": "Work in progress, as a shape. Paired with the button's `loading` state rather than its `disabled` one, because dimming a control to say `this is happening` reads as `you may not do this`.",
+	"interface": {
+		"props": {
+			"label": "string"
+		}
+	},
+	"view": {
+		"tag": "span",
+		"attrs": {
+			"role": "status",
+			"aria-label": "$props.label"
+		},
+		"$icon": {
+			"name": "spinner",
+			"size": "1em"
+		}
+	},
+	"styling": {
+		"base": {
+			"display": "inline-flex",
+			"inlineSize": "1em",
+			"blockSize": "1em",
+			"color": "currentColor",
+			"animation": "aven-spin 900ms linear infinite"
+		},
+		"variants": {
+			"size": {
+				"sm": {
+					"fontSize": "var(--fs-meta)"
+				},
+				"lg": {
+					"fontSize": "var(--fs-lead)"
+				}
+			}
+		},
+		"keyframes": {
+			"aven-spin": {
+				"to": {
+					"transform": "rotate(360deg)"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "A spinner cannot fade instead of moving — a still spinner says nothing. Under `reduce` it slows to a rate that reads as alive without spinning fast enough to trigger vestibular symptoms.",
+			"animationDuration": "2400ms"
+		}
+	},
+	"a11y": {
+		"note": "`role=status` announces politely, once, on appearance. The label is required: `aria-label` is the only thing a screen reader has, because the icon is `aria-hidden` geometry."
+	}
+}
