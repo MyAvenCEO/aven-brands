@@ -22,6 +22,7 @@ import {
 	fontWeights,
 	inkScale,
 	layoutNames,
+	logoVariants,
 	radiusScale,
 	sections,
 	spaceScale,
@@ -142,7 +143,39 @@ function inspect(name: string) {
 		</aside>
 
 		<main id="cb-main">
-			{#if active === 'colour'}
+			{#if active === 'logo'}
+				<section class="cb-section">
+					<p class="eyebrow-quiet">Logo</p>
+					<p class="meta">
+						The mark, the wordmark and the lockup. The wordmark is two faces in one word — "aven" in
+						the thin display face, "CEO" in the heaviest sans — a specification that used to live
+						inline at every call site, including two <span class="cb-mono">style</span> attributes
+						in the site header.
+					</p>
+					<div class="cb-gallery">
+						{#each logoVariants as variant (variant)}
+							<div class="cb-piece">
+								<div class="cb-piece-head">
+									<span class="cb-mono">.logo--{variant}</span>
+								</div>
+								<div class="cb-stage">
+									<span class="logo logo--{variant}">
+										{#if variant !== 'wordmark'}
+											<img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28">
+										{/if}
+										{#if variant !== 'mark'}
+											<span class="logo-wordmark">
+												<span class="logo-word-aven">aven</span
+												><span class="logo-word-ceo">CEO</span>
+											</span>
+										{/if}
+									</span>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</section>
+			{:else if active === 'colour'}
 				{#each colourGroups as group (group.id)}
 					<section class="cb-section">
 						<p class="eyebrow-quiet">{group.title}</p>

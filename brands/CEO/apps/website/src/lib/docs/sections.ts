@@ -130,7 +130,11 @@ export function declarationsOf(name: string): Array<[string, string]> {
 
 export type DocSection = { id: string; label: string; count: number }
 
+/** The logo's variants, from the unit rather than from a list kept here. */
+export const logoVariants = ['lockup', 'mark', 'wordmark'] as const
+
 export const sections: DocSection[] = [
+	{ id: 'logo', label: 'Logo', count: logoVariants.length },
 	{
 		id: 'colour',
 		label: 'Colour',

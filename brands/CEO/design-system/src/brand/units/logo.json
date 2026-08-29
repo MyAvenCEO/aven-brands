@@ -1,6 +1,6 @@
 {
 	"name": "logo",
-	"description": "The avenCEO lockup. Three surfaces hand-assembled an img plus a text node with their own wordmark styling; this is that assembly, once.",
+	"description": "The avenCEO lockup. The wordmark is TWO faces in one word — \"aven\" in the thin display face at 1.4em, \"CEO\" in the heaviest sans, uppercase — and that specification lived inline at every call site, including two inline `style` attributes in the site header. It is here now, once.",
 	"interface": {
 		"props": {
 			"variant": "string",
@@ -11,19 +11,35 @@
 	"view": {
 		"tag": "a",
 		"class": "logo-link",
-		"attrs": { "href": "$props.href", "aria-label": "avenCEO" },
+		"attrs": {
+			"href": "$props.href",
+			"aria-label": "avenCEO"
+		},
 		"children": [
 			{
 				"tag": "img",
 				"class": "logo-mark",
-				"attrs": { "src": "/aven-logo.svg", "alt": "", "width": "28", "height": "28" }
+				"attrs": {
+					"src": "/aven-logo.svg",
+					"alt": "",
+					"width": "28",
+					"height": "28"
+				}
 			},
 			{
 				"tag": "span",
 				"class": "logo-wordmark",
 				"children": [
-					{ "tag": "span", "class": "logo-word-aven", "text": "aven" },
-					{ "tag": "span", "class": "logo-word-ceo", "text": "CEO" }
+					{
+						"tag": "span",
+						"class": "logo-word-aven",
+						"text": "aven"
+					},
+					{
+						"tag": "span",
+						"class": "logo-word-ceo",
+						"text": "CEO"
+					}
 				]
 			}
 		]
@@ -34,17 +50,46 @@
 			"alignItems": "center",
 			"gap": "var(--space-tight)",
 			"textDecoration": "none",
-			"color": "inherit"
+			"color": "inherit",
+			"fontSize": "var(--fs-lead)",
+			"letterSpacing": "var(--tracking-tight)"
 		},
 		"variants": {
 			"variant": {
 				"lockup": {},
-				"mark": { "gap": "0" },
-				"wordmark": {}
+				"mark": {
+					"gap": "0"
+				},
+				"wordmark": {
+					"gap": "0"
+				}
 			}
 		}
 	},
 	"a11y": {
-		"notes": "The mark is decorative (alt=\"\") because the wordmark beside it already carries the name; the link takes the accessible name from aria-label so a screen reader hears it once, not twice."
+		"notes": "The mark is decorative (alt=\"\") because the wordmark beside it carries the name; the link takes its accessible name from aria-label so a screen reader hears \"avenCEO\" once, not twice. The wordmark is one word split across two elements for typography only, so it must never be split across lines — hence nowrap."
+	},
+	"parts": {
+		"logo-mark": {
+			"inlineSize": "1.75rem",
+			"blockSize": "1.75rem",
+			"flexShrink": "0"
+		},
+		"logo-wordmark": {
+			"display": "inline-flex",
+			"alignItems": "baseline",
+			"whiteSpace": "nowrap"
+		},
+		"logo-word-aven": {
+			"fontFamily": "var(--font-display)",
+			"fontWeight": "300",
+			"fontSize": "1.4em",
+			"lineHeight": "1"
+		},
+		"logo-word-ceo": {
+			"fontFamily": "var(--font-sans)",
+			"fontWeight": "700",
+			"textTransform": "uppercase"
+		}
 	}
 }

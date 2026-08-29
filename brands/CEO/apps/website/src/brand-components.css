@@ -293,4 +293,47 @@
 		font-size: var(--fs-meta);
 		color: var(--color-foreground-quiet);
 	}
+
+	.logo-mark {
+		inline-size: 1.75rem;
+		block-size: 1.75rem;
+		flex-shrink: 0;
+	}
+
+	.logo-wordmark {
+		display: inline-flex;
+		align-items: baseline;
+		white-space: nowrap;
+	}
+
+	.logo-word-aven {
+		font-family: var(--font-display);
+		font-weight: 300;
+		font-size: 1.4em;
+		line-height: 1;
+	}
+
+	.logo-word-ceo {
+		font-family: var(--font-sans);
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-tight);
+		text-decoration: none;
+		color: inherit;
+		font-size: var(--fs-lead);
+		letter-spacing: var(--tracking-tight);
+	}
+
+	.logo--mark {
+		gap: 0;
+	}
+
+	.logo--wordmark {
+		gap: 0;
+	}
 }

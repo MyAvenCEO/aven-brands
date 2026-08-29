@@ -180,6 +180,42 @@
 		"meta": {
 			"fontSize": "var(--fs-meta)",
 			"color": "var(--color-foreground-quiet)"
+		},
+		"logo-mark": {
+			"inlineSize": "1.75rem",
+			"blockSize": "1.75rem",
+			"flexShrink": "0"
+		},
+		"logo-wordmark": {
+			"display": "inline-flex",
+			"alignItems": "baseline",
+			"whiteSpace": "nowrap"
+		},
+		"logo-word-aven": {
+			"fontFamily": "var(--font-display)",
+			"fontWeight": "300",
+			"fontSize": "1.4em",
+			"lineHeight": "1"
+		},
+		"logo-word-ceo": {
+			"fontFamily": "var(--font-sans)",
+			"fontWeight": "700",
+			"textTransform": "uppercase"
+		},
+		"logo": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"gap": "var(--space-tight)",
+			"textDecoration": "none",
+			"color": "inherit",
+			"fontSize": "var(--fs-lead)",
+			"letterSpacing": "var(--tracking-tight)"
+		},
+		"logo--mark": {
+			"gap": "0"
+		},
+		"logo--wordmark": {
+			"gap": "0"
 		}
 	},
 	"nearestStep": {
