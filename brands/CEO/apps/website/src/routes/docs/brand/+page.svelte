@@ -1545,6 +1545,14 @@ function inspect(name: string) {
 	   card. The `safe` keyword is exactly that rule: centre while it fits, fall
 	   back to `start` the moment it overflows. Without it the choice is one
 	   behaviour for both cases and one of them is always wrong. */
+	/* A DEFINITE track, then centre within it. Without the explicit column the
+	   track is content-sized, and a specimen whose root is now a container at
+	   `inline-size: 100%` resolves 100% against a track being sized BY that same
+	   element — circular, and it lands on zero. The accordion specimen collapsed
+	   to a 0px column exactly this way. `minmax(0, 1fr)` makes the track the
+	   stage's own width, so `safe center` still centres and 100% still means the
+	   stage. */
+	grid-template-columns: minmax(0, 1fr);
 	align-content: safe center;
 	justify-items: safe center;
 	gap: var(--space-tight);
@@ -1628,25 +1636,41 @@ function inspect(name: string) {
 	color: var(--color-foreground-quiet);
 }
 /* The specimens' own scaffolding — a row, or a stack. Deliberately only two:
-   a specimen that needs a third layout is a specimen doing too much. */
-.sp-row--cards {
+   a specimen that needs a third layout is a specimen doing too much.
+
+   `:global`, and that is not a style choice. These classes dress markup that
+   arrives through `{@html}`, which Svelte compiles nothing of — so it never
+   stamps the scoping class on it, and a scoped `.sp-stack` selector matches
+   nothing at all. All four of these were scoped and therefore DEAD: every
+   gallery in this page has been laying out by default flow rather than by the
+   scaffold, which looked close enough to right that nobody checked. It surfaced
+   only when the specimens became containers and one of them resolved 100% of a
+   rule that was not applying. */
+:global(.sp-row--cards) {
 	align-items: stretch;
 }
-.sp-row {
+:global(.sp-row) {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
 	gap: var(--space-tight);
 }
-.sp-stack {
+:global(.sp-stack) {
 	display: grid;
 	gap: var(--space-tight);
 	inline-size: 100%;
 	max-inline-size: 22rem;
 	min-inline-size: 0;
 }
-.sp-stack--wide {
+:global(.sp-stack--wide) {
+	/* `inline-size`, not only `max-inline-size`. A max alone leaves the wrapper
+	   shrink-wrapping its content, and its content is now a CONTAINER at
+	   `inline-size: 100%` — 100% of a box that is sizing itself from its content
+	   is zero, and the whole specimen collapsed to a 0px column. A container
+	   cannot be measured by what is inside it; that is the point of containment,
+	   and anything holding one has to have a width of its own. */
+	inline-size: 100%;
 	max-inline-size: 100%;
 }
 .cb-swatches {

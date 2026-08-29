@@ -1119,6 +1119,34 @@
 				"$value": "cubic-bezier(0.4, 0, 0.2, 1)",
 				"$description": "A state change that returns: pressed and released, opened and closed."
 			}
+		},
+		"z": {
+			"$description": "Stacking order. `--z-overlay` and `--z-sticky` were referenced by the sidebar and the navbar and defined nowhere, so a fixed drawer had no stacking order at all and sat behind the content it was covering. Four steps, far apart, because the point of a scale here is that nobody ever writes `z-index: 9999` to win an argument with a number they cannot see.",
+			"z-base": {
+				"$type": "number",
+				"$value": "0",
+				"$description": "The document. Anything that needs to sit above a sibling and nothing else."
+			},
+			"z-sticky": {
+				"$type": "number",
+				"$value": "50",
+				"$description": "A header or rail that stays while the page scrolls under it."
+			},
+			"z-overlay": {
+				"$type": "number",
+				"$value": "100",
+				"$description": "A drawer, a popover, a dropdown \u2014 above the page, below a modal."
+			},
+			"z-modal": {
+				"$type": "number",
+				"$value": "200",
+				"$description": "A dialog and its scrim. Nothing routine goes here."
+			},
+			"z-toast": {
+				"$type": "number",
+				"$value": "300",
+				"$description": "The top. A message about what just happened has to clear a modal, because it may be about the modal."
+			}
 		}
 	},
 	"elements": {

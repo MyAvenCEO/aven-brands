@@ -33,7 +33,7 @@
       "name": "@myavenceo/aven-ceo",
       "version": "0.10.0",
       "dependencies": {
-        "@myavenceo/aven-vibes": "^0.5.0",
+        "@myavenceo/aven-vibes": "^0.5.4",
       },
       "devDependencies": {
         "@types/node": "^26.3.0",
@@ -99,7 +99,7 @@
 
     "@myavenceo/aven-ceo": ["@myavenceo/aven-ceo@workspace:brands/CEO/design-system"],
 
-    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.5.0", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.5.0/202efb75ed8e952773a9d4caadb7a57a905519fa", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-3Qw34EqFr5698Jije+8cLIKGEYTPUzXC2VsM+ETcNq/dp3DZB9C7NIvCmFsoRkAcLTLLpz7HYw9jLfoDV2nRBg=="],
+    "@myavenceo/aven-vibes": ["@myavenceo/aven-vibes@0.5.4", "https://npm.pkg.github.com/download/@myavenceo/aven-vibes/0.5.4/cadfef1b903f119e9595ea23aa993960dec0479f", { "dependencies": { "dompurify": "^3.3.3", "marked": "^15.0.12" } }, "sha512-bu4aclmDrKZt86Wh21H6GxH2L0HMqA+CWbF6CyW8HjEZ8TyMnCYaLwo0LQ6sQjc+nojFXzYE79A1sbDqtcnaGw=="],
 
     "@myavenceo/aven-yma": ["@myavenceo/aven-yma@workspace:brands/YMA/design-system"],
 

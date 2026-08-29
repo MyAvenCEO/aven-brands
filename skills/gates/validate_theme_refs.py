@@ -83,7 +83,26 @@ def main(argv):
             text = f.read_text()
         except (UnicodeDecodeError, OSError):
             continue
+        # Comments are prose, not references. A file explaining WHY
+        # `var(--color-dark-foreground)` is undefined in the light theme was
+        # reported as referencing it — the same defect `lint_hardcodes` had, and
+        # the same cure: track block state, because a continuation line inside
+        # `/* */` or `<!-- -->` carries no marker of its own.
+        block_close = None
         for n, line in enumerate(text.splitlines(), 1):
+            if block_close:
+                if block_close in line:
+                    line = line.split(block_close, 1)[1]
+                    block_close = None
+                else:
+                    continue
+            for opener, closer in (("/*", "*/"), ("<!--", "-->")):
+                if opener in line and closer not in line.split(opener, 1)[1]:
+                    block_close = closer
+                    line = line.split(opener, 1)[0]
+                    break
+            if line.lstrip().startswith(("//", "*", "#")):
+                continue
             for m in REF.finditer(line):
                 var = m.group(1)
                 if var not in defined:

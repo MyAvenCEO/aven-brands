@@ -182,7 +182,7 @@
 		},
 		"parts": {
 			"badge": {
-				"$description": "The circular affordance at the trailing edge \u2014 the reference set's other good idea. It is where a spinner goes while loading and where a chevron goes at rest, so the button's right side has a fixed place for state instead of the label shifting when one appears.",
+				"$description": "The circular affordance at the trailing edge \u2014 the reference set's other good idea. It is where a spinner goes while loading and where a chevron goes at rest, so the button's right side has a fixed place for state instead of the label shifting when one appears.\n\nThe variable is `--btn-badge`, not `--color-btn-badge`. It read the prefixed name \u2014 which nothing sets \u2014 so every badge fell through to the literal white wash and the four variants that carefully set their own tint never reached it. A fallback is what made it invisible: the badge always rendered, always looked plausible, and was never the variant's colour.",
 				"display": "inline-flex",
 				"alignItems": "center",
 				"justifyContent": "center",
@@ -192,7 +192,7 @@
 				"marginInlineEnd": "-0.5rem",
 				"marginInlineStart": "0.125rem",
 				"borderRadius": "var(--radius-full)",
-				"background": "var(--color-btn-badge, rgb(255 255 255 / 0.22))",
+				"background": "var(--btn-badge, rgb(255 255 255 / 0.22))",
 				"color": "inherit"
 			},
 			"icon-start": {
