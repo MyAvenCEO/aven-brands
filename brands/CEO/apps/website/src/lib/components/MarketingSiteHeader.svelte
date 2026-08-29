@@ -155,7 +155,9 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 						href={lang === 'de' ? page.url.pathname : otherHref}
 						hreflang="de"
 						aria-current={lang === 'de' ? 'true' : undefined}
-						class={lang === 'de' ? 'opacity-100' : 'opacity-50 transition-opacity hover:opacity-100'}
+						class={lang === 'de'
+							? 'text-foreground'
+							: 'text-foreground-quiet transition-colors hover:text-foreground'}
 					>
 						DE
 					</a>
@@ -164,7 +166,9 @@ const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 						href={lang === 'en' ? page.url.pathname : otherHref}
 						hreflang="en"
 						aria-current={lang === 'en' ? 'true' : undefined}
-						class={lang === 'en' ? 'opacity-100' : 'opacity-50 transition-opacity hover:opacity-100'}
+						class={lang === 'en'
+							? 'text-foreground'
+							: 'text-foreground-quiet transition-colors hover:text-foreground'}
 					>
 						EN
 					</a>

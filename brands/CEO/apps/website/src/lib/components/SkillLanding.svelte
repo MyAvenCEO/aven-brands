@@ -37,7 +37,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<!-- 1. WHY — Daniel scenario -->
 	<section class="border-b border-border/10 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow-accent">
+			<p class="eyebrow">
 				{skill.hero.kicker}
 			</p>
 			{#if skill.comingSoon}
@@ -97,7 +97,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.gainEyebrow}
 				</p>
 				<h2
@@ -128,7 +128,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<!-- 3. HOW — plain-language steps -->
 	<section class="section-band sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl text-center">
-			<p class="eyebrow-accent">
+			<p class="eyebrow">
 				{t.howEyebrow}
 			</p>
 			<h2
@@ -163,7 +163,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.mechanicsEyebrow}
 				</p>
 				<h2 class="section-title mt-3 sm:text-3xl">
@@ -180,7 +180,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</p>
 				</div>
 				<div class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-4 ring-1 ring-accent/15">
-					<p class="eyebrow-accent">
+					<p class="eyebrow">
 						{t.magic}
 					</p>
 					<p class="mt-2 text-[length:var(--fs-body)] leading-snug text-foreground-soft">
@@ -203,7 +203,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="border-b border-border/10 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-3xl">
 			<div class="text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.playsEyebrow}
 				</p>
 				<h2 class="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -243,7 +243,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div class="text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.valueEyebrow}
 				</p>
 				<h2 class="section-title mt-3 sm:text-3xl">
@@ -288,7 +288,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					</span>
 				</div>
 				<div class="mt-4 rounded-xl border border-accent/25 bg-accent/15 px-4 py-4">
-					<p class="text-center eyebrow-accent">
+					<p class="text-center eyebrow">
 						{t.included}
 					</p>
 					<p class="mt-2 text-center text-[length:var(--fs-title)] font-bold text-foreground">
@@ -347,7 +347,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</ul>
 			</div>
 			<div class="rounded-xl border border-accent/25 bg-accent/15 px-5 py-4">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.availability}
 				</p>
 				<p class="mt-1.5 text-[length:var(--fs-body)] leading-snug text-foreground-soft">
@@ -374,7 +374,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 							{@html beamAvatarSvg(AVEN, paletteKi, 48, `letter-${skill.slug}`)}
 						</div>
 						<div>
-							<p class="eyebrow-accent">
+							<p class="eyebrow">
 								{t.writtenBy}
 							</p>
 							<p

@@ -48,6 +48,25 @@ export type Specimen = {
 	 * instance, one variant, one state.
 	 */
 	one?: string
+	/**
+	 * A variant option that changes the CONTENT, not just the dress.
+	 *
+	 * Keyed axis → option → the whole specimen for that option. Some axes are
+	 * styling — `tone: quiet` is the same card, quieter — and those need
+	 * nothing here. But `flow-card`'s `step` axis names four real screens of a
+	 * real sequence, and dressing one screen four different colours is not what
+	 * that switch means. Choosing `pay` used to recolour the crest of the
+	 * device-authorisation screen and leave the heading saying "Authorize this
+	 * device", which teaches you the control is broken.
+	 *
+	 * The rule for writing one: everything above the actions swaps, the actions
+	 * bar keeps its shape. That is what the flows themselves do — the footer of
+	 * a step is where the step is the same and the body is where it differs.
+	 *
+	 * Where an axis has scenes, the explorer also offers Back/Next, so you can
+	 * walk the sequence rather than clicking four chips in the right order.
+	 */
+	scenes?: Record<string, Record<string, string>>
 }
 
 /* Through the engine's own `renderIcon`, not hand-written SVG — a docs page
@@ -429,7 +448,7 @@ export const specimens: Record<string, Specimen> = {
 		   the specimen carries the crest AND the status line even though a real
 		   screen shows one or the other. */
 		one: `<span class="flow-card" style="display:grid">
-			<span class="flow-card-crest">${icon('info', '1.5rem')}</span>
+			<span class="flow-card-crest">${icon('lock', '1.5rem')}</span>
 			<p class="text text--eyebrow flow-card-eyebrow">Secure app connection</p>
 			<p class="flow-card-status">Taken</p>
 			<p class="flow-card-heading" style="margin:0">Authorize this device</p>
@@ -441,7 +460,74 @@ export const specimens: Record<string, Specimen> = {
 				<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
 			</span>
 			<p class="flow-card-trust">Securely connected through aven.id</p>
-		</span>`
+		</span>`,
+		/*
+		 * THE FOUR REAL SCREENS, copied from the surfaces rather than invented.
+		 *
+		 *   identify  aven.id /device, not yet signed in — and aven.id /login,
+		 *             which is the same screen with the code taken out.
+		 *   authorise aven.id /device, signed in. The grant.
+		 *   pay       my.aven.ceo /secure — the name, the price, the commit.
+		 *   done      my.aven.ceo /secure after the hold, and aven.id's
+		 *             "Device connected". Two surfaces, one shape.
+		 *
+		 * The copy is each surface's OWN, which is why two of these are German
+		 * and two are English: checkout speaks German to its customers and
+		 * aven.id speaks English to developers. Translating them here would make
+		 * the storybook a nicer read and a worse record — the point of the
+		 * sequence is that you can hold it beside the running surface.
+		 */
+		scenes: {
+			step: {
+				identify: `<span class="flow-card flow-card--step-identify" style="display:grid">
+					<span class="flow-card-crest">${icon('key', '1.5rem')}</span>
+					<p class="text text--eyebrow flow-card-eyebrow">Secure app connection</p>
+					<p class="flow-card-heading" style="margin:0">Sign in and connect avenOS</p>
+					<p class="flow-card-description">Use your Aven account passkey. You will confirm the app in the next step.</p>
+					<span class="flow-card-code">A4F2-9K7Q</span>
+					<span class="flow-card-actions">
+						<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
+						<button class="btn btn--primary" type="button"><span class="btn-label">Continue with passkey</span></button>
+					</span>
+					<p class="flow-card-trust">Securely connected through aven.id</p>
+				</span>`,
+				authorise: `<span class="flow-card flow-card--step-authorise" style="display:grid">
+					<span class="flow-card-crest">${icon('lock', '1.5rem')}</span>
+					<p class="text text--eyebrow flow-card-eyebrow">Secure app connection</p>
+					<p class="flow-card-heading" style="margin:0">Authorize this device</p>
+					<p class="flow-card-description">Confirm the connection to give the app access to your Aven account.</p>
+					<span class="flow-card-code">A4F2-9K7Q</span>
+					<span class="flow-card-actions">
+						<button class="btn btn--ghost" type="button"><span class="btn-label">Not now</span></button>
+						<button class="btn btn--primary" type="button"><span class="btn-label">Authorize</span></button>
+					</span>
+					<p class="flow-card-trust">Securely connected through aven.id</p>
+				</span>`,
+				pay: `<span class="flow-card flow-card--step-pay flow-card--crest-brand" style="display:grid">
+					<span class="flow-card-crest"><span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="44" height="44"></span></span>
+					<p class="text text--eyebrow flow-card-eyebrow">Dein Name</p>
+					<p class="flow-card-heading" style="margin:0">avenNAME sichern</p>
+					<span class="flow-card-code">maia.aven.ceo</span>
+					<p class="flow-card-description">25 € einmalig, zzgl. USt. Schritt 4 von 4.</p>
+					<span class="flow-card-actions">
+						<button class="btn btn--ghost" type="button"><span class="btn-label">Zurück</span></button>
+						<button class="btn btn--primary" type="button"><span class="btn-label">Platz sichern</span></button>
+					</span>
+					<p class="flow-card-trust">Keine Newsletter, kein Weiterverkauf.</p>
+				</span>`,
+				done: `<span class="flow-card flow-card--step-done" style="display:grid">
+					<span class="flow-card-crest">${icon('check', '1.5rem')}</span>
+					<p class="text text--eyebrow flow-card-eyebrow">Reserviert</p>
+					<p class="flow-card-heading" style="margin:0">Du bist auf der Liste</p>
+					<span class="flow-card-code">maia.aven.ceo</span>
+					<p class="flow-card-description">Wir haben dir den Link an du@beispiel.de geschickt. Er gilt bis 12.09.2026, 18:00.</p>
+					<span class="flow-card-actions">
+						<button class="btn btn--primary" type="button"><span class="btn-label">Fertig</span></button>
+					</span>
+					<p class="flow-card-trust">Wir melden uns per Mail, sobald du dran bist — und sonst nicht.</p>
+				</span>`
+			}
+		}
 	},
 	'claim-card': {
 		tall: true,
@@ -526,24 +612,223 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	'flow-node': {
-		one: `<ul style="list-style:none;margin:0;padding:0;inline-size:20rem">
-			<li class="flow-node flow-node--status-running">
-				<span class="flow-node-head"><span class="flow-node-label">Reading the inbox</span><span class="flow-node-dot" role="status" aria-label="running"></span></span>
-				<p class="text text--mono-meta flow-node-detail">142 messages since 09:00</p>
-				<ul class="flow-node-children">
-					<li class="flow-node flow-node--status-done"><span class="flow-node-head"><span class="flow-node-label">Fetch</span><span class="flow-node-dot" role="status" aria-label="done">${icon('check', '0.6rem')}</span></span></li>
-					<li class="flow-node flow-node--status-failed"><span class="flow-node-head"><span class="flow-node-label">Classify</span><span class="flow-node-dot" role="status" aria-label="failed">${icon('close', '0.6rem')}</span></span></li>
+		/* The node as the canvas draws it: kind badge, name, the run mark, the
+		   subtitle, and the two port columns the wires attach to. The ports are
+		   why this is fixed-width — a card that reflows moves its own anchors. */
+		one: `<span class="flow-node flow-node--kind-llm flow-node--run-running">
+			<span class="flow-node-head">
+				<span class="badge badge--face-mono flow-node-kind">llm</span>
+				<span class="flow-node-name">Antwort entwerfen</span>
+				<span class="flow-node-mark" role="status" aria-label="running"></span>
+			</span>
+			<p class="flow-node-about">Schreibt eine Antwort im Ton der letzten zwanzig Mails.</p>
+			<p class="text text--mono-meta flow-node-meta">2 Artefakte</p>
+			<span class="flow-node-ports">
+				<ul class="flow-node-requires">
+					<li class="flow-node-port">&rarr; thread</li>
+					<li class="flow-node-port">&rarr; voice</li>
 				</ul>
-			</li>
-		</ul>`
+				<ul class="flow-node-provides">
+					<li class="flow-node-port">draft &rarr;</li>
+				</ul>
+			</span>
+		</span>`,
+		html: `<span class="sp-row sp-row--cards" style="align-items:flex-start">
+			<span class="flow-node flow-node--kind-trigger">
+				<span class="flow-node-head">
+					<span class="badge badge--face-mono flow-node-kind">trigger</span>
+					<span class="flow-node-name">Neue Mail</span>
+					<span class="flow-node-mark" role="status" aria-label="waiting"></span>
+				</span>
+				<p class="flow-node-about">Feuert, sobald etwas im Posteingang landet.</p>
+				<span class="flow-node-ports">
+					<ul class="flow-node-requires"></ul>
+					<ul class="flow-node-provides"><li class="flow-node-port">thread &rarr;</li></ul>
+				</span>
+			</span>
+			<span class="flow-node flow-node--kind-human flow-node--run-review">
+				<span class="flow-node-head">
+					<span class="badge badge--face-mono flow-node-kind">human</span>
+					<span class="flow-node-name">Freigeben</span>
+					<span class="flow-node-mark" role="status" aria-label="review"></span>
+				</span>
+				<p class="flow-node-about">Nichts geht raus, bevor du es gesehen hast.</p>
+				<span class="flow-node-ports">
+					<ul class="flow-node-requires"><li class="flow-node-port">&rarr; draft</li></ul>
+					<ul class="flow-node-provides"><li class="flow-node-port">approval &rarr;</li></ul>
+				</span>
+			</span>
+			<span class="flow-node flow-node--kind-door flow-node--run-done">
+				<span class="flow-node-head">
+					<span class="badge badge--face-mono flow-node-kind">skill</span>
+					<span class="flow-node-name">&rarr; Inbox router</span>
+					<span class="flow-node-mark" role="status" aria-label="done">${icon('check', '0.7rem')}</span>
+				</span>
+				<p class="flow-node-about">Ein ganzer Skill, als eine Tür in dieser Rezeptur.</p>
+				<span class="flow-node-ports">
+					<ul class="flow-node-requires"><li class="flow-node-port">&rarr; approval</li></ul>
+					<ul class="flow-node-provides"><li class="flow-node-port">sent &rarr;</li></ul>
+				</span>
+			</span>
+		</span>`
+	},
+	'voice-pill': {
+		tall: true,
+		/* The notch, mid-conversation. The orb overhangs the bar by design, so
+		   the specimen needs vertical room around it or it reads as clipped. */
+		one: `<span class="voice-pill voice-pill--phase-thinking" style="margin-block:1.25rem">
+			<span class="voice-pill-leading">
+				<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+			</span>
+			<button class="voice-pill-orb" type="button" aria-label="Thinking" aria-live="polite">
+				<span class="voice-pill-halo"></span>
+				${icon('sparkles', '2rem')}
+			</button>
+			<span class="voice-pill-trailing">
+				<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+			</span>
+		</span>`,
+		html: `<span class="sp-stack sp-stack--wide" style="justify-items:center; gap:var(--space-loose); padding-block:var(--space-comfortable)">
+			<span class="voice-pill voice-pill--phase-hearing">
+				<span class="voice-pill-leading">
+					<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+				</span>
+				<button class="voice-pill-orb" type="button" aria-label="Listening" aria-live="polite">
+					<span class="voice-pill-halo"></span>
+					${icon('ear', '2rem')}
+				</button>
+				<span class="voice-pill-trailing">
+					<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+				</span>
+			</span>
+			<span class="voice-pill voice-pill--phase-speaking">
+				<span class="voice-pill-leading">
+					<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+				</span>
+				<button class="voice-pill-orb" type="button" aria-label="Speaking" aria-live="polite">${icon('audio-lines', '2rem')}</button>
+				<span class="voice-pill-trailing">
+					<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+				</span>
+			</span>
+			<span class="voice-pill voice-pill--phase-off">
+				<button class="voice-pill-orb" type="button" aria-label="Start conversation" aria-live="polite">
+					<span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span>
+				</button>
+			</span>
+		</span>`,
+		/* The phases that need a WORD say it in the chip; the ones that do not
+		   stay wordless. That is a content difference, not a colour one, which
+		   is exactly what a scene is for. */
+		scenes: {
+			phase: {
+				off: `<span class="voice-pill voice-pill--phase-off" style="margin-block:1.25rem">
+					<span class="voice-pill-chip">Start conversation<span class="voice-pill-tail"></span></span>
+					<button class="voice-pill-orb" type="button" aria-label="Start conversation" aria-live="polite">
+						<span class="logo logo--mark"><img class="logo-mark" src="/aven-logo.svg" alt="" width="40" height="40"></span>
+					</button>
+				</span>`,
+				hearing: `<span class="voice-pill voice-pill--phase-hearing" style="margin-block:1.25rem">
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Listening" aria-live="polite">
+						<span class="voice-pill-halo"></span>
+						${icon('ear', '2rem')}
+					</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`,
+				thinking: `<span class="voice-pill voice-pill--phase-thinking" style="margin-block:1.25rem">
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Thinking" aria-live="polite">
+						<span class="voice-pill-halo"></span>
+						${icon('sparkles', '2rem')}
+					</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`,
+				speaking: `<span class="voice-pill voice-pill--phase-speaking" style="margin-block:1.25rem">
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Speaking" aria-live="polite">${icon('audio-lines', '2rem')}</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`,
+				loading: `<span class="voice-pill voice-pill--phase-loading" style="margin-block:1.25rem">
+					<span class="voice-pill-chip">Loading the voice model<span class="voice-pill-tail"></span></span>
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Loading" aria-live="polite" style="--voice-progress:62">
+						<span class="voice-pill-ring"></span>
+						${icon('upload', '2rem')}
+					</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`,
+				blocked: `<span class="voice-pill voice-pill--phase-blocked" style="margin-block:1.25rem">
+					<span class="voice-pill-chip">Microphone is off at the system<span class="voice-pill-tail"></span></span>
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Audio blocked" aria-live="polite">${icon('mic', '2rem')}</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`,
+				error: `<span class="voice-pill voice-pill--phase-error" style="margin-block:1.25rem">
+					<span class="voice-pill-chip">The voice service did not answer<span class="voice-pill-tail"></span></span>
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Voice failed" aria-live="polite">${icon('warning', '2rem')}</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`,
+				text: `<span class="voice-pill voice-pill--phase-text" style="margin-block:1.25rem">
+					<span class="voice-pill-leading">
+						<button class="voice-pill-control" type="button" aria-label="Attach a file">${icon('upload', '1.25rem')}</button>
+					</span>
+					<button class="voice-pill-orb" type="button" aria-label="Type instead" aria-live="polite">${icon('menu', '2rem')}</button>
+					<span class="voice-pill-trailing">
+						<button class="voice-pill-control" type="button" aria-label="End conversation">${icon('close', '1.25rem')}</button>
+					</span>
+				</span>`
+			}
+		}
 	},
 	workbench: {
 		tall: true,
-		one: `<span class="workbench" style="display:grid; block-size:15rem; inline-size:100%; border:1px solid var(--color-border); border-radius:var(--radius-lg)">
-			<span class="workbench-rail" style="inline-size:9rem; padding:var(--space-tight)">
-				<a class="nav-link" href="#specimen" aria-current="page">Dashboard</a>
-				<a class="nav-link" href="#specimen">Skills</a>
-				<a class="nav-link" href="#specimen">Artifacts</a>
+		/* The rail holds a REAL `sidebar`, not three nav links in a padded box.
+		   The slot has always said `accepts: ["sidebar"]`; the specimen showing
+		   something else made the shell look like it owned a navigation. */
+		one: `<span class="workbench" style="display:grid; block-size:22rem; inline-size:100%; border:1px solid var(--color-border); border-radius:var(--radius-lg); overflow:hidden">
+			<span class="workbench-rail">
+				<span class="sidebar sidebar--tone-plain" style="inline-size:11rem">
+					<span class="sidebar-items">
+						<span class="sidebar-group">
+							<p class="text text--eyebrow sidebar-group-title">Work</p>
+							<a class="sidebar-item" href="#specimen" aria-current="page"><span class="sidebar-marker"></span>Intents<span class="sidebar-count">12</span></a>
+							<a class="sidebar-item" href="#specimen"><span class="sidebar-marker"></span>Skills<span class="sidebar-count">6</span></a>
+							<a class="sidebar-item" href="#specimen"><span class="sidebar-marker"></span>Artefakte<span class="sidebar-count">31</span></a>
+						</span>
+						<span class="sidebar-group">
+							<p class="text text--eyebrow sidebar-group-title">Konto</p>
+							<a class="sidebar-item" href="#specimen"><span class="sidebar-marker"></span>Einstellungen</a>
+						</span>
+					</span>
+					<span class="sidebar-footer">
+						<a class="sidebar-item" href="#specimen"><span class="sidebar-marker"></span>maia.aven.ceo</a>
+					</span>
+				</span>
 			</span>
 			<span class="workbench-main" style="padding:var(--space-comfortable)">
 				<p class="text text--section-title">Main region</p>

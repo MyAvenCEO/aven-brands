@@ -157,7 +157,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 					class="mx-auto mt-8 grid max-w-3xl items-stretch gap-8 border-t border-border/25 pt-7 sm:grid-cols-2 sm:gap-10"
 				>
 					<div>
-						<p class="eyebrow-accent">
+						<p class="eyebrow">
 							{t.included}
 						</p>
 						<div
@@ -212,7 +212,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 
 					{#if ceoSkillCount > 0}
 						<div class="text-left sm:border-l sm:border-border/25 sm:pl-10">
-							<p class="eyebrow-accent">
+							<p class="eyebrow">
 								{t.skills}
 							</p>
 							{@render skillList(skillFeatures(ceo))}

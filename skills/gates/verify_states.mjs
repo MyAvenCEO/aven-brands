@@ -28,7 +28,15 @@ if (!file) { console.log('usage: node scripts/verify_states.mjs <file.html> [--d
 function lin(c) { c /= 255; return c <= .03928 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4; }
 function L([r, g, b]) { return .2126 * lin(r) + .7152 * lin(g) + .0722 * lin(b); }
 function ratio(a, b) { const l1 = L(a), l2 = L(b), hi = Math.max(l1, l2), lo = Math.min(l1, l2); return (hi + .05) / (lo + .05); }
-const parse = s => { const m = s && s.match(/[\d.]+/g); return m ? m.slice(0, 3).map(Number) : null; };
+/* The page hands back OPAQUE `[r,g,b]` triples already, resolved and composited
+   through a real canvas — see `read` below. Nothing here parses a colour string,
+   because that is what this gate got wrong twice: a regex over
+   `color(srgb 0.117 0.160 0.231 / 0.08)` reads the three FLOATS as 0-255 channels
+   and throws the alpha away, so an 8% dark tint on cream was reported as
+   near-black-on-near-black and a genuine 12.14:1 came back as 1.43:1. A gate that
+   cries wolf on a passing element is worse than no gate: it gets ignored, and the
+   real failure goes with it. */
+const parse = c => (Array.isArray(c) ? c : null);
 
 const browser = await chromium.launch({ channel: 'chrome' }).catch(() => chromium.launch());
 const page = await browser.newPage({ viewport: { width: 1000, height: 800 } });
@@ -37,8 +45,45 @@ await page.addStyleTag({ content: '*{transition:none!important;animation:none!im
 if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
 
 const read = el => {
-  const transparent = c => { const a = c.match(/[\d.]+/g); return !c || c === 'rgba(0, 0, 0, 0)' || (a && a.length === 4 && parseFloat(a[3]) === 0); };
-  const eff = n => { while (n) { const c = getComputedStyle(n).backgroundColor; if (!transparent(c)) return c; n = n.parentElement; } return getComputedStyle(document.body).backgroundColor; };
+  /* Resolve ANY CSS colour to `[r,g,b,a]` by painting it. `oklab()`,
+     `color(srgb ...)`, `color-mix()`, a named colour and `#abc` all arrive here as
+     whatever the engine chose to serialise, and the only thing that reads every
+     one of them correctly is the thing that draws them. */
+  const cv = document.createElement('canvas'); cv.width = cv.height = 1;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  const rgba = c => {
+    if (!c) return [0, 0, 0, 0];
+    cx.clearRect(0, 0, 1, 1);
+    cx.fillStyle = '#000';
+    cx.fillStyle = c;              // an unparseable value leaves the previous fill
+    if (cx.fillStyle === '#000' && !/^(#000|black|rgba?\(0, ?0, ?0)/.test(c)) return [0, 0, 0, 0];
+    cx.clearRect(0, 0, 1, 1);
+    cx.fillRect(0, 0, 1, 1);
+    const d = cx.getImageData(0, 0, 1, 1).data;
+    return [d[0], d[1], d[2], d[3] / 255];
+  };
+  /* Composite `top` over `under`. The bug this fixes: a background at alpha 0.08
+     was treated as OPAQUE, so the ground it sits on was never mixed in and the
+     measured backdrop was the tint's own colour at full strength. */
+  const over = (top, under) => {
+    const a = top[3];
+    if (a >= 1) return top.slice(0, 3);
+    return [0, 1, 2].map(i => Math.round(top[i] * a + under[i] * (1 - a)));
+  };
+  /* The real backdrop: walk up compositing every partially transparent layer,
+     not just stopping at the first one that is not fully clear. */
+  const backdrop = n => {
+    const stack = [];
+    for (let x = n; x; x = x.parentElement) {
+      const c = rgba(getComputedStyle(x).backgroundColor);
+      if (c[3] > 0) stack.push(c);
+      if (c[3] >= 1) break;
+    }
+    const body = rgba(getComputedStyle(document.body).backgroundColor);
+    let out = body[3] >= 1 ? body.slice(0, 3) : [255, 255, 255];
+    for (const layer of stack.reverse()) out = over(layer, out);
+    return out;
+  };
   const cs = getComputedStyle(el);
   // skip non-text form controls (checkbox/radio/switch render natively via accent-color,
   // not CSS text color) and invisible elements — measuring their color/bg is meaningless.
@@ -46,11 +91,11 @@ const read = el => {
   // WCAG 1.4.3 / 1.4.11 exempt disabled (inactive) controls from contrast.
   const isDisabled = el.disabled || el.getAttribute('aria-disabled') === 'true';
   const skip = isToggle || el.getAttribute('role') === 'switch' || +cs.opacity === 0 || isDisabled;
-  const own = transparent(cs.backgroundColor) ? eff(el.parentElement) : cs.backgroundColor;
+  const own = backdrop(el);
   // graphical / icon-only control: no DIRECT text node (only an <svg> or nothing) →
   // WCAG 1.4.11 non-text contrast applies (3:1), not the 4.5 text rule.
   const graphical = ![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
-  return { skip, graphical, color: cs.color, bg: own, label: (el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 18), px: parseFloat(cs.fontSize), bold: (parseInt(cs.fontWeight, 10) || 400) >= 700 };
+  return { skip, graphical, color: over(rgba(cs.color), own), bg: own, label: (el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 18), px: parseFloat(cs.fontSize), bold: (parseInt(cs.fontWeight, 10) || 400) >= 700 };
 };
 
 const handles = await page.$$('button, a[href], input, select, textarea, [role="button"], [role="switch"]');

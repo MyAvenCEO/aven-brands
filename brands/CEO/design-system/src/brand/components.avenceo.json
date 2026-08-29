@@ -9,18 +9,11 @@
 			"boxShadow": "var(--shadow-raised)"
 		},
 		"eyebrow": {
-			"fontSize": "var(--fs-eyebrow)",
-			"fontWeight": "600",
-			"textTransform": "uppercase",
-			"letterSpacing": "var(--tracking-wide)",
-			"color": "var(--color-foreground-quiet)"
-		},
-		"eyebrow-accent": {
 			"fontSize": "var(--fs-micro)",
 			"fontWeight": "700",
 			"textTransform": "uppercase",
 			"letterSpacing": "var(--tracking-widest)",
-			"color": "var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black))"
+			"color": "var(--color-eyebrow-ink)"
 		},
 		"eyebrow-quiet": {
 			"fontSize": "var(--fs-nano)",

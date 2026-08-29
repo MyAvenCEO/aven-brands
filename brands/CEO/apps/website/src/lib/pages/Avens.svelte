@@ -34,7 +34,7 @@ function handle(a: LiveAven) {
 
 	<section class="border-b border-border/25 px-5 py-20 sm:px-8 sm:py-28">
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow-accent">
+			<p class="eyebrow">
 				{t.eyebrow}
 			</p>
 			<h1
@@ -54,7 +54,7 @@ function handle(a: LiveAven) {
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-6xl">
 			<header class="max-w-2xl">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.company.label}
 				</p>
 				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground-quiet">
@@ -94,7 +94,7 @@ function handle(a: LiveAven) {
 							<!-- Vision left (2/3), who-and-where right (1/3). -->
 							<div class="mt-5 grid gap-4 border-t border-border/25 pt-4 lg:grid-cols-3 lg:gap-6">
 								<div class="lg:col-span-2">
-									<p class="eyebrow-accent">
+									<p class="eyebrow">
 										{t.mission}
 									</p>
 									<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground-soft">
@@ -134,7 +134,7 @@ function handle(a: LiveAven) {
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-6xl">
 			<header class="max-w-2xl">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.person.label}
 				</p>
 				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground-quiet">

@@ -29,7 +29,7 @@ const entries = [
 <main id="docs-index" class="app-shell">
 	<div class="center">
 		<header class="stack">
-			<p class="eyebrow-accent">Documentation</p>
+			<p class="eyebrow">Documentation</p>
 			<h1 class="title">Docs</h1>
 			<p class="lede">
 				The reference surfaces, each rendered from the same source the product ships, so what you
@@ -41,7 +41,7 @@ const entries = [
 			{#each entries as entry (entry.href)}
 				<li>
 					<a class="card" href={entry.href}>
-						<p class="eyebrow-accent">{entry.eyebrow}</p>
+						<p class="eyebrow">{entry.eyebrow}</p>
 						<h2 class="title">{entry.title}</h2>
 						<p class="lede">{entry.lede}</p>
 						<p class="meta">{entry.meta}</p>

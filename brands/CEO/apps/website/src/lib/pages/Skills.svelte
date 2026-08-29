@@ -54,7 +54,7 @@ const chainSteps = $derived(t.chain.steps)
 	<!-- Hero -->
 	<section class="border-b border-border/25 px-5 py-24 sm:px-8 sm:py-32 md:py-40">
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow-accent">
+			<p class="eyebrow">
 				{t.hero.eyebrow}
 			</p>
 			<h1
@@ -134,7 +134,7 @@ const chainSteps = $derived(t.chain.steps)
 	>
 		<div class="mx-auto max-w-4xl">
 			<div class="text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.chain.eyebrow}
 				</p>
 				<h2 class="section-title mt-3 sm:text-3xl">
@@ -178,7 +178,7 @@ const chainSteps = $derived(t.chain.steps)
 			<div
 				class="mx-auto mt-6 max-w-sm rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-center ring-1 ring-accent/15"
 			>
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.chain.hitlLabel}
 				</p>
 				<a
@@ -197,7 +197,7 @@ const chainSteps = $derived(t.chain.steps)
 	<!-- Bundled-pricing band -->
 	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
 		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow-accent">
+			<p class="eyebrow">
 				{t.pricing.eyebrow}
 			</p>
 			<h2 class="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">

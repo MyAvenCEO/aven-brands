@@ -112,7 +112,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="section-band sm:px-8 sm:py-24" aria-labelledby="shift-heading">
 		<div class="mx-auto max-w-5xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.shift.eyebrow}
 				</p>
 				<h2
@@ -272,7 +272,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="own-heading">
 		<div class="mx-auto max-w-4xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.own.eyebrow}
 				</p>
 				<h2
@@ -454,7 +454,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="skills-preview-heading">
 		<div class="mx-auto max-w-5xl">
 			<div class="mx-auto max-w-2xl text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.skills.eyebrow}
 				</p>
 				<h2
@@ -490,7 +490,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<section class="border-b border-border/8 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
 			<div class="pb-6 text-center">
-				<p class="eyebrow-accent">
+				<p class="eyebrow">
 					{t.start.eyebrow}
 				</p>
 				<h2 class="mt-3 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl">

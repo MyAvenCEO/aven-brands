@@ -1,69 +1,83 @@
 {
 	"name": "flow-node",
-	"description": "One step of a running process, with a live status — a skill executing, a job in a pipeline. The app draws these as a list where each row carries a dot that pulses while it works and becomes a tick or a cross when it stops.\n\nThe reason it is a unit and not a badge: the status here CHANGES while you are looking at it, which makes it the one place in the system where motion is carrying meaning. That has two consequences most implementations miss — the change has to be announced, and the pulse has to survive `prefers-reduced-motion` as something other than a still dot, because a still dot and a finished dot look identical.",
+	"description": "One node of a skill's recipe, as the app actually draws it: a card on a canvas with a kind badge, a name, a one-line subtitle, and the ports the wires attach to — what it REQUIRES down the left, what it PROVIDES down the right.\n\nThis was extracted wrong the first time. The first version was a list row with a status dot, which is a shape the app does not have anywhere: `FlowNode.svelte` is a fixed-width card inside an `@xyflow/svelte` canvas, and the ports are the whole reason it is fixed-width — a node that reflows moves the points its wires are anchored to. The row version passed every gate and was still a different component.\n\nTwo axes that look alike and are not. `kind` is what the node IS — a trigger, a model call, a route, a view — and it is a CATEGORICAL palette, so the colours carry no ranking. `run` is what this node is DOING in one running instance, and it speaks the same state vocabulary as the intent stream, because a node that is running and an intent that is working are one meaning and must not be two colours.",
 	"interface": {
 		"props": {
-			"label": "string",
-			"status": "string",
-			"detail": "string"
+			"kind": "string",
+			"name": "string",
+			"about": "string",
+			"run": "string"
 		},
 		"slots": {
-			"children": {}
+			"kind": {},
+			"name": {},
+			"mark": {},
+			"about": {},
+			"meta": {},
+			"requires": {},
+			"provides": {}
 		}
 	},
 	"view": {
-		"tag": "li",
+		"tag": "div",
 		"attrs": {
-			"data-status": "$props.status"
+			"data-run": "$props.run"
 		},
 		"$children": [
 			{
 				"tag": "div",
 				"part": "head",
 				"$children": [
+					{ "tag": "span", "part": "kind", "$children": "kind" },
+					{ "tag": "span", "part": "name", "$children": "name" },
 					{
 						"tag": "span",
-						"part": "label",
-						"text": "$props.label"
-					},
-					{
-						"tag": "span",
-						"part": "dot",
-						"attrs": {
-							"role": "status",
-							"aria-label": "$props.status"
-						}
+						"part": "mark",
+						"attrs": { "role": "status", "aria-label": "$props.run" },
+						"$children": "mark"
 					}
 				]
 			},
+			{ "tag": "p", "part": "about", "$children": "about" },
+			{ "tag": "p", "part": "meta", "$children": "meta" },
 			{
-				"tag": "p",
-				"part": "detail",
-				"text": "$props.detail"
-			},
-			{
-				"tag": "ul",
-				"part": "children",
-				"$children": "children"
+				"tag": "div",
+				"part": "ports",
+				"$children": [
+					{ "tag": "ul", "part": "requires", "$children": "requires" },
+					{ "tag": "ul", "part": "provides", "$children": "provides" }
+				]
 			}
 		]
 	},
 	"styling": {
 		"base": {
+			"$description": "Fixed width, and that is load-bearing rather than lazy: the node sits on a wire canvas, and a card that reflows moves the anchor points its edges are drawn to. 15rem is the app's `w-60`.",
 			"display": "grid",
 			"gap": "0.15rem",
+			"inlineSize": "15rem",
 			"minInlineSize": "0",
-			"listStyle": "none"
+			"padding": "var(--space-tight) var(--space-comfortable)",
+			"borderRadius": "var(--radius-md)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "var(--shadow-raised)",
+			"color": "var(--color-foreground)",
+			"transition": "border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out)"
 		},
 		"parts": {
 			"head": {
 				"display": "flex",
 				"alignItems": "center",
-				"gap": "var(--space-tight)",
+				"gap": "var(--space-hairline)",
 				"minInlineSize": "0",
-				"paddingBlockEnd": "0.2rem"
+				"paddingBlockEnd": "0.15rem"
 			},
-			"label": {
+			"kind": {
+				"$description": "Composes `badge badge--face-mono`. What the node IS, in the one word the recipe uses — `trigger`, `llm`, `route`. The shape and the face belong to `badge`; only the fact that it never shrinks is this unit's.",
+				"flexShrink": "0"
+			},
+			"name": {
 				"minInlineSize": "0",
 				"fontSize": "var(--fs-meta)",
 				"fontWeight": "500",
@@ -71,8 +85,8 @@
 				"overflowWrap": "anywhere",
 				"color": "var(--color-foreground)"
 			},
-			"dot": {
-				"$description": "The status, as a shape at the end of the row. It is `role=status` with a WORD in its label, because a coloured dot is not information a screen reader has — and the word is what makes 'running' and 'failed' distinguishable to anyone who cannot separate the two hues.",
+			"mark": {
+				"$description": "The instance overlay: what this node is doing in ONE run. `role=status` with the state as a WORD, because a coloured dot is not information a screen reader has — and the word is what separates 'running' from 'failed' for anyone who cannot separate the two hues. It sits at the end of the row on `margin-inline-start:auto`, so the marks form a column down the canvas.",
 				"display": "inline-grid",
 				"placeItems": "center",
 				"marginInlineStart": "auto",
@@ -82,69 +96,199 @@
 				"borderRadius": "var(--radius-full)",
 				"background": "var(--color-border-strong)"
 			},
-			"detail": {
+			"about": {
+				"$description": "One line saying what the node does. Quiet and small — on a canvas of twenty nodes this is read only for the one you are looking at.",
 				"margin": "0",
-				"fontSize": "var(--fs-nano)",
-				"color": "var(--color-foreground-quiet)",
+				"minInlineSize": "0",
+				"fontSize": "var(--fs-eyebrow)",
+				"lineHeight": "1.35",
 				"overflowWrap": "anywhere",
-				"$description": "Composes `text--mono-meta`. The face comes from the one definition."
+				"color": "var(--color-foreground-quiet)"
 			},
-			"children": {
-				"$description": "Nested steps, indented by a rule rather than by margin — the rule is what makes the nesting visible when a child scrolls past its parent.",
+			"meta": {
+				"$description": "Composes `text--mono-meta`. A count that rides along — how many artefacts this node produced.",
+				"margin": "0",
+				"paddingBlockEnd": "0.15rem",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"ports": {
+				"$description": "Two columns, and they are not decoration: the left column is where incoming wires land and the right is where outgoing wires leave, so their ORDER is the order of the anchor points. `minmax(0,1fr)` twice, because a long field name would otherwise widen its own track and push the other column off the fixed-width card.",
 				"display": "grid",
+				"gridTemplateColumns": "minmax(0, 1fr) minmax(0, 1fr)",
+				"gap": "var(--space-hairline)",
+				"minInlineSize": "0"
+			},
+			"requires": {
+				"display": "grid",
+				"justifyItems": "start",
 				"gap": "0.15rem",
-				"margin": "0.2rem 0 0",
-				"padding": "0 0 0 var(--space-comfortable)",
-				"borderInlineStart": "1px solid var(--color-border-soft)",
+				"minInlineSize": "0",
+				"margin": "0",
+				"padding": "0",
 				"listStyle": "none"
+			},
+			"provides": {
+				"display": "grid",
+				"justifyItems": "end",
+				"gap": "0.15rem",
+				"minInlineSize": "0",
+				"margin": "0",
+				"padding": "0",
+				"listStyle": "none"
+			},
+			"port": {
+				"$description": "One field on one side. `text-overflow: ellipsis` rather than wrapping, because a port that grows to two lines moves every port under it — and the wire is anchored to the card, not to the row. The two sides differ in ground so you can tell an input from an output without reading the arrow.",
+				"maxInlineSize": "100%",
+				"overflow": "hidden",
+				"padding": "0.05rem 0.35rem",
+				"borderRadius": "var(--radius-xs)",
+				"background": "var(--color-surface-sunken)",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-micro)",
+				"whiteSpace": "nowrap",
+				"textOverflow": "ellipsis",
+				"color": "var(--color-foreground-soft)"
 			}
 		},
 		"variants": {
-			"status": {
-				"$description": "What the step is doing. `running` and `waiting` both animate; the rest are resting states.",
+			"kind": {
+				"$description": "What the node IS. A CATEGORICAL palette, not a ranking — `llm` is not more urgent than `route`, it is a different sort of thing, so the hues carry no order. It dresses the badge and, for the two kinds that are structurally special, the card's own edge.",
+				"trigger": {
+					"$description": "Where a recipe starts. The one kind that earns an edge of its own, because finding the entrance on a canvas of twenty nodes is the first thing anyone does.",
+					"borderColor": "var(--color-progress-border)",
+					"& .flow-node-kind": {
+						"background": "var(--color-progress-surface)",
+						"color": "var(--color-progress-ink)"
+					}
+				},
+				"llm": {
+					"& .flow-node-kind": {
+						"background": "var(--color-error-surface)",
+						"color": "var(--color-error-ink)"
+					}
+				},
+				"route": {
+					"& .flow-node-kind": {
+						"background": "var(--color-warning-surface)",
+						"color": "var(--color-warning-ink)"
+					}
+				},
+				"view": {
+					"& .flow-node-kind": {
+						"background": "var(--color-secondary-surface)",
+						"color": "var(--color-secondary-ink)"
+					}
+				},
+				"human": {
+					"$description": "A gate — the recipe stops here and asks. Same tone the gate-card wears, because they are the same moment seen from two places.",
+					"& .flow-node-kind": {
+						"background": "var(--color-tertiary-surface)",
+						"color": "var(--color-tertiary-ink)"
+					}
+				},
+				"door": {
+					"$description": "Another whole skill, standing in one box. Dashed, because the border is a doorway rather than an edge: what is inside it is not drawn on this canvas.",
+					"borderStyle": "dashed",
+					"borderWidth": "2px",
+					"borderColor": "var(--color-success-border)",
+					"background": "var(--color-success-surface)",
+					"& .flow-node-kind": {
+						"background": "var(--color-success-surface)",
+						"color": "var(--color-success-ink)"
+					}
+				}
+			},
+			"run": {
+				"$description": "What this node is doing in ONE instance — the overlay, not the identity. A ring around the card and a mark in its head, the same vocabulary the intent stream uses. `running` and `retrying` animate; the rest are resting.",
 				"running": {
-					"$part": "dot",
-					"background": "var(--color-progress)",
-					"animation": "aven-pulse 1400ms ease-in-out infinite"
+					"boxShadow": "0 0 0 2px color-mix(in oklab, var(--color-progress) 25%, transparent), var(--shadow-raised)",
+					"& .flow-node-mark": {
+						"background": "var(--color-progress)",
+						"animation": "aven-pulse 1400ms ease-in-out infinite"
+					}
+				},
+				"retrying": {
+					"boxShadow": "0 0 0 2px color-mix(in oklab, var(--color-warning) 25%, transparent), var(--shadow-raised)",
+					"& .flow-node-mark": {
+						"background": "var(--color-warning)",
+						"animation": "aven-pulse 1400ms ease-in-out infinite"
+					}
 				},
 				"waiting": {
-					"$part": "dot",
-					"background": "var(--color-warning)",
-					"animation": "aven-pulse 1400ms ease-in-out infinite"
+					"boxShadow": "0 0 0 2px color-mix(in oklab, var(--color-foreground) 15%, transparent), var(--shadow-raised)",
+					"& .flow-node-mark": {
+						"background": "var(--color-border-strong)"
+					}
+				},
+				"review": {
+					"$description": "A human has to look at this one.",
+					"boxShadow": "0 0 0 2px color-mix(in oklab, var(--color-tertiary) 25%, transparent), var(--shadow-raised)",
+					"& .flow-node-mark": {
+						"background": "var(--color-tertiary)"
+					}
 				},
 				"done": {
-					"$part": "dot",
-					"background": "var(--color-success)",
-					"inlineSize": "0.9rem",
-					"blockSize": "0.9rem",
-					"color": "var(--color-success-foreground)"
+					"boxShadow": "0 0 0 2px color-mix(in oklab, var(--color-success) 25%, transparent), var(--shadow-raised)",
+					"& .flow-node-mark": {
+						"background": "var(--color-success)",
+						"color": "var(--color-success-foreground)",
+						"inlineSize": "1rem",
+						"blockSize": "1rem"
+					}
 				},
-				"failed": {
-					"$part": "dot",
-					"background": "var(--color-error)",
-					"inlineSize": "0.9rem",
-					"blockSize": "0.9rem",
-					"color": "var(--color-error-foreground)"
+				"error": {
+					"boxShadow": "0 0 0 2px color-mix(in oklab, var(--color-error) 25%, transparent), var(--shadow-raised)",
+					"& .flow-node-mark": {
+						"background": "var(--color-error)",
+						"color": "var(--color-error-foreground)",
+						"inlineSize": "1rem",
+						"blockSize": "1rem"
+					}
+				},
+				"skipped": {
+					"$description": "Not run, and not a failure. Dimmed rather than marked, because the absence IS the information.",
+					"opacity": "0.6",
+					"& .flow-node-mark": {
+						"background": "transparent",
+						"boxShadow": "inset 0 0 0 1px var(--color-border-strong)"
+					}
 				}
+			}
+		},
+		"states": {
+			"hover": {
+				"borderColor": "var(--color-border-strong)"
+			},
+			"focus": {
+				"outline": "1px solid var(--color-focus)",
+				"outlineOffset": "2px"
+			},
+			"active": {
+				"borderColor": "var(--color-primary-edge)"
+			},
+			"disabled": {
+				"opacity": "0.5",
+				"cursor": "default"
+			},
+			"selected": {
+				"$description": "The node you clicked. A primary edge AND a ring — on a canvas the ring is what reads from across the graph, and the edge is what reads once you are on it.",
+				"borderColor": "var(--color-primary)",
+				"boxShadow": "0 0 0 4px var(--color-primary-ring), var(--shadow-raised)"
 			}
 		},
 		"keyframes": {
 			"aven-pulse": {
-				"0%,100%": {
-					"opacity": "1"
-				},
-				"50%": {
-					"opacity": "0.35"
-				}
+				"0%,100%": { "opacity": "1" },
+				"50%": { "opacity": "0.35" }
 			}
 		},
 		"reducedMotion": {
-			"$description": "The pulse becomes a RING rather than stopping. A still dot and a finished dot look identical, so removing the animation would make 'running' and 'done' indistinguishable for exactly the users who asked for less motion — which is the opposite of an accommodation.",
-			"animation": "none",
-			"boxShadow": "0 0 0 3px color-mix(in oklab, currentColor 30%, transparent)"
-		}
+			"$description": "The pulse becomes a RING rather than stopping. A still mark and a finished mark look identical, so removing the animation would make 'running' and 'done' indistinguishable for exactly the users who asked for less motion — the opposite of an accommodation.",
+			"animation": "none"
+		},
+		"interactive": true
 	},
 	"a11y": {
-		"note": "`role=status` on the dot with the status as its label, so a change is announced politely as the process advances. The status is never colour alone: `done` and `failed` carry a glyph, `running` and `waiting` carry the announced word. Nesting is a real `<ul>` inside the `<li>`, which is what lets a screen reader say 'list, three items' for the children rather than reading them as siblings of their parent."
+		"note": "`role=status` on the mark with the run state as its label, so a node changing while you watch is announced politely. The state is never colour alone: `done` and `error` carry a glyph, `running` and `waiting` carry the announced word, `skipped` dims the whole card. The ports are real `<ul>`s, so a screen reader says 'list, three items' for the inputs rather than reading them as siblings of the name. On a canvas the card itself is the focus target and carries a visible ring — WCAG 2.4.11, since a node can sit under the canvas toolbar."
 	}
 }

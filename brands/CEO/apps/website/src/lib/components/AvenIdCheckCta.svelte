@@ -51,7 +51,7 @@ const wrapperClass = $derived(
 	class="{wrapperClass} overflow-hidden {centered ? 'text-center' : ''}"
 	aria-label={t.formLabel}
 >
-	<p class="eyebrow-accent">
+	<p class="eyebrow">
 		{t.eyebrow}
 	</p>
 	<h3

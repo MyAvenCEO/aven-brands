@@ -1,11 +1,13 @@
 {
 	"name": "workbench",
-	"description": "The frame a desktop app lives in: a fixed rail, a scrolling main region, and nothing that scrolls the whole window.\n\nNamed `workbench` and not `app-shell` for a reason worth recording. `app-shell` is already a legacy class — six surfaces use it to mean 'the page wrapper', a min-height and a ground — and defining a unit under the same name silently restyled every one of them into a two-column grid. Nothing reported it: the class resolved, the CSS was valid, and the docs page simply rendered with its content pushed 700px to the right. A new unit taking a name the old vocabulary still owns is the one migration hazard that has no gate.\n\nWhat the unit gets right is `min-block-size: 0` on the scrolling child. A grid child defaults to `min-height: auto` and refuses to shrink below its content, so a main region full of a long list does not scroll — it grows, the page scrolls instead, and the rail scrolls away with it. Every app that has ever had 'the sidebar disappears when I scroll' has had this bug.",
+	"description": "The frame a desktop app lives in: a fixed rail, a scrolling main region, and nothing that scrolls the whole window.\n\nNamed `workbench` and not `app-shell` for a reason worth recording. `app-shell` is already a legacy class \u2014 six surfaces use it to mean 'the page wrapper', a min-height and a ground \u2014 and defining a unit under the same name silently restyled every one of them into a two-column grid. Nothing reported it: the class resolved, the CSS was valid, and the docs page simply rendered with its content pushed 700px to the right. A new unit taking a name the old vocabulary still owns is the one migration hazard that has no gate.\n\nWhat the unit gets right is `min-block-size: 0` on the scrolling child. A grid child defaults to `min-height: auto` and refuses to shrink below its content, so a main region full of a long list does not scroll \u2014 it grows, the page scrolls instead, and the rail scrolls away with it. Every app that has ever had 'the sidebar disappears when I scroll' has had this bug.",
 	"interface": {
 		"props": {},
 		"slots": {
 			"rail": {
-				"accepts": ["sidebar"]
+				"accepts": [
+					"sidebar"
+				]
 			},
 			"main": {},
 			"aside": {}
@@ -33,7 +35,7 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "`100dvh`, not `100vh` — on a phone `vh` is the viewport WITHOUT the browser chrome, so a full-height shell is taller than the screen and the bottom of it sits under the address bar until you scroll.",
+			"$description": "`100dvh`, not `100vh` \u2014 on a phone `vh` is the viewport WITHOUT the browser chrome, so a full-height shell is taller than the screen and the bottom of it sits under the address bar until you scroll.",
 			"display": "grid",
 			"gridTemplateColumns": "auto minmax(0, 1fr)",
 			"blockSize": "100dvh",
@@ -43,7 +45,7 @@
 		},
 		"parts": {
 			"rail": {
-				"$description": "Fixed width, its own scroll. It does not scroll with the main region, which is the entire point of the shell.",
+				"$description": "Where the `sidebar` goes, and nothing else. Fixed width, its own scroll \u2014 it does not scroll with the main region, which is the entire point of the shell. It used to carry a `marker` part of its own: a shell that holds no items had a declaration for marking the current one, while `sidebar` described a marker in prose and drew none. The marker now lives with the items it marks, and this part only positions the rail.",
 				"display": "flex",
 				"flexDirection": "column",
 				"minBlockSize": "0",
@@ -52,7 +54,7 @@
 				"background": "var(--color-surface-raised)"
 			},
 			"main": {
-				"$description": "`min-inline-size: 0` AND `min-block-size: 0`. Both are load-bearing and neither is obvious: a grid child defaults to `auto` on both axes, so without them a wide table widens the column and a long list refuses to shrink — and the shell scrolls instead of the region inside it.",
+				"$description": "`min-inline-size: 0` AND `min-block-size: 0`. Both are load-bearing and neither is obvious: a grid child defaults to `auto` on both axes, so without them a wide table widens the column and a long list refuses to shrink \u2014 and the shell scrolls instead of the region inside it.",
 				"display": "flex",
 				"flexDirection": "column",
 				"minInlineSize": "0",
@@ -60,21 +62,12 @@
 				"overflowY": "auto"
 			},
 			"aside": {
-				"$description": "An optional third column — an inspector, a detail pane. Hidden below the breakpoint rather than stacked, because a detail pane under a list on a phone is a second page pretending to be a column.",
+				"$description": "An optional third column \u2014 an inspector, a detail pane. Hidden below the breakpoint rather than stacked, because a detail pane under a list on a phone is a second page pretending to be a column.",
 				"display": "none",
 				"minInlineSize": "0",
 				"minBlockSize": "0",
 				"overflowY": "auto",
 				"borderInlineStart": "1px solid var(--color-border)"
-			},
-			"marker": {
-				"$description": "The bar beside the current rail item. Absolute against the item rather than a border on it, so it can be shorter than the row and centred — a full-height border reads as a divider, not a marker.",
-				"position": "absolute",
-				"insetInlineStart": "0",
-				"inlineSize": "0.2rem",
-				"blockSize": "1.5rem",
-				"borderRadius": "var(--radius-full)",
-				"background": "var(--color-primary)"
 			}
 		},
 		"variants": {
@@ -87,7 +80,7 @@
 			"rail": {
 				"icons": {
 					"$part": "rail",
-					"$description": "An icon-only rail. Every item still needs a label — a rail of unlabelled glyphs is a navigation nobody can read.",
+					"$description": "An icon-only rail. Every item still needs a label \u2014 a rail of unlabelled glyphs is a navigation nobody can read.",
 					"inlineSize": "3.5rem",
 					"alignItems": "center"
 				},
@@ -99,6 +92,6 @@
 		}
 	},
 	"a11y": {
-		"note": "One `<main>`, once per page — it is the skip-link target and the landmark a screen-reader user jumps to. The rail is a `<nav>` with a label. On an icon-only rail every item keeps a visible-to-assistive-tech label: an icon with a tooltip is not a label, because a tooltip needs hover. WCAG 2.4.11: the rail is fixed, so anything focusable in main must not be able to scroll underneath it."
+		"note": "One `<main>`, once per page \u2014 it is the skip-link target and the landmark a screen-reader user jumps to. The rail is a `<nav>` with a label. On an icon-only rail every item keeps a visible-to-assistive-tech label: an icon with a tooltip is not a label, because a tooltip needs hover. WCAG 2.4.11: the rail is fixed, so anything focusable in main must not be able to scroll underneath it."
 	}
 }

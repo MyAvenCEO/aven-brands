@@ -1,0 +1,260 @@
+{
+	"name": "voice-pill",
+	"description": "The notch: the dark stadium pinned to the bottom of avenOS that says what the system is DOING and is the one place you talk to it by voice. `prompt-bar` is the other half of the same footer — that one is how you type, this one is how you speak, and the app switches between them in place so the notch never jumps.\n\nThe orb is the unit. It is a circle TALLER than the pill it sits in, overhanging it by a few pixels top and bottom, and it wears the phase as a colour and a glyph: chalk while it is simply ready, terracotta ear while you speak, tidal while it thinks, paradise while it talks. No words on the orb itself — the phases that need a word say it in a chip above the notch, because a label inside a circle that changes eight times a minute is a circle nobody can read.\n\nIt collapses. When the conversation has ended there is no pill at all: the mark alone, one target, one meaning — press the logo and the conversation is back. That is a whole different shape for the same unit, which is why `phase: off` drops the ground rather than recolouring it.",
+	"interface": {
+		"props": {
+			"phase": "string",
+			"label": "string",
+			"progress": "string"
+		},
+		"slots": {
+			"chip": {},
+			"leading": {},
+			"orb": {
+				"accepts": ["icon", "logo"]
+			},
+			"trailing": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"attrs": {
+			"data-phase": "$props.phase"
+		},
+		"$children": [
+			{ "tag": "span", "part": "chip", "$children": "chip" },
+			{ "tag": "div", "part": "leading", "$children": "leading" },
+			{
+				"tag": "button",
+				"part": "orb",
+				"attrs": {
+					"type": "button",
+					"aria-label": "$props.label",
+					"aria-live": "polite"
+				},
+				"$children": "orb"
+			},
+			{ "tag": "div", "part": "trailing", "$children": "trailing" }
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Dark, so it reads as the active surface rather than as another card on a pale page. `width: fit-content` and centred: the notch is the one fixed landmark at the foot of the app, and everything that appears beside it — a back button, a drawer toggle — is positioned against the screen edge rather than pushed by the pill.",
+			"position": "relative",
+			"display": "flex",
+			"alignItems": "center",
+			"gap": "var(--space-comfortable)",
+			"inlineSize": "fit-content",
+			"marginInline": "auto",
+			"padding": "0.5rem 0.625rem",
+			"borderRadius": "var(--radius-full)",
+			"background": "var(--color-primary)",
+			"color": "var(--color-primary-foreground)",
+			"transition": "background var(--duration-moderate) var(--ease-out)"
+		},
+		"parts": {
+			"orb": {
+				"$description": "A circle taller than its pill. `margin-block: -0.75rem` is what makes it overhang rather than stretch the bar — the pill's height stays put through every phase, so switching voice to text does not make the notch jump. The 4px edge is the pill's own ground showing through, which is what reads as a socket rather than as a button lying on top.",
+				"position": "relative",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"flexShrink": "0",
+				"marginBlock": "-0.75rem",
+				"inlineSize": "4.25rem",
+				"blockSize": "4.25rem",
+				"padding": "0",
+				"border": "4px solid var(--color-primary)",
+				"borderRadius": "var(--radius-full)",
+				"background": "var(--color-surface-cream)",
+				"color": "var(--color-primary)",
+				"boxShadow": "var(--shadow-overlay)",
+				"cursor": "pointer",
+				"transition": "transform var(--duration-quick) var(--ease-out), background var(--duration-moderate) var(--ease-out), color var(--duration-moderate) var(--ease-out)"
+			},
+			"halo": {
+				"$description": "The breath while it listens or works. A ring that expands and fades OUT of the orb rather than a spinner on top of it — the orb is already carrying the phase colour, and a second moving thing inside it competes with the glyph.",
+				"position": "absolute",
+				"inset": "0",
+				"borderRadius": "var(--radius-full)",
+				"background": "currentColor",
+				"opacity": "0.4",
+				"pointerEvents": "none",
+				"animation": "aven-halo 1600ms var(--ease-out) infinite"
+			},
+			"ring": {
+				"$description": "Progress as a sweep around the orb, never a bar with a number — a model loading is not a task with a deadline. The percentage rides in on `--voice-progress`, which is the one value a caller sets.",
+				"position": "absolute",
+				"inset": "-0.25rem",
+				"borderRadius": "var(--radius-full)",
+				"background": "conic-gradient(var(--color-progress) calc(var(--voice-progress, 0) * 1%), transparent 0)",
+				"mask": "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+				"pointerEvents": "none"
+			},
+			"chip": {
+				"$description": "The word, above the notch and never inside it. Only the phases that need explaining wear one — loading, blocked, denied, error — because a chip that is always there stops being read. The tail is what points it at the orb; without it the chip floats and reads as a toast.",
+				"position": "absolute",
+				"insetBlockEnd": "100%",
+				"insetInlineStart": "50%",
+				"transform": "translateX(-50%)",
+				"marginBlockEnd": "1.25rem",
+				"padding": "0.25rem var(--space-comfortable)",
+				"borderRadius": "var(--radius-full)",
+				"border": "1px solid var(--color-border)",
+				"background": "var(--color-surface-cream)",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "500",
+				"whiteSpace": "nowrap",
+				"color": "var(--color-foreground)",
+				"boxShadow": "var(--shadow-raised)",
+				"pointerEvents": "none"
+			},
+			"tail": {
+				"$description": "An eggshell diamond with two bordered sides, so it reads as the tail of the chip rather than as a stray square.",
+				"position": "absolute",
+				"insetBlockStart": "100%",
+				"insetInlineStart": "50%",
+				"inlineSize": "0.5rem",
+				"blockSize": "0.5rem",
+				"marginBlockStart": "-0.3rem",
+				"transform": "translateX(-50%) rotate(45deg)",
+				"borderInlineEnd": "1px solid var(--color-border)",
+				"borderBlockEnd": "1px solid var(--color-border)",
+				"background": "var(--color-surface-cream)"
+			},
+			"leading": {
+				"$description": "What sits left of the orb — attach a file, today. Outlined in the pill's own ink at low alpha, and the trailing control opposite wears the identical outline so the notch stays a matched pair rather than a row of unrelated buttons.",
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-hairline)",
+				"flexShrink": "0"
+			},
+			"trailing": {
+				"$description": "The hang-up. Far right, a phone put down rather than a power switch — which is why it is the same quiet outline as the control opposite and not a red alarm.",
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-hairline)",
+				"flexShrink": "0"
+			},
+			"control": {
+				"$description": "One of the two side controls. Round, outlined in the ink at 25%, never filled — a filled button beside the orb competes with the one thing on this bar that is supposed to be pressed.",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"inlineSize": "2.5rem",
+				"blockSize": "2.5rem",
+				"padding": "0",
+				"border": "1px solid color-mix(in oklab, var(--color-primary-foreground) 25%, transparent)",
+				"borderRadius": "var(--radius-full)",
+				"background": "transparent",
+				"color": "inherit",
+				"cursor": "pointer",
+				"transition": "background var(--duration-quick) var(--ease-out)"
+			}
+		},
+		"variants": {
+			"phase": {
+				"$description": "What the system is doing. The orb carries it as a ground and a glyph; the pill itself only changes for `off`, where there is no pill at all.",
+				"off": {
+					"$description": "The conversation has ended. No ground, no controls, no chrome — the mark alone, because nothing else applies and offering it anyway is offering a dead control. Press the logo and the conversation is back.",
+					"padding": "0",
+					"gap": "0",
+					"background": "transparent",
+					"color": "var(--color-foreground)",
+					"& .voice-pill-orb": {
+						"inlineSize": "3.5rem",
+						"blockSize": "3.5rem",
+						"marginBlock": "0",
+						"border": "1px solid var(--color-border)",
+						"background": "var(--color-surface-cream)",
+						"boxShadow": "var(--shadow-raised)"
+					}
+				},
+				"hearing": {
+					"$description": "You are speaking. Terracotta — the one phase where the system is not the actor.",
+					"& .voice-pill-orb": {
+						"background": "var(--color-error)",
+						"color": "var(--color-error-foreground)"
+					}
+				},
+				"thinking": {
+					"& .voice-pill-orb": {
+						"background": "var(--color-progress)",
+						"color": "var(--color-progress-foreground)"
+					}
+				},
+				"speaking": {
+					"& .voice-pill-orb": {
+						"background": "var(--color-success)",
+						"color": "var(--color-success-foreground)"
+					}
+				},
+				"loading": {
+					"& .voice-pill-orb": {
+						"background": "var(--color-surface-cream)",
+						"color": "var(--color-progress)"
+					}
+				},
+				"blocked": {
+					"$description": "Audio is off at the OS. Amber, not red: nothing failed, something is switched off.",
+					"& .voice-pill-orb": {
+						"background": "var(--color-warning)",
+						"color": "var(--color-warning-foreground)"
+					}
+				},
+				"error": {
+					"& .voice-pill-orb": {
+						"background": "var(--color-error)",
+						"color": "var(--color-error-foreground)"
+					}
+				},
+				"text": {
+					"$description": "Typing, not speaking — the browser has no recogniser, so text is not a mode there, it is the whole interface.",
+					"& .voice-pill-orb": {
+						"background": "var(--color-surface-cream)",
+						"color": "var(--color-primary)"
+					}
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$part": "orb",
+				"transform": "scale(1.03)"
+			},
+			"focus": {
+				"$part": "orb",
+				"outline": "1px solid var(--color-focus)",
+				"outlineOffset": "2px"
+			},
+			"active": {
+				"$part": "orb",
+				"transform": "scale(0.97)"
+			},
+			"disabled": {
+				"$description": "A phase the orb cannot act on — loading, blocked. It stays fully drawn and only loses its cursor: dimming it would say the system is off when the system is busy.",
+				"$part": "orb",
+				"cursor": "default"
+			},
+			"loading": {
+				"$part": "orb",
+				"cursor": "progress"
+			}
+		},
+		"keyframes": {
+			"aven-halo": {
+				"0%": { "transform": "scale(1)", "opacity": "0.4" },
+				"100%": { "transform": "scale(1.5)", "opacity": "0" }
+			}
+		},
+		"reducedMotion": {
+			"$description": "The halo stops expanding and becomes a steady ring. It cannot simply be removed: the halo is the only thing separating 'listening' from 'ready' at a glance once the colours are matched, so deleting it takes information away from the people who asked for less motion.",
+			"animation": "none",
+			"opacity": "0.25"
+		},
+		"interactive": true
+	},
+	"a11y": {
+		"note": "The orb is a real `<button>` with the phase as its accessible name, and the name CHANGES as the phase does — `aria-live=\"polite\"` so a phase change is announced rather than silently repainting the one control on screen. The phase is never colour alone: every phase carries its own glyph, and the four that need explaining carry a word in the chip. The side controls are 2.5rem, above the 24px floor and at the 44px recommendation, because they sit either side of a 4.25rem target and a near-miss lands on the orb. `prefers-reduced-motion` keeps a ring rather than removing the halo, since the halo is load-bearing information."
+	}
+}

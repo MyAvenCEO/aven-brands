@@ -151,6 +151,69 @@ const partDecls = $derived(
 	openUnit && openPart ? declarationsOf(`${openUnit.name}-${openPart}`) : []
 )
 
+/**
+ * The specimen to show, given what is chosen.
+ *
+ * A variant axis usually DRESSES the specimen — `tone: quiet` is the same card,
+ * quieter — and for those the one instance is right and the modifier class does
+ * the rest. But some axes name different CONTENT: `flow-card`'s `step` is four
+ * real screens of one sequence, and `voice-pill`'s `phase` is eight things the
+ * system can be doing. Recolouring a crest and leaving the heading saying
+ * "Authorize this device" while the switch reads `pay` is worse than having no
+ * switch, because it teaches you the control is broken.
+ *
+ * First match in axis-declaration order, so two scened axes on one unit resolve
+ * the same way every time rather than by whichever was clicked last.
+ */
+const sceneAxes = $derived(
+	openUnit
+		? openUnit.variants
+				.map((a) => a.axis)
+				.filter((axis) => specimens[openUnit.name]?.scenes?.[axis])
+		: []
+)
+const specimenHtml = $derived(
+	(() => {
+		if (!openUnit) return ''
+		const spec = specimens[openUnit.name]
+		if (!spec) return ''
+		for (const axis of sceneAxes) {
+			const scene = spec.scenes?.[axis]?.[chosen[axis] ?? '']
+			if (scene) return scene
+		}
+		return spec.one ?? spec.html ?? ''
+	})()
+)
+/**
+ * Walking the sequence, rather than clicking four chips in the right order.
+ *
+ * Only where an axis has scenes: an axis whose options are a look — quiet,
+ * featured — is not a sequence and Back/Next on it would imply an order that
+ * does not exist. `default` is position 0, because the resting card IS where
+ * these flows start.
+ */
+const walkAxis = $derived(sceneAxes[0] ?? null)
+const walkSteps = $derived(
+	walkAxis && openUnit
+		? [
+				'default',
+				...(openUnit.variants
+					.find((a) => a.axis === walkAxis)
+					?.options.filter((o) => specimens[openUnit.name]?.scenes?.[walkAxis]?.[o.name])
+					.map((o) => o.name) ?? [])
+			]
+		: []
+)
+const walkAt = $derived(walkAxis ? Math.max(0, walkSteps.indexOf(chosen[walkAxis] ?? 'default')) : 0)
+
+function walk(delta: number) {
+	if (!walkAxis) return
+	const next = walkSteps[walkAt + delta]
+	if (next === undefined) return
+	if (next === 'default') clear(walkAxis)
+	else pick(walkAxis, next)
+}
+
 /** The modifier classes the chosen variants add, as one string. */
 const variantClass = $derived(
 	Object.entries(chosen)
@@ -273,7 +336,7 @@ function inspect(name: string) {
 <div id="ceobrand" class="app-shell" data-theme={theme}>
 	<header id="cb-head">
 		<div>
-			<p class="eyebrow-accent">ceoBRAND</p>
+			<p class="eyebrow">ceoBRAND</p>
 			<h1 class="title">Design system</h1>
 			<p class="lede">
 				Rendered from the brand config itself. If it renders wrong, the system is wrong.
@@ -628,12 +691,53 @@ function inspect(name: string) {
 										style={viewportStyle}
 										{@attach applyPreview(unit, variantClass, forcedState)}
 									>
-										{#if specimens[unit.name]?.one ?? specimens[unit.name]}
-											{@html specimens[unit.name].one ?? specimens[unit.name].html}
+										{#if specimenHtml}
+											{@html specimenHtml}
 										{:else}
 											<p class="cb-mono cb-unit-todo">no specimen yet</p>
 										{/if}
 									</div>
+
+									<!-- Walk the sequence. Only where the axis IS one: an axis whose
+									     options are a look has no order, and offering Back/Next on it
+									     would invent one. -->
+									{#if walkSteps.length > 1}
+										<div class="cb-walk">
+											<button
+												type="button"
+												class="cb-walk-step cb-walk-arrow"
+												disabled={walkAt === 0}
+												onclick={() => walk(-1)}
+												aria-label="Previous {walkAxis}"
+											>
+												Back
+											</button>
+											<ol class="cb-walk-rail">
+												{#each walkSteps as name, i (name)}
+													<li>
+														<button
+															type="button"
+															class="cb-walk-step"
+															aria-current={walkAt === i ? 'step' : undefined}
+															onclick={() =>
+																name === 'default' ? clear(walkAxis ?? '') : pick(walkAxis ?? '', name)}
+														>
+															{name}
+														</button>
+													</li>
+												{/each}
+											</ol>
+											<button
+												type="button"
+												class="cb-walk-step cb-walk-arrow"
+												disabled={walkAt === walkSteps.length - 1}
+												onclick={() => walk(1)}
+												aria-label="Next {walkAxis}"
+											>
+												Next
+											</button>
+										</div>
+									{/if}
 								{:else}
 									<pre class="cb-config"><code>{unit.json}</code></pre>
 								{/if}
@@ -787,7 +891,6 @@ function inspect(name: string) {
 									<button
 										type="button"
 										class="cb-unit"
-										class:cb-unit--tall={specimens[unit.name]?.tall}
 										onclick={() => openDetail(unit.name)}
 									>
 										<span class="cb-unit-head">
@@ -1298,17 +1401,21 @@ function inspect(name: string) {
 .cb-unit {
 	/* Head and stage. No prose: a grid is for finding a unit, and a paragraph
 	   under each one turns twenty cards into a wall of text you scroll past.
-	   The description lives in the detail view, under the specimen. */
+	   The description lives in the detail view, under the specimen.
+
+	   SQUARE, every one of them. A grid where a claim-card is four times the
+	   height of a badge is a grid you scroll rather than scan — the eye loses
+	   the row and the tall cards decide the rhythm. A fixed ratio makes the
+	   cards comparable, and anything that does not fit scrolls inside its own
+	   stage instead of stretching the card. */
 	display: grid;
-	grid-template-rows: auto 1fr;
+	grid-template-rows: auto minmax(0, 1fr);
+	aspect-ratio: 1;
 	min-inline-size: 0;
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	background: var(--color-surface-raised);
 	overflow: hidden;
-}
-.cb-unit--tall .cb-unit-stage {
-	min-block-size: 16rem;
 }
 .cb-unit-head {
 	display: flex;
@@ -1360,14 +1467,79 @@ function inspect(name: string) {
 }
 .cb-unit-stage {
 	display: grid;
-	place-items: center;
+	/* TOP-aligned, not centred. Centring a specimen that overflows hides its
+	   head AND its foot — you scroll up to find the title and down to find the
+	   action, and the first glance lands in the middle of a card. Every stage
+	   starting at the top also gives the grid a shared baseline, so the row
+	   reads across. Horizontal centring stays: a badge in a 21rem column
+	   pinned left is a badge floating in a corner. */
+	align-content: start;
+	justify-items: center;
 	gap: var(--space-tight);
-	min-block-size: 9rem;
+	/* `min-block-size: 0` is what lets the stage shrink inside the square and
+	   scroll instead of pushing the card taller — a grid child defaults to
+	   `auto` and refuses to go below its content. */
+	min-block-size: 0;
+	/* `auto`, and declared ONCE. A second `overflow: hidden` used to sit at the
+	   bottom of this block and win on source order, so the six specimens taller
+	   than their square were silently cropped rather than scrollable — the
+	   scrollHeight was right, the scrollbar was gone, and nothing reported it. */
+	overflow: auto;
+	overscroll-behavior: contain;
 	padding: var(--space-comfortable);
 	/* The stage is the PAGE ground, not the card's — a specimen has to be seen
 	   against what it will actually sit on. */
 	background: var(--color-surface-page);
-	overflow: hidden;
+}
+/* Walking a flow, not choosing a look. A rail under the stage: where you are,
+   what is either side of you, and two arrows — the sequence read left to right,
+   which is the direction the flow itself runs. */
+.cb-walk {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-tight);
+	margin-block-start: var(--space-comfortable);
+}
+.cb-walk-rail {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-hairline);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.cb-walk-step {
+	min-block-size: 1.75rem;
+	padding: 0 0.75rem;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-full);
+	background: var(--color-surface-raised);
+	font: inherit;
+	font-size: var(--fs-micro);
+	color: var(--color-foreground-soft);
+	cursor: pointer;
+	transition: background var(--duration-quick) var(--ease-out);
+}
+.cb-walk-step:hover:not(:disabled) {
+	background: var(--color-muted);
+	color: var(--color-foreground);
+}
+.cb-walk-step[aria-current="step"] {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+	font-weight: 600;
+}
+.cb-walk-step:disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+.cb-walk-arrow {
+	font-weight: 500;
 }
 .cb-unit-slots,
 .cb-unit-todo {

@@ -84,6 +84,7 @@ import text from './brand/units/text.json' with { type: 'json' }
 import threadItem from './brand/units/thread-item.json' with { type: 'json' }
 import toast from './brand/units/toast.json' with { type: 'json' }
 import viewerFrame from './brand/units/viewer-frame.json' with { type: 'json' }
+import voicePill from './brand/units/voice-pill.json' with { type: 'json' }
 import workbench from './brand/units/workbench.json' with { type: 'json' }
 
 /*
@@ -113,6 +114,7 @@ const documents = [
 	settingRow,
 	threadItem,
 	viewerFrame,
+	voicePill,
 	gateCard,
 	promptBar,
 	paymentFrame,
@@ -207,7 +209,6 @@ export const SUPERSEDES: Record<string, Supersession> = {
 	'mono-meta': { unit: 'text', as: 'mono-meta' },
 	digits: { unit: 'text', as: 'digits' },
 	eyebrow: { unit: 'text', as: 'eyebrow' },
-	'eyebrow-accent': { unit: 'text', as: 'eyebrow-accent' },
 	'eyebrow-quiet': { unit: 'text', as: 'eyebrow-quiet' },
 	label: { unit: 'field', as: 'label', note: 'a label belongs to a field, not to the page.' },
 
