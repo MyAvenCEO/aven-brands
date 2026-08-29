@@ -421,15 +421,42 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	navbar: {
-		tall: true,
-		one: `<span class="navbar" style="position: static; inline-size: 100%; max-inline-size: 44rem">
+		/* No `breakpoint` class on it. The bar collapses on its OWN width now, so
+		   this same markup is a full desktop nav in the detail view and a brand +
+		   hamburger in a 324px grid card — which is the demonstration. */
+		one: `<span class="navbar">
 			<span class="navbar-bar">
-				<span class="navbar-brand"><span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="24" height="24"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
-				<span class="navbar-actions">
-					<a class="nav-link" href="#specimen">Skills</a>
+				<span class="navbar-brand"><span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
+				<span class="navbar-links">
+					<a class="nav-link" href="#specimen" aria-current="page">Skills</a>
+					<a class="nav-link" href="#specimen">Marketplace</a>
 					<a class="nav-link" href="#specimen">Pricing</a>
-					<button class="btn btn--accent btn--size-sm" type="button">Hire your Aven</button>
-					<button class="navbar-toggle" type="button" aria-expanded="false" aria-label="Menu">${icon('menu', '1.25rem')}</button>
+					<a class="nav-link" href="#specimen">Docs</a>
+				</span>
+				<span class="navbar-actions">
+					<button class="btn btn--accent" type="button"><span class="btn-label">Hire your Aven</span></button>
+				</span>
+				<button class="navbar-toggle" type="button" aria-label="Open menu" aria-expanded="false">${icon('menu', '1.25rem')}</button>
+			</span>
+		</span>`
+	},
+	'nav-menu': {
+		tall: true,
+		/* Rendered OPEN and un-fixed, because a `position: fixed` specimen escapes
+		   the stage and covers the docs page. `data-demo-state` opts the state
+		   rendering out; the geometry and the type are what this shows. */
+		one: `<span class="nav-menu" data-open="true" data-demo-state="static" style="position:relative; inset:auto; visibility:visible; opacity:1; block-size:20rem; border-radius:var(--radius-lg); overflow:hidden">
+			<span class="nav-menu-scrim"></span>
+			<span class="nav-menu-panel">
+				<span class="nav-menu-items">
+					<a class="nav-menu-item" href="#specimen" aria-current="page">Skills</a>
+					<a class="nav-menu-item" href="#specimen">Marketplace</a>
+					<a class="nav-menu-item" href="#specimen">Pricing</a>
+				</span>
+				<span class="nav-menu-footer">
+					<a class="nav-menu-item" href="#specimen" style="font-size:inherit" aria-current="true">DE</a>
+					<span aria-hidden="true">|</span>
+					<a class="nav-menu-item" href="#specimen" style="font-size:inherit">EN</a>
 				</span>
 			</span>
 		</span>`

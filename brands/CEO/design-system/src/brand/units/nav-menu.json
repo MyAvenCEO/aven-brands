@@ -1,0 +1,173 @@
+{
+	"name": "nav-menu",
+	"description": "The full-screen menu a narrow `navbar` opens: a marine glass layer over the whole page with the nav points centred and set very large.\n\nA SEPARATE composite, and the reason is structural rather than tidiness. The bar is `backdrop-filter` glass, and a filtered element creates a containing block for `position: fixed` descendants \u2014 so a menu nested inside the bar is trapped inside the bar's box and covers nothing. The real header found this and renders the menu as a SIBLING of the header, with the bar kept above it so its close control still closes it. Any implementation that nests this inside `navbar` will look correct in a test harness and fail on the actual page.\n\nThe type is the design. `clamp(2.25rem, 11vw, 3.75rem)` in the display face is not a heading treatment borrowed for a menu \u2014 at this size a menu of five items IS the page, which is what makes a full-screen menu worth having over a dropdown.",
+	"interface": {
+		"props": {
+			"open": "boolean",
+			"label": "string"
+		},
+		"slots": {
+			"items": {
+				"accepts": [
+					"nav-link"
+				]
+			},
+			"footer": {}
+		},
+		"events": {
+			"dismiss": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"attrs": {
+			"data-open": "$props.open"
+		},
+		"$children": [
+			{
+				"tag": "div",
+				"part": "scrim"
+			},
+			{
+				"tag": "nav",
+				"part": "panel",
+				"attrs": {
+					"aria-label": "$props.label"
+				},
+				"$children": [
+					{
+						"tag": "div",
+						"part": "items",
+						"$children": "items"
+					},
+					{
+						"tag": "div",
+						"part": "footer",
+						"$children": "footer"
+					}
+				]
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "`position: fixed` over the whole viewport at the overlay layer \u2014 BELOW the bar, deliberately, so the bar's close control stays reachable and the menu cannot cover the thing that dismisses it.\n\nIt IS a container, like every other composite. `inset: 0` gives it a width from outside its contents, which is the one precondition containment needs, so there is no reason for this unit to be the exception \u2014 and one good reason against: the type below sizes in `cqi`, so the menu renders correctly at any size it is given rather than only at full screen. A `vw`-based menu is right exactly once and wrong in a preview, a split pane, or a tablet sidebar.",
+			"position": "fixed",
+			"inset": "0",
+			"zIndex": "var(--z-overlay)",
+			"display": "grid",
+			"visibility": "hidden",
+			"opacity": "0",
+			"transition": "opacity var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate)",
+			"containerType": "inline-size",
+			"containerName": "nav-menu"
+		},
+		"parts": {
+			"scrim": {
+				"$description": "Marine at 90% with a heavy blur behind it. Not opaque: the page staying faintly visible is what says the menu is ON the page rather than a different one, so dismissing it feels like closing rather than navigating back.",
+				"position": "absolute",
+				"inset": "0",
+				"background": "color-mix(in oklab, var(--color-primary) 90%, transparent)",
+				"backdropFilter": "blur(var(--blur-heavy, 24px))"
+			},
+			"panel": {
+				"position": "relative",
+				"display": "flex",
+				"flexDirection": "column",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"gap": "var(--space-loose)",
+				"blockSize": "100%",
+				"paddingInline": "var(--space-loose)",
+				"textAlign": "center",
+				"color": "var(--color-primary-foreground)",
+				"overflowY": "auto"
+			},
+			"items": {
+				"display": "flex",
+				"flexDirection": "column",
+				"alignItems": "center",
+				"gap": "var(--space-loose)"
+			},
+			"item": {
+				"$description": "The display face at `clamp(2.25rem, 11cqi, 3.75rem)`. `cqi` \u2014 the container's inline size \u2014 not `vw`. The real header uses `11vw` and is right by coincidence: there the menu happens to BE the viewport. Measured against its own container it is right everywhere, including the place `vw` visibly failed \u2014 this unit's own specimen, rendering at 3.75rem inside a 324px card.",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(2.25rem, 11cqi, 3.75rem)",
+				"fontWeight": "500",
+				"lineHeight": "1",
+				"letterSpacing": "var(--tracking-tight)",
+				"color": "inherit",
+				"textDecoration": "none",
+				"transition": "opacity var(--duration-quick) var(--ease-out)"
+			},
+			"footer": {
+				"$description": "What sits under the nav points \u2014 the language switch on the real header. Smaller, because it is a setting and not a destination.",
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-comfortable)",
+				"marginBlockStart": "var(--space-section)",
+				"fontSize": "var(--fs-hero)",
+				"fontWeight": "600",
+				"fontVariantNumeric": "tabular-nums"
+			}
+		},
+		"variants": {
+			"tone": {
+				"$description": "The ground the menu lays over.",
+				"solid": {
+					"$description": "No blur \u2014 for a surface where the page behind is noise rather than context, and for the browsers that cannot do it.",
+					"& .nav-menu-scrim": {
+						"background": "var(--color-primary)",
+						"backdropFilter": "none"
+					}
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$part": "item",
+				"opacity": "0.7"
+			},
+			"focus": {
+				"$part": "item",
+				"outline": "1px solid var(--color-focus)",
+				"outlineOffset": "4px"
+			},
+			"active": {
+				"$part": "item",
+				"opacity": "0.55"
+			},
+			"disabled": {
+				"$part": "item",
+				"opacity": "0.4",
+				"cursor": "default"
+			},
+			"selected": {
+				"$description": "The page you are already on, in the accent ink \u2014 the one colour on a marine ground that is neither the foreground nor a dimmed version of it.",
+				"$part": "item",
+				"color": "var(--color-accent-ink)"
+			}
+		},
+		"keyframes": {
+			"aven-menu-rise": {
+				"from": {
+					"opacity": "0",
+					"transform": "translateY(1rem)"
+				},
+				"to": {
+					"opacity": "1",
+					"transform": "none"
+				}
+			}
+		},
+		"reducedMotion": {
+			"$description": "The menu still opens and the items are still there \u2014 only the rise and the stagger go. Removing the transition entirely would be fine; removing the ANIMATION without this would leave every item at `opacity: 0`, which is the classic reduced-motion bug: the movement is the only thing that was revealing the content.",
+			"transition": "none",
+			"animation": "none"
+		},
+		"interactive": true
+	},
+	"a11y": {
+		"note": "A dialog in everything but name: while it is open, focus is trapped inside it, Escape closes it, and focus returns to the toggle that opened it. The page behind it is `inert` \u2014 without that, a screen reader and a Tab key both walk straight through the scrim into a page the sighted user cannot see.\n\nONE navigation landmark, not two. The menu holds the same links the bar does, so it must be the same `<nav>` moved rather than a hidden second copy; two landmarks with the same label is a screen reader announcing the navigation twice and a keyboard user tabbing through it twice.\n\n`visibility: hidden` rather than `display: none` in the closed state, so the open transition has something to animate from \u2014 and so the closed menu is genuinely removed from the tab order, which `opacity: 0` alone does not do."
+	}
+}

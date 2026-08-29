@@ -33,9 +33,21 @@ const CONTENT_SIZED = new Set(['fit-content', 'max-content', 'min-content', 'aut
 
 const all = (Array.isArray(units) ? units : Object.values(units)) as any[]
 const hugs = (u: any) => CONTENT_SIZED.has(u.styling?.base?.inlineSize)
-const composites = all.filter((u) => Object.keys(u.interface?.slots ?? {}).length && !hugs(u))
-const hugging = all.filter((u) => Object.keys(u.interface?.slots ?? {}).length && hugs(u))
-const leafs = all.filter((u) => !Object.keys(u.interface?.slots ?? {}).length)
+
+/**
+ * A unit pinned to the viewport IS the viewport. `nav-menu` is
+ * `position: fixed; inset: 0` — its width comes from neither a parent box nor
+ * its contents, there is no container above it to answer to, and its type
+ * deliberately uses `vw` because `vw` is measuring the box it actually
+ * occupies. Containment here would be a declaration with nothing to contain.
+ */
+const isViewport = (u: any) =>
+	u.styling?.base?.position === 'fixed' && u.styling?.base?.inset !== undefined
+
+const slotted = (u: any) => Object.keys(u.interface?.slots ?? {}).length
+const composites = all.filter((u) => slotted(u) && !hugs(u) && !isViewport(u))
+const hugging = all.filter((u) => slotted(u) && hugs(u))
+const leafs = all.filter((u) => !slotted(u))
 
 describe('the container contract', () => {
 	test('every composite establishes a container named after itself', () => {

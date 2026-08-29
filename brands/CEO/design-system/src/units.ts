@@ -63,6 +63,7 @@ import media from './brand/units/media.json' with { type: 'json' }
 import mediaCard from './brand/units/media-card.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
+import navMenu from './brand/units/nav-menu.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
 import paymentFrame from './brand/units/payment-frame.json' with { type: 'json' }
 import priceTier from './brand/units/price-tier.json' with { type: 'json' }
@@ -136,6 +137,7 @@ const documents = [
 	logo,
 	navLink,
 	navbar,
+	navMenu,
 	footer
 ] as unknown as UnitDef[]
 
@@ -197,6 +199,30 @@ export type Supersession = {
  * with a plan, not a caller.
  */
 export const SUPERSEDES: Record<string, Supersession> = {
+	/*
+	 * SAME-NAME replacements. A unit that takes the name of the legacy class it
+	 * replaces is the normal migration path — `btn` becomes `btn`. They are
+	 * listed anyway, because the alternative to listing them is a gate that
+	 * cannot tell them from an ACCIDENT.
+	 *
+	 * The accident is real and cost a day: a unit defined as `app-shell` took a
+	 * name six surfaces already used to mean "the page wrapper", and silently
+	 * restyled every one of them into a two-column grid. The class resolved, the
+	 * CSS was valid, and the docs page rendered with its content pushed 700px
+	 * right. Nothing could report it, because "took the name deliberately" and
+	 * "took the name by accident" look identical to a compiler.
+	 *
+	 * So intent is written down, and `tests/collisions.test.ts` fails on any unit
+	 * class that shadows a legacy class without an entry here.
+	 */
+	btn: { unit: 'btn', note: 'same name, deliberately — the unit IS the replacement.' },
+	card: { unit: 'card', note: 'same name, deliberately.' },
+	field: { unit: 'field', note: 'same name, deliberately.' },
+	logo: { unit: 'logo', note: 'same name, deliberately.' },
+	'logo--mark': { unit: 'logo', as: 'mark', note: 'the legacy modifier and the unit variant are the same thing.' },
+	'logo--wordmark': { unit: 'logo', as: 'wordmark', note: 'the legacy modifier and the unit variant are the same thing.' },
+	step: { unit: 'step', note: 'same name, deliberately.' },
+
 	/* Type — one unit, one axis, nine answers. */
 	title: { unit: 'text', as: 'title' },
 	'section-title': { unit: 'text', as: 'section-title' },

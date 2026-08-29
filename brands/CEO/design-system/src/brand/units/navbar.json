@@ -1,6 +1,6 @@
 {
 	"name": "navbar",
-	"description": "The bar at the top of every surface, and the most under-described unit in the system \u2014 it was two slots and three variants while the real header carried a fixed-over-hero mode, a sticky mode, a scroll-triggered glass-to-solid swap, a light/dark bar that depends on both, and a full-screen mobile menu, all of it written inline with `color-mix` and `backdrop-filter` in a `style` attribute. A composite of composites: it holds the logo, a set of nav-links, a set of buttons, and on a narrow viewport a drawer holding the same links rather than a second copy of them.",
+	"description": "The bar at the top of every surface, and the most under-described unit in the system \u2014 it was two slots and three variants while the real header carried a fixed-over-hero mode, a sticky mode, a scroll-triggered glass-to-solid swap, a light/dark bar that depends on both, and a full-screen mobile menu, all of it written inline with `color-mix` and `backdrop-filter` in a `style` attribute. A composite of composites: it holds the logo, a set of nav-links, a set of buttons, and on a narrow viewport a drawer holding the same links rather than a second copy of them.\n\nIt collapses ON ITS OWN CONTAINER. Below 48rem of BAR width the links hide and the toggle appears; above it, the reverse. Neither depends on the viewport, so the same navbar behaves correctly in a phone, in a 400px preview card, and in a split pane \u2014 and the surface no longer has to tell it which of those it is in.\n\nThe drawer it opens is not part of this unit. `nav-menu` is a separate composite because the full-screen menu is `position: fixed` over the whole page and must escape this bar's `backdrop-filter` \u2014 a filtered ancestor creates a containing block for fixed descendants, so a menu nested inside a glass bar is trapped inside the bar. The real header already discovered this and renders the menu as a sibling.",
 	"interface": {
 		"props": {
 			"label": "string",
@@ -119,11 +119,14 @@
 				"flexShrink": "0"
 			},
 			"links": {
-				"$description": "Hidden below the drawer breakpoint, where the same links appear inside the drawer \u2014 the SAME nav, moved, not a second one. Two copies means a screen reader announces two navigation landmarks and a keyboard tabs through both.",
-				"display": "none",
+				"$description": "Visible by DEFAULT, hidden when the bar is narrow. It was the other way round \u2014 `display: none` in the base, and a `breakpoint: md` variant that set `display: none` again. So the links were hidden always, the variant that claimed to hide them changed nothing, and the only thing ever revealing them was a surface writing its own rule. Three separate bugs agreeing with each other.\n\nThe threshold is measured, not chosen: brand 118px + links 360px + actions 128px + gaps needs 686px, so 48rem gives about 80px of headroom \u2014 which the German labels use, since MARKTPLATZ runs longer than MARKETPLACE.\n\nHidden on the BAR's width, not the window's. A navbar in a 400px preview card and a navbar on a 400px phone are the same problem; a viewport query gets the first one wrong, which is exactly what the storybook showed.",
+				"display": "flex",
 				"alignItems": "center",
 				"gap": "var(--space-comfortable)",
-				"marginInlineStart": "auto"
+				"marginInlineStart": "auto",
+				"@container navbar (max-width: 47.999rem)": {
+					"display": "none"
+				}
 			},
 			"actions": {
 				"display": "flex",
@@ -142,7 +145,11 @@
 				"borderRadius": "var(--radius-full)",
 				"background": "transparent",
 				"color": "inherit",
-				"cursor": "pointer"
+				"cursor": "pointer",
+				"@container navbar (min-width: 48rem)": {
+					"display": "none"
+				},
+				"$description": "The inverse of `links`, on the same container width, so exactly one of the two is ever visible. Both were shown at once before \u2014 the desktop links AND the hamburger \u2014 which offers the same navigation twice and makes the hamburger look broken when pressing it reveals nothing new."
 			},
 			"drawer": {
 				"$description": "Full-height and translated off-screen rather than `display:none`, so it can animate and so focus management has something real to trap. It is `inert` while closed, which is what stops a keyboard from tabbing into a menu nobody can see.",
@@ -176,13 +183,6 @@
 					"background": "var(--color-scrim-thin)",
 					"backdropFilter": "blur(10px)",
 					"borderBlockEndColor": "var(--color-border-soft)"
-				}
-			},
-			"breakpoint": {
-				"$description": "Where the links come out of the drawer. Declared rather than assumed, because the answer depends on how many links there are.",
-				"md": {
-					"$part": "links",
-					"display": "none"
 				}
 			}
 		},
