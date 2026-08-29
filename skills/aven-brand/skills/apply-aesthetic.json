@@ -1,0 +1,39 @@
+{
+	"name": "apply-aesthetic",
+	"area": "build",
+	"summary": "Resolve a look, a vibe or a named design system into this project's tokens, then re-verify contrast.",
+	"trigger": {
+		"when": [
+			"a visual direction is named \u2014 a brand feel, an archetype, a reference system"
+		],
+		"not": [
+			"building a whole brand foundation from nothing"
+		],
+		"instead": {
+			"there is no token system yet": "brandkit"
+		}
+	},
+	"reads": [
+		"skills/taste/aesthetic-systems.md",
+		"skills/taste/design-taste.md",
+		"skills/taste/motion-choreography.md"
+	],
+	"gates": [
+		"design_systems.py",
+		"validate_contrast.py",
+		"slop_tells.mjs",
+		"taste_audit.mjs"
+	],
+	"steps": [
+		"Pick the archetype or named system and resolve it into TOKENS. A direction that lives at call sites is not a direction, it is decoration.",
+		"Taste serves aesthetics, which is the fourth priority. It never overrides user needs, accessibility or consistency. A brand colour that fails contrast gets adjusted; taste does not win over POUR.",
+		"Re-run contrast after applying anything. This is the step that gets skipped.",
+		"Check the anti-slop tells: one radius everywhere, a default flat shadow, an indigo-to-blue gradient, pure black text, flat spacing, near-duplicate neutrals."
+	],
+	"output": "Token overrides plus the reasoning for each, not a list of hexes.",
+	"done": [
+		"validate_contrast passes in both themes AFTER the direction is applied",
+		"slop_tells reports no HIGH finding",
+		"every value landed in a token, none at a call site"
+	]
+}

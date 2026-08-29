@@ -1,0 +1,31 @@
+{
+	"name": "version-bump-advisor",
+	"area": "operate",
+	"summary": "Decide major, minor or patch by consumer impact, and catch the small diffs that are secretly breaking.",
+	"trigger": {
+		"when": [
+			"a release is being cut and the number is unclear",
+			"a change looks small but touches a public name"
+		],
+		"not": [
+			"writing the announcement"
+		],
+		"instead": {
+			"the note is the work": "change-communication"
+		}
+	},
+	"reads": [
+		"skills/workflows/governance.md"
+	],
+	"steps": [
+		"Ask only one question: what breaks for someone who upgrades without reading anything?",
+		"Major is anything that changes a name, a default, or a rendered result that a consumer could be relying on. Renaming a token is major. Changing a default spacing is major. Neither is a large diff.",
+		"Minor adds. Patch fixes without changing an interface.",
+		"A visual change with no API change is still breaking if a consumer's screenshot test fails on it. Say so rather than hiding it in a patch."
+	],
+	"output": "The number, and the specific thing that forces it.",
+	"done": [
+		"the decision names the exact change that forces the level",
+		"visual-only breaks are called out rather than buried"
+	]
+}

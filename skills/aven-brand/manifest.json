@@ -1,0 +1,16 @@
+{
+	"name": "aven-brand",
+	"version": "1.0.0",
+	"summary": "One skill library for UI/UX, the design system, and the ops that keep it honest — declared as JSON documents and validated at load, the same way avenCEO's units are.",
+	"description": "This is a MERGE of two libraries that were each half a system.\n\nThe first was avenCEO's own UI/UX kit: 17 skills, thin by design, each one a router into a depth file plus the gates that prove the work. Strong on making a thing correctly — tokens, components, accessibility, taste, frameworks — and strong on verification, because every claim it makes has a script behind it. Almost nothing about what happens after the thing ships.\n\nThe second was `design-system-ops` (murphytrueman, MIT): 41 skills covering exactly that missing half — drift, adoption, health, docs coverage, codemods, decision records, change communication, onboarding, triage. Deep prose skills, roughly 300 lines each, and no runnable verification at all: they describe how to assess and report, and nothing in them can fail.\n\nNeither shape is right on its own. A library that can only build has no answer for a system in use; a library that can only assess produces reports nobody can check. So: OUR shape, THEIR coverage, and every skill that can be gated is gated.\n\nThe delivery pattern is the unit library's, not a file of prose per skill. `skills/*.json` is the source of truth; `generate.mjs` writes the `.claude/skills/*/SKILL.md` that Claude Code actually reads, exactly as `units/*.json` compiles to `brand-components.css`. A skill naming a gate that does not exist, a depth file that was deleted, or a sibling skill that was renamed fails the build.",
+	"license": "MIT",
+	"absorbs": {
+		"design-system-ops": {
+			"repository": "https://github.com/murphytrueman/design-system-ops",
+			"version": "1.2.1",
+			"license": "MIT",
+			"author": "Murphy Trueman",
+			"note": "41 skills and 12 knowledge notes read as source material. What came across: the ops half of the lifecycle, the drift classification (A-E), the adoption tiers, the health scoring, and the discipline of routing every finding to a named next skill. What did not: the emoji severity keys, which this repo forbids outright and which are replaced by words; the `.ds-ops-config.yml` layer, which duplicates a brand config we already have as JSON; and the per-skill Figma/Chromatic/GitHub auto-pull blocks, which are one integration story written 40 times and now live once in `knowledge/integrations.md`."
+		}
+	}
+}

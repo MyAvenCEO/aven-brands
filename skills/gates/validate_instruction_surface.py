@@ -21,7 +21,24 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+def _repo_root() -> Path:
+    """Walk up to the directory that actually holds CLAUDE.md.
+
+    Was `parent.parent`, which encoded "this script lives one level under the
+    repo root". That stopped being true when the gates moved from `scripts/` to
+    `skills/gates/`, and the gate then looked for `skills/CLAUDE.md` and crashed
+    on a missing file. A gate whose own path assumption can rot is a gate that
+    stops running exactly when the layout changes — which is when it is most
+    worth running.
+    """
+    here = Path(__file__).resolve()
+    for candidate in here.parents:
+        if (candidate / "CLAUDE.md").is_file():
+            return candidate
+    raise SystemExit("validate_instruction_surface: no CLAUDE.md above this script")
+
+
+ROOT = _repo_root()
 BRIEF = ROOT / "CLAUDE.md"
 RULES = ROOT / ".claude" / "rules"
 MAX_LINES = 320

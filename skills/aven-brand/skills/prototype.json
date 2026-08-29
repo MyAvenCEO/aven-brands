@@ -1,0 +1,36 @@
+{
+	"name": "prototype",
+	"area": "build",
+	"summary": "Prototype at the right fidelity and validate at each level instead of skipping to pixels.",
+	"trigger": {
+		"when": [
+			"a flow, wireframe or clickable prototype is wanted",
+			"a design needs testing with users"
+		],
+		"not": [
+			"production code"
+		],
+		"instead": {
+			"the output is shipping code": "design-code"
+		}
+	},
+	"reads": [
+		"skills/workflows/prototyping.md",
+		".claude/rules/review-and-research.md"
+	],
+	"gates": [
+		"verify_responsive.mjs",
+		"verify_keyboard.mjs"
+	],
+	"steps": [
+		"Pick the fidelity the QUESTION needs. Content outline answers information needs; a high-fi mockup answers none of them and costs eight hours.",
+		"Do not skip levels. Each one validates something the next assumes.",
+		"Map the flow with its decision points, its error paths and its edge cases \u2014 a happy path is not a flow.",
+		"Five users catches most of it. Write the task, not the instruction."
+	],
+	"output": "The artefact at the named fidelity, plus what it will be used to validate.",
+	"done": [
+		"the fidelity matches the question being asked",
+		"error and edge paths are drawn, not just the happy path"
+	]
+}

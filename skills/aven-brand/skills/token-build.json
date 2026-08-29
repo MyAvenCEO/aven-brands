@@ -1,0 +1,37 @@
+{
+	"name": "token-build",
+	"area": "operate",
+	"summary": "Turn the token source into the platform artefacts \u2014 CSS variables, Tailwind theme, iOS, Android \u2014 from one source, in one step.",
+	"trigger": {
+		"when": [
+			"tokens have to reach a platform",
+			"a build pipeline is being set up or changed"
+		],
+		"not": [
+			"deciding what the tokens should be"
+		],
+		"instead": {
+			"the token values are in question": "design-tokens"
+		}
+	},
+	"reads": [
+		"skills/workflows/token-build.md"
+	],
+	"gates": [
+		"build_tokens.mjs",
+		"validate_tokens.py",
+		"validate_theme_refs.py"
+	],
+	"steps": [
+		"One source, many outputs. A platform that hand-maintains its own copy is a second source and will drift.",
+		"GENERATE, do not hand-write, and say so in the output file. A generated file someone edits is worse than no generation.",
+		"After generating, verify every var() the surfaces reference actually resolves \u2014 a renamed token leaves a dangling reference that renders as nothing and reports nothing.",
+		"Regenerating is part of the build. A JSON edit that does not reach the stylesheet is an edit that did not happen."
+	],
+	"output": "The generated artefacts plus the command that reproduces them.",
+	"done": [
+		"validate_theme_refs finds no dangling var()",
+		"every generated file says it is generated and names the command",
+		"the generator was actually run, not just described"
+	]
+}

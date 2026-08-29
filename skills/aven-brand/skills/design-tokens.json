@@ -1,0 +1,48 @@
+{
+	"name": "design-tokens",
+	"area": "foundation",
+	"summary": "Generate, extend or audit DTCG tokens across the three tiers, and prove every alias resolves and every required pair passes WCAG.",
+	"trigger": {
+		"when": [
+			"a new palette, scale, or theme is needed",
+			"an existing token file has to grow a tier or a mode",
+			"someone asks whether a token is used at the right tier"
+		],
+		"not": [
+			"turning tokens into CSS/Swift/Compose output",
+			"checking a rendered page's contrast"
+		],
+		"instead": {
+			"tokens need to become platform artefacts": "token-build",
+			"the question is about a page that already renders": "a11y-audit"
+		}
+	},
+	"reads": [
+		".claude/rules/tokens-and-color.md",
+		".claude/rules/typography-and-spacing.md"
+	],
+	"gates": [
+		"validate_tokens.py",
+		"validate_contrast.py",
+		"contrast.py"
+	],
+	"steps": [
+		"Read the token rules: three tiers, 4px base, Major Third scale, OKLCH palette generation, dark mode swapped at the SEMANTIC layer only.",
+		"Read the existing token files before adding to them, so the new work matches the structure rather than starting a second one beside it.",
+		"Primitives are raw values and are never referenced from a component. Semantic tokens are purposes. Component tokens are scoped to one component.",
+		"For a new palette: generate 11 OKLCH shades, then VERIFY 500 clears 4.5:1 on white for text and 600 clears 3:1 for UI. Do not assert either from the numbers.",
+		"Pick by INTENT. A destructive action takes the destructive token everywhere it appears, trigger and confirm dialog alike. A blue Delete is a bug, not a variation.",
+		"Run validate_tokens.py for alias resolution and validate_contrast.py for the required pairs in BOTH themes."
+	],
+	"output": "DTCG JSON with $type/$value/$description preserved on every token.",
+	"done": [
+		"validate_tokens.py resolves every alias",
+		"validate_contrast.py passes light AND dark on the required pairs",
+		"no raw value appears in a semantic or component token"
+	],
+	"supersedes": [
+		"token-audit",
+		"token-compliance",
+		"theme-audit"
+	]
+}

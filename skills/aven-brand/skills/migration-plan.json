@@ -1,0 +1,45 @@
+{
+	"name": "migration-plan",
+	"area": "operate",
+	"summary": "Move call sites off a superseded vocabulary: count them first, order the work, and generate the mechanical part.",
+	"trigger": {
+		"when": [
+			"a class, token or component has been replaced and callers must move",
+			"a breaking change needs a path for the people on the old thing",
+			"a codemod would do most of the work"
+		],
+		"not": [
+			"mapping between two different design systems"
+		],
+		"instead": {
+			"the other system is external": "migrate-design-system"
+		}
+	},
+	"reads": [
+		"skills/aven-brand/knowledge/drift.md",
+		"skills/workflows/governance.md"
+	],
+	"gates": [
+		"lint_hardcodes.py",
+		"validate_theme_refs.py",
+		"accuracy_report.mjs"
+	],
+	"steps": [
+		"COUNT the call sites before planning anything. A migration plan built on a guess at the size is a plan for a different migration.",
+		"Record every old name against its replacement, with a note on what actually differs \u2014 that map is what makes the work mechanical instead of a judgement per call site.",
+		"Separate the mechanical from the structural. A rename is a codemod; an API change is a rewrite, and mixing them in one pass makes the rename unreviewable.",
+		"Write the codemod for the mechanical part. Run it, then read the diff \u2014 a codemod nobody read is a find-and-replace with more confidence.",
+		"Migrate consumers in dependency order. A shared surface still on the old vocabulary blocks everything above it.",
+		"Delete the old thing only when the count reaches zero, and prove it with the count rather than believing it."
+	],
+	"output": "The call-site count, the old-to-new map with notes, the codemod, and the ordered plan.",
+	"done": [
+		"the count is measured and quoted, at the start and at the end",
+		"every mechanical change went through a codemod whose diff was read",
+		"the old vocabulary is deleted only after its count is zero"
+	],
+	"supersedes": [
+		"codemod-generator",
+		"migration-agent"
+	]
+}

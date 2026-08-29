@@ -1,0 +1,37 @@
+{
+	"name": "triage",
+	"area": "operate",
+	"summary": "Order a queue of design system requests by system impact rather than by who asked loudest.",
+	"trigger": {
+		"when": [
+			"more requests exist than capacity",
+			"a backlog needs ordering",
+			"the same request keeps arriving from different teams"
+		],
+		"not": [
+			"deciding whether one component belongs in the system"
+		],
+		"instead": {
+			"the question is promotion": "governance"
+		}
+	},
+	"reads": [
+		"skills/workflows/governance.md",
+		"skills/aven-brand/knowledge/measurement.md"
+	],
+	"steps": [
+		"Group by underlying need, not by ticket. Five requests for five components are often one missing primitive.",
+		"Score by how many consumers are blocked, whether it is an accessibility defect, and whether it is compounding.",
+		"An accessibility defect outranks a feature. It is not a preference \u2014 it is a defect that excludes people.",
+		"A repeated request is evidence of a gap. Its THIRD independent occurrence is a stronger signal than its urgency.",
+		"Say plainly what will not be done, so nobody waits for it."
+	],
+	"output": "The grouped and ordered queue, plus an explicit not-doing list.",
+	"done": [
+		"requests are grouped by need, not listed as filed",
+		"the not-doing list exists and is specific"
+	],
+	"supersedes": [
+		"backlog-generator"
+	]
+}

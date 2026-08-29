@@ -1,0 +1,33 @@
+{
+	"name": "performance",
+	"area": "verify",
+	"summary": "Hold Core Web Vitals to a budget: what loads, what shifts, and what animates.",
+	"trigger": {
+		"when": [
+			"a page is slow, janky, or shifting",
+			"a performance budget is being set"
+		],
+		"not": [
+			"a component's visual quality"
+		],
+		"instead": {
+			"the problem is how it looks": "design-review"
+		}
+	},
+	"reads": [
+		"skills/workflows/performance.md"
+	],
+	"gates": [
+		"measure_render.mjs"
+	],
+	"steps": [
+		"Budget LCP, INP and CLS as numbers before optimising anything.",
+		"Layout shift is usually a missing dimension, not a slow network. Reserve the box.",
+		"Animate transform and opacity. Anything else asks the browser to lay out sixty times a second.",
+		"Measure before and after. An optimisation with no measurement is a guess with extra steps."
+	],
+	"output": "The budget, the measurement, and the change with its effect.",
+	"done": [
+		"before and after numbers exist for every claimed improvement"
+	]
+}

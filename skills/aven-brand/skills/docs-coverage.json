@@ -1,0 +1,36 @@
+{
+	"name": "docs-coverage",
+	"area": "communicate",
+	"summary": "Find which components ship without the documentation someone would need to use them correctly, and rank the gaps by how much the component is used.",
+	"trigger": {
+		"when": [
+			"components exist but nobody knows how to use them right",
+			"the same question keeps being asked about the same component",
+			"documentation completeness needs measuring"
+		],
+		"not": [
+			"writing the copy inside the product"
+		],
+		"instead": {
+			"the copy is in the UI": "ux-writing"
+		}
+	},
+	"reads": [
+		"skills/aven-brand/knowledge/measurement.md",
+		"skills/workflows/design-to-code.md"
+	],
+	"gates": [
+		"validate_component_spec.py"
+	],
+	"steps": [
+		"Set the bar: a documented component has an anatomy, its variants, ALL of its states, its token mapping, its ARIA pattern and keyboard model, its edge cases, and at least one example of when NOT to use it.",
+		"Measure every component against that bar rather than sampling \u2014 sampling finds the components you already thought about.",
+		"Rank the gaps by usage. An undocumented component with forty call sites outranks a documented one with two.",
+		"The state and the edge-case rows are the ones that are actually missing. Anatomy is almost always written; 'what happens when this is empty' almost never is."
+	],
+	"output": "A per-component coverage table plus the gaps ranked by usage.",
+	"done": [
+		"every component was measured, not a sample",
+		"the ranking is by usage count, and the counts are real"
+	]
+}

@@ -1,0 +1,37 @@
+{
+	"name": "design-code",
+	"area": "build",
+	"summary": "Emit production code for a named stack, with tokens, states, a11y and dark mode already in it.",
+	"trigger": {
+		"when": [
+			"code is wanted for React, Next, SwiftUI, or any other target",
+			"an adapter is needed for a framework with no dedicated file"
+		],
+		"not": [
+			"deciding what the component should be"
+		],
+		"instead": {
+			"the component is not specified yet": "design-component"
+		}
+	},
+	"reads": [
+		".claude/rules/frameworks.md"
+	],
+	"gates": [
+		"lint_hardcodes.py",
+		"lint_intent.mjs",
+		"check_no_emoji.py"
+	],
+	"steps": [
+		"For a target with no dedicated file, read the adapter protocol and generate the adapter first.",
+		"Tokens, never literals. Every interactive element carries its ARIA. Every state is handled. Dark mode comes from semantic tokens, not a second stylesheet.",
+		"Mobile-first and responsive.",
+		"Deliver COMPLETE files. A placeholder comment standing in for unchanged code is a broken output. Asked for N components, deliver N."
+	],
+	"output": "Copy-paste-ready typed code, complete files only.",
+	"done": [
+		"lint_hardcodes finds no raw hex/px/timing outside adapter config",
+		"no file contains an elision standing in for real code",
+		"the count delivered equals the count asked for"
+	]
+}

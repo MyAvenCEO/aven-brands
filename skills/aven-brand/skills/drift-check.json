@@ -1,0 +1,52 @@
+{
+	"name": "drift-check",
+	"area": "operate",
+	"summary": "Sweep a system in use for divergence from its own intent, classify why each instance happened, and route it to the skill that resolves it.",
+	"trigger": {
+		"when": [
+			"a system has been in use and nobody knows how far it has moved",
+			"hardcoded values, local re-implementations or stale versions are suspected",
+			"two products that share a system no longer look like they do"
+		],
+		"not": [
+			"comparing ONE component against ONE spec",
+			"auditing a token file's structure"
+		],
+		"instead": {
+			"one component against its spec": "design-component",
+			"the token architecture itself": "design-tokens"
+		}
+	},
+	"reads": [
+		"skills/aven-brand/knowledge/drift.md",
+		"skills/design-systems/interop-protocol.md"
+	],
+	"gates": [
+		"lint_hardcodes.py",
+		"validate_theme_refs.py",
+		"lint_intent.mjs",
+		"measure_render.mjs",
+		"slop_tells.mjs"
+	],
+	"steps": [
+		"Name the reference point first. Drift is always relative to something, and if there is no single source of truth, THAT is the top finding.",
+		"Sweep four dimensions: visual (spacing, colour, radius), behavioural (states, focus, motion), API (prop names and semantics), and token (raw values where a token belongs, or the wrong tier).",
+		"Measure it. lint_hardcodes finds raw values, validate_theme_refs finds references to tokens that no longer exist, lint_intent finds a destructive action wearing the primary colour. A drift report assembled by reading is a drift report of what you happened to open.",
+		"Classify every instance, because the response depends on WHY: a deliberate documented exception, version lag, accidental divergence, a misreading of the docs, or a gap where the system did not have what was needed.",
+		"Weight severity by where it sits. The same drift on a checkout control and on a layout wrapper are not the same finding.",
+		"Route each one: an exception becomes a decision record, version lag becomes a migration plan, accidental drift gets fixed AND the doc that failed to prevent it gets reviewed, a misreading is a documentation gap, a system gap is a contribution.",
+		"Then step back and name the ROOT PATTERNS. Individual findings get fixed; a root cause stops the next fifty."
+	],
+	"output": "A findings table with location, dimension, classification, severity and action; then the classification groups; then the root patterns.",
+	"done": [
+		"every finding carries a classification and a named next skill, not just a description",
+		"the numbers came from gates that were run, and their output is quoted",
+		"system gaps are distinguished from mistakes \u2014 a team that worked around a real gap did not do something wrong",
+		"the root-pattern section says something the findings list does not"
+	],
+	"supersedes": [
+		"drift-detection",
+		"design-to-code-check",
+		"naming-audit"
+	]
+}

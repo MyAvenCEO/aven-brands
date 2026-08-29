@@ -1,0 +1,38 @@
+---
+name: onboarding
+description: "Get a designer or an engineer productive on this system, on the path their job actually needs. Use when: someone new has to work with the system; the same beginner mistakes keep recurring. Do NOT use for: documenting one component. If one component's docs are the gap, use docs-coverage instead."
+invocation: model
+---
+
+<!-- GENERATED from skills/aven-brand/skills/onboarding.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
+
+# onboarding
+
+Get a designer or an engineer productive on this system, on the path their job actually needs.
+
+## Read first
+
+- `skills/workflows/design-to-code.md`
+- `skills/aven-brand/knowledge/gate-discipline.md`
+
+## Steps
+
+1. Split the paths. A designer needs the token tiers, the composition rules and where the library lives; an engineer needs the gates, the state contract and how to run things locally. One combined document serves neither.
+2. Start with the ONE rule that prevents the most damage — here, that everything renders from one token source and a page that looks different bypassed it.
+3. Have them run the gates on day one. Someone who has watched a gate fail understands the system better than someone who has read about it.
+4. Point at the real examples in this repo, not at invented ones.
+5. Name the beginner mistakes explicitly. They will otherwise be made, found in review, and made again by the next person.
+
+## Output
+
+A path per role, ending in a first task with a gate on it.
+
+## Done when
+
+- the paths are separate
+- the first task ends in a gate that was actually run
+
+## Absorbed
+
+Merged in from `design-system-ops`: `designer-onboarding`, `engineering-onboarding`.

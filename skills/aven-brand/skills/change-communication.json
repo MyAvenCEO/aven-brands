@@ -1,0 +1,40 @@
+{
+	"name": "change-communication",
+	"area": "communicate",
+	"summary": "Tell the people on a system what changed, what it costs them, and what to do \u2014 sized to how much it actually costs them.",
+	"trigger": {
+		"when": [
+			"a release affects consumers",
+			"a deprecation has to be announced",
+			"a breaking change is going out"
+		],
+		"not": [
+			"deciding the version number",
+			"writing the internal rationale"
+		],
+		"instead": {
+			"the version is the question": "version-bump-advisor",
+			"the rationale is the artefact": "decision-record"
+		}
+	},
+	"reads": [
+		"skills/workflows/governance.md",
+		"skills/content/voice-tone.md"
+	],
+	"gates": [
+		"check_no_emoji.py"
+	],
+	"steps": [
+		"Lead with what the reader has to DO. A release note that opens with what the team built makes every reader hunt for their own line.",
+		"Size the message to the cost. A patch does not need a migration guide and a breaking change is not a changelog line.",
+		"For anything breaking: the before, the after, the codemod if there is one, and the date the old path stops working.",
+		"Say what you are NOT changing. Half of the anxiety in a release note is about things that were never at risk.",
+		"No emoji, in the note or in the headings."
+	],
+	"output": "The note, ordered by what the reader must do.",
+	"done": [
+		"the first line tells the reader whether they have to act",
+		"anything breaking names a date and a path",
+		"check_no_emoji passes"
+	]
+}

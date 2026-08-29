@@ -1,22 +1,42 @@
 ---
 name: figma-integration
-description: Keep Figma and code in sync — map the 3-tier DTCG tokens to Figma Variables (collections + modes), sync in either direction, use the Figma MCP when connected, and verify component parity (variants/states). Use when the user wants to push tokens/components to Figma, pull a design into code, set up token↔Variable sync, or check design-code drift.
+description: "Keep Figma Variables and code tokens in sync in one direction, and check component parity across the boundary. Use when: Figma and code need to agree on tokens or components. Do NOT use for: auditing the token architecture itself. If the tiers or values are the problem, use design-tokens instead."
 invocation: model
 ---
 
-# Skill: Figma Integration
+<!-- GENERATED from skills/aven-brand/skills/figma-integration.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
 
-Bridge design (Figma) and code (this repo) in both directions. The token JSON stays the source of truth; Figma Variables mirror it.
+# figma-integration
+
+Keep Figma Variables and code tokens in sync in one direction, and check component parity across the boundary.
+
+## Read first
+
+- `skills/workflows/figma-integration.md`
+- `skills/aven-brand/knowledge/integrations.md`
 
 ## Steps
-1. Read `workflows/figma-integration.md` (token↔Variable mapping, sync directions, MCP usage, parity).
-2. Map the 3-tier hierarchy → three Figma collections (Primitives → Semantic → Component) with aliasing; dark/brand/density → Figma **Modes** (`tokens/theming.json`).
-3. Choose ONE authoritative sync direction (code→Figma publish, or Figma→code extract via Tokens Studio / Variables REST API). The other side is generated — never hand-edit both.
-4. **If a Figma MCP server is connected:** prefer its tools/skills (load its mandatory prerequisite skill first). Use it to read frames/variables/screenshots into code, build Variables/components from our tokens, or wire Code Connect to `components/*`.
-5. Check component parity: Figma variants/properties must cover our variants + sizes + the 8 states; flag gaps.
 
-## Verification (definition of done)
-- Every Figma Variable resolves to a token in `tokens/*.json` (no orphan hex in designs).
-- One authoritative direction; the generated side has zero hand edits.
-- Variant sets cover all 8 states; Code Connect points to the right `components/*` file.
-- After any token import: `python3 scripts/validate_tokens.py` passes.
+1. Pick ONE direction of truth and write it down. Two-way sync with no declared winner produces a system where neither side can be trusted.
+2. Map collections and modes to tiers and themes, not file-by-file.
+3. Check parity per component: same variants, same states, same names. A name that differs across the boundary is a translation everyone has to do forever.
+
+## Output
+
+The sync mapping, the direction of truth, and a parity table.
+
+## Gates
+
+Run these and report their real output. A number you did not measure is not a number.
+
+- `skills/gates/validate_tokens.py`
+
+## Done when
+
+- the direction of truth is stated
+- every mismatch is listed, not silently reconciled
+
+## Absorbed
+
+Merged in from `design-system-ops`: `figma-variable-audit`.

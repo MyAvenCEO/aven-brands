@@ -1,0 +1,59 @@
+{
+	"name": "design-component",
+	"area": "build",
+	"summary": "Design or build one component or screen: anatomy, variants, all eight states, token mapping, ARIA \u2014 then render it and click it.",
+	"trigger": {
+		"when": [
+			"a component or screen has to be designed or built",
+			"an existing component needs a variant, a size, or a missing state",
+			"a spec is needed before code"
+		],
+		"not": [
+			"emitting the code for a specific framework",
+			"reviewing something already built"
+		],
+		"instead": {
+			"the target stack matters": "design-code",
+			"the work is judging existing UI": "design-review"
+		}
+	},
+	"reads": [
+		".claude/rules/components.md",
+		".claude/rules/accessibility.md",
+		".claude/rules/tokens-and-color.md"
+	],
+	"gates": [
+		"validate_component_spec.py",
+		"measure_render.mjs",
+		"verify_states.mjs",
+		"verify_responsive.mjs",
+		"verify_target_size.mjs",
+		"verify_keyboard.mjs",
+		"verify_interactive.mjs",
+		"verify_overflow.mjs",
+		"verify_reduced_motion.mjs",
+		"axe_audit.mjs",
+		"lint_hardcodes.py",
+		"check_no_emoji.py"
+	],
+	"steps": [
+		"Composition first, before anything is styled: one thing leads, display type is at least 2.5x body, an empty state owns its viewport, the page ends on purpose.",
+		"Anatomy, then variants, then all eight states. Loading is not disabled \u2014 a dimmed control says 'you cannot', not 'this is happening'.",
+		"Map every value to a token. Zero raw hex, px or timing.",
+		"Write the ARIA pattern and the keyboard model BEFORE the CSS, not after.",
+		"RENDER IT AND LOOK. The gates pass while a checkbox will not toggle and a dash sits at the bottom of its box. Screenshot every state with transitions off, then CLICK each control and assert the state actually changed.",
+		"Run the gates. Report the real N/N line."
+	],
+	"output": "Anatomy diagram, variants table, states table, token mapping, a11y notes, and working code.",
+	"done": [
+		"every gate above printed OK",
+		"a screenshot exists for each state and each was reached by an actual interaction",
+		"a control that declares aria-pressed/expanded/sorted/checked was clicked and something changed"
+	],
+	"supersedes": [
+		"component-audit",
+		"component-api-validator",
+		"accessibility-per-component",
+		"component-decision-tree"
+	]
+}

@@ -1,0 +1,51 @@
+{
+	"name": "design-qa",
+	"area": "verify",
+	"summary": "Stand up the gates that stop quality regressing, and run them \u2014 the fast ones on every commit, the slow ones per release.",
+	"trigger": {
+		"when": [
+			"CI gates are being set up",
+			"a change needs checking before it merges",
+			"a regression got through and should not have"
+		],
+		"not": [
+			"auditing one component's accessibility by hand"
+		],
+		"instead": {
+			"the work is one component's a11y": "a11y-audit"
+		}
+	},
+	"reads": [
+		"skills/workflows/design-qa.md",
+		"skills/aven-brand/knowledge/gate-discipline.md"
+	],
+	"gates": [
+		"accuracy_report.mjs",
+		"validate_tokens.py",
+		"validate_contrast.py",
+		"lint_hardcodes.py",
+		"validate_theme_refs.py",
+		"axe_audit.mjs",
+		"measure_render.mjs",
+		"verify_states.mjs",
+		"check_no_emoji.py"
+	],
+	"steps": [
+		"Fast gates on every commit: token resolution, contrast on the source, no raw hex or px or timing, no dangling var(), no emoji.",
+		"Automated a11y over each component's STATES, not just its resting look. Zero serious or critical to merge.",
+		"The real-render contrast gate, because a static token check cannot see a specificity trap or an alpha composite.",
+		"Visual regression across variants, sizes, states, both themes, key breakpoints and RTL \u2014 with animation frozen and data deterministic.",
+		"Manual accessibility sign-off per release: keyboard, screen reader, 400% reflow, 200% text spacing, reduced motion, forced colours.",
+		"A gate that has only ever seen passing input proves nothing. Point each new gate at a deliberate defect and confirm it fails."
+	],
+	"output": "The wired gates, plus the actual output of running them.",
+	"done": [
+		"an unreviewed change cannot introduce a dangling alias, a contrast failure, a raw hex or an axe violation",
+		"snapshots cover dark mode and RTL and the semantic-changing states",
+		"each new gate was proven to fail on a defect"
+	],
+	"supersedes": [
+		"cicd-integration",
+		"schema-validator"
+	]
+}

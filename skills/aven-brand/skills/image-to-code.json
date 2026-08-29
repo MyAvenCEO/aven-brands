@@ -1,0 +1,36 @@
+{
+	"name": "image-to-code",
+	"area": "build",
+	"summary": "Turn a screenshot or mockup into code that matches it, and measure the match rather than eyeballing it.",
+	"trigger": {
+		"when": [
+			"a reference image has to become working UI"
+		],
+		"not": [
+			"applying a general aesthetic direction"
+		],
+		"instead": {
+			"there is no reference image": "apply-aesthetic"
+		}
+	},
+	"reads": [
+		"skills/taste/design-taste.md"
+	],
+	"gates": [
+		"measure_render.mjs",
+		"taste_audit.mjs",
+		"verify_responsive.mjs",
+		"slop_tells.mjs"
+	],
+	"steps": [
+		"Extract the SYSTEM from the image first \u2014 the scale, the rhythm, the palette \u2014 then build from that. Building pixel by pixel produces a screen that cannot take a second one.",
+		"Every extracted value becomes a token.",
+		"Render and compare. 'It looks close' is not a measurement.",
+		"Contrast is checked on YOUR render, not assumed from the reference \u2014 the reference may well fail."
+	],
+	"output": "Tokens extracted, then the code.",
+	"done": [
+		"measure_render passes on the output",
+		"the values live in tokens, not at call sites"
+	]
+}

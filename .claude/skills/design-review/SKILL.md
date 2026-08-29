@@ -1,22 +1,43 @@
 ---
 name: design-review
-description: Review or audit a design/UI across 6 weighted dimensions with Nielsen's 10 heuristics and a prioritized findings table. Use when the user wants a design critique, quality score, heuristic evaluation, or audit of an existing screen, page, or product before/after build.
+description: "Score a design on six weighted dimensions and return prioritised findings, each with the fix. Use when: a design needs judging before it ships; an existing product needs a consistency audit. Do NOT use for: deciding whether something is any GOOD, as taste. If the question is taste and beauty, use critique instead."
 invocation: model
 ---
 
-# Skill: Design Review
+<!-- GENERATED from skills/aven-brand/skills/design-review.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
 
-Run a structured, scored review.
+# design-review
+
+Score a design on six weighted dimensions and return prioritised findings, each with the fix.
+
+## Read first
+
+- `.claude/rules/review-and-research.md`
+- `skills/taste/design-taste.md`
 
 ## Steps
-1. Read `workflows/design-review.md` (rubric, scoring guide, Nielsen heuristics, process).
-2. Gather context: the screen(s)/flow, target users, platform, constraints.
-3. Score the 6 dimensions (Visual Hierarchy 20%, Consistency 20%, Accessibility 20%, Usability 20%, Responsiveness 10%, Performance 10%); compute the weighted overall.
-4. Run the accessibility lens with `accessibility/wcag-checklist.md`; use `scripts/contrast.py` for any color-pair doubts.
-5. Check against the anti-slop tells in `taste/design-taste.md` (Banned Defaults checklist).
-6. Apply Nielsen's 10 heuristics; flag violations by number.
+
+1. Score Visual Hierarchy, Consistency, Accessibility, Usability (20% each), Responsiveness and Performance (10% each). Compute the weighted total.
+2. Run the accessibility lens properly; use contrast.py for any pair you are unsure of rather than estimating.
+3. Check the anti-slop tells. A passing gate is never evidence of taste.
+4. Apply the ten usability heuristics and flag violations by number.
+5. Rank findings Critical, Major, Minor, Enhancement. Every finding names a specific fix, not a direction.
 
 ## Output
-- The 6-dimension scored table + overall score.
-- A prioritized findings table: # · Severity (Critical → Major → Minor → Enhancement) · Finding · Recommendation.
-- Concrete, token-referenced fixes.
+
+The six-dimension scored table, then a findings table: number, severity, finding, recommendation.
+
+## Gates
+
+Run these and report their real output. A number you did not measure is not a number.
+
+- `skills/gates/contrast.py`
+- `skills/gates/taste_audit.mjs`
+- `skills/gates/slop_tells.mjs`
+
+## Done when
+
+- every score is justified by a named observation
+- every finding has a specific fix
+- any number quoted came from a gate that was actually run

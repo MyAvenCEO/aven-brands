@@ -1,21 +1,44 @@
 ---
 name: apply-aesthetic
-description: Apply a visual direction — an archetype (high-end agency, editorial minimal, brutalist, soft-SaaS, dark-tech) or one of 138 named design systems (apple, linear-app, stripe, vercel, notion, material, shadcn, spotify, tesla…) — by resolving it into the token system. Use when the user wants a specific look/vibe/brand feel, or asks to make a design feel premium/expensive/non-generic.
+description: "Resolve a look, a vibe or a named design system into this project's tokens, then re-verify contrast. Use when: a visual direction is named — a brand feel, an archetype, a reference system. Do NOT use for: building a whole brand foundation from nothing. If there is no token system yet, use brandkit instead."
 invocation: model
 ---
 
-# Skill: Apply Aesthetic
+<!-- GENERATED from skills/aven-brand/skills/apply-aesthetic.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
 
-Choose and apply a design direction without breaking accessibility.
+# apply-aesthetic
+
+Resolve a look, a vibe or a named design system into this project's tokens, then re-verify contrast.
+
+## Read first
+
+- `skills/taste/aesthetic-systems.md`
+- `skills/taste/design-taste.md`
+- `skills/taste/motion-choreography.md`
 
 ## Steps
-1. **Brief Inference first (mandatory)** — before any tokens, name it: industry/domain, audience & tone, the one mood adjective the result must earn, motion depth, and the layout-family sequence (`taste/design-taste.md` → Brief Inference + Variance Mandate). Generating before deciding = slop.
-2. Pick a direction in `taste/aesthetic-systems.md`:
-   - An **archetype** (recipe mapped to our tokens), or
-   - A **named library system** — browse with `python3 scripts/design_systems.py list` (or `search <term>` / `show <name>`); specs live in `design-systems/library/<name>/DESIGN.md`.
-3. Apply the **Library Contract** (in `aesthetic-systems.md`): re-point `semantic.*` tokens to the chosen system's color roles; map typography/spacing/radius/shadow/motion to `tokens/*.json`.
-4. **Verify contrast** of every mapped color pair (`scripts/contrast.py` / `a11y-audit`). A brand value that fails must be adjusted — taste never overrides POUR.
-5. Add motion per `taste/motion-choreography.md`; run the pre-flight aesthetic check in `design-taste.md`.
+
+1. Pick the archetype or named system and resolve it into TOKENS. A direction that lives at call sites is not a direction, it is decoration.
+2. Taste serves aesthetics, which is the fourth priority. It never overrides user needs, accessibility or consistency. A brand colour that fails contrast gets adjusted; taste does not win over POUR.
+3. Re-run contrast after applying anything. This is the step that gets skipped.
+4. Check the anti-slop tells: one radius everywhere, a default flat shadow, an indigo-to-blue gradient, pure black text, flat spacing, near-duplicate neutrals.
 
 ## Output
-Updated/overridden semantic tokens + notes on type/space/motion, then render via `design-code`. Confirm the result passes both the aesthetic check and accessibility.
+
+Token overrides plus the reasoning for each, not a list of hexes.
+
+## Gates
+
+Run these and report their real output. A number you did not measure is not a number.
+
+- `skills/gates/design_systems.py`
+- `skills/gates/validate_contrast.py`
+- `skills/gates/slop_tells.mjs`
+- `skills/gates/taste_audit.mjs`
+
+## Done when
+
+- validate_contrast passes in both themes AFTER the direction is applied
+- slop_tells reports no HIGH finding
+- every value landed in a token, none at a call site
