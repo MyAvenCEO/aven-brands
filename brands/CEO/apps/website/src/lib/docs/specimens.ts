@@ -170,13 +170,24 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	toast: {
-		html: `<span class="toast toast--tone-success">
+		one: `<span class="toast toast--tone-success">
 			<span class="toast-icon">${icon('check', '1.25rem')}</span>
 			<span class="toast-copy">
 				<p class="toast-title">Name reserved</p>
 				<p class="toast-body">samuel.aven.ceo is yours. We emailed the confirmation.</p>
 			</span>
-			<button class="toast-dismiss" type="button" aria-label="Dismiss">${icon('close')}</button>
+			<button class="toast-dismiss" type="button" aria-label="Dismiss">${icon('close', '1rem')}</button>
+		</span>`,
+		html: `<span class="sp-stack sp-stack--wide">
+			<span class="toast toast--tone-success">
+				<span class="toast-icon">${icon('check', '1.25rem')}</span>
+				<span class="toast-copy"><p class="toast-title">Name reserved</p><p class="toast-body">samuel.aven.ceo is yours.</p></span>
+				<button class="toast-dismiss" type="button" aria-label="Dismiss">${icon('close', '1rem')}</button>
+			</span>
+			<span class="toast toast--placement-inline toast--tone-error" role="alert">
+				<span class="toast-icon">${icon('error', '1.25rem')}</span>
+				<span class="toast-copy"><p class="toast-title">That code has expired</p><p class="toast-body">Ask avenOS for a new link and try again.</p></span>
+			</span>
 		</span>`
 	},
 	tabs: {
@@ -310,30 +321,30 @@ export const specimens: Record<string, Specimen> = {
 	},
 	'skill-card': {
 		tall: true,
-		one: `<a class="skill-card" href="#specimen" style="inline-size: 19rem">
-			<span class="skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
-			<p class="skill-card-title">Inbox router</p>
-			<p class="skill-card-summary">Reads every mail as it lands, answers what it can in your voice, and hands you only the ones that need you.</p>
-			<span class="skill-card-rail"><span class="skill-card-promise">6 hrs/week</span><span class="skill-card-more">View</span></span>
+		one: `<a class="card skill-card" href="#specimen" style="inline-size: 19rem">
+			<span class="card skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
+			<p class="card skill-card-title">Inbox router</p>
+			<p class="card skill-card-summary">Reads every mail as it lands, answers what it can in your voice, and hands you only the ones that need you.</p>
+			<span class="card skill-card-rail"><span class="card skill-card-promise">6 hrs/week</span><span class="card skill-card-more">View</span></span>
 		</a>`,
 		html: `<span class="sp-row sp-row--cards">
-			<a class="skill-card" href="#specimen" style="inline-size: 15rem">
-				<span class="skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
-				<p class="skill-card-title">Inbox router</p>
-				<p class="skill-card-summary">Answers what it can in your voice, and hands you the rest.</p>
-				<span class="skill-card-rail"><span class="skill-card-promise">6 hrs/week</span><span class="skill-card-more">View</span></span>
+			<a class="card skill-card" href="#specimen" style="inline-size: 15rem">
+				<span class="card skill-card-head"><span class="badge badge--tone-progress">Communication</span></span>
+				<p class="card skill-card-title">Inbox router</p>
+				<p class="card skill-card-summary">Answers what it can in your voice, and hands you the rest.</p>
+				<span class="card skill-card-rail"><span class="card skill-card-promise">6 hrs/week</span><span class="card skill-card-more">View</span></span>
 			</a>
 			<a class="skill-card skill-card--emphasis-featured" href="#specimen" style="inline-size: 15rem">
-				<span class="skill-card-head"><span class="badge badge--tone-accent">Most picked</span></span>
-				<p class="skill-card-title">Book keeper</p>
-				<p class="skill-card-summary">Files every receipt the day it arrives.</p>
-				<span class="skill-card-rail"><span class="skill-card-promise">4 hrs/week</span><span class="skill-card-more">View</span></span>
+				<span class="card skill-card-head"><span class="badge badge--tone-accent">Most picked</span></span>
+				<p class="card skill-card-title">Book keeper</p>
+				<p class="card skill-card-summary">Files every receipt the day it arrives.</p>
+				<span class="card skill-card-rail"><span class="card skill-card-promise">4 hrs/week</span><span class="card skill-card-more">View</span></span>
 			</a>
 			<a class="skill-card skill-card--emphasis-soon" href="#specimen" style="inline-size: 15rem">
-				<span class="skill-card-head"><span class="badge">Soon</span></span>
-				<p class="skill-card-title">Blog writer</p>
-				<p class="skill-card-summary">Drafts in your voice, from what you already published.</p>
-				<span class="skill-card-rail"><span class="skill-card-promise">2 hrs/week</span><span class="skill-card-more">Join list</span></span>
+				<span class="card skill-card-head"><span class="badge">Soon</span></span>
+				<p class="card skill-card-title">Blog writer</p>
+				<p class="card skill-card-summary">Drafts in your voice, from what you already published.</p>
+				<span class="card skill-card-rail"><span class="card skill-card-promise">2 hrs/week</span><span class="card skill-card-more">Join list</span></span>
 			</a>
 		</span>`
 	},
@@ -486,6 +497,94 @@ export const specimens: Record<string, Specimen> = {
 				<li class="row-list-row"><span class="row-list-lead">${icon('check', '1em')}</span><span class="row-list-name">MacBook Pro — Touch ID</span><span class="row-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span></li>
 				<li class="row-list-row"><span class="row-list-lead">${icon('check', '1em')}</span><span class="row-list-name">iPhone 15</span><span class="row-list-action"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Revoke</span></button></span></li>
 			</ul>
+		</span>`
+	},
+	'media-card': {
+		one: `<a class="media-card" href="#specimen" style="inline-size:13rem">
+			<span class="media-card-stage"><img class="media" src="/hero-poster.jpg" alt=""></span>
+			<span class="media-card-caption">
+				<span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="media-card-kind">pdf</span></span>
+			</span>
+		</a>`,
+		html: `<span class="sp-row sp-row--cards">
+			<a class="media-card" href="#specimen" style="inline-size:11rem">
+				<span class="media-card-stage"><img class="media" src="/hero-poster.jpg" alt=""></span>
+				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Q3 board deck</span><span class="media-card-kind">pdf</span></span></span>
+			</a>
+			<a class="media-card media-card--ratio-square" href="#specimen" style="inline-size:11rem">
+				<span class="media-card-stage"><span class="media-card-placeholder">no preview</span></span>
+				<span class="media-card-caption"><span class="media-card-line"><span class="media-card-title">Invoice 0142</span><span class="media-card-kind">csv</span></span></span>
+			</a>
+		</span>`
+	},
+	'flow-node': {
+		one: `<ul style="list-style:none;margin:0;padding:0;inline-size:20rem">
+			<li class="flow-node flow-node--status-running">
+				<span class="flow-node-head"><span class="flow-node-label">Reading the inbox</span><span class="flow-node-dot" role="status" aria-label="running"></span></span>
+				<p class="flow-node-detail">142 messages since 09:00</p>
+				<ul class="flow-node-children">
+					<li class="flow-node flow-node--status-done"><span class="flow-node-head"><span class="flow-node-label">Fetch</span><span class="flow-node-dot" role="status" aria-label="done">${icon('check', '0.6rem')}</span></span></li>
+					<li class="flow-node flow-node--status-failed"><span class="flow-node-head"><span class="flow-node-label">Classify</span><span class="flow-node-dot" role="status" aria-label="failed">${icon('close', '0.6rem')}</span></span></li>
+				</ul>
+			</li>
+		</ul>`
+	},
+	'app-shell': {
+		tall: true,
+		one: `<span class="app-shell" style="display:grid; block-size:15rem; inline-size:100%; border:1px solid var(--color-border); border-radius:var(--radius-lg)">
+			<span class="app-shell-rail" style="inline-size:9rem; padding:var(--space-tight)">
+				<a class="nav-link" href="#specimen" aria-current="page">Dashboard</a>
+				<a class="nav-link" href="#specimen">Skills</a>
+				<a class="nav-link" href="#specimen">Artifacts</a>
+			</span>
+			<span class="app-shell-main" style="padding:var(--space-comfortable)">
+				<p class="text text--section-title">Main region</p>
+				<p class="prose prose--size-fine">Scrolls on its own. The rail does not scroll with it — which is what <code>min-block-size: 0</code> is for.</p>
+			</span>
+		</span>`
+	},
+	'setting-row': {
+		one: `<span class="sp-stack sp-stack--wide">
+			<span class="setting-row">
+				<span class="setting-row-copy">
+					<p class="setting-row-label">Two-factor authentication</p>
+					<p class="setting-row-description">Required for every sign-in. Uses the passkey already on this device.</p>
+				</span>
+				<span class="setting-row-control"><span class="badge badge--tone-success">On</span></span>
+			</span>
+			<span class="setting-row setting-row--tone-danger">
+				<span class="setting-row-copy">
+					<p class="setting-row-label">Delete this account</p>
+					<p class="setting-row-description">Everything goes — your aven, its memory, and the name. This cannot be undone.</p>
+				</span>
+				<span class="setting-row-control"><button class="btn btn--danger btn--size-sm" type="button"><span class="btn-label">Delete</span></button></span>
+			</span>
+		</span>`
+	},
+	'thread-item': {
+		one: `<span class="sp-stack sp-stack--wide" style="gap:0.15rem">
+			<a class="thread-item" href="#specimen" aria-current="true">
+				<span class="thread-item-head"><span class="thread-item-title">Route today's inbox</span><span class="thread-item-time">09:14</span></span>
+				<span class="thread-item-foot"><span class="thread-item-preview">142 messages, 9 need you</span><span class="thread-item-badge"><span class="badge badge--tone-progress badge--size-sm">Running</span></span></span>
+			</a>
+			<a class="thread-item" href="#specimen">
+				<span class="thread-item-head"><span class="thread-item-title">File the Q3 receipts</span><span class="thread-item-time">Tue</span></span>
+				<span class="thread-item-foot"><span class="thread-item-preview">Done — 34 filed, 2 flagged</span></span>
+			</a>
+		</span>`
+	},
+	'viewer-frame': {
+		tall: true,
+		one: `<span class="viewer-frame viewer-frame--content-code" style="display:flex; inline-size:100%; max-inline-size:30rem; block-size:14rem">
+			<span class="viewer-frame-toolbar">
+				<span class="badge badge--size-sm">artifact.json</span>
+				<span style="margin-inline-start:auto"><button class="btn btn--ghost btn--shape-icon btn--size-sm" type="button" aria-label="Open">${icon('external', '1rem')}</button></span>
+			</span>
+			<span class="viewer-frame-content" tabindex="0">{
+  "name": "inbox-router",
+  "runs": 1420,
+  "savedHours": 6
+}</span>
 		</span>`
 	},
 	'payment-frame': {

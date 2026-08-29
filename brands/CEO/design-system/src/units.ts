@@ -45,6 +45,7 @@ import type { UnitDef, UnitRegistry } from '@myavenceo/aven-vibes'
 import { registryStyles, validateRegistry } from '@myavenceo/aven-vibes'
 
 import accordion from './brand/units/accordion.json' with { type: 'json' }
+import appShell from './brand/units/app-shell.json' with { type: 'json' }
 import avatar from './brand/units/avatar.json' with { type: 'json' }
 import badge from './brand/units/badge.json' with { type: 'json' }
 import button from './brand/units/button.json' with { type: 'json' }
@@ -53,11 +54,13 @@ import claimCard from './brand/units/claim-card.json' with { type: 'json' }
 import emptyState from './brand/units/empty-state.json' with { type: 'json' }
 import field from './brand/units/field.json' with { type: 'json' }
 import flowCard from './brand/units/flow-card.json' with { type: 'json' }
+import flowNode from './brand/units/flow-node.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
 import hero from './brand/units/hero.json' with { type: 'json' }
 import icon from './brand/units/icon.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
 import media from './brand/units/media.json' with { type: 'json' }
+import mediaCard from './brand/units/media-card.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
@@ -66,6 +69,7 @@ import priceTier from './brand/units/price-tier.json' with { type: 'json' }
 import prose from './brand/units/prose.json' with { type: 'json' }
 import rowList from './brand/units/row-list.json' with { type: 'json' }
 import section from './brand/units/section.json' with { type: 'json' }
+import settingRow from './brand/units/setting-row.json' with { type: 'json' }
 import sidebar from './brand/units/sidebar.json' with { type: 'json' }
 import skeleton from './brand/units/skeleton.json' with { type: 'json' }
 import skillCard from './brand/units/skill-card.json' with { type: 'json' }
@@ -76,7 +80,9 @@ import surface from './brand/units/surface.json' with { type: 'json' }
 import table from './brand/units/table.json' with { type: 'json' }
 import tabs from './brand/units/tabs.json' with { type: 'json' }
 import text from './brand/units/text.json' with { type: 'json' }
+import threadItem from './brand/units/thread-item.json' with { type: 'json' }
 import toast from './brand/units/toast.json' with { type: 'json' }
+import viewerFrame from './brand/units/viewer-frame.json' with { type: 'json' }
 
 /*
  * Ordered by how much of the estate each one covers, measured across the
@@ -99,6 +105,12 @@ const documents = [
 	flowCard,
 	priceTier,
 	rowList,
+	mediaCard,
+	flowNode,
+	appShell,
+	settingRow,
+	threadItem,
+	viewerFrame,
 	paymentFrame,
 	button,
 	badge,
@@ -212,7 +224,8 @@ export const SUPERSEDES: Record<string, Supersession> = {
 	ghost: { unit: 'btn', as: 'ghost' },
 	alert: {
 		unit: 'toast',
-		note: 'NOT a straight swap. A toast is transient and a page alert is not — an error the user must act on stays beside the thing that failed. Checkout and avenID both use `alert` for the second kind, so this needs an `inline` variant on toast, or its own unit, before either can move.'
+		as: 'placement-inline',
+		note: 'Was the one blocker both surfaces shared. A toast is transient and a page alert is not — an error the user must act on stays beside the thing that failed, and a toast that vanishes takes its instruction with it. `placement: inline` is that distinction, and it decides the ROLE too: inline is `role=alert` and interrupts, floating is `role=status` and does not.'
 	},
 	mark: {
 		unit: 'logo',

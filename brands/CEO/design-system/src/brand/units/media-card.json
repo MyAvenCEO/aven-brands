@@ -1,0 +1,127 @@
+{
+	"name": "media-card",
+	"description": "A card whose subject is a picture — an artifact thumbnail, a document preview, a generated image. The app has fifteen of these in a grid and the shape is doing something the plain `card` cannot: the media fills the card's whole upper area edge to edge, and the caption sits under it in a strip. A `card` pads its content; this one deliberately does not, because padding around a thumbnail wastes the only part of the card carrying information.\n\nThe placeholder is the part that gets skipped. A grid of these loads asynchronously, so most of them are empty most of the first second — and an empty card with no reserved height makes the whole grid reflow as each image lands.",
+	"interface": {
+		"props": { "title": "string", "kind": "string", "href": "string" },
+		"slots": { "media": { "accepts": ["media"] }, "badge": { "accepts": ["badge"] } }
+	},
+	"view": {
+		"tag": "a",
+		"attrs": { "href": "$props.href" },
+		"$children": [
+			{ "tag": "div", "part": "stage", "$children": "media" },
+			{
+				"tag": "div",
+				"part": "caption",
+				"$children": [
+					{
+						"tag": "div",
+						"part": "line",
+						"$children": [
+							{ "tag": "span", "part": "title", "text": "$props.title" },
+							{ "tag": "span", "part": "kind", "text": "$props.kind" }
+						]
+					}
+				]
+			}
+		]
+	},
+	"styling": {
+		"interactive": true,
+		"base": {
+			"display": "flex",
+			"flexDirection": "column",
+			"minInlineSize": "0",
+			"minBlockSize": "0",
+			"borderRadius": "var(--radius-md)",
+			"border": "1px solid var(--color-border)",
+			"background": "var(--color-surface-raised)",
+			"color": "inherit",
+			"textDecoration": "none",
+			"overflow": "hidden",
+			"transition": "border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)"
+		},
+		"parts": {
+			"stage": {
+				"$description": "A RESERVED box with an aspect ratio, not a box that grows to fit whatever arrives. A grid of these loads asynchronously and without a reserved ratio the whole grid reflows as each image lands — which is a layout shift multiplied by however many cards are on screen.",
+				"position": "relative",
+				"flex": "1 1 auto",
+				"minBlockSize": "0",
+				"aspectRatio": "4 / 3",
+				"background": "var(--color-surface-sunken)",
+				"overflow": "hidden"
+			},
+			"caption": {
+				"$description": "A strip, not a padded block. The media is the content and the caption is a label on it — giving the caption card-sized padding makes the thumbnail look like an afterthought in its own card.",
+				"display": "grid",
+				"gap": "0.1rem",
+				"padding": "var(--space-tight) var(--space-tight) 0.4rem",
+				"borderBlockStart": "1px solid var(--color-border-soft)"
+			},
+			"line": {
+				"display": "flex",
+				"alignItems": "baseline",
+				"justifyContent": "space-between",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0"
+			},
+			"title": {
+				"$description": "`truncate` rather than wrap. A thumbnail grid is scanned, and a two-line title in one card and a one-line title in the next makes the row's captions sit at different heights.",
+				"minInlineSize": "0",
+				"overflow": "hidden",
+				"textOverflow": "ellipsis",
+				"whiteSpace": "nowrap",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "600",
+				"color": "var(--color-foreground)"
+			},
+			"kind": {
+				"flexShrink": "0",
+				"padding": "0.05rem 0.35rem",
+				"borderRadius": "var(--radius-xs)",
+				"background": "var(--color-muted)",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-nano)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"placeholder": {
+				"$description": "What fills the stage before the media arrives, and when it never does. It says the KIND in words rather than showing a broken-image glyph, because a failed thumbnail should still tell you what the thing was.",
+				"display": "grid",
+				"placeItems": "center",
+				"blockSize": "100%",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)"
+			}
+		},
+		"variants": {
+			"ratio": {
+				"$description": "The shape the stage reserves. Set it to what the source usually is — a wrong ratio still prevents the reflow, but it crops badly.",
+				"square": { "$part": "stage", "aspectRatio": "1" },
+				"wide": { "$part": "stage", "aspectRatio": "16 / 9" },
+				"page": { "$part": "stage", "aspectRatio": "3 / 4" }
+			}
+		},
+		"states": {
+			"hover": {
+				"transform": "translateY(-2px)",
+				"borderColor": "var(--color-border-strong)",
+				"boxShadow": "var(--shadow-raised)"
+			},
+			"focus": { "outline": "1px solid var(--color-focus)" },
+			"active": { "transform": "translateY(0)", "boxShadow": "none" },
+			"disabled": { "opacity": "0.55", "cursor": "default", "transform": "none" },
+			"selected": {
+				"borderColor": "var(--color-primary)",
+				"boxShadow": "inset 0 0 0 1px var(--color-primary)"
+			}
+		},
+		"reducedMotion": {
+			"$description": "The lift goes; the border still warms.",
+			"transition": "border-color 0.01ms"
+		}
+	},
+	"a11y": {
+		"note": "ONE `<a>` around the whole card. The thumbnail is decorative — `alt=\"\"` — because the title beside it is the name; an alt repeating the title makes a screen reader say it twice. Where the image IS the content and has no title, it takes a real alt instead. The kind chip is text, not colour: a file type conveyed only by a tint is a file type a colourblind user cannot read."
+	}
+}

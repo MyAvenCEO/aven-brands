@@ -109,16 +109,46 @@ for (const f of files) {
     };
     const rgb = ([r, g, b]) => `rgb(${r} ${g} ${b})`;
 
-    /** The opaque colour actually behind `el`, alpha composited. */
+    /**
+     * The opaque colour actually behind `el`, alpha composited.
+     *
+     * From the PAINT STACK, not the ancestor chain. Those are different things
+     * and the difference is the whole bug: a `position: fixed` header is not a
+     * descendant of the section it floats over, so walking ancestors finds the
+     * page shell's cream and misses the marine section actually painted behind
+     * it. The site's language switcher was reported as white-on-cream at 1.01:1
+     * while rendering white on marine at 13.98:1.
+     *
+     * `elementsFromPoint` returns everything at that point in paint order,
+     * topmost first, ancestors and siblings alike — which is exactly the list
+     * that decides what colour is behind something. Falling back to the
+     * ancestor walk keeps elements outside the viewport measurable.
+     */
     function bgOf(el) {
+      const r = el.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const inView = r.width && r.height && x >= 0 && y >= 0 && x <= innerWidth && y <= innerHeight;
+
       const layers = [];
-      for (let n = el; n; n = n.parentElement) {
-        const c = getComputedStyle(n).backgroundColor;
-        if (!c || c === 'transparent' || c === 'rgba(0, 0, 0, 0)') continue;
-        layers.push(c);
-        /* Opaque: nothing below it can show through, so stop. */
-        if (paint(c, 'rgb(0 0 0)').join() === paint(c, 'rgb(255 255 255)').join()) break;
+      if (inView) {
+        for (const n of document.elementsFromPoint(x, y)) {
+          /* The element's OWN background counts. A filled button is the backdrop
+             for its own label — skipping it measured white text against the card
+             behind the button rather than against the button. */
+          const c = getComputedStyle(n).backgroundColor;
+          if (!c || c === 'transparent' || c === 'rgba(0, 0, 0, 0)') continue;
+          layers.push(c);
+          if (paint(c, 'rgb(0 0 0)').join() === paint(c, 'rgb(255 255 255)').join()) break;
+        }
+      } else {
+        for (let n = el; n; n = n.parentElement) {
+          const c = getComputedStyle(n).backgroundColor;
+          if (!c || c === 'transparent' || c === 'rgba(0, 0, 0, 0)') continue;
+          layers.push(c);
+          if (paint(c, 'rgb(0 0 0)').join() === paint(c, 'rgb(255 255 255)').join()) break;
+        }
       }
+
       let base = 'rgb(255 255 255)';
       for (let i = layers.length - 1; i >= 0; i--) base = rgb(paint(layers[i], base));
       return paint(base, base);
@@ -142,7 +172,19 @@ for (const f of files) {
       const x = r.left + r.width / 2, y = r.top + r.height / 2;
       if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) return false;
       for (const n of document.elementsFromPoint(x, y)) {
-        if (n === el || el.contains(n)) continue;
+        /*
+         * Skip the element's own ANCESTORS — `n.contains(el)`, not
+         * `el.contains(n)`. It was the latter, which skips descendants and
+         * examines ancestors, so the walk hit the page shell's opaque cream and
+         * concluded "not over imagery" before it ever reached the video painted
+         * between them. The header's language links were reported as white on
+         * cream while rendering white on a dark hero.
+         *
+         * An ancestor's background IS a legitimate backdrop, but only when
+         * nothing is painted in front of it; `bgOf` already composites the
+         * ancestor chain, so this walk is only interested in what is NOT one.
+         */
+        if (n === el || n.contains(el)) continue;
         if (n.tagName === 'IMG' || n.tagName === 'VIDEO' || n.tagName === 'CANVAS') return true;
         const cs = getComputedStyle(n);
         if (cs.backgroundImage && cs.backgroundImage !== 'none') return true;

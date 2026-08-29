@@ -1,6 +1,6 @@
 {
 	"name": "skill-card",
-	"description": "One skill in the marketplace, and the clearest example of why composites-of-composites matter: on the site this is ninety lines that rebuild a card, a badge, a stat and a link relationship by hand, with three variants spelled as three whole class strings rather than as one difference. It composes `card`, `badge` and `stat` and adds only what is genuinely its own — the promise line and the footer rail.",
+	"description": "One skill in the marketplace, and the clearest example of why composites-of-composites matter: on the site this is ninety lines that rebuild a card, a badge, a stat and a link relationship by hand, with three variants spelled as three whole class strings rather than as one difference. It composes `card`, `badge` and `stat` and adds only what is genuinely its own — the promise line and the footer rail.\n\nIt is `card skill-card` at a call site, not a card re-typed: the eleven shared declarations lived in both, so a change to the card reached every card except this one.",
 	"interface": {
 		"props": {
 			"title": "string",
@@ -81,18 +81,10 @@
 	"styling": {
 		"interactive": true,
 		"base": {
-			"display": "flex",
-			"flexDirection": "column",
-			"gap": "var(--space-tight)",
-			"minInlineSize": "0",
 			"blockSize": "100%",
-			"padding": "var(--space-loose)",
-			"borderRadius": "var(--radius-lg)",
-			"border": "1px solid var(--color-border)",
-			"background": "var(--color-surface-raised)",
-			"color": "inherit",
-			"textDecoration": "none",
-			"transition": "border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)"
+			"$description": "COMPOSES `card` rather than redeclaring it. The box, the border, the ground, the hover lift and the transition all come from `card`; what is left here is the two things that are genuinely this unit's — a full-height column so a grid of them lines up, and the rail pinned to the bottom. Redeclaring the shared eleven declarations meant a change to `card` reached every card except this one.",
+			"display": "flex",
+			"flexDirection": "column"
 		},
 		"parts": {
 			"head": {

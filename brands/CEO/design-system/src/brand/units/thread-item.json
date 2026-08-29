@@ -1,0 +1,107 @@
+{
+	"name": "thread-item",
+	"description": "One entry in a scrolling list of conversations, jobs or intents — the app's intent list, and the shape any inbox is. A title that truncates, a preview line under it, and a timestamp pinned to the trailing edge.\n\nWhat makes it a unit rather than a row: the SELECTED state inverts the whole item, and everything inside it has to follow. The app spelled that as a ternary on every child — `{sel ? 'text-current' : ''}`, `{sel ? 'opacity-75' : 'text-foreground/50'}`, `{sel ? 'opacity-60' : 'text-foreground/35'}` — three conditionals to say one thing, and three places for the selected treatment to drift from itself.",
+	"interface": {
+		"props": { "title": "string", "preview": "string", "time": "string", "href": "string" },
+		"slots": { "badge": { "accepts": ["badge"] } }
+	},
+	"view": {
+		"tag": "a",
+		"attrs": { "href": "$props.href" },
+		"$children": [
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": [
+					{ "tag": "span", "part": "title", "text": "$props.title" },
+					{ "tag": "span", "part": "time", "text": "$props.time" }
+				]
+			},
+			{
+				"tag": "div",
+				"part": "foot",
+				"$children": [
+					{ "tag": "span", "part": "preview", "text": "$props.preview" },
+					{ "tag": "span", "part": "badge", "$children": "badge" }
+				]
+			}
+		]
+	},
+	"styling": {
+		"interactive": true,
+		"base": {
+			"display": "grid",
+			"gap": "0.1rem",
+			"minInlineSize": "0",
+			"padding": "var(--space-tight) var(--space-comfortable)",
+			"borderRadius": "var(--radius-sm)",
+			"color": "inherit",
+			"textDecoration": "none",
+			"transition": "background var(--duration-quick) var(--ease-out)"
+		},
+		"parts": {
+			"head": {
+				"display": "flex",
+				"alignItems": "baseline",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0"
+			},
+			"title": {
+				"$description": "Truncates. A list of these is scanned rather than read, and a two-line title in one row and a one-line title in the next destroys the rhythm the scan depends on.",
+				"minInlineSize": "0",
+				"flex": "1 1 auto",
+				"overflow": "hidden",
+				"textOverflow": "ellipsis",
+				"whiteSpace": "nowrap",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "500",
+				"lineHeight": "1.35",
+				"color": "var(--color-foreground)"
+			},
+			"time": {
+				"flexShrink": "0",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-nano)",
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"foot": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0"
+			},
+			"preview": {
+				"minInlineSize": "0",
+				"flex": "1 1 auto",
+				"overflow": "hidden",
+				"textOverflow": "ellipsis",
+				"whiteSpace": "nowrap",
+				"fontSize": "var(--fs-eyebrow)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"badge": { "flexShrink": "0" }
+		},
+		"variants": {
+			"density": { "compact": { "paddingBlock": "0.25rem" } }
+		},
+		"states": {
+			"hover": { "background": "var(--color-muted)" },
+			"focus": { "outline": "1px solid var(--color-focus)" },
+			"active": { "background": "var(--color-surface-sunken)" },
+			"disabled": { "opacity": "0.55", "cursor": "default" },
+			"selected": {
+				"$description": "The whole item inverts, and `color: inherit` on the children is what carries it — the app wrote a ternary on each child instead, which is three places for one decision to drift.",
+				"background": "var(--color-primary)",
+				"color": "var(--color-primary-foreground)"
+			}
+		},
+		"reducedMotion": {
+			"$description": "The background still changes; it just changes at once.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "`aria-current=\"true\"` on the selected item, not colour alone — an inverted row is invisible to a screen reader. The timestamp is a `<time datetime>` where it is a real date, so 'yesterday' is announced as the date it means. Truncated titles keep their full text in the accessible name; a title that ends in an ellipsis for the eye must not end in one for the reader."
+	}
+}

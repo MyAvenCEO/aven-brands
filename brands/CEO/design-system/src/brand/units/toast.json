@@ -1,6 +1,6 @@
 {
 	"name": "toast",
-	"description": "Something happened, said briefly and out of the way. 15 uses across the app and avenID. The rule it carries: feedback may not outrun the truth — a toast saying `Draft created` while the list still shows the same items is a lie the user catches immediately.",
+	"description": "Something happened, said briefly and out of the way. 15 uses across the app and avenID. The rule it carries: feedback may not outrun the truth — a toast saying `Draft created` while the list still shows the same items is a lie the user catches immediately.\n\nThe `placement: inline` variant is what the legacy `alert` class becomes. That class is used by checkout and avenID for an error beside the thing that failed, not a transient notification — and until this existed, neither surface could migrate off it without losing the distinction.",
 	"interface": {
 		"props": {
 			"title": "string",
@@ -114,7 +114,8 @@
 				},
 				"error": {
 					"$part": "icon",
-					"color": "var(--color-error-ink)"
+					"color": "var(--color-error-ink)",
+					"$description": "An error inline is `role=alert`, which interrupts — correct for something the user must act on. The same tone floating as a toast is `role=status`, which does not. The placement decides the role."
 				},
 				"warning": {
 					"$part": "icon",
@@ -123,6 +124,17 @@
 				"info": {
 					"$part": "icon",
 					"color": "var(--color-progress-ink)"
+				}
+			},
+			"placement": {
+				"$description": "Where it lives, and it changes what the thing IS. A toast floats and leaves; an inline alert stays beside what it belongs to. Both surfaces that still use the legacy `alert` class use it for the second kind — an error the user must act on — and a toast that vanishes takes its instruction with it. This is the variant that unblocks their migration.",
+				"inline": {
+					"$description": "In the flow, full width, no shadow, no dismiss. It belongs to the thing above it and stays until that thing changes.",
+					"position": "static",
+					"inlineSize": "100%",
+					"maxInlineSize": "none",
+					"boxShadow": "none",
+					"borderRadius": "var(--radius-sm)"
 				}
 			}
 		},

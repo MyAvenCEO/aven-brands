@@ -1,0 +1,115 @@
+{
+	"name": "flow-node",
+	"description": "One step of a running process, with a live status — a skill executing, a job in a pipeline. The app draws these as a list where each row carries a dot that pulses while it works and becomes a tick or a cross when it stops.\n\nThe reason it is a unit and not a badge: the status here CHANGES while you are looking at it, which makes it the one place in the system where motion is carrying meaning. That has two consequences most implementations miss — the change has to be announced, and the pulse has to survive `prefers-reduced-motion` as something other than a still dot, because a still dot and a finished dot look identical.",
+	"interface": {
+		"props": { "label": "string", "status": "string", "detail": "string" },
+		"slots": { "children": {} }
+	},
+	"view": {
+		"tag": "li",
+		"attrs": { "data-status": "$props.status" },
+		"$children": [
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": [
+					{ "tag": "span", "part": "label", "text": "$props.label" },
+					{
+						"tag": "span",
+						"part": "dot",
+						"attrs": { "role": "status", "aria-label": "$props.status" }
+					}
+				]
+			},
+			{ "tag": "p", "part": "detail", "text": "$props.detail" },
+			{ "tag": "ul", "part": "children", "$children": "children" }
+		]
+	},
+	"styling": {
+		"base": { "display": "grid", "gap": "0.15rem", "minInlineSize": "0", "listStyle": "none" },
+		"parts": {
+			"head": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0",
+				"paddingBlockEnd": "0.2rem"
+			},
+			"label": {
+				"minInlineSize": "0",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "500",
+				"lineHeight": "1.3",
+				"overflowWrap": "anywhere",
+				"color": "var(--color-foreground)"
+			},
+			"dot": {
+				"$description": "The status, as a shape at the end of the row. It is `role=status` with a WORD in its label, because a coloured dot is not information a screen reader has — and the word is what makes 'running' and 'failed' distinguishable to anyone who cannot separate the two hues.",
+				"display": "inline-grid",
+				"placeItems": "center",
+				"marginInlineStart": "auto",
+				"flexShrink": "0",
+				"inlineSize": "0.5rem",
+				"blockSize": "0.5rem",
+				"borderRadius": "var(--radius-full)",
+				"background": "var(--color-border-strong)"
+			},
+			"detail": {
+				"margin": "0",
+				"fontFamily": "var(--font-mono)",
+				"fontSize": "var(--fs-nano)",
+				"color": "var(--color-foreground-quiet)",
+				"overflowWrap": "anywhere"
+			},
+			"children": {
+				"$description": "Nested steps, indented by a rule rather than by margin — the rule is what makes the nesting visible when a child scrolls past its parent.",
+				"display": "grid",
+				"gap": "0.15rem",
+				"margin": "0.2rem 0 0",
+				"padding": "0 0 0 var(--space-comfortable)",
+				"borderInlineStart": "1px solid var(--color-border-soft)",
+				"listStyle": "none"
+			}
+		},
+		"variants": {
+			"status": {
+				"$description": "What the step is doing. `running` and `waiting` both animate; the rest are resting states.",
+				"running": {
+					"$part": "dot",
+					"background": "var(--color-progress)",
+					"animation": "aven-pulse 1400ms ease-in-out infinite"
+				},
+				"waiting": {
+					"$part": "dot",
+					"background": "var(--color-warning)",
+					"animation": "aven-pulse 1400ms ease-in-out infinite"
+				},
+				"done": {
+					"$part": "dot",
+					"background": "var(--color-success)",
+					"inlineSize": "0.9rem",
+					"blockSize": "0.9rem",
+					"color": "var(--color-success-foreground)"
+				},
+				"failed": {
+					"$part": "dot",
+					"background": "var(--color-error)",
+					"inlineSize": "0.9rem",
+					"blockSize": "0.9rem",
+					"color": "var(--color-error-foreground)"
+				}
+			}
+		},
+		"keyframes": {
+			"aven-pulse": { "0%,100%": { "opacity": "1" }, "50%": { "opacity": "0.35" } }
+		},
+		"reducedMotion": {
+			"$description": "The pulse becomes a RING rather than stopping. A still dot and a finished dot look identical, so removing the animation would make 'running' and 'done' indistinguishable for exactly the users who asked for less motion — which is the opposite of an accommodation.",
+			"animation": "none",
+			"boxShadow": "0 0 0 3px color-mix(in oklab, currentColor 30%, transparent)"
+		}
+	},
+	"a11y": {
+		"note": "`role=status` on the dot with the status as its label, so a change is announced politely as the process advances. The status is never colour alone: `done` and `failed` carry a glyph, `running` and `waiting` carry the announced word. Nesting is a real `<ul>` inside the `<li>`, which is what lets a screen reader say 'list, three items' for the children rather than reading them as siblings of their parent."
+	}
+}

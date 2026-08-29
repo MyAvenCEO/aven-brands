@@ -1,0 +1,76 @@
+{
+	"name": "setting-row",
+	"description": "One setting: what it is, what it does, and the control that changes it. The app has these across four settings pages — Account, Billing, Hosting and the index — each rebuilt from a flex row, a label, a description and a control, at four slightly different spacings.\n\nThe shape it enforces is the one that keeps a settings page readable: the description belongs UNDER the label and not beside the control, so the control column stays a straight edge down the page. A row where the control's position depends on how long the description is turns a settings page into a ragged list.",
+	"interface": {
+		"props": { "label": "string", "description": "string", "labelledBy": "string" },
+		"slots": { "control": { "accepts": ["btn", "field", "badge"] } }
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "copy",
+				"$children": [
+					{
+						"tag": "p",
+						"part": "label",
+						"attrs": { "id": "$props.labelledBy" },
+						"text": "$props.label"
+					},
+					{ "tag": "p", "part": "description", "text": "$props.description" }
+				]
+			},
+			{ "tag": "div", "part": "control", "$children": "control" }
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "grid",
+			"gridTemplateColumns": "minmax(0, 1fr) auto",
+			"alignItems": "start",
+			"gap": "var(--space-comfortable)",
+			"minInlineSize": "0",
+			"paddingBlock": "var(--space-comfortable)",
+			"borderBlockEnd": "1px solid var(--color-border-soft)"
+		},
+		"parts": {
+			"copy": { "display": "grid", "gap": "0.15rem", "minInlineSize": "0" },
+			"label": {
+				"margin": "0",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "600",
+				"color": "var(--color-foreground)"
+			},
+			"description": {
+				"$description": "Under the label, never beside the control. A row whose control position depends on the description's length turns a settings page into a ragged list — and the control column being a straight edge is what makes the page scannable.",
+				"margin": "0",
+				"maxInlineSize": "56ch",
+				"fontSize": "var(--fs-micro)",
+				"lineHeight": "1.5",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"control": {
+				"flexShrink": "0",
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)"
+			}
+		},
+		"variants": {
+			"layout": {
+				"$description": "On a phone the control drops below the copy rather than squeezing beside it — a toggle at the end of a 40-character row is a target nobody can hit.",
+				"stacked": { "gridTemplateColumns": "minmax(0, 1fr)", "gap": "var(--space-tight)" }
+			},
+			"tone": {
+				"danger": {
+					"$description": "A destructive setting — delete the account, revoke everything. The row is tinted so it is visibly not one of the others, and the control inside it wears the danger variant.",
+					"borderBlockEndColor": "var(--color-error-border)"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "The description is tied to the control with `aria-describedby`, or it is decoration a screen-reader user never hears — which matters most on exactly the rows where the description says what will be lost. A destructive row is not marked by tint alone: its control says what it does in words, and the confirm dialog wears the same danger variant as the trigger."
+	}
+}
