@@ -15,12 +15,20 @@ let { skill, variant = 'default', lang = 'de' }: Props = $props()
 
 const t = $derived(pick(messages, lang).card)
 
-const cardClass = $derived.by(() =>
+/*
+ * The unit, with an emphasis where the card has one.
+ *
+ * This used to be three complete class strings — thirty-odd utilities each,
+ * differing in a border, a ground and a padding — so the three variants of one
+ * card had no shared definition at all and drifted independently. `p-5` here,
+ * `p-6` there, `p-7` in the third.
+ */
+const cardClass = $derived(
 	skill.comingSoon
-		? 'group flex min-w-0 flex-col rounded-2xl border-2 border-dashed border-quiet/25 bg-surface-sunken/25 p-5 opacity-85 transition-all hover:border-quiet/25 hover:opacity-100 sm:p-6'
+		? 'skill-card skill-card--emphasis-soon'
 		: variant === 'spotlight'
-			? 'group flex min-w-0 flex-col rounded-2xl border-2 border-accent/25 bg-surface-raised p-6 ring-1 ring-accent/15 shadow-[var(--shadow-raised)] transition-all hover:border-accent/25  sm:p-7'
-			: 'group flex min-w-0 flex-col rounded-2xl border border-border/25 bg-surface-raised p-5 transition-all hover:border-border/25 hover:bg-surface-sunken  sm:p-6'
+			? 'skill-card skill-card--emphasis-featured'
+			: 'skill-card'
 )
 </script>
 
@@ -29,62 +37,33 @@ const cardClass = $derived.by(() =>
 	class={cardClass}
 	aria-label={`${skillLabel(skill.slug)} — ${skill.oneLineCopy}`}
 >
-	<div class="flex items-start justify-between gap-3">
-		<p
-			class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground-quiet"
-		>
-			{plan(skill.plan).name}
-		</p>
-		<span
-			class="inline-flex items-center rounded-full border px-2 py-0.5 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wider)] {skill.comingSoon
-				? 'border-quiet/25 bg-quiet/8 text-quiet-ink'
-				: 'border-accent/25 bg-accent/15 text-accent-ink'}"
-		>
+	<div class="skill-card-head">
+		<p class="skill-card-eyebrow">{plan(skill.plan).name}</p>
+		<span class="badge {skill.comingSoon ? '' : 'badge--tone-accent'}">
 			{skill.comingSoon ? t.soon : t.skill}
 		</span>
 	</div>
 
-	<h3
-		class="mt-3 text-[length:var(--fs-title)] font-bold tracking-[var(--tracking-wide)] text-foreground sm:text-[length:var(--fs-title)]"
-	>
-		{skillLabel(skill.slug)}
-	</h3>
+	<h3 class="skill-card-title">{skillLabel(skill.slug)}</h3>
 
-	<p
-		class="mt-2 text-[length:var(--fs-section)] font-medium leading-snug text-foreground-soft sm:text-[length:var(--fs-title)]"
-	>
-		{skill.oneLineCopy}
-	</p>
+	<p class="skill-card-summary">{skill.oneLineCopy}</p>
 
-	<p
-		class="mt-3 text-[length:var(--fs-body)] italic leading-snug text-foreground-quiet sm:text-[length:var(--fs-section)]"
-	>
+	<p class="skill-card-quote">
 		"{skill.founderScenario.timestamp}
 		— {skill.founderScenario.story.slice(0, 100)}&hellip;"
 	</p>
 
-	<div class="mt-4 flex flex-wrap gap-1.5">
+	<div class="skill-card-chains">
 		{#each skill.playsWith as { slug } (slug)}
-			<span
-				class="inline-flex items-center rounded-full border border-border/25 bg-surface-page/25 px-2 py-0.5 text-[length:var(--fs-nano)] font-semibold text-foreground-quiet"
-			>
-				→ {t.chainLabels[slug] ?? slug}
-			</span>
+			<span class="skill-card-chain">{t.chainLabels[slug] ?? slug}</span>
 		{/each}
 	</div>
 
-	<div class="mt-5 flex items-center justify-between border-t border-border/10 pt-4">
-		<span
-			style="background-color: color-mix(in oklab, var(--color-progress) 12%, transparent); color: var(--color-progress-ink)"
-			class="inline-flex items-center rounded-full px-2.5 py-1 text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-wide)]"
-		>
+	<div class="skill-card-rail">
+		<span class="skill-card-promise">
 			{skill.hero.promiseHoursPerWeek}
 			{t.saved}
 		</span>
-		<span
-			class="text-[length:var(--fs-meta)] font-semibold text-foreground-quiet transition-colors group-hover:text-foreground-soft"
-		>
-			{t.view}
-		</span>
+		<span class="skill-card-more">{t.view}</span>
 	</div>
 </a>

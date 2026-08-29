@@ -759,6 +759,42 @@
 		color: var(--color-foreground-quiet);
 	}
 
+	.skill-card-eyebrow {
+		margin: 0;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: var(--tracking-widest);
+		color: var(--color-foreground-quiet);
+	}
+
+	.skill-card-quote {
+		margin: 0;
+		font-size: var(--fs-meta);
+		font-style: italic;
+		line-height: 1.5;
+		color: var(--color-foreground-quiet);
+	}
+
+	.skill-card-chains {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+	}
+
+	.skill-card-chain {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.2rem;
+		padding: 0.1rem 0.45rem;
+		border-radius: var(--radius-pill);
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-surface-page);
+		font-size: var(--fs-nano);
+		font-weight: 600;
+		color: var(--color-foreground-quiet);
+	}
+
 	.skill-card--emphasis-featured {
 		border-color: var(--color-accent);
 		box-shadow: var(--shadow-raised);

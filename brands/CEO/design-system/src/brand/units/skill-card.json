@@ -7,23 +7,73 @@
 			"summary": "string",
 			"category": "string",
 			"hoursPerWeek": "string",
-			"href": "string"
+			"href": "string",
+			"plan": "string",
+			"quote": "string"
 		},
-		"slots": { "badge": { "accepts": ["badge"] } }
+		"slots": {
+			"badge": {
+				"accepts": ["badge"]
+			},
+			"chains": {}
+		}
 	},
 	"view": {
 		"tag": "a",
-		"attrs": { "href": "$props.href" },
+		"attrs": {
+			"href": "$props.href"
+		},
 		"$children": [
-			{ "tag": "div", "part": "head", "$children": "badge" },
-			{ "tag": "p", "part": "title", "text": "$props.title" },
-			{ "tag": "p", "part": "summary", "text": "$props.summary" },
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": [
+					{
+						"tag": "p",
+						"part": "eyebrow",
+						"text": "$props.plan"
+					},
+					{
+						"tag": "span",
+						"part": "badge-slot",
+						"$children": "badge"
+					}
+				]
+			},
+			{
+				"tag": "p",
+				"part": "title",
+				"text": "$props.title"
+			},
+			{
+				"tag": "p",
+				"part": "summary",
+				"text": "$props.summary"
+			},
+			{
+				"tag": "p",
+				"part": "quote",
+				"text": "$props.quote"
+			},
+			{
+				"tag": "div",
+				"part": "chains",
+				"$children": "chains"
+			},
 			{
 				"tag": "div",
 				"part": "rail",
 				"$children": [
-					{ "tag": "span", "part": "promise", "text": "$props.hoursPerWeek" },
-					{ "tag": "span", "part": "more", "text": "View" }
+					{
+						"tag": "span",
+						"part": "promise",
+						"text": "$props.hoursPerWeek"
+					},
+					{
+						"tag": "span",
+						"part": "more",
+						"text": "View"
+					}
 				]
 			}
 		]
@@ -92,6 +142,41 @@
 				"fontSize": "var(--fs-meta)",
 				"fontWeight": "600",
 				"color": "var(--color-foreground-quiet)"
+			},
+			"eyebrow": {
+				"$description": "the plan this skill belongs to. Quiet, because it classifies rather than names.",
+				"margin": "0",
+				"fontSize": "var(--fs-micro)",
+				"fontWeight": "700",
+				"textTransform": "uppercase",
+				"letterSpacing": "var(--tracking-widest)",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"quote": {
+				"$description": "a founder's own words about the skill. Italic and quiet — it is evidence under the claim, not a second claim.",
+				"margin": "0",
+				"fontSize": "var(--fs-meta)",
+				"fontStyle": "italic",
+				"lineHeight": "1.5",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"chains": {
+				"$description": "the other skills this one hands work to. A wrapping row, because the count varies per skill and a fixed row drops the tail.",
+				"display": "flex",
+				"flexWrap": "wrap",
+				"gap": "0.375rem"
+			},
+			"chain": {
+				"display": "inline-flex",
+				"alignItems": "center",
+				"gap": "0.2rem",
+				"padding": "0.1rem 0.45rem",
+				"borderRadius": "var(--radius-pill)",
+				"border": "1px solid var(--color-border-soft)",
+				"background": "var(--color-surface-page)",
+				"fontSize": "var(--fs-nano)",
+				"fontWeight": "600",
+				"color": "var(--color-foreground-quiet)"
 			}
 		},
 		"variants": {
@@ -112,10 +197,17 @@
 			"hover": {
 				"transform": "translateY(-2px)",
 				"borderColor": "var(--color-border-strong)",
-				"boxShadow": "var(--shadow-raised)"
+				"boxShadow": "var(--shadow-raised)",
+				"$description": "A lift and a warmer edge. `more` brightens with it, which is why that state names no part: the whole card is one link, so hovering anywhere in it is hovering the link."
 			},
-			"focus": { "outline": "2px solid var(--color-accent-ink)", "outlineOffset": "2px" },
-			"active": { "transform": "translateY(0)", "boxShadow": "none" },
+			"focus": {
+				"outline": "2px solid var(--color-accent-ink)",
+				"outlineOffset": "2px"
+			},
+			"active": {
+				"transform": "translateY(0)",
+				"boxShadow": "none"
+			},
 			"disabled": {
 				"opacity": "0.55",
 				"cursor": "default",
