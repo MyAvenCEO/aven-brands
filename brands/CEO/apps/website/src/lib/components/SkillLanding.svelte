@@ -61,7 +61,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</h1>
 			<div class="mx-auto mt-8 max-w-xl">
 				<div
-					class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-5 text-left sm:px-6 sm:py-6"
+					class="rounded-lg border border-border/25 bg-surface-raised px-5 py-5 text-left sm:px-6 sm:py-6"
 				>
 					<p class="eyebrow-quiet">
 						{skill.founderScenario.timestamp}
@@ -250,7 +250,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{t.valueHeading}
 				</h2>
 			</div>
-			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-7">
+			<div class="mt-8 rounded-lg border border-border/25 bg-surface-raised p-5 sm:p-7">
 				<p class="eyebrow-quiet">
 					{t.standalone}
 				</p>
@@ -331,7 +331,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<!-- 7. BONUSES + GUARANTEE + SCARCITY -->
 	<section class="border-b border-border/10 px-5 py-12 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl space-y-6">
-			<div class="rounded-2xl border border-border/25 bg-surface-raised p-5 sm:p-6">
+			<div class="rounded-lg border border-border/25 bg-surface-raised p-5 sm:p-6">
 				<p class="eyebrow-quiet">
 					{t.bonuses}
 				</p>
@@ -363,7 +363,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	>
 		<div class="mx-auto max-w-2xl">
 			<div
-				class="rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 shadow-[var(--shadow-raised)] sm:px-8 sm:py-9"
+				class="rounded-lg border border-border/25 bg-surface-raised px-5 py-7 shadow-[var(--shadow-raised)] sm:px-8 sm:py-9"
 			>
 				<header class="flex items-end justify-between gap-4 border-b border-foreground/[0.06] pb-5">
 					<div class="flex items-center gap-3">

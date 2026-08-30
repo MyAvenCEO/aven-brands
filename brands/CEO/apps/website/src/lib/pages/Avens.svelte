@@ -66,7 +66,7 @@ function handle(a: LiveAven) {
 				{#each companies as a (a.slug)}
 					{@const profile = t.companies[a.slug]}
 					<article
-						class="flex min-w-0 flex-col rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
+						class="flex min-w-0 flex-col rounded-lg border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
 					>
 						<div class="flex items-start gap-4">
 							<div
@@ -146,7 +146,7 @@ function handle(a: LiveAven) {
 			</header>
 
 			<ul
-				class="mt-6 divide-y divide-border/25 overflow-hidden rounded-2xl border border-foreground/8 bg-surface-raised"
+				class="mt-6 divide-y divide-border/25 overflow-hidden rounded-lg border border-foreground/8 bg-surface-raised"
 			>
 				{#each people as a (a.slug)}
 					<li class="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4">

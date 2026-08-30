@@ -71,9 +71,28 @@
 
 @layer components {
 	/* The app's card idiom, available to the site by name: a raised cream
-	 * panel with a hairline border and the app's one shadow. */
+	 * panel with a hairline border and the app's one shadow.
+	 *
+	 * `rounded-lg`, and it was the 2xl step across fifteen call sites in eight
+	 * files. The utility layer will happily emit `border-radius:
+	 * a radius variable for any step someone names, and this brand's radius
+	 * scale stops at `xl` — so every one of those cards resolved to an empty
+	 * string, had its declaration discarded, and rendered with SQUARE corners.
+	 * Measured on the pricing page: `border-radius: 0px` on three cards that
+	 * were drawn rounded.
+	 *
+	 * `lg` rather than a new `2xl`, because `card` and `price-tier` — the
+	 * system's own versions of this idiom — are already `--radius-lg`, and the
+	 * cards these classes make are the same object. Adding a sixth step to
+	 * match a Tailwind name would be letting the utility vocabulary decide the
+	 * brand's scale.
+	 *
+	 * Note the class name is not written out above. The utility scanner reads
+	 * COMMENTS as well as markup, so naming the retired class in prose is enough
+	 * to make it emit the rule again — which is how this note first put the dead
+	 * dead variable back into the stylesheet after every call site was gone. */
 	.aven-card {
-		@apply rounded-2xl border border-foreground/5 bg-surface-raised p-6 shadow-[var(--shadow-raised)];
+		@apply rounded-lg border border-foreground/5 bg-surface-raised p-6 shadow-[var(--shadow-raised)];
 	}
 
 	/* 11px tracked uppercase — the app's eyebrow, one class instead of the

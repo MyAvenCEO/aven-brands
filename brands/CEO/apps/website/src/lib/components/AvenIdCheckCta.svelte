@@ -42,7 +42,7 @@ const centered = $derived(variant === 'banner')
 const wrapperClass = $derived(
 	variant === 'banner'
 		? 'rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-raised)] sm:px-10 sm:py-11'
-		: 'rounded-2xl border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
+		: 'rounded-lg border border-border/25 bg-surface-raised px-5 py-7 sm:px-8 sm:py-8'
 )
 </script>
 
@@ -94,7 +94,7 @@ const wrapperClass = $derived(
 	<!-- The action block, full card width: the voucher hook, the €25 price as
 	     prominently as avenCEO's price, then the name check on one line. -->
 	<div class="mt-7 space-y-5">
-		<div class="rounded-2xl border border-border/25 bg-surface-card px-5 py-4 text-center">
+		<div class="rounded-lg border border-border/25 bg-surface-card px-5 py-4 text-center">
 			<p class="flex flex-wrap items-baseline justify-center gap-x-2">
 				<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground">
 					{euro(avenId.eurPrice)}&nbsp;€

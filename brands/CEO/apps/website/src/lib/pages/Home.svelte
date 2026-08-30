@@ -300,7 +300,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			<ol class="mt-10 grid gap-4 sm:grid-cols-3">
 				{#each t.own.rungs as rung (rung.title)}
 					<li
-						class="rounded-2xl border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
+						class="rounded-lg border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
 					>
 						<p
 							class="text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent-ink"

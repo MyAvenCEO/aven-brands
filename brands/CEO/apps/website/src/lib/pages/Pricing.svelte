@@ -58,7 +58,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
      product card on one plan and in avenCOOP's narrow left column on
      another, and it has to split or stack by its OWN width. -->
 {#snippet pricePanel(p: Plan)}
-	<div class="rounded-2xl border border-border/25 bg-surface-card px-5 py-5">
+	<div class="rounded-lg border border-border/25 bg-surface-card px-5 py-5">
 		<p class="flex flex-wrap items-baseline justify-center gap-x-2">
 			<span class="text-3xl font-semibold tabular-nums tracking-tight text-foreground"
 				>{euro(p.eurPrice)}&nbsp;€</span
@@ -140,7 +140,7 @@ function skillFeatures(p: Plan): SkillFeature[] {
 			     the right, running the full height. No badge, no revenue-share. -->
 			<div
 				id={ceo.id}
-				class="relative mx-auto mt-12 max-w-3xl scroll-mt-28 rounded-2xl border-2 border-accent/25 bg-surface-raised p-6 pt-9 shadow-[var(--shadow-raised)] sm:p-10"
+				class="relative mx-auto mt-12 max-w-3xl scroll-mt-28 rounded-lg border-2 border-accent/25 bg-surface-raised p-6 pt-9 shadow-[var(--shadow-raised)] sm:p-10"
 			>
 				<!-- No `uppercase`: the brand is spelled avenCEO, not AVENCEO. -->
 				<p class="text-center text-2xl font-semibold tracking-tight text-foreground">{ceo.name}</p>

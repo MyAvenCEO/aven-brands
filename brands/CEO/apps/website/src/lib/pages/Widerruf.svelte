@@ -66,7 +66,7 @@ const t = $derived(
 			</h1>
 
 			<!-- Widerrufsbutton für den Shop "avenCEO GmbH" (eRecht24). -->
-			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
+			<div class="mt-8 rounded-lg border border-border/25 bg-surface-card p-6 text-center">
 				<p class="text-[length:var(--fs-section)] leading-relaxed text-foreground-soft">
 					{t.intro}
 				</p>
@@ -116,7 +116,7 @@ const t = $derived(
 			     lands after reading the Belehrung. It opens the SAME inline
 			     widget modal by delegating to the upgraded top anchor; the
 			     hosted-form href is only the no-script fallback. -->
-			<div class="mt-10 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
+			<div class="mt-10 rounded-lg border border-border/25 bg-surface-card p-6 text-center">
 				<a
 					href={REVOCATION_WIDGET.href}
 					target="_blank"
