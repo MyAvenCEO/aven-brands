@@ -87,6 +87,25 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 
 <style>
 /*
+ * CONTAINER QUERIES, not media queries, for anything that is about SPACE.
+ *
+ * A media query asks how wide the window is, which is the wrong question for a
+ * block that might be rendered in a sidebar, a storybook stage or a half-width
+ * preview — right by accident at full width and wrong everywhere else. Every
+ * `.section` declares `container-type: inline-size`, so these ask the section
+ * how wide IT is.
+ *
+ * The two that remain `@media` are `prefers-reduced-motion`: a user preference
+ * is not a measurement, and there is no container to ask.
+ *
+ * THE THRESHOLDS CAME DOWN by 4rem each, because they are no longer measuring
+ * the same thing. A section is narrower than the window by its own padding —
+ * 736px of content inside a 768px window — so `48rem` against the window and
+ * `48rem` against the container are different questions, and the second one was
+ * false exactly where the first was true. Measured: the price comparison
+ * dropped from two columns to one at 768px until the numbers were re-tuned.
+ */
+/*
  * Every selector below is `:global(...)` for one reason: the sections arrive
  * through `{@html}` from the build render, so Svelte never compiled their
  * elements and a scoped selector would match nothing. The ids are the same
@@ -170,7 +189,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	--gap: var(--space-loose);
 	margin-block-start: var(--space-section);
 }
-@media (min-width: 48rem) {
+@container (min-width: 44rem) {
 	:global(#company-roles) {
 		position: relative;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -574,7 +593,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	padding: 0;
 	list-style: none;
 }
-@media (min-width: 52rem) {
+@container (min-width: 48rem) {
 	:global(#own-rungs) {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		align-items: stretch;
@@ -937,7 +956,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: grid;
 	gap: var(--space-loose);
 }
-@media (min-width: 48rem) {
+@container (min-width: 44rem) {
 	:global(#cost-price) {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		align-items: stretch;
@@ -1007,7 +1026,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 /* The rule between them, drawn in the gap rather than on either card, so
    neither owns it. Only once the two are side by side. */
-@media (min-width: 48rem) {
+@container (min-width: 44rem) {
 	:global(#cost-price) {
 		position: relative;
 	}
@@ -1189,7 +1208,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	gap: var(--space-loose);
 	margin-block-start: var(--space-section);
 }
-@media (min-width: 56rem) {
+@container (min-width: 52rem) {
 	:global(#shift-spread) {
 		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
 		align-items: stretch;
