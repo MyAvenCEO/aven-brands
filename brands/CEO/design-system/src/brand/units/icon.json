@@ -17,7 +17,7 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "Sized in `em`, so an icon inside a control scales with that control rather than being pinned to a pixel value that is right in one place and wrong in the next. The DEFAULT is `lg` at 2rem — the type scale here tops out at 38px and bottoms at 9px, so an icon matched to body text lands at 13px, which is smaller than any glyph with a duotone backing can carry. An icon set inline beside a sentence should ask for `sm`. `flex-shrink:0` because a glyph is never the thing that should give way in a tight row.",
+			"$description": "Sized in `em`, so an icon inside a control scales with that control rather than being pinned to a pixel value that is right in one place and wrong in the next. The DEFAULT is `lg` at 2rem — the type scale here tops out at 38px and bottoms at 9px, so an icon matched to body text lands at 13px, which is smaller than any glyph with a duotone backing can carry. An icon set inline beside a sentence should ask for `sm`. `flex-shrink:0` because a glyph is never the thing that should give way in a tight row.\n\nTHE DUOTONE BACKING IS A BRAND COLOUR, not a dimmed copy of the ink. The engine paints a secondary layer from `--icon-tint` (0.9.2), and this leaf points that at `--color-icon-tint` — a real role in the theme, so the backing follows the brand and the theme rather than whatever text colour the icon happens to sit in. Both layers took `currentColor` before, separated by opacity alone: at 50% of a near-black ink that is a heavy grey slab, which is what the Solar set looked like in the navbar.",
 			"display": "inline-flex",
 			"alignItems": "center",
 			"justifyContent": "center",
@@ -26,6 +26,7 @@
 			"blockSize": "1em",
 			"fontSize": "2rem",
 			"color": "currentColor",
+			"--icon-tint": "var(--color-icon-tint)",
 			"verticalAlign": "-0.125em"
 		},
 		"variants": {

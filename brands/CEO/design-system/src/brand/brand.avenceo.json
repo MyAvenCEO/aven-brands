@@ -701,6 +701,16 @@
 				"$value": "#1d7084",
 				"$description": "the site eyebrow. Paradise darkened only as far as legibility on the DARKEST ground an eyebrow lands on — which is not the page but a sunflower-tinted panel. Tuning it against the page alone left it at 4.02:1 on light-selected and 4.25:1 on an accent tint."
 			},
+			"icon-tint": {
+				"$type": "color",
+				"$value": "#8fa0b4",
+				"$description": "The duotone BACKING — the quiet half of every two-tone glyph.\n\nIt is a colour, not a dimming. Both layers used to take the ink and separate by opacity, and at 50% of marine that is a heavy grey slab: the backing read as a filled box with a figure punched out of it rather than as the soft shape behind a mark. This is marine lifted toward the page — light enough that the primary reads as the subject, saturated enough to stay in the family. Measured on the bar's cream at 50% opacity: 1.35:1 against the ground, which is the point — a backing that meets text contrast is a backing competing with its own figure. It is decoration; the FIGURE carries the meaning and the figure is marine."
+			},
+			"dark-icon-tint": {
+				"$type": "color",
+				"$value": "#54657c",
+				"$description": "The same backing on a dark ground, where it must go DARKER rather than lighter — lifted toward the surface it sits on, not away from it, or the quiet half becomes the brightest thing in the glyph and the duotone's hierarchy inverts."
+			},
 			"focus": {
 				"$type": "color",
 				"$value": "#ab790b",

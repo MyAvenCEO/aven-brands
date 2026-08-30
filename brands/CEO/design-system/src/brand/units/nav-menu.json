@@ -116,23 +116,11 @@
 				"backdropFilter": "blur(var(--blur-soft))"
 			},
 			"close": {
-				"$description": "Sits EXACTLY where the hamburger sits, so open and close are one control trading glyphs in place — the thumb that opened the menu closes it without moving. The bar's toggle is 2.75rem in a 3.5rem row, pulled `--space-tight` past the content edge by its negative margin; the offsets below reproduce that frame against the menu's own edges, tracking the navbar measure on wide screens the same way the bar itself centres.",
+				"$description": "The close control's PLACE, sitting exactly where the bar's toggle sat. It wears `btn btn--neutral btn--shape-circle` — the same leaf, the same variant, the same shape as the hamburger it replaces — so the two are one control trading glyphs rather than two circles that happen to look alike. It carried its own border, radius, size and transition before, which is a button reimplemented in a menu.",
 				"position": "absolute",
 				"insetBlockStart": "calc((3.5rem - 2.75rem) / 2)",
 				"insetInlineEnd": "max(calc(var(--space-comfortable) - var(--space-tight)), calc((100% - var(--navbar-measure, 84rem)) / 2 + var(--space-comfortable) - var(--space-tight)))",
-				"zIndex": "1",
-				"display": "inline-flex",
-				"alignItems": "center",
-				"justifyContent": "center",
-				"inlineSize": "2.75rem",
-				"blockSize": "2.75rem",
-				"padding": "0",
-				"border": "1px solid var(--color-border-strong)",
-				"borderRadius": "var(--radius-full)",
-				"background": "transparent",
-				"color": "var(--color-foreground)",
-				"cursor": "pointer",
-				"transition": "background var(--duration-quick) var(--ease-out)"
+				"zIndex": "1"
 			},
 			"panel": {
 				"$description": "The reading surface, and now also the frame the bar's chrome carries over into. The panel spans the NAVBAR'S measure (`--navbar-measure`, inherited from the header the island lives in) with the bar's own inline padding, so the crest opens exactly where the logo was and the close lands exactly where the hamburger was — the takeover reads as the same bar transformed, not as a different surface that happened to appear. The reading content (items, footer) keeps its own 46rem measure INSIDE that frame, because a menu row at 84rem is a line of text lost on a desktop.",

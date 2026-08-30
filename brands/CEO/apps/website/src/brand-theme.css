@@ -131,6 +131,7 @@
 	--color-error-border: #e9c5b7;
 	--color-foreground-quiet: #626770;
 	--color-eyebrow-ink: #1d7084;
+	--color-icon-tint: #8fa0b4;
 	--color-focus: #ab790b;
 	--color-secondary-ink: var(--color-progress-ink);
 	--color-tertiary-ink: var(--color-success-ink);
@@ -259,6 +260,7 @@
 	--color-error-surface: #2e1c16;
 	--color-error-border: #6b3626;
 	--color-foreground-quiet: #b5bcc7;
+	--color-icon-tint: #54657c;
 	--color-focus: var(--color-sunflower);
 	--color-eyebrow-ink: #6cc3dd;
 }

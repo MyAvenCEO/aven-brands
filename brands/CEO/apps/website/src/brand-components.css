@@ -2924,6 +2924,13 @@
 		inline-size: 2.5rem;
 	}
 
+	.btn--shape-circle {
+		padding-inline: 0;
+		inline-size: auto;
+		aspect-ratio: 1;
+		min-inline-size: var(--btn-block, 2.5rem);
+	}
+
 	.btn--shape-block {
 		display: flex;
 		inline-size: 100%;
@@ -3047,6 +3054,7 @@
 		block-size: 1em;
 		font-size: 2rem;
 		color: currentColor;
+		--icon-tint: var(--color-icon-tint);
 		vertical-align: -0.125em;
 	}
 
@@ -3939,7 +3947,7 @@
 			& .navbar-actions {
 				margin-inline-start: auto;
 			}
-			& .navbar-actions .btn {
+			& .btn {
 				--btn-block: 2rem;
 				--btn-pad: 0.875rem;
 				--btn-fs: var(--fs-eyebrow);
@@ -3987,17 +3995,7 @@
 	}
 
 	.navbar-toggle {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		inline-size: 2.75rem;
-		block-size: 2.75rem;
 		margin-inline-end: calc(var(--space-tight) * -1);
-		border: 0;
-		border-radius: var(--radius-full);
-		background: transparent;
-		color: inherit;
-		cursor: pointer;
 
 		@container navbar (min-width: 62rem) {
 			display: none;
@@ -4103,18 +4101,6 @@
 		inset-block-start: calc((3.5rem - 2.75rem) / 2);
 		inset-inline-end: max(calc(var(--space-comfortable) - var(--space-tight)), calc((100% - var(--navbar-measure, 84rem)) / 2 + var(--space-comfortable) - var(--space-tight)));
 		z-index: 1;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		inline-size: 2.75rem;
-		block-size: 2.75rem;
-		padding: 0;
-		border: 1px solid var(--color-border-strong);
-		border-radius: var(--radius-full);
-		background: transparent;
-		color: var(--color-foreground);
-		cursor: pointer;
-		transition: background var(--duration-quick) var(--ease-out);
 	}
 
 	.nav-menu-panel {
