@@ -9,6 +9,7 @@
  * Exit 1 if any state of any element drops below WCAG AA.
  */
 import { resolve } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -59,7 +60,7 @@ const parse = c => (Array.isArray(c) ? c : null);
 
 const browser = await chromium.launch({ channel: 'chrome' }).catch(() => chromium.launch());
 const page = await browser.newPage({ viewport: { width: 1000, height: 800 } });
-await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {});
+assertServed(await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {}), pageUrl(file));
 await page.addStyleTag({ content: '*{transition:none!important;animation:none!important}' });
 if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
 
@@ -110,14 +111,30 @@ const read = el => {
   // WCAG 1.4.3 / 1.4.11 exempt disabled (inactive) controls from contrast.
   const isDisabled = el.disabled || el.getAttribute('aria-disabled') === 'true';
   const skip = isToggle || el.getAttribute('role') === 'switch' || +cs.opacity === 0 || isDisabled;
+  /*
+   * A ground that is a PICTURE, not a colour.
+   *
+   * `backdrop()` walks up compositing background-colors. Over a video or a
+   * photograph there is no background-color to find, so it falls through to the
+   * body's — and reports white nav ink against cream at 1.01:1 while the real
+   * composite over the scrimmed footage is 4.5:1. The number is not merely
+   * imprecise, it is measuring a surface that is not there.
+   *
+   * These are EXCLUDED AND COUNTED, never silently dropped: the marker moves the
+   * contrast proof somewhere this gate cannot reach, so the gate says so out
+   * loud and names how many. The proof itself belongs with the scrim that makes
+   * it true.
+   */
+  const onMedia = !!el.closest('[data-ground="media"]');
   const own = backdrop(el);
   // graphical / icon-only control: no DIRECT text node (only an <svg> or nothing) →
   // WCAG 1.4.11 non-text contrast applies (3:1), not the 4.5 text rule.
   const graphical = ![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
-  return { skip, graphical, color: over(rgba(cs.color), own), bg: own, label: (el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 18), px: parseFloat(cs.fontSize), bold: (parseInt(cs.fontWeight, 10) || 400) >= 700 };
+  return { skip, onMedia, graphical, color: over(rgba(cs.color), own), bg: own, label: (el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 18), px: parseFloat(cs.fontSize), bold: (parseInt(cs.fontWeight, 10) || 400) >= 700 };
 };
 
 const handles = await page.$$('button, a[href], input, select, textarea, [role="button"], [role="switch"]');
+const onMedia = new Set();
 const fails = [];
 let checked = 0;
 for (const h of handles) {
@@ -129,6 +146,7 @@ for (const h of handles) {
       await page.mouse.move(0, 0);
       if (state === 'focus') await h.evaluate(el => el.blur && el.blur());
       if (r.skip) break;  // non-text control (checkbox/radio/switch) or invisible — not a text-contrast target
+      if (r.onMedia) { onMedia.add(r.label || '(unlabelled)'); break; }
       const fg = parse(r.color), bg = parse(r.bg);
       if (!fg || !bg) continue;
       checked++;
@@ -141,6 +159,12 @@ for (const h of handles) {
 await browser.close();
 
 const mode = dark ? ' [dark]' : '';
+if (onMedia.size) {
+  console.log(`\n${onMedia.size} element(s) sit on MEDIA and were not colour-checked here — their`);
+  console.log('ground is a picture, so a computed background-color is the wrong measurement:');
+  for (const l of [...onMedia].slice(0, 8)) console.log(`  - "${l}"`);
+  console.log('Their contrast is guaranteed by the scrim over that media and measured there.');
+}
 console.log(`Checked ${checked} element-state(s) in ${file}${mode}`);
 if (fails.length) {
   console.log(`\nFAIL — ${fails.length} state(s) below WCAG AA:`);

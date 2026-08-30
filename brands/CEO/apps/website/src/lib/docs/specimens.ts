@@ -449,7 +449,7 @@ export const specimens: Record<string, Specimen> = {
 			<span class="navbar" style="position:relative; z-index:2">
 				<span class="navbar-bar">
 					<span class="navbar-brand"><span class="logo"><img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span></span>
-					<span class="social-row social-row--density-tight" role="list" aria-label="avenCEO elsewhere">
+					<span class="social-row social-row--density-tight" role="group" aria-label="avenCEO elsewhere">
 						<span class="social-row-items">
 							<a class="social-row-item" href="#specimen" aria-label="avenCEO on X">${icon('social-x', '1.125rem')}</a>
 							<a class="social-row-item" href="#specimen" aria-label="avenCEO on Instagram">${icon('social-instagram', '1.125rem')}</a>
@@ -468,7 +468,7 @@ export const specimens: Record<string, Specimen> = {
 						<span class="segment" role="group" aria-label="Language">
 							<span class="segment-options">
 								<a class="segment-option" href="#specimen" aria-current="true">DE</a>
-								<span class="segment-divider" aria-hidden="true">|</span>
+								<span class="segment-divider" aria-hidden="true"></span>
 								<a class="segment-option" href="#specimen">EN</a>
 							</span>
 						</span>
@@ -505,7 +505,7 @@ export const specimens: Record<string, Specimen> = {
 					<span class="segment" role="group" aria-label="Language">
 						<span class="segment-options">
 							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
-							<span class="segment-divider" aria-hidden="true">|</span>
+							<span class="segment-divider" aria-hidden="true"></span>
 							<a class="segment-option" href="#specimen">EN</a>
 						</span>
 					</span>
@@ -548,7 +548,7 @@ export const specimens: Record<string, Specimen> = {
 					<span class="segment" role="group" aria-label="Language">
 						<span class="segment-options">
 							<a class="segment-option" href="#specimen" aria-current="true">DE</a>
-							<span class="segment-divider" aria-hidden="true">|</span>
+							<span class="segment-divider" aria-hidden="true"></span>
 							<a class="segment-option" href="#specimen">EN</a>
 						</span>
 					</span>
@@ -558,7 +558,7 @@ export const specimens: Record<string, Specimen> = {
 		</span>`
 	},
 	'social-row': {
-		one: `<span class="social-row" role="list" aria-label="avenCEO elsewhere">
+		one: `<span class="social-row" role="group" aria-label="avenCEO elsewhere">
 			<span class="social-row-items">
 				<a class="social-row-item" href="#specimen" aria-label="avenCEO on X">${icon('social-x', '1.125rem')}</a>
 				<a class="social-row-item" href="#specimen" aria-label="avenCEO on Instagram">${icon('social-instagram', '1.125rem')}</a>
@@ -571,7 +571,7 @@ export const specimens: Record<string, Specimen> = {
 		one: `<span class="segment" role="group" aria-label="Language">
 			<span class="segment-options">
 				<a class="segment-option" href="#specimen" aria-current="true">DE</a>
-				<span class="segment-divider" aria-hidden="true">|</span>
+				<span class="segment-divider" aria-hidden="true"></span>
 				<a class="segment-option" href="#specimen">EN</a>
 			</span>
 		</span>`,
@@ -581,7 +581,7 @@ export const specimens: Record<string, Specimen> = {
 			<span class="segment" role="group" aria-label="Language">
 				<span class="segment-options">
 					<a class="segment-option" href="#specimen" aria-current="true">DE</a>
-					<span class="segment-divider" aria-hidden="true">|</span>
+					<span class="segment-divider" aria-hidden="true"></span>
 					<a class="segment-option" href="#specimen">EN</a>
 				</span>
 			</span>

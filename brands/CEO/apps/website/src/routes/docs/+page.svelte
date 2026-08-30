@@ -24,7 +24,7 @@ const entries = [
 	<meta name="description" content="Documentation for the avenCEO design system and platform.">
 </svelte:head>
 
-<MarketingSiteHeader active="docs" lang="en" />
+<MarketingSiteHeader active="docs" maxWidth="6xl" lang="en" />
 
 <main id="docs-index" class="app-shell">
 	<div class="center">

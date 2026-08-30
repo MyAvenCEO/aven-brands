@@ -30,6 +30,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -150,7 +151,7 @@ let checked = 0;
 for (const f of files) {
   const name = f.split('/').pop();
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, colorScheme: dark ? 'dark' : 'light' });
-  await page.goto(pageUrl(f));
+  assertServed(await page.goto(pageUrl(f)), pageUrl(f));
   if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
   const { theme, controls } = await page.evaluate(COLLECT);
   await page.close();

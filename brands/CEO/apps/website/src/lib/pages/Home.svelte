@@ -48,7 +48,15 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</video>
 		<div id="home-hero-scrim" aria-hidden="true"></div>
 
-		<div id="home-hero-content" class="mx-auto max-w-3xl text-center">
+		<!-- Its ground is the FOOTAGE, not a colour. A contrast checker walks the
+		     cascade for a background and finds the page cream behind white copy —
+		     a number for a surface that is not there, and one it will keep
+		     reporting however dark the scrim gets. Measured properly, against the
+		     real composited pixels at the height each line sits at: the headline
+		     is 5.11:1 (needs 3.0) and the lead 4.72:1 (needs 4.5), which is why
+		     `--color-scrim` went from 32% to 68%. Before that they were 2.25 and
+		     2.57 and axe was right to shout. -->
+		<div id="home-hero-content" data-ground="media" class="mx-auto max-w-3xl text-center">
 			<h1
 				id="home-hero-heading"
 				class="mx-auto max-w-3xl text-[clamp(2rem,6.5vw,4rem)] font-light leading-tight tracking-tight text-pretty"
@@ -597,11 +605,17 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	position: absolute;
 	inset: 0;
 	z-index: -1;
+	/* The scrim's three stops are TOKENS, not percentages written here. They were
+	   50/32/55 of marine, mixed at this call site, which is how the top stop came
+	   to be 50% -- measurably not enough to carry white nav ink over the video's
+	   sky (2.99:1 at the 95th percentile, where the links need 4.5:1). Now the
+	   guarantee lives in the role, `--color-scrim-strong`, and raising it fixes
+	   every surface that floats text on media rather than this one. */
 	background: linear-gradient(
 		to bottom,
-		color-mix(in srgb, var(--color-marine) 50%, transparent) 0%,
-		color-mix(in srgb, var(--color-marine) 32%, transparent) 42%,
-		color-mix(in srgb, var(--color-marine) 55%, transparent) 100%
+		var(--color-scrim-strong) 0%,
+		var(--color-scrim) 42%,
+		var(--color-scrim-heavy) 100%
 	);
 }
 

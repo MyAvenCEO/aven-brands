@@ -28,6 +28,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -167,7 +168,7 @@ for (const w of widths) {
     colorScheme: dark ? 'dark' : 'light',
   });
   for (const f of files) {
-    await page.goto(pageUrl(f));
+    assertServed(await page.goto(pageUrl(f)), pageUrl(f));
     if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
     const { total, bad } = await page.evaluate(AUDIT, MIN);
     totalTargets += total;

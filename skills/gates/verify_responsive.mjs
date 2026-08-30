@@ -18,6 +18,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -68,7 +69,7 @@ const fails = [];
 for (const w of widths) {
   const page = await browser.newPage({ viewport: { width: w, height: 800 } });
   for (const f of files) {
-    await page.goto(pageUrl(f));
+    assertServed(await page.goto(pageUrl(f)), pageUrl(f));
     if (scale !== 1) await page.addStyleTag({ content: `html{font-size:${16 * scale}px}` });
     const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     if (over > 1) {

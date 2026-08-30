@@ -10,6 +10,7 @@
  * Exit 1 if the trap leaks, the dialog lacks semantics, or focus isn't returned.
  */
 import { resolve } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -49,7 +50,7 @@ if (!file || !open) { console.log('usage: node scripts/verify_focustrap.mjs <fil
 
 const browser = await chromium.launch({ channel: 'chrome' }).catch(() => chromium.launch());
 const page = await browser.newPage({ viewport: { width: 1100, height: 800 } });
-await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {});
+assertServed(await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {}), pageUrl(file));
 if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
 
 const fails = [];

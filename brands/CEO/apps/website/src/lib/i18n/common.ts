@@ -4,7 +4,29 @@ import type { Lang } from './index'
 export const common: Record<
 	Lang,
 	{
-		nav: { skills: string; avens: string; pricing: string; docs: string; cta: string; menu: string }
+		nav: {
+			skills: string
+			avens: string
+			pricing: string
+			docs: string
+			cta: string
+			menu: string
+			closeMenu: string
+			/** Names the navigation for a screen reader — the bar and the menu are two
+			 * renderings of one set of destinations, so they share the label. */
+			primaryLabel: string
+			/** The menu's eyebrow. */
+			whereTo: string
+			/** The line that lets the menu end on purpose rather than stop. */
+			trust: string
+			/** What each destination IS. Four words tell you their names; these tell
+			 * you which one you want, which is the question someone opening a menu is
+			 * actually asking. */
+			skillsMeta: string
+			avensMeta: string
+			pricingMeta: string
+			docsMeta: string
+		}
 		switchLabel: string
 		footer: {
 			tagline: string
@@ -52,7 +74,15 @@ export const common: Record<
 			pricing: 'Preise',
 			docs: 'Docs',
 			cta: 'Aven einstellen',
-			menu: 'Menü'
+			menu: 'Menü',
+			closeMenu: 'Menü schließen',
+			primaryLabel: 'Hauptnavigation',
+			whereTo: 'Wohin',
+			trust: 'Sicher verbunden über aven.id',
+			skillsMeta: 'Die Arbeit, die dein Aven schon beherrscht.',
+			avensMeta: 'Skills von anderen, bereit zum Einstellen.',
+			pricingMeta: 'Was es kostet und was du dafür bekommst.',
+			docsMeta: 'Die Tokens und Bausteine, aus denen das hier besteht.'
 		},
 		switchLabel: 'Sprache',
 		footer: {
@@ -99,7 +129,15 @@ export const common: Record<
 			pricing: 'Pricing',
 			docs: 'Docs',
 			cta: 'Hire your Aven',
-			menu: 'Menu'
+			menu: 'Menu',
+			closeMenu: 'Close menu',
+			primaryLabel: 'Main navigation',
+			whereTo: 'Where to',
+			trust: 'Securely connected through aven.id',
+			skillsMeta: 'The work your aven already knows how to do.',
+			avensMeta: 'Skills other people built, ready to hire.',
+			pricingMeta: 'What it costs, and what you get for it.',
+			docsMeta: 'The tokens and parts this is all built from.'
 		},
 		switchLabel: 'Language',
 		footer: {

@@ -35,7 +35,7 @@
 			"textTransform": "uppercase",
 			"letterSpacing": "var(--tracking-wider)",
 			"opacity": "0.7",
-			"transition": "opacity 0.15s ease"
+			"transition": "opacity var(--duration-quick) var(--ease-out)"
 		},
 		"states": {
 			"hover": {
@@ -61,6 +61,6 @@
 		}
 	},
 	"a11y": {
-		"note": "The current page carries `aria-current=\"page\"`, never `aria-selected` \u2014 that belongs to a tab or an option, and on an `<a>` it is invalid ARIA that axe rejects. It is also never marked by colour alone: the current item changes weight and carries a marker, because a tint is the first thing lost on a dim screen or in forced-colors mode.\n\nThe whole row is the target, not the words in it \u2014 a nav item you have to hit the text of is one that misses on a trackpad, and it is how a 24px target requirement gets met on paper and failed in practice."
+		"note": "The current page carries `aria-current=\"page\"`, never `aria-selected` — that belongs to a tab or an option, and on an `<a>` it is invalid ARIA that axe rejects. It is also never marked by colour alone: the current item changes weight and carries a marker, because a tint is the first thing lost on a dim screen or in forced-colors mode.\n\nThe whole row is the target, not the words in it — a nav item you have to hit the text of is one that misses on a trackpad, and it is how a 24px target requirement gets met on paper and failed in practice."
 	}
 }

@@ -26,6 +26,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -158,7 +159,7 @@ const problems = [];
 for (const w of widths) {
   const page = await browser.newPage({ viewport: { width: w, height: 900 } });
   for (const f of files) {
-    await page.goto(pageUrl(f));
+    assertServed(await page.goto(pageUrl(f)), pageUrl(f));
     await page.waitForTimeout(120);
     const { clipped, overlaps } = await page.evaluate(AUDIT);
     const fname = f.split('/').pop();

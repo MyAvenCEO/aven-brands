@@ -494,7 +494,7 @@ function inspect(name: string) {
 	>
 </svelte:head>
 
-<MarketingSiteHeader active="docs" lang="en" />
+<MarketingSiteHeader active="docs" maxWidth="6xl" lang="en" />
 
 <div id="ceobrand" class="app-shell" data-theme={theme} {@attach stickBelowSiteHeader}>
 	<div id="cb-body">

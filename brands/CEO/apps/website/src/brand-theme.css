@@ -81,8 +81,8 @@
 	--color-band-alt: #377d77;
 	--color-band-foreground: var(--color-on-dark);
 	--color-scrim-thin: #fdfbf3e6;
-	--color-scrim: #1e293b52;
-	--color-scrim-strong: #1e293b80;
+	--color-scrim: #1e293bad;
+	--color-scrim-strong: #1e293ba6;
 	--color-scrim-heavy: #1e293b8c;
 	--color-scrim-text: #1e293b73;
 	--color-quiet: #57789e;

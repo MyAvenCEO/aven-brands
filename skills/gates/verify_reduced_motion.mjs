@@ -25,6 +25,7 @@
  */
 import { readdirSync, statSync, readFileSync } from 'node:fs';
 import { resolve, join, dirname } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -157,7 +158,7 @@ for (const f of files) {
   const linkedCss = isUrl(f)
     ? await (async () => {
         const p = await browser.newPage();
-        await p.goto(f, { waitUntil: 'networkidle' });
+        assertServed(await p.goto(f, { waitUntil: 'networkidle' }), f);
         const css = await p.evaluate(() =>
           [...document.styleSheets]
             .map(s => { try { return [...s.cssRules].map(r => r.cssText).join('\n'); } catch { return ''; } })
@@ -177,7 +178,7 @@ for (const f of files) {
 
   const shoot = async (reducedMotion) => {
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion });
-    await page.goto(pageUrl(f));
+    assertServed(await page.goto(pageUrl(f)), pageUrl(f));
     await page.waitForTimeout(450); // let entrance animations settle
     const snap = await page.evaluate(SNAPSHOT, { THRESHOLD, linkedCss });
     await page.close();

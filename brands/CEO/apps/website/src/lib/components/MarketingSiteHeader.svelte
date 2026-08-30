@@ -1,6 +1,22 @@
 <script lang="ts">
-import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
-import { fade, fly } from 'svelte/transition'
+/**
+ * The marketing bar, rendered from the design system's own units.
+ *
+ * It used to be 276 lines of Tailwind with the brand lockup retyped inline, the
+ * glass fill written as a `style` attribute, and a full-screen menu built from
+ * scratch — on ten surfaces, so every one of them inherited whatever this file
+ * happened to get wrong. What is left here is the BEHAVIOUR, which is the part
+ * a design system has no opinion about: where the page is, which language it is
+ * in, whether you have scrolled, whether the menu is open.
+ *
+ * The looks come from `navbar`, `nav-menu`, `logo`, `nav-link`, `social-row`,
+ * `segment` and `btn`. Changing how the bar looks is now an edit to a unit,
+ * which every surface picks up at once — including the storybook, where it can
+ * be seen and gated.
+ */
+import { SOCIAL_PROFILES, icons } from '@myavenceo/aven-ceo/icons'
+import { renderIcon } from '@myavenceo/aven-vibes'
+import { fade } from 'svelte/transition'
 import { page } from '$app/state'
 import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
@@ -24,9 +40,11 @@ let {
 } = $props()
 
 const t = $derived(pick(common, lang))
-const maxW = $derived(maxWidth === '6xl' ? 'max-w-6xl' : 'max-w-5xl')
 
-/** Open state for the full-screen mobile menu. */
+/** The bar lines up with the content beneath it — see `--navbar-measure`. */
+const measure = $derived(maxWidth === '6xl' ? '72rem' : '64rem')
+
+/** Open state for the full-screen menu. */
 let menuOpen = $state(false)
 
 /** In overlay mode the bar is transparent over the hero video, then solidifies
@@ -43,38 +61,42 @@ $effect(() => {
 	return () => window.removeEventListener('scroll', onScroll)
 })
 
-/** The bar is light while it floats transparent over the video (overlay, not
- * yet scrolled) or while the dark mobile menu is open — otherwise dark-on-cream. */
-const lightBar = $derived((overlay && !scrolled) || menuOpen)
-const solid = $derived(!overlay || scrolled)
-const ink = $derived(lightBar ? 'text-primary-foreground' : 'text-foreground')
-const socialInk = $derived(
-	lightBar
-		? 'text-primary-foreground-soft transition-colors hover:text-primary-foreground'
-		: 'text-foreground-quiet transition-colors hover:text-foreground'
-)
-/** Fixed over the hero video (so the video sits full-bleed behind it), sticky
- * everywhere else. */
-/*
- * NOT a template literal. `sticky` lived only inside `${overlay ? 'fixed' :
- * 'sticky'}`, which puts it in the utility scanner's CANDIDATE tier — guesses,
- * whose misses are warnings rather than errors — and it was never emitted. The
- * header was `position: static` on every page off the hero, so the bar scrolled
- * away instead of sticking, and nothing reported it: the class was in the
- * markup, it simply had no rule.
+/**
+ * Two INDEPENDENT facts, and they used to be one class.
  *
- * Both spellings are literal now, so the scanner sees them for certain.
+ * `placement` is where the bar sits and does not change while you are on the
+ * page. `tone` is what it looks like right now, and changes as you scroll. The
+ * old `overlay` variant carried both, so the scrolled state could not be
+ * expressed without also giving up `position: fixed`.
+ *
+ * The bar is clear while it floats over the video, otherwise glass. The open
+ * menu no longer forces it clear: the menu is `--z-overlay` (100) against the
+ * bar's `--z-sticky` (50), so it covers the bar completely and carries its own
+ * close control. Tinting a bar nobody can see was a rule kept from when the
+ * menu sat under it.
  */
-const headerClass = 'inset-x-0 top-0 z-50 transition-colors duration-200'
-/** The solid bar's fill/blur/hairline as inline style — these opacity + blur
- * utilities aren't emitted from a dynamic class string, so pin them here. */
-const headerStyle = $derived(
-	solid
-		? 'background-color: color-mix(in oklab, var(--color-surface-page) 10%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);'
-		: ''
+const lightBar = $derived(overlay && !scrolled)
+/*
+ * While the bar is clear it sits on the hero's footage, and its ground is a
+ * PICTURE. A contrast gate walking up for a background-color finds the page
+ * cream and reports white ink at 1.01:1 — measuring a surface that is not
+ * there. `data-ground="media"` moves the proof to where it can actually be
+ * made: measured on the video's own top band, compositing the scrim, the worst
+ * pixel is 4.54:1 and the 95th percentile 5.33:1 against 4.5 required. That is
+ * what raised `--color-scrim-strong` from 50% to 65%; at 50% the worst was
+ * 2.94:1.
+ *
+ * The attribute is only present while the bar is CLEAR. Once it goes glass it
+ * has a real background-color again and is checked like anything else — an
+ * exclusion that outlived its reason is how a gate gets quietly disarmed.
+ */
+const barClass = $derived(
+	`navbar ${overlay ? 'navbar--placement-overlay' : ''} ${
+		lightBar ? 'navbar--tone-clear' : 'navbar--tone-glass'
+	}`
 )
 
-/** The nav points, shared by the desktop bar and the full-screen menu. */
+/** The nav points, shared by the bar and the menu. */
 const MENU_ITEMS = $derived([
 	{ href: '/skills', label: t.nav.skills, key: 'skills' as const, localized: true },
 	{ href: '/avens', label: t.nav.avens, key: 'avens' as const, localized: true },
@@ -87,190 +109,152 @@ const MENU_ITEMS = $derived([
 	{ href: '/docs', label: t.nav.docs, key: 'docs' as const, localized: false }
 ])
 
-function linkCls(isActive: boolean) {
-	return isActive
-		? 'opacity-100 transition-opacity'
-		: 'opacity-70 transition-opacity hover:opacity-100'
-}
+const itemHref = (item: (typeof MENU_ITEMS)[number]) =>
+	item.localized ? localeHref(lang, item.href) : `${item.href}/`
+
+/** What each destination IS, for the menu. Five words tell you their names; the
+ * line tells you which one you want. */
+const META: Record<NavActive, string> = $derived({
+	skills: t.nav.skillsMeta,
+	avens: t.nav.avensMeta,
+	pricing: t.nav.pricingMeta,
+	docs: t.nav.docsMeta
+})
 
 /** The same page in the other language — prerendered, so the pathname is known at build time. */
 const otherHref = $derived(switchLangHref(lang, page.url.pathname))
+const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
+
+const menuIcon = renderIcon('menu', icons, { size: '1.25rem' })
+const closeIcon = renderIcon('close', icons, { size: '1.25rem' })
 </script>
 
-<header class="{overlay ? 'fixed' : 'sticky'} {headerClass}" style={headerStyle}>
-	<div class="relative z-10 mx-auto {maxW} px-5 lg:px-8">
-		<!-- Collapsed bar: logo left; on lg the full nav; on mobile the CTA and a
-		     hamburger that opens the full-screen menu below. -->
-		<div class="flex items-center justify-between gap-4 py-3 lg:py-5 {ink}">
-			<div class="flex items-center gap-4">
-				<a href={localeHref(lang, '/')} class="flex items-center gap-2.5">
-					<img src="/aven-logo.svg" alt="" class="size-7 shrink-0" width="28" height="28">
-					<!-- One word, two faces: "aven" in the thin display face, "CEO" in the
-					     heaviest Google Sans Flex, uppercase. -->
-					<span class="text-[length:var(--fs-lead)] tracking-tight"
-						><span class="font-display" style="font-weight: 300; font-size: 1.4em; line-height: 1"
-							>aven</span
-						><span class="font-sans uppercase" style="font-weight: 700">CEO</span></span
-					>
-				</a>
-				<!-- Social: desktop only — redundant with the footer on phones. -->
-				<span
-					class="hidden items-center gap-3 lg:flex {socialInk}"
-					aria-label={t.footer.socialLabel}
+<header
+	class={barClass}
+	data-scrolled={scrolled}
+	{...lightBar ? { 'data-ground': 'media' } : {}}
+	style="--navbar-measure: {measure}"
+>
+	<div class="navbar-bar">
+		<div class="navbar-brand">
+			<a href={localeHref(lang, '/')} class="logo" aria-label="avenCEO">
+				<img class="logo-mark" src="/aven-logo.svg" alt="" width="28" height="28">
+				<span class="logo-wordmark"
+					><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span
 				>
-					{#each SOCIAL_PROFILES as profile (profile.href)}
-						<a
-							href={profile.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label={profile.name}
-						>
-							<SocialIcon {profile} />
-						</a>
-					{/each}
-				</span>
-			</div>
-
-			<!-- Desktop nav: everything inline. -->
-			<nav
-				class="hidden items-center gap-x-6 text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] lg:flex"
-			>
-				<a href={localeHref(lang, '/skills')} class={linkCls(active === 'skills')}
-					>{t.nav.skills}</a
-				>
-				<a href={localeHref(lang, '/avens')} class={linkCls(active === 'avens')}>{t.nav.avens}</a>
-				<a href={localeHref(lang, '/pricing')} class={linkCls(active === 'pricing')}>
-					{t.nav.pricing}
-				</a>
-				<a href="/docs/" class={linkCls(active === 'docs')}>{t.nav.docs}</a>
-				<a
-					href={idFunnelHref()}
-					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-4 py-1.5 normal-case font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
-				>
-					{t.nav.cta}
-				</a>
-				<span class="flex items-center gap-1.5 tabular-nums" aria-label={t.switchLabel}>
-					<a
-						href={lang === 'de' ? page.url.pathname : otherHref}
-						hreflang="de"
-						aria-current={lang === 'de' ? 'true' : undefined}
-						class={lang === 'de'
-							? 'text-foreground'
-							: 'text-foreground-quiet transition-colors hover:text-foreground'}
-					>
-						DE
-					</a>
-					<span aria-hidden="true" class="opacity-30">|</span>
-					<a
-						href={lang === 'en' ? page.url.pathname : otherHref}
-						hreflang="en"
-						aria-current={lang === 'en' ? 'true' : undefined}
-						class={lang === 'en'
-							? 'text-foreground'
-							: 'text-foreground-quiet transition-colors hover:text-foreground'}
-					>
-						EN
-					</a>
-				</span>
-			</nav>
-
-			<!-- Mobile: the CTA stays out, the rest hides behind the hamburger. -->
-			<div class="flex items-center gap-2 lg:hidden">
-				<a
-					href={idFunnelHref()}
-					style="color: var(--color-foreground)"
-					class="rounded-full bg-accent px-3.5 py-1.5 text-[length:var(--fs-eyebrow)] font-semibold shadow-[var(--shadow-raised)] transition-opacity hover:opacity-90"
-				>
-					{t.nav.cta}
-				</a>
-				<button
-					type="button"
-					aria-label={t.nav.menu}
-					aria-expanded={menuOpen}
-					onclick={() => (menuOpen = !menuOpen)}
-					class="inline-flex size-9 items-center justify-center rounded-full {ink}"
-				>
-					{#if menuOpen}
-						<svg
-							viewBox="0 0 24 24"
-							class="size-5"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							aria-hidden="true"
-						>
-							<path d="M6 6l12 12M18 6L6 18" />
-						</svg>
-					{:else}
-						<svg
-							viewBox="0 0 24 24"
-							class="size-5"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							aria-hidden="true"
-						>
-							<path d="M4 7h16M4 12h16M4 17h16" />
-						</svg>
-					{/if}
-				</button>
-			</div>
+			</a>
 		</div>
-	</div>
-</header>
 
-{#if menuOpen}
-	<!-- Full-screen menu: a translucent glass layer over the page, nav points
-	     centred and large. It sits OUTSIDE <header> so its `fixed` box escapes
-	     the bar's backdrop-filter and covers the whole viewport; the bar (z-50)
-	     stays above it, so its close button closes the menu. -->
-	<div class="fixed inset-0 z-40 lg:hidden" transition:fade={{ duration: 150 }}>
-		<div class="absolute inset-0 bg-primary/90 backdrop-blur-xl"></div>
-		<nav
-			class="relative flex h-full flex-col items-center justify-center gap-7 px-6 text-center text-primary-foreground"
-		>
-			{#each MENU_ITEMS as item, i (item.key)}
+		<span class="social-row social-row--density-tight" role="group" aria-label={t.footer.socialLabel}>
+			<span class="social-row-items">
+				{#each SOCIAL_PROFILES as profile (profile.href)}
+					<a
+						class="social-row-item"
+						href={profile.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={profile.name}
+					>
+						<SocialIcon {profile} size="1.125rem" />
+					</a>
+				{/each}
+			</span>
+		</span>
+
+		<nav class="navbar-links" aria-label={t.nav.primaryLabel}>
+			{#each MENU_ITEMS as item (item.key)}
 				<a
-					href={item.localized ? localeHref(lang, item.href) : `${item.href}/`}
-					onclick={() => (menuOpen = false)}
-					in:fly={{ y: 16, duration: 260, delay: 60 + 50 * i }}
-					class="font-display text-[clamp(2.25rem,11vw,3.75rem)] font-medium leading-none tracking-tight transition-opacity hover:opacity-70 {active ===
-					item.key
-						? 'text-accent-ink'
-						: ''}"
+					class="nav-link"
+					href={itemHref(item)}
+					aria-current={active === item.key ? 'page' : undefined}
 				>
 					{item.label}
 				</a>
 			{/each}
-			<span
-				class="mt-8 flex items-center gap-3 text-[length:var(--fs-hero)] font-semibold tabular-nums"
-				aria-label={t.switchLabel}
-			>
-				<a
-					href={lang === 'de' ? page.url.pathname : otherHref}
-					hreflang="de"
-					aria-current={lang === 'de' ? 'true' : undefined}
-					class={lang === 'de'
-						? 'text-primary-foreground'
-						: 'text-primary-foreground-quiet transition-colors hover:text-primary-foreground'}
-				>
-					DE
-				</a>
-				<span aria-hidden="true" class="text-primary-foreground-quiet">|</span>
-				<a
-					href={lang === 'en' ? page.url.pathname : otherHref}
-					hreflang="en"
-					aria-current={lang === 'en' ? 'true' : undefined}
-					class={lang === 'en'
-						? 'text-primary-foreground'
-						: 'text-primary-foreground-quiet transition-colors hover:text-primary-foreground'}
-				>
-					EN
-				</a>
+		</nav>
+
+		<div class="navbar-actions">
+			<a class="btn btn--accent" href={idFunnelHref()}>{t.nav.cta}</a>
+			<span class="segment" role="group" aria-label={t.switchLabel}>
+				<span class="segment-options">
+					<a class="segment-option" href={langHref('de')} hreflang="de"
+						aria-current={lang === 'de' ? 'true' : undefined}>DE</a
+					>
+					<span class="segment-divider" aria-hidden="true"></span>
+					<a class="segment-option" href={langHref('en')} hreflang="en"
+						aria-current={lang === 'en' ? 'true' : undefined}>EN</a
+					>
+				</span>
 			</span>
+		</div>
+
+		<button
+			class="navbar-toggle"
+			type="button"
+			aria-label={t.nav.menu}
+			aria-expanded={menuOpen}
+			aria-controls="site-menu"
+			onclick={() => (menuOpen = !menuOpen)}
+		>
+			{@html menuOpen ? closeIcon : menuIcon}
+		</button>
+	</div>
+</header>
+
+<!--
+	A SIBLING of the bar, never a child. The glass bar carries a
+	`backdrop-filter`, and a filtered element becomes the containing block for
+	its `position: fixed` descendants — measured: a child asking for the full
+	viewport rendered 56px tall, the height of the bar, instead of 356px. A menu
+	nested in the header would be cropped to the bar, silently, and only while
+	the bar happened to be glass.
+-->
+{#if menuOpen}
+	<div class="nav-menu" id="site-menu" data-open="true" transition:fade={{ duration: 150 }}>
+		<div class="nav-menu-scrim"></div>
+		<button
+			class="nav-menu-close"
+			type="button"
+			aria-label={t.nav.closeMenu}
+			onclick={() => (menuOpen = false)}
+		>
+			{@html closeIcon}
+		</button>
+		<nav class="nav-menu-panel" aria-label={t.nav.primaryLabel}>
+			<div class="nav-menu-head">
+				<div class="nav-menu-crest">
+					<img class="logo-mark" src="/aven-logo.svg" alt="" width="36" height="36">
+				</div>
+				<p class="text text--eyebrow nav-menu-eyebrow">{t.nav.whereTo}</p>
+			</div>
+			<div class="nav-menu-items">
+				{#each MENU_ITEMS as item (item.key)}
+					<a
+						class="nav-menu-item"
+						href={itemHref(item)}
+						aria-current={active === item.key ? 'page' : undefined}
+						onclick={() => (menuOpen = false)}
+					>
+						<span class="nav-menu-marker"></span>
+						{item.label}
+						<span class="nav-menu-meta">{META[item.key]}</span>
+					</a>
+				{/each}
+			</div>
+			<div class="nav-menu-footer">
+				<span class="segment" role="group" aria-label={t.switchLabel}>
+					<span class="segment-options">
+						<a class="segment-option" href={langHref('de')} hreflang="de"
+							aria-current={lang === 'de' ? 'true' : undefined}>DE</a
+						>
+						<span class="segment-divider" aria-hidden="true"></span>
+						<a class="segment-option" href={langHref('en')} hreflang="en"
+							aria-current={lang === 'en' ? 'true' : undefined}>EN</a
+						>
+					</span>
+				</span>
+				<p class="nav-menu-trust">{t.nav.trust}</p>
+			</div>
 		</nav>
 	</div>
 {/if}

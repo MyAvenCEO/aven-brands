@@ -278,13 +278,13 @@
 			},
 			"scrim": {
 				"$type": "color",
-				"$value": "#1e293b52",
-				"$description": "The veil over hero media. 32% marine — enough that the light ink reads on any frame the video lands on, little enough that the scene is still a scene. It was three stacked `color-mix` stops in one component."
+				"$value": "#1e293bad",
+				"$description": "68% marine, through the middle of a hero where the copy sits.\n\nIt was 32%, described as light enough that the scene still reads — and it was, and the copy on top of it did not. Measured against the home page's own footage, compositing the gradient at the height each element actually sits at: the headline reached 2.25:1 where large text needs 3.0, and the lead 2.57:1 where 17px text needs 4.5. axe-core flagged all five nodes and was right; the earlier belief that this was a gate failing to see a video was wrong, and checking it rather than assuming is the only reason that was caught. Solved numerically: 0.55 leaves the lead at 3.90, 0.62 at 4.49 — still short — and 0.68 clears both at 5.11 and 4.72.\n\nIT COSTS THE PICTURE, and that is the trade this system says to make. The gradient now runs 0.65 / 0.68 / 0.55, which is nearly flat, so the intent this stop was written for — lighter through the middle where the scene reads — no longer survives on high-key footage. Bright sky and bright water leave no low-contrast region to hide text in. Accessibility outranks aesthetics here; the way to get the photograph back is to darken only BEHIND the copy rather than across the frame, which is a change to the hero's composition and not to this token."
 			},
 			"scrim-strong": {
 				"$type": "color",
-				"$value": "#1e293b80",
-				"$description": "50% marine, for the top of a hero where the nav sits."
+				"$value": "#1e293ba6",
+				"$description": "65% marine, for the top of a hero where the nav sits — the one stop in the scrim whose job is a CONTRAST GUARANTEE rather than a mood.\n\nIt was 50%, and 50% does not carry it. Measured on the home page's own footage, compositing the scrim over the video's top band and reading white nav ink against it: worst pixel 2.94:1 and the 95th percentile 2.99:1, where the nav links need 4.5:1. The bright quarter of that band is sky, the links sit on the right where the sky is, and the frame CHANGES — a video cannot be checked once. Solved numerically rather than chosen: 0.60 reaches 3.88:1, 0.65 reaches 4.53:1, so 0.65 is the first step that clears the bar for any frame."
 			},
 			"scrim-heavy": {
 				"$type": "color",

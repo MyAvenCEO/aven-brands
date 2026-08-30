@@ -25,6 +25,7 @@
  *   --strict -> exit 1 on any HIGH finding (use as a gate). Default: report, exit 0.
  */
 import { resolve } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -66,7 +67,7 @@ let high = 0;
 
 for (const f of files) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
-  await page.goto(pageUrl(f), { waitUntil: 'networkidle' }).catch(() => {});
+  assertServed(await page.goto(pageUrl(f), { waitUntil: 'networkidle' }).catch(() => {}), pageUrl(f));
   await page.addStyleTag({ content: '*{transition:none!important;animation:none!important}' });
   if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
   await page.waitForTimeout(300);

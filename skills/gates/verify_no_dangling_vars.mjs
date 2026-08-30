@@ -21,6 +21,7 @@
  * styles live in the latter and that is where three of the four escapes were.
  */
 import { chromium } from 'playwright'
+import { assertServed } from './_served.mjs'
 
 /* Set at the call site by design — a layout primitive's knobs and the utility
    layer's internals are meant to be undefined until something sets them. */
@@ -43,7 +44,7 @@ let failures = 0
 for (const url of urls) {
 	const page = await browser.newPage()
 	try {
-		await page.goto(url, { waitUntil: 'networkidle' })
+		assertServed(await page.goto(url, { waitUntil: 'networkidle' }), url)
 	} catch (error) {
 		console.log(`  SKIP ${url} — ${error.message.split('\n')[0]}`)
 		await page.close()

@@ -37,6 +37,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -167,7 +168,7 @@ let checked = 0;
 for (const f of files) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   if (dark) await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto(pageUrl(f));
+  assertServed(await page.goto(pageUrl(f)), pageUrl(f));
   if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
   const candidates = await page.evaluate(COLLECT, { attrs: STATE_ATTRS, roles: STATE_ROLES });
   await page.close();
@@ -178,7 +179,7 @@ for (const f of files) {
     if (c.native && !c.declares.length) continue;
     const p = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     if (dark) await p.emulateMedia({ colorScheme: 'dark' });
-    await p.goto(pageUrl(f));
+    assertServed(await p.goto(pageUrl(f)), pageUrl(f));
     if (dark) await p.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
     await p.evaluate(WATCH);
     const declaredAttrs = c.declares.filter(d => !d.startsWith('role='));

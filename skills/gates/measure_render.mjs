@@ -15,6 +15,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -83,7 +84,7 @@ catch { try { browser = await chromium.launch(); } catch (e) { console.log('meas
 let totalFail = 0;
 for (const f of files) {
   const page = await browser.newPage();
-  await page.goto(pageUrl(f));
+  assertServed(await page.goto(pageUrl(f)), pageUrl(f));
   await page.addStyleTag({ content: '*{transition:none!important;animation:none!important}' });
   /* Tall enough that the whole page is "in view", so the paint-stack probe
      below can be asked about elements that would otherwise be below the fold. */

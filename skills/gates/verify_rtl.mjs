@@ -9,6 +9,7 @@
  * Exit 1 if RTL introduces horizontal overflow that LTR did not have.
  */
 import { resolve } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -44,7 +45,7 @@ if (!file) { console.log('usage: node scripts/verify_rtl.mjs <file.html>'); proc
 
 const browser = await chromium.launch({ channel: 'chrome' }).catch(() => chromium.launch());
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {});
+assertServed(await page.goto(pageUrl(file), { waitUntil: 'networkidle' }).catch(() => {}), pageUrl(file));
 await page.addStyleTag({ content: '*{transition:none!important;animation:none!important}' });
 
 const overflow = () => page.evaluate(() => {

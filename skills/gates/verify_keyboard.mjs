@@ -39,6 +39,7 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
 
 /**
  * A target is either a file on disk or a URL to a running server.
@@ -173,7 +174,7 @@ let totalControls = 0, totalComposites = 0;
 for (const f of files) {
   const fname = f.split('/').pop();
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-  await page.goto(pageUrl(f));
+  assertServed(await page.goto(pageUrl(f)), pageUrl(f));
 
   const { controls, composites, scoped } = await page.evaluate(MARK);
   totalControls += controls.length;
