@@ -2205,7 +2205,20 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(.trust-claim-icon) {
 	display: block;
 	margin-block-end: var(--space-tight);
-	color: var(--color-marine);
+	/*
+	 * BOTH SHADES FROM THE ACCENT RAMP — no navy in the mark.
+	 *
+	 * The figure was marine, which made the icon read as two unrelated colours
+	 * rather than one duotone. It cannot be a LIGHTER yellow, though, and the
+	 * measurements say why: against the sunflower backing, accent-ring is
+	 * 1.49:1, accent-surface 1.57 and even cream 1.71 — all far under the 3:1 a
+	 * shape needs, so the figure would simply vanish into its own backing.
+	 *
+	 * The direction that works is DOWN the same ramp: `accent-foreground` is the
+	 * ink this palette already nominates for use on the accent, and it measures
+	 * 6.78:1 knocked out of sunflower. One hue, two strengths, both legible.
+	 */
+	color: var(--color-accent-foreground);
 	--icon-tint: var(--color-sunflower);
 }
 :global(.trust-claim-icon svg path[opacity]) {
