@@ -2,9 +2,11 @@
 /**
  * /docs — the index of what is documented.
  *
- * One card today (ceoBRAND). It is a grid because the next entries are already
- * named in the upgrade plan: the unit library, the vibe manifest, the gates.
+ * Two cards: the design system (ceoBRAND) and the framework it renders through
+ * (avenVIBES, whose sections come from the package's own shipped docs, so the
+ * count here can never disagree with the surface it links to).
  */
+import { DOCS } from '@myavenceo/aven-vibes'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import { sections } from '$lib/docs/sections'
 
@@ -15,6 +17,13 @@ const entries = [
 		title: 'Brand',
 		lede: 'Every token, face and component the avenCEO design system defines, rendered from the source it ships.',
 		meta: `${sections.reduce((n, s) => n + s.count, 0)} items across ${sections.length} sections`
+	},
+	{
+		href: '/docs/vibes/',
+		eyebrow: 'avenVIBES',
+		title: 'Framework',
+		lede: 'UI as data: views, units, actors, islands and the sandbox — the framework documented from the docs the package itself ships.',
+		meta: `${DOCS.length} sections, junior to internals`
 	}
 ]
 </script>
