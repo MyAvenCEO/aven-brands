@@ -128,8 +128,8 @@ function docView(doc: LegalDocument): ViewNode {
 				tag: 'div',
 				class: 'mx-auto max-w-2xl',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: eyebrow },
-					{ tag: 'h1', class: 'section-title mt-3 sm:text-3xl', text: doc.title },
+					{ tag: 'p', class: 'text--eyebrow', text: eyebrow },
+					{ tag: 'h1', class: 'text--section-title mt-3 sm:text-3xl', text: doc.title },
 					...body
 				]
 			}
@@ -155,10 +155,10 @@ export function agbPlaceholderView(): ViewNode {
 				tag: 'div',
 				class: 'mx-auto max-w-2xl',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: 'Rechtliches' },
+					{ tag: 'p', class: 'text--eyebrow', text: 'Rechtliches' },
 					{
 						tag: 'h1',
-						class: 'section-title mt-3 sm:text-3xl',
+						class: 'text--section-title mt-3 sm:text-3xl',
 						text: 'Allgemeine Geschäftsbedingungen'
 					},
 					{

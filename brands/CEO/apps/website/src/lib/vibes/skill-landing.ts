@@ -45,7 +45,7 @@ function whyView(skill: AvenosSkill, t: Messages): ViewNode {
 				tag: 'div',
 				class: 'mx-auto max-w-3xl text-center',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: skill.hero.kicker },
+					{ tag: 'p', class: 'text--eyebrow', text: skill.hero.kicker },
 					...(skill.comingSoon
 						? [
 								{
@@ -87,7 +87,7 @@ function whyView(skill: AvenosSkill, t: Messages): ViewNode {
 								children: [
 									{
 										tag: 'p',
-										class: 'eyebrow-quiet',
+										class: 'text--eyebrow-quiet',
 										text: `${skill.founderScenario.timestamp} ${t.fromRealLife}`
 									},
 									{
@@ -145,7 +145,7 @@ function gainView(skill: AvenosSkill, t: Messages): ViewNode {
 						tag: 'div',
 						class: 'text-center',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.gainEyebrow },
+							{ tag: 'p', class: 'text--eyebrow', text: t.gainEyebrow },
 							{
 								tag: 'h2',
 								class:
@@ -189,13 +189,13 @@ function gainView(skill: AvenosSkill, t: Messages): ViewNode {
 function howView(skill: AvenosSkill, t: Messages): ViewNode {
 	return {
 		tag: 'section',
-		class: 'section-band sm:px-8 sm:py-20',
+		class: 'section sm:px-8 sm:py-20',
 		children: [
 			{
 				tag: 'div',
 				class: 'mx-auto max-w-2xl text-center',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: t.howEyebrow },
+					{ tag: 'p', class: 'text--eyebrow', text: t.howEyebrow },
 					{
 						tag: 'h2',
 						class:
@@ -270,8 +270,8 @@ function mechanicsView(skill: AvenosSkill, t: Messages): ViewNode {
 						tag: 'div',
 						class: 'text-center',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.mechanicsEyebrow },
-							{ tag: 'h2', class: 'section-title mt-3 sm:text-3xl', text: t.mechanicsHeading }
+							{ tag: 'p', class: 'text--eyebrow', text: t.mechanicsEyebrow },
+							{ tag: 'h2', class: 'text--section-title mt-3 sm:text-3xl', text: t.mechanicsHeading }
 						]
 					},
 					{
@@ -318,7 +318,7 @@ function playsView(skill: AvenosSkill, t: Messages, lang: Lang): ViewNode {
 						tag: 'div',
 						class: 'text-center',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.playsEyebrow },
+							{ tag: 'p', class: 'text--eyebrow', text: t.playsEyebrow },
 							{
 								tag: 'h2',
 								class: 'mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl',
@@ -379,7 +379,7 @@ function valueView(skill: AvenosSkill, t: Messages): ViewNode {
 	const facts = (label: string, value: string): ViewNode => ({
 		tag: 'div',
 		children: [
-			{ tag: 'p', class: 'eyebrow-quiet', text: label },
+			{ tag: 'p', class: 'text--eyebrow-quiet', text: label },
 			{
 				tag: 'p',
 				class: 'mt-1 text-[length:var(--fs-body)] font-medium text-foreground-soft',
@@ -400,15 +400,15 @@ function valueView(skill: AvenosSkill, t: Messages): ViewNode {
 						tag: 'div',
 						class: 'text-center',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.valueEyebrow },
-							{ tag: 'h2', class: 'section-title mt-3 sm:text-3xl', text: t.valueHeading }
+							{ tag: 'p', class: 'text--eyebrow', text: t.valueEyebrow },
+							{ tag: 'h2', class: 'text--section-title mt-3 sm:text-3xl', text: t.valueHeading }
 						]
 					},
 					{
 						tag: 'div',
 						class: 'mt-8 rounded-lg border border-border/25 bg-surface-raised p-5 sm:p-7',
 						children: [
-							{ tag: 'p', class: 'eyebrow-quiet', text: t.standalone },
+							{ tag: 'p', class: 'text--eyebrow-quiet', text: t.standalone },
 							{
 								tag: 'ul',
 								class: 'mt-4 space-y-2',
@@ -461,7 +461,7 @@ function valueView(skill: AvenosSkill, t: Messages): ViewNode {
 								tag: 'div',
 								class: 'mt-4 rounded-xl border border-accent/25 bg-accent/15 px-4 py-4',
 								children: [
-									{ tag: 'p', class: 'text-center eyebrow', text: t.included },
+									{ tag: 'p', class: 'text-center text--eyebrow', text: t.included },
 									{
 										tag: 'p',
 										class:
@@ -506,7 +506,7 @@ function bonusView(skill: AvenosSkill, t: Messages, lang: Lang): ViewNode {
 						tag: 'div',
 						class: 'rounded-lg border border-border/25 bg-surface-raised p-5 sm:p-6',
 						children: [
-							{ tag: 'p', class: 'eyebrow-quiet', text: t.bonuses },
+							{ tag: 'p', class: 'text--eyebrow-quiet', text: t.bonuses },
 							{
 								tag: 'ul',
 								class: 'mt-3 space-y-2',
@@ -532,7 +532,7 @@ function bonusView(skill: AvenosSkill, t: Messages, lang: Lang): ViewNode {
 						tag: 'div',
 						class: 'rounded-xl border border-accent/25 bg-accent/15 px-5 py-4',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.availability },
+							{ tag: 'p', class: 'text--eyebrow', text: t.availability },
 							{
 								tag: 'p',
 								class: 'mt-1.5 text-[length:var(--fs-body)] leading-snug text-foreground-soft',
@@ -581,7 +581,7 @@ function letterView(skill: AvenosSkill, t: Messages): ViewNode {
 											{
 												tag: 'div',
 												children: [
-													{ tag: 'p', class: 'eyebrow', text: t.writtenBy },
+													{ tag: 'p', class: 'text--eyebrow', text: t.writtenBy },
 													{
 														tag: 'p',
 														class:
@@ -610,7 +610,7 @@ function letterView(skill: AvenosSkill, t: Messages): ViewNode {
 								tag: 'footer',
 								class: 'mt-8 border-t border-foreground/[0.06] pt-6',
 								children: [
-									{ tag: 'p', class: 'eyebrow-quiet', text: t.signOff },
+									{ tag: 'p', class: 'text--eyebrow-quiet', text: t.signOff },
 									{
 										tag: 'p',
 										class:

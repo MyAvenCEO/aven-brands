@@ -807,7 +807,7 @@ function skillsHeadView(t: (typeof home)['de']): ViewNode {
 		tag: 'div',
 		class: 'mx-auto max-w-2xl text-center',
 		children: [
-			{ tag: 'p', class: 'eyebrow', text: t.skills.eyebrow },
+			{ tag: 'p', class: 'text--eyebrow', text: t.skills.eyebrow },
 			{
 				tag: 'h2',
 				class: 'mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl',
@@ -848,7 +848,7 @@ function startHeadView(t: (typeof home)['de']): ViewNode {
 		tag: 'div',
 		class: 'pb-6 text-center',
 		children: [
-			{ tag: 'p', class: 'eyebrow', text: t.start.eyebrow },
+			{ tag: 'p', class: 'text--eyebrow', text: t.start.eyebrow },
 			{
 				tag: 'h2',
 				class: 'mt-3 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl',

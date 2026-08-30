@@ -49,7 +49,7 @@ function heroView(t: Messages): ViewNode {
 				tag: 'div',
 				class: 'mx-auto max-w-3xl text-center',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: t.eyebrow },
+					{ tag: 'p', class: 'text--eyebrow', text: t.eyebrow },
 					{
 						tag: 'h1',
 						class:
@@ -130,7 +130,7 @@ function companyCard(a: LiveAven, t: Messages): ViewNode {
 									tag: 'div',
 									class: 'lg:col-span-2',
 									children: [
-										{ tag: 'p', class: 'eyebrow', text: t.mission },
+										{ tag: 'p', class: 'text--eyebrow', text: t.mission },
 										{
 											tag: 'p',
 											class:
@@ -200,7 +200,7 @@ function companiesView(t: Messages, companies: LiveAven[]): ViewNode {
 						tag: 'header',
 						class: 'max-w-2xl',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.company.label },
+							{ tag: 'p', class: 'text--eyebrow', text: t.company.label },
 							{
 								tag: 'p',
 								class: 'mt-2 text-[length:var(--fs-title)] leading-snug text-foreground-quiet',
@@ -311,7 +311,7 @@ function peopleView(t: Messages, people: LiveAven[]): ViewNode {
 						tag: 'header',
 						class: 'max-w-2xl',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.person.label },
+							{ tag: 'p', class: 'text--eyebrow', text: t.person.label },
 							{
 								tag: 'p',
 								class: 'mt-2 text-[length:var(--fs-title)] leading-snug text-foreground-quiet',

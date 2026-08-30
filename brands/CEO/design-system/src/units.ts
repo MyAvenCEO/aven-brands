@@ -252,7 +252,11 @@ export const SUPERSEDES: Record<string, Supersession> = {
 		unit: 'section',
 		note: 'the shell is a section with no rule and the page ground.'
 	},
-	'section-band': { unit: 'section', as: 'ground-band' },
+	'section-band': {
+		unit: 'section',
+		note:
+			"a padded section with a bottom rule — which is what `section` IS. NOT `section--ground-band`: that variant paints the teal ground and the band foreground, while the legacy class only ever set padding and a border. The two were matched on their names, and migrating on that mapping put page ink on a teal band at 1.18:1 across three routes."
+	},
 	steps: { unit: 'step', note: 'the rail is the container; `step` is the stage on it.' },
 
 	/* Controls and feedback. */

@@ -55,7 +55,7 @@ function heroView(t: Messages): ViewNode {
 				tag: 'div',
 				class: 'mx-auto max-w-3xl text-center',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: t.hero.eyebrow },
+					{ tag: 'p', class: 'text--eyebrow', text: t.hero.eyebrow },
 					{
 						tag: 'h1',
 						class:
@@ -130,8 +130,8 @@ function chainView(t: Messages, lang: Lang): ViewNode {
 						tag: 'div',
 						class: 'text-center',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.chain.eyebrow },
-							{ tag: 'h2', class: 'section-title mt-3 sm:text-3xl', text: t.chain.heading },
+							{ tag: 'p', class: 'text--eyebrow', text: t.chain.eyebrow },
+							{ tag: 'h2', class: 'text--section-title mt-3 sm:text-3xl', text: t.chain.heading },
 							{
 								tag: 'p',
 								class:
@@ -151,7 +151,7 @@ function chainView(t: Messages, lang: Lang): ViewNode {
 						class:
 							'mx-auto mt-6 max-w-sm rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-center ring-1 ring-accent/15',
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.chain.hitlLabel },
+							{ tag: 'p', class: 'text--eyebrow', text: t.chain.hitlLabel },
 							{
 								tag: 'a',
 								class:
@@ -181,7 +181,7 @@ function bundleView(t: Messages, lang: Lang, skillCount: number): ViewNode {
 				tag: 'div',
 				class: 'mx-auto max-w-3xl text-center',
 				children: [
-					{ tag: 'p', class: 'eyebrow', text: t.pricing.eyebrow },
+					{ tag: 'p', class: 'text--eyebrow', text: t.pricing.eyebrow },
 					{
 						tag: 'h2',
 						class: 'mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl',

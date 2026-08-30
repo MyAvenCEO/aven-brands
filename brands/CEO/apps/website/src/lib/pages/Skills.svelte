@@ -80,7 +80,7 @@ $effect(() => {
 	{@html sections.bundle}
 
 	<!-- CTA -->
-	<section class="section-band sm:px-8 sm:py-20">
+	<section class="section sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
 			<AvenIdCheckCta variant="banner" {lang} />
 		</div>

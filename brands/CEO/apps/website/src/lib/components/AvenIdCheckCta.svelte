@@ -83,7 +83,7 @@ function submit(e: SubmitEvent) {
 	class="rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-raised)] sm:px-10 sm:py-11 overflow-hidden text-center"
 	aria-label={t.formLabel}
 >
-	<p class="eyebrow">{t.eyebrow}</p>
+	<p class="text--eyebrow">{t.eyebrow}</p>
 	<h3
 		class="mt-2 text-2xl font-semibold tracking-tight text-balance text-foreground sm:text-3xl md:text-[length:var(--fs-amount)] mx-auto max-w-xl"
 	>

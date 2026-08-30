@@ -581,7 +581,7 @@ function inspect(name: string) {
 			{#if active === 'logo'}
 				<section class="cb-section">
 					<p class="text text--eyebrow">Logo</p>
-					<p class="meta">
+					<p class="text--meta">
 						The mark, the wordmark and the lockup. The wordmark is two faces in one word — "aven" in
 						the thin display face, "CEO" in the heaviest sans — a specification that used to live
 						inline at every call site, including two <span class="cb-mono">style</span> attributes
@@ -613,7 +613,7 @@ function inspect(name: string) {
 			{:else if active === 'icons'}
 				<section class="cb-section cb-section--full">
 					<p class="text text--eyebrow">Icons</p>
-					<p class="meta">
+					<p class="text--meta">
 						Duotone: a filled backing at 0.2 under the figure, both in
 						<span class="cb-mono">currentColor</span>. Two opacities of one colour, never two
 						colours — two colours could not be themed, and this is why the row below inverts with
@@ -634,7 +634,7 @@ function inspect(name: string) {
 				{#each colourGroups as group (group.id)}
 					<section class="cb-section">
 						<p class="text text--eyebrow">{group.title}</p>
-						<p class="meta">{group.lede}</p>
+						<p class="text--meta">{group.lede}</p>
 						<div class="cb-swatches">
 							{#each group.rows as row (row.name)}
 								<div class="cb-swatch">
@@ -661,7 +661,7 @@ function inspect(name: string) {
 			{:else if active === 'type'}
 				<section class="cb-section">
 					<p class="text text--eyebrow">Faces</p>
-					<p class="meta">The stacks the brand sets its words in.</p>
+					<p class="text--meta">The stacks the brand sets its words in.</p>
 					<div class="cb-rows">
 						{#each fontStacks as font (font.name)}
 							<div class="cb-row">
@@ -688,7 +688,7 @@ function inspect(name: string) {
 				</section>
 				<section class="cb-section">
 					<p class="text text--eyebrow">Ramp</p>
-					<p class="meta">Twelve steps. A size not on the ramp is not available.</p>
+					<p class="text--meta">Twelve steps. A size not on the ramp is not available.</p>
 					<div class="cb-rows">
 						{#each typeScale as step (step.name)}
 							{@const display = DISPLAY_STEPS.includes(step.name)}
@@ -726,7 +726,7 @@ function inspect(name: string) {
 			{:else if active === 'alpha'}
 				<section class="cb-section">
 					<p class="text text--eyebrow">Alpha · on text</p>
-					<p class="meta">
+					<p class="text--meta">
 						Text emphasis as steps, not a continuum. The faintest step is the disabled and watermark
 						level and deliberately sits below AA, so it must never carry live text.
 					</p>
@@ -745,7 +745,7 @@ function inspect(name: string) {
 				</section>
 				<section class="cb-section">
 					<p class="text text--eyebrow">Alpha · on surface</p>
-					<p class="meta">The same ink as a surface rather than as text.</p>
+					<p class="text--meta">The same ink as a surface rather than as text.</p>
 					<div class="cb-rows">
 						{#each tintScale as step (step.name)}
 							<div class="cb-row">
@@ -795,7 +795,7 @@ function inspect(name: string) {
 			{:else if active === 'migration'}
 				<section class="cb-section cb-section--full">
 					<p class="text text--eyebrow">Migration</p>
-					<p class="meta">
+					<p class="text--meta">
 						Every class from the vocabulary that predates units, and what replaces it. Measured
 						across all four surfaces — the website, the checkout at my.aven.ceo, avenID and the
 						Tauri app — not remembered. The measurement is the point: checkout is the most
@@ -1109,7 +1109,7 @@ function inspect(name: string) {
 						     the screen empty. -->
 						<section class="cb-section cb-section--full">
 							<p class="text text--eyebrow">{group.title}</p>
-							<p class="meta">{group.lede}</p>
+							<p class="text--meta">{group.lede}</p>
 							<div class="cb-units">
 								{#each group.rows as unit (unit.name)}
 									<!-- An ARTICLE, not a button. Wrapping a specimen in a <button>
@@ -1171,7 +1171,7 @@ function inspect(name: string) {
 			{:else if active === 'layouts'}
 				<section class="cb-section">
 					<p class="text text--eyebrow">Layouts</p>
-					<p class="meta">
+					<p class="text--meta">
 						The layout shapes almost every page is made of. Renamed from "primitives": a unit is now
 						the smallest piece, which is what primitive means everywhere else.
 					</p>

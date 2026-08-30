@@ -66,7 +66,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	<!-- Skills preview: what an Aven can already do, straight from the
 	     marketplace. The frame's head and the "see all" line are config; the
 	     grid of cards is the shared Svelte component (see the header comment). -->
-	<section class="section-band sm:px-8 sm:py-20" aria-labelledby="skills-preview-heading">
+	<section class="section sm:px-8 sm:py-20" aria-labelledby="skills-preview-heading">
 		<div class="mx-auto max-w-5xl">
 			{@html sections.skillsHead}
 

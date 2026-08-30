@@ -171,7 +171,7 @@ function plansView(lang: Lang): ViewNode {
 	const includedColumn: ViewNode = {
 		tag: 'div',
 		children: [
-			{ tag: 'p', class: 'eyebrow', text: t.included },
+			{ tag: 'p', class: 'text--eyebrow', text: t.included },
 			{
 				tag: 'div',
 				class: 'mt-3 rounded-lg bg-success/8 px-3 py-2 text-[length:var(--fs-meta)] leading-snug',
@@ -228,7 +228,7 @@ function plansView(lang: Lang): ViewNode {
 					tag: 'div',
 					class: 'text-left sm:border-l sm:border-border/25 sm:pl-10',
 					children: [
-						{ tag: 'p', class: 'eyebrow', text: t.skills },
+						{ tag: 'p', class: 'text--eyebrow', text: t.skills },
 						skillList(skillFeatures(ceo, lang), lang, t),
 						{
 							tag: 'p',
@@ -265,7 +265,7 @@ function plansView(lang: Lang): ViewNode {
 									'text-[length:var(--fs-eyebrow)] font-semibold uppercase tracking-[var(--tracking-wider)] text-accent-ink',
 								text: t.eyebrow
 							},
-							{ tag: 'h2', class: 'section-title mt-3 sm:text-3xl', text: t.heading },
+							{ tag: 'h2', class: 'text--section-title mt-3 sm:text-3xl', text: t.heading },
 							/* The wish first, the three facts after — same order as on the cards. */
 							{
 								tag: 'p',

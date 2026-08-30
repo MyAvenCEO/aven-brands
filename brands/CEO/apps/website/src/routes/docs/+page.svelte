@@ -38,9 +38,9 @@ const entries = [
 <main id="docs-index" class="app-shell">
 	<div class="center">
 		<header class="stack">
-			<p class="eyebrow">Documentation</p>
-			<h1 class="title">Docs</h1>
-			<p class="lede">
+			<p class="text--eyebrow">Documentation</p>
+			<h1 class="text--title">Docs</h1>
+			<p class="prose--size-lead">
 				The reference surfaces, each rendered from the same source the product ships, so what you
 				read here is what runs.
 			</p>
@@ -50,10 +50,10 @@ const entries = [
 			{#each entries as entry (entry.href)}
 				<li>
 					<a class="card" href={entry.href}>
-						<p class="eyebrow">{entry.eyebrow}</p>
-						<h2 class="title">{entry.title}</h2>
-						<p class="lede">{entry.lede}</p>
-						<p class="meta">{entry.meta}</p>
+						<p class="text--eyebrow">{entry.eyebrow}</p>
+						<h2 class="text--title">{entry.title}</h2>
+						<p class="prose--size-lead">{entry.lede}</p>
+						<p class="text--meta">{entry.meta}</p>
 					</a>
 				</li>
 			{/each}
