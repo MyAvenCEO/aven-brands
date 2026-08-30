@@ -67,6 +67,8 @@ export type HomeMessages = {
 	company: {
 		eyebrow: string
 		heading: string
+		/** The two roles, faced off. A label, a title, and one tight line each. */
+		roles: { label: string; title: string; text: string }[]
 		paragraphsHtml: string[]
 		closingLine1: string
 		closingLine2Before: string
@@ -173,9 +175,17 @@ export const home: Record<Lang, HomeMessages> = {
 		company: {
 			eyebrow: 'Die Firma der Zukunft',
 			heading: '1 Mensch + 1 avenCEO',
+			roles: [
+				{ label: 'Mensch', title: '1 Mensch für die Vision', text: 'Du entscheidest, wohin.' },
+				{
+					label: 'Aven',
+					title: '1 Aven für die Ausführung',
+					text: 'Er führt aus — rund um die Uhr.'
+				}
+			],
 			paragraphsHtml: [
-				`Kein Büro, keine Abteilungen, keine vierzig Angestellten — zwei Rollen: ${s('ein Mensch mit der Vision')} und ${s('ein avenCEO, der die ganze Firma ausführt')}.`,
-				`Jede Entscheidung, jede Korrektur fließt in seine Skills zurück. Nach einem Jahr ist er das ${s('Gedächtnis, die Erfahrung und das Urteil')} deiner Firma — und damit ihr wertvollstes Asset.`
+				`Kein Büro, keine Abteilungen, keine vierzig Angestellten. ${s('Zwei Rollen')}, mehr braucht es nicht.`,
+				`Jede Korrektur fließt in seine Skills zurück. Nach einem Jahr ist er das ${s('Gedächtnis und das Urteil')} deiner Firma.`
 			],
 			closingLine1: 'Jeder Mensch wird Gründer.',
 			closingLine2Before: 'Alles, was du dazu brauchst, ist',
@@ -288,9 +298,13 @@ export const home: Record<Lang, HomeMessages> = {
 		company: {
 			eyebrow: 'The company of the future',
 			heading: '1 human + 1 avenCEO',
+			roles: [
+				{ label: 'Human', title: '1 human for the vision', text: 'You decide where it goes.' },
+				{ label: 'Aven', title: '1 Aven for the execution', text: 'It runs — around the clock.' }
+			],
 			paragraphsHtml: [
-				`No office, no departments, no forty employees — two roles: ${s('one human with the vision')} and ${s('one avenCEO that runs the entire company')}.`,
-				`Every decision, every correction flows back into its skills. After one year it is the ${s('memory, the experience and the judgment')} of your company — and with that its most valuable asset.`
+				`No office, no departments, no forty employees. ${s('Two roles')}, and nothing else.`,
+				`Every correction flows back into its skills. After one year it is the ${s('memory and the judgment')} of your company.`
 			],
 			closingLine1: 'Everyone becomes a founder.',
 			closingLine2Before: 'All you need for it is',

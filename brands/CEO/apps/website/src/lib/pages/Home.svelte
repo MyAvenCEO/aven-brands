@@ -80,6 +80,22 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		</div>
 	</section>
 
+	<!-- A full-bleed divider between the marketplace and the invite. It takes no
+	     measure and no padding on purpose: every other band is contained, so the
+	     one that runs edge to edge reads as a break in the page rather than
+	     another section of it. Decorative, so no alt text — the sections either
+	     side already say what it means. -->
+	<figure id="skills-divider" aria-hidden="true">
+		<img
+			src="/family.jpg"
+			alt=""
+			width="1920"
+			height="720"
+			loading="lazy"
+			decoding="async"
+		/>
+	</figure>
+
 	<section class="border-b border-border/8 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
 			{@html sections.startHead}
@@ -162,90 +178,86 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  *   it.
  */
 /*
- * THE COMPANY BAND: the copy moves OFF the picture's subject.
+ * THE TWO ROLES, faced off across a rule.
  *
- * The first attempt put a translucent plate over the middle of the band, which
- * is exactly where the robot is — so the more of the picture the scrim let
- * through, the more of it the plate covered. Lightening the tint could never
- * fix that; it was a layout problem wearing an opacity problem's clothes.
- *
- * The copy is a LEFT COLUMN now, over the quiet half of the illustration (sea,
- * umbrella, terrace), and the scrim is directional rather than flat: dense
- * where the words are, clearing to nothing across the right half, so the robot
- * and its checklist are seen at full strength with no veil on them at all.
+ * The picture that was behind this band is gone: the illustration and the copy
+ * were competing for the same middle third, and every fix for one cost the
+ * other. The section's own subject is the pair in its heading, so the pair is
+ * the layout — human left ranged right, aven right ranged left, a hairline
+ * between them. Same device the cost comparison uses, which is the point: two
+ * things being weighed look the same wherever the page weighs them.
  */
-:global(#company-band) {
-	position: relative;
-	isolation: isolate;
-	overflow: hidden;
+:global(#company-roles) {
+	display: grid;
+	gap: var(--space-loose);
+	margin-block-start: var(--space-section);
 }
-:global(#company-bg) {
-	position: absolute;
-	inset: 0;
-	z-index: -2;
-	inline-size: 100%;
-	block-size: 100%;
-	object-fit: cover;
-	/* Centre, and it has to be: this band is wider than the file's 16:9, so
-	   `cover` crops TOP AND BOTTOM, not the sides. A horizontal
-	   `object-position` moved nothing at all — the first attempt set 68% and the
-	   robot did not budge. The subject stays where the file puts it, in the
-	   middle, and the LAYOUT moves around it instead. */
-	object-position: center;
-}
-/*
- * Flat and dense by default — on a phone the column is the full width, so there
- * is no clear half to protect and the type needs a ground everywhere.
- */
-:global(#company-scrim) {
-	position: absolute;
-	inset: 0;
-	z-index: -1;
-	background: color-mix(
-		in srgb,
-		color-mix(in srgb, var(--color-band) 40%, var(--color-marine)) 82%,
-		transparent
-	);
-}
-@media (min-width: 64rem) {
-	/*
-	 * The scrim covers the left THIRD and is gone by the halfway mark, which is
-	 * where the robot starts. The copy column is capped to end before the fade
-	 * begins — the first attempt let it run to 64% of the band, straight into
-	 * the clearing gradient, and four elements measured between 2.18 and 2.35:1.
-	 * A column that overruns its own scrim is unreadable no matter how dense the
-	 * scrim is where it starts.
-	 */
-	:global(#company-scrim) {
-		background: linear-gradient(
-			to right,
-			color-mix(in srgb, color-mix(in srgb, var(--color-band) 40%, var(--color-marine)) 92%, transparent)
-				0%,
-			color-mix(in srgb, color-mix(in srgb, var(--color-band) 40%, var(--color-marine)) 92%, transparent)
-				44%,
-			transparent 60%
-		);
+@media (min-width: 48rem) {
+	:global(#company-roles) {
+		position: relative;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-section);
 	}
-	/*
-	 * The column has to END inside the dense part, not at the edge of it. At 40%
-	 * against a fade starting at 34% the last words of every paragraph sat in
-	 * the clearing gradient and measured 3.71 to 4.14:1. The cap is 34% and the
-	 * scrim holds full strength to 44%, so there is a whole column-width of
-	 * margin between where the words stop and where the veil does.
-	 */
-	:global(#company-plate) {
-		max-inline-size: min(26rem, 34%);
+	:global(#company-roles)::before {
+		content: '';
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 50%;
+		inline-size: 1px;
+		background: color-mix(in oklab, var(--color-band-foreground) 22%, transparent);
+	}
+	:global(.company-role[data-side='human']) {
+		text-align: end;
+	}
+	:global(.company-role[data-side='aven']) {
+		text-align: start;
 	}
 }
-/* One column: at 40% of the band there is no room for two, and the pair would
-   set at about twenty characters a line. */
+:global(.company-role) {
+	display: grid;
+	gap: var(--space-hairline);
+	align-content: start;
+	text-align: center;
+}
+:global(.company-role-label) {
+	margin: 0;
+	font-size: var(--fs-eyebrow);
+	font-weight: 600;
+	letter-spacing: var(--tracking-widest);
+	text-transform: uppercase;
+	/*
+	 * NO opacity. This band's white is 4.61:1 on the teal — 0.11 above what body
+	 * text needs — so there is nothing to fade. Softening ink with `opacity` on
+	 * a ground with no headroom is the same error twice now, and axe caught it
+	 * both times. On this band, hierarchy is size and weight, never strength.
+	 */
+	color: var(--color-band-foreground);
+}
+:global(.company-role-title) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-amount), 3.4cqi, 2rem);
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+	color: var(--color-band-foreground);
+}
+:global(.company-role-text) {
+	margin: 0;
+	font-size: var(--fs-lead);
+	line-height: 1.4;
+	color: var(--color-band-foreground);
+}
+/* The prose is two short lines now, so it centres under the pair rather than
+   running as columns beside it. */
 :global(#company-prose) {
 	grid-template-columns: minmax(0, 1fr);
+	max-inline-size: 44rem;
+	margin-inline: auto;
+	text-align: center;
 }
 
-:global(#company-prose [data-role='counter']) {
-	color: var(--color-accent-edge);
-}
 :global(#company-closing-panel) {
 	margin-block-start: var(--space-section);
 	padding: var(--space-loose);
@@ -2036,6 +2048,31 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		block-size: 100%;
 		aspect-ratio: auto;
 	}
+}
+
+/*
+ * THE DIVIDER, edge to edge.
+ *
+ * `100%` of the page rather than a viewport unit: the shell is the containing
+ * block, so a percentage gives full bleed without the scrollbar-width error
+ * `100vw` introduces and the overflow that error causes at narrow widths.
+ *
+ * The ratio matches the file (8:3) rather than being capped to a height —
+ * capping meant `object-fit: cover` cropped the picture to a strip, which on
+ * the previous divider left a sliver of table and none of the subject.
+ */
+:global(#skills-divider) {
+	margin: 0;
+	inline-size: 100%;
+	aspect-ratio: 1920 / 720;
+	overflow: hidden;
+	background: var(--color-surface-sunken);
+}
+:global(#skills-divider img) {
+	inline-size: 100%;
+	block-size: 100%;
+	object-fit: cover;
+	display: block;
 }
 
 /*

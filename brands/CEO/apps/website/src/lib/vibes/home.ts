@@ -263,7 +263,7 @@ const ART = {
 	   spanning a row, and a wide crop of a portrait subject wastes both. */
 	garden: { src: '/man-under-tree.jpg', width: '816', height: '816' },
 	assembly: { src: '/avens-assembly.jpg', width: '1088', height: '608' },
-	multitask: { src: '/aven-multitask.jpg', width: '1088', height: '608' }
+	family: { src: '/family.jpg', width: '1920', height: '720' }
 } as const
 
 function ruleLabel(text: string, index?: string): ViewNode {
@@ -638,40 +638,13 @@ function companyView(t: (typeof home)['de']): ViewNode {
 		class: 'bg-band px-5 py-20 text-band-foreground sm:px-8 sm:py-28',
 		attrs: { id: 'company-band', 'aria-labelledby': 'company-heading' },
 		children: [
-			/*
-			 * The band's own picture, behind its own scrim.
-			 *
-			 * This section is the one place on the page with no colour headroom:
-			 * measured on the teal, white is 4.61:1 and every tinted brand tone
-			 * fails, so it had one ink for five type sizes and read as flat. An
-			 * image gives it depth that a second colour could not, and the scrim
-			 * over it is what carries the type — the same arrangement as the hero,
-			 * and for the same reason.
-			 *
-			 * Decorative: `alt=""` and `aria-hidden`, because the heading above it
-			 * already says what the section is.
-			 */
-			{
-				tag: 'img',
-				attrs: {
-					id: 'company-bg',
-					src: ART.multitask.src,
-					alt: '',
-					'aria-hidden': 'true',
-					width: ART.multitask.width,
-					height: ART.multitask.height,
-					loading: 'lazy',
-					decoding: 'async'
-				}
-			},
-			{ tag: 'div', attrs: { id: 'company-scrim', 'aria-hidden': 'true' } },
 			{
 				tag: 'div',
-				class: 'max-w-5xl',
-				attrs: { id: 'company-plate' },
+				class: 'mx-auto max-w-5xl',
 				children: [
 					{
 						tag: 'div',
+						class: 'text-center',
 						children: [
 							{
 								tag: 'p',
@@ -682,15 +655,39 @@ function companyView(t: (typeof home)['de']): ViewNode {
 							{
 								tag: 'h2',
 								class:
-									'mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground',
+									'mx-auto mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground',
 								attrs: { id: 'company-heading' },
 								text: t.company.heading
 							}
 						]
 					},
+					/*
+					 * THE TWO ROLES, faced off across a rule.
+					 *
+					 * The heading says "1 human + 1 avenCEO" and the prose then had to
+					 * spell the two out again inside a sentence. They are the section's
+					 * subject, so they get to BE the layout: one each side, ranged toward
+					 * the rule between them, the same device the cost comparison uses.
+					 */
 					{
 						tag: 'div',
-						class: 'mt-14 grid gap-x-14 gap-y-10 text-left sm:mt-16',
+						attrs: { id: 'company-roles' },
+						children: t.company.roles.map(
+							(role, i): ViewNode => ({
+								tag: 'div',
+								class: 'company-role',
+								attrs: { 'data-side': i === 0 ? 'human' : 'aven' },
+								children: [
+									{ tag: 'p', class: 'company-role-label', text: role.label },
+									{ tag: 'p', class: 'company-role-title', text: role.title },
+									{ tag: 'p', class: 'company-role-text', text: role.text }
+								]
+							})
+						)
+					},
+					{
+						tag: 'div',
+						class: 'mt-14 grid gap-x-14 gap-y-8 sm:mt-16',
 						attrs: { id: 'company-prose' },
 						children: t.company.paragraphsHtml.map(
 							(_, i): ViewNode => ({
@@ -701,12 +698,6 @@ function companyView(t: (typeof home)['de']): ViewNode {
 								   blocks that happen to share a row. */
 								attrs: { 'data-col': i === 0 ? 'first' : 'rest' },
 								children: [
-									{
-										tag: 'span',
-										class: 'font-display text-[length:var(--fs-display)] font-light leading-none',
-										attrs: { 'data-role': 'counter' },
-										text: String(i + 1).padStart(2, '0')
-									},
 									{
 										tag: 'p',
 										class:
@@ -719,7 +710,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'div',
-						class: 'mt-16 max-w-xl',
+						class: 'mx-auto mt-16 max-w-xl',
 						attrs: { id: 'company-closing-panel' },
 						children: [
 							{
