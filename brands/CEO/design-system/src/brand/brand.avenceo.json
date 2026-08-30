@@ -441,6 +441,16 @@
 				"$value": "#a8452f",
 				"$description": "Terracotta darkened until light ink can sit on it. The tone itself is a mid-value and fails BOTH ways at body size: 2.45:1 as ink on the accent bar, 4.19:1 as a ground under cream, where 4.5 is the floor. This is the same rank `eyebrow-ink` occupies for paradise — the tone, moved exactly far enough to carry. Cream on it measures 5.70:1.\n\nTerracotta itself stays in `functional`, where it already lived; adding it to `tones` as well made `--color-terracotta` a name declared twice, and the shadowed-token test caught it before it could silently pick a winner."
 			},
+			"terracotta-surface": {
+				"$type": "color",
+				"$value": "#faf0e8",
+				"$description": "The tint a terracotta note sits on. Same value as `error-surface` today and a different NAME on purpose: a discount flag in error tokens reads as a warning to anyone auditing the palette, and the two are free to diverge the moment either job changes. `terracotta-strong` on it measures 5.26:1."
+			},
+			"terracotta-edge": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)",
+				"$description": "The border of a terracotta note — the tone at full strength, where it works as a line rather than as ink or a ground."
+			},
 			"error-edge": {
 				"$type": "color",
 				"$value": "#d69280",

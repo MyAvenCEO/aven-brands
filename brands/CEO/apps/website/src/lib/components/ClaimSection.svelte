@@ -79,20 +79,34 @@ let {
  * of showing it.
  */
 /*
- * THE OFFER BAR, in terracotta.
+ * THE OFFER BAR: a bordered note, not a filled band.
  *
- * It wore the accent — the same sunflower as the price badge directly above it,
- * so two promotional notes shared one colour and neither read as the distinct
- * thing it is. Terracotta is the brand's other warm tone and it is free here.
+ * Solid terracotta made it the loudest thing on a card whose loudest thing
+ * should be the action. It is a note now — the tone as a 2px edge, its own
+ * light ground behind, and the darkened tone as ink.
  *
- * `terracotta-strong`, not raw terracotta. Measured at the line's real size
- * (16px bold, so 4.5:1 applies rather than the 3:1 large text gets): terracotta
- * as INK on the accent bar is 2.45:1, and as a GROUND under cream 4.19 — a
- * mid-value that fails in both directions. Darkened, cream on it is 5.70:1.
+ * Measured at the line's real size, 16px bold, so 4.5:1 applies and not the
+ * 3:1 large text gets: `terracotta-strong` on `terracotta-surface` is 5.26:1.
+ * Raw terracotta on that ground is 3.86 and would have failed — the tone works
+ * as the LINE and not as the ink, which is the whole reason both roles exist.
  */
 :global(#id-beta-bar) {
-	background: var(--color-terracotta-strong);
-	color: var(--color-surface-page);
+	border: var(--rule-mark) solid var(--color-terracotta-edge);
+	background: var(--color-terracotta-surface);
+	color: var(--color-terracotta-strong);
+}
+/*
+ * The eyebrow in the brand yellow — `accent-ink`, which IS sunflower darkened
+ * exactly far enough to be text. Sunflower itself measures 1.75:1 on this card
+ * and this line is 11px, so WCAG asks 4.5 of it. The ink is 5.80:1. Same rank
+ * `eyebrow-ink` holds for paradise, and the same reason it exists.
+ */
+:global(#claim) :global(.text--eyebrow) {
+	color: var(--color-accent-ink);
+}
+/* Full width: it is the one action on the card, so it takes the card. */
+:global(#id-claim-action) {
+	inline-size: 100%;
 }
 
 :global(#id-price-now) {

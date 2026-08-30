@@ -107,6 +107,8 @@
 	--color-warning-border: #f9e6b9;
 	--color-error: var(--color-terracotta);
 	--color-terracotta-strong: #a8452f;
+	--color-terracotta-surface: #faf0e8;
+	--color-terracotta-edge: var(--color-terracotta);
 	--color-error-edge: #d69280;
 	--color-error-ring: #edd1c4;
 	--color-error-foreground: var(--color-on-error);
