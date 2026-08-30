@@ -2,9 +2,10 @@
 /**
  * The marketplace page — its static bands delivered as configuration.
  *
- * Hero, chain visualization and bundled-pricing band are ViewDefs in
- * `$lib/vibes/skills.ts`, rendered at build by the routes' server loads and
- * placed with `{@html}`. The marketplace itself stays Svelte ON PURPOSE:
+ * Hero, chain visualization, bundled-pricing band AND every marketplace card
+ * are ViewDefs in `$lib/vibes/skills.ts`, rendered at build by the routes'
+ * server loads and placed with `{@html}`. The marketplace BAND stays Svelte
+ * ON PURPOSE:
  * which plans and skills are visible depends on the `?plan=` query string,
  * which only exists in the reader's browser — a genuinely dynamic section on
  * a prerendered site (the build renders the default selection, the client
@@ -16,7 +17,6 @@ import { page } from '$app/state'
 import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
-import SkillMarketplaceCard from '$lib/components/SkillMarketplaceCard.svelte'
 import { type Lang, localeHref, pick } from '$lib/i18n'
 import { localizedPlan, priceLabel } from '$lib/i18n/plans'
 import { skills as messages } from '$lib/i18n/skills'
@@ -103,8 +103,12 @@ const inheritedCount = $derived(visibleSkills.length - ownCount)
 							</a>
 						</div>
 						<div class="grid gap-4 md:grid-cols-2">
+							<!-- Each card is a ViewDef, rendered to HTML at build (see
+							     `$lib/vibes/skill-card.ts`). Nothing on a card moves, so
+							     the page places the string instead of mounting a component
+							     per skill. -->
 							{#each group.skills as skill (skill.slug)}
-								<SkillMarketplaceCard {skill} {lang} />
+								{@html sections.cards[skill.slug]}
 							{/each}
 						</div>
 					</div>

@@ -24,6 +24,7 @@ import { type Lang, localeHref, pick } from '$lib/i18n'
 import { skills as messages } from '$lib/i18n/skills'
 import { loadSkills, skillDetailHref } from '$lib/skills/loader'
 import { renderSection } from '$lib/vibes/render'
+import { skillCardView } from '$lib/vibes/skill-card'
 
 type Messages = (typeof messages)['de']['marketplace']
 
@@ -194,16 +195,29 @@ function bundleView(t: Messages, lang: Lang, skillCount: number): ViewNode {
 	}
 }
 
-export type SkillsSections = { hero: string; chain: string; bundle: string }
+export type SkillsSections = {
+	hero: string
+	chain: string
+	bundle: string
+	/* Every marketplace card, rendered at build and keyed by slug. Which cards
+	   the page SHOWS still depends on the query string; what a card IS does
+	   not, so the markup is a build fact and costs the reader no component. */
+	cards: Record<string, string>
+}
 
 export async function renderSkillsSections(lang: Lang): Promise<SkillsSections> {
 	const t = pick(messages, lang).marketplace
-	const skillCount = loadSkills(lang).length
+	const all = loadSkills(lang)
+	const cards: Record<string, string> = {}
+	for (const skill of all) {
+		cards[skill.slug] = await renderSection(skillCardView(skill, lang))
+	}
 	return {
 		hero: await renderSection(heroView(t), {
 			'@@skills-hero-paragraph@@': t.hero.paragraphHtml
 		}),
 		chain: await renderSection(chainView(t, lang)),
-		bundle: await renderSection(bundleView(t, lang, skillCount))
+		bundle: await renderSection(bundleView(t, lang, all.length)),
+		cards
 	}
 }
