@@ -22,7 +22,23 @@ export type HomeMessages = {
 	}
 	/** The proposition band under the hero: the one-line claim (with an accent
 	 * span) and the three 100 % absolutes it rests on. */
-	trust: { headlineHtml: string; claims: string[] }
+	trust: {
+		headlineHtml: string
+		claims: string[]
+		/**
+		 * The second half of the proposition: privacy is the promise, but the
+		 * ARITHMETIC is what makes it a decision. A reader who already trusts you
+		 * still has to justify the line item.
+		 */
+		cost: {
+			eyebrow: string
+			heading: string
+			/** The comparison, as three figures the reader can check. */
+			rows: { label: string; value: string; note: string }[]
+			/** What the gap buys, in one line. */
+			closing: string
+		}
+	}
 	shift: {
 		eyebrow: string
 		heading: string
@@ -94,7 +110,30 @@ export const home: Record<Lang, HomeMessages> = {
 		trust: {
 			headlineHtml:
 				'avenCEO ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
-			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum']
+			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
+			cost: {
+				eyebrow: 'Und die Rechnung',
+				heading: 'Ein CEO, den du dir leisten kannst — und der nie Feierabend macht.',
+				rows: [
+					{
+						label: 'Menschlicher CEO',
+						value: 'ab 100.000 €',
+						note: 'pro Jahr, plus Arbeitgeberanteil — für 40 Stunden die Woche'
+					},
+					{
+						label: 'avenCEO',
+						value: '5.148 €',
+						note: '99 € pro Woche — rund um die Uhr, ohne Urlaubsanspruch'
+					},
+					{
+						label: 'Unterschied',
+						value: '× 19',
+						note: 'derselbe Posten, ein Zwanzigstel der Kosten'
+					}
+				],
+				closing:
+					'Und er macht die Arbeit, die sich wiederholt — Angebote, Rechnungen, Nachfassen, Reporting — genau so, wie du es ansagst. Nicht ungefähr. Genau so.'
+			}
 		},
 		shift: {
 			eyebrow: 'Warum jetzt',
@@ -205,7 +244,30 @@ export const home: Record<Lang, HomeMessages> = {
 		},
 		trust: {
 			headlineHtml: 'avenCEO is the world’s 1st privacy‑preserving agentic co‑founder.',
-			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership']
+			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
+			cost: {
+				eyebrow: 'And the arithmetic',
+				heading: 'A CEO you can actually afford — who never clocks off.',
+				rows: [
+					{
+						label: 'Human CEO',
+						value: 'from 100,000 €',
+						note: 'a year, before employer costs — for forty hours a week'
+					},
+					{
+						label: 'avenCEO',
+						value: '5,148 €',
+						note: '99 € a week — around the clock, and it never takes leave'
+					},
+					{
+						label: 'Difference',
+						value: '× 19',
+						note: 'the same role, a twentieth of the cost'
+					}
+				],
+				closing:
+					'And it does the work that repeats — quotes, invoices, follow-ups, reporting — exactly the way you tell it to. Not roughly. Exactly.'
+			}
 		},
 		shift: {
 			eyebrow: 'Why now',

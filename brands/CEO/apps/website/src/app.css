@@ -44,26 +44,6 @@
  */
 
 @layer base {
-	/*
-	 * THE DUOTONE BACKING'S COLOUR, declared once for the whole surface.
-	 *
-	 * The engine paints a two-tone icon's secondary layer from `--icon-tint`,
-	 * falling back to `currentColor`. Pointing it at the brand role here rather
-	 * than on the `icon` leaf is deliberate: an icon is not always that leaf. A
-	 * view can draw a glyph with a bare `$icon` node — the navbar's hamburger
-	 * does, the menu's close does, every social mark does — and none of those
-	 * wear `.icon`, so a tint declared only there reaches none of them.
-	 *
-	 * It cannot live in `components.avenceo.json` either: every key in that map
-	 * is a CLASS NAME the emitter prefixes with a dot, so a `:root` entry ships
-	 * as `.[data-brand-root], :root` — an invalid selector, and a rule the
-	 * browser discards silently. Found by measuring the rendered fill and
-	 * getting marine where the tint should have been.
-	 */
-	:root {
-		--icon-tint: var(--color-icon-tint);
-	}
-
 	html {
 		@apply scroll-smooth antialiased;
 	}

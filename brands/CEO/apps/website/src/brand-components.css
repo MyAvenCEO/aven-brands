@@ -173,6 +173,7 @@
 		color: var(--color-foreground);
 		font-family: var(--font-sans);
 		-webkit-font-smoothing: antialiased;
+		--icon-tint: var(--color-icon-tint);
 	}
 
 	.mono-meta {
@@ -4064,6 +4065,9 @@
 		}
 		& .navbar-actions .segment-divider {
 			background: color-mix(in oklab, var(--color-on-dark) 45%, transparent);
+		}
+		& .navbar-toggle {
+			color: var(--color-on-dark);
 		}
 	}
 

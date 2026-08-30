@@ -73,7 +73,7 @@ export const common: Record<
 			avens: 'Marketplace',
 			pricing: 'Preise',
 			docs: 'Docs',
-			cta: 'Aven einstellen',
+			cta: 'Aven anstellen',
 			menu: 'Menü',
 			closeMenu: 'Menü schließen',
 			primaryLabel: 'Hauptnavigation',

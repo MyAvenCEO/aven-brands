@@ -161,6 +161,59 @@ function trustView(t: (typeof home)['de']): ViewNode {
 								]
 							})
 						)
+					},
+					/*
+					 * THE ARITHMETIC, under the promise.
+					 *
+					 * Privacy is why the product is different; cost is why the reader
+					 * can act on it. A band that only says "yours" asks for belief; the
+					 * same band with three checkable figures asks for a decision, and
+					 * the second is the one a founder can take to whoever signs.
+					 *
+					 * The numbers are the REAL ones: 99 euro a week is the avenCEO plan
+					 * in `facts.avenceo.json`, and 5,148 is that times 52 — not a round
+					 * marketing figure. A comparison a reader can check is worth more
+					 * than one that flatters, because they will check.
+					 *
+					 * Rendered as `stat`s again rather than a table: the same figure-
+					 * and-label pairing the claims above use, so the two halves of the
+					 * band read as one argument.
+					 */
+					{
+						tag: 'div',
+						attrs: { id: 'trust-cost' },
+						children: [
+							{
+								tag: 'p',
+								class: 'text text--eyebrow',
+								text: t.trust.cost.eyebrow
+							},
+							{
+								tag: 'p',
+								attrs: { id: 'trust-cost-heading' },
+								text: t.trust.cost.heading
+							},
+							{
+								tag: 'ul',
+								attrs: { id: 'trust-cost-rows' },
+								children: t.trust.cost.rows.map(
+									(row): ViewNode => ({
+										tag: 'li',
+										class: 'stat stat--align-center stat--size-sm',
+										children: [
+											{ tag: 'p', class: 'text text--eyebrow stat-label', text: row.label },
+											{ tag: 'p', class: 'stat-value', text: row.value },
+											{ tag: 'p', class: 'stat-caption', text: row.note }
+										]
+									})
+								)
+							},
+							{
+								tag: 'p',
+								attrs: { id: 'trust-cost-closing' },
+								text: t.trust.cost.closing
+							}
+						]
 					}
 				]
 			}

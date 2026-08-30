@@ -261,6 +261,57 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	color: var(--color-foreground);
 }
 
+/*
+ * The cost comparison, under the three absolutes.
+ *
+ * Its own rows rather than the claims grid: three figures with a caption each
+ * need more room than three one-word labels, and sharing the track wrapped the
+ * notes to four lines on a phone. `:global`, like every rule for this page's
+ * injected markup — the ViewDef renders at build and Svelte cannot see the
+ * elements to scope them.
+ */
+:global(#trust-cost) {
+	display: grid;
+	justify-items: center;
+	gap: var(--space-tight);
+	inline-size: 100%;
+	max-inline-size: 48rem;
+	margin-inline: auto;
+	margin-block-start: var(--space-section);
+	padding-block-start: var(--space-loose);
+	border-block-start: 1px solid color-mix(in oklab, var(--color-band-foreground) 15%, transparent);
+	text-align: center;
+}
+:global(#trust-cost-heading) {
+	max-inline-size: 30rem;
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-lead), 3.4cqi, var(--fs-amount));
+	font-weight: 400;
+	line-height: 1.25;
+	text-wrap: balance;
+	color: var(--color-band-foreground);
+}
+:global(#trust-cost-rows) {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
+	gap: var(--space-comfortable);
+	inline-size: 100%;
+	margin-block-start: var(--space-comfortable);
+}
+/* The middle row is the offer, so it leads: the other two are the frame it is
+   read against, and three equal figures would leave the eye nowhere to land. */
+:global(#trust-cost-rows > li:nth-child(2) .stat-value) {
+	color: var(--color-accent);
+}
+:global(#trust-cost-closing) {
+	max-inline-size: 40rem;
+	margin: var(--space-comfortable) 0 0;
+	font-size: var(--fs-meta);
+	line-height: 1.55;
+	color: var(--color-on-dark-quiet);
+}
+
 :global(#trust-claims) {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
