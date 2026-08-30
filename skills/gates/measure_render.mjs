@@ -197,6 +197,18 @@ for (const f of files) {
      * concludes white-on-cream. `elementsFromPoint` sees what is actually there.
      */
     const overImage = (el) => {
+      /*
+       * The DECLARED marker first, and it has to come first.
+       *
+       * The geometric walk below uses `elementsFromPoint`, which only answers
+       * for what is inside the viewport — so every element BELOW THE FOLD that
+       * sits on a picture was measured against whatever colour its ancestors
+       * composited to, and reported as a failure or a pass on a ground it is
+       * not on. `axe_audit` and `verify_states` both already honour
+       * `data-ground="media"`; this one did not, so the same element could be
+       * excluded by two gates and failed by the third.
+       */
+      if (el.closest('[data-ground="media"]')) return true;
       const r = el.getBoundingClientRect();
       if (!r.width || !r.height) return false;
       const x = r.left + r.width / 2, y = r.top + r.height / 2;

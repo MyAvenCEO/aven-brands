@@ -182,46 +182,21 @@ function priceView(lang: Lang): ViewNode {
 	}
 }
 
-/**
- * The early-adopter perk, as a full-width bar clipped to the rounded
- * corners: negative margins cancel the card padding and the form
- * `overflow-hidden` rounds it off.
- */
-function betaView(lang: Lang): ViewNode | null {
-	const t = pick(common, lang).idCta
-	const ceoBeta = plan('aven-ceo').beta
-	if (!ceoBeta) return null
-	return {
-		tag: 'div',
-		class:
-			'-mx-5 -mb-9 mt-8 px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10',
-		attrs: { id: 'id-beta-bar' },
-		children: [
-			{
-				tag: 'p',
-				class: 'font-bold leading-snug',
-				text: t.betaLine(ceoBeta.discountPct, ceoBeta.months)
-			},
-		]
-	}
-}
 
 /**
  * The three strings the card places around its heading and its field row.
  * `beta` is empty when no beta is running, which is how the bar disappears
  * without the component knowing what a beta is.
  */
-export type IdCtaChrome = { body: string; price: string; beta: string }
+export type IdCtaChrome = { body: string; price: string }
 
 const cache = new Map<Lang, Promise<IdCtaChrome>>()
 
 async function render(lang: Lang): Promise<IdCtaChrome> {
 	const t = pick(common, lang).idCta
-	const beta = betaView(lang)
 	return {
 		body: await renderSection(bodyView(lang), { '@@id-cta-body@@': t.bodyHtml }),
-		price: await renderSection(priceView(lang)),
-		beta: beta ? await renderSection(beta) : ''
+		price: await renderSection(priceView(lang))
 	}
 }
 

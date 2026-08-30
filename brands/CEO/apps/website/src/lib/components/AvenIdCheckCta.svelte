@@ -78,5 +78,4 @@ if (!chrome)
 		</a>
 	</div>
 
-	{@html chrome.beta}
 </div>

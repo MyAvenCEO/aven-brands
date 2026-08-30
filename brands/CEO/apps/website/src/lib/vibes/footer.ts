@@ -29,8 +29,6 @@ import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
 import { renderSection } from '$lib/vibes/render'
 
-const year = 2026
-
 const LINK_CLASS = 'text-primary-foreground-quiet transition-colors hover:text-primary-foreground'
 
 function footerView(lang: Lang): ViewNode {
@@ -143,12 +141,7 @@ function footerView(lang: Lang): ViewNode {
 							}
 						]
 					},
-					{
-						tag: 'div',
-						class:
-							'flex flex-col gap-2 border-t border-primary-foreground/15 pt-6 text-[length:var(--fs-eyebrow)] text-primary-foreground-quiet sm:flex-row sm:items-center sm:justify-between',
-						children: [{ tag: 'p', text: `© ${year} ${t.footer.copyright}` }]
-					}
+
 				]
 			}
 		]

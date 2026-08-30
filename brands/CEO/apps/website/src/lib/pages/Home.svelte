@@ -56,9 +56,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	{@html sections.trust}
 	{@html sections.cost}
 
+	{@html sections.company}
 	{@html sections.shift}
 
-	{@html sections.company}
 
 	{@html sections.own}
 
@@ -444,6 +444,12 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	position: relative;
 	background: var(--color-accent-surface);
 	color: var(--color-accent-foreground);
+}
+/* The future script's eyebrow takes the warm ramp, like the panel it sits on —
+   `accent-ink` at 5.20:1 on that tint. It was `eyebrow-ink`, which is paradise:
+   correct on cream and a cool note inside a warm card. */
+:global(.shift-script[data-script='with']) :global(.rule-label) {
+	color: var(--color-accent-ink);
 }
 :global(.shift-script[data-script='with']) :global(.shift-script-title),
 :global(.shift-script[data-script='with']) :global(.shift-script-items),
@@ -1154,6 +1160,29 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    the page's ink rather than the quiet tone, a step up in size, and the tracked
    caps kept because they are what makes it read as a statement rather than a
    sentence. */
+/*
+ * The rate, highlighted, leading the claim.
+ *
+ * `secondary-strong` and not paradise itself: cream on paradise is 3.93:1 and
+ * this is a running snippet, not a heading, so 4.5 applies. The darkened step
+ * is 4.61 and holds at any size the line ends up at.
+ */
+:global(#cost-closing-rate) {
+	display: inline-block;
+	margin-inline-end: var(--space-tight);
+	padding: var(--space-hairline) var(--space-tight);
+	border-radius: var(--radius-xs);
+	background: var(--color-secondary-strong);
+	font-size: var(--fs-section);
+	font-weight: 700;
+	letter-spacing: var(--tracking-wide);
+	text-transform: none;
+	color: var(--color-surface-page);
+}
+/* The statement runs on after it, on its own line at wide measures. */
+:global(#cost-closing-line) {
+	display: inline;
+}
 :global(#cost-closing) {
 	--measure: 40rem;
 	font-size: var(--fs-section);
@@ -1302,7 +1331,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	/* `--min` is the primitive's own knob for the narrowest a column may be.
 	   Its default is 16rem, which fits TWO of these at 768px where the
 	   original 13rem fits three — a default is not the value you had. */
-	--min: 13rem;
+	/* A third narrower: these are marks, not cards, and at 13rem they read as
+	   three panels competing with the sentence above them. */
+	--min: 9rem;
 	/* `.center` owns the inline auto margins; the block one is this rule's. */
 	margin-block-start: var(--space-loose);
 }
@@ -1315,8 +1346,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  */
 :global(.trust-claim) {
 	display: grid;
-	/* `size-chip` pads evenly; this one is narrower on the inline axis. */
-	padding-inline: var(--space-comfortable);
+	/* `size-chip` pads evenly; this one is tighter on both axes — a third off,
+	   so the chip sits closer around its mark. */
+	padding: var(--space-comfortable) var(--space-tight);
 	justify-items: center;
 	--gap: var(--space-hairline);
 	text-align: center;
@@ -1345,8 +1377,11 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 :global(.trust-claim-name) {
 	margin: 0;
-	font-size: var(--fs-title);
-	font-weight: 500;
+	/* A step down in size and a step down in weight: the mark leads, the label
+	   names it. The ICON is untouched — shrinking that would lose the thing the
+	   chip is built around. */
+	font-size: var(--fs-meta);
+	font-weight: 400;
 	letter-spacing: var(--tracking-wide);
 	text-transform: uppercase;
 	text-wrap: balance;

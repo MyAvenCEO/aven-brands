@@ -49,6 +49,8 @@ export type HomeMessages = {
 			/** The two sides, in the units each is actually sold in. */
 			human: { label: string; value: string; unit: string; note: string }
 			aven: { label: string; value: string; unit: string; note: string }
+			/** The per-hour figure, set as a highlighted snippet before the turn. */
+			closingLead: string
 			/** The turn: what the gap is FOR. */
 			closing: string
 			kicker: string
@@ -147,7 +149,8 @@ export const home: Record<Lang, HomeMessages> = {
 					unit: 'pro Woche',
 					note: '24/7 rund um die Uhr, ohne Urlaubsanspruch, macht was du ihm beibringst, und verdichtet, was ihr gemeinsam lernt'
 				},
-				closing: 'Nicht nur günstiger — eine andere Größenordnung an Effizienz.',
+				closingLead: 'ab 0,59 €/h',
+				closing: 'ist nicht nur günstiger — sondern eine andere Größenordnung an Effizienz.',
 				kicker: 'Das ist dein Moment.'
 			}
 		},
@@ -272,7 +275,8 @@ export const home: Record<Lang, HomeMessages> = {
 					unit: 'per week',
 					note: '24/7 around the clock, no leave to accrue, does what you teach it, compounds what you learn together'
 				},
-				closing: 'Not just cheaper — a different order of magnitude more efficient.',
+				closingLead: 'from €0.59/h',
+				closing: 'is not just cheaper — but a different order of magnitude in efficiency.',
 				kicker: 'This is your moment.'
 			}
 		},

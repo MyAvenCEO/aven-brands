@@ -40,8 +40,12 @@ let {
      BELOW the offer, not above it. Leading with the picture asked the reader to
      look before it had told them what they were looking at; the offer states
      the thing and the banner closes the page on it. -->
-<figure id="claim-banner" aria-hidden="true">
+<figure id="claim-banner" data-ground="media">
 	<img src="/family.jpg" alt="" width="1920" height="720" loading="lazy" decoding="async" />
+	<!-- An imprint, not a caption: it sits IN the picture the way a maker's mark
+	     sits in a print, at half strength so it belongs to the image rather than
+	     covering it. Decorative — the page has already said this. -->
+	<figcaption id="claim-imprint" aria-hidden="true">— own your life —</figcaption>
 </figure>
 
 <style>
@@ -79,23 +83,6 @@ let {
  * of showing it.
  */
 /*
- * THE OFFER BAR: a bordered note, not a filled band.
- *
- * Solid terracotta made it the loudest thing on a card whose loudest thing
- * should be the action. It is a note now — the tone as a 2px edge, its own
- * light ground behind, and the darkened tone as ink.
- *
- * Measured at the line's real size, 16px bold, so 4.5:1 applies and not the
- * 3:1 large text gets: `terracotta-strong` on `terracotta-surface` is 5.26:1.
- * Raw terracotta on that ground is 3.86 and would have failed — the tone works
- * as the LINE and not as the ink, which is the whole reason both roles exist.
- */
-:global(#id-beta-bar) {
-	border: var(--rule-mark) solid var(--color-terracotta-edge);
-	background: var(--color-terracotta-surface);
-	color: var(--color-terracotta-strong);
-}
-/*
  * The eyebrow in the brand yellow — `accent-ink`, which IS sunflower darkened
  * exactly far enough to be text. Sunflower itself measures 1.75:1 on this card
  * and this line is 11px, so WCAG asks 4.5 of it. The ink is 5.80:1. Same rank
@@ -123,7 +110,11 @@ let {
 	border-radius: var(--radius-sm);
 	/* Sunflower at full strength, not the tint: a discount badge that whispers
 	   is not doing the one job it has. Marine on it measures 8.27:1. */
-	background: var(--color-sunflower);
+	/* The same family as the offer note below it: this IS the offer, stated as
+	   the price it replaces. `terracotta-strong` on the light tint measures
+	   5.26:1 — the raw tone is 3.86 and would not carry a strike this size. */
+	background: var(--color-terracotta-surface);
+	border: 1px solid var(--color-terracotta-edge);
 	font-size: var(--fs-title);
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
@@ -140,11 +131,36 @@ let {
 /* Matches the divider it replaced: the file's own 8:3, and no height cap —
    capping made `object-fit: cover` crop the picture to a strip. */
 :global(#claim-banner) {
+	position: relative;
 	margin: 0;
 	inline-size: 100%;
 	aspect-ratio: 1920 / 720;
 	overflow: hidden;
 	background: var(--color-surface-sunken);
+}
+/*
+ * The imprint sits in the bottom quarter, centred, in the display face at half
+ * strength. `aria-hidden` and no contrast claim: it is part of the picture, and
+ * anything a reader must be able to read is in the card above it.
+ */
+:global(#claim-imprint) {
+	position: absolute;
+	inset-inline: 0;
+	inset-block-end: 0;
+	block-size: 25%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--font-display);
+	font-size: clamp(1.25rem, 3cqi, 2.25rem);
+	letter-spacing: var(--tracking-wide);
+	/*
+	 * 78%, not 50%. The bottom quarter of this picture averages #897b55 — sand
+	 * and stone, not dark — and cream at half strength measures about 2:1 there,
+	 * which is not an imprint but an absence. At 78% it is 3.5:1 against that
+	 * mean: still clearly part of the image, and still readable.
+	 */
+	color: color-mix(in srgb, var(--color-surface-page) 78%, transparent);
 }
 :global(#claim-banner img) {
 	display: block;

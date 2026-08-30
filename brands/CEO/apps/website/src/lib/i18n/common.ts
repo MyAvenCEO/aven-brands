@@ -49,8 +49,6 @@ export const common: Record<
 			/** HTML — our own static copy, carries <strong> emphasis. */
 			bodyHtml: string
 			/** The early-adopter perk this €25 unlocks — the real hook, as a bullet. */
-			betaLine: (pct: number, months: number) => string
-			betaPriceLine: (discounted: string, regular: string) => string
 			placeholder: string
 			button: string
 			exampleLabel: string
@@ -104,9 +102,6 @@ export const common: Record<
 			title: 'Sichere dir jetzt deinen avenCEO‑Namen',
 			bodyHtml:
 				'Dein eigener avenNAME — z. B. <strong class="font-medium text-foreground/82">avenMAIA</strong> — samt eigener Domain <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Er ist Name und Adresse deines Avens in einem: wie eine Telefonnummer ist er der Weg, auf dem jemand deinen Aven erreicht, der mit ihm sprechen will. Es gibt ihn genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
-			betaLine: (pct, months) =>
-				`inkl. ${pct}% Rabatt auf deine ersten ${months} Monate avenCEO`,
-			betaPriceLine: (discounted, regular) => `${discounted} €/m statt ${regular} €`,
 			placeholder: 'maia',
 			button: 'Sichere dir jetzt deinen avenNAME',
 			exampleLabel: 'Beispiel:',
@@ -159,9 +154,6 @@ export const common: Record<
 			title: 'Claim your avenCEO name now',
 			bodyHtml:
 				'Your own avenNAME — e.g. <strong class="font-medium text-foreground/82">avenMAIA</strong> — with your own domain <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It is your Aven’s name and address in one: like a phone number, it is how anyone reaches yours when they want to talk to it. It exists exactly once — claim it before someone else does.',
-			betaLine: (pct, months) =>
-				`incl. ${pct}% off your first ${months} months of avenCEO`,
-			betaPriceLine: (discounted, regular) => `${discounted} €/m instead of ${regular} €`,
 			placeholder: 'maia',
 			button: 'Claim your avenNAME now',
 			exampleLabel: 'Example:',

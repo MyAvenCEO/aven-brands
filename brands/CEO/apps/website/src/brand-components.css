@@ -4297,6 +4297,11 @@
 		& .navbar-actions .segment-option {
 			color: var(--color-on-dark);
 		}
+		& .navbar-actions .segment-option:hover {
+			color: var(--color-on-dark);
+			background: color-mix(in srgb, var(--color-on-dark) 12%, transparent);
+			border-radius: var(--radius-xs);
+		}
 		& .navbar-actions .segment-option[aria-current] {
 			color: var(--color-on-dark);
 			text-decoration: underline;

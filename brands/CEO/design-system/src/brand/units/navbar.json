@@ -220,6 +220,12 @@
 					"& .navbar-actions .segment-option": {
 						"color": "var(--color-on-dark)"
 					},
+					"& .navbar-actions .segment-option:hover": {
+						"$description": "The hover has to be re-inked too, and it was not. `segment`'s own hover goes from `foreground-quiet` to `foreground` — quiet to full — which is right on the page and inverts here: this tone already sets the base to `on-dark`, so hovering turned the letters to the page's DARK ink over a dark bar and the label disappeared under the cursor. A tone that re-inks a control has to re-ink its states.",
+						"color": "var(--color-on-dark)",
+						"background": "color-mix(in srgb, var(--color-on-dark) 12%, transparent)",
+						"borderRadius": "var(--radius-xs)"
+					},
 					"& .navbar-actions .segment-option[aria-current]": {
 						"color": "var(--color-on-dark)",
 						"textDecoration": "underline",

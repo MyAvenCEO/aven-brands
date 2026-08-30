@@ -395,7 +395,7 @@ function costView(t: (typeof home)['de']): ViewNode {
 					   still be a field. */
 					{
 						tag: 'div',
-						class: 'pair pair--inset-padded',
+						class: 'pair pair--rule-none',
 						attrs: { id: 'cost-price' },
 						children: [
 							{
@@ -438,7 +438,13 @@ function costView(t: (typeof home)['de']): ViewNode {
 						tag: 'p',
 						class: 'center',
 						attrs: { id: 'cost-closing' },
-						text: t.trust.cost.closing
+						children: [
+							/* The rate leads, highlighted — it is the thing being claimed,
+							   and a claim whose evidence sits unmarked in the sentence
+							   beside it reads as an opinion. */
+							{ tag: 'span', attrs: { id: 'cost-closing-rate' }, text: t.trust.cost.closingLead },
+							{ tag: 'span', attrs: { id: 'cost-closing-line' }, text: t.trust.cost.closing }
+						]
 					},
 					{
 						tag: 'ul',
