@@ -683,7 +683,7 @@
 	.section {
 		display: block;
 		padding-inline: var(--space-comfortable);
-		padding-block: var(--space-section);
+		padding-block: calc(var(--space-section) * 1.6);
 		border-block-end: 1px solid var(--color-border-soft);
 		container-type: inline-size;
 		container-name: section;
@@ -699,11 +699,11 @@
 	}
 
 	.section--rhythm-tight {
-		padding-block: var(--space-loose);
+		padding-block: calc(var(--space-section) * 1.1);
 	}
 
 	.section--rhythm-loose {
-		padding-block: calc(var(--space-section) * 1.4);
+		padding-block: calc(var(--space-section) * 2.4);
 	}
 
 	.section--ground-band {

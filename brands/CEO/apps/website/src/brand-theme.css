@@ -199,6 +199,7 @@
 	--tint-firm: 0.25;
 	--rule-mark: 2px;
 	--rule-accent: 3px;
+	--rule-frame: 6px;
 	--duration-instant: 80ms;
 	--duration-quick: 140ms;
 	--duration-moderate: 240ms;

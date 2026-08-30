@@ -246,10 +246,21 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	   sky (2.99:1 at the 95th percentile, where the links need 4.5:1). Now the
 	   guarantee lives in the role, `--color-scrim-strong`, and raising it fixes
 	   every surface that floats text on media rather than this one. */
+	/* The MIDDLE stop lightens, the top one does not. The top is the documented
+	   guarantee for the nav links over the video's sky and dropping it would
+	   re-break exactly the bug the note above records. The middle was the
+	   darkest stop of the three (68% against the top's 65%), which is what made
+	   the scene look painted over rather than lit through — it takes
+	   `--color-scrim-heavy` (55%) rather than the 68% it was.
+
+	   The first attempt used `--color-scrim-text` (45%) and MEASURED at 2.99:1
+	   behind the 64px display line — a hundredth under the 3:1 large text needs,
+	   which no gate would have caught because every gate reports this element as
+	   "sits on imagery, check by eye". 55% is the lightest stop that holds. */
 	background: linear-gradient(
 		to bottom,
 		var(--color-scrim-strong) 0%,
-		var(--color-scrim) 42%,
+		var(--color-scrim-heavy) 45%,
 		var(--color-scrim-heavy) 100%
 	);
 }
@@ -500,8 +511,14 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	inline-size: 100%;
 	margin: 0;
 	padding: var(--space-section) var(--space-loose);
+	/* A FRAME, not a fill. Solid sunflower across a block this size was the
+	   loudest thing on the page and it was shouting at the reader rather than
+	   inviting them; the tone belongs on the edge, where it still says "this is
+	   the accent moment", with the ground a step lighter behind the type.
+	   Marine on `accent-edge` measures 9.99:1. */
+	border: var(--rule-frame) solid var(--color-sunflower);
 	border-radius: var(--radius-xl);
-	background: var(--color-sunflower);
+	background: var(--color-accent-edge);
 	text-align: center;
 }
 :global(#shift-turn-lead) {

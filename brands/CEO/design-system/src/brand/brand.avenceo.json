@@ -1076,6 +1076,11 @@
 				"$type": "dimension",
 				"$value": "3px",
 				"$description": "An accent bar across a panel head. Reads as emphasis."
+			},
+			"rule-frame": {
+				"$type": "dimension",
+				"$value": "6px",
+				"$description": "A card FRAME — a border thick enough to be part of the shape rather than an edge on it. Two steps up from the accent bar because the jobs are different: a rule separates, a frame contains."
 			}
 		},
 		"space": {

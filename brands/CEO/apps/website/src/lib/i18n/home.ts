@@ -209,7 +209,7 @@ export const home: Record<Lang, HomeMessages> = {
 		skills: {
 			eyebrow: 'Aven Skills',
 			heading: 'Fertige Skills für deinen Aven.',
-			lead: 'Dein Aven lernt per Skill — installieren statt entwickeln. Ein Auszug:',
+			lead: 'Dein Aven lernt per Skill — fang mit den Grundlagen an und gestaltet eigene Skills, wenn ihr wachst.',
 			all: 'Alle Skills ansehen →'
 		},
 		start: {
@@ -324,7 +324,7 @@ export const home: Record<Lang, HomeMessages> = {
 		skills: {
 			eyebrow: 'Aven Skills',
 			heading: 'Ready-made skills for your Aven.',
-			lead: 'Your Aven learns by skill — install instead of develop. A sample:',
+			lead: 'Your Aven learns by skill — start with the basics, then co-create custom skills as you grow.',
 			all: 'See all skills →'
 		},
 		start: {
