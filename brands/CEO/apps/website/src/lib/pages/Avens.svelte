@@ -1,26 +1,28 @@
 <script lang="ts">
-import { avensOfKind, type LiveAven } from '$lib/avens'
-import { beamAvatarSvg, paletteFromCommaString } from '$lib/beam-avatar'
+/**
+ * The Avens registry — delivered as configuration.
+ *
+ * Every band above the CTA is a build-time fact (the live Avens, their
+ * profiles, their generated beam avatars), so hero, company cards and the
+ * personal registry render from ViewDefs in `$lib/vibes/avens.ts` at build
+ * and arrive here as HTML. What stays Svelte is the shell around
+ * `AvenIdCheckCta` (real network logic, a future sandbox-tier island), the
+ * header and the footer.
+ */
+import { page } from '$app/state'
 import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import { type Lang, pick } from '$lib/i18n'
 import { avens } from '$lib/i18n/avens'
+import type { AvensSections } from '$lib/vibes/avens'
 
 let { lang }: { lang: Lang } = $props()
 
 const t = $derived(pick(avens, lang))
 
-const paletteCompany = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
-const palettePerson = paletteFromCommaString('f7ead9,ccc7a8,88b499,305669,222e49')
-
-const companies = avensOfKind('company')
-const people = avensOfKind('person')
-
-/** The handle is the address — the whole point of a registry. */
-function handle(a: LiveAven) {
-	return `${a.slug}.aven.ceo`
-}
+const sections: AvensSections = page.data.avensSections
+if (!sections) throw new Error('[avens] missing avensSections — the route has no server load')
 </script>
 
 <svelte:head>
@@ -28,183 +30,35 @@ function handle(a: LiveAven) {
 	<meta name="description" content={t.description}>
 </svelte:head>
 
-<!-- The {@html} below renders our own static copy from $lib/i18n — never user content. -->
 <div {lang} class="app-shell">
 	<MarketingSiteHeader active="avens" maxWidth="6xl" {lang} />
 
-	<section class="border-b border-border/25 px-5 py-20 sm:px-8 sm:py-28">
-		<div class="mx-auto max-w-3xl text-center">
-			<p class="eyebrow">
-				{t.eyebrow}
-			</p>
-			<h1
-				class="mt-4 text-[length:var(--fs-amount)] font-semibold tracking-[var(--tracking-tight)] text-pretty leading-snug text-foreground sm:text-3xl md:text-[length:var(--fs-display-lg)] md:leading-[1.15]"
-			>
-				{t.heading}
-			</h1>
-			<p
-				class="mx-auto mt-6 max-w-2xl text-[length:var(--fs-title)] leading-relaxed text-foreground-quiet sm:text-base"
-			>
-				{@html t.introHtml}
-			</p>
-		</div>
-	</section>
+	{@html sections.hero}
 
-	<!-- Company Aven: what the company is FOR, and what it runs. -->
-	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
-		<div class="mx-auto max-w-6xl">
-			<header class="max-w-2xl">
-				<p class="eyebrow">
-					{t.company.label}
-				</p>
-				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground-quiet">
-					{t.company.lead}
-				</p>
-			</header>
+	{@html sections.companies}
 
-			<div class="mt-6 grid gap-4 lg:grid-cols-2">
-				{#each companies as a (a.slug)}
-					{@const profile = t.companies[a.slug]}
-					<article
-						class="flex min-w-0 flex-col rounded-lg border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]"
-					>
-						<div class="flex items-start gap-4">
-							<div
-								class="size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page [&>svg]:block [&>svg]:size-full"
-								aria-hidden="true"
-							>
-								{@html beamAvatarSvg(a.name, paletteCompany, 56, `aven-${a.slug}`)}
-							</div>
-							<div class="min-w-0 flex-1">
-								<div class="flex flex-wrap items-baseline justify-between gap-2">
-									<p class="text-xl font-semibold tracking-tight text-foreground">{a.name}</p>
-									<span
-										class="rounded-full bg-accent/15 px-2.5 py-0.5 text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent-ink"
-									>
-										{t.kind.company}
-									</span>
-								</div>
-								<p class="mt-0.5 text-[length:var(--fs-body)] text-foreground-quiet">
-									<span class="font-medium text-foreground-soft">{a.slug}</span>.aven.ceo
-								</p>
-							</div>
-						</div>
-
-						{#if profile}
-							<!-- Vision left (2/3), who-and-where right (1/3). -->
-							<div class="mt-5 grid gap-4 border-t border-border/25 pt-4 lg:grid-cols-3 lg:gap-6">
-								<div class="lg:col-span-2">
-									<p class="eyebrow">
-										{t.mission}
-									</p>
-									<p class="mt-2 text-[length:var(--fs-section)] leading-snug text-foreground-soft">
-										{profile.mission}
-									</p>
-								</div>
-								<div
-									class="text-[length:var(--fs-meta)] leading-snug text-foreground-quiet lg:border-l lg:border-border/25 lg:pl-5"
-								>
-									<p>
-										{t.behind}
-										<span class="block font-medium text-foreground-soft">{a.holder}</span>
-									</p>
-									{#if a.link}
-										<p class="mt-2">
-											<a
-												href={a.link.href}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="font-medium text-foreground-quiet underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
-											>
-												{a.link.label}
-												↗
-											</a>
-										</p>
-									{/if}
-								</div>
-							</div>
-						{/if}
-					</article>
-				{/each}
-			</div>
-		</div>
-	</section>
-
-	<!-- Personal Aven: a registry line, nothing more. A personal Aven is private. -->
-	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
-		<div class="mx-auto max-w-6xl">
-			<header class="max-w-2xl">
-				<p class="eyebrow">
-					{t.person.label}
-				</p>
-				<p class="mt-2 text-[length:var(--fs-title)] leading-snug text-foreground-quiet">
-					{t.person.lead}
-				</p>
-				<p class="mt-1 text-[length:var(--fs-meta)] leading-snug text-foreground-quiet">
-					{t.activationNote}
-				</p>
-			</header>
-
-			<ul
-				class="mt-6 divide-y divide-border/25 overflow-hidden rounded-lg border border-foreground/8 bg-surface-raised"
-			>
-				{#each people as a (a.slug)}
-					<li class="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-4">
-						<div
-							class="size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page [&>svg]:block [&>svg]:size-full"
-							aria-hidden="true"
-						>
-							{@html beamAvatarSvg(a.name, palettePerson, 40, `aven-${a.slug}`)}
-						</div>
-						<div class="min-w-0 flex-1">
-							<p class="text-[length:var(--fs-title)] font-semibold tracking-tight text-foreground">
-								{a.name}
-							</p>
-							<p class="text-[length:var(--fs-meta)] text-foreground-quiet">{handle(a)}</p>
-							{#if t.bios[a.slug] || a.link}
-								<p
-									class="mt-1 max-w-xl text-[length:var(--fs-meta)] leading-snug text-foreground-quiet"
-								>
-									{#if t.bios[a.slug]}
-										{t.bios[a.slug]}
-									{/if}
-									{#if a.link}
-										<a
-											href={a.link.href}
-											target="_blank"
-											rel="noopener noreferrer"
-											class="font-medium text-foreground-quiet underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-foreground/60"
-										>
-											{a.link.label}
-											↗
-										</a>
-									{/if}
-								</p>
-							{/if}
-						</div>
-						<p
-							class="ml-auto text-right text-[length:var(--fs-meta)] leading-snug text-foreground-quiet"
-						>
-							{t.behind}
-							<span class="font-medium text-foreground-soft">{a.holder}</span>
-							{#if a.worksOn}
-								<span class="block text-foreground-quiet">{t.worksOn} {a.worksOn}</span>
-							{/if}
-						</p>
-					</li>
-				{/each}
-			</ul>
-		</div>
-	</section>
+	{@html sections.people}
 
 	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16">
 		<div class="mx-auto max-w-2xl">
-			<p class="mb-4 text-center text-[length:var(--fs-title)] font-medium text-foreground-soft">
-				{t.cta}
-			</p>
+			{@html sections.ctaHead}
 			<AvenIdCheckCta variant="banner" {lang} />
 		</div>
 	</section>
 
 	<SiteFooter {lang} />
 </div>
+
+<style>
+/* The beam avatars arrive through the render seam as generated SVG; these
+   declarations are what `[&>svg]:block [&>svg]:size-full` said when the
+   wrappers were compiled markup — the `>` in that arbitrary variant does not
+   survive the engine's attribute sanitiser. `:global` because the sections
+   arrive through `{@html}` and Svelte never compiled them. */
+:global(#avens-companies div[aria-hidden="true"] > svg),
+:global(#avens-people div[aria-hidden="true"] > svg) {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+</style>

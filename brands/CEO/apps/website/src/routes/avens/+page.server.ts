@@ -1,5 +1,8 @@
-/** The build-rendered footer; this page's own sections migrate next. */
-import { footerData } from '$lib/vibes/footer'
+/** The Avens registry's static sections and the footer, rendered at build. */
+import { renderAvensSections } from '$lib/vibes/avens'
+import { footerHtml } from '$lib/vibes/footer'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = ({ url }) => footerData(url.pathname)
+export const load: PageServerLoad = async () => {
+	return { avensSections: await renderAvensSections('en'), footerHtml: await footerHtml('en') }
+}
