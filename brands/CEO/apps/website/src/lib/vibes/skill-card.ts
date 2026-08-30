@@ -41,6 +41,31 @@ export type SkillCardVariant = 'default' | 'spotlight'
    the card promises a story rather than telling one. */
 const QUOTE_CHARS = 100
 
+/**
+ * ONE CHARACTER THE SANITISER STILL EATS.
+ *
+ * Engine 0.9.3 stopped stripping typographic punctuation from attribute
+ * values — em-dashes, en-dashes, curly quotes, the curly apostrophe U+2019,
+ * ellipses, non-breaking spaces. It stops one character short: the ASCII
+ * apostrophe U+0027 is still removed, although it is exactly as harmless as
+ * the curly one inside a double-quoted attribute.
+ *
+ * The site writes the straight apostrophe — sixty-one of them across the
+ * English skill copy and not one curly — so this is a convention, not a typo,
+ * and rewriting the copy to suit an engine is the wrong direction. But leaving
+ * it alone turns "when it's good" into "when its good" in the accessible name:
+ * a different word, and a name that no longer matches the label a sighted
+ * reader sees.
+ *
+ * So the NAME (never the visible copy) gets the curly apostrophe, which
+ * survives. Delete this the day U+0027 is admitted; the check that it is still
+ * needed is one line in the engine sanitiser: the character class in
+ * `sanitizeAttributeWhitelist`.
+ */
+function survivesAsName(value: string): string {
+	return value.replaceAll("'", '\u2019')
+}
+
 function cardClass(skill: AvenosSkill, variant: SkillCardVariant): string {
 	if (skill.comingSoon) return 'card skill-card skill-card--emphasis-soon'
 	if (variant === 'spotlight') return 'card skill-card skill-card--emphasis-featured'
@@ -64,7 +89,7 @@ export function skillCardView(
 		class: cardClass(skill, variant),
 		attrs: {
 			href: skillDetailHref(skill.slug, lang),
-			'aria-label': `${label} — ${skill.oneLineCopy}`
+			'aria-label': survivesAsName(`${label} — ${skill.oneLineCopy}`)
 		},
 		children: [
 			{

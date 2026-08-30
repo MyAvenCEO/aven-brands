@@ -1,59 +1,66 @@
 <script lang="ts">
 /**
- * The marketplace page — its static bands delivered as configuration.
+ * The marketplace page — every band but one delivered as configuration.
  *
- * Hero, chain visualization, bundled-pricing band AND every marketplace card
- * are ViewDefs in `$lib/vibes/skills.ts`, rendered at build by the routes'
- * server loads and placed with `{@html}`. The marketplace BAND stays Svelte
- * ON PURPOSE:
- * which plans and skills are visible depends on the `?plan=` query string,
- * which only exists in the reader's browser — a genuinely dynamic section on
- * a prerendered site (the build renders the default selection, the client
- * re-renders when a deep link narrows it). The CTA band hosts
- * `AvenIdCheckCta`, real network logic, and stays with it.
+ * Hero, marketplace, chain visualization and bundled-pricing band are ViewDefs
+ * in `$lib/vibes/skills.ts`, rendered at build by the routes' server loads and
+ * placed with `{@html}`. The CTA band hosts `AvenIdCheckCta`, which owns a
+ * form, and stays with it.
+ *
+ * The marketplace used to be Svelte because `?plan=` only exists in the
+ * reader's browser. It is configuration now because that query string has
+ * finitely many answers — one per plan we sell — and the build renders the
+ * band for every one of them. What is left here is the pick, and it is the
+ * whole of the page's product logic:
+ *
+ *   an unknown or absent plan is the default the build already put on the page.
+ *
+ * The page no longer reads the skill catalogue at all, which is the point: it
+ * used to pull every skill document in both languages into the reader's bundle
+ * to render thirteen cards that never change.
  */
-import { browser } from '$app/environment'
 import { page } from '$app/state'
 import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
-import { type Lang, localeHref, pick } from '$lib/i18n'
-import { localizedPlan, priceLabel } from '$lib/i18n/plans'
+import { type Lang, pick } from '$lib/i18n'
 import { skills as messages } from '$lib/i18n/skills'
-import { PLANS, type PlanId, planIncludes } from '$lib/pricing/plans'
-import { loadSkills, loadSkillsByPlan } from '$lib/skills/loader'
+import type { PlanId } from '$lib/pricing/plans'
 import type { SkillsSections } from '$lib/vibes/skills'
 
 let { lang }: { lang: Lang } = $props()
 
 const t = $derived(pick(messages, lang).marketplace)
-const skills = $derived(loadSkills(lang))
-const byPlan = $derived(loadSkillsByPlan(lang))
 
 const sections: SkillsSections = page.data.skillsSections
 if (!sections) throw new Error('[skills] missing skillsSections — the route has no server load')
 
 /**
  * The marketplace is organized by PRODUCT, not by author: a buyer asks which
- * plan a skill comes with. avenCEO carries every skill, so
- * picking one shows exactly its skills; only avenCOOP also carries avenCEO's.
- * `?plan=` lets the pricing
- * page link straight into the right selection.
+ * plan a skill comes with. `?plan=` lets the pricing page link straight into
+ * the right selection.
+ *
+ * Static site (prerendered): the query string only exists in the browser,
+ * never at build time. A plan we do not sell — a stale link, a typo, a hand-
+ * written URL — is not an error page, it is the default selection, which is
+ * also the band the build wrote into this file.
+ *
+ * WHY AN EFFECT AND NOT A `$derived`. `{@html}` does not re-render during
+ * hydration: it CLAIMS the markup the server wrote and trusts it, so a derived
+ * that computes a different band on the client is simply never applied and a
+ * deep link from the pricing page silently shows the default. (An `{#each}`
+ * does re-render, which is why the Svelte version this replaced did not have
+ * to think about it — the difference was found by building both and opening
+ * `?plan=aven-name` in each.) An effect runs AFTER hydration, so assigning
+ * here is a real change the html block acts on; it re-runs on client
+ * navigation too, because `page.url` is reactive.
  */
-// Static site (prerendered): the query string only exists in the browser, never at build time.
-const fromQuery = $derived(browser ? (page.url.searchParams.get('plan') as PlanId | null) : null)
-const selected = $derived<PlanId>(
-	fromQuery && PLANS.some((p) => p.id === fromQuery) ? fromQuery : 'aven-ceo'
-)
-
-const visibleSkills = $derived(skills.filter((s) => planIncludes(selected, s.plan)))
-const visibleByPlan = $derived(
-	byPlan.filter((g) => planIncludes(selected, g.plan.id) && g.skills.length > 0)
-)
-const selectedPlan = $derived(PLANS.find((p) => p.id === selected) ?? PLANS[0])
-/** What this plan brings itself, versus what it inherits from below it. */
-const ownCount = $derived(visibleSkills.filter((s) => s.plan === selected).length)
-const inheritedCount = $derived(visibleSkills.length - ownCount)
+const DEFAULT_PLAN: PlanId = 'aven-ceo'
+let selected = $state<PlanId>(DEFAULT_PLAN)
+$effect(() => {
+	const q = page.url.searchParams.get('plan')
+	selected = q && q in sections.marketplace ? (q as PlanId) : DEFAULT_PLAN
+})
 </script>
 
 <svelte:head>
@@ -66,62 +73,7 @@ const inheritedCount = $derived(visibleSkills.length - ownCount)
 
 	{@html sections.hero}
 
-	<!-- Marketplace: sidebar + featured + catalog — dynamic, see the header comment. -->
-	<section class="border-b border-border/25 px-5 py-12 sm:px-8 sm:py-14">
-		<div class="mx-auto max-w-5xl">
-			<div class="space-y-12">
-				{#if visibleByPlan.length > 1}
-					<p
-						class="rounded-xl border border-accent/25 bg-accent/8 px-4 py-3 text-[length:var(--fs-body)] leading-snug text-foreground-soft"
-					>
-						{t.inclusion(selectedPlan.name, visibleSkills.length, inheritedCount, ownCount)}
-					</p>
-				{/if}
-				{#each visibleByPlan as group (group.plan.id)}
-					<div>
-						<div
-							class="mb-5 flex flex-wrap items-end justify-between gap-3 border-b border-border/25 pb-4"
-						>
-							<div>
-								<p
-									class="text-[length:var(--fs-micro)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground-quiet"
-								>
-									{t.group.with(group.plan.name)}
-								</p>
-								<h2 class="mt-1 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-									{localizedPlan(group.plan, lang).role}
-								</h2>
-								<p class="mt-1 text-[length:var(--fs-meta)] text-foreground-quiet">
-									{t.group.count(group.skills.length, priceLabel(group.plan, lang))}
-								</p>
-							</div>
-							<a
-								href={`${localeHref(lang, '/pricing')}#${group.plan.id}`}
-								class="text-[length:var(--fs-meta)] font-semibold text-foreground-quiet underline underline-offset-4 hover:text-foreground-soft"
-							>
-								{t.group.view(group.plan.name)}
-							</a>
-						</div>
-						<div class="grid gap-4 md:grid-cols-2">
-							<!-- Each card is a ViewDef, rendered to HTML at build (see
-							     `$lib/vibes/skill-card.ts`). Nothing on a card moves, so
-							     the page places the string instead of mounting a component
-							     per skill. -->
-							{#each group.skills as skill (skill.slug)}
-								{@html sections.cards[skill.slug]}
-							{/each}
-						</div>
-					</div>
-				{:else}
-					<p
-						class="rounded-xl border border-border/25 bg-surface-card px-4 py-6 text-center text-[length:var(--fs-section)] text-foreground-quiet"
-					>
-						{t.empty}
-					</p>
-				{/each}
-			</div>
-		</div>
-	</section>
+	{@html sections.marketplace[selected]}
 
 	{@html sections.chain}
 
