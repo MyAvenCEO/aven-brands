@@ -36,13 +36,18 @@ export type HomeMessages = {
 		 */
 		cost: {
 			eyebrow: string
+			/** The invitation. Never the price — the figure below is the payoff and
+			 * a heading that already said it spends it twice. */
 			heading: string
 			lead: string
+			/** What it actually runs, so "a CEO" is concrete rather than a claim. */
+			does: string[]
 			/** The two sides, in the units each is actually sold in. */
 			human: { label: string; value: string; unit: string; note: string }
 			aven: { label: string; value: string; unit: string; note: string }
-			/** What the gap buys, in one line. */
+			/** The turn: what the gap is FOR. */
 			closing: string
+			kicker: string
 		}
 	}
 	shift: {
@@ -118,9 +123,15 @@ export const home: Record<Lang, HomeMessages> = {
 				'avenCEO ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
 			cost: {
-				eyebrow: 'Die Rechnung',
-				heading: 'Ab 99 € die Woche.',
-				lead: 'Nicht günstiger. Eine andere Größenordnung.',
+				eyebrow: 'Dein Moment',
+				heading: 'Es war nie leichter, das Unternehmen zu starten, von dem du immer geträumt hast.',
+				lead: 'Du sagst, was du willst. Dein Aven führt es aus — rund um die Uhr, ab Tag eins.',
+				does: [
+					'Baut deine Website',
+					'Führt deinen Betrieb',
+					'Schreibt Angebote und Rechnungen',
+					'Fasst nach, jeden Tag'
+				],
 				human: {
 					label: 'Menschlicher CEO',
 					value: '> 100.000 €',
@@ -133,8 +144,8 @@ export const home: Record<Lang, HomeMessages> = {
 					unit: 'pro Woche',
 					note: 'rund um die Uhr, sieben Tage, ohne Urlaubsanspruch'
 				},
-				closing:
-					'Und er macht die Arbeit, die sich wiederholt — Angebote, Rechnungen, Nachfassen, Reporting — genau so, wie du es ansagst.'
+				closing: 'Nicht günstiger. Eine andere Größenordnung.',
+				kicker: 'Das ist dein Moment.'
 			}
 		},
 		shift: {
@@ -248,9 +259,15 @@ export const home: Record<Lang, HomeMessages> = {
 			headlineHtml: 'avenCEO is the world’s 1st privacy‑preserving agentic co‑founder.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
 			cost: {
-				eyebrow: 'The arithmetic',
-				heading: 'Starting at 99 € a week.',
-				lead: 'Not cheaper. A different order of magnitude.',
+				eyebrow: 'Your moment',
+				heading: 'It has never been easier to start the company you always dreamed of.',
+				lead: 'You teach it what you want. Your Aven executes — around the clock, from day one.',
+				does: [
+					'Builds your website',
+					'Runs your operations',
+					'Writes quotes and invoices',
+					'Follows up, every day'
+				],
 				human: {
 					label: 'Human CEO',
 					value: '> 100,000 €',
@@ -263,8 +280,8 @@ export const home: Record<Lang, HomeMessages> = {
 					unit: 'per week',
 					note: 'around the clock, seven days, no leave to accrue'
 				},
-				closing:
-					'And it does the work that repeats — quotes, invoices, follow-ups, reporting — exactly the way you tell it to.'
+				closing: 'Not cheaper. A different order of magnitude.',
+				kicker: 'This is your moment.'
 			}
 		},
 		shift: {

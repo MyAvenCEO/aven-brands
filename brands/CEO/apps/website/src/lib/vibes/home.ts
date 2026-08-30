@@ -171,33 +171,26 @@ function trustView(t: (typeof home)['de']): ViewNode {
 /* ----------------------------------------------------------- the arithmetic */
 
 /**
- * The cost comparison, as the page's own strike-the-old idiom.
+ * The invitation, then the arithmetic that makes it possible.
  *
- * The first version was two equal figures facing each other across a rule,
- * which is the composition rule's own counter-example: two things of equal
- * weight give the eye nowhere to land, and a comparison with no direction is
- * a table. It also read as generic, because nothing in it was this brand —
- * every colour was a neutral or a darkened ink.
+ * An earlier pass put the price in the HEADING and again in the figure —
+ * "Starting at 99 a week" over "from 99" — which spends the payoff before the
+ * reader reaches it and makes the figure a repetition rather than a reveal. A
+ * number lands once. The heading now carries the story it is evidence for:
+ * starting the company you always meant to start.
  *
- * The hero already owns the device this section needed: "From ~working to
- * survive~ to SOVEREIGN founder of tomorrow" — strike the old, colour the new.
- * Reusing it here makes the argument directional and makes the section belong
- * to the page rather than sitting on it. The human figure is the setup, struck
- * through and quiet; the avenCEO figure is the payoff, and it is the only
- * thing at full size.
+ * The order is the persuasion. Invitation, then what it actually DOES (four
+ * concrete jobs, because "a CEO" is a claim and "builds your website, runs
+ * your operations" is a fact), then the two figures with the old one struck,
+ * then the turn. A reader who arrives sceptical meets the promise, the
+ * evidence, and the price in the order that answers their objections.
  *
- * THE TONES ARE THE BRAND'S OWN, not darkened inks — measured against these
- * grounds rather than assumed:
- *
- *   paradise  #2489a0  3.93:1 on cream — LARGE text only, which is exactly
- *                      what the payoff figure is (clamped to 56px minimum)
- *   sunflower #f2ba3d  1.71:1 on cream — cannot be text here at all, so it is
- *                      a SHAPE: the rule under the figure and the marker
- *                      beside the label, where 3:1 applies to the mark and not
- *                      to a glyph anyone has to read
- *
- * That is why the ink variants existed; the answer is not to reach for them,
- * it is to give each tone the job it can actually hold.
+ * The idiom is the page's own: strike the old, colour the new — the hero does
+ * it to a sentence, the shift does it to a script, this does it to a salary.
+ * Tones direct where the ground allows: paradise on the figure at 56px and on
+ * the capability markers, sunflower as the rule beneath. Measured, not
+ * assumed: paradise is 3.93:1 on cream, which clears 3:1 for large text and
+ * shapes and misses 4.5:1 for small glyphs.
  */
 function costView(t: (typeof home)['de']): ViewNode {
 	return {
@@ -215,24 +208,31 @@ function costView(t: (typeof home)['de']): ViewNode {
 						attrs: { id: 'cost-head' },
 						children: [
 							{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.eyebrow },
-							{
-								tag: 'h2',
-								attrs: { id: 'cost-heading' },
-								text: t.trust.cost.heading
-							},
+							{ tag: 'h2', attrs: { id: 'cost-heading' }, text: t.trust.cost.heading },
 							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead }
 						]
 					},
+					/* What it runs, before what it costs. Four jobs beats an adjective. */
+					{
+						tag: 'ul',
+						attrs: { id: 'cost-does' },
+						children: t.trust.cost.does.map(
+							(job): ViewNode => ({
+								tag: 'li',
+								children: [
+									{ tag: 'span', class: 'cost-does-mark', attrs: { 'aria-hidden': 'true' } },
+									{ tag: 'span', text: job }
+								]
+							})
+						)
+					},
+					/* The comparison, as one object rather than two columns: the struck
+					   salary sits directly above the price it is replaced by, which is
+					   the whole argument in one glance. */
 					{
 						tag: 'div',
 						attrs: { id: 'cost-figures' },
 						children: [
-							/* The setup: struck through, quiet, and deliberately smaller.
-							   It is the number the reader already knows. The strike is CSS
-							   rather than an `<s>` element: SAFE_TAGS admits no `s`, so the
-							   tag fell back to a div and the line silently did not draw —
-							   and a line-through that exists only to be seen belongs in
-							   the stylesheet anyway, not in the semantics. */
 							{
 								tag: 'div',
 								attrs: { id: 'cost-was' },
@@ -249,9 +249,6 @@ function costView(t: (typeof home)['de']): ViewNode {
 									{ tag: 'p', attrs: { id: 'cost-was-note' }, text: t.trust.cost.human.note }
 								]
 							},
-							/* The payoff: paradise, full size, on its own line, with the
-							   sunflower rule under it doing the work the accent cannot do
-							   as text on this ground. */
 							{
 								tag: 'div',
 								attrs: { id: 'cost-now' },
@@ -270,17 +267,20 @@ function costView(t: (typeof home)['de']): ViewNode {
 							}
 						]
 					},
-					{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing }
+					{
+						tag: 'div',
+						attrs: { id: 'cost-turn' },
+						children: [
+							{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing },
+							{ tag: 'p', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker }
+						]
+					}
 				]
 			}
 		]
 	}
 }
 
-/* ------------------------------------------------------------- the shift */
-
-/** One column of the two-script spread. The old script is greyed out — the
- * life you're leaving; the new one is full colour with accent marks. */
 /**
  * One script of the two, and the two are NOT equal.
  *

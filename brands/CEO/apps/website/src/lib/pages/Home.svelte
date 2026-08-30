@@ -263,17 +263,16 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * THE ARITHMETIC — the page's strike-the-old idiom, at section scale.
+ * THE ARITHMETIC — invitation, evidence, price, turn.
  *
- * Asymmetric on purpose: the struck figure is the setup and the paradise one
- * is the payoff, so the eye lands on the answer rather than adjudicating
- * between two equal columns.
+ * Laid out as a reading order rather than a grid of equals: the story runs at
+ * a prose measure, the four jobs sit in a band beneath it, and the two figures
+ * stack so the struck salary is directly above the price replacing it. That
+ * adjacency IS the argument — the eye does the subtraction without a "× 19"
+ * row telling it to.
  *
- * The tones are the brand's own, each given the job it can hold on this
- * ground: paradise carries the payoff figure because at 3.93:1 it is legible
- * as LARGE text and the figure is clamped to 56px minimum; sunflower carries
- * the rule and the marker, because at 1.71:1 on cream it cannot be a glyph
- * anyone has to read but it is a perfectly good shape.
+ * The price appears exactly once. An earlier pass had it in the heading and
+ * again in the figure, which spends the payoff before the reader reaches it.
  */
 :global(#cost-inner) {
 	display: grid;
@@ -281,15 +280,15 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 :global(#cost-head) {
 	display: grid;
-	gap: var(--space-tight);
-	max-inline-size: 34rem;
+	gap: var(--space-comfortable);
+	max-inline-size: 36rem;
 }
 :global(#cost-heading) {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: clamp(var(--fs-display), 5.5cqi, 2.75rem);
+	font-size: clamp(var(--fs-display), 5.5cqi, 3rem);
 	font-weight: 400;
-	line-height: 1.1;
+	line-height: 1.08;
 	letter-spacing: var(--tracking-tight);
 	text-wrap: balance;
 	color: var(--color-foreground);
@@ -297,15 +296,46 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(#cost-lead) {
 	margin: 0;
 	font-size: var(--fs-lead);
+	line-height: 1.5;
+	text-wrap: pretty;
 	color: var(--color-foreground-soft);
 }
 
-/* The setup sits above and left, the payoff below and larger: a reading order
-   with a direction, not a pair of columns. */
+/* The four jobs. A band of short facts, not a bulleted list — "a CEO" is a
+   claim and these are the receipts, so they read as a row of specifics. */
+:global(#cost-does) {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+	gap: var(--space-comfortable) var(--space-loose);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+:global(#cost-does > li) {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-tight);
+	font-size: var(--fs-meta);
+	line-height: 1.4;
+	color: var(--color-foreground);
+}
+:global(.cost-does-mark) {
+	flex: 0 0 auto;
+	inline-size: 0.75rem;
+	block-size: 2px;
+	/* Paradise as a SHAPE: 3:1 applies to a mark, and the tone is the brand's
+	   own rather than a darkened rank. */
+	background: var(--color-paradise);
+}
+
+/* The two figures as ONE object: struck salary directly above the price that
+   replaces it, sharing an edge so the swap is a single glance. */
 :global(#cost-figures) {
 	display: grid;
 	gap: var(--space-loose);
 	justify-items: start;
+	padding-inline-start: var(--space-loose);
+	border-inline-start: 2px solid var(--color-sunflower);
 }
 :global(#cost-was),
 :global(#cost-now) {
@@ -325,19 +355,19 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	line-height: 1;
 }
 :global(#cost-was-value) {
-	font-size: clamp(var(--fs-amount), 4cqi, 2rem);
+	font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
 	font-weight: 400;
 	color: var(--color-foreground-quiet);
 	/* The brand's own strike: the hero draws one through "working to survive",
-	   and this is the same gesture on a number. In CSS rather than an `<s>`
-	   element, because the engine's tag allowlist admits no `s` and the tag
-	   fell back to a div — the line never drew, and nothing said so. */
+	   the shift through the old script, this through the salary. In CSS rather
+	   than an `<s>` element — SAFE_TAGS admits no `s`, so the tag fell back to
+	   a div and the line silently never drew. */
 	text-decoration: line-through;
 	text-decoration-thickness: 1px;
 	text-decoration-color: var(--color-foreground-quiet);
 }
 :global(#cost-now-value) {
-	font-size: clamp(3.5rem, 11cqi, 6rem);
+	font-size: clamp(3rem, 10cqi, 5rem);
 	font-weight: 400;
 	color: var(--color-paradise);
 }
@@ -347,30 +377,33 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	font-size: var(--fs-meta);
 	color: var(--color-foreground-quiet);
 }
-/* Sunflower as a SHAPE, under the payoff — the accent the brand is known for,
-   doing the one job it can do legibly on a cream ground. */
-:global(#cost-now-figure)::after {
-	content: '';
-	flex-basis: 100%;
-	block-size: 3px;
-	max-inline-size: 7rem;
-	margin-block-start: var(--space-tight);
-	background: var(--color-sunflower);
-	border-radius: var(--radius-full);
-}
 :global(#cost-was-note),
 :global(#cost-now-note) {
 	margin: var(--space-tight) 0 0;
+	max-inline-size: 30rem;
 	font-size: var(--fs-meta);
 	line-height: 1.55;
 	color: var(--color-foreground-soft);
 }
+
+/* The turn. Two lines: what the gap means, then what it is for. */
+:global(#cost-turn) {
+	display: grid;
+	gap: var(--space-tight);
+	max-inline-size: 34rem;
+}
 :global(#cost-closing) {
-	max-inline-size: 38rem;
 	margin: 0;
 	font-size: var(--fs-lead);
-	line-height: 1.5;
-	text-wrap: pretty;
+	color: var(--color-foreground-soft);
+}
+:global(#cost-kicker) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-amount), 4.5cqi, 2.25rem);
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
 	color: var(--color-foreground);
 }
 
