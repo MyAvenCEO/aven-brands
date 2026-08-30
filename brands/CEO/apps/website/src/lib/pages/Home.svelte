@@ -161,11 +161,88 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  *   warm note in the section and it lands on the only elements that can hold
  *   it.
  */
+/*
+ * THE COMPANY BAND: the copy moves OFF the picture's subject.
+ *
+ * The first attempt put a translucent plate over the middle of the band, which
+ * is exactly where the robot is — so the more of the picture the scrim let
+ * through, the more of it the plate covered. Lightening the tint could never
+ * fix that; it was a layout problem wearing an opacity problem's clothes.
+ *
+ * The copy is a LEFT COLUMN now, over the quiet half of the illustration (sea,
+ * umbrella, terrace), and the scrim is directional rather than flat: dense
+ * where the words are, clearing to nothing across the right half, so the robot
+ * and its checklist are seen at full strength with no veil on them at all.
+ */
+:global(#company-band) {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+}
+:global(#company-bg) {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	inline-size: 100%;
+	block-size: 100%;
+	object-fit: cover;
+	/* Centre, and it has to be: this band is wider than the file's 16:9, so
+	   `cover` crops TOP AND BOTTOM, not the sides. A horizontal
+	   `object-position` moved nothing at all — the first attempt set 68% and the
+	   robot did not budge. The subject stays where the file puts it, in the
+	   middle, and the LAYOUT moves around it instead. */
+	object-position: center;
+}
+/*
+ * Flat and dense by default — on a phone the column is the full width, so there
+ * is no clear half to protect and the type needs a ground everywhere.
+ */
+:global(#company-scrim) {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: color-mix(
+		in srgb,
+		color-mix(in srgb, var(--color-band) 40%, var(--color-marine)) 82%,
+		transparent
+	);
+}
 @media (min-width: 64rem) {
-	:global(#company-prose [data-col='first']) {
-		text-align: end;
+	/*
+	 * The scrim covers the left THIRD and is gone by the halfway mark, which is
+	 * where the robot starts. The copy column is capped to end before the fade
+	 * begins — the first attempt let it run to 64% of the band, straight into
+	 * the clearing gradient, and four elements measured between 2.18 and 2.35:1.
+	 * A column that overruns its own scrim is unreadable no matter how dense the
+	 * scrim is where it starts.
+	 */
+	:global(#company-scrim) {
+		background: linear-gradient(
+			to right,
+			color-mix(in srgb, color-mix(in srgb, var(--color-band) 40%, var(--color-marine)) 92%, transparent)
+				0%,
+			color-mix(in srgb, color-mix(in srgb, var(--color-band) 40%, var(--color-marine)) 92%, transparent)
+				44%,
+			transparent 60%
+		);
+	}
+	/*
+	 * The column has to END inside the dense part, not at the edge of it. At 40%
+	 * against a fade starting at 34% the last words of every paragraph sat in
+	 * the clearing gradient and measured 3.71 to 4.14:1. The cap is 34% and the
+	 * scrim holds full strength to 44%, so there is a whole column-width of
+	 * margin between where the words stop and where the veil does.
+	 */
+	:global(#company-plate) {
+		max-inline-size: min(26rem, 34%);
 	}
 }
+/* One column: at 40% of the band there is no room for two, and the pair would
+   set at about twenty characters a line. */
+:global(#company-prose) {
+	grid-template-columns: minmax(0, 1fr);
+}
+
 :global(#company-prose [data-role='counter']) {
 	color: var(--color-accent-edge);
 }

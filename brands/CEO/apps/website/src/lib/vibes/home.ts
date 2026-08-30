@@ -262,7 +262,8 @@ const ART = {
 	/* Square, not 16:9 — it sits in a column beside the argument rather than
 	   spanning a row, and a wide crop of a portrait subject wastes both. */
 	garden: { src: '/man-under-tree.jpg', width: '816', height: '816' },
-	assembly: { src: '/avens-assembly.jpg', width: '1088', height: '608' }
+	assembly: { src: '/avens-assembly.jpg', width: '1088', height: '608' },
+	multitask: { src: '/aven-multitask.jpg', width: '1088', height: '608' }
 } as const
 
 function ruleLabel(text: string, index?: string): ViewNode {
@@ -637,13 +638,40 @@ function companyView(t: (typeof home)['de']): ViewNode {
 		class: 'bg-band px-5 py-20 text-band-foreground sm:px-8 sm:py-28',
 		attrs: { id: 'company-band', 'aria-labelledby': 'company-heading' },
 		children: [
+			/*
+			 * The band's own picture, behind its own scrim.
+			 *
+			 * This section is the one place on the page with no colour headroom:
+			 * measured on the teal, white is 4.61:1 and every tinted brand tone
+			 * fails, so it had one ink for five type sizes and read as flat. An
+			 * image gives it depth that a second colour could not, and the scrim
+			 * over it is what carries the type — the same arrangement as the hero,
+			 * and for the same reason.
+			 *
+			 * Decorative: `alt=""` and `aria-hidden`, because the heading above it
+			 * already says what the section is.
+			 */
+			{
+				tag: 'img',
+				attrs: {
+					id: 'company-bg',
+					src: ART.multitask.src,
+					alt: '',
+					'aria-hidden': 'true',
+					width: ART.multitask.width,
+					height: ART.multitask.height,
+					loading: 'lazy',
+					decoding: 'async'
+				}
+			},
+			{ tag: 'div', attrs: { id: 'company-scrim', 'aria-hidden': 'true' } },
 			{
 				tag: 'div',
-				class: 'mx-auto max-w-5xl',
+				class: 'max-w-5xl',
+				attrs: { id: 'company-plate' },
 				children: [
 					{
 						tag: 'div',
-						class: 'text-center',
 						children: [
 							{
 								tag: 'p',
@@ -654,7 +682,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 							{
 								tag: 'h2',
 								class:
-									'mx-auto mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground',
+									'mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground',
 								attrs: { id: 'company-heading' },
 								text: t.company.heading
 							}
@@ -662,8 +690,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'div',
-						class:
-							'mx-auto mt-14 grid max-w-4xl gap-x-14 gap-y-10 text-left sm:mt-16 lg:grid-cols-2',
+						class: 'mt-14 grid gap-x-14 gap-y-10 text-left sm:mt-16',
 						attrs: { id: 'company-prose' },
 						children: t.company.paragraphsHtml.map(
 							(_, i): ViewNode => ({
@@ -673,7 +700,6 @@ function companyView(t: (typeof home)['de']): ViewNode {
 								   spread hinged on the divider instead of two left-ranged
 								   blocks that happen to share a row. */
 								attrs: { 'data-col': i === 0 ? 'first' : 'rest' },
-								...(i > 0 ? { class: 'lg:border-l lg:border-primary-foreground/15 lg:pl-14' } : {}),
 								children: [
 									{
 										tag: 'span',
@@ -693,7 +719,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'div',
-						class: 'mx-auto mt-16 max-w-xl text-center',
+						class: 'mt-16 max-w-xl',
 						attrs: { id: 'company-closing-panel' },
 						children: [
 							{
