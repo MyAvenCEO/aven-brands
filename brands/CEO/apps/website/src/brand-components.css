@@ -499,23 +499,25 @@
 
 		& h1 {
 			font-family: var(--font-display);
-			font-size: var(--fs-display);
+			font-size: clamp(var(--fs-display), 4.5cqi, 2.6rem);
 			font-weight: 300;
 			line-height: 1.15;
 			letter-spacing: var(--tracking-tight);
 			color: var(--color-foreground);
 			margin-block: 0 var(--space-comfortable);
+			$description: Clamped against the prose container — a doc column at 40rem and one at 65ch are different rooms for the same title, and `cqi` sizes it to the room. The floor is the display step, so it never drops below the scale.;
 		}
 		& h2 {
 			font-family: var(--font-display);
-			font-size: var(--fs-section);
-			font-weight: 400;
+			font-size: var(--fs-amount);
+			font-weight: 500;
 			line-height: 1.2;
 			color: var(--color-foreground);
 			margin-block: var(--space-section) var(--space-snug);
+			$description: THE RAMP WAS INVERTED. h2 wore `--fs-section` (14px — one pixel over the 13px body, in a light display face) while h3 wore `--fs-title` (15px): the section titles a reader scans by were the smallest headings on the page, and sat visually BELOW their own subsections. Measured on the framework docs, where every section is an h2. Now `--fs-amount` (24px): 1.85x the body — a heading, not a bolder sentence.;
 		}
 		& h3 {
-			font-size: var(--fs-title);
+			font-size: var(--fs-hero);
 			font-weight: 600;
 			color: var(--color-foreground);
 			margin-block: var(--space-loose) var(--space-tight);
@@ -3461,6 +3463,15 @@
 		container-type: inline-size;
 		container-name: sidebar;
 
+		& > :first-child {
+			flex-basis: auto;
+			flex-grow: 0;
+		}
+		& > :last-child {
+			flex-basis: auto;
+			flex-grow: 0;
+			min-inline-size: 0;
+		}
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
 		}

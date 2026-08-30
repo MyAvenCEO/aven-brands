@@ -38,7 +38,7 @@
  * compiles either way; when placement-level wiring lands, this file shrinks
  * to a `$use`.
  */
-import type { UiBundle, ViewNode } from '@myavenceo/aven-vibes'
+import type { Vibe, ViewNode } from '@myavenceo/aven-vibes'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 
@@ -48,8 +48,8 @@ export type MenuIslandInput = {
 	active: 'skills' | 'avens' | 'pricing' | 'docs' | null
 }
 
-/** The serializable half of a UiBundle — an island carries no style. */
-export type MenuBundle = Omit<UiBundle, 'style'>
+/** The serializable half of a Vibe — an island carries no style. */
+export type MenuBundle = Omit<Vibe, 'style'>
 
 const open = { send: 'set-open', to: 'menu', payload: { open: true } }
 const close = { send: 'set-open', to: 'menu', payload: { open: false } }

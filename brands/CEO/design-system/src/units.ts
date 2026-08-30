@@ -41,7 +41,7 @@
  * every state it checks is invisible in a screenshot of the resting component.
  */
 
-import type { UnitDef, UnitRegistry } from '@myavenceo/aven-vibes'
+import type { ActorDef, ActorRegistry } from '@myavenceo/aven-vibes'
 import { registryStyles, validateRegistry } from '@myavenceo/aven-vibes'
 
 import accordion from './brand/units/accordion.json' with { type: 'json' }
@@ -143,10 +143,10 @@ const documents = [
 	navbar,
 	navMenu,
 	footer
-] as unknown as UnitDef[]
+] as unknown as ActorDef[]
 
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */
-export const units: UnitRegistry = Object.fromEntries(documents.map((u) => [u.name, u]))
+export const units: ActorRegistry = Object.fromEntries(documents.map((u) => [u.name, u]))
 
 validateRegistry(units)
 

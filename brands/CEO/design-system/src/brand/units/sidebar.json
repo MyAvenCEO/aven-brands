@@ -1,6 +1,6 @@
 {
 	"name": "sidebar",
-	"description": "A persistent index beside the content. 11 uses across the app and the website.\n\nThe part always got wrong is not the look \u2014 it is that a sidebar which becomes a drawer on a narrow viewport is still ONE navigation landmark, and duplicating it as a second hidden copy makes a screen reader announce two.\n\nWhat the look has to do is quieter than it sounds: an index is read by scanning, so it needs a rhythm rather than decoration. Sections that group, a rule that separates without shouting, a current item that is unmistakable at a glance, and a footer that sits at the bottom rather than after the last link. It was a flat slab with three words floating in it.",
+	"description": "A persistent index beside the content. 11 uses across the app and the website.\n\nThe part always got wrong is not the look — it is that a sidebar which becomes a drawer on a narrow viewport is still ONE navigation landmark, and duplicating it as a second hidden copy makes a screen reader announce two.\n\nWhat the look has to do is quieter than it sounds: an index is read by scanning, so it needs a rhythm rather than decoration. Sections that group, a rule that separates without shouting, a current item that is unmistakable at a glance, and a footer that sits at the bottom rather than after the last link. It was a flat slab with three words floating in it.",
 	"interface": {
 		"props": {
 			"label": "string",
@@ -47,7 +47,16 @@
 			"paddingInline": "var(--space-tight)",
 			"containerType": "inline-size",
 			"containerName": "sidebar",
-			"$description": "CONTAINER. This unit establishes an inline-size container named after itself, so anything inside it can respond to the width of THIS BOX rather than to the width of the window. That is the difference that matters for a design system: a composite dropped into a 320px sidebar and the same composite on a 320px phone are the same situation, and a viewport query calls them different ones. The library carries no viewport media query anywhere for exactly this reason \u2014 the only `@media` in it is `prefers-reduced-motion`, which is a person's setting and not a size.\n\nTHE LAYOUT SIZES THE COLUMN; THIS UNIT FILLS IT. `inline-size: 100%` and nothing else \u2014 no `16rem`, no `78vw`, no `min()`. A sidebar is placed in a shell that already knows how wide its rail is, and a unit that picks its own width is a unit arguing with the layout that positioned it.\n\nBoth previous answers were the same mistake from opposite ends. `78vw` measured the window, a box this unit does not live in. `16rem` measured nothing at all \u2014 it just happened to be right in two places and would be wrong in the third. The rule that holds everywhere: the layout declares the track, the unit fills it, and a track sized `auto` is the layout declining to decide \u2014 which is what made this rail collapse to zero."
+			"$description": "CONTAINER. This unit establishes an inline-size container named after itself, so anything inside it can respond to the width of THIS BOX rather than to the width of the window. That is the difference that matters for a design system: a composite dropped into a 320px sidebar and the same composite on a 320px phone are the same situation, and a viewport query calls them different ones. The library carries no viewport media query anywhere for exactly this reason — the only `@media` in it is `prefers-reduced-motion`, which is a person's setting and not a size.\n\nTHE LAYOUT SIZES THE COLUMN; THIS UNIT FILLS IT. `inline-size: 100%` and nothing else — no `16rem`, no `78vw`, no `min()`. A sidebar is placed in a shell that already knows how wide its rail is, and a unit that picks its own width is a unit arguing with the layout that positioned it.\n\nBoth previous answers were the same mistake from opposite ends. `78vw` measured the window, a box this unit does not live in. `16rem` measured nothing at all — it just happened to be right in two places and would be wrong in the third. The rule that holds everywhere: the layout declares the track, the unit fills it, and a track sized `auto` is the layout declining to decide — which is what made this rail collapse to zero.\n\nTHE CLASS NAME IS SHARED WITH A LAYOUT PRIMITIVE, and these two child rules are the armistice. `components.avenceo.json` defines `sidebar` the LAYOUT — Every Layout's rail-and-content split, whose `> :first-child` gets `flex-basis: 16rem` and whose `> :last-child` gets `flex-grow: 999` — and this unit is `sidebar` the NAVIGATION RAIL. Same selector, two owners. Inside this unit's flex COLUMN that leaked basis becomes a HEIGHT: the docs page's head block rendered 256px tall (16rem exactly) for 110px of content, a measured gap that read as a broken page. The resets here run later in the stylesheet at matching specificity, so the unit's children answer to the unit. The real cure is renaming one of the two vocabularies, which is an estate-wide migration (checkout and the app speak the layout name) and is recorded as such rather than done quietly here.",
+			"& > :first-child": {
+				"flexBasis": "auto",
+				"flexGrow": "0"
+			},
+			"& > :last-child": {
+				"flexBasis": "auto",
+				"flexGrow": "0",
+				"minInlineSize": "0"
+			}
 		},
 		"parts": {
 			"items": {
@@ -55,13 +64,13 @@
 				"gap": "0.1rem",
 				"minBlockSize": "0",
 				"overflowY": "auto",
-				"$description": "The links, with real rhythm \u2014 a small consistent gap rather than none, so the eye reads them as a list instead of as a paragraph of words.",
+				"$description": "The links, with real rhythm — a small consistent gap rather than none, so the eye reads them as a list instead of as a paragraph of words.",
 				"paddingInline": "0.25rem"
 			},
 			"footer": {
 				"marginBlockStart": "auto",
 				"paddingBlockStart": "var(--space-tight)",
-				"$description": "Pinned to the bottom by `margin-block-start: auto`, and separated by a rule \u2014 it is not the last item in the list, it is what the list sits above.",
+				"$description": "Pinned to the bottom by `margin-block-start: auto`, and separated by a rule — it is not the last item in the list, it is what the list sits above.",
 				"padding": "var(--space-tight) 0.75rem 0",
 				"borderBlockStart": "1px solid var(--color-border-soft)"
 			},
@@ -77,7 +86,7 @@
 				"color": "var(--color-foreground-quiet)"
 			},
 			"item": {
-				"$description": "One link. The whole row is the target, not the text \u2014 a nav item you have to hit the words of is a nav item that misses on a trackpad. `radius-sm`, because a full pill in a vertical stack reads as a row of buttons.",
+				"$description": "One link. The whole row is the target, not the text — a nav item you have to hit the words of is a nav item that misses on a trackpad. `radius-sm`, because a full pill in a vertical stack reads as a row of buttons.",
 				"display": "flex",
 				"alignItems": "center",
 				"gap": "var(--space-tight)",
@@ -92,14 +101,14 @@
 				"transition": "background var(--duration-quick) var(--ease-out), color var(--duration-quick) var(--ease-out)"
 			},
 			"count": {
-				"$description": "A trailing number \u2014 how many are in there. `margin-inline-start:auto` pushes it to the edge so the counts form their own column and can be compared down the list.",
+				"$description": "A trailing number — how many are in there. `margin-inline-start:auto` pushes it to the edge so the counts form their own column and can be compared down the list.",
 				"marginInlineStart": "auto",
 				"fontSize": "var(--fs-nano)",
 				"fontVariantNumeric": "tabular-nums",
 				"color": "var(--color-foreground-quiet)"
 			},
 			"marker": {
-				"$description": "The bar beside the current item. It lived on `workbench` \u2014 a shell that has no items to mark \u2014 while this unit's `selected` state DESCRIBED a marker in prose and drew none, so the one thing that reads at a glance was documented in one unit and declared in another. Absolute against the item rather than a border on it, so it can be shorter than the row and centred: a full-height border reads as a divider, not as a marker.",
+				"$description": "The bar beside the current item. It lived on `workbench` — a shell that has no items to mark — while this unit's `selected` state DESCRIBED a marker in prose and drew none, so the one thing that reads at a glance was documented in one unit and declared in another. Absolute against the item rather than a border on it, so it can be shorter than the row and centred: a full-height border reads as a divider, not as a marker.",
 				"position": "absolute",
 				"insetInlineStart": "0",
 				"insetBlockStart": "50%",
@@ -115,7 +124,7 @@
 		"variants": {
 			"placement": {
 				"drawer": {
-					"$description": "The same element, moved \u2014 not a second copy. `translate` rather than `display:none` so the open state can animate and the DOM keeps one landmark.",
+					"$description": "The same element, moved — not a second copy. `translate` rather than `display:none` so the open state can animate and the DOM keeps one landmark.",
 					"position": "fixed",
 					"insetBlock": "0",
 					"insetInlineStart": "0",
@@ -128,7 +137,7 @@
 			"tone": {
 				"$description": "The ground it sits on.",
 				"plain": {
-					"$description": "No fill and no rule \u2014 for a rail inside a surface that already has both.",
+					"$description": "No fill and no rule — for a rail inside a surface that already has both.",
 					"background": "transparent",
 					"borderInlineEndColor": "transparent"
 				}
@@ -154,7 +163,7 @@
 				"cursor": "default"
 			},
 			"selected": {
-				"$description": "The current page. A filled row AND the marker bar at its leading edge \u2014 the fill alone is a tint someone can miss on a dim screen, and the bar is the part that reads at a glance from across the room. The marker is present at `opacity: 0` on every item and revealed here, so the current item settles instead of the bar popping into existence.",
+				"$description": "The current page. A filled row AND the marker bar at its leading edge — the fill alone is a tint someone can miss on a dim screen, and the bar is the part that reads at a glance from across the room. The marker is present at `opacity: 0` on every item and revealed here, so the current item settles instead of the bar popping into existence.",
 				"$part": "item",
 				"background": "var(--color-surface-sunken)",
 				"color": "var(--color-foreground)",
@@ -165,7 +174,7 @@
 			}
 		},
 		"reducedMotion": {
-			"$description": "It still opens; it just arrives. Never remove the transform itself \u2014 the drawer would then be permanently off-screen.",
+			"$description": "It still opens; it just arrives. Never remove the transform itself — the drawer would then be permanently off-screen.",
 			"transition": "none"
 		}
 	},

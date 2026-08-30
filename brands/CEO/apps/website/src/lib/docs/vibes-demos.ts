@@ -22,10 +22,10 @@
  * actor message. The demo therefore exercises the exact path the docs
  * describe instead of a shortcut around it.
  */
-import { Evaluator, Island, renderViewToString, type UiBundle } from '@myavenceo/aven-vibes'
+import { Evaluator, Island, renderViewToString, type Vibe } from '@myavenceo/aven-vibes'
 
 /** An island bundle: everything a vibe has except `style` — the brand CSS is the style. */
-export type DemoBundle = Omit<UiBundle, 'style'>
+export type DemoBundle = Omit<Vibe, 'style'>
 
 const menuIsland: DemoBundle = {
 	name: 'menu-island',
