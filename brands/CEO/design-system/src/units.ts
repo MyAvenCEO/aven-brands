@@ -61,6 +61,7 @@ import icon from './brand/units/icon.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
 import media from './brand/units/media.json' with { type: 'json' }
 import mediaCard from './brand/units/media-card.json' with { type: 'json' }
+import mediaFrame from './brand/units/media-frame.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navMenu from './brand/units/nav-menu.json' with { type: 'json' }
@@ -114,6 +115,7 @@ const documents = [
 	priceTier,
 	rowList,
 	mediaCard,
+	mediaFrame,
 	flowNode,
 	workbench,
 	settingRow,

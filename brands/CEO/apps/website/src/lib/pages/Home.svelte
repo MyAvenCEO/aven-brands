@@ -448,16 +448,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	text-wrap: pretty;
 	color: var(--color-foreground-quiet);
 }
-/* A plain rounded band: the file is 16:9 and the picture is a wide scene, so
-   there is nothing to crop and no shape to impose on it. */
-:global(.art-band) {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
-	aspect-ratio: 16 / 9;
-	border-radius: var(--radius-xl);
-	background: var(--color-surface-sunken);
-}
 :global(#own-rungs) {
 	display: grid;
 	gap: var(--space-loose);
@@ -640,7 +630,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	line-height: 1.05;
 	letter-spacing: var(--tracking-tight);
 	text-wrap: balance;
-	color: var(--color-marine);
+	color: var(--color-accent-foreground);
 }
 
 /*
@@ -714,51 +704,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * that section is arguing you can now walk through), the shift gets an OVAL
  * (no flat edge at all — a lens, which is what a question is).
  */
-/*
- * BOTH SHAPES ARE LANDSCAPE, because both images are.
- *
- * The arch was `4 / 5` and the oval `5 / 4` while the files behind them are
- * 1024x578 and 2560x1440 — 16:9 both. `object-fit: cover` then threw away a
- * third of every frame and centred on whatever happened to be in the middle,
- * which is how a horizon illustration ends up cropped to a patch of sky. The
- * frames follow the art now rather than the art being cut to fit the frame.
- *
- * The shapes still rhyme without repeating: the arithmetic gets an ARCH (flat
- * foot, domed head — a doorway, which is what that section says you can walk
- * through), the shift gets a LENS (no flat edge at all, which is what a
- * question is). At 16:9 the dome is written as an ellipse, so it stays a wide
- * shallow sweep instead of the half-circle two equal corner radii would force.
- */
-:global(.art-arch),
-:global(.art-oval) {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
-	aspect-ratio: 16 / 9;
-	background: var(--color-surface-sunken);
-}
-:global(.art-arch) {
-	border-radius: 42% 42% var(--radius-xl) var(--radius-xl) /
-		34% 34% var(--radius-xl) var(--radius-xl);
-}
-:global(.art-oval) {
-	border-radius: var(--radius-full);
-}
-/*
- * The source file carries its OWN white frame and rounded corners, baked into
- * the pixels. The arch then cropped that frame instead of the picture, so the
- * white ran thick down one edge and vanished at the dome — a border that looks
- * botched rather than absent. Scaling the image just past the frame puts the
- * baked edge outside the crop, and the arch draws the only rounding there is.
- */
-/*
- * The statement, on the lower third of the picture.
- *
- * A marine scrim rather than a drop shadow: the illustration's sky is
- * sunflower and its water is pale, so there is no single tone the type could
- * take unaided. The scrim fades UP from the foot so the summit and the sun
- * stay untouched, and the type sits on the darkest part of it.
- */
 :global(#cost-overlay) {
 	position: absolute;
 	inset-inline: 0;
@@ -806,31 +751,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		color-mix(in oklab, var(--color-marine) 88%, transparent),
 		transparent
 	);
-}
-:global(.art-arch-img) {
-	inline-size: 100%;
-	block-size: 100%;
-	object-fit: cover;
-	display: block;
-	transform: scale(1.06);
-	transform-origin: center;
-}
-/*
- * The brief sits UNDER the figure, not on it.
- *
- * As an overlay inside a curved frame it was clipped mid-word by the very
- * shape it was describing — legible on a rectangle, sliced on an oval. A
- * caption is a caption; it goes below the picture, where the curve cannot
- * reach it. It still announces itself as a stand-in so it cannot quietly ship
- * as if it were the final art, and it goes when the real illustration lands.
- */
-:global(.art-brief) {
-	margin: var(--space-comfortable) 0 0;
-	font-size: var(--fs-micro);
-	line-height: 1.5;
-	letter-spacing: var(--tracking-wide);
-	text-transform: uppercase;
-	color: var(--color-foreground-quiet);
 }
 
 /*
@@ -1155,22 +1075,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	gap: var(--space-comfortable);
 	align-content: start;
 }
-/* A square crop, rounded like everything else. The file is 1:1, so the frame
-   follows it rather than cropping a third of it away. */
-:global(.art-square) {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
-	aspect-ratio: 1 / 1;
-	border-radius: var(--radius-xl);
-	background: var(--color-surface-sunken);
-}
-@media (min-width: 56rem) {
-	:global(#shift-art) {
-		block-size: 100%;
-		aspect-ratio: auto;
-	}
-}
 /*
  * ONE RULE PER PART, branching on `data-script`.
  *
@@ -1194,9 +1098,20 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* The script being argued for: the accent tint under a sunflower rule.
    Sunflower measures 1.71:1 on cream and cannot be a glyph; as a 3px rule it is
    a shape, which is the job it can hold. */
+/* Warm ground, warm ink. Marine on this tint is 13.01:1 and correct, but it
+   made the panel read as a blue island in a yellow field; `accent-foreground`
+   is the ramp's own ink for use ON the accent and measures 10.67:1 here, so the
+   panel is one family throughout and the diptych now differs in BOTH ground and
+   ink rather than ground alone. */
 :global(.shift-script[data-script='with']) {
 	position: relative;
 	background: var(--color-accent-surface);
+	color: var(--color-accent-foreground);
+}
+:global(.shift-script[data-script='with']) :global(.shift-script-title),
+:global(.shift-script[data-script='with']) :global(.shift-script-items),
+:global(.shift-script[data-script='with']) :global(.shift-script-closing) {
+	color: var(--color-accent-foreground);
 }
 :global(.shift-script[data-script='with'])::before {
 	content: '';
@@ -1322,16 +1237,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	text-wrap: pretty;
 	color: var(--color-foreground-quiet);
 }
-/* A plain rounded band: the file is 16:9 and the picture is a wide scene, so
-   there is nothing to crop and no shape to impose on it. */
-:global(.art-band) {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
-	aspect-ratio: 16 / 9;
-	border-radius: var(--radius-xl);
-	background: var(--color-surface-sunken);
-}
 :global(#own-rungs) {
 	display: grid;
 	gap: var(--space-loose);
@@ -1514,7 +1419,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	line-height: 1.05;
 	letter-spacing: var(--tracking-tight);
 	text-wrap: balance;
-	color: var(--color-marine);
+	color: var(--color-accent-foreground);
 }
 
 /*
@@ -1589,36 +1494,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * (no flat edge at all — a lens, which is what a question is).
  */
 /*
- * BOTH SHAPES ARE LANDSCAPE, because both images are.
- *
- * The arch was `4 / 5` and the oval `5 / 4` while the files behind them are
- * 1024x578 and 2560x1440 — 16:9 both. `object-fit: cover` then threw away a
- * third of every frame and centred on whatever happened to be in the middle,
- * which is how a horizon illustration ends up cropped to a patch of sky. The
- * frames follow the art now rather than the art being cut to fit the frame.
- *
- * The shapes still rhyme without repeating: the arithmetic gets an ARCH (flat
- * foot, domed head — a doorway, which is what that section says you can walk
- * through), the shift gets a LENS (no flat edge at all, which is what a
- * question is). At 16:9 the dome is written as an ellipse, so it stays a wide
- * shallow sweep instead of the half-circle two equal corner radii would force.
- */
-:global(.art-arch),
-:global(.art-oval) {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
-	aspect-ratio: 16 / 9;
-	background: var(--color-surface-sunken);
-}
-:global(.art-arch) {
-	border-radius: 42% 42% var(--radius-xl) var(--radius-xl) /
-		34% 34% var(--radius-xl) var(--radius-xl);
-}
-:global(.art-oval) {
-	border-radius: var(--radius-full);
-}
-/*
  * The source file carries its OWN white frame and rounded corners, baked into
  * the pixels. The arch then cropped that frame instead of the picture, so the
  * white ran thick down one edge and vanished at the dome — a border that looks
@@ -1680,31 +1555,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		color-mix(in oklab, var(--color-marine) 88%, transparent),
 		transparent
 	);
-}
-:global(.art-arch-img) {
-	inline-size: 100%;
-	block-size: 100%;
-	object-fit: cover;
-	display: block;
-	transform: scale(1.06);
-	transform-origin: center;
-}
-/*
- * The brief sits UNDER the figure, not on it.
- *
- * As an overlay inside a curved frame it was clipped mid-word by the very
- * shape it was describing — legible on a rectangle, sliced on an oval. A
- * caption is a caption; it goes below the picture, where the curve cannot
- * reach it. It still announces itself as a stand-in so it cannot quietly ship
- * as if it were the final art, and it goes when the real illustration lands.
- */
-:global(.art-brief) {
-	margin: var(--space-comfortable) 0 0;
-	font-size: var(--fs-micro);
-	line-height: 1.5;
-	letter-spacing: var(--tracking-wide);
-	text-transform: uppercase;
-	color: var(--color-foreground-quiet);
 }
 
 /*
@@ -2028,22 +1878,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: grid;
 	gap: var(--space-comfortable);
 	align-content: start;
-}
-/* A square crop, rounded like everything else. The file is 1:1, so the frame
-   follows it rather than cropping a third of it away. */
-:global(.art-square) {
-	position: relative;
-	margin: 0;
-	overflow: hidden;
-	aspect-ratio: 1 / 1;
-	border-radius: var(--radius-xl);
-	background: var(--color-surface-sunken);
-}
-@media (min-width: 56rem) {
-	:global(#shift-art) {
-		block-size: 100%;
-		aspect-ratio: auto;
-	}
 }
 
 /*
@@ -2248,7 +2082,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	font-variant-numeric: tabular-nums;
 	letter-spacing: var(--tracking-wide);
 	line-height: 1;
-	color: var(--color-sunflower);
+	/* The same lighter sunflower the mark above it wears, so the chip is one
+	   colour at two strengths rather than three. 8.42:1 on this ground. */
+	color: var(--color-accent-edge);
 }
 
 

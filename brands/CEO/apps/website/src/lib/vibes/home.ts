@@ -338,12 +338,13 @@ function costView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'figure',
-						class: 'art-arch',
+						class:
+							'media-frame media-frame--shape-arch media-frame--ratio-wide media-frame--edge-paper media-frame--inset-trim',
 						attrs: { id: 'cost-art' },
 						children: [
 							{
 								tag: 'img',
-								class: 'art-arch-img',
+								class: 'media',
 								attrs: {
 									src: ART.horizon.src,
 									alt: '',
@@ -584,12 +585,13 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 							},
 							{
 								tag: 'figure',
-								class: 'art-square',
+								class:
+									'media-frame media-frame--ratio-fill media-frame--edge-paper media-frame--inset-trim',
 								attrs: { id: 'shift-art' },
 								children: [
 									{
 										tag: 'img',
-										class: 'art-arch-img',
+										class: 'media',
 										attrs: {
 											src: ART.garden.src,
 											alt: '',
@@ -752,12 +754,13 @@ function ownView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'figure',
-						class: 'art-band',
+						class:
+							'media-frame media-frame--ratio-wide media-frame--edge-paper media-frame--inset-trim',
 						attrs: { id: 'own-art' },
 						children: [
 							{
 								tag: 'img',
-								class: 'art-arch-img',
+								class: 'media',
 								attrs: {
 									src: ART.assembly.src,
 									alt: '',
