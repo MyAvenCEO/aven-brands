@@ -138,7 +138,19 @@ let {
 	block-size: 100%;
 	object-fit: cover;
 }
+/*
+ * 48rem, to match the avenCEO plan card exactly.
+ *
+ * The two offers are the same offer at two commitments — the name and the
+ * subscription — so a reader comparing them should be comparing prices, not
+ * widths. `#aven-ceo` measures 768px; this is the same number.
+ *
+ * As `max-inline-size`, not `--measure`: this element is a `.section-inner`
+ * first, and the section unit's own cap (1152px) wins over `.center`'s knob by
+ * source order. The knob was set and silently did nothing — the block stayed
+ * 1152px wide while the CSS claimed 42rem.
+ */
 :global(#claim) :global(.section-inner) {
-	--measure: 42rem;
+	max-inline-size: 48rem;
 }
 </style>
