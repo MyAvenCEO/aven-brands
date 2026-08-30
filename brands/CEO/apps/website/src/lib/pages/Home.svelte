@@ -2081,6 +2081,34 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: block;
 }
 
+/* The figures share a baseline row; the terms sit under them. */
+:global(#id-price-figures) {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: center;
+	gap: 0 var(--space-tight);
+	margin: 0;
+}
+:global(#id-price-terms) {
+	flex-basis: 100%;
+	margin-block-start: var(--space-hairline);
+	font-size: var(--fs-meta);
+	font-weight: 500;
+	text-align: center;
+	color: var(--color-foreground-quiet);
+}
+/* The superseded price: struck, quiet, and a step smaller than the one you
+   pay — it is context for that number, not a competitor to it. */
+:global(#id-price-was) {
+	font-size: var(--fs-lead);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--tracking-tight);
+	text-decoration: line-through;
+	text-decoration-thickness: 1px;
+	color: var(--color-foreground-quiet);
+}
+
 /*
  * The trust line, which names the brand and so has to carry it.
  *
@@ -2122,44 +2150,66 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * BRAND SECONDARY, as a true two-shade duotone.
+ * THREE BADGES, not three columns.
  *
- * The set's backing carries `opacity: .5`, which is right on a light page and
- * wrong on this one — half-strength colour over marine composites to mud, and
- * that is what made the first attempt olive. The backing goes to full strength
- * and takes `secondary-edge`; the figure takes marine and reads as cut OUT of
- * it. Two distinct shades, both from the secondary ramp, both measured on this
- * band: the shape on marine is 5.56:1 and the marine figure inside the shape
- * is 5.56:1, against the 3:1 a graphical object needs.
+ * The group floated: identical weight on all three, hairline dividers that are
+ * nearly invisible on a dark ground, "100%" repeated as the largest element in
+ * each, and the actual CLAIM set smallest. Nothing led and the number carried
+ * no information — it is the same in all three, so the eye reads it once.
+ *
+ * Each is a chip on a lifted ground now, so the three read as seals rather than
+ * as a row that happens to have gaps. The icon takes sunflower at full strength
+ * (8.27:1 on marine, the one tone in the palette that reads as a seal), the
+ * claim leads in full cream, and the figure supports it underneath.
  */
+:global(#trust-claims) {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+	gap: var(--space-comfortable);
+	inline-size: 100%;
+	max-inline-size: 52rem;
+	margin: var(--space-loose) auto 0;
+	padding: 0;
+	list-style: none;
+}
+:global(.trust-claim) {
+	display: grid;
+	justify-items: center;
+	gap: var(--space-hairline);
+	padding: var(--space-loose) var(--space-comfortable);
+	border-radius: var(--radius-xl);
+	background: color-mix(in srgb, var(--color-on-dark) 7%, transparent);
+	text-align: center;
+}
 :global(.trust-claim-icon) {
 	display: block;
 	margin-block-end: var(--space-tight);
 	color: var(--color-marine);
-	--icon-tint: var(--color-secondary-edge);
-}
-/* The number takes the mark's colour, so each claim reads as one object rather
-   than a badge with an unrelated figure under it. `secondary-edge` on this band
-   is 5.56:1, which clears the 4.5 this size of text needs. */
-:global(#trust-claims) :global(.stat-value) {
-	color: var(--color-secondary-edge);
+	--icon-tint: var(--color-sunflower);
 }
 :global(.trust-claim-icon svg path[opacity]) {
 	opacity: 1;
 }
+:global(.trust-claim-name) {
+	margin: 0;
+	font-size: var(--fs-title);
+	font-weight: 600;
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	text-wrap: balance;
+	color: var(--color-band-foreground);
+}
+/* The figure annotates the claim, so it is set like an annotation. NO opacity:
+   this band's headroom is thin and fading ink here is what axe caught twice. */
+:global(.trust-claim-figure) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--fs-amount);
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+	color: var(--color-secondary-edge);
+}
 
-:global(#trust-claims) {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
-	gap: var(--space-comfortable);
-	inline-size: 100%;
-	max-inline-size: 48rem;
-	margin-inline: auto;
-	margin-block-start: var(--space-loose);
-}
-:global(#trust-claims > li + li) {
-	border-inline-start: 1px solid color-mix(in oklab, var(--color-band-foreground) 15%, transparent);
-}
 
 :global(#home-hero-content) {
 	position: relative;

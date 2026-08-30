@@ -123,7 +123,7 @@ export const home: Record<Lang, HomeMessages> = {
 		},
 		trust: {
 			headlineRest:
-				' ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
+				' ist der weltweit erste datenschützende agentische Co‑Founder, der dir gehört.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
 			cost: {
 				eyebrow: 'Dein Moment',
@@ -183,11 +183,15 @@ export const home: Record<Lang, HomeMessages> = {
 			eyebrow: 'Die Firma der Zukunft',
 			heading: '1 Mensch + 1 avenCEO',
 			roles: [
-				{ label: 'Mensch', title: '1 Mensch für die Vision', text: 'Du entscheidest, wohin.' },
+				{
+					label: 'Mensch',
+					title: 'Gibt die Richtung vor',
+					text: 'Was entsteht, für wen — und wann sich der Kurs ändert.'
+				},
 				{
 					label: 'Aven',
-					title: '1 Aven für die Ausführung',
-					text: 'Er führt aus — rund um die Uhr.'
+					title: 'Führt die Firma',
+					text: 'Buchhaltung, Rechnungen, Website, Nachfassen — jeden Tag, ungefragt.'
 				}
 			],
 			sublineHtml: `Kein Büro, keine Abteilungen, keine Angestellten — und jede Korrektur fließt in seine Skills zurück. Nach einem Jahr ist er das ${s('Gedächtnis und das Urteil')} deiner Firma.`,
@@ -243,7 +247,8 @@ export const home: Record<Lang, HomeMessages> = {
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
-			headlineRest: ' is the world’s 1st privacy‑preserving agentic co‑founder.',
+			headlineRest:
+				' is the world’s first privacy‑protecting agentic co‑founder that you own.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
 			cost: {
 				eyebrow: 'Your moment',
@@ -303,8 +308,16 @@ export const home: Record<Lang, HomeMessages> = {
 			eyebrow: 'The company of the future',
 			heading: '1 human + 1 avenCEO',
 			roles: [
-				{ label: 'Human', title: '1 human for the vision', text: 'You decide where it goes.' },
-				{ label: 'Aven', title: '1 Aven for the execution', text: 'It runs — around the clock.' }
+				{
+					label: 'Human',
+					title: 'Sets the direction',
+					text: 'What gets built, who it is for — and when to change course.'
+				},
+				{
+					label: 'Aven',
+					title: 'Runs the company',
+					text: 'Books, invoices, website, follow-ups — every day, unasked.'
+				}
 			],
 			sublineHtml: `No office, no departments, no headcount — and every correction flows back into its skills. After one year it is the ${s('memory and the judgment')} of your company.`,
 			closingLine1: 'Everyone becomes a founder.',

@@ -131,9 +131,17 @@ const MENU_ITEMS = $derived([
 	   token names and class names, which are not translated. So this point is
 	   NOT locale-prefixed: `localeHref(de, '/docs')` would link `/de/docs/`,
 	   which does not exist and which the prerenderer correctly refuses to
-	   build a page that links to. */
-	{ href: '/docs', label: t.nav.docs, key: 'docs' as const, localized: false }
+	   build a page that links to.
+
+	   `hidden` keeps it out of the bar and the menu WITHOUT unbuilding it: the
+	   route, its prerender and every existing link still work, and anyone with
+	   the URL still arrives. Removing the entry outright would have been the
+	   other thing — a dead link for everyone who already has one. */
+	{ href: '/docs', label: t.nav.docs, key: 'docs' as const, localized: false, hidden: true }
 ])
+
+/** What the bar and the menu actually render. */
+const VISIBLE_ITEMS = $derived(MENU_ITEMS.filter((i) => !i.hidden))
 
 const itemHref = (item: (typeof MENU_ITEMS)[number]) =>
 	item.localized ? localeHref(lang, item.href) : `${item.href}/`
@@ -165,7 +173,7 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 		{@html page.data.socialRowHtml ?? ''}
 
 		<nav class="navbar-links" aria-label={t.nav.primaryLabel}>
-			{#each MENU_ITEMS as item (item.key)}
+			{#each VISIBLE_ITEMS as item (item.key)}
 				<a
 					class="nav-link"
 					href={itemHref(item)}

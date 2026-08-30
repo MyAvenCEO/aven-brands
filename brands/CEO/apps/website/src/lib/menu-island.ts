@@ -69,8 +69,9 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 			meta: t.nav.pricingMeta,
 			key: 'pricing'
 		},
-		/* ceoBRAND is written once, in English — never locale-prefixed. */
-		{ href: '/docs/', label: t.nav.docs, meta: t.nav.docsMeta, key: 'docs' }
+		/* ceoBRAND is written once, in English — never locale-prefixed.
+		   Hidden from the menu for now, exactly as it is hidden from the bar: the
+		   route still builds and the URL still works, it is simply not offered. */
 	]
 
 	const itemNodes: ViewNode[] = items.map((item) => ({

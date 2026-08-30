@@ -209,16 +209,20 @@ function trustView(t: (typeof home)['de']): ViewNode {
 						children: t.trust.claims.map(
 							(claim, i): ViewNode => ({
 								tag: 'li',
-								class: 'stat stat--align-center',
+								class: 'trust-claim',
 								children: [
 									{
 										tag: 'span',
 										class: 'trust-claim-icon',
 										attrs: { 'aria-hidden': 'true' },
-										$icon: { name: TRUST_ICONS[i], size: '2.25rem' }
+										$icon: { name: TRUST_ICONS[i], size: '1.75rem' }
 									},
-									{ tag: 'p', class: 'stat-value', text: '100%' },
-									{ tag: 'p', class: 'text text--eyebrow stat-label', text: claim }
+									/* The CLAIM leads and the figure supports it. It was the
+									   other way round, and "100%" three times is the same word
+									   three times — the eye reads it once and skips the rest,
+									   so the thing being claimed was the smallest thing there. */
+									{ tag: 'p', class: 'trust-claim-name', text: claim },
+									{ tag: 'p', class: 'trust-claim-figure', text: '100%' }
 								]
 							})
 						)

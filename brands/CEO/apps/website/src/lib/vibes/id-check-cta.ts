@@ -132,16 +132,35 @@ function priceView(lang: Lang): ViewNode {
 		children: [
 			{
 				tag: 'p',
-				class: 'flex flex-wrap items-baseline justify-center gap-x-2',
+				attrs: { id: 'id-price-figures' },
 				children: [
+					/*
+					 * The list price, struck, BEFORE the one you pay. An offer that
+					 * only shows the discounted number is not an offer, it is a price
+					 * — the saving has to be visible or there is nothing to decide.
+					 * Rendered only when the plan carries a `listEurPrice`, so it
+					 * disappears with the offer instead of having to be remembered.
+					 */
+					...(avenId.listEurPrice
+						? [
+								{
+									tag: 'span',
+									attrs: { id: 'id-price-was' },
+									text: `${euro(avenId.listEurPrice)}${NBSP}€`
+								} satisfies ViewNode
+							]
+						: []),
 					{
 						tag: 'span',
 						class: 'text-3xl font-semibold tabular-nums tracking-tight text-foreground',
 						text: `${euro(avenId.eurPrice)}${NBSP}€`
 					},
 					{
+						/* Its own row under the figures. On the baseline beside them it
+						   read as part of the amount and took width from it; below, the
+						   price is the price and the terms annotate it. */
 						tag: 'span',
-						class: 'text-[length:var(--fs-meta)] font-medium text-foreground-quiet',
+						attrs: { id: 'id-price-terms' },
 						text: priceSuffix(avenId, lang)
 					}
 				]
@@ -169,11 +188,6 @@ function betaView(lang: Lang): ViewNode | null {
 				class: 'font-bold leading-snug',
 				text: t.betaLine(ceoBeta.discountPct, ceoBeta.months)
 			},
-			{
-				tag: 'p',
-				class: 'mt-0.5 text-[length:var(--fs-meta)] font-medium leading-snug',
-				text: t.betaScarcity
-			}
 		]
 	}
 }

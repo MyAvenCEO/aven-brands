@@ -51,7 +51,6 @@ export const common: Record<
 			/** The early-adopter perk this €25 unlocks — the real hook, as a bullet. */
 			betaLine: (pct: number, months: number) => string
 			betaPriceLine: (discounted: string, regular: string) => string
-			betaScarcity: string
 			placeholder: string
 			button: string
 			exampleLabel: string
@@ -105,9 +104,9 @@ export const common: Record<
 			title: 'Sichere dir jetzt deinen avenCEO‑Namen',
 			bodyHtml:
 				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
-			betaLine: (pct, months) => `+ ${pct} % Rabatt auf die ersten ${months} Monate avenCEO`,
+			betaLine: (pct, months) =>
+				`inkl. ${pct}% Rabatt auf deine ersten ${months} Monate avenCEO`,
 			betaPriceLine: (discounted, regular) => `${discounted} €/m statt ${regular} €`,
-			betaScarcity: '1 / 10 vergeben',
 			placeholder: 'maia',
 			button: 'Namen sichern →',
 			exampleLabel: 'Beispiel:',
@@ -160,9 +159,9 @@ export const common: Record<
 			title: 'Claim your avenCEO name now',
 			bodyHtml:
 				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
-			betaLine: (pct, months) => `+ ${pct} % off your first ${months} months of avenCEO`,
+			betaLine: (pct, months) =>
+				`incl. ${pct}% off your first ${months} months of avenCEO`,
 			betaPriceLine: (discounted, regular) => `${discounted} €/m instead of ${regular} €`,
-			betaScarcity: '1 / 10 claimed',
 			placeholder: 'maia',
 			button: 'Claim your name →',
 			exampleLabel: 'Example:',
