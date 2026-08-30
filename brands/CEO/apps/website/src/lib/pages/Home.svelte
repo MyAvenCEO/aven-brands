@@ -257,14 +257,24 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 
 /* The pull-quote: the page's turn, and the largest thing in the section, so
    it leads. `cqi`, never `vw` — see the note at the call site. */
+/* The question is the page's turn, so it gets the treatment the arithmetic's
+   statement gets: parenthesised, centred, and the largest thing in view. The
+   parens are the reference set's framing device and they are sunflower —
+   a shape, which is the only job that tone can hold on cream. */
 :global(#shift-question) {
-	max-inline-size: 44rem;
-	margin: var(--space-section) 0 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: center;
+	gap: var(--space-comfortable);
+	max-inline-size: 48rem;
+	margin: var(--space-section) auto 0;
 	font-family: var(--font-display);
-	font-size: clamp(1.75rem, 5cqi, 3rem);
+	font-size: clamp(2rem, 6cqi, 3.5rem);
 	font-weight: 400;
-	line-height: 1.1;
+	line-height: 1.05;
 	letter-spacing: var(--tracking-tight);
+	text-align: center;
 	text-wrap: balance;
 	color: var(--color-foreground);
 }
@@ -292,13 +302,101 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * THE ARITHMETIC — an editorial spread on ONE grid.
+ * EDITORIAL FURNITURE, shared by the two argued sections.
  *
- * The previous version stacked blocks at 576px, full, full and 544px, all
- * flush left in a 1344px field: four measures, no relationship, and more than
- * half the width empty beside the parts that mattered. Everything sits in one
- * grid now, so the story and the price FACE each other and the price reads as
- * the answer to the heading rather than a fact filed underneath it.
+ * Drawn, never illustrated: rules, corner brackets and tracked caps are what
+ * the period actually used, and a stylesheet can make all of them without a
+ * single asset. Brand colour throughout — the retro is in the STRUCTURE, not
+ * in a new palette.
+ */
+:global(.rule-label) {
+	display: flex;
+	align-items: center;
+	gap: var(--space-tight);
+	margin: 0;
+	font-family: var(--font-sans);
+	font-size: var(--fs-eyebrow);
+	font-weight: 600;
+	letter-spacing: var(--tracking-widest);
+	text-transform: uppercase;
+	color: var(--color-eyebrow-ink);
+}
+:global(.rule-label-index) {
+	font-variant-numeric: tabular-nums;
+	color: var(--color-foreground-quiet);
+}
+:global(.rule-label-index)::after {
+	content: '';
+	display: inline-block;
+	inline-size: 1.25rem;
+	block-size: 1px;
+	margin-inline: var(--space-tight) 0;
+	vertical-align: middle;
+	background: var(--color-border-strong);
+}
+/* The rule takes whatever width is left, which is what anchors the label to
+   the column instead of leaving it floating over the content. */
+:global(.rule-label-line) {
+	flex: 1 1 auto;
+	block-size: 1px;
+	background: var(--color-border-soft);
+}
+/*
+ * The framing parens, in PARADISE and not sunflower.
+ *
+ * They were sunflower, which measured 1.71:1 on cream — a glyph nobody can
+ * read, and short of even the 3:1 a shape needs. That was me contradicting my
+ * own measurement one pass after making it: sunflower on this ground is a
+ * FIELD, never a mark. Paradise is 3.93:1, which clears 3:1 at the display
+ * sizes these sit at.
+ *
+ * Inline, not flex children: as flex items they wrapped onto their own lines
+ * above and below the sentence, which reads as a mistake rather than a frame.
+ */
+:global(.paren) {
+	color: var(--color-paradise);
+	font-style: normal;
+}
+
+/*
+ * ILLUSTRATION SLOTS.
+ *
+ * A described placeholder rather than a grey box: the brief for the artwork
+ * lives in the markup, so whoever fills it does not have to find the
+ * conversation it came from. The frame is drawn in brand tones and reads as
+ * deliberate while it is empty, which is the difference between a placeholder
+ * and a hole.
+ */
+:global(.art-slot) {
+	position: relative;
+	display: grid;
+	align-content: end;
+	min-block-size: 16rem;
+	margin: 0;
+	padding: var(--space-comfortable);
+	background:
+		repeating-linear-gradient(
+			45deg,
+			color-mix(in oklab, var(--color-paradise) 7%, transparent) 0 2px,
+			transparent 2px 10px
+		),
+		var(--color-surface-sunken);
+	border: 1px solid var(--color-border-soft);
+}
+:global(.art-slot-brief) {
+	margin: 0;
+	font-family: var(--font-mono, var(--font-sans));
+	font-size: var(--fs-meta);
+	line-height: 1.5;
+	color: var(--color-foreground-soft);
+}
+
+/*
+ * THE ARITHMETIC — an editorial price sheet.
+ *
+ * One grid: story left, price sheet right, ticker across, statement centred
+ * beneath. The grid fixed an earlier fault (four unrelated measures, half the
+ * width empty); this pass gives it a voice.
  */
 :global(#cost-grid) {
 	display: grid;
@@ -307,11 +405,10 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 @media (min-width: 56rem) {
 	:global(#cost-grid) {
-		/* The price column is narrower and it still leads, because it holds the
-		   largest type on the section. Room is not the only way to lead. */
 		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
 	}
-	:global(#cost-does) {
+	:global(#cost-does),
+	:global(#cost-turn) {
 		grid-column: 1 / -1;
 	}
 }
@@ -338,40 +435,60 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	text-wrap: pretty;
 	color: var(--color-foreground-soft);
 }
-:global(#cost-turn) {
-	display: grid;
-	gap: var(--space-tight);
-	margin-block-start: var(--space-comfortable);
-	padding-block-start: var(--space-comfortable);
-	border-block-start: 1px solid var(--color-border-soft);
-}
-:global(#cost-closing) {
-	margin: 0;
-	font-size: var(--fs-meta);
-	color: var(--color-foreground-quiet);
-}
-:global(#cost-kicker) {
-	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
-	font-weight: 400;
-	line-height: 1.15;
-	letter-spacing: var(--tracking-tight);
-	color: var(--color-foreground);
-}
 
-/* The price column: one object, the old figure struck directly above the one
-   replacing it, held together by the accent edge. */
+/* The price sheet. Corner brackets rather than a full border: the reference
+   set's registration marks, and they read as a technical sheet rather than a
+   card — which is what a price comparison is. */
 :global(#cost-price) {
 	display: grid;
-	gap: var(--space-loose);
-	padding-inline-start: var(--space-loose);
-	border-inline-start: 2px solid var(--color-sunflower);
+	gap: var(--space-comfortable);
 }
-:global(#cost-was),
-:global(#cost-now) {
+:global(.cost-panel) {
+	position: relative;
 	display: grid;
 	gap: var(--space-hairline);
+	padding: var(--space-comfortable);
+}
+:global(.cost-panel)::before,
+:global(.cost-panel)::after {
+	content: '';
+	position: absolute;
+	inline-size: 0.75rem;
+	block-size: 0.75rem;
+	border-color: var(--color-border-strong);
+	border-style: solid;
+}
+:global(.cost-panel)::before {
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	border-width: 1px 0 0 1px;
+}
+:global(.cost-panel)::after {
+	inset-block-end: 0;
+	inset-inline-end: 0;
+	border-width: 0 1px 1px 0;
+}
+/* The offer is a FIELD of the brand accent, which is the one job sunflower
+   can hold on a light page: marine on sunflower is 8.27:1, and the panel
+   becomes the thing the eye lands on without a single line being drawn. */
+:global(#cost-now) {
+	background: var(--color-sunflower);
+	color: var(--color-marine);
+	padding: var(--space-loose);
+}
+:global(#cost-now)::before,
+:global(#cost-now)::after {
+	border-color: color-mix(in oklab, var(--color-marine) 35%, transparent);
+	inline-size: 1rem;
+	block-size: 1rem;
+}
+:global(.cost-panel-label) {
+	margin: 0;
+	font-size: var(--fs-eyebrow);
+	font-weight: 600;
+	letter-spacing: var(--tracking-widest);
+	text-transform: uppercase;
+	color: var(--color-foreground-quiet);
 }
 :global(#cost-was-figure),
 :global(#cost-now-figure) {
@@ -386,19 +503,16 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 :global(#cost-was-value) {
 	font-size: var(--fs-amount);
-	font-weight: 400;
 	color: var(--color-foreground-quiet);
-	/* The page's own gesture, third time: the hero strikes a sentence, the
-	   shift a script, this a salary. CSS and not an `<s>` element — SAFE_TAGS
-	   admits no `s`, so the tag fell back to a div and the line never drew. */
+	/* The page's own gesture, third time: hero strikes a sentence, shift a
+	   script, this a salary. CSS not `<s>` — SAFE_TAGS admits no `s`. */
 	text-decoration: line-through;
 	text-decoration-thickness: 1px;
 	text-decoration-color: var(--color-foreground-quiet);
 }
 :global(#cost-now-value) {
 	font-size: clamp(2.75rem, 7cqi, 4rem);
-	font-weight: 400;
-	color: var(--color-paradise);
+	color: var(--color-marine);
 }
 :global(#cost-was-unit),
 :global(#cost-now-unit) {
@@ -410,34 +524,82 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(#cost-now-note) {
 	margin: var(--space-tight) 0 0;
 	font-size: var(--fs-meta);
-	line-height: 1.55;
+	line-height: 1.5;
 	color: var(--color-foreground-soft);
 }
 
-/* The receipts, across both columns and separated by a rule: they qualify the
-   story and the price equally, so they belong to neither. */
+/* FULL marine on the sunflower field, and this rule sits AFTER the generic
+   pair above it deliberately — an identical-specificity override that came
+   first lost silently, which is the same source-order trap that hid a stale
+   sunflower border earlier in this file.
+   Softening ink on a coloured field is the same error as tinting it on cream:
+   78% marine measured 3.21:1 on the unit and 4.39:1 on the note, both short
+   of the 4.5 body text needs. The field is already the contrast; the ink does
+   not get to be quiet as well. */
+:global(#cost-now) :global(.cost-panel-label),
+:global(#cost-now) :global(#cost-now-unit),
+:global(#cost-now) :global(#cost-now-note) {
+	color: var(--color-marine);
+}
+
+/* The ticker: facts edge to edge, separated by marks. Static — motion here
+   would be decoration that has to be switched off again for anyone who asked
+   for less of it. */
 :global(#cost-does) {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+	display: flex;
+	flex-wrap: wrap;
 	gap: var(--space-comfortable) var(--space-loose);
 	margin: 0;
-	padding-block-start: var(--space-loose);
-	border-block-start: 1px solid var(--color-border-soft);
+	padding-block: var(--space-comfortable);
+	border-block: 1px solid var(--color-border-soft);
 	list-style: none;
+	font-size: var(--fs-eyebrow);
+	font-weight: 600;
+	letter-spacing: var(--tracking-wider);
+	text-transform: uppercase;
+	color: var(--color-foreground);
 }
 :global(#cost-does > li) {
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 	gap: var(--space-tight);
-	font-size: var(--fs-meta);
-	line-height: 1.4;
-	color: var(--color-foreground);
 }
 :global(.cost-does-mark) {
 	flex: 0 0 auto;
-	inline-size: 0.75rem;
-	block-size: 2px;
+	inline-size: 0.3rem;
+	block-size: 0.3rem;
+	border-radius: var(--radius-full);
 	background: var(--color-paradise);
+}
+
+/* The statement: centred, full width, and the largest thing in the section
+   after the price. It was tucked into the story column at body scale, which
+   is where an argument goes to be missed. */
+:global(#cost-turn) {
+	display: grid;
+	justify-items: center;
+	gap: var(--space-comfortable);
+	text-align: center;
+}
+:global(#cost-closing) {
+	margin: 0;
+	font-size: var(--fs-meta);
+	letter-spacing: var(--tracking-wider);
+	text-transform: uppercase;
+	color: var(--color-foreground-quiet);
+}
+:global(#cost-kicker) {
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-comfortable);
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 6cqi, 3.5rem);
+	font-weight: 400;
+	line-height: 1.05;
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+	color: var(--color-foreground);
 }
 
 /*
@@ -469,8 +631,38 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(#shift-was),
 :global(#shift-now) {
 	display: grid;
-	gap: var(--space-tight);
+	gap: var(--space-comfortable);
 	min-inline-size: 0;
+	align-content: start;
+}
+/* The future script is the one being argued for, so it gets the sheet: a
+   tinted ground and the accent brackets the price panel wears. The past
+   script stays bare, which is the argument. */
+:global(#shift-now) {
+	position: relative;
+	padding: var(--space-loose);
+	background: var(--color-surface-raised);
+}
+:global(#shift-now)::before,
+:global(#shift-now)::after {
+	content: '';
+	position: absolute;
+	inline-size: 1rem;
+	block-size: 1rem;
+	/* Paradise, not sunflower: a 1px rule is a MARK, and sunflower cannot be
+	   one on this ground at 1.71:1. */
+	border-color: var(--color-paradise);
+	border-style: solid;
+}
+:global(#shift-now)::before {
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	border-width: 1px 0 0 1px;
+}
+:global(#shift-now)::after {
+	inset-block-end: 0;
+	inset-inline-end: 0;
+	border-width: 0 1px 1px 0;
 }
 :global(#shift-was-eyebrow) {
 	color: var(--color-foreground-quiet);

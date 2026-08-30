@@ -151,30 +151,29 @@ export const home: Record<Lang, HomeMessages> = {
 		shift: {
 			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
-			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr. Nur noch, was dir gehört.`,
-			question:
-				'<span style="color:var(--color-paradise)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
+			bodyHtml: `Wenn KI fast jede Arbeit erledigt — ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr.`,
+			question: 'Besitzt du die KI, die die neue Arbeit macht?',
 			without: {
 				eyebrow: 'Ohne Assets',
-				title: 'Das fremdbestimmte Drehbuch',
+				title: 'Fremdbestimmt',
 				items: [
 					'Deine Stunden konkurrieren mit dem Strompreis.',
 					'Jedes Gehalt ist ersetzbar — auch deins.',
 					'Deine Daten liegen auf fremden Plattformen.'
 				],
-				closing: 'Dein Leben läuft nach dem Plan anderer.'
+				closing: 'Der Plan anderer.'
 			},
 			with: {
 				eyebrow: 'Mit deinen Avens',
-				title: 'Das selbstbestimmte Drehbuch',
+				title: 'Selbstbestimmt',
 				items: [
 					'Deine KI arbeitet rund um die Uhr — für dich.',
-					'Was du baust, gehört dir. Jede Idee bekommt ihren Aven.',
+					'Was du baust, gehört dir.',
 					'Du gestaltest wieder — deine Vision, dein Leben.'
 				],
-				closing: 'Du baust etwas Eigenes. Das macht glücklich.'
+				closing: 'Dein Plan.'
 			},
-			closingBefore: 'Beide Drehbücher beginnen heute — du schreibst eines davon sowieso.',
+			closingBefore: 'Beide beginnen heute. Du schreibst eines davon sowieso.',
 			closingStrong: 'Greifst du zum Stift?'
 		},
 		company: {
@@ -287,30 +286,29 @@ export const home: Record<Lang, HomeMessages> = {
 		shift: {
 			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
-			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity')} — ${s('trading time for money')} stops paying. Only what you own will.`,
-			question:
-				'Do you <span style="color:var(--color-paradise)">own</span> the AI doing the new work — or not?',
+			bodyHtml: `When AI does almost any job — ${s('at the price of electricity')} — ${s('trading time for money')} stops paying.`,
+			question: 'Do you own the AI doing the new work?',
 			without: {
 				eyebrow: 'Without assets',
-				title: 'The script someone else wrote',
+				title: 'Someone else’s script',
 				items: [
 					'Your hours compete with the price of electricity.',
 					'Every salary is replaceable — yours too.',
 					'Your data lives on someone else’s platform.'
 				],
-				closing: 'Your life runs on somebody else’s plan.'
+				closing: 'Their plan.'
 			},
 			with: {
 				eyebrow: 'With your Avens',
-				title: 'The script you write yourself',
+				title: 'The script you write',
 				items: [
 					'Your AI works around the clock — for you.',
-					'What you build is yours. Every idea gets its own Aven.',
-					'You shape it all again — your vision, your life.'
+					'What you build is yours.',
+					'You shape it again — your vision, your life.'
 				],
-				closing: 'You build something that’s yours. That’s happiness.'
+				closing: 'Your plan.'
 			},
-			closingBefore: 'Both scripts start today — you’re writing one either way.',
+			closingBefore: 'Both start today. You are writing one either way.',
 			closingStrong: 'Will you pick up the pen?'
 		},
 		company: {

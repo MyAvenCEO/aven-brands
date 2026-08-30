@@ -171,24 +171,39 @@ function trustView(t: (typeof home)['de']): ViewNode {
 /* ----------------------------------------------------------- the arithmetic */
 
 /**
- * An editorial spread: the story down the left, the price as the object on
- * the right.
+ * A rule-anchored label: tracked caps, then a hairline running to the edge.
  *
- * The previous pass stacked four blocks at four different measures — 576px,
- * then full width, then full width, then 544px — all flush left in a 1344px
- * field. Nothing related them, so the section read as a column that kept
- * changing its mind, with more than half the width empty beside the parts
- * that mattered most. Measured, which is how it was found.
+ * The editorial device the reference set uses everywhere — it turns a label
+ * into a piece of furniture that holds the column together, instead of a
+ * caption floating above content. Two elements, no ornament file: the word,
+ * and a rule that takes the remaining width.
+ */
+function ruleLabel(text: string, index?: string): ViewNode {
+	return {
+		tag: 'p',
+		class: 'rule-label',
+		children: [
+			...(index ? [{ tag: 'span', class: 'rule-label-index', text: index }] : []),
+			{ tag: 'span', class: 'rule-label-text', text },
+			{ tag: 'span', class: 'rule-label-line', attrs: { 'aria-hidden': 'true' } }
+		]
+	}
+}
+
+/**
+ * The arithmetic, restyled as an editorial price sheet.
  *
- * One grid now, and every element sits in it. The story column and the price
- * column face each other, which is what makes the price an ANSWER to the
- * heading rather than a fact filed underneath it; the capabilities run as a
- * rule-separated band across both, because they qualify both halves; the turn
- * closes on the story column's own edge.
+ * The previous pass fixed the GRID and left the styling generic — a correct
+ * layout with nothing in it that could only be this page. The reference set
+ * shares a vocabulary worth borrowing: an index number that makes a section
+ * feel like a page in something, labels anchored by rules rather than
+ * floating, parentheses around the line that carries the argument, a ticker
+ * of short facts, and one closing statement given the whole width.
  *
- * The price panel is the lead — "one thing leads", and on a page about what a
- * company costs, the number is the thing. It gets the accent edge, the
- * largest type on the section, and the right-hand column to itself.
+ * All of it in brand colour and existing tokens — no new palette, no
+ * ornament assets. Retro here means STRUCTURE, not decoration: the devices
+ * are rules, brackets and tracked caps, which is what the period actually
+ * used, and what a stylesheet can draw without a single image.
  */
 function costView(t: (typeof home)['de']): ViewNode {
 	return {
@@ -201,35 +216,45 @@ function costView(t: (typeof home)['de']): ViewNode {
 				class: 'section-inner',
 				attrs: { id: 'cost-grid' },
 				children: [
-					/* Story column. */
 					{
 						tag: 'div',
 						attrs: { id: 'cost-story' },
 						children: [
-							{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.eyebrow },
+							ruleLabel(t.trust.cost.eyebrow, '02'),
 							{ tag: 'h2', attrs: { id: 'cost-heading' }, text: t.trust.cost.heading },
-							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead },
+							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead }
+						]
+					},
+					/* An illustration slot, described in place so the brief travels with
+					   the markup rather than in someone's notes. */
+					{
+						tag: 'figure',
+						class: 'art-slot',
+						attrs: { id: 'cost-art' },
+						children: [
 							{
-								tag: 'div',
-								attrs: { id: 'cost-turn' },
-								children: [
-									{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing },
-									{ tag: 'p', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker }
-								]
+								tag: 'figcaption',
+								class: 'art-slot-brief',
+								text: 'ILLUSTRATION — one founder at a desk before dawn, as a flat two-colour engraving in marine on sand: a single warm lamp, the rest of the floor empty. The point is one person doing what used to need a room of them.'
 							}
 						]
 					},
-					/* Price column: the struck salary directly above what replaces it,
-					   so the swap is one glance rather than an arithmetic exercise. */
+					/* The price sheet. The old figure is struck and bare; the offer is a
+					   SUNFLOWER GROUND with marine ink — the brand accent at full
+					   strength, in the one job it can hold here. As a mark on cream it
+					   measures 1.71:1 and fails even the 3:1 a shape needs; as a ground
+					   under marine it is 8.27:1. A colour that cannot be a line can
+					   still be a field. */
 					{
 						tag: 'div',
 						attrs: { id: 'cost-price' },
 						children: [
 							{
 								tag: 'div',
+								class: 'cost-panel',
 								attrs: { id: 'cost-was' },
 								children: [
-									{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.human.label },
+									{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.human.label },
 									{
 										tag: 'p',
 										attrs: { id: 'cost-was-figure' },
@@ -243,9 +268,10 @@ function costView(t: (typeof home)['de']): ViewNode {
 							},
 							{
 								tag: 'div',
+								class: 'cost-panel',
 								attrs: { id: 'cost-now' },
 								children: [
-									{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.aven.label },
+									{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
 									{
 										tag: 'p',
 										attrs: { id: 'cost-now-figure' },
@@ -259,7 +285,9 @@ function costView(t: (typeof home)['de']): ViewNode {
 							}
 						]
 					},
-					/* The band across both columns: what it runs, as receipts. */
+					/* The ticker: short facts separated by marks, edge to edge. Static,
+					   not a marquee — motion here would be decoration that has to be
+					   turned off again for anyone who asked for less of it. */
 					{
 						tag: 'ul',
 						attrs: { id: 'cost-does' },
@@ -272,6 +300,26 @@ function costView(t: (typeof home)['de']): ViewNode {
 								]
 							})
 						)
+					},
+					/* The closing statement, centred and given the full width. It is the
+					   emotional turn of the section and it was tucked into the story
+					   column at body scale, which is where an argument goes to be
+					   missed. */
+					{
+						tag: 'div',
+						attrs: { id: 'cost-turn' },
+						children: [
+							{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing },
+							{
+								tag: 'p',
+								attrs: { id: 'cost-kicker' },
+								children: [
+									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '( ' },
+									{ tag: 'span', text: t.trust.cost.kicker },
+									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ' )' }
+								]
+							}
+						]
 					}
 				]
 			}
@@ -309,12 +357,7 @@ function scriptColumn(
 		tag: 'div',
 		attrs: { id: past ? 'shift-was' : 'shift-now' },
 		children: [
-			{
-				tag: 'p',
-				class: 'text text--eyebrow',
-				attrs: { id: past ? 'shift-was-eyebrow' : 'shift-now-eyebrow' },
-				text: script.eyebrow
-			},
+			ruleLabel(script.eyebrow, past ? '01' : '02'),
 			{
 				tag: 'h3',
 				attrs: { id: past ? 'shift-was-title' : 'shift-now-title' },
@@ -356,7 +399,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 						tag: 'div',
 						attrs: { id: 'shift-head' },
 						children: [
-							{ tag: 'p', class: 'text text--eyebrow', text: t.shift.eyebrow },
+							ruleLabel(t.shift.eyebrow, '03'),
 							{
 								tag: 'h2',
 								class: 'text text--display',
@@ -369,7 +412,15 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 					/* The question as a pull-quote. It sized itself with `4.2vw`, which
 					   is the window's width and not this section's — `cqi` reads the
 					   section's own container instead; the rule lives on the id. */
-					{ tag: 'p', attrs: { id: 'shift-question' }, text: '@@shift-question@@' },
+					{
+						tag: 'p',
+						attrs: { id: 'shift-question' },
+						children: [
+							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '( ' },
+							{ tag: 'span', text: '@@shift-question@@' },
+							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ' )' }
+						]
+					},
 					{
 						tag: 'div',
 						attrs: { id: 'shift-scripts' },
