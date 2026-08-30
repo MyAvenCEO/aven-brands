@@ -422,11 +422,12 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * ink. The parts are named once now and the two differences are stated once.
  */
 :global(.shift-script) {
+	padding: var(--space-loose);
+	border-radius: var(--radius-xl);
+	display: grid;
 	--gap: var(--space-comfortable);
 	min-inline-size: 0;
 	align-content: start;
-	padding: var(--space-loose);
-	border-radius: var(--radius-xl);
 }
 :global(.shift-script[data-script='without']) {
 	background: var(--color-surface-sunken);
@@ -581,11 +582,28 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	}
 }
 :global(.own-rung) {
-	align-content: start;
-	--gap: var(--space-tight);
+	/*
+	 * NOT a `surface`, and the reason is worth keeping.
+	 *
+	 * `surface` is exactly this device — a padded, rounded box with a ground —
+	 * and it now carries the `paper` ground this needs. But every composite here
+	 * declares a container, and a container between an element and the box it
+	 * used to measure changes what `cqi` means for everything inside it. The
+	 * rung's title reads 3cqi of the SECTION; as a surface it would read 3cqi of
+	 * the rung, which is narrower when the rungs sit in a row and WIDER when
+	 * they stack — so the title would shrink and grow in opposite directions
+	 * from the ones it was written for.
+	 *
+	 * A box unit that is also a container is not a drop-in for a box. This one
+	 * keeps its own three declarations until the title is expressed in
+	 * something that does not care.
+	 */
 	padding: var(--space-loose);
 	border-radius: var(--radius-xl);
 	background: var(--color-surface-sunken);
+	display: grid;
+	align-content: start;
+	--gap: var(--space-tight);
 }
 /* The payoff rung, on the success tint — marine on it measures 12.15:1. */
 :global(.own-rung[data-rung='last']) {
@@ -1269,12 +1287,19 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	/* `.center` owns the inline auto margins; the block one is this rule's. */
 	margin-block-start: var(--space-loose);
 }
+/*
+ * `surface` is a BOX and `stack` is a LAYOUT, and they collide on one line:
+ * surface's base sets `display: block`, and `@layer components` beats
+ * `@layer primitives`, so wearing both leaves the grid off. Page CSS is
+ * unlayered and beats both, which is why the display is re-asserted here
+ * rather than argued about in the cascade.
+ */
 :global(.trust-claim) {
+	display: grid;
+	/* `size-chip` pads evenly; this one is narrower on the inline axis. */
+	padding-inline: var(--space-comfortable);
 	justify-items: center;
 	--gap: var(--space-hairline);
-	padding: var(--space-loose) var(--space-comfortable);
-	border-radius: var(--radius-xl);
-	background: color-mix(in srgb, var(--color-on-dark) 7%, transparent);
 	text-align: center;
 }
 :global(.trust-claim-icon) {

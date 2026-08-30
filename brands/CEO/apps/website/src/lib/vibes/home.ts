@@ -210,7 +210,7 @@ function trustView(t: (typeof home)['de']): ViewNode {
 						children: t.trust.claims.map(
 							(claim, i): ViewNode => ({
 								tag: 'li',
-								class: 'trust-claim stack',
+								class: 'trust-claim stack surface surface--lift surface--size-chip',
 								children: [
 									{
 										tag: 'span',

@@ -684,6 +684,31 @@
 		box-shadow: none;
 	}
 
+	.surface--accent {
+		background: var(--color-accent-surface);
+		border: 0;
+		box-shadow: none;
+		color: var(--color-accent-foreground);
+	}
+
+	.surface--success {
+		background: var(--color-success-surface);
+		border: 0;
+		box-shadow: none;
+	}
+
+	.surface--lift {
+		background: color-mix(in srgb, currentColor 7%, transparent);
+		border: 0;
+		box-shadow: none;
+	}
+
+	.surface--paper {
+		background: var(--color-surface-sunken);
+		border: 0;
+		box-shadow: none;
+	}
+
 	.surface--size-sm {
 		border-radius: var(--radius-sm);
 		padding: var(--space-comfortable);
@@ -692,6 +717,11 @@
 	.surface--size-lg {
 		border-radius: var(--radius-xl);
 		padding: var(--space-section);
+	}
+
+	.surface--size-chip {
+		border-radius: var(--radius-xl);
+		padding: var(--space-loose);
 	}
 
 	.card--emphasis-featured {
