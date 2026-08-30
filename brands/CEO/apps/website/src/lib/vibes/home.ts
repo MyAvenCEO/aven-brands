@@ -209,7 +209,7 @@ function trustView(t: (typeof home)['de']): ViewNode {
 						children: t.trust.claims.map(
 							(claim, i): ViewNode => ({
 								tag: 'li',
-								class: 'trust-claim',
+								class: 'trust-claim stack',
 								children: [
 									{
 										tag: 'span',
@@ -305,11 +305,12 @@ function costView(t: (typeof home)['de']): ViewNode {
 		children: [
 			{
 				tag: 'div',
-				class: 'section-inner',
+				class: 'section-inner stack',
 				attrs: { id: 'cost-grid' },
 				children: [
 					{
 						tag: 'div',
+						class: 'stack stack-center center',
 						attrs: { id: 'cost-story' },
 						children: [
 							ruleLabel(t.trust.cost.eyebrow, '02'),
@@ -396,7 +397,7 @@ function costView(t: (typeof home)['de']): ViewNode {
 						children: [
 							{
 								tag: 'div',
-								class: 'cost-panel',
+								class: 'cost-panel stack',
 								attrs: { id: 'cost-was' },
 								children: [
 									{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.human.label },
@@ -413,7 +414,7 @@ function costView(t: (typeof home)['de']): ViewNode {
 							},
 						{
 							tag: 'div',
-							class: 'cost-panel',
+							class: 'cost-panel stack',
 							attrs: { id: 'cost-now' },
 							children: [
 								{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
@@ -501,7 +502,7 @@ function scriptColumn(
 	 */
 	return {
 		tag: 'div',
-		class: 'shift-script',
+		class: 'shift-script stack',
 		attrs: { id: `shift-${side}`, 'data-script': side },
 		children: [
 			ruleLabel(script.eyebrow),
@@ -545,6 +546,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'div',
+						class: 'stack stack-center center',
 						attrs: { id: 'shift-head' },
 						children: [
 							ruleLabel(t.shift.eyebrow, '03'),
@@ -585,6 +587,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 						children: [
 							{
 								tag: 'div',
+								class: 'stack',
 								attrs: { id: 'shift-scripts' },
 								children: [
 									scriptColumn(t.shift.without, 'without'),
@@ -694,11 +697,12 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'div',
+						class: 'stack',
 						attrs: { id: 'company-roles' },
 						children: t.company.roles.map(
 							(role, i): ViewNode => ({
 								tag: 'div',
-								class: 'company-role',
+								class: 'company-role stack',
 								attrs: { 'data-side': i === 0 ? 'human' : 'aven' },
 								children: [
 									{ tag: 'p', class: 'company-role-label', text: role.label },
@@ -745,11 +749,12 @@ function ownView(t: (typeof home)['de']): ViewNode {
 		children: [
 			{
 				tag: 'div',
-				class: 'section-inner',
+				class: 'section-inner stack',
 				attrs: { id: 'own-grid' },
 				children: [
 					{
 						tag: 'div',
+						class: 'stack stack-center center',
 						attrs: { id: 'own-head' },
 						children: [
 							ruleLabel(t.own.eyebrow, '04'),
@@ -808,7 +813,7 @@ function ownView(t: (typeof home)['de']): ViewNode {
 						children: t.own.rungs.map(
 							(rung, i): ViewNode => ({
 								tag: 'li',
-								class: 'own-rung',
+								class: 'own-rung stack',
 								attrs: i === t.own.rungs.length - 1 ? { 'data-rung': 'last' } : {},
 								children: [
 									{ tag: 'p', class: 'own-rung-index', text: String(i + 1).padStart(2, '0') },

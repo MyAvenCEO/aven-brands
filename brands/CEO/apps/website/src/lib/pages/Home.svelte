@@ -167,15 +167,14 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * things being weighed look the same wherever the page weighs them.
  */
 :global(#company-roles) {
-	display: grid;
-	gap: var(--space-loose);
+	--gap: var(--space-loose);
 	margin-block-start: var(--space-section);
 }
 @media (min-width: 48rem) {
 	:global(#company-roles) {
 		position: relative;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: var(--space-section);
+		--gap: var(--space-section);
 	}
 	:global(#company-roles)::before {
 		content: '';
@@ -193,8 +192,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	}
 }
 :global(.company-role) {
-	display: grid;
-	gap: var(--space-hairline);
+	--gap: var(--space-hairline);
 	align-content: start;
 	text-align: center;
 }
@@ -374,7 +372,10 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * markup, so they declare one here until they are units too.
  */
 :global(#home-hero),
-:global(#company-band),
+:global(#company-band) {
+	container-type: inline-size;
+}
+
 /*
  * OWN IT — head, picture, ladder, close.
  *
@@ -385,8 +386,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * that compounds is the payoff the other two build to.
  */
 :global(#own-grid) {
-	display: grid;
-	gap: var(--space-section);
+	--gap: var(--space-section);
 }
 /* Wider measure, looser tracking. At 44rem with `tracking-tight` it broke to
    four lines and the negative tracking closed the letters up exactly where a
@@ -417,8 +417,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * ink. The parts are named once now and the two differences are stated once.
  */
 :global(.shift-script) {
-	display: grid;
-	gap: var(--space-comfortable);
+	--gap: var(--space-comfortable);
 	min-inline-size: 0;
 	align-content: start;
 	padding: var(--space-loose);
@@ -543,8 +542,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * that compounds is the payoff the other two build to.
  */
 :global(#own-grid) {
-	display: grid;
-	gap: var(--space-section);
+	--gap: var(--space-section);
 }
 :global(#own-head) {
 	display: grid;
@@ -583,9 +581,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	}
 }
 :global(.own-rung) {
-	display: grid;
 	align-content: start;
-	gap: var(--space-tight);
+	--gap: var(--space-tight);
 	padding: var(--space-loose);
 	border-radius: var(--radius-xl);
 	background: var(--color-surface-sunken);
@@ -919,8 +916,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * claim, then what it does.
  */
 :global(#cost-grid) {
-	display: grid;
-	gap: var(--space-section);
+	--gap: var(--space-section);
 	align-items: start;
 }
 /* The head is centred with everything else in the section, and it opens with
@@ -988,8 +984,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  */
 :global(.cost-panel) {
 	position: relative;
-	display: grid;
-	gap: var(--space-hairline);
+	--gap: var(--space-hairline);
 	padding: var(--space-loose);
 	border-radius: var(--radius-xl);
 	align-content: start;
@@ -1207,8 +1202,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	}
 }
 :global(#shift-scripts) {
-	display: grid;
-	gap: var(--space-comfortable);
+	--gap: var(--space-comfortable);
 	align-content: start;
 }
 
@@ -1360,9 +1354,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	list-style: none;
 }
 :global(.trust-claim) {
-	display: grid;
 	justify-items: center;
-	gap: var(--space-hairline);
+	--gap: var(--space-hairline);
 	padding: var(--space-loose) var(--space-comfortable);
 	border-radius: var(--radius-xl);
 	background: color-mix(in srgb, var(--color-on-dark) 7%, transparent);
