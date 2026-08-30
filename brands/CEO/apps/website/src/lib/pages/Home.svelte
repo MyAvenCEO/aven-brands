@@ -59,7 +59,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		<div id="home-hero-content" data-ground="media" class="mx-auto max-w-3xl text-center">
 			<h1
 				id="home-hero-heading"
-				class="mx-auto max-w-3xl text-[clamp(2rem,6.5vw,4rem)] font-light leading-tight tracking-tight text-pretty"
+				class="mx-auto max-w-3xl text-[clamp(2rem,6.5cqi,4rem)] font-light leading-tight tracking-tight text-pretty"
 			>
 				{t.hero.headingLine1}
 				<span class="mt-1 block">{t.hero.headingLine2}</span>
@@ -81,33 +81,38 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		</div>
 	</section>
 
-	<!-- Proposition band on the marine-blue brand bar, editorial-style: the
-	     claim as a light display headline, then the three 100 % absolutes as
-	     columns split by hairline rules, the figures in paradise blue. -->
+	<!--
+		The proposition band, rendered from `section` and `stat`.
+
+		It was a `bg-primary` utility with the three absolutes assembled by hand:
+		a display-face number, a tracked uppercase caption, and a hairline rule
+		between them, written out three times. `stat` IS that pairing — a figure
+		and what it means, in a fixed relationship — and the band is a ground the
+		`section` vocabulary now names rather than something a page reaches past
+		the unit to get.
+
+		The ground re-inks the stats. `stat` carries the page's measured inks on
+		its figure and label, and a declared colour does not inherit, so a unit
+		dropped on an inverted band keeps the ground it was built for. The
+		re-inking lives in `ground-primary` for the same reason the language
+		switch's lives in `navbar--tone-clear`.
+	-->
 	<section
-		class="bg-primary px-5 py-12 text-center sm:px-8 sm:py-16"
+		class="section section--ground-primary section--measure-wide"
 		aria-labelledby="trust-headline"
 	>
-		<div class="mx-auto max-w-4xl text-band-foreground">
+		<div class="section-inner stack-center">
 			<h2
 				id="trust-headline"
-				class="mx-auto max-w-2xl text-[length:var(--fs-amount)] font-normal leading-snug tracking-normal text-balance sm:text-[length:var(--fs-display)]"
+				class="mx-auto max-w-2xl text-center text-[length:var(--fs-amount)] font-normal leading-snug text-balance sm:text-[length:var(--fs-display)]"
 			>
 				{@html t.trust.headlineHtml}
 			</h2>
-			<ul
-				class="mx-auto mt-8 grid max-w-3xl grid-cols-3 divide-x divide-primary-foreground/15 sm:mt-11"
-			>
+			<ul id="trust-claims">
 				{#each t.trust.claims as claim (claim)}
-					<li class="flex flex-col items-center gap-1 px-2 sm:gap-2 sm:px-6">
-						<span
-							class="font-display text-[length:var(--fs-hero)] font-medium tabular-nums text-success sm:text-[length:var(--fs-display)]"
-							>100%</span
-						>
-						<span
-							class="text-[length:var(--fs-micro)] font-medium uppercase leading-tight tracking-[var(--tracking-wide)] text-band-foreground sm:text-[length:var(--fs-meta)]"
-							>{claim}</span
-						>
+					<li class="stat stat--align-center">
+						<p class="stat-value">100%</p>
+						<p class="text text--eyebrow stat-label">{claim}</p>
 					</li>
 				{/each}
 			</ul>
@@ -117,30 +122,32 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	<!-- The shift, as an editorial spread: the wish up top, the question set
 	     large, then the two scripts side by side — the old one greyed out, the
 	     new one in full colour — split by a single rule. No card chrome. -->
-	<section class="section-band sm:px-8 sm:py-24" aria-labelledby="shift-heading">
-		<div class="mx-auto max-w-5xl">
-			<div class="mx-auto max-w-2xl text-center">
-				<p class="eyebrow">
+	<section class="section section--measure-wide" aria-labelledby="shift-heading">
+		<div class="section-inner">
+			<div id="shift-head">
+				<p class="text text--eyebrow">
 					{t.shift.eyebrow}
 				</p>
-				<h2
-					id="shift-heading"
-					class="mt-4 text-4xl tracking-tight text-pretty text-foreground sm:text-5xl"
-				>
+				<h2 id="shift-heading" class="text text--display">
 					{t.shift.heading}
 				</h2>
-				<p
-					class="mx-auto mt-5 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet sm:text-base"
-				>
+				<p class="text text--lede">
 					{@html t.shift.bodyHtml}
 				</p>
 			</div>
 
-			<!-- The question as a pull-quote: big display type, one word lit in the
-			     brand yellow for magazine contrast. -->
-			<p
-				class="mx-auto mt-9 max-w-3xl text-center font-display text-[clamp(1.5rem,4.2vw,2.5rem)] font-medium leading-tight tracking-tight text-foreground"
-			>
+			<!--
+				The question as a pull-quote.
+
+				It sized itself with `4.2vw`, which is the window's width and not
+				this section's. In a 1400px browser showing a 640px column that
+				clamp reads the 1400 — the type is set from a box the text is not
+				in. `cqi` is the same number against the section's own container,
+				so the quote is right in the page, right in a preview card, and
+				right in a storybook stage, which is the whole reason every unit
+				here declares a container.
+			-->
+			<p id="shift-question">
 				{@html t.shift.question}
 			</p>
 
@@ -211,7 +218,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 			</p>
 			<p
 				style="color: var(--color-eyebrow-ink)"
-				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4vw,2.25rem)] font-medium tracking-tight"
+				class="mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4cqi,2.25rem)] font-medium tracking-tight"
 			>
 				{t.shift.closingStrong}
 			</p>
@@ -222,6 +229,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 	     brand's bluer teal) — the page's turning point, set against the light
 	     sections around it, with marine accents. -->
 	<section
+		id="company-band"
 		class="bg-band px-5 py-20 text-band-foreground sm:px-8 sm:py-28"
 		aria-labelledby="company-heading"
 	>
@@ -234,7 +242,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 				</p>
 				<h2
 					id="company-heading"
-					class="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7vw,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground"
+					class="mx-auto mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground"
 				>
 					{t.company.heading}
 				</h2>
@@ -336,7 +344,7 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 					{t.founders.eyebrow}
 				</p>
 				<h2
-					class="mt-3 text-[clamp(1.75rem,4.5vw,2.75rem)] font-light leading-tight tracking-tight text-band-foreground"
+					class="mt-3 text-[clamp(1.75rem,4.5cqi,2.75rem)] font-light leading-tight tracking-tight text-band-foreground"
 				>
 					{t.founders.heading}
 				</h2>
@@ -617,6 +625,76 @@ const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 		var(--color-scrim) 42%,
 		var(--color-scrim-heavy) 100%
 	);
+}
+
+/*
+ * The three absolutes as a row, split by hairlines.
+ *
+ * An id and a scoped rule rather than a class: this project's utility layer
+ * treats an unknown CLASS name as a candidate to generate, and a bespoke one
+ * takes the dev server down. Anything genuinely one-off is an id.
+ *
+ * `auto-fit` rather than three fixed columns, so the row becomes a column on a
+ * narrow phone instead of squeezing three uppercase captions into 90px each.
+ * The rules are `border-inline-start` on every item after the first, which is
+ * the same hairline rhythm `nav-menu` uses between destinations -- and they
+ * disappear on their own once the items stack, because the first item of each
+ * row is the only one that ever loses its rule.
+ */
+/* The shift section's head: centred, and narrower than the spread below it so
+   the eye has one column to start in before the page splits in two. */
+/*
+ * CONTAINERS FOR THE SECTIONS THAT SIZE TYPE BY THEIR OWN WIDTH.
+ *
+ * Four headlines on this page clamped against `vw`, which is the WINDOW. In a
+ * 1400px browser showing a 640px column the type is set from a box the text is
+ * not in — right by accident at full width, wrong in every preview, sidebar
+ * and storybook stage. `cqi` is the same number against the element's own
+ * container, and a container only exists where something declares one.
+ *
+ * The `section` unit declares its own; these three are still hand-rolled
+ * markup, so they declare one here until they are units too.
+ */
+#home-hero,
+#company-band,
+#founders > div {
+	container-type: inline-size;
+}
+
+#shift-head {
+	display: grid;
+	justify-items: center;
+	gap: var(--space-tight);
+	max-inline-size: 34rem;
+	margin-inline: auto;
+	text-align: center;
+}
+
+/* The pull-quote. `cqi`, never `vw` — see the note at the call site. */
+#shift-question {
+	max-inline-size: 48rem;
+	margin: var(--space-loose) auto 0;
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 4.2cqi, 2.5rem);
+	font-weight: 500;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
+	text-align: center;
+	text-wrap: balance;
+	color: var(--color-foreground);
+}
+
+#trust-claims {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+	gap: var(--space-comfortable);
+	inline-size: 100%;
+	max-inline-size: 48rem;
+	margin-inline: auto;
+	margin-block-start: var(--space-loose);
+}
+#trust-claims > li + li {
+	border-inline-start: 1px solid color-mix(in oklab, var(--color-band-foreground) 15%, transparent);
 }
 
 #home-hero-content {

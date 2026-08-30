@@ -421,6 +421,15 @@
 		color: var(--color-foreground);
 	}
 
+	.text--display {
+		font-size: clamp(var(--fs-display), 6cqi, 3rem);
+		font-weight: 500;
+		line-height: 1.1;
+		letter-spacing: var(--tracking-tight);
+		text-wrap: balance;
+		color: var(--color-foreground);
+	}
+
 	.text--section-title {
 		font-size: var(--fs-amount);
 		font-weight: 500;
@@ -614,6 +623,25 @@
 
 	.section--ground-plain {
 		border-block-end-color: transparent;
+	}
+
+	.section--ground-primary {
+		background: var(--color-primary);
+		color: var(--color-band-foreground);
+		border-block-end-color: transparent;
+
+		& .stat-value {
+			color: var(--color-tertiary-edge);
+		}
+		& .stat-label {
+			color: var(--color-band-foreground);
+		}
+		& .stat-caption {
+			color: var(--color-on-dark-quiet);
+		}
+		& .text--eyebrow {
+			color: var(--color-on-dark-quiet);
+		}
 	}
 
 	.section--measure-prose {
