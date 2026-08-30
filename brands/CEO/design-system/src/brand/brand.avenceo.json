@@ -1065,6 +1065,19 @@
 				"$description": "Buttons, and nothing else. A fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button."
 			}
 		},
+		"rule": {
+			"$description": "How thick a DRAWN rule is — the accent bar over a panel, the dash before a list item, the underline that is a shape rather than a border.\n\nIt did not exist, so every call site wrote a raw px and `lint_hardcodes` was right to fail them: two sites, two different values (2px and 3px), neither traceable to anything. A border-width is not a spacing value and `--space-hairline` (4px) is neither — reaching for it was the workaround that made this gap look filled.\n\nTwo steps, because a rule is either a mark or an emphasis and there is no third thing.",
+			"rule-mark": {
+				"$type": "dimension",
+				"$value": "2px",
+				"$description": "A list marker, a dash before an item. Reads as punctuation."
+			},
+			"rule-accent": {
+				"$type": "dimension",
+				"$value": "3px",
+				"$description": "An accent bar across a panel head. Reads as emphasis."
+			}
+		},
 		"space": {
 			"space-hairline": {
 				"$type": "dimension",

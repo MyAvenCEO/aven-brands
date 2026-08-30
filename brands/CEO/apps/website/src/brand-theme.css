@@ -197,6 +197,8 @@
 	--tint-hairline: 0.08;
 	--tint-soft: 0.15;
 	--tint-firm: 0.25;
+	--rule-mark: 2px;
+	--rule-accent: 3px;
 	--duration-instant: 80ms;
 	--duration-quick: 140ms;
 	--duration-moderate: 240ms;

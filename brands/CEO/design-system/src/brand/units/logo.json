@@ -95,6 +95,18 @@
 					"& .logo-mark": {
 						"display": "none"
 					}
+				},
+				"inline": {
+					"$description": "The lockup SET INTO a line of running text, at that line's size.\n\nThe wordmark carries the lockup's scale as `1.4em`, which is right for a lockup that stands on its own — a header bar, a crest — and wrong for one used as a word in a sentence: at 1.4 the 'aven' half renders 40% larger than the words either side of it (measured: 72.8px inside a 52px headline), so the brand reads as a logo dropped into the copy rather than as the subject of the sentence.\n\nThis resets the wordmark to 1em so the lockup takes the size of whatever line it sits on. The 0.714 ratio between the two halves is untouched — that is the mark's own proportion and no call site gets to change it.\n\nIt also hides the mark: a sentence names the brand, it does not need the glyph as well.\n\nTWO font-sizes have to be reset, not one. The base sets `--fs-lead` (17px) so a bare lockup has a size of its own, and the wordmark then multiplies it by 1.4. Resetting only the wordmark leaves the lockup at 17px whatever line it is on — measured at 17px inside a 64px hero heading. `font-size: 1em` on the lockup makes it inherit, and 1em on the wordmark stops the 1.4 from reapplying.",
+					"gap": "0",
+					"fontSize": "1em",
+					"letterSpacing": "inherit",
+					"& .logo-mark": {
+						"display": "none"
+					},
+					"& .logo-wordmark": {
+						"fontSize": "1em"
+					}
 				}
 			}
 		}

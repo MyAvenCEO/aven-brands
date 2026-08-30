@@ -752,6 +752,13 @@
 		}
 	}
 
+	.section--measure-page {
+
+		& .section-inner {
+			max-inline-size: 64rem;
+		}
+	}
+
 	.section--measure-wide {
 
 		& .section-inner {
@@ -3884,6 +3891,19 @@
 		}
 		50% {
 			opacity: 0.55;
+		}
+	}
+
+	.logo--inline {
+		gap: 0;
+		font-size: 1em;
+		letter-spacing: inherit;
+
+		& .logo-mark {
+			display: none;
+		}
+		& .logo-wordmark {
+			font-size: 1em;
 		}
 	}
 

@@ -251,24 +251,13 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  */
 /* Head and image side by side, so the section opens on a spread rather than
    on a left margin. */
-@media (min-width: 56rem) {
-	:global(#shift-inner) {
-		display: grid;
-		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-		gap: var(--space-loose);
-		align-items: center;
-	}
-	:global(#shift-question),
-	:global(#shift-scripts),
-	:global(#shift-turn) {
-		grid-column: 1 / -1;
-	}
+/* One column: the head, then the band, then the diptych, then the turn. The
+   partner figure that made row 1 a spread is gone, and a 6fr head beside an
+   empty 6fr track is the left-heavy layout this section started with. */
+:global(#shift-inner) {
+	display: grid;
+	gap: 0;
 }
-:global(#shift-art) {
-	max-inline-size: 26rem;
-	margin-inline: auto;
-}
-
 :global(#shift-head) {
 	display: grid;
 	gap: var(--space-tight);
@@ -281,43 +270,70 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    statement gets: parenthesised, centred, and the largest thing in view. The
    parens are the reference set's framing device and they are sunflower —
    a shape, which is the only job that tone can hold on cream. */
+/*
+ * A MARINE BAND, because the question was drowning.
+ *
+ * It was cream type on cream ground, centred in its own row with a section gap
+ * above and below — so the parens, laid out as flex items that wrapped, broke
+ * onto lines of their own and hung in roughly three hundred pixels of nothing.
+ * The measured effect was a page that looks like it failed to load between two
+ * blocks of content.
+ *
+ * The fix is a GROUND. Marine is the brand's own dark, the question reverses
+ * out of it in cream, and the band gives the section its one full-bleed beat
+ * between the spread above and the diptych below. The parens stay inline —
+ * `display: inline` inside a text block cannot wrap onto their own line the
+ * way flex items can — and they are paradise, which on marine is a shape and a
+ * tone rather than the 3.93:1 it has to justify on cream.
+ */
 :global(#shift-question) {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	justify-content: center;
-	gap: var(--space-comfortable);
-	max-inline-size: 48rem;
-	margin: var(--space-section) auto 0;
+	margin: var(--space-section) 0 0;
+	padding: clamp(3rem, 7cqi, 5rem) var(--space-loose);
+	border-radius: var(--radius-xl);
+	background: var(--color-marine);
 	font-family: var(--font-display);
-	font-size: clamp(2rem, 6cqi, 3.5rem);
+	font-size: clamp(1.75rem, 5cqi, 3rem);
 	font-weight: 400;
-	line-height: 1.05;
+	line-height: 1.12;
 	letter-spacing: var(--tracking-tight);
 	text-align: center;
 	text-wrap: balance;
-	color: var(--color-foreground);
+	color: var(--color-on-dark);
 }
+/* Centred, and it owns the row. Left-aligned at 34rem it sat in the
+   bottom-left corner with the right half empty — the same orphaning as the
+   figure, one block later. */
 :global(#shift-turn) {
 	display: grid;
+	justify-items: center;
 	gap: var(--space-tight);
-	max-inline-size: 34rem;
-	margin-block-start: var(--space-section);
+	max-inline-size: 40rem;
+	margin: var(--space-section) auto 0;
 	padding-block-start: var(--space-loose);
 	border-block-start: 1px solid var(--color-border-soft);
+	text-align: center;
 }
 :global(#shift-turn-lead) {
 	margin: 0;
-	font-size: var(--fs-meta);
+	font-size: var(--fs-lead);
 	color: var(--color-foreground-quiet);
 }
+/*
+ * The question the whole section has been building to, at the size that says
+ * so. It was 36px — smaller than the two panel titles above it and barely
+ * larger than the sentence it followed, so the argument ended on a footnote.
+ * It leads now: the largest type on the page after the hero, paradise-derived
+ * ink, and the closing rule beneath it so the section ends on purpose rather
+ * than simply stopping.
+ */
 :global(#shift-turn-kicker) {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: clamp(var(--fs-amount), 4cqi, 2.25rem);
+	font-size: clamp(2.25rem, 6cqi, 3.75rem);
 	font-weight: 400;
-	line-height: 1.15;
+	line-height: 1.08;
 	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
 	color: var(--color-eyebrow-ink);
 }
 
@@ -392,20 +408,35 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * that section is arguing you can now walk through), the shift gets an OVAL
  * (no flat edge at all — a lens, which is what a question is).
  */
+/*
+ * BOTH SHAPES ARE LANDSCAPE, because both images are.
+ *
+ * The arch was `4 / 5` and the oval `5 / 4` while the files behind them are
+ * 1024x578 and 2560x1440 — 16:9 both. `object-fit: cover` then threw away a
+ * third of every frame and centred on whatever happened to be in the middle,
+ * which is how a horizon illustration ends up cropped to a patch of sky. The
+ * frames follow the art now rather than the art being cut to fit the frame.
+ *
+ * The shapes still rhyme without repeating: the arithmetic gets an ARCH (flat
+ * foot, domed head — a doorway, which is what that section says you can walk
+ * through), the shift gets a LENS (no flat edge at all, which is what a
+ * question is). At 16:9 the dome is written as an ellipse, so it stays a wide
+ * shallow sweep instead of the half-circle two equal corner radii would force.
+ */
 :global(.art-arch),
 :global(.art-oval) {
 	position: relative;
 	margin: 0;
 	overflow: hidden;
+	aspect-ratio: 16 / 9;
 	background: var(--color-surface-sunken);
 }
 :global(.art-arch) {
-	border-radius: 999px 999px var(--radius-xl) var(--radius-xl);
-	aspect-ratio: 4 / 5;
+	border-radius: 42% 42% var(--radius-xl) var(--radius-xl) /
+		34% 34% var(--radius-xl) var(--radius-xl);
 }
 :global(.art-oval) {
-	border-radius: 999px;
-	aspect-ratio: 5 / 4;
+	border-radius: var(--radius-full);
 }
 :global(.art-arch-img) {
 	inline-size: 100%;
@@ -413,20 +444,22 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	object-fit: cover;
 	display: block;
 }
-/* The brief rides ON the image, so a stand-in announces itself instead of
-   quietly shipping as if it were the final art. It goes when the real
-   illustration lands. */
-:global(.art-arch-brief) {
-	position: absolute;
-	inset-block-end: 0;
-	inset-inline: 0;
-	margin: 0;
-	padding: var(--space-comfortable);
-	background: color-mix(in oklab, var(--color-marine) 82%, transparent);
+/*
+ * The brief sits UNDER the figure, not on it.
+ *
+ * As an overlay inside a curved frame it was clipped mid-word by the very
+ * shape it was describing — legible on a rectangle, sliced on an oval. A
+ * caption is a caption; it goes below the picture, where the curve cannot
+ * reach it. It still announces itself as a stand-in so it cannot quietly ship
+ * as if it were the final art, and it goes when the real illustration lands.
+ */
+:global(.art-brief) {
+	margin: var(--space-comfortable) 0 0;
 	font-size: var(--fs-micro);
-	line-height: 1.45;
+	line-height: 1.5;
 	letter-spacing: var(--tracking-wide);
-	color: var(--color-on-dark);
+	text-transform: uppercase;
+	color: var(--color-foreground-quiet);
 }
 
 /*
@@ -453,20 +486,24 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* The arch sits in the story column's own track, under the text: the column
    was 544px of words alone in a 1344px field, which is a margin rather than a
    composition. */
+/*
+ * The illustration spans the SPREAD.
+ *
+ * It was a 22rem block pinned to row 2 column 1, under the text, beside a
+ * price panel that centred itself against it — a small tall picture in the
+ * bottom-left with an unexplained gap to its right. It is the emotional half
+ * of this section's argument (the arithmetic says it is affordable; the
+ * picture says what that buys), so it gets the full measure and its own row,
+ * between the argument and the closing statement.
+ */
 @media (min-width: 56rem) {
-	:global(#cost-art) {
-		grid-row: 2;
-		grid-column: 1;
-		max-inline-size: 22rem;
-	}
 	:global(#cost-price) {
-		grid-row: 1 / 3;
 		grid-column: 2;
 		align-self: center;
 	}
-}
-:global(#cost-art) {
-	max-inline-size: 22rem;
+	:global(#cost-art) {
+		grid-column: 1 / -1;
+	}
 }
 
 :global(#cost-story) {
@@ -668,12 +705,26 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	gap: var(--space-section);
 	margin-block-start: var(--space-section);
 }
+/*
+ * A DIPTYCH, not a winner and a leftover.
+ *
+ * The two scripts were carrying three contrasts at once — 4fr against 6fr, a
+ * 17px title against a 36px one, and a tinted sheet against bare cream — all
+ * pointing the same way. Stacked, they stopped reading as emphasis and started
+ * reading as a column that had failed to style: the left script was small grey
+ * struck text floating on the page ground beside a finished panel.
+ *
+ * One contrast now, and it is the GROUND. Both panels are the same width, both
+ * carry the same type at the same sizes, and the argument is made by what they
+ * are printed on: the old script on the page's own sunken paper, the new one
+ * on the warm accent tint under a sunflower rule. That is the magazine move —
+ * two facing pages, one of which is lit.
+ */
 @media (min-width: 52rem) {
 	:global(#shift-scripts) {
-		/* The future script gets the room: not a half, a majority. */
-		grid-template-columns: 4fr 6fr;
-		gap: var(--space-section);
-		align-items: start;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-loose);
+		align-items: stretch;
 	}
 }
 :global(#shift-was),
@@ -682,17 +733,29 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	gap: var(--space-comfortable);
 	min-inline-size: 0;
 	align-content: start;
-}
-/* The future script is the one being argued for, so it gets the sheet: a
-   tinted ground and the accent brackets the price panel wears. The past
-   script stays bare, which is the argument. */
-/* Rounded, like every other surface in this system. The corner marks that
-   were here are gone for the same reason as the price sheet's. */
-:global(#shift-now) {
-	position: relative;
 	padding: var(--space-loose);
 	border-radius: var(--radius-xl);
-	background: var(--color-surface-raised);
+}
+/* The script being left behind: sunken paper, the ground a page uses for
+   something set aside. */
+:global(#shift-was) {
+	background: var(--color-surface-sunken);
+}
+/* The script being argued for: the accent tint, and a sunflower rule across
+   the head. Sunflower measures 1.71:1 on cream and cannot be a glyph — as a
+   3px rule it is a shape, which is the job it can hold. */
+:global(#shift-now) {
+	position: relative;
+	background: var(--color-accent-surface);
+}
+:global(#shift-now)::before {
+	content: '';
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline: var(--space-loose);
+	block-size: var(--rule-accent);
+	border-radius: var(--radius-full);
+	background: var(--color-sunflower);
 }
 :global(#shift-was-eyebrow) {
 	color: var(--color-foreground-quiet);
@@ -703,30 +766,26 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * 3.93 — it clears the 3:1 that large text and shapes get, and misses the
  * bar for a glyph this small. `eyebrow-ink` IS paradise, darkened exactly far
  * enough to pass; that is the whole reason the rank exists.
- *
- * The tone still runs through this section undiluted where it can carry
- * itself: the markers are shapes (3:1) and the arithmetic's figure is 56px
- * (3:1). Accessibility outranks aesthetics — the rule the system leads with,
- * and this is what it looks like when it bites.
  */
 :global(#shift-now-eyebrow) {
 	color: var(--color-eyebrow-ink);
 }
+/* SAME SIZE, both of them. The titles differed by more than 2x, which is a
+   display-versus-body gap applied to two things that are peers. */
 :global(#shift-was-title),
 :global(#shift-now-title) {
 	margin: 0;
 	font-family: var(--font-display);
+	font-size: clamp(var(--fs-amount), 3.4cqi, 2rem);
 	font-weight: 400;
 	line-height: 1.15;
 	letter-spacing: var(--tracking-tight);
 	text-wrap: balance;
 }
 :global(#shift-was-title) {
-	font-size: var(--fs-lead);
 	color: var(--color-foreground-quiet);
 }
 :global(#shift-now-title) {
-	font-size: clamp(var(--fs-amount), 4.5cqi, 2.25rem);
 	color: var(--color-foreground);
 }
 :global(#shift-was-items),
@@ -744,8 +803,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	align-items: baseline;
 }
 :global(#shift-was-items) {
-	font-size: var(--fs-meta);
-	line-height: 1.5;
+	font-size: var(--fs-lead);
+	line-height: 1.45;
 	color: var(--color-foreground-quiet);
 }
 /* Struck, like the salary and like "working to survive": this is the script
@@ -768,7 +827,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	background: color-mix(in oklab, var(--color-foreground) 25%, transparent);
 }
 :global(#shift-now-items .shift-marker) {
-	block-size: 2px;
+	block-size: var(--rule-mark);
 	background: var(--color-paradise);
 }
 :global(#shift-was-closing),
@@ -776,15 +835,55 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	margin: var(--space-comfortable) 0 0;
 	text-wrap: pretty;
 }
-:global(#shift-was-closing) {
-	font-size: var(--fs-meta);
-	color: var(--color-foreground-quiet);
-}
+/* Peers here too: same family, same size, the colour carries the difference. */
+:global(#shift-was-closing),
 :global(#shift-now-closing) {
 	font-family: var(--font-display);
 	font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
 	line-height: 1.3;
+}
+:global(#shift-was-closing) {
+	color: var(--color-foreground-quiet);
+}
+:global(#shift-now-closing) {
 	color: var(--color-foreground);
+}
+
+/*
+ * The trust line, which names the brand and so has to carry it.
+ *
+ * It ran on utility classes at `--fs-amount` (24px) rising to `--fs-display`
+ * (28px) — 28px for the sentence that states what the product IS, on a page
+ * whose section headings reach 48. It read as a caption. It is display type
+ * now, at the scale a thesis gets.
+ *
+ * And it was TIGHT: `leading-snug` plus the display face's own negative
+ * tracking closed the letters up exactly where the eye needs them open, which
+ * is a long sentence set large. Tracking goes to normal — the display face is
+ * drawn with its own fit and does not need pulling in at this size — and the
+ * line-height opens to 1.2. The lockup keeps `--tracking-tight`, because that
+ * spacing is part of the mark rather than a choice this headline gets to make.
+ */
+:global(#trust-headline) {
+	max-inline-size: 22ch;
+	margin-inline: auto;
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 5.5cqi, 3.25rem);
+	font-weight: 400;
+	line-height: 1.2;
+	letter-spacing: var(--tracking-normal);
+	text-align: center;
+	text-wrap: balance;
+	color: var(--color-band-foreground);
+}
+/* The lockup sits ON the line: it takes the headline's size, and its two
+   halves keep their own 0.714 ratio to each other. `baseline` alignment comes
+   from the unit — the display 'aven' is the taller half and centring would
+   leave the two at different heights. */
+:global(#trust-lockup) {
+	font-size: 1em;
+	letter-spacing: var(--tracking-tight);
+	vertical-align: baseline;
 }
 
 :global(#trust-claims) {

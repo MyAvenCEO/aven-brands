@@ -90,10 +90,15 @@
 				}
 			},
 			"measure": {
-				"$description": "Narrower content for a section that is mostly prose.",
+				"$description": "How wide the CONTENT runs inside a full-bleed section.\n\n`wide` is 84rem, and 84rem is not a container on the screens people actually use: on a 1440px laptop it is 1344px — 93% of the viewport, with 48px of margin — which renders as edge-to-edge no matter that a max-width is technically applied. Measured, after the cap was reported broken and turned out to be working: the number was simply too large to read as one. `page` is the editorial measure for a section that has to feel held.",
 				"prose": {
 					"$part": "inner",
 					"maxInlineSize": "44rem"
+				},
+				"page": {
+					"$description": "64rem. Wide enough for a two-column spread, narrow enough that the margins are visible on a laptop — which is what makes a page look composed rather than stretched. At 1440px this leaves ~200px either side; at 84rem it left 48.",
+					"$part": "inner",
+					"maxInlineSize": "64rem"
 				},
 				"wide": {
 					"$part": "inner",

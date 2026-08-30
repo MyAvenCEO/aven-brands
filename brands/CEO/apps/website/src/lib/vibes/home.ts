@@ -79,8 +79,28 @@ function heroView(t: (typeof home)['de']): ViewNode {
 						class:
 							'mx-auto max-w-3xl text-[clamp(2rem,6.5cqi,4rem)] font-light leading-tight tracking-tight text-pretty',
 						attrs: { id: 'home-hero-heading' },
-						text: t.hero.headingLine1,
-						children: [{ tag: 'span', class: 'mt-1 block', text: t.hero.headingLine2 }]
+						children: [
+							/* The hero NAMES the brand, so it renders the brand — the
+							   `inline` variant, which resets the wordmark's 1.4em so the
+							   lockup takes this headline's size instead of overshooting it
+							   by 40%. */
+							{
+								tag: 'span',
+								class: 'logo logo--inline',
+								children: [
+									{
+										tag: 'span',
+										class: 'logo-wordmark',
+										children: [
+											{ tag: 'span', class: 'logo-word-aven', text: 'aven' },
+											{ tag: 'span', class: 'logo-word-ceo', text: 'CEO' }
+										]
+									}
+								]
+							},
+							{ tag: 'span', text: t.hero.headingLine1 },
+							{ tag: 'span', class: 'mt-1 block', text: t.hero.headingLine2 }
+						]
 					},
 					{
 						tag: 'div',
@@ -141,12 +161,41 @@ function trustView(t: (typeof home)['de']): ViewNode {
 				tag: 'div',
 				class: 'section-inner stack-center',
 				children: [
+					/*
+					 * The one line that NAMES the brand now renders the brand, rather
+					 * than re-typing it in the body font: `avenCEO` was a string here,
+					 * so the site's own lockup — two faces, its own tracking, the
+					 * 0.714 ratio between the halves — was absent from the sentence
+					 * that introduces it. It is the logo leaf, wordmark variant,
+					 * inheriting this headline's size so it sits ON the line instead
+					 * of beside it.
+					 *
+					 * The classes rather than `$use`, for the same reason the menu
+					 * island writes them: they are the same contract the stylesheet
+					 * compiles either way, and this one has to inherit a font-size the
+					 * placement cannot yet pass in.
+					 */
 					{
 						tag: 'h2',
-						class:
-							'mx-auto max-w-2xl text-center text-[length:var(--fs-amount)] font-normal leading-snug text-balance sm:text-[length:var(--fs-display)]',
 						attrs: { id: 'trust-headline' },
-						text: '@@trust-headline@@'
+						children: [
+							{
+								tag: 'span',
+								class: 'logo logo--inline',
+								attrs: { id: 'trust-lockup' },
+								children: [
+									{
+										tag: 'span',
+										class: 'logo-wordmark',
+										children: [
+											{ tag: 'span', class: 'logo-word-aven', text: 'aven' },
+											{ tag: 'span', class: 'logo-word-ceo', text: 'CEO' }
+										]
+									}
+								]
+							},
+							{ tag: 'span', text: '@@trust-headline@@' }
+						]
 					},
 					{
 						tag: 'ul',
@@ -178,6 +227,25 @@ function trustView(t: (typeof home)['de']): ViewNode {
  * caption floating above content. Two elements, no ornament file: the word,
  * and a rule that takes the remaining width.
  */
+/*
+ * THE TWO ILLUSTRATIONS, in one place, because both are stand-ins.
+ *
+ * Change the `src` here and the section picks it up — there is nothing else to
+ * edit. Drop the file in `static/` and the leading slash resolves to it.
+ *
+ * `horizon` wants the ridge illustration: a woman on a summit, arms open,
+ * facing a low sun over marine ranges — sunflower sky, sand rock, paradise
+ * water. It is already this exact palette, which is why it belongs in the
+ * section that argues starting is possible now: the arithmetic says what it
+ * costs, the picture says what it buys. `/hero.png` stands in until then.
+ *
+ * Both frames are 16 / 9 and the images must be too, or `object-fit: cover`
+ * silently crops a third of the frame away.
+ */
+const ART = {
+	horizon: { src: '/hero.png', width: '1024', height: '578' }
+} as const
+
 function ruleLabel(text: string, index?: string): ViewNode {
 	return {
 		tag: 'p',
@@ -208,7 +276,7 @@ function ruleLabel(text: string, index?: string): ViewNode {
 function costView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
-		class: 'section section--ground-raised section--measure-wide',
+		class: 'section section--ground-raised section--measure-page',
 		attrs: { 'aria-labelledby': 'cost-heading' },
 		children: [
 			{
@@ -244,30 +312,6 @@ function costView(t: (typeof home)['de']): ViewNode {
 					 * beside it: the section argues that starting is possible now, and
 					 * the picture is what that feels like rather than what it costs.
 					 */
-					{
-						tag: 'figure',
-						class: 'art-arch',
-						attrs: { id: 'cost-art' },
-						children: [
-							{
-								tag: 'img',
-								class: 'art-arch-img',
-								attrs: {
-									src: '/hero.png',
-									alt: '',
-									width: '1024',
-									height: '578',
-									loading: 'lazy',
-									decoding: 'async'
-								}
-							},
-							{
-								tag: 'figcaption',
-								class: 'art-arch-brief',
-								text: 'STAND-IN — replace with the horizon illustration: a woman on a ridge, arms open, facing a low sun. Sunflower sky, marine ranges, sand rock.'
-							}
-						]
-					},
 					/* The price sheet. The old figure is struck and bare; the offer is a
 					   SUNFLOWER GROUND with marine ink — the brand accent at full
 					   strength, in the one job it can hold here. As a mark on cream it
@@ -311,6 +355,30 @@ function costView(t: (typeof home)['de']): ViewNode {
 									},
 									{ tag: 'p', attrs: { id: 'cost-now-note' }, text: t.trust.cost.aven.note }
 								]
+							}
+						]
+					},
+					{
+						tag: 'figure',
+						class: 'art-arch',
+						attrs: { id: 'cost-art' },
+						children: [
+							{
+								tag: 'img',
+								class: 'art-arch-img',
+								attrs: {
+									src: ART.horizon.src,
+									alt: '',
+									width: ART.horizon.width,
+									height: ART.horizon.height,
+									loading: 'lazy',
+									decoding: 'async'
+								}
+							},
+							{
+								tag: 'figcaption',
+								class: 'art-brief',
+								text: 'STAND-IN — replace with the horizon illustration: a woman on a ridge, arms open, facing a low sun. Sunflower sky, marine ranges, sand rock.'
 							}
 						]
 					},
@@ -417,7 +485,7 @@ function scriptColumn(
 function shiftView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
-		class: 'section section--measure-wide',
+		class: 'section section--measure-page',
 		attrs: { 'aria-labelledby': 'shift-heading' },
 		children: [
 			{
@@ -457,30 +525,6 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '( ' },
 							{ tag: 'span', text: '@@shift-question@@' },
 							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ' )' }
-						]
-					},
-					{
-						tag: 'figure',
-						class: 'art-oval',
-						attrs: { id: 'shift-art' },
-						children: [
-							{
-								tag: 'img',
-								class: 'art-arch-img',
-								attrs: {
-									src: '/hero-poster.jpg',
-									alt: '',
-									width: '2560',
-									height: '1440',
-									loading: 'lazy',
-									decoding: 'async'
-								}
-							},
-							{
-								tag: 'figcaption',
-								class: 'art-arch-brief',
-								text: 'STAND-IN — replace with a two-panel engraving: the same desk crowded with other people’s marks, then the same desk with one Aven mark.'
-							}
 						]
 					},
 					{
@@ -901,7 +945,7 @@ export async function renderHomeSections(lang: Lang): Promise<HomeSections> {
 			'@@home-hero-lead@@': t.hero.transformationHtml
 		}),
 		trust: await renderSection(trustView(t), {
-			'@@trust-headline@@': t.trust.headlineHtml
+			'@@trust-headline@@': t.trust.headlineRest
 		}),
 		cost: await renderSection(costView(t)),
 		shift: await renderSection(shiftView(t), {

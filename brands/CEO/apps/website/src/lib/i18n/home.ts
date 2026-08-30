@@ -23,7 +23,11 @@ export type HomeMessages = {
 	/** The proposition band under the hero: the one-line claim (with an accent
 	 * span) and the three 100 % absolutes it rests on. */
 	trust: {
-		headlineHtml: string
+		/* The sentence AFTER the lockup. `avenCEO` is not text here — it is the
+		   logo leaf, so the brand renders in its own two faces rather than being
+		   re-typed in the body font on the one line that names it. Both locales
+		   open on the lockup, so the split is the same in both. */
+		headlineRest: string
 		claims: string[]
 		/**
 		 * The second half of the proposition: privacy is the promise, but the
@@ -113,14 +117,14 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'avenCEO betreibt deine Firma,',
+			headingLine1: ' betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
 			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'past')} zum <br class="sm:hidden">${s('souveränen', 'strong')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
-			headlineHtml:
-				'avenCEO ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
+			headlineRest:
+				' ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
 			cost: {
 				eyebrow: 'Dein Moment',
@@ -249,13 +253,13 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'avenCEO runs your company,',
+			headingLine1: ' runs your company,',
 			headingLine2: 'you lead the vision.',
 			transformationHtml: `From ${s('working to survive', 'past')} to <br class="sm:hidden">${s('sovereign', 'strong')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
-			headlineHtml: 'avenCEO is the world’s 1st privacy‑preserving agentic co‑founder.',
+			headlineRest: ' is the world’s 1st privacy‑preserving agentic co‑founder.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
 			cost: {
 				eyebrow: 'Your moment',
