@@ -400,7 +400,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	background: var(--color-surface-sunken);
 }
 :global(.art-arch) {
-	border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+	border-radius: 999px 999px var(--radius-xl) var(--radius-xl);
 	aspect-ratio: 4 / 5;
 }
 :global(.art-oval) {
@@ -504,40 +504,31 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	position: relative;
 	display: grid;
 	gap: var(--space-hairline);
-	padding: var(--space-comfortable);
+	padding: var(--space-loose);
+	border-radius: var(--radius-xl);
 }
-:global(.cost-panel)::before,
-:global(.cost-panel)::after {
-	content: '';
-	position: absolute;
-	inline-size: 0.75rem;
-	block-size: 0.75rem;
-	border-color: var(--color-border-strong);
-	border-style: solid;
-}
-:global(.cost-panel)::before {
-	inset-block-start: 0;
-	inset-inline-start: 0;
-	border-width: 1px 0 0 1px;
-}
-:global(.cost-panel)::after {
-	inset-block-end: 0;
-	inset-inline-end: 0;
-	border-width: 0 1px 1px 0;
-}
-/* The offer is a FIELD of the brand accent, which is the one job sunflower
-   can hold on a light page: marine on sunflower is 8.27:1, and the panel
-   becomes the thing the eye lands on without a single line being drawn. */
+/* The registration marks are GONE. They were the reference set's device and
+   they are, literally, hard corners — four of them per panel, in a system
+   whose every other surface is rounded. Borrowing a device that fights the
+   brand is borrowing badly. The panels are rounded instead, which is the
+   brand's own answer and the one the buttons, cards and menus already give. */
+/*
+ * THE CONTRAST IS THE ARGUMENT, so the SALARY is the big number.
+ *
+ * It was the other way round: our price at 64px and the salary at 24px, which
+ * reads as a brag rather than a comparison. Nobody is shocked by 99; they are
+ * shocked by what the alternative costs, and the 99 only means something once
+ * that has landed. The salary now leads at display scale, struck, on a plain
+ * ground; ours answers it quietly on the accent field.
+ *
+ * Sunflower stays a FIELD (marine on it is 8.27:1) but a smaller one — the
+ * relief, not the headline.
+ */
 :global(#cost-now) {
 	background: var(--color-sunflower);
 	color: var(--color-marine);
+	border-radius: var(--radius-xl);
 	padding: var(--space-loose);
-}
-:global(#cost-now)::before,
-:global(#cost-now)::after {
-	border-color: color-mix(in oklab, var(--color-marine) 35%, transparent);
-	inline-size: 1rem;
-	block-size: 1rem;
 }
 :global(.cost-panel-label) {
 	margin: 0;
@@ -559,8 +550,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	line-height: 1;
 }
 :global(#cost-was-value) {
-	font-size: var(--fs-amount);
-	color: var(--color-foreground-quiet);
+	font-size: clamp(2.75rem, 7cqi, 4.5rem);
+	color: var(--color-foreground);
 	/* The page's own gesture, third time: hero strikes a sentence, shift a
 	   script, this a salary. CSS not `<s>` — SAFE_TAGS admits no `s`. */
 	text-decoration: line-through;
@@ -568,7 +559,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	text-decoration-color: var(--color-foreground-quiet);
 }
 :global(#cost-now-value) {
-	font-size: clamp(2.75rem, 7cqi, 4rem);
+	font-size: var(--fs-amount);
 	color: var(--color-marine);
 }
 :global(#cost-was-unit),
@@ -695,31 +686,13 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* The future script is the one being argued for, so it gets the sheet: a
    tinted ground and the accent brackets the price panel wears. The past
    script stays bare, which is the argument. */
+/* Rounded, like every other surface in this system. The corner marks that
+   were here are gone for the same reason as the price sheet's. */
 :global(#shift-now) {
 	position: relative;
 	padding: var(--space-loose);
+	border-radius: var(--radius-xl);
 	background: var(--color-surface-raised);
-}
-:global(#shift-now)::before,
-:global(#shift-now)::after {
-	content: '';
-	position: absolute;
-	inline-size: 1rem;
-	block-size: 1rem;
-	/* Paradise, not sunflower: a 1px rule is a MARK, and sunflower cannot be
-	   one on this ground at 1.71:1. */
-	border-color: var(--color-paradise);
-	border-style: solid;
-}
-:global(#shift-now)::before {
-	inset-block-start: 0;
-	inset-inline-start: 0;
-	border-width: 1px 0 0 1px;
-}
-:global(#shift-now)::after {
-	inset-block-end: 0;
-	inset-inline-end: 0;
-	border-width: 0 1px 1px 0;
 }
 :global(#shift-was-eyebrow) {
 	color: var(--color-foreground-quiet);
