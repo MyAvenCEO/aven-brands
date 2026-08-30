@@ -125,12 +125,69 @@ const read = el => {
    * loud and names how many. The proof itself belongs with the scrim that makes
    * it true.
    */
-  const onMedia = !!el.closest('[data-ground="media"]');
+  /*
+   * "Inside a media ground" is not the same as "sitting ON the media". A
+   * button with its own opaque fill brings its own ground with it — the
+   * picture never reaches it, and it can and must be measured normally. Only
+   * elements the media actually shows through are exempt.
+   *
+   * Without this the accent call-to-action was flagged for using dark gold ink
+   * (`rgb(74, 50, 8)`) on the hero: correct against its own sunflower fill,
+   * and nowhere near the footage.
+   */
+  const mediaRoot = el.closest('[data-ground="media"]');
+  let grounded = false;
+  for (let n = el; n && n !== mediaRoot; n = n.parentElement) {
+    const a = rgba(getComputedStyle(n).backgroundColor);
+    if (a && a[3] >= 1) { grounded = true; break; }
+  }
+  const onMedia = !!mediaRoot && !grounded;
+  /*
+   * EXCLUDING THE RATIO IS NOT EXCLUDING THE ELEMENT.
+   *
+   * Marking a ground as media stops the wrong measurement; it must not stop
+   * every question. The very next commit after this exclusion landed shipped a
+   * language switch whose SELECTED half rendered in the page's near-black ink
+   * on a dark video — `rgb(30, 41, 59)` — because `segment`'s selected rule is
+   * more specific than the bar's re-inking rule. No gate saw it, because the
+   * only gate that would have was told not to look.
+   *
+   * So one thing is still checked here, and it needs no knowledge of the
+   * backdrop: WHICH SIDE the ink is on. An element marked as sitting on media
+   * has been declared to use the inverted ink. If its colour is nearer the
+   * page's own foreground than the on-dark ink, that is a page ink that leaked
+   * onto imagery, and it is a defect whatever the picture behind it happens to
+   * be that second.
+   */
+  const rootCs = getComputedStyle(document.documentElement);
+  const lum = (c) => {
+    const m = String(c).match(/[\d.]+/g);
+    if (!m || m.length < 3) return null;
+    const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(+m[0]) + 0.7152 * f(+m[1]) + 0.0722 * f(+m[2]);
+  };
+  const probe = (name) => {
+    const d = document.createElement('span');
+    d.style.color = rootCs.getPropertyValue(name).trim() || 'transparent';
+    document.body.appendChild(d);
+    const v = lum(getComputedStyle(d).color);
+    d.remove();
+    return v;
+  };
+  let pageInkOnMedia = false;
+  if (onMedia) {
+    const own = lum(cs.color);
+    const pageInk = probe('--color-foreground');
+    const mediaInk = probe('--color-on-dark');
+    if (own != null && pageInk != null && mediaInk != null) {
+      pageInkOnMedia = Math.abs(own - pageInk) < Math.abs(own - mediaInk);
+    }
+  }
   const own = backdrop(el);
   // graphical / icon-only control: no DIRECT text node (only an <svg> or nothing) →
   // WCAG 1.4.11 non-text contrast applies (3:1), not the 4.5 text rule.
   const graphical = ![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
-  return { skip, onMedia, graphical, color: over(rgba(cs.color), own), bg: own, label: (el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 18), px: parseFloat(cs.fontSize), bold: (parseInt(cs.fontWeight, 10) || 400) >= 700 };
+  return { skip, onMedia, pageInkOnMedia, graphical, color: over(rgba(cs.color), own), bg: own, label: (el.textContent || el.value || el.getAttribute('aria-label') || '').trim().slice(0, 18), px: parseFloat(cs.fontSize), bold: (parseInt(cs.fontWeight, 10) || 400) >= 700 };
 };
 
 const handles = await page.$$('button, a[href], input, select, textarea, [role="button"], [role="switch"]');
@@ -146,7 +203,12 @@ for (const h of handles) {
       await page.mouse.move(0, 0);
       if (state === 'focus') await h.evaluate(el => el.blur && el.blur());
       if (r.skip) break;  // non-text control (checkbox/radio/switch) or invisible — not a text-contrast target
-      if (r.onMedia) { onMedia.add(r.label || '(unlabelled)'); break; }
+      if (r.onMedia) {
+        if (r.pageInkOnMedia)
+          fails.push(`${state.padEnd(7)} "${r.label}" uses the PAGE ink on a media ground  [rgb(${parse(r.color)}) — nearer --color-foreground than --color-on-dark]`);
+        else onMedia.add(r.label || '(unlabelled)');
+        break;
+      }
       const fg = parse(r.color), bg = parse(r.bg);
       if (!fg || !bg) continue;
       checked++;

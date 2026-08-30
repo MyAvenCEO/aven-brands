@@ -3881,6 +3881,7 @@
 			color: var(--color-on-dark);
 		}
 		& .segment-option[aria-current] {
+			color: var(--color-on-dark);
 			text-decoration: underline;
 			text-decoration-thickness: 1px;
 			text-underline-offset: 0.3em;
