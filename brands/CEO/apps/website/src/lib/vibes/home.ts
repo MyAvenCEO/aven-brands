@@ -469,20 +469,32 @@ function scriptColumn(
 	script: (typeof home)['de']['shift']['without'],
 	side: 'without' | 'with'
 ): ViewNode {
-	const past = side === 'without'
+	/*
+	 * ONE data attribute, not five ternaries.
+	 *
+	 * Every node here used to pick its own id — `past ? 'shift-was-title' :
+	 * 'shift-now-title'` and four more like it — so the two scripts were two
+	 * parallel trees that happened to have the same shape, and the stylesheet
+	 * carried a matching pair of rules for every part. That is what a view
+	 * "needing a conditional" actually looks like: it is not logic, it is
+	 * presentation deciding its own selector.
+	 *
+	 * The variant is DATA. `data-script` says which of the two this is, the
+	 * parts are named the same in both, and CSS branches on the attribute. The
+	 * view is now identical for both sides and takes no decision at all — which
+	 * is the point, because a ViewDef that cannot make a decision cannot make a
+	 * wrong one.
+	 */
 	return {
 		tag: 'div',
-		attrs: { id: past ? 'shift-was' : 'shift-now' },
+		class: 'shift-script',
+		attrs: { id: `shift-${side}`, 'data-script': side },
 		children: [
-			ruleLabel(script.eyebrow, past ? '01' : '02'),
-			{
-				tag: 'h3',
-				attrs: { id: past ? 'shift-was-title' : 'shift-now-title' },
-				text: script.title
-			},
+			ruleLabel(script.eyebrow),
+			{ tag: 'h3', class: 'shift-script-title', text: script.title },
 			{
 				tag: 'ul',
-				attrs: { id: past ? 'shift-was-items' : 'shift-now-items' },
+				class: 'shift-script-items',
 				children: script.items.map(
 					(item): ViewNode => ({
 						tag: 'li',
@@ -493,11 +505,7 @@ function scriptColumn(
 					})
 				)
 			},
-			{
-				tag: 'p',
-				attrs: { id: past ? 'shift-was-closing' : 'shift-now-closing' },
-				text: script.closing
-			}
+			{ tag: 'p', class: 'shift-script-closing', text: script.closing }
 		]
 	}
 }
@@ -587,16 +595,24 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 										}
 									}
 								]
+							},
+							/*
+							 * A CHILD of the spread, not a sibling of it. It was written
+							 * after the spread's `children` array closed, so it was a
+							 * sibling in `#shift-inner` — which has no gap — and sat flush
+							 * against the row above. It looked spanning because both
+							 * elements fill the section measure at the same width, which is
+							 * exactly why a width comparison could not tell them apart.
+							 */
+							{
+								tag: 'div',
+								attrs: { id: 'shift-turn' },
+								children: [
+									{ tag: 'p', attrs: { id: 'shift-turn-lead' }, text: t.shift.closingBefore },
+									{ tag: 'p', attrs: { id: 'shift-turn-kicker' }, text: t.shift.closingStrong }
+								]
 							}
 						]
-						},
-						{
-							tag: 'div',
-							attrs: { id: 'shift-turn' },
-							children: [
-								{ tag: 'p', attrs: { id: 'shift-turn-lead' }, text: t.shift.closingBefore },
-								{ tag: 'p', attrs: { id: 'shift-turn-kicker' }, text: t.shift.closingStrong }
-							]
 						}
 					/* The resolution, on the section's own left edge like everything
 					   else. It was centred with utility classes AND an inline `style`
