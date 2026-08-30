@@ -1,5 +1,8 @@
-/** The build-rendered footer; this page's own sections migrate next. */
-import { footerData } from '$lib/vibes/footer'
+/** The German marketplace page's static sections — see `/skills/+page.server.ts`. */
+import { footerHtml } from '$lib/vibes/footer'
+import { renderSkillsSections } from '$lib/vibes/skills'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = ({ url }) => footerData(url.pathname)
+export const load: PageServerLoad = async () => {
+	return { skillsSections: await renderSkillsSections('de'), footerHtml: await footerHtml('de') }
+}
