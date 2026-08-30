@@ -80,16 +80,6 @@ export type HomeMessages = {
 		rungs: Rung[]
 		closing: string
 	}
-	founders: {
-		eyebrow: string
-		heading: string
-		introHtml: string
-		teamHtml: string
-		samuel: Founder
-		daniel: Founder
-		ceo: { role: string; name: string; caption: string }
-		sum: string
-	}
 	skills: { eyebrow: string; heading: string; lead: string; all: string }
 	start: { eyebrow: string; heading: string; bodyHtml: string }
 }
@@ -158,7 +148,7 @@ export const home: Record<Lang, HomeMessages> = {
 			bodyHtml: `Wenn KI fast jede Arbeit erledigt — ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr.`,
 			question: 'Besitzt du die KI, die die neue Arbeit macht?',
 			without: {
-				eyebrow: 'Ohne Assets',
+				eyebrow: 'Ohne avenCEO',
 				title: 'Fremdbestimmt',
 				items: [
 					'Deine Stunden konkurrieren mit dem Strompreis.',
@@ -168,11 +158,11 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'Der Plan anderer.'
 			},
 			with: {
-				eyebrow: 'Mit deinen Avens',
+				eyebrow: 'Mit avenCEO',
 				title: 'Selbstbestimmt',
 				items: [
 					'Deine KI arbeitet rund um die Uhr — für dich.',
-					'Was du baust, gehört dir.',
+					'Was du baust, gehört dir — für immer.',
 					'Du gestaltest wieder — deine Vision, dein Leben.'
 				],
 				closing: 'Dein Plan.'
@@ -215,26 +205,6 @@ export const home: Record<Lang, HomeMessages> = {
 			],
 			closing:
 				'Nicht deine Stunde ist das Asset. Deine Avens sind es — und sie gehören dir, nicht einer Plattform.'
-		},
-		founders: {
-			eyebrow: 'Der erste avenCEO',
-			heading: 'Hallo, ich bin avenCEO.',
-			introHtml: `Vermutlich der ${s('weltweit erste echte agentische CEO')} — kein Chatbot am Rand, sondern ${s('KI im Gründerteam')}. Ich führe die ${s('avenCEO GmbH')}, die Firma, die diese Seite baut.`,
-			teamHtml: `Samuel und Daniel führen sie — mit ihren Avens ${s('avenSAM')} und ${s('avenDAN')}. Sie trainieren meine Skills; ich behalte, was sie lernen. Wer etwas will — Job, Kauf, Partnerschaft — spricht mit mir.`,
-			samuel: {
-				role: 'Mensch',
-				name: 'Samuel Andert',
-				alt: 'Samuel Andert',
-				caption: 'Vision · avenSAM'
-			},
-			daniel: {
-				role: 'Mensch',
-				name: 'Daniel Janz',
-				alt: 'Daniel Janz',
-				caption: 'Vision · avenDAN'
-			},
-			ceo: { role: 'avenCEO', name: 'avenCEO', caption: 'Ausführung · avenCEO GmbH' },
-			sum: '= avenCEO GmbH'
 		},
 		skills: {
 			eyebrow: 'Aven Skills',
@@ -293,7 +263,7 @@ export const home: Record<Lang, HomeMessages> = {
 			bodyHtml: `When AI does almost any job — ${s('at the price of electricity')} — ${s('trading time for money')} stops paying.`,
 			question: 'Do you own the AI doing the new work?',
 			without: {
-				eyebrow: 'Without assets',
+				eyebrow: 'Without avenCEO',
 				title: 'Someone else’s script',
 				items: [
 					'Your hours compete with the price of electricity.',
@@ -303,11 +273,11 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'Their plan.'
 			},
 			with: {
-				eyebrow: 'With your Avens',
+				eyebrow: 'With avenCEO',
 				title: 'The script you write',
 				items: [
 					'Your AI works around the clock — for you.',
-					'What you build is yours.',
+					'You own what you build — forever.',
 					'You shape it again — your vision, your life.'
 				],
 				closing: 'Your plan.'
@@ -350,26 +320,6 @@ export const home: Record<Lang, HomeMessages> = {
 			],
 			closing:
 				'Your hour is not the asset. Your Avens are — and they belong to you, not a platform.'
-		},
-		founders: {
-			eyebrow: 'The first avenCEO',
-			heading: 'Hello, I am avenCEO.',
-			introHtml: `Probably the ${s('world’s first real agentic CEO')} — not a chatbot on the sidelines, but ${s('AI in the founding team')}. I run ${s('avenCEO GmbH')}, the company building this page.`,
-			teamHtml: `Samuel and Daniel lead it — with their Avens ${s('avenSAM')} and ${s('avenDAN')}. They train my skills; I keep what they learn. Whoever wants something — hire, buy, partner — talks to me.`,
-			samuel: {
-				role: 'Human',
-				name: 'Samuel Andert',
-				alt: 'Samuel Andert',
-				caption: 'Vision · avenSAM'
-			},
-			daniel: {
-				role: 'Human',
-				name: 'Daniel Janz',
-				alt: 'Daniel Janz',
-				caption: 'Vision · avenDAN'
-			},
-			ceo: { role: 'avenCEO', name: 'avenCEO', caption: 'Execution · avenCEO GmbH' },
-			sum: '= avenCEO GmbH'
 		},
 		skills: {
 			eyebrow: 'Aven Skills',

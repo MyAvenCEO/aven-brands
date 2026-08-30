@@ -29,19 +29,14 @@
  *   - copy carrying markup (`transformationHtml`, `bodyHtml`, …): a view
  *     text node escapes, which is right for a view and wrong for our own
  *     HTML-bearing copy;
- *   - the founders' beam avatar: generated SVG, and the one door for SVG in
  *     a view is the icon registry, which holds validated glyphs, not
  *     per-name generated art.
  */
 import type { ViewNode } from '@myavenceo/aven-vibes'
-import { beamAvatarSvg, paletteFromCommaString } from '$lib/beam-avatar'
 import { type Lang, localeHref, pick } from '$lib/i18n'
 import { home } from '$lib/i18n/home'
 import { renderSection } from '$lib/vibes/render'
-import danielPhoto from '../../images/daniel.png'
-import samuelPhoto from '../../images/samuel.jpg'
 
-const paletteKi = paletteFromCommaString('e8c9a8,d4a574,c9a962,305669,222e49')
 
 /* ------------------------------------------------------------------ hero */
 
@@ -200,11 +195,28 @@ function trustView(t: (typeof home)['de']): ViewNode {
 					{
 						tag: 'ul',
 						attrs: { id: 'trust-claims' },
+						/*
+						 * Each claim gets its mark. Solar Bold Duotone, the set the rest
+						 * of the UI already draws from, and chosen by MEANING rather than
+						 * by looking trustworthy in general: a keyhole lock for the
+						 * encryption, a checked shield for the privacy, a key for the
+						 * ownership — you hold it, which is the whole claim.
+						 *
+						 * Decorative, so no title reaches the SVG: the words underneath
+						 * already say what each one is, and an icon that repeats its own
+						 * label is one more thing for a screen reader to read out twice.
+						 */
 						children: t.trust.claims.map(
-							(claim): ViewNode => ({
+							(claim, i): ViewNode => ({
 								tag: 'li',
 								class: 'stat stat--align-center',
 								children: [
+									{
+										tag: 'span',
+										class: 'trust-claim-icon',
+										attrs: { 'aria-hidden': 'true' },
+										$icon: { name: TRUST_ICONS[i], size: '1.75rem' }
+									},
 									{ tag: 'p', class: 'stat-value', text: '100%' },
 									{ tag: 'p', class: 'text text--eyebrow stat-label', text: claim }
 								]
@@ -216,6 +228,9 @@ function trustView(t: (typeof home)['de']): ViewNode {
 		]
 	}
 }
+
+/* One mark per claim, in the order the claims are written. */
+const TRUST_ICONS = ['trust-encrypted', 'trust-privacy', 'trust-ownership'] as const
 
 /* ----------------------------------------------------------- the arithmetic */
 
@@ -243,7 +258,7 @@ function trustView(t: (typeof home)['de']): ViewNode {
  * silently crops a third of the frame away.
  */
 const ART = {
-	horizon: { src: '/hero.png', width: '1024', height: '578' }
+	horizon: { src: '/woman-on-mountain.jpg', width: '1920', height: '1072' }
 } as const
 
 function ruleLabel(text: string, index?: string): ViewNode {
@@ -312,6 +327,45 @@ function costView(t: (typeof home)['de']): ViewNode {
 					 * beside it: the section argues that starting is possible now, and
 					 * the picture is what that feels like rather than what it costs.
 					 */
+					{
+						tag: 'figure',
+						class: 'art-arch',
+						attrs: { id: 'cost-art' },
+						children: [
+							{
+								tag: 'img',
+								class: 'art-arch-img',
+								attrs: {
+									src: ART.horizon.src,
+									alt: '',
+									width: ART.horizon.width,
+									height: ART.horizon.height,
+									loading: 'lazy',
+									decoding: 'async'
+								}
+							},
+							/*
+							 * The statement rides ON the picture. It was a line of type in
+							 * the flow below it, which made the illustration decoration and
+							 * the sentence a caption; over the image they are one thing —
+							 * the summit and what standing on it is called. A marine scrim
+							 * across the lower third carries it, because the art's own sky
+							 * is sunflower and nothing legible sits on that directly.
+							 */
+							{
+								tag: 'figcaption',
+								attrs: { id: 'cost-overlay' },
+								children: [
+									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
+									{ tag: 'span', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker },
+									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ')' }
+								]
+							}
+						]
+					},
+					/* The ticker: short facts separated by marks, edge to edge. Static,
+					   not a marquee — motion here would be decoration that has to be
+					   turned off again for anyone who asked for less of it. */
 					/* The price sheet. The old figure is struck and bare; the offer is a
 					   SUNFLOWER GROUND with marine ink — the brand accent at full
 					   strength, in the one job it can hold here. As a mark on cream it
@@ -339,52 +393,30 @@ function costView(t: (typeof home)['de']): ViewNode {
 									{ tag: 'p', attrs: { id: 'cost-was-note' }, text: t.trust.cost.human.note }
 								]
 							},
-							{
-								tag: 'div',
-								class: 'cost-panel',
-								attrs: { id: 'cost-now' },
-								children: [
-									{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
-									{
-										tag: 'p',
-										attrs: { id: 'cost-now-figure' },
-										children: [
-											{ tag: 'span', attrs: { id: 'cost-now-value' }, text: t.trust.cost.aven.value },
-											{ tag: 'span', attrs: { id: 'cost-now-unit' }, text: t.trust.cost.aven.unit }
-										]
-									},
-									{ tag: 'p', attrs: { id: 'cost-now-note' }, text: t.trust.cost.aven.note }
-								]
-							}
+						{
+							tag: 'div',
+							class: 'cost-panel',
+							attrs: { id: 'cost-now' },
+							children: [
+								{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
+								{
+									tag: 'p',
+									attrs: { id: 'cost-now-figure' },
+									children: [
+										{ tag: 'span', attrs: { id: 'cost-now-value' }, text: t.trust.cost.aven.value },
+										{ tag: 'span', attrs: { id: 'cost-now-unit' }, text: t.trust.cost.aven.unit }
+									]
+								},
+								{ tag: 'p', attrs: { id: 'cost-now-note' }, text: t.trust.cost.aven.note }
+							]
+						},
 						]
 					},
 					{
-						tag: 'figure',
-						class: 'art-arch',
-						attrs: { id: 'cost-art' },
-						children: [
-							{
-								tag: 'img',
-								class: 'art-arch-img',
-								attrs: {
-									src: ART.horizon.src,
-									alt: '',
-									width: ART.horizon.width,
-									height: ART.horizon.height,
-									loading: 'lazy',
-									decoding: 'async'
-								}
-							},
-							{
-								tag: 'figcaption',
-								class: 'art-brief',
-								text: 'STAND-IN — replace with the horizon illustration: a woman on a ridge, arms open, facing a low sun. Sunflower sky, marine ranges, sand rock.'
-							}
-						]
+						tag: 'p',
+						attrs: { id: 'cost-closing' },
+						text: t.trust.cost.closing
 					},
-					/* The ticker: short facts separated by marks, edge to edge. Static,
-					   not a marquee — motion here would be decoration that has to be
-					   turned off again for anyone who asked for less of it. */
 					{
 						tag: 'ul',
 						attrs: { id: 'cost-does' },
@@ -402,22 +434,6 @@ function costView(t: (typeof home)['de']): ViewNode {
 					   emotional turn of the section and it was tucked into the story
 					   column at body scale, which is where an argument goes to be
 					   missed. */
-					{
-						tag: 'div',
-						attrs: { id: 'cost-turn' },
-						children: [
-							{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing },
-							{
-								tag: 'p',
-								attrs: { id: 'cost-kicker' },
-								children: [
-									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '( ' },
-									{ tag: 'span', text: t.trust.cost.kicker },
-									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ' )' }
-								]
-							}
-						]
-					}
 				]
 			}
 		]
@@ -598,8 +614,8 @@ function companyView(t: (typeof home)['de']): ViewNode {
 								children: [
 									{
 										tag: 'span',
-										class:
-											'font-display text-[length:var(--fs-display)] font-light leading-none text-band-foreground',
+										class: 'font-display text-[length:var(--fs-display)] font-light leading-none',
+										attrs: { 'data-role': 'counter' },
 										text: String(i + 1).padStart(2, '0')
 									},
 									{
@@ -614,7 +630,8 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'div',
-						class: 'mx-auto mt-16 max-w-xl border-t border-primary-foreground/12 pt-10 text-center',
+						class: 'mx-auto mt-16 max-w-xl text-center',
+						attrs: { id: 'company-closing-panel' },
 						children: [
 							{
 								tag: 'p',
@@ -712,144 +729,6 @@ function ownView(t: (typeof home)['de']): ViewNode {
 	}
 }
 
-/* --------------------------------------------------------------- founders */
-
-/** One person in the line-up: photo (through the seam — the CEO's is
- * generated SVG, the humans' are Vite-hashed imports whose URL only the
- * build knows), then role, name, caption. */
-function founderBlock(
-	person: { role: string; name: string; caption: string },
-	options: { photoToken: string; nameClass: string; avatarId?: string }
-): ViewNode {
-	return {
-		tag: 'div',
-		class: 'flex min-w-0 flex-col items-center justify-start text-center',
-		children: [
-			{
-				tag: 'div',
-				class: 'size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page sm:size-16',
-				...(options.avatarId ? { attrs: { id: options.avatarId, 'aria-hidden': 'true' } } : {}),
-				text: options.photoToken
-			},
-			{ tag: 'p', class: 'mt-2 eyebrow-quiet', text: person.role },
-			{ tag: 'p', class: options.nameClass, text: person.name },
-			{
-				tag: 'p',
-				class:
-					'mt-0.5 max-w-[9rem] text-[length:var(--fs-nano)] leading-tight text-foreground-quiet sm:text-[length:var(--fs-micro)]',
-				text: person.caption
-			}
-		]
-	}
-}
-
-/** The joiner between two people: a `+` or an arrow, purely visual. */
-function founderJoiner(glyph: string): ViewNode {
-	return {
-		tag: 'div',
-		class: 'flex w-6 min-w-[1.5rem] flex-col justify-center pb-10 sm:w-8 sm:pb-12',
-		attrs: { 'aria-hidden': 'true' },
-		children: [
-			{
-				tag: 'span',
-				class:
-					'text-center text-2xl font-light leading-none text-foreground-quiet sm:text-[length:var(--fs-display)]',
-				text: glyph
-			}
-		]
-	}
-}
-
-/** Founders as a 50/50 magazine split: the avenCEO speaks from a turquoise
- * panel on the left, the human + AI team stands on the light right. */
-function foundersView(t: (typeof home)['de']): ViewNode {
-	return {
-		tag: 'section',
-		class: 'grid items-stretch lg:grid-cols-2',
-		attrs: { id: 'founders' },
-		children: [
-			{
-				tag: 'div',
-				class:
-					'flex items-center bg-band-alt px-5 py-16 text-band-foreground sm:px-8 sm:py-20 lg:px-14 lg:py-28',
-				children: [
-					{
-						tag: 'div',
-						class: 'mx-auto w-full max-w-xl lg:mr-0 lg:ml-auto lg:max-w-md',
-						children: [
-							{
-								tag: 'p',
-								class:
-									'text-[length:var(--fs-body)] font-semibold uppercase tracking-[var(--tracking-wider)] text-band-foreground',
-								text: t.founders.eyebrow
-							},
-							{
-								tag: 'h2',
-								class:
-									'mt-3 text-[clamp(1.75rem,4.5cqi,2.75rem)] font-light leading-tight tracking-tight text-band-foreground',
-								text: t.founders.heading
-							},
-							{
-								tag: 'div',
-								class:
-									'mt-5 space-y-3 text-[length:var(--fs-title)] leading-relaxed text-band-foreground sm:text-base',
-								attrs: { id: 'founders-prose' },
-								children: [
-									{ tag: 'p', text: '@@founders-intro@@' },
-									{ tag: 'p', text: '@@founders-team@@' }
-								]
-							}
-						]
-					}
-				]
-			},
-			{
-				tag: 'div',
-				class: 'flex items-center bg-surface-page px-5 py-16 sm:px-8 sm:py-20 lg:px-14',
-				children: [
-					{
-						tag: 'div',
-						class: 'mx-auto w-full max-w-md',
-						children: [
-							{
-								tag: 'div',
-								class:
-									'grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1.2fr)] items-stretch gap-x-2 sm:gap-x-4',
-								children: [
-									founderBlock(t.founders.samuel, {
-										photoToken: '@@founders-photo-samuel@@',
-										nameClass:
-											'mt-0.5 truncate text-[length:var(--fs-meta)] font-semibold tracking-tight text-foreground sm:text-[length:var(--fs-body)]'
-									}),
-									founderJoiner('+'),
-									founderBlock(t.founders.daniel, {
-										photoToken: '@@founders-photo-daniel@@',
-										nameClass:
-											'mt-0.5 truncate text-[length:var(--fs-meta)] font-semibold tracking-tight text-foreground sm:text-[length:var(--fs-body)]'
-									}),
-									founderJoiner('→'),
-									founderBlock(t.founders.ceo, {
-										photoToken: '@@founders-avatar-ceo@@',
-										avatarId: 'founders-ceo-avatar',
-										nameClass:
-											'mt-0.5 text-[length:var(--fs-meta)] font-bold tracking-[var(--tracking-wide)] text-accent-ink sm:text-[length:var(--fs-body)]'
-									})
-								]
-							},
-							{
-								tag: 'p',
-								class:
-									'mt-4 border-t border-border/8 pt-3 text-center text-[length:var(--fs-micro)] font-bold tracking-[var(--tracking-widest)] text-accent-ink sm:text-[length:var(--fs-eyebrow)]',
-								text: t.founders.sum
-							}
-						]
-					}
-				]
-			}
-		]
-	}
-}
-
 /* -------------------------------------------- skills preview + start head */
 
 /** The header block of the skills preview. Only the frame is config: the
@@ -928,7 +807,6 @@ export type HomeSections = {
 	shift: string
 	company: string
 	own: string
-	founders: string
 	skillsHead: string
 	skillsAll: string
 	startHead: string
@@ -957,13 +835,6 @@ export async function renderHomeSections(lang: Lang): Promise<HomeSections> {
 			'@@company-closing@@': `${t.company.closingLine2Before} <span class="font-sans font-medium">${t.company.closingLine2Strong}</span>.`
 		}),
 		own: await renderSection(ownView(t)),
-		founders: await renderSection(foundersView(t), {
-			'@@founders-intro@@': t.founders.introHtml,
-			'@@founders-team@@': t.founders.teamHtml,
-			'@@founders-photo-samuel@@': `<img src="${samuelPhoto}" alt="${t.founders.samuel.alt}" class="h-full w-full object-cover" width="64" height="64" decoding="async">`,
-			'@@founders-photo-daniel@@': `<img src="${danielPhoto}" alt="${t.founders.daniel.alt}" class="h-full w-full object-cover" width="64" height="64" decoding="async">`,
-			'@@founders-avatar-ceo@@': beamAvatarSvg('avenCEO', paletteKi, 64, 'fnd-k-ceo')
-		}),
 		skillsHead: await renderSection(skillsHeadView(t)),
 		skillsAll: await renderSection(skillsAllView(t, lang)),
 		startHead: await renderSection(startHeadView(t), { '@@start-body@@': t.start.bodyHtml })

@@ -2,7 +2,7 @@
 /**
  * The landing page, delivered as CONFIGURATION.
  *
- * Every static band — hero, trust, shift, company, ownership, founders, the
+ * Every static band — hero, trust, shift, company, ownership, the
  * section heads — is a ViewDef in `$lib/vibes/home.ts`, rendered to HTML at
  * build time by the route's server load and placed here with `{@html}`. No
  * island: nothing in those bands moves, so nothing hydrates and they ship
@@ -62,7 +62,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 
 	{@html sections.own}
 
-	{@html sections.founders}
 
 	<!-- Skills preview: what an Aven can already do, straight from the
 	     marketplace. The frame's head and the "see all" line are config; the
@@ -139,6 +138,40 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * So on a band the emphasis is weight, and the copy says `<b>`, which is what
  * it meant.
  */
+/*
+ * THE TEAL BAND WAS MONOTONE FOR A REASON, and the reason has to be worked
+ * around rather than argued with.
+ *
+ * Every element on it was `text-band-foreground` — one ink across five type
+ * sizes — which reads as flat. But the band is `#217c91`, and MEASURED against
+ * it: white is 4.61:1, the accent ring 4.05, the accent edge 3.29, sunflower
+ * itself 2.72. White barely clears the 4.5 body text needs, so there is no
+ * second body ink available here. Anything tinted at paragraph size fails, and
+ * accessibility outranks the aesthetics that want it.
+ *
+ * So the contrast comes from the two places it still can:
+ *
+ *   GROUND — the closing moves onto a marine block. Marine against paradise is
+ *   a brand pairing, it gives the section an ending that is a shape rather than
+ *   a hairline, and white on marine measures 13.98:1, which is the most
+ *   headroom anything on this band has had.
+ *
+ *   LARGE TYPE — the 01/02 counters are 28px, so the 3:1 large-text threshold
+ *   applies and `--color-accent-edge` (3.29:1) is legal there. It is the first
+ *   warm note in the section and it lands on the only elements that can hold
+ *   it.
+ */
+:global(#company-prose [data-role='counter']) {
+	color: var(--color-accent-edge);
+}
+:global(#company-closing-panel) {
+	margin-block-start: var(--space-section);
+	padding: var(--space-loose);
+	border-radius: var(--radius-xl);
+	background: var(--color-marine);
+	color: var(--color-on-dark);
+}
+
 :global(#company-heading b) {
 	font-weight: 600;
 }
@@ -147,11 +180,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    with the light-page tone (text-foreground) — lift them so they read on the
    dark spread. Keyed off the id so the strict utility plugin ignores it. */
 :global(#company-prose strong),
-:global(#founders-prose strong) {
-	color: var(--color-primary-foreground);
-	font-weight: 500;
-}
-
 /* The hero is its own dark stage: the video sits behind, a soft scrim
    darkens the bright footage, and the copy goes light on top. Colours and
    the gradient live here (scoped CSS, keyed off ids so the strict utility
@@ -235,10 +263,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  */
 :global(#home-hero),
 :global(#company-band),
-:global(#founders > div) {
-	container-type: inline-size;
-}
-
 /*
  * THE SHIFT — one left edge, all the way down.
  *
@@ -258,10 +282,16 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: grid;
 	gap: 0;
 }
+/* Centred, like the band and the turn below it. Left-aligned at 34rem in a
+   64rem measure it was a column with a margin, which is the reading this
+   section kept coming back with. */
 :global(#shift-head) {
 	display: grid;
+	justify-items: center;
 	gap: var(--space-tight);
-	max-inline-size: 34rem;
+	max-inline-size: 40rem;
+	margin-inline: auto;
+	text-align: center;
 }
 
 /* The pull-quote: the page's turn, and the largest thing in the section, so
@@ -306,12 +336,23 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(#shift-turn) {
 	display: grid;
 	justify-items: center;
-	gap: var(--space-tight);
-	max-inline-size: 40rem;
+	gap: var(--space-comfortable);
+	max-inline-size: 44rem;
 	margin: var(--space-section) auto 0;
-	padding-block-start: var(--space-loose);
-	border-block-start: 1px solid var(--color-border-soft);
 	text-align: center;
+}
+/*
+ * The question gets a ground of its own, so the section ends on a block rather
+ * than trailing off under a hairline. Accent tint with a sunflower edge — the
+ * same pairing the future script wears, which is the point: this is that
+ * script's question.
+ */
+:global(#shift-turn-kicker) {
+	inline-size: min(100%, 34rem);
+	padding: var(--space-loose) var(--space-comfortable);
+	border-radius: var(--radius-xl);
+	background: var(--color-accent-surface);
+	box-shadow: inset 0 var(--rule-accent) 0 0 var(--color-sunflower);
 }
 :global(#shift-turn-lead) {
 	margin: 0;
@@ -438,11 +479,69 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(.art-oval) {
 	border-radius: var(--radius-full);
 }
+/*
+ * The source file carries its OWN white frame and rounded corners, baked into
+ * the pixels. The arch then cropped that frame instead of the picture, so the
+ * white ran thick down one edge and vanished at the dome — a border that looks
+ * botched rather than absent. Scaling the image just past the frame puts the
+ * baked edge outside the crop, and the arch draws the only rounding there is.
+ */
+/*
+ * The statement, on the lower third of the picture.
+ *
+ * A marine scrim rather than a drop shadow: the illustration's sky is
+ * sunflower and its water is pale, so there is no single tone the type could
+ * take unaided. The scrim fades UP from the foot so the summit and the sun
+ * stay untouched, and the type sits on the darkest part of it.
+ */
+:global(#cost-overlay) {
+	position: absolute;
+	inset-inline: 0;
+	inset-block-end: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: center;
+	gap: var(--space-comfortable);
+	margin: 0;
+	padding: var(--space-section) var(--space-loose) var(--space-loose);
+	/*
+	 * A SOLID marine floor, with the gradient as a feather ABOVE it.
+	 *
+	 * It was a gradient alone, and a gradient is not a background colour: the
+	 * caption's own computed `background-color` stayed transparent, so the ink
+	 * was resting on whatever had actually painted underneath. On /de/ the
+	 * lazy-loaded illustration had not arrived when the page was measured and
+	 * the gate caught white on the figure's sunken paper at 1.06:1 — which is
+	 * exactly what a reader on a slow connection would have seen.
+	 *
+	 * The floor is a real colour now, so the type is legible whether or not the
+	 * image is there, and the feather only softens the join.
+	 */
+	background-color: var(--color-marine);
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 4.5cqi, 2.75rem);
+	line-height: 1.1;
+	letter-spacing: var(--tracking-tight);
+	text-align: center;
+	color: var(--color-on-dark);
+}
+
+:global(#cost-overlay)::before {
+	content: '';
+	position: absolute;
+	inset-inline: 0;
+	inset-block-end: 100%;
+	block-size: var(--space-section);
+	background: linear-gradient(to top, var(--color-marine), transparent);
+}
 :global(.art-arch-img) {
 	inline-size: 100%;
 	block-size: 100%;
 	object-fit: cover;
 	display: block;
+	transform: scale(1.06);
+	transform-origin: center;
 }
 /*
  * The brief sits UNDER the figure, not on it.
@@ -469,20 +568,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * beneath. The grid fixed an earlier fault (four unrelated measures, half the
  * width empty); this pass gives it a voice.
  */
-:global(#cost-grid) {
-	display: grid;
-	gap: var(--space-section) var(--space-loose);
-	align-items: start;
-}
-@media (min-width: 56rem) {
-	:global(#cost-grid) {
-		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-	}
-	:global(#cost-does),
-	:global(#cost-turn) {
-		grid-column: 1 / -1;
-	}
-}
 /* The arch sits in the story column's own track, under the text: the column
    was 544px of words alone in a 1344px field, which is a margin rather than a
    composition. */
@@ -496,22 +581,47 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * picture says what that buys), so it gets the full measure and its own row,
  * between the argument and the closing statement.
  */
-@media (min-width: 56rem) {
-	:global(#cost-price) {
-		grid-column: 2;
-		align-self: center;
-	}
-	:global(#cost-art) {
-		grid-column: 1 / -1;
-	}
+/*
+ * ONE COLUMN, and the comparison is its own row under the picture.
+ *
+ * The section ran as a 7fr/5fr spread with the salary floating in the right
+ * track, so the two halves of a COMPARISON never appeared side by side — the
+ * one job the layout had. Now: the head centred, the illustration full width
+ * with the statement on it, then human against aven in a single row, then the
+ * claim, then what it does.
+ */
+:global(#cost-grid) {
+	display: grid;
+	gap: var(--space-section);
+	align-items: start;
 }
-
+/* The head is centred with everything else in the section. */
 :global(#cost-story) {
 	display: grid;
+	justify-items: center;
 	gap: var(--space-comfortable);
-	align-content: start;
-	max-inline-size: 34rem;
+	max-inline-size: 44rem;
+	margin-inline: auto;
+	text-align: center;
 }
+/* Human left, aven right, equal tracks — a comparison whose two sides are not
+   the same width is an argument with a thumb on the scale. */
+:global(#cost-price) {
+	display: grid;
+	gap: var(--space-loose);
+}
+@media (min-width: 48rem) {
+	:global(#cost-price) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-items: stretch;
+	}
+}
+:global(#cost-closing) {
+	max-inline-size: 34rem;
+	margin: 0 auto;
+	text-align: center;
+}
+
 :global(#cost-heading) {
 	margin: 0;
 	font-family: var(--font-display);
@@ -643,11 +753,14 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	letter-spacing: var(--tracking-wider);
 	text-transform: uppercase;
 	color: var(--color-foreground);
+	justify-content: center;
+	text-align: center;
 }
 :global(#cost-does > li) {
 	display: flex;
 	align-items: center;
 	gap: var(--space-tight);
+	justify-content: center;
 }
 :global(.cost-does-mark) {
 	flex: 0 0 auto;
@@ -657,34 +770,20 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	background: var(--color-paradise);
 }
 
-/* The statement: centred, full width, and the largest thing in the section
-   after the price. It was tucked into the story column at body scale, which
-   is where an argument goes to be missed. */
-:global(#cost-turn) {
-	display: grid;
-	justify-items: center;
-	gap: var(--space-comfortable);
-	text-align: center;
-}
+/*
+ * The claim, between the comparison and the list of what it does. `#cost-turn`
+ * is gone — the statement it wrapped now rides on the illustration — so the
+ * rules for it went with it. `#cost-kicker` kept `color: var(--color-foreground)`
+ * from that arrangement, which on the marine scrim rendered marine on marine:
+ * invisible, and invisible in the one place the contrast gate reports as
+ * "sits on imagery — check by eye". It inherits the overlay's ink now.
+ */
 :global(#cost-closing) {
 	margin: 0;
 	font-size: var(--fs-meta);
 	letter-spacing: var(--tracking-wider);
 	text-transform: uppercase;
 	color: var(--color-foreground-quiet);
-}
-:global(#cost-kicker) {
-	display: flex;
-	align-items: baseline;
-	gap: var(--space-comfortable);
-	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(2rem, 6cqi, 3.5rem);
-	font-weight: 400;
-	line-height: 1.05;
-	letter-spacing: var(--tracking-tight);
-	text-wrap: balance;
-	color: var(--color-foreground);
 }
 
 /*
@@ -868,9 +967,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	max-inline-size: 22ch;
 	margin-inline: auto;
 	font-family: var(--font-display);
-	font-size: clamp(2rem, 5.5cqi, 3.25rem);
+	font-size: clamp(1.625rem, 4.2cqi, 2.5rem);
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.25;
 	letter-spacing: var(--tracking-normal);
 	text-align: center;
 	text-wrap: balance;
@@ -884,6 +983,30 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	font-size: 1em;
 	letter-spacing: var(--tracking-tight);
 	vertical-align: baseline;
+}
+
+/*
+ * SOLID SUNFLOWER, marine knocked out of it.
+ *
+ * The duotone's backing carries `opacity: .5`, which is right on a light page
+ * and wrong on this one: half-strength sunflower composited over marine
+ * resolves to a muddy olive, and three olive badges on a navy band was the
+ * worst colour in the section. Forcing the backing to full strength makes it a
+ * solid brand shape, and the figure takes marine so it reads as cut OUT of the
+ * shape rather than drawn on top of it.
+ *
+ * Measured both directions on this band: sunflower on marine is 8.27:1, which
+ * clears the 3:1 a graphical object needs with room to spare, and clears it
+ * again for the marine figure sitting inside the sunflower.
+ */
+:global(.trust-claim-icon) {
+	display: block;
+	margin-block-end: var(--space-tight);
+	color: var(--color-marine);
+	--icon-tint: var(--color-sunflower);
+}
+:global(.trust-claim-icon svg path[opacity]) {
+	opacity: 1;
 }
 
 :global(#trust-claims) {
@@ -928,12 +1051,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* The CEO's beam avatar arrives through the seam as generated SVG; these two
    declarations are what `[&>svg]:block [&>svg]:size-full` said when the
    wrapper was compiled markup. */
-:global(#founders-ceo-avatar svg) {
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-
 @media (prefers-reduced-motion: reduce) {
 	:global(#home-hero-video) {
 		display: none;
