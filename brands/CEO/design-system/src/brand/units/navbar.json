@@ -157,7 +157,13 @@
 				"display": "flex",
 				"alignItems": "center",
 				"gap": "var(--space-tight)",
-				"marginInlineStart": "auto"
+				"marginInlineStart": "auto",
+				"$description": "The bar's right-hand group: the call to action and the language switch.\n\nTHE SWITCH IS SET LIKE A NAV POINT, because in this bar it IS one. `segment-option` inherits its type (`font: inherit`), which is right for a switch standing alone in a rail and wrong in a row of `nav-link`s at `--fs-eyebrow`: DE and EN came out at the bar's own 16px beside 11px uppercase destinations, so the smallest decision on the bar was set larger than the navigation. Matching happens HERE rather than in `segment`, because it is true of this bar and not of the unit — the docs theme switch wants its own size.",
+				"& .segment-option": {
+					"fontSize": "var(--fs-eyebrow)",
+					"letterSpacing": "var(--tracking-wider)",
+					"textTransform": "uppercase"
+				}
 			},
 			"toggle": {
 				"display": "inline-flex",

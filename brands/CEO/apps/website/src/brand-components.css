@@ -3834,6 +3834,12 @@
 		align-items: center;
 		gap: var(--space-tight);
 		margin-inline-start: auto;
+
+		& .segment-option {
+			font-size: var(--fs-eyebrow);
+			letter-spacing: var(--tracking-wider);
+			text-transform: uppercase;
+		}
 	}
 
 	.navbar-toggle {
