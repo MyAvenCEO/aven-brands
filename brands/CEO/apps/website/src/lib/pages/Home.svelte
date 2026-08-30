@@ -253,6 +253,12 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * ONE line under the heading, centred, and it sits ABOVE the roles rather than
  * below them: it is the section's thesis and the pair beneath is the evidence.
  */
+/* The close is centred, like the subline and the heading above it — it was the
+   only block in the band still ranged left. */
+:global(#company-closing-panel) {
+	text-align: center;
+}
+
 :global(#company-subline) {
 	max-inline-size: 46rem;
 	margin: var(--space-loose) auto 0;
@@ -1305,22 +1311,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* Wider measure, looser tracking. At 44rem with `tracking-tight` it broke to
    four lines and the negative tracking closed the letters up exactly where a
    large display line needs them open. */
-:global(#own-heading) {
-	margin: 0;
-	/* Wide enough that each AUTHORED line fits on one rendered line.
-	   The heading is two sentences held in two blocks, so the target is two
-	   rendered lines, not two per block. German is the constraint: "Sondern
-	   einen fuer jede Idee, die du hast" is 41 characters against the English
-	   line's 34, and at 20ch and 30ch both languages broke to four. */
-	max-inline-size: 46ch;
-	font-family: var(--font-display);
-	font-size: clamp(var(--fs-display), 5cqi, 3rem);
-	font-weight: 400;
-	line-height: 1.1;
-	letter-spacing: var(--tracking-normal);
-	text-wrap: balance;
-	color: var(--color-foreground);
-}
 :global(.own-heading-line) {
 	display: block;
 }
@@ -2098,15 +2088,40 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	text-align: center;
 	color: var(--color-foreground-quiet);
 }
-/* The superseded price: struck, quiet, and a step smaller than the one you
-   pay — it is context for that number, not a competitor to it. */
+/*
+ * The superseded price as a small tilted badge on the right of the one you pay.
+ *
+ * Absolutely positioned, so it contributes NO width: the amount stays exactly
+ * where it would be with no offer running, and the badge hangs beside it. A
+ * strike set inline moved the real number off centre, which defeats the point
+ * of showing it.
+ */
+:global(#id-price-now) {
+	position: relative;
+	display: inline-flex;
+	align-items: baseline;
+}
 :global(#id-price-was) {
-	font-size: var(--fs-lead);
+	position: absolute;
+	inset-inline-start: 100%;
+	inset-block-start: 50%;
+	margin-inline-start: var(--space-tight);
+	padding: var(--space-hairline) var(--space-tight);
+	border-radius: var(--radius-sm);
+	/* Sunflower at full strength, not the tint: a discount badge that whispers
+	   is not doing the one job it has. Marine on it measures 8.27:1. */
+	background: var(--color-sunflower);
+	font-size: var(--fs-title);
+	font-weight: 600;
 	font-variant-numeric: tabular-nums;
-	letter-spacing: var(--tracking-tight);
+	line-height: 1.2;
+	white-space: nowrap;
 	text-decoration: line-through;
 	text-decoration-thickness: 1px;
-	color: var(--color-foreground-quiet);
+	color: var(--color-marine);
+	box-shadow: var(--shadow-raised, none);
+	transform: translateY(-50%) rotate(-7deg);
+	transform-origin: left center;
 }
 
 /*
@@ -2125,10 +2140,16 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * spacing is part of the mark rather than a choice this headline gets to make.
  */
 :global(#trust-headline) {
-	/* 36ch, not 22: at 22 the sentence broke to four lines and the band became
-	   a wall of display type. Two lines is the brief, so the measure has to be
-	   wide enough to take half the sentence each. */
-	max-inline-size: 36ch;
+	/*
+	 * Two lines, and the measure is in REM not ch.
+	 *
+	 * `ch` is the width of the font's own "0" and this is the display serif,
+	 * whose zero is narrow — 36ch measured 558px, which is far tighter than the
+	 * number looks. The sentence grew to "...that you own 100%." and broke to
+	 * three lines inside it. A `ch` measure on a display face is not the measure
+	 * you think you are setting.
+	 */
+	max-inline-size: 66rem;
 	margin-inline: auto;
 	font-family: var(--font-display);
 	font-size: clamp(1.375rem, 3.1cqi, 2rem);
@@ -2193,21 +2214,28 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(.trust-claim-name) {
 	margin: 0;
 	font-size: var(--fs-title);
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing: var(--tracking-wide);
 	text-transform: uppercase;
 	text-wrap: balance;
 	color: var(--color-band-foreground);
 }
-/* The figure annotates the claim, so it is set like an annotation. NO opacity:
-   this band's headroom is thin and fading ink here is what axe caught twice. */
+/*
+ * The figure annotates the claim. Sunflower, and the SANS face, not the
+ * display one — the display serif made it read as a second heading competing
+ * with the claim above it, when its job is to qualify that claim. Sunflower on
+ * this chip measures well clear of the 4.5 it needs; no opacity, because this
+ * band's headroom is thin and fading ink here is what axe caught twice.
+ */
 :global(.trust-claim-figure) {
 	margin: 0;
-	font-family: var(--font-display);
-	font-size: var(--fs-amount);
+	font-family: var(--font-sans);
+	font-size: var(--fs-lead);
+	font-weight: 600;
 	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--tracking-wide);
 	line-height: 1;
-	color: var(--color-secondary-edge);
+	color: var(--color-sunflower);
 }
 
 

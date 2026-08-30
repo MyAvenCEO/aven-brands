@@ -141,19 +141,32 @@ function priceView(lang: Lang): ViewNode {
 					 * Rendered only when the plan carries a `listEurPrice`, so it
 					 * disappears with the offer instead of having to be remembered.
 					 */
-					...(avenId.listEurPrice
-						? [
-								{
-									tag: 'span',
-									attrs: { id: 'id-price-was' },
-									text: `${euro(avenId.listEurPrice)}${NBSP}€`
-								} satisfies ViewNode
-							]
-						: []),
 					{
+						/*
+						 * The price, with the struck one hung off its RIGHT edge as a
+						 * badge. The badge is absolutely positioned inside this wrapper,
+						 * so it adds no width and the amount you pay stays optically
+						 * centred — a strike set inline beside it pushed the real number
+						 * off centre, which is the one thing the offer must not do.
+						 */
 						tag: 'span',
-						class: 'text-3xl font-semibold tabular-nums tracking-tight text-foreground',
-						text: `${euro(avenId.eurPrice)}${NBSP}€`
+						attrs: { id: 'id-price-now' },
+						children: [
+							{
+								tag: 'span',
+								class: 'text-3xl font-semibold tabular-nums tracking-tight text-foreground',
+								text: `${euro(avenId.eurPrice)}${NBSP}€`
+							},
+							...(avenId.listEurPrice
+								? [
+										{
+											tag: 'span',
+											attrs: { id: 'id-price-was' },
+											text: `${euro(avenId.listEurPrice)}${NBSP}€`
+										} satisfies ViewNode
+									]
+								: [])
+						]
 					},
 					{
 						/* Its own row under the figures. On the baseline beside them it

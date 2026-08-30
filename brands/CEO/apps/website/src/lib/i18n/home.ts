@@ -123,7 +123,7 @@ export const home: Record<Lang, HomeMessages> = {
 		},
 		trust: {
 			headlineRest:
-				' ist der weltweit erste datenschützende agentische Co‑Founder, der dir gehört.',
+				' ist der weltweit erste datenschützende agentische Co‑Founder, der dir zu 100% gehört.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
 			cost: {
 				eyebrow: 'Dein Moment',
@@ -248,7 +248,7 @@ export const home: Record<Lang, HomeMessages> = {
 		},
 		trust: {
 			headlineRest:
-				' is the world’s first privacy‑protecting agentic co‑founder that you own.',
+				' is the world’s first privacy‑protecting agentic co‑founder that you own 100%.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
 			cost: {
 				eyebrow: 'Your moment',

@@ -103,7 +103,7 @@ export const common: Record<
 			eyebrow: 'Invite only',
 			title: 'Sichere dir jetzt deinen avenCEO‑Namen',
 			bodyHtml:
-				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
+				'Dein eigener avenNAME — z. B. <strong class="font-medium text-foreground/82">avenMAIA</strong> — samt eigener Domain <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Er ist Name und Adresse deines Avens in einem: wie eine Telefonnummer ist er der Weg, auf dem jemand deinen Aven erreicht, der mit ihm sprechen will. Es gibt ihn genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
 			betaLine: (pct, months) =>
 				`inkl. ${pct}% Rabatt auf deine ersten ${months} Monate avenCEO`,
 			betaPriceLine: (discounted, regular) => `${discounted} €/m statt ${regular} €`,
@@ -158,7 +158,7 @@ export const common: Record<
 			eyebrow: 'Invite only',
 			title: 'Claim your avenCEO name now',
 			bodyHtml:
-				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
+				'Your own avenNAME — e.g. <strong class="font-medium text-foreground/82">avenMAIA</strong> — with your own domain <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It is your Aven’s name and address in one: like a phone number, it is how anyone reaches yours when they want to talk to it. It exists exactly once — claim it before someone else does.',
 			betaLine: (pct, months) =>
 				`incl. ${pct}% off your first ${months} months of avenCEO`,
 			betaPriceLine: (discounted, regular) => `${discounted} €/m instead of ${regular} €`,
