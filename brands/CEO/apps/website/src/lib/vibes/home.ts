@@ -589,19 +589,19 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 								]
 							}
 						]
-					},
+						},
+						{
+							tag: 'div',
+							attrs: { id: 'shift-turn' },
+							children: [
+								{ tag: 'p', attrs: { id: 'shift-turn-lead' }, text: t.shift.closingBefore },
+								{ tag: 'p', attrs: { id: 'shift-turn-kicker' }, text: t.shift.closingStrong }
+							]
+						}
 					/* The resolution, on the section's own left edge like everything
 					   else. It was centred with utility classes AND an inline `style`
 					   attribute carrying the colour — a token bypass, and the last
 					   thing on the page still writing one. */
-					{
-						tag: 'div',
-						attrs: { id: 'shift-turn' },
-						children: [
-							{ tag: 'p', attrs: { id: 'shift-turn-lead' }, text: t.shift.closingBefore },
-							{ tag: 'p', attrs: { id: 'shift-turn-kicker' }, text: t.shift.closingStrong }
-						]
-					}
 				]
 			}
 		]
@@ -652,6 +652,11 @@ function companyView(t: (typeof home)['de']): ViewNode {
 						children: t.company.paragraphsHtml.map(
 							(_, i): ViewNode => ({
 								tag: 'div',
+								/* The first column ranges RIGHT, toward the rule between them;
+								   the second ranges left, away from it. The pair reads as one
+								   spread hinged on the divider instead of two left-ranged
+								   blocks that happen to share a row. */
+								attrs: { 'data-col': i === 0 ? 'first' : 'rest' },
 								...(i > 0 ? { class: 'lg:border-l lg:border-primary-foreground/15 lg:pl-14' } : {}),
 								children: [
 									{

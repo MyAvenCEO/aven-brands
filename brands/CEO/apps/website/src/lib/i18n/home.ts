@@ -133,12 +133,12 @@ export const home: Record<Lang, HomeMessages> = {
 					note: 'plus Arbeitgeberanteil, Bonus und Ausstattung — für 40 Stunden die Woche, abzüglich Urlaub und Krankheit'
 				},
 				aven: {
-					label: 'avenCEO',
+					label: 'Aven CEO',
 					value: 'ab 99 €',
 					unit: 'pro Woche',
-					note: 'rund um die Uhr, sieben Tage, ohne Urlaubsanspruch'
+					note: '24/7 rund um die Uhr, ohne Urlaubsanspruch, macht was du ihm beibringst, und verdichtet, was ihr gemeinsam lernt'
 				},
-				closing: 'Nicht günstiger. Eine andere Größenordnung.',
+				closing: 'Nicht nur günstiger — eine andere Größenordnung an Effizienz.',
 				kicker: 'Das ist dein Moment.'
 			}
 		},
@@ -148,7 +148,7 @@ export const home: Record<Lang, HomeMessages> = {
 			bodyHtml: `Wenn KI fast jede Arbeit erledigt — ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr.`,
 			question: 'Besitzt du die KI, die die neue Arbeit macht?',
 			without: {
-				eyebrow: 'Ohne avenCEO',
+				eyebrow: 'Ohne Aven CEO',
 				title: 'Fremdbestimmt',
 				items: [
 					'Deine Stunden konkurrieren mit dem Strompreis.',
@@ -158,7 +158,7 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'Der Plan anderer.'
 			},
 			with: {
-				eyebrow: 'Mit avenCEO',
+				eyebrow: 'Mit Aven CEO',
 				title: 'Selbstbestimmt',
 				items: [
 					'Deine KI arbeitet rund um die Uhr — für dich.',
@@ -248,12 +248,12 @@ export const home: Record<Lang, HomeMessages> = {
 					note: 'before employer costs, bonus and equipment — for forty hours a week, minus holiday and sick leave'
 				},
 				aven: {
-					label: 'avenCEO',
+					label: 'Aven CEO',
 					value: 'from 99 €',
 					unit: 'per week',
-					note: 'around the clock, seven days, no leave to accrue'
+					note: '24/7 around the clock, no leave to accrue, does what you teach it, compounds what you learn together'
 				},
-				closing: 'Not cheaper. A different order of magnitude.',
+				closing: 'Not just cheaper — a different order of magnitude more efficient.',
 				kicker: 'This is your moment.'
 			}
 		},
@@ -263,7 +263,7 @@ export const home: Record<Lang, HomeMessages> = {
 			bodyHtml: `When AI does almost any job — ${s('at the price of electricity')} — ${s('trading time for money')} stops paying.`,
 			question: 'Do you own the AI doing the new work?',
 			without: {
-				eyebrow: 'Without avenCEO',
+				eyebrow: 'Without Aven CEO',
 				title: 'Someone else’s script',
 				items: [
 					'Your hours compete with the price of electricity.',
@@ -273,7 +273,7 @@ export const home: Record<Lang, HomeMessages> = {
 				closing: 'Their plan.'
 			},
 			with: {
-				eyebrow: 'With avenCEO',
+				eyebrow: 'With Aven CEO',
 				title: 'The script you write',
 				items: [
 					'Your AI works around the clock — for you.',

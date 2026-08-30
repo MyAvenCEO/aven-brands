@@ -161,6 +161,11 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  *   warm note in the section and it lands on the only elements that can hold
  *   it.
  */
+@media (min-width: 64rem) {
+	:global(#company-prose [data-col='first']) {
+		text-align: end;
+	}
+}
 :global(#company-prose [data-role='counter']) {
 	color: var(--color-accent-edge);
 }
@@ -296,18 +301,22 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: grid;
 	justify-items: center;
 	gap: var(--space-comfortable);
-	max-inline-size: 44rem;
+	max-inline-size: 56rem;
 	margin-inline: auto;
 	padding-block-start: var(--space-section);
 	text-align: center;
 }
+/* Wider measure, looser tracking. At 44rem with `tracking-tight` it broke to
+   four lines and the negative tracking closed the letters up exactly where a
+   large display line needs them open. */
 :global(#own-heading) {
 	margin: 0;
+	max-inline-size: 20ch;
 	font-family: var(--font-display);
 	font-size: clamp(var(--fs-display), 5cqi, 3rem);
 	font-weight: 400;
-	line-height: 1.08;
-	letter-spacing: var(--tracking-tight);
+	line-height: 1.1;
+	letter-spacing: var(--tracking-normal);
 	text-wrap: balance;
 	color: var(--color-foreground);
 }
@@ -488,8 +497,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: grid;
 	justify-items: center;
 	gap: 0;
-	max-inline-size: 46rem;
-	margin: var(--space-section) auto 0;
+	inline-size: 100%;
+	margin: 0;
 	padding: var(--space-section) var(--space-loose);
 	border-radius: var(--radius-xl);
 	background: var(--color-sunflower);
@@ -849,22 +858,23 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	   as well, which is the same rule already written for the offer card. */
 	color: inherit;
 }
+/* The unit sits UNDER the figure, not beside it. Riding the baseline it read
+   as part of the number and stole width from it; on its own line the figure is
+   the figure and the period is an annotation of it. */
 :global(#cost-was-figure),
 :global(#cost-now-figure) {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	gap: var(--space-tight);
+	display: grid;
+	gap: var(--space-hairline);
 	margin: 0;
 	font-family: var(--font-display);
 	font-variant-numeric: tabular-nums;
 	line-height: 1;
 }
 :global(#cost-was-figure) {
-	justify-content: flex-end;
+	justify-items: end;
 }
 :global(#cost-now-figure) {
-	justify-content: flex-start;
+	justify-items: start;
 }
 /* THE SAME SIZE, both of them. A comparison whose two figures are set at
    different scales has already answered itself. */
@@ -962,14 +972,20 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * this file has hidden a bug behind a same-specificity duplicate; a second
  * block for an id you already styled is not an addition, it is an override.
  */
+/* The verdict the whole comparison exists to deliver, so it is set like one:
+   the page's ink rather than the quiet tone, a step up in size, and the tracked
+   caps kept because they are what makes it read as a statement rather than a
+   sentence. */
 :global(#cost-closing) {
-	max-inline-size: 34rem;
+	max-inline-size: 40rem;
 	margin: 0 auto;
-	font-size: var(--fs-meta);
+	font-size: var(--fs-section);
+	font-weight: 600;
 	letter-spacing: var(--tracking-wider);
 	text-transform: uppercase;
 	text-align: center;
-	color: var(--color-foreground-quiet);
+	text-wrap: balance;
+	color: var(--color-foreground);
 }
 
 /*
@@ -1003,6 +1019,12 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	:global(#shift-spread) {
 		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
 		align-items: stretch;
+	}
+	/* The close spans BOTH tracks, so it sits under the argument and the picture
+	   rather than alongside either. It is the section's last word and it belongs
+	   to the whole spread, not to one column of it. */
+	:global(#shift-turn) {
+		grid-column: 1 / -1;
 	}
 }
 :global(#shift-scripts) {
