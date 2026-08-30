@@ -249,13 +249,18 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	line-height: 1.4;
 	color: var(--color-band-foreground);
 }
-/* The prose is two short lines now, so it centres under the pair rather than
-   running as columns beside it. */
-:global(#company-prose) {
-	grid-template-columns: minmax(0, 1fr);
-	max-inline-size: 44rem;
-	margin-inline: auto;
+/*
+ * ONE line under the heading, centred, and it sits ABOVE the roles rather than
+ * below them: it is the section's thesis and the pair beneath is the evidence.
+ */
+:global(#company-subline) {
+	max-inline-size: 46rem;
+	margin: var(--space-loose) auto 0;
+	font-size: var(--fs-lead);
+	line-height: 1.5;
 	text-align: center;
+	text-wrap: pretty;
+	color: var(--color-band-foreground);
 }
 
 :global(#company-closing-panel) {
@@ -278,6 +283,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * are lifted to read on the dark spread.
  *
  * This selector was a GROUP — `#company-prose strong, #founders-prose strong`
+ * (now `#company-subline strong`, the prose grid having collapsed to one line)
  * — and the founders cleanup deleted from the second selector to the closing
  * brace, which left this one dangling with no body. It then took the NEXT
  * rule's block as its own: every `<strong>` in the thesis inherited
@@ -285,7 +291,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * is why the paragraphs exploded into separate blocks with a void between
  * them. Deleting a selector from inside a group is not deleting a rule.
  */
-:global(#company-prose strong) {
+:global(#company-subline strong) {
 	color: var(--color-primary-foreground);
 	font-weight: 500;
 }

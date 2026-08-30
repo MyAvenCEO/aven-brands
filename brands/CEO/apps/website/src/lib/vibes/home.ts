@@ -661,6 +661,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 							}
 						]
 					},
+					{ tag: 'p', attrs: { id: 'company-subline' }, text: '@@company-subline@@' },
 					/*
 					 * THE TWO ROLES, faced off across a rule.
 					 *
@@ -681,29 +682,6 @@ function companyView(t: (typeof home)['de']): ViewNode {
 									{ tag: 'p', class: 'company-role-label', text: role.label },
 									{ tag: 'p', class: 'company-role-title', text: role.title },
 									{ tag: 'p', class: 'company-role-text', text: role.text }
-								]
-							})
-						)
-					},
-					{
-						tag: 'div',
-						class: 'mt-14 grid gap-x-14 gap-y-8 sm:mt-16',
-						attrs: { id: 'company-prose' },
-						children: t.company.paragraphsHtml.map(
-							(_, i): ViewNode => ({
-								tag: 'div',
-								/* The first column ranges RIGHT, toward the rule between them;
-								   the second ranges left, away from it. The pair reads as one
-								   spread hinged on the divider instead of two left-ranged
-								   blocks that happen to share a row. */
-								attrs: { 'data-col': i === 0 ? 'first' : 'rest' },
-								children: [
-									{
-										tag: 'p',
-										class:
-											'mt-3 text-[length:var(--fs-title)] leading-relaxed text-band-foreground sm:text-base',
-										text: `@@company-paragraph-${i}@@`
-									}
 								]
 							})
 						)
@@ -902,9 +880,6 @@ export type HomeSections = {
 
 export async function renderHomeSections(lang: Lang): Promise<HomeSections> {
 	const t = pick(home, lang)
-	const companyParagraphs = Object.fromEntries(
-		t.company.paragraphsHtml.map((p, i) => [`@@company-paragraph-${i}@@`, p])
-	)
 	return {
 		hero: await renderSection(heroView(t), {
 			'@@home-hero-video@@': HERO_VIDEO_HTML,
@@ -919,7 +894,7 @@ export async function renderHomeSections(lang: Lang): Promise<HomeSections> {
 			'@@shift-question@@': t.shift.question
 		}),
 		company: await renderSection(companyView(t), {
-			...companyParagraphs,
+			'@@company-subline@@': t.company.sublineHtml,
 			'@@company-closing@@': `${t.company.closingLine2Before} <span class="font-sans font-medium">${t.company.closingLine2Strong}</span>.`
 		}),
 		own: await renderSection(ownView(t)),
