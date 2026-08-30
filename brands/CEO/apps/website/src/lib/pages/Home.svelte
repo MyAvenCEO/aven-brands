@@ -256,8 +256,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 :global(#company-subline) {
-	max-inline-size: 46rem;
-	margin: var(--space-loose) auto 0;
+	--measure: 46rem;
+	margin-block-start: var(--space-loose);
 	font-size: var(--fs-lead);
 	line-height: 1.5;
 	text-align: center;
@@ -564,13 +564,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	--gap: var(--space-section);
 }
 :global(#own-head) {
-	display: grid;
-	justify-items: center;
-	gap: var(--space-comfortable);
-	max-inline-size: 56rem;
-	margin-inline: auto;
+	--measure: 56rem;
 	padding-block-start: var(--space-section);
-	text-align: center;
 }
 /* Wider measure, looser tracking. At 44rem with `tracking-tight` it broke to
    four lines and the negative tracking closed the letters up exactly where a
@@ -643,8 +638,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	color: var(--color-foreground-quiet);
 }
 :global(#own-closing) {
-	max-inline-size: 40rem;
-	margin: 0 auto;
+	--measure: 40rem;
 	font-family: var(--font-display);
 	font-size: clamp(var(--fs-lead), 3.2cqi, 2rem);
 	line-height: 1.25;
@@ -677,12 +671,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    64rem measure it was a column with a margin, which is the reading this
    section kept coming back with. */
 :global(#shift-head) {
-	display: grid;
-	justify-items: center;
-	gap: var(--space-tight);
-	max-inline-size: 40rem;
-	margin-inline: auto;
-	text-align: center;
+	--gap: var(--space-tight);
+	--measure: 40rem;
 }
 
 /* The pull-quote: the page's turn, and the largest thing in the section, so
@@ -863,11 +853,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	/* The bottom THIRD of the frame, as a band — not a caption sized by its own
 	   padding, which is what put it at an arbitrary height. */
 	block-size: 34%;
-	display: flex;
-	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
-	gap: var(--space-comfortable);
+	--gap: var(--space-comfortable);
 	margin: 0;
 	padding-inline: var(--space-loose);
 	background-color: color-mix(in oklab, var(--color-marine) 88%, transparent);
@@ -942,13 +930,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    room: an eyebrow butted against the band above it reads as a continuation of
    that band rather than the start of this one. */
 :global(#cost-story) {
-	display: grid;
-	justify-items: center;
+	--measure: 44rem;
 	padding-block-start: var(--space-section);
-	gap: var(--space-comfortable);
-	max-inline-size: 44rem;
-	margin-inline: auto;
-	text-align: center;
 }
 /* Human left, aven right, equal tracks — a comparison whose two sides are not
    the same width is an argument with a thumb on the scale. */
@@ -1118,9 +1101,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    would be decoration that has to be switched off again for anyone who asked
    for less of it. */
 :global(#cost-does) {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-comfortable) var(--space-loose);
+	--gap: var(--space-comfortable) var(--space-loose);
 	margin: 0;
 	padding-block: var(--space-comfortable);
 	border-block: 1px solid var(--color-border-soft);
@@ -1170,8 +1151,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
    caps kept because they are what makes it read as a statement rather than a
    sentence. */
 :global(#cost-closing) {
-	max-inline-size: 40rem;
-	margin: 0 auto;
+	--measure: 40rem;
 	font-size: var(--fs-section);
 	font-weight: 600;
 	letter-spacing: var(--tracking-wider);
@@ -1310,14 +1290,17 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * claim leads in full cream, and the figure supports it underneath.
  */
 :global(#trust-claims) {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
-	gap: var(--space-comfortable);
+	--gap: var(--space-comfortable);
 	inline-size: 100%;
-	max-inline-size: 52rem;
-	margin: var(--space-loose) auto 0;
+	--measure: 52rem;
 	padding: 0;
 	list-style: none;
+	/* `--min` is the primitive's own knob for the narrowest a column may be.
+	   Its default is 16rem, which fits TWO of these at 768px where the
+	   original 13rem fits three — a default is not the value you had. */
+	--min: 13rem;
+	/* `.center` owns the inline auto margins; the block one is this rule's. */
+	margin-block-start: var(--space-loose);
 }
 :global(.trust-claim) {
 	justify-items: center;

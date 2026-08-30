@@ -151,6 +151,21 @@ $effect(() => {
 </div>
 
 <style>
+/*
+ * These stay `@media`, and that is the rule rather than an exception to it.
+ *
+ * Space questions belong in `@container` — a block that might render in a
+ * sidebar or a preview should ask its own box, not the window. A PAGE SHELL is
+ * the one case where those are the same question: nothing wraps it, so the
+ * viewport IS its container. Declaring `container-type` here would buy no
+ * accuracy and would cost containment — it establishes a containing block for
+ * positioned descendants, and this page has a sticky attachment that depends on
+ * not having one.
+ *
+ * The test for the next reader: is there a box above this that could be
+ * narrower than the window? If yes, `@container`. If no, `@media`.
+ */
+
 #dv-body {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);

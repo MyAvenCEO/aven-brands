@@ -194,6 +194,7 @@ function trustView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'ul',
+						class: 'grid-auto center',
 						attrs: { id: 'trust-claims' },
 						/*
 						 * Each claim gets its mark. Solar Bold Duotone, the set the rest
@@ -371,7 +372,8 @@ function costView(t: (typeof home)['de']): ViewNode {
 								 */
 								{
 									tag: 'figcaption',
-									attrs: { id: 'cost-overlay' },
+									class: 'cluster',
+										attrs: { id: 'cost-overlay' },
 									children: [
 										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
 										{ tag: 'span', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker },
@@ -433,11 +435,13 @@ function costView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'p',
+						class: 'center',
 						attrs: { id: 'cost-closing' },
 						text: t.trust.cost.closing
 					},
 					{
 						tag: 'ul',
+						class: 'cluster',
 						attrs: { id: 'cost-does' },
 						children: t.trust.cost.does.map(
 							(job): ViewNode => ({
@@ -686,7 +690,12 @@ function companyView(t: (typeof home)['de']): ViewNode {
 							}
 						]
 					},
-					{ tag: 'p', attrs: { id: 'company-subline' }, text: '@@company-subline@@' },
+					{
+						tag: 'p',
+						class: 'center',
+						attrs: { id: 'company-subline' },
+						text: '@@company-subline@@'
+					},
 					/*
 					 * THE TWO ROLES, faced off across a rule.
 					 *
@@ -824,7 +833,7 @@ function ownView(t: (typeof home)['de']): ViewNode {
 							})
 						)
 					},
-					{ tag: 'p', attrs: { id: 'own-closing' }, text: t.own.closing }
+					{ tag: 'p', class: 'center', attrs: { id: 'own-closing' }, text: t.own.closing }
 				]
 			}
 		]
