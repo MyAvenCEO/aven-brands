@@ -14,10 +14,9 @@
  * which every surface picks up at once — including the storybook, where it can
  * be seen and gated.
  */
-import { SOCIAL_PROFILES, icons } from '@myavenceo/aven-ceo/icons'
+import { icons } from '@myavenceo/aven-ceo/icons'
 import { onMount } from 'svelte'
 import { page } from '$app/state'
-import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
 import { idFunnelHref } from '$lib/id-service'
@@ -161,21 +160,9 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 			</a>
 		</div>
 
-		<span class="social-row social-row--density-tight" role="group" aria-label={t.footer.socialLabel}>
-			<span class="social-row-items">
-				{#each SOCIAL_PROFILES as profile (profile.href)}
-					<a
-						class="social-row-item"
-						href={profile.href}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label={profile.name}
-					>
-						<SocialIcon {profile} size="1.125rem" />
-					</a>
-				{/each}
-			</span>
-		</span>
+		<!-- The social row, from the layout load's build-rendered ViewDef. It is
+		     static markup, so it costs the page no bundle and no hydration. -->
+		{@html page.data.socialRowHtml ?? ''}
 
 		<nav class="navbar-links" aria-label={t.nav.primaryLabel}>
 			{#each MENU_ITEMS as item (item.key)}

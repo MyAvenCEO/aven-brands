@@ -16,7 +16,7 @@
  * collapses to a `$use site-footer` with three slots.
  *
  * The social glyphs go through `$icon` — the engine's one door for SVG, which
- * opens onto the same brand registry `SocialIcon.svelte` reads. Each glyph
+ * opens onto the brand icon registry every surface now reads. Each glyph
  * needs a wrapper node (a `$icon` node renders only its icon), and the
  * wrapper dissolves via `display: contents` in `SiteFooter.svelte` so the
  * `<svg>` stays the flex item it was when Svelte rendered it.

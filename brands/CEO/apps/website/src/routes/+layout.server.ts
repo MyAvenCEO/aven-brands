@@ -17,6 +17,7 @@ import { icons } from '@myavenceo/aven-ceo/icons'
 import { Evaluator, renderViewToString } from '@myavenceo/aven-vibes'
 import { langFromPath } from '$lib/i18n'
 import { buildMenuBundle, type MenuBundle } from '$lib/menu-island'
+import { socialRowHtml } from '$lib/vibes/social-row'
 import type { LayoutServerLoad } from './$types'
 
 const evaluator = new Evaluator()
@@ -56,8 +57,9 @@ function activeOf(pathname: string): 'skills' | 'avens' | 'pricing' | 'docs' | n
 }
 
 export const load: LayoutServerLoad = async ({ url }) => {
+	const lang = langFromPath(url.pathname)
 	const bundle: MenuBundle = buildMenuBundle({
-		lang: langFromPath(url.pathname),
+		lang,
 		pathname: url.pathname,
 		active: activeOf(url.pathname)
 	})
@@ -65,5 +67,11 @@ export const load: LayoutServerLoad = async ({ url }) => {
 		evaluate: (expr, data) => evaluator.evaluate(expr, data),
 		icons
 	})
-	return { menuIsland: { html, bundle } }
+	/*
+	 * The bar's social row is a STATIC section, not an island: nothing on it
+	 * moves, so it is HTML in the prerendered file and carries no bundle. It
+	 * rides the layout load because the header is on ten routes, and a prop
+	 * threaded through ten call sites is ten chances for one to lie.
+	 */
+	return { menuIsland: { html, bundle }, socialRowHtml: await socialRowHtml(lang) }
 }
