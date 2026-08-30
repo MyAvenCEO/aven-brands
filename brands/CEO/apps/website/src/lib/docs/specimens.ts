@@ -88,7 +88,12 @@ const icon = (name: string, size = '1rem') => renderIcon(name, icons, { size })
 
 export const specimens: Record<string, Specimen> = {
 	btn: {
-		one: `<button class="btn" type="button"><span class="btn-label">Hire your Aven</span></button>`,
+		/* Carries a glyph as well as a label, and an `aria-label`, so the axis
+		   toggles above it produce REAL buttons: picking `shape: icon` drops the
+		   text (the shape hides it) and leaves a named icon button, rather than
+		   the words spilling out of a disc. A specimen that only works in its
+		   resting state documents nothing about the axes beside it. */
+		one: `<button class="btn" type="button" aria-label="Hire your Aven"><span class="btn-icon-start">${icon('sparkles', '1em')}</span><span class="btn-label">Hire your Aven</span></button>`,
 		html: `<span class="sp-stack sp-stack--wide" style="justify-items:center">
 			<span class="sp-row">
 				<button class="btn btn--primary" type="button"><span class="btn-label">Hire your Aven</span></button>

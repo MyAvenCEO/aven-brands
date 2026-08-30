@@ -161,60 +161,85 @@ function trustView(t: (typeof home)['de']): ViewNode {
 								]
 							})
 						)
-					},
-					/*
-					 * THE ARITHMETIC, under the promise.
-					 *
-					 * Privacy is why the product is different; cost is why the reader
-					 * can act on it. A band that only says "yours" asks for belief; the
-					 * same band with three checkable figures asks for a decision, and
-					 * the second is the one a founder can take to whoever signs.
-					 *
-					 * The numbers are the REAL ones: 99 euro a week is the avenCEO plan
-					 * in `facts.avenceo.json`, and 5,148 is that times 52 — not a round
-					 * marketing figure. A comparison a reader can check is worth more
-					 * than one that flatters, because they will check.
-					 *
-					 * Rendered as `stat`s again rather than a table: the same figure-
-					 * and-label pairing the claims above use, so the two halves of the
-					 * band read as one argument.
-					 */
+					}
+				]
+			}
+		]
+	}
+}
+
+/* ----------------------------------------------------------- the arithmetic */
+
+/**
+ * The cost comparison, as its own section.
+ *
+ * It began as a coda inside the privacy band and did not belong there: two
+ * claims sharing one ground read as one claim with a footnote, and these are
+ * separate arguments — the first says the product is different in kind, this
+ * one says it is affordable in practice. A reader who is sold on privacy still
+ * has to justify the line item, and that deserves its own room.
+ *
+ * ON A RAISED SURFACE, not the marine band. The band is the page's turning
+ * point and the composition rule says to spend it sparingly — two dark bands
+ * in a row makes neither one a turn. This reads as a quiet ledger instead,
+ * which is what it is.
+ *
+ * The two sides are quoted in the units each is actually sold in — a salary
+ * per year, a subscription per week — because converting both to one unit is
+ * where a comparison starts feeling arranged. The gap does not need arithmetic
+ * done for the reader; 100,000 a year beside 99 a week is the argument, and a
+ * derived "nineteen times cheaper" row only invites a fight about the divisor.
+ */
+function costView(t: (typeof home)['de']): ViewNode {
+	const side = (
+		s: (typeof home)['de']['trust']['cost']['human'],
+		which: 'human' | 'aven'
+	): ViewNode => ({
+		tag: 'li',
+		attrs: { id: `cost-${which}` },
+		children: [
+			{ tag: 'p', class: 'text text--eyebrow', text: s.label },
+			{
+				tag: 'p',
+				attrs: { id: `cost-${which}-figure` },
+				children: [
+					{ tag: 'span', attrs: { id: `cost-${which}-value` }, text: s.value },
+					{ tag: 'span', attrs: { id: `cost-${which}-unit` }, text: s.unit }
+				]
+			},
+			{ tag: 'p', attrs: { id: `cost-${which}-note` }, text: s.note }
+		]
+	})
+
+	return {
+		tag: 'section',
+		class: 'section section--ground-raised section--measure-wide',
+		attrs: { 'aria-labelledby': 'cost-heading' },
+		children: [
+			{
+				tag: 'div',
+				class: 'section-inner',
+				children: [
 					{
 						tag: 'div',
-						attrs: { id: 'trust-cost' },
+						attrs: { id: 'cost-head' },
 						children: [
+							{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.eyebrow },
 							{
-								tag: 'p',
-								class: 'text text--eyebrow',
-								text: t.trust.cost.eyebrow
-							},
-							{
-								tag: 'p',
-								attrs: { id: 'trust-cost-heading' },
+								tag: 'h2',
+								class: 'text text--display',
+								attrs: { id: 'cost-heading' },
 								text: t.trust.cost.heading
 							},
-							{
-								tag: 'ul',
-								attrs: { id: 'trust-cost-rows' },
-								children: t.trust.cost.rows.map(
-									(row): ViewNode => ({
-										tag: 'li',
-										class: 'stat stat--align-center stat--size-sm',
-										children: [
-											{ tag: 'p', class: 'text text--eyebrow stat-label', text: row.label },
-											{ tag: 'p', class: 'stat-value', text: row.value },
-											{ tag: 'p', class: 'stat-caption', text: row.note }
-										]
-									})
-								)
-							},
-							{
-								tag: 'p',
-								attrs: { id: 'trust-cost-closing' },
-								text: t.trust.cost.closing
-							}
+							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead }
 						]
-					}
+					},
+					{
+						tag: 'ul',
+						attrs: { id: 'cost-sides' },
+						children: [side(t.trust.cost.human, 'human'), side(t.trust.cost.aven, 'aven')]
+					},
+					{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing }
 				]
 			}
 		]
@@ -716,6 +741,7 @@ function startHeadView(t: (typeof home)['de']): ViewNode {
 export type HomeSections = {
 	hero: string
 	trust: string
+	cost: string
 	shift: string
 	company: string
 	own: string
@@ -738,6 +764,7 @@ export async function renderHomeSections(lang: Lang): Promise<HomeSections> {
 		trust: await renderSection(trustView(t), {
 			'@@trust-headline@@': t.trust.headlineHtml
 		}),
+		cost: await renderSection(costView(t)),
 		shift: await renderSection(shiftView(t), {
 			'@@shift-body@@': t.shift.bodyHtml,
 			'@@shift-question@@': t.shift.question

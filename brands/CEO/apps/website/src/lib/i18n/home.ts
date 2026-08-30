@@ -30,11 +30,17 @@ export type HomeMessages = {
 		 * ARITHMETIC is what makes it a decision. A reader who already trusts you
 		 * still has to justify the line item.
 		 */
+		/**
+		 * The arithmetic, as its own section rather than a coda to the privacy
+		 * band: two claims sharing one ground read as one claim with a footnote.
+		 */
 		cost: {
 			eyebrow: string
 			heading: string
-			/** The comparison, as three figures the reader can check. */
-			rows: { label: string; value: string; note: string }[]
+			lead: string
+			/** The two sides, in the units each is actually sold in. */
+			human: { label: string; value: string; unit: string; note: string }
+			aven: { label: string; value: string; unit: string; note: string }
 			/** What the gap buys, in one line. */
 			closing: string
 		}
@@ -112,25 +118,21 @@ export const home: Record<Lang, HomeMessages> = {
 				'avenCEO ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
 			cost: {
-				eyebrow: 'Und die Rechnung',
-				heading: 'Ein CEO, den du dir leisten kannst — und der nie Feierabend macht.',
-				rows: [
-					{
-						label: 'Menschlicher CEO',
-						value: 'ab 100.000 €',
-						note: 'pro Jahr, plus Arbeitgeberanteil — für 40 Stunden die Woche'
-					},
-					{
-						label: 'avenCEO',
-						value: '5.148 €',
-						note: '99 € pro Woche — rund um die Uhr, ohne Urlaubsanspruch'
-					},
-					{
-						label: 'Unterschied',
-						value: '× 19',
-						note: 'derselbe Posten, ein Zwanzigstel der Kosten'
-					}
-				],
+				eyebrow: 'Die Rechnung',
+				heading: 'Ein CEO für 99 € die Woche.',
+				lead: 'Nicht günstiger. Eine andere Größenordnung.',
+				human: {
+					label: 'Menschlicher CEO',
+					value: '100.000 €',
+					unit: 'und aufwärts, pro Jahr',
+					note: 'plus Arbeitgeberanteil, Bonus und Ausstattung — für 40 Stunden die Woche, abzüglich Urlaub und Krankheit'
+				},
+				aven: {
+					label: 'avenCEO',
+					value: '99 €',
+					unit: 'pro Woche',
+					note: 'rund um die Uhr, sieben Tage, ohne Urlaubsanspruch und ohne Einarbeitung'
+				},
 				closing:
 					'Und er macht die Arbeit, die sich wiederholt — Angebote, Rechnungen, Nachfassen, Reporting — genau so, wie du es ansagst. Nicht ungefähr. Genau so.'
 			}
@@ -246,25 +248,21 @@ export const home: Record<Lang, HomeMessages> = {
 			headlineHtml: 'avenCEO is the world’s 1st privacy‑preserving agentic co‑founder.',
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
 			cost: {
-				eyebrow: 'And the arithmetic',
-				heading: 'A CEO you can actually afford — who never clocks off.',
-				rows: [
-					{
-						label: 'Human CEO',
-						value: 'from 100,000 €',
-						note: 'a year, before employer costs — for forty hours a week'
-					},
-					{
-						label: 'avenCEO',
-						value: '5,148 €',
-						note: '99 € a week — around the clock, and it never takes leave'
-					},
-					{
-						label: 'Difference',
-						value: '× 19',
-						note: 'the same role, a twentieth of the cost'
-					}
-				],
+				eyebrow: 'The arithmetic',
+				heading: 'A CEO for 99 € a week.',
+				lead: 'Not cheaper. A different order of magnitude.',
+				human: {
+					label: 'Human CEO',
+					value: '100,000 €',
+					unit: 'and up, per year',
+					note: 'before employer costs, bonus and equipment — for forty hours a week, minus holiday and sick leave'
+				},
+				aven: {
+					label: 'avenCEO',
+					value: '99 €',
+					unit: 'per week',
+					note: 'around the clock, seven days, no leave to accrue and no onboarding'
+				},
 				closing:
 					'And it does the work that repeats — quotes, invoices, follow-ups, reporting — exactly the way you tell it to. Not roughly. Exactly.'
 			}

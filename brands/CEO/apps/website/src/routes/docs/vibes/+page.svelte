@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { Island } from '@myavenceo/aven-vibes'
 /**
  * avenVIBES framework docs — ten sections from the package's own SSOT.
  *
@@ -12,7 +13,6 @@
  * promises.
  */
 import { onMount } from 'svelte'
-import type { Island } from '@myavenceo/aven-vibes'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import { hydrateDemo } from '$lib/docs/vibes-demos'
 import type { RenderedSection } from './+page.js'

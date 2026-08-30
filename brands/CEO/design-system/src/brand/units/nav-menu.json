@@ -91,7 +91,7 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "`position: fixed` over the whole viewport at the overlay layer — BELOW the bar, deliberately, so the bar's own control stays reachable and the menu cannot cover the thing that dismisses it.\n\nA container like every other composite: `inset: 0` gives it a width from outside its contents, and the type below sizes in `cqi` so the menu is right at any size it is given rather than only at full screen.",
+			"$description": "`position: fixed` over the whole viewport at the overlay layer — BELOW the bar, deliberately, so the bar's own control stays reachable and the menu cannot cover the thing that dismisses it.\n\nA container like every other composite: `inset: 0` gives it a width from outside its contents, and the type below sizes in `cqi` so the menu is right at any size it is given rather than only at full screen.\n\nIT DECLARES `--icon-tint`, the colour the engine paints a duotone's secondary layer with. Declared HERE, on the unit that draws the glyph, and not once at the document root: a global custom property is the anti-pattern the whole scoping design exists to avoid — two brands on one page write the same name and the second wins. An app shell is no better, because a shell is a container that may host more than one vibe. A unit is the smallest thing that owns its own subtree, so the tint travels with the component that needs it and reaches nothing else.",
 			"position": "fixed",
 			"inset": "0",
 			"inlineSize": "100%",
@@ -105,7 +105,8 @@
 			"&[data-open=\"true\"]": {
 				"visibility": "visible",
 				"opacity": "1"
-			}
+			},
+			"--icon-tint": "var(--color-icon-tint)"
 		},
 		"parts": {
 			"scrim": {

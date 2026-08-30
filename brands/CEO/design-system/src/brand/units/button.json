@@ -26,7 +26,7 @@
 	"styling": {
 		"interactive": true,
 		"base": {
-			"$description": "Fully rounded, and the only thing in the system that is — a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nONE EDGE, AND IT IS THE RING. There was also a 1px border outside it — a thin grey line wrapped around the rim, so the button had two edges of different weights and colours and read as a control inside a box. The ring alone is the signature, and it is the same shape the hover state was already drawing.\n\nTHE RING IS INSET, and that is the other correction worth recording. It was a 4px spread OUTSIDE the border box, so a ringed button painted eight pixels wider and taller than an identically sized plain one beside it — same layout box, different silhouette, and in a row of buttons the accent one simply looked bigger. Inside, every button occupies exactly its own bounds and the ring becomes an inner rim: the same double-edge signature, bounded.\n\nThe ring is on by default, not only on hover. That is the reference set's actual look and the better resting state: a button that only grows a rim when you point at it reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something.\n\nSIZE IS THREE CUSTOM PROPERTIES rather than three declarations, so a container can shrink a button it was handed without restating what `sm` means. A navbar cannot add a class to a slotted child — it can set a property on it, and that is the difference between the size axis being reusable and being copied.",
+			"$description": "Fully rounded, and the only thing in the system that is — a stadium reads as pressable at a glance and nothing else on the page shares the shape. FLAT: no gradient. A wash across a 2.5rem control is invisible at rest and muddy in every state that changes the fill under it.\n\nONE EDGE, AND IT IS THE RING. There was also a 1px border outside it — a thin grey line wrapped around the rim, so the button had two edges of different weights and colours and read as a control inside a box. The ring alone is the signature, and it is the same shape the hover state was already drawing.\n\nTHE RING IS INSET, and that is the other correction worth recording. It was a 4px spread OUTSIDE the border box, so a ringed button painted eight pixels wider and taller than an identically sized plain one beside it — same layout box, different silhouette, and in a row of buttons the accent one simply looked bigger. Inside, every button occupies exactly its own bounds and the ring becomes an inner rim: the same double-edge signature, bounded.\n\nThe ring is on by default, not only on hover. That is the reference set's actual look and the better resting state: a button that only grows a rim when you point at it reads as flat until you find it. Hover then deepens the shadow and lifts, so pointing at it still does something.\n\nSIZE IS THREE CUSTOM PROPERTIES rather than three declarations, so a container can shrink a button it was handed without restating what `sm` means. A navbar cannot add a class to a slotted child — it can set a property on it, and that is the difference between the size axis being reusable and being copied.\n\nIT DECLARES `--icon-tint`, the colour the engine paints a duotone's secondary layer with. Declared HERE, on the unit that draws the glyph, and not once at the document root: a global custom property is the anti-pattern the whole scoping design exists to avoid — two brands on one page write the same name and the second wins. An app shell is no better, because a shell is a container that may host more than one vibe. A unit is the smallest thing that owns its own subtree, so the tint travels with the component that needs it and reaches nothing else.",
 			"position": "relative",
 			"display": "inline-flex",
 			"alignItems": "center",
@@ -48,7 +48,8 @@
 			"boxShadow": "inset 0 0 0 3px var(--btn-ring, transparent), var(--shadow-raised)",
 			"transition": "background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out)",
 			"--btn-ring": "var(--color-primary-ring)",
-			"--btn-badge": "color-mix(in oklab, var(--color-primary-foreground) 22%, transparent)"
+			"--btn-badge": "color-mix(in oklab, var(--color-primary-foreground) 22%, transparent)",
+			"--icon-tint": "var(--color-icon-tint)"
 		},
 		"variants": {
 			"variant": {
@@ -80,12 +81,23 @@
 					"--btn-badge": "var(--color-muted)"
 				},
 				"ghost": {
-					"$description": "no chrome at all, for a tertiary action inside dense UI.",
+					"$description": "No chrome at all, for a tertiary action inside dense UI — or a control that belongs to a surface rather than standing on it, like the bar's menu toggle.\n\nIT OVERRIDES ITS OWN HOVER, because the shared one contradicts it. That state adds a 4px ring and `shadow-overlay` to lift the button, which is right for a button that already has chrome and absurd for one whose whole definition is having none: a ghost at rest was lighter than every neighbour and, on hover, heavier than a neutral at rest. It tints its ground instead and stays flat — the feedback a chromeless control should give.",
 					"background": "transparent",
 					"color": "var(--color-foreground-soft)",
 					"boxShadow": "none",
-					"--btn-ring": "var(--color-border-soft)",
-					"--btn-badge": "var(--color-muted)"
+					"--btn-ring": "transparent",
+					"--btn-badge": "var(--color-muted)",
+					"&:hover:not([disabled]):not([aria-disabled=\"true\"])": {
+						"transform": "none",
+						"boxShadow": "none",
+						"background": "var(--color-muted)",
+						"color": "var(--color-foreground)"
+					},
+					"&:active:not([disabled]):not([aria-disabled=\"true\"])": {
+						"transform": "none",
+						"boxShadow": "none",
+						"background": "var(--color-surface-sunken)"
+					}
 				},
 				"danger": {
 					"$description": "destructive. The same variant on the trigger AND on its confirm dialog — red in one place and blue in the other is the bug this rule exists to stop.",
@@ -97,16 +109,14 @@
 			"shape": {
 				"$description": "What it looks like, independent of what it means — so a destructive icon button is `btn--danger btn--shape-icon` rather than a variant nobody thought to add.",
 				"icon": {
-					"$description": "Icon only. Square rather than stadium-wide, because a pill around a single glyph is mostly empty space — but still fully rounded, so it stays visibly the same family. The label lives in `aria-label`: an icon button with no accessible name is announced as nothing.",
-					"paddingInline": "0",
-					"inlineSize": "2.5rem"
-				},
-				"circle": {
-					"$description": "A GLYPH IN A CIRCLE, sized to stand in a row of real buttons.\n\n`icon` is a square control at a fixed 2.5rem; this one takes its height from `--btn-block` like every other button, so a toggle beside a call to action is the SAME HEIGHT as that call to action, and the navbar's two-stage collapse — which shrinks `--btn-block` to 2rem below 62rem — shrinks both together. The hamburger used to be a 2.75rem circle next to a 2.5rem pill that became 2rem on tablets: three heights in one row, and the odd one out was the control the whole mobile navigation depends on.\n\n`aspect-ratio` rather than a matching width, so the circle follows whatever height it is given instead of being told twice. The label lives in `aria-label`; an icon button with no accessible name is announced as nothing.",
+					"$description": "Icon only, and ALWAYS A CIRCLE — at every size.\n\nIt pinned `inline-size: 2.5rem` while the height came from `--btn-block`, so the two disagreed the moment a size variant moved one of them: at `xl` that is a 2.5rem-wide, 3.5rem-tall oval with the label spilling out either side. `aspect-ratio: 1` makes the circle follow whatever height it is given instead of being told twice, and `min-inline-size` keeps it round when a glyph is narrower than the box.\n\nThis absorbed a short-lived `circle` shape that existed only because this one could not follow `--btn-block`. Two variants for one idea is the drift the library exists to prevent; the fix belonged here.\n\nIT TAKES A GLYPH, NEVER TEXT, and it ENFORCES that rather than asking. A label inside a circle is a label that overflows it — visible in the storybook the moment the shape met a text specimen, the words running out both sides of the disc. `.btn-label` is hidden here, so giving any button this shape drops its text instead of breaking its geometry.\n\nWhich makes `aria-label` load-bearing, not optional: the visible name is gone, so the accessible one is the only name left, and an icon button without it is announced as nothing at all.",
 					"paddingInline": "0",
 					"inlineSize": "auto",
 					"aspectRatio": "1",
-					"minInlineSize": "var(--btn-block, 2.5rem)"
+					"minInlineSize": "var(--btn-block, 2.5rem)",
+					"& .btn-label": {
+						"display": "none"
+					}
 				},
 				"block": {
 					"$description": "Full width, for the one action a narrow form is built around.",

@@ -303,7 +303,8 @@ const backIcon = renderIcon('chevron-right', icons, { size: '1rem' })
 function stickBelowSiteHeader(node: HTMLElement) {
 	const header = document.querySelector('header')
 	if (!header) return
-	const apply = () => node.style.setProperty('--cb-top', `${header.getBoundingClientRect().height}px`)
+	const apply = () =>
+		node.style.setProperty('--cb-top', `${header.getBoundingClientRect().height}px`)
 	apply()
 	const observer = new ResizeObserver(apply)
 	observer.observe(header)
@@ -401,10 +402,7 @@ function fitScaledStage(node: HTMLElement) {
 			(parseFloat(cs.paddingBottom) || 0) +
 			(parseFloat(cs.borderTopWidth) || 0) +
 			(parseFloat(cs.borderBottomWidth) || 0)
-		node.style.setProperty(
-			'--cb-screen-h',
-			scale < 1 ? `${(frame - vertical) / scale}px` : '100%'
-		)
+		node.style.setProperty('--cb-screen-h', scale < 1 ? `${(frame - vertical) / scale}px` : '100%')
 		/* NO horizontal offset. This used to centre the scaled screen inside the
 		   PANEL, which was right while the bezel was panel-width and became a
 		   double-count the moment the bezel started sizing itself to the device:
@@ -868,20 +866,20 @@ function inspect(name: string) {
 										style="--cb-believes:{believedWidth}"
 										{@attach fitScaledStage}
 									>
-									<div
-										class="cb-detail-stage"
-										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
-										data-anchor={specimens[unit.name]?.anchor}
-										style="inline-size:{believedWidth}px" 
-										{@attach applyPreview(unit, variantClass, forcedState)}
-										{@attach wireSpecimen}
-									>
-										{#if specimenHtml}
-											{@html specimenHtml}
-										{:else}
-											<p class="cb-mono cb-unit-todo">no specimen yet</p>
-										{/if}
-									</div>
+										<div
+											class="cb-detail-stage"
+											class:cb-detail-stage--tall={specimens[unit.name]?.tall}
+											data-anchor={specimens[unit.name]?.anchor}
+											style="inline-size:{believedWidth}px"
+											{@attach applyPreview(unit, variantClass, forcedState)}
+											{@attach wireSpecimen}
+										>
+											{#if specimenHtml}
+												{@html specimenHtml}
+											{:else}
+												<p class="cb-mono cb-unit-todo">no specimen yet</p>
+											{/if}
+										</div>
 									</div>
 
 									<!-- Walk the sequence. Only where the axis IS one: an axis whose
@@ -1110,7 +1108,9 @@ function inspect(name: string) {
 												type="button"
 												class="cb-unit-name"
 												onclick={() => openDetail(unit.name)}
-											>{unit.name}</button>
+											>
+												{unit.name}
+											</button>
 											<span class="cb-unit-tags">
 												{#if unit.animates}
 													<span class="cb-tag">animates</span>

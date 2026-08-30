@@ -12,8 +12,9 @@
  * being passed by each page, because the header is on ten routes and a prop
  * threaded through ten call sites is ten chances for one to lie.
  */
-import { renderViewToString, Evaluator } from '@myavenceo/aven-vibes'
+
 import { icons } from '@myavenceo/aven-ceo/icons'
+import { Evaluator, renderViewToString } from '@myavenceo/aven-vibes'
 import type { Lang } from '$lib/i18n'
 import { buildMenuBundle, type MenuBundle } from '$lib/menu-island'
 import type { LayoutServerLoad } from './$types'

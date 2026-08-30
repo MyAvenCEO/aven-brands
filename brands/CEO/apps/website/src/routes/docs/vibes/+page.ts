@@ -42,7 +42,13 @@ export async function load(): Promise<{ sections: RenderedSection[] }> {
 			const staticHtml = await renderDemoHtml(name)
 			html = html.replace(placeholder, `<div data-md-demo="${name}">${staticHtml}</div>`)
 		}
-		sections.push({ slug: doc.slug, title: doc.title, summary: doc.summary, html, toc: rendered.toc })
+		sections.push({
+			slug: doc.slug,
+			title: doc.title,
+			summary: doc.summary,
+			html,
+			toc: rendered.toc
+		})
 	}
 	return { sections }
 }

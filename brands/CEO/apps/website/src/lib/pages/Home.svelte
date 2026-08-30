@@ -54,6 +54,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	{@html sections.hero}
 
 	{@html sections.trust}
+	{@html sections.cost}
 
 	{@html sections.shift}
 
@@ -262,54 +263,92 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * The cost comparison, under the three absolutes.
+ * THE ARITHMETIC, styled as a ledger rather than a banner.
  *
- * Its own rows rather than the claims grid: three figures with a caption each
- * need more room than three one-word labels, and sharing the track wrapped the
- * notes to four lines on a phone. `:global`, like every rule for this page's
- * injected markup — the ViewDef renders at build and Svelte cannot see the
- * elements to scope them.
+ * Two figures facing each other across a rule, each quoted in the unit it is
+ * actually sold in. The rule is the comparison: it does the work a "× 19" row
+ * was doing, without inviting an argument about the divisor.
+ *
+ * The avenCEO side wears the accent and the human side stays quiet, because
+ * one of the two is the offer and three equal figures leave the eye nowhere —
+ * the same composition rule the trust band's claims follow.
  */
-:global(#trust-cost) {
+:global(#cost-head) {
 	display: grid;
 	justify-items: center;
 	gap: var(--space-tight);
-	inline-size: 100%;
-	max-inline-size: 48rem;
+	max-inline-size: 34rem;
 	margin-inline: auto;
-	margin-block-start: var(--space-section);
-	padding-block-start: var(--space-loose);
-	border-block-start: 1px solid color-mix(in oklab, var(--color-band-foreground) 15%, transparent);
 	text-align: center;
 }
-:global(#trust-cost-heading) {
-	max-inline-size: 30rem;
+:global(#cost-lead) {
 	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(var(--fs-lead), 3.4cqi, var(--fs-amount));
-	font-weight: 400;
-	line-height: 1.25;
-	text-wrap: balance;
-	color: var(--color-band-foreground);
+	font-size: var(--fs-lead);
+	color: var(--color-foreground-soft);
 }
-:global(#trust-cost-rows) {
+:global(#cost-sides) {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
-	gap: var(--space-comfortable);
+	grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+	gap: var(--space-loose);
 	inline-size: 100%;
-	margin-block-start: var(--space-comfortable);
+	max-inline-size: 52rem;
+	margin: var(--space-section) auto 0;
 }
-/* The middle row is the offer, so it leads: the other two are the frame it is
-   read against, and three equal figures would leave the eye nowhere to land. */
-:global(#trust-cost-rows > li:nth-child(2) .stat-value) {
-	color: var(--color-accent);
+:global(#cost-sides > li) {
+	display: grid;
+	gap: var(--space-tight);
+	padding: var(--space-loose) var(--space-comfortable);
+	text-align: center;
 }
-:global(#trust-cost-closing) {
-	max-inline-size: 40rem;
-	margin: var(--space-comfortable) 0 0;
+/* The rule between them, and only between them — a border on the second item
+   rather than a divider element, so it disappears on its own when the two
+   stack on a narrow screen. */
+@media (min-width: 40rem) {
+	:global(#cost-sides > li + li) {
+		border-inline-start: 1px solid var(--color-border-soft);
+	}
+}
+:global(#cost-human-figure),
+:global(#cost-aven-figure) {
+	display: grid;
+	gap: 0.15rem;
+	margin: 0;
+}
+:global(#cost-human-value),
+:global(#cost-aven-value) {
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-amount), 7cqi, 3.25rem);
+	font-weight: 500;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+:global(#cost-human-value) {
+	color: var(--color-foreground-quiet);
+}
+:global(#cost-aven-value) {
+	color: var(--color-accent-ink);
+}
+:global(#cost-human-unit),
+:global(#cost-aven-unit) {
+	font-size: var(--fs-meta);
+	color: var(--color-foreground-quiet);
+}
+:global(#cost-human-note),
+:global(#cost-aven-note) {
+	max-inline-size: 22rem;
+	margin: var(--space-tight) auto 0;
 	font-size: var(--fs-meta);
 	line-height: 1.55;
-	color: var(--color-on-dark-quiet);
+	color: var(--color-foreground-soft);
+}
+:global(#cost-closing) {
+	max-inline-size: 40rem;
+	margin: var(--space-section) auto 0;
+	font-size: var(--fs-lead);
+	line-height: 1.55;
+	text-align: center;
+	text-wrap: pretty;
+	color: var(--color-foreground);
 }
 
 :global(#trust-claims) {

@@ -173,7 +173,6 @@
 		color: var(--color-foreground);
 		font-family: var(--font-sans);
 		-webkit-font-smoothing: antialiased;
-		--icon-tint: var(--color-icon-tint);
 	}
 
 	.mono-meta {
@@ -226,6 +225,7 @@
 		transition: background var(--duration-quick) var(--ease-out), border-color var(--duration-quick) var(--ease-out), box-shadow var(--duration-quick) var(--ease-out), transform var(--duration-quick) var(--ease-out);
 		--btn-ring: var(--color-primary-ring);
 		--btn-badge: color-mix(in oklab, var(--color-primary-foreground) 22%, transparent);
+		--icon-tint: var(--color-icon-tint);
 
 		&:hover:not([disabled]):not([aria-disabled="true"]) {
 			transform: translateY(-1px);
@@ -332,6 +332,7 @@
 		container-name: field;
 		inline-size: 100%;
 		min-inline-size: 0;
+		--icon-tint: var(--color-icon-tint);
 	}
 
 	.ghost {
@@ -861,6 +862,7 @@
 		inline-size: fit-content;
 		flex-shrink: 0;
 		color: inherit;
+		--icon-tint: var(--color-icon-tint);
 
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -2910,8 +2912,20 @@
 		background: transparent;
 		color: var(--color-foreground-soft);
 		box-shadow: none;
-		--btn-ring: var(--color-border-soft);
+		--btn-ring: transparent;
 		--btn-badge: var(--color-muted);
+
+		&:hover:not([disabled]):not([aria-disabled="true"]) {
+			transform: none;
+			box-shadow: none;
+			background: var(--color-muted);
+			color: var(--color-foreground);
+		}
+		&:active:not([disabled]):not([aria-disabled="true"]) {
+			transform: none;
+			box-shadow: none;
+			background: var(--color-surface-sunken);
+		}
 	}
 
 	.btn--danger {
@@ -2922,14 +2936,13 @@
 
 	.btn--shape-icon {
 		padding-inline: 0;
-		inline-size: 2.5rem;
-	}
-
-	.btn--shape-circle {
-		padding-inline: 0;
 		inline-size: auto;
 		aspect-ratio: 1;
 		min-inline-size: var(--btn-block, 2.5rem);
+
+		& .btn-label {
+			display: none;
+		}
 	}
 
 	.btn--shape-block {
@@ -3359,6 +3372,7 @@
 		container-name: toast;
 		inline-size: 100%;
 		min-inline-size: 0;
+		--icon-tint: var(--color-icon-tint);
 
 		@media (prefers-reduced-motion: reduce) {
 			transition: opacity var(--duration-quick) ease-out;
@@ -3921,6 +3935,7 @@
 		container-name: navbar;
 		inline-size: 100%;
 		min-inline-size: 0;
+		--icon-tint: var(--color-icon-tint);
 
 		@media (prefers-reduced-motion: reduce) {
 			transition: none;
@@ -4082,6 +4097,7 @@
 		visibility: hidden;
 		opacity: 0;
 		transition: opacity var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate);
+		--icon-tint: var(--color-icon-tint);
 
 		&[data-open="true"] {
 			visibility: visible;

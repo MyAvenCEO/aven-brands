@@ -106,7 +106,7 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 		children: [
 			{
 				tag: 'button',
-				class: 'btn btn--ghost btn--shape-circle navbar-toggle',
+				class: 'btn btn--ghost btn--shape-icon navbar-toggle',
 				attrs: {
 					type: 'button',
 					'aria-label': t.nav.menu,
@@ -124,7 +124,7 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 					{ tag: 'div', class: 'nav-menu-scrim', attrs: { 'aria-hidden': 'true' }, $on: { click: close } },
 					{
 						tag: 'button',
-						class: 'btn btn--ghost btn--shape-circle nav-menu-close',
+						class: 'btn btn--ghost btn--shape-icon nav-menu-close',
 						attrs: { type: 'button', 'aria-label': t.nav.closeMenu },
 						$icon: { name: 'close', size: '1.25rem' },
 						$on: { click: close }

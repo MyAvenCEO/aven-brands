@@ -29,13 +29,14 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "A row that never wraps and never grows. In a header it sits between the wordmark and the nav, and a social row that wraps to a second line pushes the bar's height around on exactly the widths where space is tightest.\n\nNot a container: `fit-content` is width from contents, which containment removes.",
+			"$description": "A row that never wraps and never grows. In a header it sits between the wordmark and the nav, and a social row that wraps to a second line pushes the bar's height around on exactly the widths where space is tightest.\n\nNot a container: `fit-content` is width from contents, which containment removes.\n\nIT DECLARES `--icon-tint`, the colour the engine paints a duotone's secondary layer with. Declared HERE, on the unit that draws the glyph, and not once at the document root: a global custom property is the anti-pattern the whole scoping design exists to avoid — two brands on one page write the same name and the second wins. An app shell is no better, because a shell is a container that may host more than one vibe. A unit is the smallest thing that owns its own subtree, so the tint travels with the component that needs it and reaches nothing else.",
 			"display": "inline-flex",
 			"alignItems": "center",
 			"gap": "var(--space-comfortable)",
 			"inlineSize": "fit-content",
 			"flexShrink": "0",
-			"color": "inherit"
+			"color": "inherit",
+			"--icon-tint": "var(--color-icon-tint)"
 		},
 		"parts": {
 			"items": {
