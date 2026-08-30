@@ -1870,26 +1870,18 @@
 	}
 
 	.media-frame {
+		position: relative;
 		display: block;
 		inline-size: 100%;
-		position: relative;
 		container-type: inline-size;
 		container-name: media-frame;
 		margin: 0;
-		overflow: hidden;
-		border-radius: var(--radius-xl);
-		background-color: var(--color-surface-sunken);
-
-		& > img {
-			display: block;
-			inline-size: 100%;
-			block-size: 100%;
-			object-fit: cover;
-		}
 	}
 
 	.media-frame-crop {
-
+		display: block;
+		border-radius: var(--radius-xl);
+		background-color: var(--color-surface-sunken);
 	}
 
 	.media-frame-caption {
@@ -1902,41 +1894,65 @@
 	}
 
 	.media-frame--shape-arch {
-		border-radius: 42% 42% var(--radius-xl) var(--radius-xl) / 34% 34% var(--radius-xl) var(--radius-xl);
+
+		& .media-frame-crop {
+			border-radius: 42% 42% var(--radius-xl) var(--radius-xl) / 34% 34% var(--radius-xl) var(--radius-xl);
+		}
 	}
 
 	.media-frame--shape-lens {
-		border-radius: var(--radius-full);
+
+		& .media-frame-crop {
+			border-radius: var(--radius-full);
+		}
 	}
 
 	.media-frame--ratio-wide {
-		aspect-ratio: 16 / 9;
+
+		& .media-frame-crop {
+			--ratio: 16 / 9;
+		}
 	}
 
 	.media-frame--ratio-square {
-		aspect-ratio: 1 / 1;
+
+		& .media-frame-crop {
+			--ratio: 1 / 1;
+		}
 	}
 
 	.media-frame--ratio-pano {
-		aspect-ratio: 8 / 3;
+
+		& .media-frame-crop {
+			--ratio: 8 / 3;
+		}
 	}
 
 	.media-frame--ratio-fill {
-		block-size: 100%;
-		aspect-ratio: auto;
+
+		& .media-frame-crop {
+			block-size: 100%;
+			aspect-ratio: auto;
+		}
 	}
 
 	.media-frame--edge-paper {
-		border-width: var(--rule-frame);
-		border-style: solid;
-		border-color: var(--color-surface-page);
+
+		& .media-frame-crop {
+			border-width: var(--rule-frame);
+			border-style: solid;
+			border-color: var(--color-surface-page);
+		}
 	}
 
 	.media-frame--inset-trim {
 
-		& > img {
-			transform: scale(1.06);
-			transform-origin: center;
+		& .media-frame-crop {
+
+			& > img {
+				transform: scale(1.06);
+				transform-origin: center;
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 {
 	"name": "media-frame",
-	"description": "The SHAPE a picture is cropped to.\n\nFour of these were written by hand in one page — `art-arch`, `art-oval`, `art-band`, `art-square` — differing only in a radius and a ratio, each with its own copy of `position: relative; overflow: hidden` and its own rule for the image inside. That is a unit that had not been noticed yet.\n\nNot called `frame`: the legacy vocabulary already has a `.frame`, and a unit that quietly takes a name six surfaces use is the accident `units.ts` records under `app-shell` — one that cost a day.\n\nThe media inside is the `media` unit, which already fills its box with `object-fit: cover`. This one only decides the outline.",
+	"description": "The BRAND treatment of a cropped picture — the part `.frame` does not do.\n\n`.frame` is a layout primitive and it already owns the mechanics: an aspect ratio, `overflow: hidden`, and a child stretched to fill with `object-fit: cover`. The first version of this unit re-declared all of that, which is a duplicate wearing a different name — the name check was done and the CAPABILITY check was not, and that is the more useful of the two.\n\nWhat is left is genuinely brand: the corner, the ground behind a slow image, the shaped crops (arch, lens), the paper edge that hides a border printed into the file, and a caption placed under the frame rather than inside it.",
 	"surface": "site",
 	"surfaceNote": "every illustration on the marketing pages",
 	"interface": {
@@ -24,6 +24,7 @@
 		"$children": [
 			{
 				"tag": "span",
+				"class": "frame",
 				"part": "crop",
 				"$slot": "media"
 			},
@@ -36,48 +37,45 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "The crop itself: a box that clips, with the page's sunken paper behind it so a slow image has a ground rather than a hole.\n\nIt declares its own container, as every composite here does: a `cqi` inside the caption or the media should measure the FRAME, not whatever section happens to be above it.",
+			"$description": "The figure. It carries no crop mechanics — `.frame` on the crop part does that — only the block it occupies and its own container, which every composite here declares so a `cqi` inside measures the frame.\n\n`position: relative` because a frame is a positioning context for anything laid OVER the picture. Dropping it when the crop mechanics moved to `.frame` let an absolutely-positioned overlay escape to the page — it went from 1012px inside the figure to 1280px across the viewport, which a screenshot of the top of the page would not have shown.",
+			"position": "relative",
 			"display": "block",
 			"inlineSize": "100%",
-			"position": "relative",
 			"containerType": "inline-size",
 			"containerName": "media-frame",
-			"margin": "0",
-			"overflow": "hidden",
-			"borderRadius": "var(--radius-xl)",
-			"backgroundColor": "var(--color-surface-sunken)",
-			"& > img": {
-				"display": "block",
-				"inlineSize": "100%",
-				"blockSize": "100%",
-				"objectFit": "cover"
-			}
+			"margin": "0"
 		},
 		"variants": {
 			"shape": {
 				"$description": "The outline. `band` is the default and needs no class.",
 				"arch": {
 					"$description": "Flat foot, domed head — a doorway. Written as an ELLIPSE, so a wide frame keeps a shallow sweep instead of the half-circle two equal corner radii would force.",
-					"borderRadius": "42% 42% var(--radius-xl) var(--radius-xl) / 34% 34% var(--radius-xl) var(--radius-xl)"
+					"borderRadius": "42% 42% var(--radius-xl) var(--radius-xl) / 34% 34% var(--radius-xl) var(--radius-xl)",
+					"$part": "crop"
 				},
 				"lens": {
 					"$description": "No flat edge at all — what a question looks like.",
-					"borderRadius": "var(--radius-full)"
+					"borderRadius": "var(--radius-full)",
+					"$part": "crop"
 				}
 			},
 			"ratio": {
 				"$description": "Follow the FILE. A frame whose ratio disagrees with its image makes `object-fit: cover` throw the difference away, which is how a 16:9 illustration ends up cropped to a strip.",
 				"wide": {
-					"aspectRatio": "16 / 9"
+					"$part": "crop",
+					"--ratio": "16 / 9"
 				},
 				"square": {
-					"aspectRatio": "1 / 1"
+					"$part": "crop",
+					"--ratio": "1 / 1"
 				},
 				"pano": {
-					"aspectRatio": "8 / 3"
+					"$part": "crop",
+					"--ratio": "8 / 3"
 				},
 				"fill": {
 					"$description": "No ratio of its own — it takes the height of whatever it sits beside.",
+					"$part": "crop",
 					"blockSize": "100%",
 					"aspectRatio": "auto"
 				}
@@ -87,7 +85,8 @@
 				"paper": {
 					"borderWidth": "var(--rule-frame)",
 					"borderStyle": "solid",
-					"borderColor": "var(--color-surface-page)"
+					"borderColor": "var(--color-surface-page)",
+					"$part": "crop"
 				}
 			},
 			"inset": {
@@ -96,13 +95,17 @@
 					"& > img": {
 						"transform": "scale(1.06)",
 						"transformOrigin": "center"
-					}
+					},
+					"$part": "crop"
 				}
 			}
 		},
 		"parts": {
 			"crop": {
-				"$description": "The clipping box. Present so a caller can address the crop without addressing the caption."
+				"$description": "The clipping box. Wears `.frame` for the mechanics and this for the brand's corner and ground.",
+				"display": "block",
+				"borderRadius": "var(--radius-xl)",
+				"backgroundColor": "var(--color-surface-sunken)"
 			},
 			"caption": {
 				"$description": "UNDER the frame, never over it: inside a curved crop a caption is sliced mid-word by the very shape it describes.",

@@ -342,35 +342,43 @@ function costView(t: (typeof home)['de']): ViewNode {
 							'media-frame media-frame--shape-arch media-frame--ratio-wide media-frame--edge-paper media-frame--inset-trim',
 						attrs: { id: 'cost-art' },
 						children: [
+							/* `.frame` is the layout primitive that owns the crop mechanics;
+							   `media-frame-crop` adds the brand's corner and ground on top. */
 							{
-								tag: 'img',
-								class: 'media',
-								attrs: {
-									src: ART.horizon.src,
-									alt: '',
-									width: ART.horizon.width,
-									height: ART.horizon.height,
-									loading: 'lazy',
-									decoding: 'async'
-								}
-							},
-							/*
-							 * The statement rides ON the picture. It was a line of type in
-							 * the flow below it, which made the illustration decoration and
-							 * the sentence a caption; over the image they are one thing —
-							 * the summit and what standing on it is called. A marine scrim
-							 * across the lower third carries it, because the art's own sky
-							 * is sunflower and nothing legible sits on that directly.
-							 */
-							{
-								tag: 'figcaption',
-								attrs: { id: 'cost-overlay' },
+								tag: 'span',
+								class: 'frame media-frame-crop',
 								children: [
-									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
-									{ tag: 'span', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker },
-									{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ')' }
+									{
+										tag: 'img',
+										class: 'media',
+										attrs: {
+											src: ART.horizon.src,
+											alt: '',
+											width: ART.horizon.width,
+											height: ART.horizon.height,
+											loading: 'lazy',
+											decoding: 'async'
+										}
+									},
+								/*
+								 * The statement rides ON the picture. It was a line of type in
+								 * the flow below it, which made the illustration decoration and
+								 * the sentence a caption; over the image they are one thing —
+								 * the summit and what standing on it is called. A marine scrim
+								 * across the lower third carries it, because the art's own sky
+								 * is sunflower and nothing legible sits on that directly.
+								 */
+								{
+									tag: 'figcaption',
+									attrs: { id: 'cost-overlay' },
+									children: [
+										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
+										{ tag: 'span', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker },
+										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ')' }
+									]
+								}
 								]
-							}
+							},
 						]
 					},
 					/* The ticker: short facts separated by marks, edge to edge. Static,
@@ -589,17 +597,25 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 									'media-frame media-frame--ratio-fill media-frame--edge-paper media-frame--inset-trim',
 								attrs: { id: 'shift-art' },
 								children: [
+									/* `.frame` is the layout primitive that owns the crop mechanics;
+									   `media-frame-crop` adds the brand's corner and ground on top. */
 									{
-										tag: 'img',
-										class: 'media',
-										attrs: {
-											src: ART.garden.src,
-											alt: '',
-											width: ART.garden.width,
-											height: ART.garden.height,
-											loading: 'lazy',
-											decoding: 'async'
-										}
+										tag: 'span',
+										class: 'frame media-frame-crop',
+										children: [
+											{
+												tag: 'img',
+												class: 'media',
+												attrs: {
+													src: ART.garden.src,
+													alt: '',
+													width: ART.garden.width,
+													height: ART.garden.height,
+													loading: 'lazy',
+													decoding: 'async'
+												}
+											}
+										]
 									}
 								]
 							},
@@ -758,17 +774,25 @@ function ownView(t: (typeof home)['de']): ViewNode {
 							'media-frame media-frame--ratio-wide media-frame--edge-paper media-frame--inset-trim',
 						attrs: { id: 'own-art' },
 						children: [
+							/* `.frame` is the layout primitive that owns the crop mechanics;
+							   `media-frame-crop` adds the brand's corner and ground on top. */
 							{
-								tag: 'img',
-								class: 'media',
-								attrs: {
-									src: ART.assembly.src,
-									alt: '',
-									width: ART.assembly.width,
-									height: ART.assembly.height,
-									loading: 'lazy',
-									decoding: 'async'
-								}
+								tag: 'span',
+								class: 'frame media-frame-crop',
+								children: [
+									{
+										tag: 'img',
+										class: 'media',
+										attrs: {
+											src: ART.assembly.src,
+											alt: '',
+											width: ART.assembly.width,
+											height: ART.assembly.height,
+											loading: 'lazy',
+											decoding: 'async'
+										}
+									}
+								]
 							}
 						]
 					},
