@@ -38,6 +38,7 @@
  * compiles either way; when placement-level wiring lands, this file shrinks
  * to a `$use`.
  */
+import { SOCIAL_PROFILES } from '@myavenceo/aven-ceo/icons'
 import type { Vibe, ViewNode } from '@myavenceo/aven-vibes'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
 import { common } from '$lib/i18n/common'
@@ -144,7 +145,11 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 											{
 												tag: 'img',
 												class: 'logo-mark',
-												attrs: { src: '/aven-logo.svg', alt: '', width: '36', height: '36' }
+												/* The bar's own logo size — the crest opens where the
+											   logo was, at the size it was, so the takeover reads as
+											   the same chrome transformed rather than a second brand
+											   mark two hundred pixels from the first. */
+											attrs: { src: '/aven-logo.svg', alt: '', width: '28', height: '28' }
 											}
 										]
 									},
@@ -152,6 +157,34 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 								]
 							},
 							{ tag: 'div', class: 'nav-menu-items', children: itemNodes },
+						{
+							/* What the collapsed bar sheds, the menu carries: below 62rem
+							   the bar hides its social row for room, and on a phone this
+							   menu is the only navigation surface there is. Same
+							   social-row composite, same profiles, from the brand. */
+							tag: 'span',
+							class: 'social-row nav-menu-social',
+							attrs: { role: 'group', 'aria-label': t.footer.socialLabel },
+							children: [
+								{
+									tag: 'span',
+									class: 'social-row-items',
+									children: SOCIAL_PROFILES.map(
+										(profile): ViewNode => ({
+											tag: 'a',
+											class: 'social-row-item',
+											attrs: {
+												href: profile.href,
+												target: '_blank',
+												rel: 'noopener noreferrer',
+												'aria-label': profile.name
+											},
+											$icon: { name: profile.icon, size: '1.125rem' }
+										})
+									)
+								}
+							]
+						},
 							{
 								tag: 'div',
 								class: 'nav-menu-footer',

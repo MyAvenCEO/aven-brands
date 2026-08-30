@@ -1,6 +1,6 @@
 {
 	"name": "icon",
-	"description": "One glyph from the registry, at a size and a tone the system names. Every icon on every surface is this — the geometry lives once in `icons.avenceo.json` and a view supplies only a name, because the engine's tag allowlist admits no SVG and loosening it would let a view emit script. What this unit adds is the part the registry deliberately does not hold: how big, and in what colour, since geometry has no opinion about either.",
+	"description": "One glyph from the registry, at a size and a tone the system names. Every icon on every surface is this — the geometry lives once in `icons.avenceo.json` and a view supplies only a name, because the engine's tag allowlist admits no SVG and loosening it would let a view emit script. What this unit adds is the part the registry deliberately does not hold: how big, and in what colour, since geometry has no opinion about either.\n\nThe interface follows the practices the Iconify ecosystem settled on — 1em box, currentColor, a -0.125em baseline seat, flips and quarter-turns as transforms rather than duplicate drawings — plus one house rule Iconify leaves to callers: directional icons declare `mirror: rtl` and follow the reading direction themselves.",
 	"interface": {
 		"props": {
 			"name": "string",
@@ -66,6 +66,45 @@
 				},
 				"error": {
 					"color": "var(--color-error-ink)"
+				}
+			},
+			"flip": {
+				"$description": "Reuse one drawing four ways instead of registering four drawings — the practice every mature icon interface (Iconify's hFlip/vFlip among them) settled on, because a mirrored upload is a download and a set that stores both drifts in one of them. A transform costs nothing and cannot drift.",
+				"x": {
+					"transform": "scaleX(-1)"
+				},
+				"y": {
+					"transform": "scaleY(-1)"
+				},
+				"both": {
+					"transform": "scale(-1)"
+				}
+			},
+			"rotate": {
+				"$description": "Quarter turns, same reasoning as flip: one chevron is every chevron.",
+				"quarter": {
+					"transform": "rotate(90deg)"
+				},
+				"half": {
+					"transform": "rotate(180deg)"
+				},
+				"three-quarter": {
+					"transform": "rotate(270deg)"
+				}
+			},
+			"mirror": {
+				"$description": "Opt-in RTL awareness, and the one place this leaf goes past Iconify: Iconify leaves direction to the caller, and the caller forgets. A DIRECTIONAL icon — an arrow that means forward, a chevron that means deeper — declares `mirror: rtl` and flips itself under `[dir=\"rtl\"]`, so the geometry follows the reading direction without any call site knowing the locale. A glyph whose shape is meaning (a checkmark, a brand mark) simply never declares it. This is `accessibility/i18n-rtl.md` made structural, and it is what `verify_rtl` cannot check for icons any other way.",
+				"rtl": {
+					"[dir=\"rtl\"] &": {
+						"transform": "scaleX(-1)"
+					}
+				}
+			},
+			"placement": {
+				"$description": "`block` clears the baseline shift for an icon standing alone — a crest in a header, a glyph centred in an empty state. The default is inline, nudged -0.125em, because an icon in a sentence sits ON the baseline like a letter (Iconify's `inline` behaviour, made the default here since that is where icons actually live).",
+				"block": {
+					"display": "flex",
+					"verticalAlign": "baseline"
 				}
 			}
 		}

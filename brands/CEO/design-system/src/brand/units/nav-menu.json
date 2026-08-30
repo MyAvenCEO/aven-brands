@@ -116,10 +116,10 @@
 				"backdropFilter": "blur(var(--blur-soft))"
 			},
 			"close": {
-				"$description": "A WAY OUT, in the corner. The menu had none — it relied on the bar's toggle showing through from above, which works only while the bar is rendered over the overlay and is invisible to anyone who does not already know. A full-screen takeover with no visible dismiss is the most common trap-the-user bug there is, and Escape does not help a touch user.\n\nOutlined in the ink at 25%, never filled — the treatment `voice-pill` gives its side controls, because a filled button here would compete with the destinations.",
+				"$description": "Sits EXACTLY where the hamburger sits, so open and close are one control trading glyphs in place — the thumb that opened the menu closes it without moving. The bar's toggle is 2.75rem in a 3.5rem row, pulled `--space-tight` past the content edge by its negative margin; the offsets below reproduce that frame against the menu's own edges, tracking the navbar measure on wide screens the same way the bar itself centres.",
 				"position": "absolute",
-				"insetBlockStart": "var(--space-loose)",
-				"insetInlineEnd": "var(--space-loose)",
+				"insetBlockStart": "calc((3.5rem - 2.75rem) / 2)",
+				"insetInlineEnd": "max(calc(var(--space-comfortable) - var(--space-tight)), calc((100% - var(--navbar-measure, 84rem)) / 2 + var(--space-comfortable) - var(--space-tight)))",
 				"zIndex": "1",
 				"display": "inline-flex",
 				"alignItems": "center",
@@ -135,30 +135,34 @@
 				"transition": "background var(--duration-quick) var(--ease-out)"
 			},
 			"panel": {
-				"$description": "A reading column, not a centred splash. `max-inline-size` plus `margin-inline: auto` gives the menu a real left edge at any width — the thing every other index in this system has and this one did not.",
+				"$description": "The reading surface, and now also the frame the bar's chrome carries over into. The panel spans the NAVBAR'S measure (`--navbar-measure`, inherited from the header the island lives in) with the bar's own inline padding, so the crest opens exactly where the logo was and the close lands exactly where the hamburger was — the takeover reads as the same bar transformed, not as a different surface that happened to appear. The reading content (items, footer) keeps its own 46rem measure INSIDE that frame, because a menu row at 84rem is a line of text lost on a desktop.",
 				"position": "relative",
 				"display": "grid",
-				"gridTemplateRows": "auto minmax(0, 1fr) auto",
-				"gap": "var(--space-loose)",
+				"gridTemplateRows": "auto minmax(0, 1fr) auto auto",
+				"gap": "var(--space-comfortable)",
 				"blockSize": "100%",
 				"inlineSize": "100%",
-				"maxInlineSize": "46rem",
+				"maxInlineSize": "var(--navbar-measure, 84rem)",
 				"marginInline": "auto",
-				"padding": "var(--space-section) var(--space-loose)",
+				"padding": "0 var(--space-comfortable) var(--space-comfortable)",
 				"color": "var(--color-foreground)",
 				"overflowY": "hidden"
 			},
 			"head": {
 				"display": "flex",
 				"alignItems": "center",
-				"gap": "var(--space-comfortable)"
+				"gap": "var(--space-tight)",
+				"$description": "Mirrors `.navbar-bar` line for line: the same 3.5rem row height, the same vertical centring, the same tight gap the bar's brand cluster uses. The crest is the logo's 1.75rem box, in the logo's place.",
+				"minBlockSize": "3.5rem"
 			},
 			"crest": {
-				"$description": "The mark. Every full-surface moment in this system leads with it — `flow-card` made `crest` a slot for exactly this reason: a takeover with no identity on it is a page you reconstruct from its links.",
+				"$description": "The brand mark at the BAR'S size and place — 1.75rem, the `logo-mark` box. It was 36px floating in the panel's own padding, which put a second, differently-sized logo two hundred pixels from where the reader just saw the first one.",
 				"display": "grid",
 				"placeItems": "center",
 				"flexShrink": "0",
-				"opacity": "0.9"
+				"opacity": "0.9",
+				"inlineSize": "1.75rem",
+				"blockSize": "1.75rem"
 			},
 			"eyebrow": {
 				"$description": "Composes `text text--eyebrow`. The brand's signature device — it names the band the eye is about to read — in paradise, like every other eyebrow in the system. It was an inverted white at 70%, which was a second answer to a question the system had already settled.",
@@ -171,7 +175,10 @@
 				"alignContent": "safe center",
 				"minBlockSize": "0",
 				"overflowY": "auto",
-				"overscrollBehavior": "contain"
+				"overscrollBehavior": "contain",
+				"inlineSize": "100%",
+				"maxInlineSize": "46rem",
+				"marginInline": "auto"
 			},
 			"item": {
 				"$description": "One destination. `clamp(1.75rem, 7cqi, 3rem)` in the display face — `cqi`, the container's inline size, not `vw`: the real header uses `11vw` and is right by coincidence, because there the menu happens to BE the viewport. Measured against its own container it is right everywhere.\n\nThe whole row is the target, and the row is padded rather than the text — a 3rem word with a 3rem hit area is a link you can miss above and below.",
@@ -222,7 +229,10 @@
 				"gap": "var(--space-comfortable)",
 				"paddingBlockStart": "var(--space-comfortable)",
 				"paddingInline": "var(--space-comfortable)",
-				"borderBlockStart": "1px solid var(--color-border-soft)"
+				"borderBlockStart": "1px solid var(--color-border-soft)",
+				"inlineSize": "100%",
+				"maxInlineSize": "46rem",
+				"marginInline": "auto"
 			},
 			"trust": {
 				"$description": "One quiet line. A page that ends on purpose rather than simply stopping — the composition rule this surface was missing.",
@@ -230,6 +240,16 @@
 				"fontFamily": "var(--font-sans)",
 				"fontSize": "var(--fs-micro)",
 				"color": "var(--color-foreground-quiet)"
+			},
+			"social": {
+				"$description": "The social marks, in the menu. The bar hides its social row below 62rem — correctly, the bar has no room — but hiding them from the BAR must not hide them from the estate: on a phone this menu is the only navigation surface there is, so it carries what the collapsed bar sheds. Same `social-row` composite, left-aligned with the destinations.",
+				"display": "flex",
+				"alignItems": "center",
+				"inlineSize": "100%",
+				"maxInlineSize": "46rem",
+				"marginInline": "auto",
+				"paddingInline": "var(--space-comfortable)",
+				"paddingBlockStart": "var(--space-comfortable)"
 			}
 		},
 		"variants": {

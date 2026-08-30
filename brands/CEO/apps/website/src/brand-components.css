@@ -505,7 +505,6 @@
 			letter-spacing: var(--tracking-tight);
 			color: var(--color-foreground);
 			margin-block: 0 var(--space-comfortable);
-			$description: Clamped against the prose container — a doc column at 40rem and one at 65ch are different rooms for the same title, and `cqi` sizes it to the room. The floor is the display step, so it never drops below the scale.;
 		}
 		& h2 {
 			font-family: var(--font-display);
@@ -514,7 +513,6 @@
 			line-height: 1.2;
 			color: var(--color-foreground);
 			margin-block: var(--space-section) var(--space-snug);
-			$description: THE RAMP WAS INVERTED. h2 wore `--fs-section` (14px — one pixel over the 13px body, in a light display face) while h3 wore `--fs-title` (15px): the section titles a reader scans by were the smallest headings on the page, and sat visually BELOW their own subsections. Measured on the framework docs, where every section is an h2. Now `--fs-amount` (24px): 1.85x the body — a heading, not a bolder sentence.;
 		}
 		& h3 {
 			font-size: var(--fs-hero);
@@ -3096,6 +3094,42 @@
 		color: var(--color-error-ink);
 	}
 
+	.icon--flip-x {
+		transform: scaleX(-1);
+	}
+
+	.icon--flip-y {
+		transform: scaleY(-1);
+	}
+
+	.icon--flip-both {
+		transform: scale(-1);
+	}
+
+	.icon--rotate-quarter {
+		transform: rotate(90deg);
+	}
+
+	.icon--rotate-half {
+		transform: rotate(180deg);
+	}
+
+	.icon--rotate-three-quarter {
+		transform: rotate(270deg);
+	}
+
+	.icon--mirror-rtl {
+
+		[dir="rtl"] & {
+			transform: scaleX(-1);
+		}
+	}
+
+	.icon--placement-block {
+		display: flex;
+		vertical-align: baseline;
+	}
+
 	.tabs {
 		display: grid;
 		gap: var(--space-comfortable);
@@ -4066,8 +4100,8 @@
 
 	.nav-menu-close {
 		position: absolute;
-		inset-block-start: var(--space-loose);
-		inset-inline-end: var(--space-loose);
+		inset-block-start: calc((3.5rem - 2.75rem) / 2);
+		inset-inline-end: max(calc(var(--space-comfortable) - var(--space-tight)), calc((100% - var(--navbar-measure, 84rem)) / 2 + var(--space-comfortable) - var(--space-tight)));
 		z-index: 1;
 		display: inline-flex;
 		align-items: center;
@@ -4086,13 +4120,13 @@
 	.nav-menu-panel {
 		position: relative;
 		display: grid;
-		grid-template-rows: auto minmax(0, 1fr) auto;
-		gap: var(--space-loose);
+		grid-template-rows: auto minmax(0, 1fr) auto auto;
+		gap: var(--space-comfortable);
 		block-size: 100%;
 		inline-size: 100%;
-		max-inline-size: 46rem;
+		max-inline-size: var(--navbar-measure, 84rem);
 		margin-inline: auto;
-		padding: var(--space-section) var(--space-loose);
+		padding: 0 var(--space-comfortable) var(--space-comfortable);
 		color: var(--color-foreground);
 		overflow-y: hidden;
 	}
@@ -4100,7 +4134,8 @@
 	.nav-menu-head {
 		display: flex;
 		align-items: center;
-		gap: var(--space-comfortable);
+		gap: var(--space-tight);
+		min-block-size: 3.5rem;
 	}
 
 	.nav-menu-crest {
@@ -4108,6 +4143,8 @@
 		place-items: center;
 		flex-shrink: 0;
 		opacity: 0.9;
+		inline-size: 1.75rem;
+		block-size: 1.75rem;
 	}
 
 	.nav-menu-eyebrow {
@@ -4121,6 +4158,9 @@
 		min-block-size: 0;
 		overflow-y: auto;
 		overscroll-behavior: contain;
+		inline-size: 100%;
+		max-inline-size: 46rem;
+		margin-inline: auto;
 	}
 
 	.nav-menu-item {
@@ -4196,6 +4236,9 @@
 		padding-block-start: var(--space-comfortable);
 		padding-inline: var(--space-comfortable);
 		border-block-start: 1px solid var(--color-border-soft);
+		inline-size: 100%;
+		max-inline-size: 46rem;
+		margin-inline: auto;
 	}
 
 	.nav-menu-trust {
@@ -4203,6 +4246,16 @@
 		font-family: var(--font-sans);
 		font-size: var(--fs-micro);
 		color: var(--color-foreground-quiet);
+	}
+
+	.nav-menu-social {
+		display: flex;
+		align-items: center;
+		inline-size: 100%;
+		max-inline-size: 46rem;
+		margin-inline: auto;
+		padding-inline: var(--space-comfortable);
+		padding-block-start: var(--space-comfortable);
 	}
 
 	.nav-menu--tone-solid {
