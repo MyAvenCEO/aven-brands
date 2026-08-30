@@ -179,7 +179,23 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* The company thesis sits on marine, but its emphasised words are authored
    with the light-page tone (text-foreground) — lift them so they read on the
    dark spread. Keyed off the id so the strict utility plugin ignores it. */
-:global(#company-prose strong),
+/*
+ * The thesis' emphasised words are authored with the light-page tone, so they
+ * are lifted to read on the dark spread.
+ *
+ * This selector was a GROUP — `#company-prose strong, #founders-prose strong`
+ * — and the founders cleanup deleted from the second selector to the closing
+ * brace, which left this one dangling with no body. It then took the NEXT
+ * rule's block as its own: every `<strong>` in the thesis inherited
+ * `#home-hero`'s `display: flex; position: relative; overflow: hidden`, which
+ * is why the paragraphs exploded into separate blocks with a void between
+ * them. Deleting a selector from inside a group is not deleting a rule.
+ */
+:global(#company-prose strong) {
+	color: var(--color-primary-foreground);
+	font-weight: 500;
+}
+
 /* The hero is its own dark stage: the video sits behind, a soft scrim
    darkens the bright footage, and the copy goes light on top. Colours and
    the gradient live here (scoped CSS, keyed off ids so the strict utility
@@ -333,49 +349,44 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* Centred, and it owns the row. Left-aligned at 34rem it sat in the
    bottom-left corner with the right half empty — the same orphaning as the
    figure, one block later. */
+/*
+ * THE CLOSE: the page's one full-strength brand moment, at the decision.
+ *
+ * It was an accent tint under a sunflower hairline — the same treatment the
+ * future script wears two blocks above, so the section ended on a quieter
+ * echo of something the reader had already passed. The question is the point
+ * of the whole section and it now gets the tone at full strength: sunflower
+ * ground, marine ink, measured at 8.27:1.
+ *
+ * Sunflower is free for this because the price card moved to the success tint.
+ * Used once on the page, at the moment there is something to decide — which is
+ * the only way an accent stays an accent.
+ */
 :global(#shift-turn) {
 	display: grid;
 	justify-items: center;
-	gap: var(--space-comfortable);
-	max-inline-size: 44rem;
+	gap: 0;
+	max-inline-size: 46rem;
 	margin: var(--space-section) auto 0;
+	padding: var(--space-section) var(--space-loose);
+	border-radius: var(--radius-xl);
+	background: var(--color-sunflower);
 	text-align: center;
 }
-/*
- * The question gets a ground of its own, so the section ends on a block rather
- * than trailing off under a hairline. Accent tint with a sunflower edge — the
- * same pairing the future script wears, which is the point: this is that
- * script's question.
- */
-:global(#shift-turn-kicker) {
-	inline-size: min(100%, 34rem);
-	padding: var(--space-loose) var(--space-comfortable);
-	border-radius: var(--radius-xl);
-	background: var(--color-accent-surface);
-	box-shadow: inset 0 var(--rule-accent) 0 0 var(--color-sunflower);
-}
 :global(#shift-turn-lead) {
-	margin: 0;
+	margin: 0 0 var(--space-comfortable);
 	font-size: var(--fs-lead);
-	color: var(--color-foreground-quiet);
+	color: var(--color-marine);
 }
-/*
- * The question the whole section has been building to, at the size that says
- * so. It was 36px — smaller than the two panel titles above it and barely
- * larger than the sentence it followed, so the argument ended on a footnote.
- * It leads now: the largest type on the page after the hero, paradise-derived
- * ink, and the closing rule beneath it so the section ends on purpose rather
- * than simply stopping.
- */
 :global(#shift-turn-kicker) {
 	margin: 0;
 	font-family: var(--font-display);
 	font-size: clamp(2.25rem, 6cqi, 3.75rem);
 	font-weight: 400;
-	line-height: 1.08;
+	line-height: 1.05;
 	letter-spacing: var(--tracking-tight);
 	text-wrap: balance;
-	color: var(--color-eyebrow-ink);
+	color: var(--color-marine);
 }
 
 /*
@@ -498,27 +509,17 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	position: absolute;
 	inset-inline: 0;
 	inset-block-end: 0;
+	/* The bottom THIRD of the frame, as a band — not a caption sized by its own
+	   padding, which is what put it at an arbitrary height. */
+	block-size: 34%;
 	display: flex;
 	flex-wrap: wrap;
-	align-items: baseline;
+	align-items: center;
 	justify-content: center;
 	gap: var(--space-comfortable);
 	margin: 0;
-	padding: var(--space-section) var(--space-loose) var(--space-loose);
-	/*
-	 * A SOLID marine floor, with the gradient as a feather ABOVE it.
-	 *
-	 * It was a gradient alone, and a gradient is not a background colour: the
-	 * caption's own computed `background-color` stayed transparent, so the ink
-	 * was resting on whatever had actually painted underneath. On /de/ the
-	 * lazy-loaded illustration had not arrived when the page was measured and
-	 * the gate caught white on the figure's sunken paper at 1.06:1 — which is
-	 * exactly what a reader on a slow connection would have seen.
-	 *
-	 * The floor is a real colour now, so the type is legible whether or not the
-	 * image is there, and the feather only softens the join.
-	 */
-	background-color: var(--color-marine);
+	padding-inline: var(--space-loose);
+	background-color: color-mix(in oklab, var(--color-marine) 88%, transparent);
 	font-family: var(--font-display);
 	font-size: clamp(1.5rem, 4.5cqi, 2.75rem);
 	line-height: 1.1;
@@ -527,13 +528,30 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	color: var(--color-on-dark);
 }
 
+/*
+ * The overlay's parens take the LIGHTER secondary, not paradise.
+ *
+ * Paradise is the paren colour everywhere else on cream, where it measures
+ * 3.93:1. On the scrim it is sitting on rgb(56,66,81) rather than on the page,
+ * and there it measures 2.50:1 — under the 3:1 a glyph this size needs. Same
+ * ramp, one step lighter: 3.87:1 on the same ground. A colour that carries on
+ * one ground does not carry on every ground, and the only way to know is to
+ * measure it there.
+ */
+:global(#cost-overlay) :global(.paren) {
+	color: var(--color-secondary-edge);
+}
 :global(#cost-overlay)::before {
 	content: '';
 	position: absolute;
 	inset-inline: 0;
 	inset-block-end: 100%;
 	block-size: var(--space-section);
-	background: linear-gradient(to top, var(--color-marine), transparent);
+	background: linear-gradient(
+		to top,
+		color-mix(in oklab, var(--color-marine) 88%, transparent),
+		transparent
+	);
 }
 :global(.art-arch-img) {
 	inline-size: 100%;
@@ -595,10 +613,13 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	gap: var(--space-section);
 	align-items: start;
 }
-/* The head is centred with everything else in the section. */
+/* The head is centred with everything else in the section, and it opens with
+   room: an eyebrow butted against the band above it reads as a continuation of
+   that band rather than the start of this one. */
 :global(#cost-story) {
 	display: grid;
 	justify-items: center;
+	padding-block-start: var(--space-section);
 	gap: var(--space-comfortable);
 	max-inline-size: 44rem;
 	margin-inline: auto;
@@ -616,12 +637,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		align-items: stretch;
 	}
 }
-:global(#cost-closing) {
-	max-inline-size: 34rem;
-	margin: 0 auto;
-	text-align: center;
-}
-
 :global(#cost-heading) {
 	margin: 0;
 	font-family: var(--font-display);
@@ -647,35 +662,58 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: grid;
 	gap: var(--space-comfortable);
 }
+/*
+ * TWO CARDS FACING EACH OTHER ACROSS A RULE.
+ *
+ * The comparison read as one finished thing beside one unfinished one: the
+ * salary sat bare on the page ground while our price wore a sunflower sheet,
+ * so the left half looked like markup that had failed rather than the option
+ * being turned down. Both are cards now, and the argument is carried by what
+ * each card IS — the old cost dimmed and struck like a disabled control, the
+ * new one on the brand's success tint.
+ *
+ * They face each other: the salary right-aligned, ours left-aligned, with a
+ * hairline down the gap. Two blocks both ranged left is a list; ranged toward
+ * each other, it is a comparison.
+ */
 :global(.cost-panel) {
 	position: relative;
 	display: grid;
 	gap: var(--space-hairline);
 	padding: var(--space-loose);
 	border-radius: var(--radius-xl);
+	align-content: start;
 }
-/* The registration marks are GONE. They were the reference set's device and
-   they are, literally, hard corners — four of them per panel, in a system
-   whose every other surface is rounded. Borrowing a device that fights the
-   brand is borrowing badly. The panels are rounded instead, which is the
-   brand's own answer and the one the buttons, cards and menus already give. */
-/*
- * THE CONTRAST IS THE ARGUMENT, so the SALARY is the big number.
- *
- * It was the other way round: our price at 64px and the salary at 24px, which
- * reads as a brag rather than a comparison. Nobody is shocked by 99; they are
- * shocked by what the alternative costs, and the 99 only means something once
- * that has landed. The salary now leads at display scale, struck, on a plain
- * ground; ours answers it quietly on the accent field.
- *
- * Sunflower stays a FIELD (marine on it is 8.27:1) but a smaller one — the
- * relief, not the headline.
- */
+/* The cost being declined, styled the way this system styles something that is
+   no longer available: muted ground, quiet ink, and the whole card carrying the
+   dimming rather than the number alone. */
+:global(#cost-was) {
+	background: var(--color-muted);
+	color: var(--color-foreground-quiet);
+	text-align: end;
+}
+/* The offer, on the brand's success tint. Marine on it measures 12.15:1 — the
+   most headroom either card has, which is the right way round for the one you
+   are meant to read. */
 :global(#cost-now) {
-	background: var(--color-sunflower);
+	background: var(--color-success-surface);
 	color: var(--color-marine);
-	border-radius: var(--radius-xl);
-	padding: var(--space-loose);
+	text-align: start;
+}
+/* The rule between them, drawn in the gap rather than on either card, so
+   neither owns it. Only once the two are side by side. */
+@media (min-width: 48rem) {
+	:global(#cost-price) {
+		position: relative;
+	}
+	:global(#cost-price)::before {
+		content: '';
+		position: absolute;
+		inset-block: var(--space-loose);
+		inset-inline-start: 50%;
+		inline-size: 1px;
+		background: var(--color-border-strong);
+	}
 }
 :global(.cost-panel-label) {
 	margin: 0;
@@ -683,7 +721,11 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	font-weight: 600;
 	letter-spacing: var(--tracking-widest);
 	text-transform: uppercase;
-	color: var(--color-foreground-quiet);
+	/* No opacity multiplier. `foreground-quiet` measures 5.16:1 on the muted
+	   card; at 0.75 it resolves to 3.10:1 and axe caught it. The card's ground
+	   and the strike already say "declined" — the ink does not get to be quiet
+	   as well, which is the same rule already written for the offer card. */
+	color: inherit;
 }
 :global(#cost-was-figure),
 :global(#cost-now-figure) {
@@ -696,24 +738,34 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	font-variant-numeric: tabular-nums;
 	line-height: 1;
 }
+:global(#cost-was-figure) {
+	justify-content: flex-end;
+}
+:global(#cost-now-figure) {
+	justify-content: flex-start;
+}
+/* THE SAME SIZE, both of them. A comparison whose two figures are set at
+   different scales has already answered itself. */
+:global(#cost-was-value),
+:global(#cost-now-value) {
+	font-size: clamp(2.25rem, 6cqi, 3.75rem);
+}
 :global(#cost-was-value) {
-	font-size: clamp(2.75rem, 7cqi, 4.5rem);
-	color: var(--color-foreground);
+	color: var(--color-foreground-quiet);
 	/* The page's own gesture, third time: hero strikes a sentence, shift a
 	   script, this a salary. CSS not `<s>` — SAFE_TAGS admits no `s`. */
 	text-decoration: line-through;
 	text-decoration-thickness: 1px;
-	text-decoration-color: var(--color-foreground-quiet);
+	text-decoration-color: currentColor;
 }
 :global(#cost-now-value) {
-	font-size: var(--fs-amount);
 	color: var(--color-marine);
 }
 :global(#cost-was-unit),
 :global(#cost-now-unit) {
 	font-family: var(--font-sans);
 	font-size: var(--fs-meta);
-	color: var(--color-foreground-quiet);
+	color: inherit;
 }
 :global(#cost-was-note),
 :global(#cost-now-note) {
@@ -778,11 +830,23 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * invisible, and invisible in the one place the contrast gate reports as
  * "sits on imagery — check by eye". It inherits the overlay's ink now.
  */
+/*
+ * ONE rule for this id, not two.
+ *
+ * There were two `#cost-closing` blocks — an earlier one centring it and a
+ * later one setting `margin: 0` — and at identical specificity the later wins,
+ * so the centring silently did nothing while the computed `text-align` still
+ * read `center` and looked correct in a measurement. That is the THIRD time
+ * this file has hidden a bug behind a same-specificity duplicate; a second
+ * block for an id you already styled is not an addition, it is an override.
+ */
 :global(#cost-closing) {
-	margin: 0;
+	max-inline-size: 34rem;
+	margin: 0 auto;
 	font-size: var(--fs-meta);
 	letter-spacing: var(--tracking-wider);
 	text-transform: uppercase;
+	text-align: center;
 	color: var(--color-foreground-quiet);
 }
 
@@ -964,12 +1028,15 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * spacing is part of the mark rather than a choice this headline gets to make.
  */
 :global(#trust-headline) {
-	max-inline-size: 22ch;
+	/* 36ch, not 22: at 22 the sentence broke to four lines and the band became
+	   a wall of display type. Two lines is the brief, so the measure has to be
+	   wide enough to take half the sentence each. */
+	max-inline-size: 36ch;
 	margin-inline: auto;
 	font-family: var(--font-display);
-	font-size: clamp(1.625rem, 4.2cqi, 2.5rem);
+	font-size: clamp(1.375rem, 3.1cqi, 2rem);
 	font-weight: 400;
-	line-height: 1.25;
+	line-height: 1.3;
 	letter-spacing: var(--tracking-normal);
 	text-align: center;
 	text-wrap: balance;
@@ -986,24 +1053,21 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * SOLID SUNFLOWER, marine knocked out of it.
+ * BRAND SECONDARY, as a true two-shade duotone.
  *
- * The duotone's backing carries `opacity: .5`, which is right on a light page
- * and wrong on this one: half-strength sunflower composited over marine
- * resolves to a muddy olive, and three olive badges on a navy band was the
- * worst colour in the section. Forcing the backing to full strength makes it a
- * solid brand shape, and the figure takes marine so it reads as cut OUT of the
- * shape rather than drawn on top of it.
- *
- * Measured both directions on this band: sunflower on marine is 8.27:1, which
- * clears the 3:1 a graphical object needs with room to spare, and clears it
- * again for the marine figure sitting inside the sunflower.
+ * The set's backing carries `opacity: .5`, which is right on a light page and
+ * wrong on this one — half-strength colour over marine composites to mud, and
+ * that is what made the first attempt olive. The backing goes to full strength
+ * and takes `secondary-edge`; the figure takes marine and reads as cut OUT of
+ * it. Two distinct shades, both from the secondary ramp, both measured on this
+ * band: the shape on marine is 5.56:1 and the marine figure inside the shape
+ * is 5.56:1, against the 3:1 a graphical object needs.
  */
 :global(.trust-claim-icon) {
 	display: block;
 	margin-block-end: var(--space-tight);
 	color: var(--color-marine);
-	--icon-tint: var(--color-sunflower);
+	--icon-tint: var(--color-secondary-edge);
 }
 :global(.trust-claim-icon svg path[opacity]) {
 	opacity: 1;
