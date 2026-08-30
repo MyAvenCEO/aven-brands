@@ -280,6 +280,128 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(#home-hero),
 :global(#company-band),
 /*
+ * OWN IT — head, picture, ladder, close.
+ *
+ * It was three equal bordered cards in a row under a centred head, which is the
+ * arrangement that makes a section read as generated: the eye lands nowhere and
+ * nothing in the layout says which of the three matters. They are STAGES, not
+ * options, so they are numbered and the last one carries the ground — the fleet
+ * that compounds is the payoff the other two build to.
+ */
+:global(#own-grid) {
+	display: grid;
+	gap: var(--space-section);
+}
+:global(#own-head) {
+	display: grid;
+	justify-items: center;
+	gap: var(--space-comfortable);
+	max-inline-size: 44rem;
+	margin-inline: auto;
+	padding-block-start: var(--space-section);
+	text-align: center;
+}
+:global(#own-heading) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-display), 5cqi, 3rem);
+	font-weight: 400;
+	line-height: 1.08;
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+	color: var(--color-foreground);
+}
+:global(.own-heading-line) {
+	display: block;
+}
+:global(#own-lead) {
+	margin: 0;
+	max-inline-size: 38rem;
+	font-size: var(--fs-lead);
+	line-height: 1.5;
+	text-wrap: pretty;
+	color: var(--color-foreground-quiet);
+}
+/* A plain rounded band: the file is 16:9 and the picture is a wide scene, so
+   there is nothing to crop and no shape to impose on it. */
+:global(.art-band) {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	aspect-ratio: 16 / 9;
+	border-radius: var(--radius-xl);
+	background: var(--color-surface-sunken);
+}
+:global(#own-rungs) {
+	display: grid;
+	gap: var(--space-loose);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+@media (min-width: 52rem) {
+	:global(#own-rungs) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		align-items: stretch;
+	}
+}
+:global(.own-rung) {
+	display: grid;
+	align-content: start;
+	gap: var(--space-tight);
+	padding: var(--space-loose);
+	border-radius: var(--radius-xl);
+	background: var(--color-surface-sunken);
+}
+/* The payoff rung, on the success tint — marine on it measures 12.15:1. */
+:global(.own-rung[data-rung='last']) {
+	background: var(--color-success-surface);
+}
+:global(.own-rung-index) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--fs-display);
+	font-weight: 400;
+	line-height: 1;
+	color: var(--color-secondary-strong);
+}
+:global(.own-rung-count) {
+	margin: 0;
+	font-size: var(--fs-eyebrow);
+	font-weight: 600;
+	letter-spacing: var(--tracking-widest);
+	text-transform: uppercase;
+	color: var(--color-foreground-quiet);
+}
+:global(.own-rung-title) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-amount), 3cqi, 1.75rem);
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
+	color: var(--color-foreground);
+}
+:global(.own-rung-text) {
+	margin: 0;
+	font-size: var(--fs-section);
+	line-height: 1.5;
+	text-wrap: pretty;
+	color: var(--color-foreground-quiet);
+}
+:global(#own-closing) {
+	max-inline-size: 40rem;
+	margin: 0 auto;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-lead), 3.2cqi, 2rem);
+	line-height: 1.25;
+	letter-spacing: var(--tracking-tight);
+	text-align: center;
+	text-wrap: balance;
+	color: var(--color-foreground);
+}
+
+/*
  * THE SHIFT — one left edge, all the way down.
  *
  * It mixed alignments in a single breath: the head centred at 544px, the
@@ -863,31 +985,45 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * (3:1 applies) and the markers, which are shapes. No darkened ink, and no
  * inline `style` attribute — the old code wrote both.
  */
-:global(#shift-scripts) {
+/*
+ * TWO THIRDS ARGUMENT, ONE THIRD PICTURE.
+ *
+ * The scripts were side by side across the full measure, which put the two
+ * halves of the comparison at 50% each and left no room for anything else. They
+ * stack now — the old script above the new one, the order a reader actually
+ * moves through them — inside two thirds, and the picture takes the last third
+ * at full height beside both.
+ */
+:global(#shift-spread) {
 	display: grid;
-	gap: var(--space-section);
+	gap: var(--space-loose);
 	margin-block-start: var(--space-section);
 }
-/*
- * A DIPTYCH, not a winner and a leftover.
- *
- * The two scripts were carrying three contrasts at once — 4fr against 6fr, a
- * 17px title against a 36px one, and a tinted sheet against bare cream — all
- * pointing the same way. Stacked, they stopped reading as emphasis and started
- * reading as a column that had failed to style: the left script was small grey
- * struck text floating on the page ground beside a finished panel.
- *
- * One contrast now, and it is the GROUND. Both panels are the same width, both
- * carry the same type at the same sizes, and the argument is made by what they
- * are printed on: the old script on the page's own sunken paper, the new one
- * on the warm accent tint under a sunflower rule. That is the magazine move —
- * two facing pages, one of which is lit.
- */
-@media (min-width: 52rem) {
-	:global(#shift-scripts) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: var(--space-loose);
+@media (min-width: 56rem) {
+	:global(#shift-spread) {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
 		align-items: stretch;
+	}
+}
+:global(#shift-scripts) {
+	display: grid;
+	gap: var(--space-comfortable);
+	align-content: start;
+}
+/* A square crop, rounded like everything else. The file is 1:1, so the frame
+   follows it rather than cropping a third of it away. */
+:global(.art-square) {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	aspect-ratio: 1 / 1;
+	border-radius: var(--radius-xl);
+	background: var(--color-surface-sunken);
+}
+@media (min-width: 56rem) {
+	:global(#shift-art) {
+		block-size: 100%;
+		aspect-ratio: auto;
 	}
 }
 :global(#shift-was),
@@ -1068,6 +1204,12 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	margin-block-end: var(--space-tight);
 	color: var(--color-marine);
 	--icon-tint: var(--color-secondary-edge);
+}
+/* The number takes the mark's colour, so each claim reads as one object rather
+   than a badge with an unrelated figure under it. `secondary-edge` on this band
+   is 5.56:1, which clears the 4.5 this size of text needs. */
+:global(#trust-claims) :global(.stat-value) {
+	color: var(--color-secondary-edge);
 }
 :global(.trust-claim-icon svg path[opacity]) {
 	opacity: 1;

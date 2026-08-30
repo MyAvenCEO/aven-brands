@@ -215,7 +215,7 @@ function trustView(t: (typeof home)['de']): ViewNode {
 										tag: 'span',
 										class: 'trust-claim-icon',
 										attrs: { 'aria-hidden': 'true' },
-										$icon: { name: TRUST_ICONS[i], size: '1.75rem' }
+										$icon: { name: TRUST_ICONS[i], size: '2.25rem' }
 									},
 									{ tag: 'p', class: 'stat-value', text: '100%' },
 									{ tag: 'p', class: 'text text--eyebrow stat-label', text: claim }
@@ -258,7 +258,11 @@ const TRUST_ICONS = ['trust-encrypted', 'trust-privacy', 'trust-ownership'] as c
  * silently crops a third of the frame away.
  */
 const ART = {
-	horizon: { src: '/woman-on-mountain.jpg', width: '1920', height: '1072' }
+	horizon: { src: '/woman-on-mountain.jpg', width: '1920', height: '1072' },
+	/* Square, not 16:9 — it sits in a column beside the argument rather than
+	   spanning a row, and a wide crop of a portrait subject wastes both. */
+	garden: { src: '/man-under-tree.jpg', width: '816', height: '816' },
+	assembly: { src: '/avens-assembly.jpg', width: '1088', height: '608' }
 } as const
 
 function ruleLabel(text: string, index?: string): ViewNode {
@@ -543,10 +547,48 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ' )' }
 						]
 					},
+					/*
+					 * The comparison and the picture, as one spread.
+					 *
+					 * The two scripts sat side by side and the section had no image at
+					 * all, so the argument was four columns of type in a row. Stacked
+					 * two-thirds left — the script being left behind above the one being
+					 * argued for, which is the order the reader moves through them — and
+					 * the picture holds the remaining third: what the second script
+					 * actually buys, which is the thing the words cannot say.
+					 */
 					{
 						tag: 'div',
-						attrs: { id: 'shift-scripts' },
-						children: [scriptColumn(t.shift.without, 'without'), scriptColumn(t.shift.with, 'with')]
+						attrs: { id: 'shift-spread' },
+						children: [
+							{
+								tag: 'div',
+								attrs: { id: 'shift-scripts' },
+								children: [
+									scriptColumn(t.shift.without, 'without'),
+									scriptColumn(t.shift.with, 'with')
+								]
+							},
+							{
+								tag: 'figure',
+								class: 'art-square',
+								attrs: { id: 'shift-art' },
+								children: [
+									{
+										tag: 'img',
+										class: 'art-arch-img',
+										attrs: {
+											src: ART.garden.src,
+											alt: '',
+											width: ART.garden.width,
+											height: ART.garden.height,
+											loading: 'lazy',
+											decoding: 'async'
+										}
+									}
+								]
+							}
+						]
 					},
 					/* The resolution, on the section's own left edge like everything
 					   else. It was centred with utility classes AND an inline `style`
@@ -660,69 +702,77 @@ function companyView(t: (typeof home)['de']): ViewNode {
 function ownView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
-		class: 'section-band sm:px-8 sm:py-20',
+		class: 'section section--ground-raised section--measure-page',
 		attrs: { 'aria-labelledby': 'own-heading' },
 		children: [
 			{
 				tag: 'div',
-				class: 'mx-auto max-w-4xl',
+				class: 'section-inner',
+				attrs: { id: 'own-grid' },
 				children: [
 					{
 						tag: 'div',
-						class: 'mx-auto max-w-2xl text-center',
+						attrs: { id: 'own-head' },
 						children: [
-							{ tag: 'p', class: 'eyebrow', text: t.own.eyebrow },
+							ruleLabel(t.own.eyebrow, '04'),
 							{
 								tag: 'h2',
-								class: 'mt-4 text-3xl tracking-tight text-pretty text-foreground sm:text-4xl',
 								attrs: { id: 'own-heading' },
 								text: t.own.headingLine1,
-								children: [{ tag: 'span', class: 'mt-1 block', text: t.own.headingLine2 }]
+								children: [{ tag: 'span', class: 'own-heading-line', text: t.own.headingLine2 }]
 							},
+							{ tag: 'p', attrs: { id: 'own-lead' }, text: t.own.lead }
+						]
+					},
+					/*
+					 * The picture of the claim, not a decoration beside it: a yard of
+					 * Avens turning fruit into stock while nobody watches. The section
+					 * argues that an Aven is an asset that works without you, and this
+					 * is what that looks like.
+					 */
+					{
+						tag: 'figure',
+						class: 'art-band',
+						attrs: { id: 'own-art' },
+						children: [
 							{
-								tag: 'p',
-								class:
-									'mx-auto mt-4 max-w-xl text-[length:var(--fs-title)] leading-snug text-foreground-quiet sm:text-base',
-								text: t.own.lead
+								tag: 'img',
+								class: 'art-arch-img',
+								attrs: {
+									src: ART.assembly.src,
+									alt: '',
+									width: ART.assembly.width,
+									height: ART.assembly.height,
+									loading: 'lazy',
+									decoding: 'async'
+								}
 							}
 						]
 					},
+					/*
+					 * A LADDER, and the numbering is real: one Aven, then one per idea,
+					 * then a fleet that compounds. Three equal cards said the three were
+					 * alternatives; they are stages, and the last is the payoff, so it
+					 * is the one that carries the ground.
+					 */
 					{
 						tag: 'ol',
-						class: 'mt-10 grid gap-4 sm:grid-cols-3',
+						attrs: { id: 'own-rungs' },
 						children: t.own.rungs.map(
-							(rung): ViewNode => ({
+							(rung, i): ViewNode => ({
 								tag: 'li',
-								class:
-									'rounded-lg border border-foreground/8 bg-surface-raised p-6 shadow-[var(--shadow-raised)]',
+								class: 'own-rung',
+								attrs: i === t.own.rungs.length - 1 ? { 'data-rung': 'last' } : {},
 								children: [
-									{
-										tag: 'p',
-										class:
-											'text-[length:var(--fs-eyebrow)] font-bold uppercase tracking-[var(--tracking-wider)] text-accent-ink',
-										text: rung.count
-									},
-									{
-										tag: 'p',
-										class: 'mt-2 font-display text-xl tracking-tight text-foreground',
-										text: rung.title
-									},
-									{
-										tag: 'p',
-										class:
-											'mt-2 text-[length:var(--fs-section)] leading-snug text-foreground-quiet',
-										text: rung.text
-									}
+									{ tag: 'p', class: 'own-rung-index', text: String(i + 1).padStart(2, '0') },
+									{ tag: 'p', class: 'own-rung-count', text: rung.count },
+									{ tag: 'p', class: 'own-rung-title', text: rung.title },
+									{ tag: 'p', class: 'own-rung-text', text: rung.text }
 								]
 							})
 						)
 					},
-					{
-						tag: 'p',
-						class:
-							'mx-auto mt-10 max-w-xl text-center text-[length:var(--fs-lead)] font-light leading-snug tracking-tight text-foreground sm:text-[length:var(--fs-hero)]',
-						text: t.own.closing
-					}
+					{ tag: 'p', attrs: { id: 'own-closing' }, text: t.own.closing }
 				]
 			}
 		]
