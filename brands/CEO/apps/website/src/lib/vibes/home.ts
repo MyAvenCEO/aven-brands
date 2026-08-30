@@ -171,46 +171,35 @@ function trustView(t: (typeof home)['de']): ViewNode {
 /* ----------------------------------------------------------- the arithmetic */
 
 /**
- * The cost comparison, as its own section.
+ * The cost comparison, as the page's own strike-the-old idiom.
  *
- * It began as a coda inside the privacy band and did not belong there: two
- * claims sharing one ground read as one claim with a footnote, and these are
- * separate arguments — the first says the product is different in kind, this
- * one says it is affordable in practice. A reader who is sold on privacy still
- * has to justify the line item, and that deserves its own room.
+ * The first version was two equal figures facing each other across a rule,
+ * which is the composition rule's own counter-example: two things of equal
+ * weight give the eye nowhere to land, and a comparison with no direction is
+ * a table. It also read as generic, because nothing in it was this brand —
+ * every colour was a neutral or a darkened ink.
  *
- * ON A RAISED SURFACE, not the marine band. The band is the page's turning
- * point and the composition rule says to spend it sparingly — two dark bands
- * in a row makes neither one a turn. This reads as a quiet ledger instead,
- * which is what it is.
+ * The hero already owns the device this section needed: "From ~working to
+ * survive~ to SOVEREIGN founder of tomorrow" — strike the old, colour the new.
+ * Reusing it here makes the argument directional and makes the section belong
+ * to the page rather than sitting on it. The human figure is the setup, struck
+ * through and quiet; the avenCEO figure is the payoff, and it is the only
+ * thing at full size.
  *
- * The two sides are quoted in the units each is actually sold in — a salary
- * per year, a subscription per week — because converting both to one unit is
- * where a comparison starts feeling arranged. The gap does not need arithmetic
- * done for the reader; 100,000 a year beside 99 a week is the argument, and a
- * derived "nineteen times cheaper" row only invites a fight about the divisor.
+ * THE TONES ARE THE BRAND'S OWN, not darkened inks — measured against these
+ * grounds rather than assumed:
+ *
+ *   paradise  #2489a0  3.93:1 on cream — LARGE text only, which is exactly
+ *                      what the payoff figure is (clamped to 56px minimum)
+ *   sunflower #f2ba3d  1.71:1 on cream — cannot be text here at all, so it is
+ *                      a SHAPE: the rule under the figure and the marker
+ *                      beside the label, where 3:1 applies to the mark and not
+ *                      to a glyph anyone has to read
+ *
+ * That is why the ink variants existed; the answer is not to reach for them,
+ * it is to give each tone the job it can actually hold.
  */
 function costView(t: (typeof home)['de']): ViewNode {
-	const side = (
-		s: (typeof home)['de']['trust']['cost']['human'],
-		which: 'human' | 'aven'
-	): ViewNode => ({
-		tag: 'li',
-		attrs: { id: `cost-${which}` },
-		children: [
-			{ tag: 'p', class: 'text text--eyebrow', text: s.label },
-			{
-				tag: 'p',
-				attrs: { id: `cost-${which}-figure` },
-				children: [
-					{ tag: 'span', attrs: { id: `cost-${which}-value` }, text: s.value },
-					{ tag: 'span', attrs: { id: `cost-${which}-unit` }, text: s.unit }
-				]
-			},
-			{ tag: 'p', attrs: { id: `cost-${which}-note` }, text: s.note }
-		]
-	})
-
 	return {
 		tag: 'section',
 		class: 'section section--ground-raised section--measure-wide',
@@ -219,6 +208,7 @@ function costView(t: (typeof home)['de']): ViewNode {
 			{
 				tag: 'div',
 				class: 'section-inner',
+				attrs: { id: 'cost-inner' },
 				children: [
 					{
 						tag: 'div',
@@ -227,7 +217,6 @@ function costView(t: (typeof home)['de']): ViewNode {
 							{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.eyebrow },
 							{
 								tag: 'h2',
-								class: 'text text--display',
 								attrs: { id: 'cost-heading' },
 								text: t.trust.cost.heading
 							},
@@ -235,9 +224,51 @@ function costView(t: (typeof home)['de']): ViewNode {
 						]
 					},
 					{
-						tag: 'ul',
-						attrs: { id: 'cost-sides' },
-						children: [side(t.trust.cost.human, 'human'), side(t.trust.cost.aven, 'aven')]
+						tag: 'div',
+						attrs: { id: 'cost-figures' },
+						children: [
+							/* The setup: struck through, quiet, and deliberately smaller.
+							   It is the number the reader already knows. The strike is CSS
+							   rather than an `<s>` element: SAFE_TAGS admits no `s`, so the
+							   tag fell back to a div and the line silently did not draw —
+							   and a line-through that exists only to be seen belongs in
+							   the stylesheet anyway, not in the semantics. */
+							{
+								tag: 'div',
+								attrs: { id: 'cost-was' },
+								children: [
+									{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.human.label },
+									{
+										tag: 'p',
+										attrs: { id: 'cost-was-figure' },
+										children: [
+											{ tag: 'span', attrs: { id: 'cost-was-value' }, text: t.trust.cost.human.value },
+											{ tag: 'span', attrs: { id: 'cost-was-unit' }, text: t.trust.cost.human.unit }
+										]
+									},
+									{ tag: 'p', attrs: { id: 'cost-was-note' }, text: t.trust.cost.human.note }
+								]
+							},
+							/* The payoff: paradise, full size, on its own line, with the
+							   sunflower rule under it doing the work the accent cannot do
+							   as text on this ground. */
+							{
+								tag: 'div',
+								attrs: { id: 'cost-now' },
+								children: [
+									{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.aven.label },
+									{
+										tag: 'p',
+										attrs: { id: 'cost-now-figure' },
+										children: [
+											{ tag: 'span', attrs: { id: 'cost-now-value' }, text: t.trust.cost.aven.value },
+											{ tag: 'span', attrs: { id: 'cost-now-unit' }, text: t.trust.cost.aven.unit }
+										]
+									},
+									{ tag: 'p', attrs: { id: 'cost-now-note' }, text: t.trust.cost.aven.note }
+								]
+							}
+						]
 					},
 					{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing }
 				]
@@ -250,6 +281,27 @@ function costView(t: (typeof home)['de']): ViewNode {
 
 /** One column of the two-script spread. The old script is greyed out — the
  * life you're leaving; the new one is full colour with accent marks. */
+/**
+ * One script of the two, and the two are NOT equal.
+ *
+ * They were: same eyebrow size, same heading size, same list, same weight,
+ * separated by a rule — a spread that asks the reader to adjudicate rather
+ * than showing them where it lands. The composition rule names this exactly:
+ * two things of equal weight give the eye nowhere to go.
+ *
+ * The past script is now a QUIET ANNOTATION — smaller, unlisted, its lines
+ * struck the way the hero strikes "working to survive" and the arithmetic
+ * strikes the salary. The future script leads: larger, paradise-marked, and
+ * the only one set at reading size. Same idiom in the third place on the page
+ * it appears, which is what makes it the page's own gesture rather than a
+ * decoration.
+ *
+ * Paradise DIRECT rather than `eyebrow-ink`. At 3.93:1 on this ground it
+ * carries the eyebrow (uppercase, tracked, and large enough at 3:1) and the
+ * markers, which are shapes. The old code reached for the darkened ink and
+ * wrote it as an inline `style` attribute, which is a token bypass in two
+ * ways at once.
+ */
 function scriptColumn(
 	script: (typeof home)['de']['shift']['without'],
 	side: 'without' | 'with'
@@ -257,45 +309,27 @@ function scriptColumn(
 	const past = side === 'without'
 	return {
 		tag: 'div',
-		class: past
-			? 'sm:pr-12'
-			: 'border-t border-border/10 pt-10 sm:border-l sm:border-t-0 sm:pl-12 sm:pt-0',
+		attrs: { id: past ? 'shift-was' : 'shift-now' },
 		children: [
 			{
 				tag: 'p',
-				class: past
-					? 'text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)] text-foreground-quiet'
-					: 'text-[length:var(--fs-nano)] font-bold uppercase tracking-[var(--tracking-widest)]',
-				...(past ? {} : { attrs: { style: 'color: var(--color-eyebrow-ink)' } }),
+				class: 'text text--eyebrow',
+				attrs: { id: past ? 'shift-was-eyebrow' : 'shift-now-eyebrow' },
 				text: script.eyebrow
 			},
 			{
 				tag: 'h3',
-				class: past
-					? 'mt-2 text-2xl tracking-tight text-foreground-quiet sm:text-3xl'
-					: 'mt-2 text-2xl tracking-tight text-foreground sm:text-3xl',
+				attrs: { id: past ? 'shift-was-title' : 'shift-now-title' },
 				text: script.title
 			},
 			{
 				tag: 'ul',
-				class: past
-					? 'mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground-quiet sm:text-base'
-					: 'mt-5 space-y-3 text-[length:var(--fs-section)] leading-snug text-foreground-soft sm:text-base',
+				attrs: { id: past ? 'shift-was-items' : 'shift-now-items' },
 				children: script.items.map(
 					(item): ViewNode => ({
 						tag: 'li',
-						class: 'flex gap-3',
 						children: [
-							{
-								tag: 'span',
-								class: past
-									? 'mt-2.5 h-px w-4 shrink-0 bg-foreground/25'
-									: 'mt-2.5 h-px w-4 shrink-0',
-								attrs: {
-									'aria-hidden': 'true',
-									...(past ? {} : { style: 'background-color: var(--color-paradise)' })
-								}
-							},
+							{ tag: 'span', class: 'shift-marker', attrs: { 'aria-hidden': 'true' } },
 							{ tag: 'span', text: item }
 						]
 					})
@@ -303,18 +337,13 @@ function scriptColumn(
 			},
 			{
 				tag: 'p',
-				class: past
-					? 'mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground-quiet sm:text-[length:var(--fs-hero)]'
-					: 'mt-6 text-[length:var(--fs-lead)] font-light leading-snug text-foreground sm:text-[length:var(--fs-hero)]',
+				attrs: { id: past ? 'shift-was-closing' : 'shift-now-closing' },
 				text: script.closing
 			}
 		]
 	}
 }
 
-/** The shift, as an editorial spread: the wish up top, the question set
- * large, then the two scripts side by side — the old one greyed out, the
- * new one in full colour — split by a single rule. No card chrome. */
 function shiftView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
@@ -345,7 +374,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 					{ tag: 'p', attrs: { id: 'shift-question' }, text: '@@shift-question@@' },
 					{
 						tag: 'div',
-						class: 'mt-14 grid gap-10 sm:grid-cols-2 sm:gap-0',
+						attrs: { id: 'shift-scripts' },
 						children: [scriptColumn(t.shift.without, 'without'), scriptColumn(t.shift.with, 'with')]
 					},
 					{

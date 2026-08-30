@@ -119,22 +119,22 @@ export const home: Record<Lang, HomeMessages> = {
 			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
 			cost: {
 				eyebrow: 'Die Rechnung',
-				heading: 'Ein CEO für 99 € die Woche.',
+				heading: 'Ab 99 € die Woche.',
 				lead: 'Nicht günstiger. Eine andere Größenordnung.',
 				human: {
 					label: 'Menschlicher CEO',
-					value: '100.000 €',
-					unit: 'und aufwärts, pro Jahr',
+					value: '> 100.000 €',
+					unit: 'pro Jahr',
 					note: 'plus Arbeitgeberanteil, Bonus und Ausstattung — für 40 Stunden die Woche, abzüglich Urlaub und Krankheit'
 				},
 				aven: {
 					label: 'avenCEO',
-					value: '99 €',
+					value: 'ab 99 €',
 					unit: 'pro Woche',
-					note: 'rund um die Uhr, sieben Tage, ohne Urlaubsanspruch und ohne Einarbeitung'
+					note: 'rund um die Uhr, sieben Tage, ohne Urlaubsanspruch'
 				},
 				closing:
-					'Und er macht die Arbeit, die sich wiederholt — Angebote, Rechnungen, Nachfassen, Reporting — genau so, wie du es ansagst. Nicht ungefähr. Genau so.'
+					'Und er macht die Arbeit, die sich wiederholt — Angebote, Rechnungen, Nachfassen, Reporting — genau so, wie du es ansagst.'
 			}
 		},
 		shift: {
@@ -249,22 +249,22 @@ export const home: Record<Lang, HomeMessages> = {
 			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
 			cost: {
 				eyebrow: 'The arithmetic',
-				heading: 'A CEO for 99 € a week.',
+				heading: 'Starting at 99 € a week.',
 				lead: 'Not cheaper. A different order of magnitude.',
 				human: {
 					label: 'Human CEO',
-					value: '100,000 €',
-					unit: 'and up, per year',
+					value: '> 100,000 €',
+					unit: 'per year',
 					note: 'before employer costs, bonus and equipment — for forty hours a week, minus holiday and sick leave'
 				},
 				aven: {
 					label: 'avenCEO',
-					value: '99 €',
+					value: 'from 99 €',
 					unit: 'per week',
-					note: 'around the clock, seven days, no leave to accrue and no onboarding'
+					note: 'around the clock, seven days, no leave to accrue'
 				},
 				closing:
-					'And it does the work that repeats — quotes, invoices, follow-ups, reporting — exactly the way you tell it to. Not roughly. Exactly.'
+					'And it does the work that repeats — quotes, invoices, follow-ups, reporting — exactly the way you tell it to.'
 			}
 		},
 		shift: {

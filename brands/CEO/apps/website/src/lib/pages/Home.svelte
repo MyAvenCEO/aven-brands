@@ -263,91 +263,239 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * THE ARITHMETIC, styled as a ledger rather than a banner.
+ * THE ARITHMETIC — the page's strike-the-old idiom, at section scale.
  *
- * Two figures facing each other across a rule, each quoted in the unit it is
- * actually sold in. The rule is the comparison: it does the work a "× 19" row
- * was doing, without inviting an argument about the divisor.
+ * Asymmetric on purpose: the struck figure is the setup and the paradise one
+ * is the payoff, so the eye lands on the answer rather than adjudicating
+ * between two equal columns.
  *
- * The avenCEO side wears the accent and the human side stays quiet, because
- * one of the two is the offer and three equal figures leave the eye nowhere —
- * the same composition rule the trust band's claims follow.
+ * The tones are the brand's own, each given the job it can hold on this
+ * ground: paradise carries the payoff figure because at 3.93:1 it is legible
+ * as LARGE text and the figure is clamped to 56px minimum; sunflower carries
+ * the rule and the marker, because at 1.71:1 on cream it cannot be a glyph
+ * anyone has to read but it is a perfectly good shape.
  */
+:global(#cost-inner) {
+	display: grid;
+	gap: var(--space-section);
+}
 :global(#cost-head) {
 	display: grid;
-	justify-items: center;
 	gap: var(--space-tight);
 	max-inline-size: 34rem;
-	margin-inline: auto;
-	text-align: center;
+}
+:global(#cost-heading) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-display), 5.5cqi, 2.75rem);
+	font-weight: 400;
+	line-height: 1.1;
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+	color: var(--color-foreground);
 }
 :global(#cost-lead) {
 	margin: 0;
 	font-size: var(--fs-lead);
 	color: var(--color-foreground-soft);
 }
-:global(#cost-sides) {
+
+/* The setup sits above and left, the payoff below and larger: a reading order
+   with a direction, not a pair of columns. */
+:global(#cost-figures) {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
 	gap: var(--space-loose);
-	inline-size: 100%;
-	max-inline-size: 52rem;
-	margin: var(--space-section) auto 0;
+	justify-items: start;
 }
-:global(#cost-sides > li) {
+:global(#cost-was),
+:global(#cost-now) {
 	display: grid;
+	gap: var(--space-hairline);
+	max-inline-size: 34rem;
+}
+:global(#cost-was-figure),
+:global(#cost-now-figure) {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
 	gap: var(--space-tight);
-	padding: var(--space-loose) var(--space-comfortable);
-	text-align: center;
-}
-/* The rule between them, and only between them — a border on the second item
-   rather than a divider element, so it disappears on its own when the two
-   stack on a narrow screen. */
-@media (min-width: 40rem) {
-	:global(#cost-sides > li + li) {
-		border-inline-start: 1px solid var(--color-border-soft);
-	}
-}
-:global(#cost-human-figure),
-:global(#cost-aven-figure) {
-	display: grid;
-	gap: 0.15rem;
 	margin: 0;
-}
-:global(#cost-human-value),
-:global(#cost-aven-value) {
 	font-family: var(--font-display);
-	font-size: clamp(var(--fs-amount), 7cqi, 3.25rem);
-	font-weight: 500;
-	line-height: 1;
 	font-variant-numeric: tabular-nums;
+	line-height: 1;
 }
-:global(#cost-human-value) {
+:global(#cost-was-value) {
+	font-size: clamp(var(--fs-amount), 4cqi, 2rem);
+	font-weight: 400;
 	color: var(--color-foreground-quiet);
+	/* The brand's own strike: the hero draws one through "working to survive",
+	   and this is the same gesture on a number. In CSS rather than an `<s>`
+	   element, because the engine's tag allowlist admits no `s` and the tag
+	   fell back to a div — the line never drew, and nothing said so. */
+	text-decoration: line-through;
+	text-decoration-thickness: 1px;
+	text-decoration-color: var(--color-foreground-quiet);
 }
-:global(#cost-aven-value) {
-	color: var(--color-accent-ink);
+:global(#cost-now-value) {
+	font-size: clamp(3.5rem, 11cqi, 6rem);
+	font-weight: 400;
+	color: var(--color-paradise);
 }
-:global(#cost-human-unit),
-:global(#cost-aven-unit) {
+:global(#cost-was-unit),
+:global(#cost-now-unit) {
+	font-family: var(--font-sans);
 	font-size: var(--fs-meta);
 	color: var(--color-foreground-quiet);
 }
-:global(#cost-human-note),
-:global(#cost-aven-note) {
-	max-inline-size: 22rem;
-	margin: var(--space-tight) auto 0;
+/* Sunflower as a SHAPE, under the payoff — the accent the brand is known for,
+   doing the one job it can do legibly on a cream ground. */
+:global(#cost-now-figure)::after {
+	content: '';
+	flex-basis: 100%;
+	block-size: 3px;
+	max-inline-size: 7rem;
+	margin-block-start: var(--space-tight);
+	background: var(--color-sunflower);
+	border-radius: var(--radius-full);
+}
+:global(#cost-was-note),
+:global(#cost-now-note) {
+	margin: var(--space-tight) 0 0;
 	font-size: var(--fs-meta);
 	line-height: 1.55;
 	color: var(--color-foreground-soft);
 }
 :global(#cost-closing) {
-	max-inline-size: 40rem;
-	margin: var(--space-section) auto 0;
+	max-inline-size: 38rem;
+	margin: 0;
 	font-size: var(--fs-lead);
-	line-height: 1.55;
-	text-align: center;
+	line-height: 1.5;
 	text-wrap: pretty;
+	color: var(--color-foreground);
+}
+
+/*
+ * THE SHIFT — one script leads, the other annotates.
+ *
+ * Two equal columns separated by a rule asked the reader to adjudicate; this
+ * asks them to arrive. The past script is a quiet annotation with its lines
+ * struck, the future one is set at reading size and marked in paradise — the
+ * page's own strike-the-old gesture, third appearance, which is what makes it
+ * a gesture rather than a decoration.
+ *
+ * Paradise DIRECT: 3.93:1 on this ground carries a tracked uppercase eyebrow
+ * (3:1 applies) and the markers, which are shapes. No darkened ink, and no
+ * inline `style` attribute — the old code wrote both.
+ */
+:global(#shift-scripts) {
+	display: grid;
+	gap: var(--space-section);
+	margin-block-start: var(--space-section);
+}
+@media (min-width: 52rem) {
+	:global(#shift-scripts) {
+		/* The future script gets the room: not a half, a majority. */
+		grid-template-columns: 4fr 6fr;
+		gap: var(--space-section);
+		align-items: start;
+	}
+}
+:global(#shift-was),
+:global(#shift-now) {
+	display: grid;
+	gap: var(--space-tight);
+	min-inline-size: 0;
+}
+:global(#shift-was-eyebrow) {
+	color: var(--color-foreground-quiet);
+}
+/*
+ * The one place paradise CANNOT go directly, and the measurement says so:
+ * this eyebrow is 11px, so WCAG asks 4.5:1 of it, and paradise on cream is
+ * 3.93 — it clears the 3:1 that large text and shapes get, and misses the
+ * bar for a glyph this small. `eyebrow-ink` IS paradise, darkened exactly far
+ * enough to pass; that is the whole reason the rank exists.
+ *
+ * The tone still runs through this section undiluted where it can carry
+ * itself: the markers are shapes (3:1) and the arithmetic's figure is 56px
+ * (3:1). Accessibility outranks aesthetics — the rule the system leads with,
+ * and this is what it looks like when it bites.
+ */
+:global(#shift-now-eyebrow) {
+	color: var(--color-eyebrow-ink);
+}
+:global(#shift-was-title),
+:global(#shift-now-title) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
+	text-wrap: balance;
+}
+:global(#shift-was-title) {
+	font-size: var(--fs-lead);
+	color: var(--color-foreground-quiet);
+}
+:global(#shift-now-title) {
+	font-size: clamp(var(--fs-amount), 4.5cqi, 2.25rem);
+	color: var(--color-foreground);
+}
+:global(#shift-was-items),
+:global(#shift-now-items) {
+	display: grid;
+	gap: var(--space-tight);
+	margin: var(--space-tight) 0 0;
+	padding: 0;
+	list-style: none;
+}
+:global(#shift-was-items > li),
+:global(#shift-now-items > li) {
+	display: flex;
+	gap: var(--space-comfortable);
+	align-items: baseline;
+}
+:global(#shift-was-items) {
+	font-size: var(--fs-meta);
+	line-height: 1.5;
+	color: var(--color-foreground-quiet);
+}
+/* Struck, like the salary and like "working to survive": this is the script
+   being left behind, and the line says so without a word of copy. */
+:global(#shift-was-items > li > span:last-child) {
+	text-decoration: line-through;
+	text-decoration-thickness: 1px;
+	text-decoration-color: color-mix(in oklab, var(--color-foreground) 35%, transparent);
+}
+:global(#shift-now-items) {
+	font-size: var(--fs-lead);
+	line-height: 1.45;
+	color: var(--color-foreground);
+}
+:global(.shift-marker) {
+	flex: 0 0 auto;
+	inline-size: 1rem;
+	block-size: 1px;
+	margin-block-start: 0.55em;
+	background: color-mix(in oklab, var(--color-foreground) 25%, transparent);
+}
+:global(#shift-now-items .shift-marker) {
+	block-size: 2px;
+	background: var(--color-paradise);
+}
+:global(#shift-was-closing),
+:global(#shift-now-closing) {
+	margin: var(--space-comfortable) 0 0;
+	text-wrap: pretty;
+}
+:global(#shift-was-closing) {
+	font-size: var(--fs-meta);
+	color: var(--color-foreground-quiet);
+}
+:global(#shift-now-closing) {
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
+	line-height: 1.3;
 	color: var(--color-foreground);
 }
 
