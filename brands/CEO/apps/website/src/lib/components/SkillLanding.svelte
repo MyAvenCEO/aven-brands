@@ -9,7 +9,7 @@
  * footer.
  */
 import { page } from '$app/state'
-import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import { type Lang, pick } from '$lib/i18n'
@@ -55,12 +55,7 @@ if (!sections) throw new Error('[skill] missing skillSections — the route has 
 
 	{@html sections.letter}
 
-	<section class="section sm:px-8 sm:py-20">
-		<div class="mx-auto max-w-2xl">
-			<AvenIdCheckCta variant="banner" {lang} />
-			{@html sections.back}
-		</div>
-	</section>
+	<ClaimSection {lang} tail={sections.back} />
 
 	<SiteFooter {lang} />
 </div>

@@ -2,8 +2,9 @@
 import { IMPRESSUM_DE } from '@myavenceo/aven-ceo'
 import { footerData } from '$lib/vibes/footer'
 import { legalDocHtml } from '$lib/vibes/legal'
+import { idCtaChrome } from '$lib/vibes/id-check-cta'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ url }) => {
-	return { legalHtml: await legalDocHtml(IMPRESSUM_DE), ...(await footerData(url.pathname)) }
+	return { idCtaChrome: await idCtaChrome('de'), legalHtml: await legalDocHtml(IMPRESSUM_DE), ...(await footerData(url.pathname)) }
 }

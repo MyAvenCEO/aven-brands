@@ -5,6 +5,7 @@
 
 <script lang="ts">
 import { page } from '$app/state'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 
@@ -19,6 +20,8 @@ if (!html) throw new Error('[agb] missing legalHtml — the route has no server 
 	<MarketingSiteHeader />
 
 	{@html html}
+
+	<ClaimSection lang="de" />
 
 	<SiteFooter />
 </div>

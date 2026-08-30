@@ -3,6 +3,7 @@
      server load renders the ViewDef in $lib/vibes/legal.ts at build, and
      this shell places the HTML between the header and the footer. -->
 <script lang="ts">
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import type { LegalDocument } from '@myavenceo/aven-ceo'
 import { page } from '$app/state'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
@@ -28,6 +29,8 @@ if (!html) throw new Error('[legal] missing legalHtml — the route has no serve
 	<MarketingSiteHeader {lang} />
 
 	{@html html}
+
+	<ClaimSection {lang} />
 
 	<SiteFooter {lang} />
 </div>

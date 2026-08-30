@@ -20,7 +20,7 @@
  * to render thirteen cards that never change.
  */
 import { page } from '$app/state'
-import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import { type Lang, pick } from '$lib/i18n'
@@ -80,11 +80,7 @@ $effect(() => {
 	{@html sections.bundle}
 
 	<!-- CTA -->
-	<section class="section sm:px-8 sm:py-20">
-		<div class="mx-auto max-w-2xl">
-			<AvenIdCheckCta variant="banner" {lang} />
-		</div>
-	</section>
+	<ClaimSection {lang} />
 
 	<SiteFooter {lang} />
 </div>

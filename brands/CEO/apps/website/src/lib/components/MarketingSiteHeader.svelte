@@ -184,8 +184,11 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 			{/each}
 		</nav>
 
+		<!-- The language switch sits BEFORE the call to action, so the bar ends on
+		     the thing it wants you to do. A setting placed after the CTA reads as
+		     an afterthought to it and puts a low-intent control in the highest
+		     position on the row. -->
 		<div class="navbar-actions">
-			<a class="btn btn--accent" href={idFunnelHref()}>{t.nav.cta}</a>
 			<span class="segment" role="group" aria-label={t.switchLabel}>
 				<span class="segment-options">
 					<a class="segment-option" href={langHref('de')} hreflang="de"
@@ -197,6 +200,11 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 					>
 				</span>
 			</span>
+			<!-- Scrolls to the claim block rather than jumping to the external
+			     checkout. `ClaimSection` is on every page, so `#claim` always
+			     resolves — that is the whole reason it was made shared rather than
+			     left as five per-page copies. -->
+			<a class="btn btn--accent" href="#claim">{t.nav.cta}</a>
 		</div>
 
 		<!-- The toggle and the menu, from the island's build-rendered HTML. The

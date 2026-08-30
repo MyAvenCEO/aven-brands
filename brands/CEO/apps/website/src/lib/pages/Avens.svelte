@@ -10,7 +10,7 @@
  * header and the footer.
  */
 import { page } from '$app/state'
-import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import { type Lang, pick } from '$lib/i18n'
@@ -39,12 +39,7 @@ if (!sections) throw new Error('[avens] missing avensSections — the route has 
 
 	{@html sections.people}
 
-	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16">
-		<div class="mx-auto max-w-2xl">
-			{@html sections.ctaHead}
-			<AvenIdCheckCta variant="banner" {lang} />
-		</div>
-	</section>
+	<ClaimSection {lang} head={sections.ctaHead} />
 
 	<SiteFooter {lang} />
 </div>

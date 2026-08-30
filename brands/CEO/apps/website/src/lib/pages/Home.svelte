@@ -20,7 +20,7 @@
  * from $lib/i18n/home.ts — never user content.
  */
 import { page } from '$app/state'
-import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import SkillMarketplaceCard from '$lib/components/SkillMarketplaceCard.svelte'
@@ -80,28 +80,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		</div>
 	</section>
 
-	<!-- A full-bleed divider between the marketplace and the invite. It takes no
-	     measure and no padding on purpose: every other band is contained, so the
-	     one that runs edge to edge reads as a break in the page rather than
-	     another section of it. Decorative, so no alt text — the sections either
-	     side already say what it means. -->
-	<figure id="skills-divider" aria-hidden="true">
-		<img
-			src="/family.jpg"
-			alt=""
-			width="1920"
-			height="720"
-			loading="lazy"
-			decoding="async"
-		/>
-	</figure>
-
-	<section class="border-b border-border/8 px-5 py-14 sm:px-8 sm:py-16">
-		<div class="mx-auto max-w-2xl">
-			{@html sections.startHead}
-			<AvenIdCheckCta variant="banner" {lang} />
-		</div>
-	</section>
+	<ClaimSection {lang} head={sections.startHead} />
 
 	<SiteFooter {lang} />
 </div>

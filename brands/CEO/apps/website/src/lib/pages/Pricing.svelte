@@ -9,7 +9,7 @@
  * header and the footer.
  */
 import { page } from '$app/state'
-import AvenIdCheckCta from '$lib/components/AvenIdCheckCta.svelte'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import { type Lang, pick } from '$lib/i18n'
@@ -34,11 +34,7 @@ if (!sections) throw new Error('[pricing] missing pricingSections — the route 
 
 	{@html sections.plans}
 
-	<section class="border-b border-border/25 px-5 py-14 sm:px-8 sm:py-16" id="aven-id">
-		<div class="mx-auto max-w-3xl">
-			<AvenIdCheckCta variant="banner" {lang} />
-		</div>
-	</section>
+	<ClaimSection {lang} />
 
 	<SiteFooter {lang} />
 </div>
