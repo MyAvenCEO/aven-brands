@@ -261,7 +261,47 @@ export type MigrationRow = {
 	unit: string
 	as?: string
 	note?: string
+	/** The class a caller writes, axis included. */
+	target: string
 	uncalled: boolean
+}
+
+/**
+ * The class a caller actually writes for `unit` + `as`.
+ *
+ * The table used to compose this as `${unit}--${as}`, which is right only when
+ * the option lives on an axis literally called `variant` — that is the one axis
+ * the emitter leaves out of the class name. Every other axis is IN the name, so
+ * `lede -> prose as lead` was printed as `prose--lead` while the stylesheet
+ * emits `prose--size-lead`. The table was telling people to write a class that
+ * does not exist, which is worse than not having the row.
+ *
+ * The axis is looked up in the registry rather than assumed, so this cannot
+ * drift again: if an option moves to a different axis, the printed class moves
+ * with it.
+ */
+function supersessionClass(unit: string, as?: string): string {
+	if (!as) return unit
+	const styling = (
+		units[unit] as {
+			styling?: { variants?: Record<string, object>; parts?: Record<string, object> }
+		}
+	)?.styling
+	for (const [axis, options] of Object.entries(styling?.variants ?? {})) {
+		if (as in (options as Record<string, unknown>)) {
+			return axis === 'variant' ? `${unit}--${as}` : `${unit}--${axis}-${as}`
+		}
+	}
+	/*
+	 * A PART, not a variant, and the two are different classes: a part is one
+	 * dash (`field-label`), a variant is two (`field--size-sm`). `label` is a
+	 * part of `field`, so composing it as a variant produced `field--label`,
+	 * which the stylesheet does not contain — the last of the twenty-four
+	 * targets that named a class nobody could write.
+	 */
+	if (as in (styling?.parts ?? {})) return `${unit}-${as}`
+	/* Neither: print the bare unit rather than inventing a class for it. */
+	return unit
 }
 
 export const migrationRows: MigrationRow[] = Object.entries(SUPERSEDES)
@@ -269,6 +309,7 @@ export const migrationRows: MigrationRow[] = Object.entries(SUPERSEDES)
 		legacy,
 		unit: to.unit,
 		as: to.as,
+		target: supersessionClass(to.unit, to.as),
 		note: to.note,
 		uncalled: UNCALLED.includes(legacy)
 	}))

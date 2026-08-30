@@ -813,7 +813,7 @@ function inspect(name: string) {
 									class="cb-mono cb-mig-to"
 									onclick={() => openUnitFrom(row.unit)}
 								>
-									{row.unit}{row.as ? `--${row.as}` : ''}
+									{row.target}
 								</button>
 								{#if row.uncalled}
 									<span class="cb-tag">nothing calls it</span>
