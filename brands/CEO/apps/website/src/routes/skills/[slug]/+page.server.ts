@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit'
 import { allSlugs, loadSkill } from '$lib/skills/loader'
 import { footerHtml } from '$lib/vibes/footer'
+import { idCtaChrome } from '$lib/vibes/id-check-cta'
 import { renderSkillLandingSections } from '$lib/vibes/skill-landing'
 import type { PageServerLoad } from './$types'
 
@@ -18,6 +19,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	return {
 		skill,
 		skillSections: await renderSkillLandingSections(skill, 'en'),
-		footerHtml: await footerHtml('en')
+		footerHtml: await footerHtml('en'),
+		idCtaChrome: await idCtaChrome('en')
 	}
 }

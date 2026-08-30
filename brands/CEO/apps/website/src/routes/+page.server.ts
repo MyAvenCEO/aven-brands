@@ -8,8 +8,13 @@
  */
 import { footerHtml } from '$lib/vibes/footer'
 import { renderHomeSections } from '$lib/vibes/home'
+import { idCtaChrome } from '$lib/vibes/id-check-cta'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async () => {
-	return { homeSections: await renderHomeSections('en'), footerHtml: await footerHtml('en') }
+	return {
+		homeSections: await renderHomeSections('en'),
+		footerHtml: await footerHtml('en'),
+		idCtaChrome: await idCtaChrome('en')
+	}
 }
