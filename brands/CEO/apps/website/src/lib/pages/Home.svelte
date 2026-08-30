@@ -527,26 +527,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 :global(#shift-scripts) {
 	counter-reset: script;
 }
-:global(#shift-scripts) /*
- * NOT A UNIT, deliberately — and this is the note that stops the next attempt.
- *
- * It is already ONE implementation shared by three sections, so promoting it
- * removes no duplication; what it would add is a storyboard specimen. The price
- * is the system's own container contract: every composite declares a container,
- * every container declares its own `inline-size`, and `inline-size: 100%` on
- * this label makes its rule ALWAYS draw.
- *
- * That sounds like the point and is not. On a centred head the label shrinks to
- * its content and the rule collapses to nothing — which is how one device reads
- * as a plain eyebrow there and as an anchored one in a ranged column. Whether
- * the rule appears is the CALLER's layout decision, and the contract has no way
- * to say that. Measured both ways: forcing the width moved 12 elements,
- * dropping it to compensate broke the container test and moved 324.
- *
- * It becomes a unit when either the contract grows a non-container composite,
- * or the device stops depending on its own width.
- */
-:global(.rule-label) {
+:global(#shift-scripts) :global(.rule-label) {
 	counter-increment: script;
 }
 :global(#shift-scripts) :global(.rule-label)::before {
@@ -790,6 +771,25 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * the period actually used, and a stylesheet can make all of them without a
  * single asset. Brand colour throughout — the retro is in the STRUCTURE, not
  * in a new palette.
+ */
+/*
+ * NOT A UNIT, deliberately — and this is the note that stops the next attempt.
+ *
+ * It is already ONE implementation shared by three sections, so promoting it
+ * removes no duplication; what it would add is a storyboard specimen. The price
+ * is the system's own container contract: every composite declares a container,
+ * every container declares its own `inline-size`, and `inline-size: 100%` on
+ * this label makes its rule ALWAYS draw.
+ *
+ * That sounds like the point and is not. On a centred head the label shrinks to
+ * its content and the rule collapses to nothing — which is how one device reads
+ * as a plain eyebrow there and as an anchored one in a ranged column. Whether
+ * the rule appears is the CALLER's layout decision, and the contract has no way
+ * to say that. Measured both ways: forcing the width moved 12 elements,
+ * dropping it to compensate broke the container test and moved 324.
+ *
+ * It becomes a unit when either the contract grows a non-container composite,
+ * or the device stops depending on its own width.
  */
 :global(.rule-label) {
 	display: flex;

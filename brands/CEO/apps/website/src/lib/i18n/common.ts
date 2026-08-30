@@ -108,7 +108,7 @@ export const common: Record<
 				`inkl. ${pct}% Rabatt auf deine ersten ${months} Monate avenCEO`,
 			betaPriceLine: (discounted, regular) => `${discounted} €/m statt ${regular} €`,
 			placeholder: 'maia',
-			button: 'Namen sichern →',
+			button: 'Sichere dir jetzt deinen avenNAME',
 			exampleLabel: 'Beispiel:',
 			priceNote: (price) => `einmalig ${price} € inkl. USt.`,
 			formLabel: 'Namen sichern'
@@ -163,7 +163,7 @@ export const common: Record<
 				`incl. ${pct}% off your first ${months} months of avenCEO`,
 			betaPriceLine: (discounted, regular) => `${discounted} €/m instead of ${regular} €`,
 			placeholder: 'maia',
-			button: 'Claim your name →',
+			button: 'Claim your avenNAME now',
 			exampleLabel: 'Example:',
 			priceNote: (price) => `one-time ${price} € incl. VAT`,
 			formLabel: 'Claim your name'

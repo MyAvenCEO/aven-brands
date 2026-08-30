@@ -150,6 +150,20 @@ let {
  * source order. The knob was set and silently did nothing — the block stayed
  * 1152px wide while the CSS claimed 42rem.
  */
+/* The one action on the card, sized to be it: the claim is the whole point of
+   this block, so the button is the largest control on it rather than a link
+   under a paragraph. `btn--accent` is the brand yellow; marine on sunflower
+   measures 8.27:1. */
+:global(#id-claim-action) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-block-size: 3.5rem;
+	padding-inline: var(--space-section);
+	font-size: var(--fs-lead);
+	font-weight: 600;
+}
+
 :global(#claim) :global(.section-inner) {
 	max-inline-size: 48rem;
 }
