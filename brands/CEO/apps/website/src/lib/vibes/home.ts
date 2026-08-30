@@ -171,26 +171,24 @@ function trustView(t: (typeof home)['de']): ViewNode {
 /* ----------------------------------------------------------- the arithmetic */
 
 /**
- * The invitation, then the arithmetic that makes it possible.
+ * An editorial spread: the story down the left, the price as the object on
+ * the right.
  *
- * An earlier pass put the price in the HEADING and again in the figure —
- * "Starting at 99 a week" over "from 99" — which spends the payoff before the
- * reader reaches it and makes the figure a repetition rather than a reveal. A
- * number lands once. The heading now carries the story it is evidence for:
- * starting the company you always meant to start.
+ * The previous pass stacked four blocks at four different measures — 576px,
+ * then full width, then full width, then 544px — all flush left in a 1344px
+ * field. Nothing related them, so the section read as a column that kept
+ * changing its mind, with more than half the width empty beside the parts
+ * that mattered most. Measured, which is how it was found.
  *
- * The order is the persuasion. Invitation, then what it actually DOES (four
- * concrete jobs, because "a CEO" is a claim and "builds your website, runs
- * your operations" is a fact), then the two figures with the old one struck,
- * then the turn. A reader who arrives sceptical meets the promise, the
- * evidence, and the price in the order that answers their objections.
+ * One grid now, and every element sits in it. The story column and the price
+ * column face each other, which is what makes the price an ANSWER to the
+ * heading rather than a fact filed underneath it; the capabilities run as a
+ * rule-separated band across both, because they qualify both halves; the turn
+ * closes on the story column's own edge.
  *
- * The idiom is the page's own: strike the old, colour the new — the hero does
- * it to a sentence, the shift does it to a script, this does it to a salary.
- * Tones direct where the ground allows: paradise on the figure at 56px and on
- * the capability markers, sunflower as the rule beneath. Measured, not
- * assumed: paradise is 3.93:1 on cream, which clears 3:1 for large text and
- * shapes and misses 4.5:1 for small glyphs.
+ * The price panel is the lead — "one thing leads", and on a page about what a
+ * company costs, the number is the thing. It gets the accent edge, the
+ * largest type on the section, and the right-hand column to itself.
  */
 function costView(t: (typeof home)['de']): ViewNode {
 	return {
@@ -201,37 +199,31 @@ function costView(t: (typeof home)['de']): ViewNode {
 			{
 				tag: 'div',
 				class: 'section-inner',
-				attrs: { id: 'cost-inner' },
+				attrs: { id: 'cost-grid' },
 				children: [
+					/* Story column. */
 					{
 						tag: 'div',
-						attrs: { id: 'cost-head' },
+						attrs: { id: 'cost-story' },
 						children: [
 							{ tag: 'p', class: 'text text--eyebrow', text: t.trust.cost.eyebrow },
 							{ tag: 'h2', attrs: { id: 'cost-heading' }, text: t.trust.cost.heading },
-							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead }
+							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead },
+							{
+								tag: 'div',
+								attrs: { id: 'cost-turn' },
+								children: [
+									{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing },
+									{ tag: 'p', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker }
+								]
+							}
 						]
 					},
-					/* What it runs, before what it costs. Four jobs beats an adjective. */
-					{
-						tag: 'ul',
-						attrs: { id: 'cost-does' },
-						children: t.trust.cost.does.map(
-							(job): ViewNode => ({
-								tag: 'li',
-								children: [
-									{ tag: 'span', class: 'cost-does-mark', attrs: { 'aria-hidden': 'true' } },
-									{ tag: 'span', text: job }
-								]
-							})
-						)
-					},
-					/* The comparison, as one object rather than two columns: the struck
-					   salary sits directly above the price it is replaced by, which is
-					   the whole argument in one glance. */
+					/* Price column: the struck salary directly above what replaces it,
+					   so the swap is one glance rather than an arithmetic exercise. */
 					{
 						tag: 'div',
-						attrs: { id: 'cost-figures' },
+						attrs: { id: 'cost-price' },
 						children: [
 							{
 								tag: 'div',
@@ -267,13 +259,19 @@ function costView(t: (typeof home)['de']): ViewNode {
 							}
 						]
 					},
+					/* The band across both columns: what it runs, as receipts. */
 					{
-						tag: 'div',
-						attrs: { id: 'cost-turn' },
-						children: [
-							{ tag: 'p', attrs: { id: 'cost-closing' }, text: t.trust.cost.closing },
-							{ tag: 'p', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker }
-						]
+						tag: 'ul',
+						attrs: { id: 'cost-does' },
+						children: t.trust.cost.does.map(
+							(job): ViewNode => ({
+								tag: 'li',
+								children: [
+									{ tag: 'span', class: 'cost-does-mark', attrs: { 'aria-hidden': 'true' } },
+									{ tag: 'span', text: job }
+								]
+							})
+						)
 					}
 				]
 			}
@@ -377,18 +375,17 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 						attrs: { id: 'shift-scripts' },
 						children: [scriptColumn(t.shift.without, 'without'), scriptColumn(t.shift.with, 'with')]
 					},
+					/* The resolution, on the section's own left edge like everything
+					   else. It was centred with utility classes AND an inline `style`
+					   attribute carrying the colour — a token bypass, and the last
+					   thing on the page still writing one. */
 					{
-						tag: 'p',
-						class:
-							'mx-auto mt-16 max-w-2xl text-center text-[length:var(--fs-title)] font-light leading-snug tracking-tight text-foreground-quiet sm:text-[length:var(--fs-lead)]',
-						text: t.shift.closingBefore
-					},
-					{
-						tag: 'p',
-						class:
-							'mx-auto mt-3 max-w-2xl text-center font-display text-[clamp(1.5rem,4cqi,2.25rem)] font-medium tracking-tight',
-						attrs: { style: 'color: var(--color-eyebrow-ink)' },
-						text: t.shift.closingStrong
+						tag: 'div',
+						attrs: { id: 'shift-turn' },
+						children: [
+							{ tag: 'p', attrs: { id: 'shift-turn-lead' }, text: t.shift.closingBefore },
+							{ tag: 'p', attrs: { id: 'shift-turn-kicker' }, text: t.shift.closingStrong }
+						]
 					}
 				]
 			}

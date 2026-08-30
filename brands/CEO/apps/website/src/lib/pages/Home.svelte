@@ -239,54 +239,92 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	container-type: inline-size;
 }
 
+/*
+ * THE SHIFT — one left edge, all the way down.
+ *
+ * It mixed alignments in a single breath: the head centred at 544px, the
+ * question centred at 768px, the two scripts spanning the full 1344px, the
+ * resolution centred again at 672px. Four measures and two alignments, so the
+ * scripts read as a break rather than as the section's middle. Everything
+ * starts on the same edge now, and the scripts are the only two-column
+ * moment — which makes that split deliberate instead of accidental.
+ */
 :global(#shift-head) {
 	display: grid;
-	justify-items: center;
 	gap: var(--space-tight);
 	max-inline-size: 34rem;
-	margin-inline: auto;
-	text-align: center;
 }
 
-/* The pull-quote. `cqi`, never `vw` — see the note at the call site. */
+/* The pull-quote: the page's turn, and the largest thing in the section, so
+   it leads. `cqi`, never `vw` — see the note at the call site. */
 :global(#shift-question) {
-	max-inline-size: 48rem;
-	margin: var(--space-loose) auto 0;
+	max-inline-size: 44rem;
+	margin: var(--space-section) 0 0;
 	font-family: var(--font-display);
-	font-size: clamp(1.5rem, 4.2cqi, 2.5rem);
-	font-weight: 500;
-	line-height: 1.15;
+	font-size: clamp(1.75rem, 5cqi, 3rem);
+	font-weight: 400;
+	line-height: 1.1;
 	letter-spacing: var(--tracking-tight);
-	text-align: center;
 	text-wrap: balance;
 	color: var(--color-foreground);
 }
+:global(#shift-turn) {
+	display: grid;
+	gap: var(--space-tight);
+	max-inline-size: 34rem;
+	margin-block-start: var(--space-section);
+	padding-block-start: var(--space-loose);
+	border-block-start: 1px solid var(--color-border-soft);
+}
+:global(#shift-turn-lead) {
+	margin: 0;
+	font-size: var(--fs-meta);
+	color: var(--color-foreground-quiet);
+}
+:global(#shift-turn-kicker) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-amount), 4cqi, 2.25rem);
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
+	color: var(--color-eyebrow-ink);
+}
 
 /*
- * THE ARITHMETIC — invitation, evidence, price, turn.
+ * THE ARITHMETIC — an editorial spread on ONE grid.
  *
- * Laid out as a reading order rather than a grid of equals: the story runs at
- * a prose measure, the four jobs sit in a band beneath it, and the two figures
- * stack so the struck salary is directly above the price replacing it. That
- * adjacency IS the argument — the eye does the subtraction without a "× 19"
- * row telling it to.
- *
- * The price appears exactly once. An earlier pass had it in the heading and
- * again in the figure, which spends the payoff before the reader reaches it.
+ * The previous version stacked blocks at 576px, full, full and 544px, all
+ * flush left in a 1344px field: four measures, no relationship, and more than
+ * half the width empty beside the parts that mattered. Everything sits in one
+ * grid now, so the story and the price FACE each other and the price reads as
+ * the answer to the heading rather than a fact filed underneath it.
  */
-:global(#cost-inner) {
+:global(#cost-grid) {
 	display: grid;
-	gap: var(--space-section);
+	gap: var(--space-section) var(--space-loose);
+	align-items: start;
 }
-:global(#cost-head) {
+@media (min-width: 56rem) {
+	:global(#cost-grid) {
+		/* The price column is narrower and it still leads, because it holds the
+		   largest type on the section. Room is not the only way to lead. */
+		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+	}
+	:global(#cost-does) {
+		grid-column: 1 / -1;
+	}
+}
+:global(#cost-story) {
 	display: grid;
 	gap: var(--space-comfortable);
-	max-inline-size: 36rem;
+	align-content: start;
+	max-inline-size: 34rem;
 }
 :global(#cost-heading) {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: clamp(var(--fs-display), 5.5cqi, 3rem);
+	font-size: clamp(var(--fs-display), 5cqi, 3rem);
 	font-weight: 400;
 	line-height: 1.08;
 	letter-spacing: var(--tracking-tight);
@@ -300,15 +338,91 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	text-wrap: pretty;
 	color: var(--color-foreground-soft);
 }
+:global(#cost-turn) {
+	display: grid;
+	gap: var(--space-tight);
+	margin-block-start: var(--space-comfortable);
+	padding-block-start: var(--space-comfortable);
+	border-block-start: 1px solid var(--color-border-soft);
+}
+:global(#cost-closing) {
+	margin: 0;
+	font-size: var(--fs-meta);
+	color: var(--color-foreground-quiet);
+}
+:global(#cost-kicker) {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
+	font-weight: 400;
+	line-height: 1.15;
+	letter-spacing: var(--tracking-tight);
+	color: var(--color-foreground);
+}
 
-/* The four jobs. A band of short facts, not a bulleted list — "a CEO" is a
-   claim and these are the receipts, so they read as a row of specifics. */
+/* The price column: one object, the old figure struck directly above the one
+   replacing it, held together by the accent edge. */
+:global(#cost-price) {
+	display: grid;
+	gap: var(--space-loose);
+	padding-inline-start: var(--space-loose);
+	border-inline-start: 2px solid var(--color-sunflower);
+}
+:global(#cost-was),
+:global(#cost-now) {
+	display: grid;
+	gap: var(--space-hairline);
+}
+:global(#cost-was-figure),
+:global(#cost-now-figure) {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: var(--space-tight);
+	margin: 0;
+	font-family: var(--font-display);
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+}
+:global(#cost-was-value) {
+	font-size: var(--fs-amount);
+	font-weight: 400;
+	color: var(--color-foreground-quiet);
+	/* The page's own gesture, third time: the hero strikes a sentence, the
+	   shift a script, this a salary. CSS and not an `<s>` element — SAFE_TAGS
+	   admits no `s`, so the tag fell back to a div and the line never drew. */
+	text-decoration: line-through;
+	text-decoration-thickness: 1px;
+	text-decoration-color: var(--color-foreground-quiet);
+}
+:global(#cost-now-value) {
+	font-size: clamp(2.75rem, 7cqi, 4rem);
+	font-weight: 400;
+	color: var(--color-paradise);
+}
+:global(#cost-was-unit),
+:global(#cost-now-unit) {
+	font-family: var(--font-sans);
+	font-size: var(--fs-meta);
+	color: var(--color-foreground-quiet);
+}
+:global(#cost-was-note),
+:global(#cost-now-note) {
+	margin: var(--space-tight) 0 0;
+	font-size: var(--fs-meta);
+	line-height: 1.55;
+	color: var(--color-foreground-soft);
+}
+
+/* The receipts, across both columns and separated by a rule: they qualify the
+   story and the price equally, so they belong to neither. */
 :global(#cost-does) {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
 	gap: var(--space-comfortable) var(--space-loose);
 	margin: 0;
-	padding: 0;
+	padding-block-start: var(--space-loose);
+	border-block-start: 1px solid var(--color-border-soft);
 	list-style: none;
 }
 :global(#cost-does > li) {
@@ -323,88 +437,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	flex: 0 0 auto;
 	inline-size: 0.75rem;
 	block-size: 2px;
-	/* Paradise as a SHAPE: 3:1 applies to a mark, and the tone is the brand's
-	   own rather than a darkened rank. */
 	background: var(--color-paradise);
-}
-
-/* The two figures as ONE object: struck salary directly above the price that
-   replaces it, sharing an edge so the swap is a single glance. */
-:global(#cost-figures) {
-	display: grid;
-	gap: var(--space-loose);
-	justify-items: start;
-	padding-inline-start: var(--space-loose);
-	border-inline-start: 2px solid var(--color-sunflower);
-}
-:global(#cost-was),
-:global(#cost-now) {
-	display: grid;
-	gap: var(--space-hairline);
-	max-inline-size: 34rem;
-}
-:global(#cost-was-figure),
-:global(#cost-now-figure) {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	gap: var(--space-tight);
-	margin: 0;
-	font-family: var(--font-display);
-	font-variant-numeric: tabular-nums;
-	line-height: 1;
-}
-:global(#cost-was-value) {
-	font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
-	font-weight: 400;
-	color: var(--color-foreground-quiet);
-	/* The brand's own strike: the hero draws one through "working to survive",
-	   the shift through the old script, this through the salary. In CSS rather
-	   than an `<s>` element — SAFE_TAGS admits no `s`, so the tag fell back to
-	   a div and the line silently never drew. */
-	text-decoration: line-through;
-	text-decoration-thickness: 1px;
-	text-decoration-color: var(--color-foreground-quiet);
-}
-:global(#cost-now-value) {
-	font-size: clamp(3rem, 10cqi, 5rem);
-	font-weight: 400;
-	color: var(--color-paradise);
-}
-:global(#cost-was-unit),
-:global(#cost-now-unit) {
-	font-family: var(--font-sans);
-	font-size: var(--fs-meta);
-	color: var(--color-foreground-quiet);
-}
-:global(#cost-was-note),
-:global(#cost-now-note) {
-	margin: var(--space-tight) 0 0;
-	max-inline-size: 30rem;
-	font-size: var(--fs-meta);
-	line-height: 1.55;
-	color: var(--color-foreground-soft);
-}
-
-/* The turn. Two lines: what the gap means, then what it is for. */
-:global(#cost-turn) {
-	display: grid;
-	gap: var(--space-tight);
-	max-inline-size: 34rem;
-}
-:global(#cost-closing) {
-	margin: 0;
-	font-size: var(--fs-lead);
-	color: var(--color-foreground-soft);
-}
-:global(#cost-kicker) {
-	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(var(--fs-amount), 4.5cqi, 2.25rem);
-	font-weight: 400;
-	line-height: 1.15;
-	letter-spacing: var(--tracking-tight);
-	color: var(--color-foreground);
 }
 
 /*
