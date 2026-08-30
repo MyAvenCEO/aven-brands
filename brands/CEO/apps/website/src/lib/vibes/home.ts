@@ -395,6 +395,7 @@ function costView(t: (typeof home)['de']): ViewNode {
 					   still be a field. */
 					{
 						tag: 'div',
+						class: 'pair pair--inset-padded',
 						attrs: { id: 'cost-price' },
 						children: [
 							{
@@ -706,7 +707,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'div',
-						class: 'stack',
+						class: 'pair',
 						attrs: { id: 'company-roles' },
 						children: t.company.roles.map(
 							(role, i): ViewNode => ({

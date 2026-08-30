@@ -189,31 +189,17 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	--gap: var(--space-loose);
 	margin-block-start: var(--space-section);
 }
+/* Side by side the pair wants more air between the halves than it needs while
+   they are stacked — the same query the unit switches on. */
 @container (min-width: 44rem) {
 	:global(#company-roles) {
-		position: relative;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
 		--gap: var(--space-section);
 	}
-	:global(#company-roles)::before {
-		content: '';
-		position: absolute;
-		inset-block: 0;
-		inset-inline-start: 50%;
-		inline-size: 1px;
-		background: color-mix(in oklab, var(--color-band-foreground) 22%, transparent);
-	}
-	:global(.company-role[data-side='human']) {
-		text-align: end;
-	}
-	:global(.company-role[data-side='aven']) {
-		text-align: start;
-	}
 }
+
 :global(.company-role) {
 	--gap: var(--space-hairline);
 	align-content: start;
-	text-align: center;
 }
 :global(.company-role-label) {
 	margin: 0;
@@ -935,16 +921,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 /* Human left, aven right, equal tracks — a comparison whose two sides are not
    the same width is an argument with a thumb on the scale. */
-:global(#cost-price) {
-	display: grid;
-	gap: var(--space-loose);
-}
-@container (min-width: 44rem) {
-	:global(#cost-price) {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		align-items: stretch;
-	}
-}
+
+
 :global(#cost-heading) {
 	margin: 0;
 	font-family: var(--font-display);
@@ -966,9 +944,10 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 /* The price sheet. Corner brackets rather than a full border: the reference
    set's registration marks, and they read as a technical sheet rather than a
    card — which is what a price comparison is. */
+/* The gap the cascade was actually resolving to — two rules set it, and the
+   later 16px won. The unit reads `--gap`. */
 :global(#cost-price) {
-	display: grid;
-	gap: var(--space-comfortable);
+	--gap: var(--space-comfortable);
 }
 /*
  * TWO CARDS FACING EACH OTHER ACROSS A RULE.
@@ -1009,19 +988,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 /* The rule between them, drawn in the gap rather than on either card, so
    neither owns it. Only once the two are side by side. */
-@container (min-width: 44rem) {
-	:global(#cost-price) {
-		position: relative;
-	}
-	:global(#cost-price)::before {
-		content: '';
-		position: absolute;
-		inset-block: var(--space-loose);
-		inset-inline-start: 50%;
-		inline-size: 1px;
-		background: var(--color-border-strong);
-	}
-}
+
 :global(.cost-panel-label) {
 	margin: 0;
 	font-size: var(--fs-eyebrow);

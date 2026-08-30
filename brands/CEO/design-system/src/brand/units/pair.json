@@ -1,0 +1,108 @@
+{
+	"name": "pair",
+	"description": "TWO THINGS WEIGHED AGAINST EACH OTHER, across a rule.\n\nWritten twice by hand in one page — the cost comparison and the two company roles — and both times as the same four decisions: equal columns once there is room, a hairline down the middle drawn on the container rather than on either side, and each half ranged TOWARD that line so the pair reads as one spread rather than two blocks sharing a row.\n\nThe ranging is the part that is easy to leave out and the part that does the work: two halves both ranged left is a list.\n\nThe rule takes `currentColor` at low alpha, so a pair on the page and a pair on a dark band each get a divider in their own ink without the caller choosing one.",
+	"surface": "site",
+	"surfaceNote": "the cost comparison and the company's two roles",
+	"interface": {
+		"slots": {
+			"start": {
+				"$description": "The left half. Ranged toward the rule.",
+				"accepts": [
+					"*"
+				]
+			},
+			"end": {
+				"$description": "The right half. Ranged toward the rule.",
+				"accepts": [
+					"*"
+				]
+			}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "start",
+				"$slot": "start"
+			},
+			{
+				"tag": "div",
+				"part": "end",
+				"$slot": "end"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "One column until there is room for two.\n\nIt DECLARES a container and QUERIES a different one, and both are needed. Declaring makes the pair a container for its own children, so a `cqi` inside a half measures the half's column — the rule every composite here follows. Querying asks an ANCESTOR, because an element can never be its own query container: the first version named its own container in the query and the pair simply never switched, reading as one 1024px column at every width. A query that matches nothing looks exactly like a threshold not yet reached.\n\nSo the query is unnamed and resolves to the nearest ancestor container, which on every surface here is the `section`.",
+			"position": "relative",
+			"display": "grid",
+			"inlineSize": "100%",
+			"containerType": "inline-size",
+			"containerName": "pair",
+			"gap": "var(--gap, var(--space-loose))",
+			"&::before": {
+				"$description": "The rule, drawn on the CONTAINER at the midpoint rather than as a border on either half — a border belongs to one side and this line belongs to neither. `currentColor` so a pair on a dark band gets a divider in that band's ink without the caller choosing one.",
+				"content": "''",
+				"position": "absolute",
+				"insetBlock": "var(--pair-rule-inset, 0)",
+				"insetInlineStart": "50%",
+				"inlineSize": "1px",
+				"background": "var(--pair-rule, color-mix(in oklab, currentColor 22%, transparent))",
+				"opacity": "0"
+			},
+			"& > *": {
+				"$description": "Centred while STACKED. On direct children rather than on the named parts, because a caller may write the markup by hand and never use the part class — and then the alignment simply does not happen. The parts still carry it for callers who do.",
+				"minInlineSize": "0",
+				"textAlign": "center"
+			},
+			"@container (min-width: 44rem)": {
+				"$description": "Side by side, and only then is there a midpoint for a rule to sit on.",
+				"gridTemplateColumns": "repeat(2, minmax(0, 1fr))",
+				"alignItems": "stretch",
+				"& > :first-child": {
+					"textAlign": "end"
+				},
+				"& > :last-child": {
+					"textAlign": "start"
+				},
+				"&::before": {
+					"opacity": "1"
+				}
+			}
+		},
+		"variants": {
+			"rule": {
+				"$description": "The divider. `none` for a pair that does not weigh, only groups.",
+				"none": {
+					"$description": "No divider drawn.",
+					"--pair-rule": "transparent"
+				}
+			},
+			"inset": {
+				"$description": "How far the rule stops short of the pair's own edges.",
+				"padded": {
+					"$description": "Inset by the loose step, for halves that carry their own padding.",
+					"--pair-rule-inset": "var(--space-loose)"
+				}
+			}
+		},
+		"parts": {
+			"start": {
+				"$description": "Ranged toward the rule once the pair is side by side; centred while it is stacked.",
+				"minInlineSize": "0",
+				"textAlign": "center"
+			},
+			"end": {
+				"$description": "The same, from the other side.",
+				"minInlineSize": "0",
+				"textAlign": "center"
+			}
+		}
+	},
+	"a11y": {
+		"note": "A visual comparison, not a table. The rule is decoration and carries no role; if the two halves are data that must be compared row by row, that is a table and this is not it."
+	}
+}
