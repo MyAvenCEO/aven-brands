@@ -1,6 +1,8 @@
 {
 	"name": "prose",
 	"description": "A run of body copy at a readable measure. The legal pages, the skill descriptions and every lede on the site set their own `max-w-2xl`, `max-w-3xl`, `max-w-md` — six different measures for the same job, none of them derived from the text size they hold. This one is in `ch`, so it stays 65 characters wide whatever the font does.",
+	"surface": "site",
+	"surfaceNote": "long-form marketing and legal copy",
 	"interface": {
 		"slots": {
 			"content": {}

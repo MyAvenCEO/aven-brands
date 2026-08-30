@@ -18,6 +18,7 @@ import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import {
 	colourGroups,
 	compositeRows,
+	siteRows,
 	declarationsOf,
 	elevationScale,
 	fontStacks,
@@ -77,6 +78,21 @@ let theme = $state<'light' | 'dark'>('light')
  * rendered a dark page with light text at 1.13:1.
  */
 const unitGroups = [
+	/*
+	 * A THIRD index over the same rows, not a third set of them.
+	 *
+	 * Leafs and Composites file a unit by its architecture, which is the right
+	 * question when you are building one and the wrong one when you are asking
+	 * what the marketing site is made of — the bar, the menu, the footer and the
+	 * bands were scattered across both. `surface` is declared on the unit, so a
+	 * unit that becomes site chrome appears here without being listed twice.
+	 */
+	{
+		id: 'website',
+		title: 'Website',
+		rows: siteRows,
+		lede: 'The marketing site’s own chrome: the bar, the menu, the footer, the lockup, and the bands every page is composed from. These also appear under Leafs or Composites — this is the same unit filed by where it is used rather than by how it is built.'
+	},
 	{
 		id: 'leafs',
 		title: 'Leafs',
@@ -809,7 +825,11 @@ function inspect(name: string) {
 						{/each}
 					</div>
 				</section>
-			{:else if active === 'leafs' || active === 'composites'}
+			<!-- Derived from `unitGroups`, not a list of ids repeated here: the branch
+			     named 'leafs' and 'composites' explicitly, so adding a third group gave
+			     it an aside entry, a count, and an empty panel. The condition follows
+			     the data now, and a fourth group will render without touching it. -->
+			{:else if unitGroups.some((g) => g.id === active)}
 				{#if openUnit}
 					{@const unit = openUnit}
 					<!-- No 62rem cap here. A reading column is right for a page of prose

@@ -1,6 +1,8 @@
 {
 	"name": "navbar",
 	"description": "The bar at the top of every surface, and the most under-described unit in the system — it was two slots and three variants while the real header carried a fixed-over-hero mode, a sticky mode, a scroll-triggered glass-to-solid swap, a light/dark bar that depends on both, and a full-screen mobile menu, all of it written inline with `color-mix` and `backdrop-filter` in a `style` attribute. A composite of composites: it holds the logo, a set of nav-links, a set of buttons, and on a narrow viewport a drawer holding the same links rather than a second copy of them.\n\nIt collapses ON ITS OWN CONTAINER. Below 48rem of BAR width the links hide and the toggle appears; above it, the reverse. Neither depends on the viewport, so the same navbar behaves correctly in a phone, in a 400px preview card, and in a split pane — and the surface no longer has to tell it which of those it is in.\n\nThe drawer it opens is not part of this unit. `nav-menu` is a separate composite because the full-screen menu is `position: fixed` over the whole page and must escape this bar's `backdrop-filter` — a filtered ancestor creates a containing block for fixed descendants, so a menu nested inside a glass bar is trapped inside the bar. The real header already discovered this and renders the menu as a sibling.",
+	"surface": "site",
+	"surfaceNote": "the bar itself",
 	"interface": {
 		"props": {
 			"label": "string",

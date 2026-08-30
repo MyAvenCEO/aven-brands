@@ -1,6 +1,8 @@
 {
 	"name": "nav-menu",
 	"description": "The full-screen menu a narrow `navbar` opens.\n\nIt was a centred column of large words on an INVERTED wash — the default full-screen menu that every site has, and nothing about it belonged to this brand. Rebuilt out of the devices the rest of the system already uses: an eyebrow naming the band, a left-aligned column with a real reading edge, a hairline rhythm between items, a marker bar on the current one, and a meta line saying what each destination IS. A menu of five words tells you their names; a menu with a line under each tells you which one you want.\n\nLEFT-ALIGNED, and that is the biggest change. Centred display type is the generic answer, and it is also the harder one to read: five centred lines have five different starting points, so the eye re-finds the left edge on every row. Every other index in this system — the sidebar, the navbar, the footer — reads down a single edge, and this one now does too.\n\nA SEPARATE composite from `navbar`, for a structural reason rather than tidiness. The bar is `backdrop-filter` glass, and a filtered element creates a containing block for `position: fixed` descendants — so a menu nested inside the bar is trapped in the bar's box and covers nothing. The real header found this and renders the menu as a SIBLING. Any implementation that nests this will look correct in a harness and fail on the page.",
+	"surface": "site",
+	"surfaceNote": "the full-screen takeover behind the hamburger",
 	"interface": {
 		"props": {
 			"open": "boolean",

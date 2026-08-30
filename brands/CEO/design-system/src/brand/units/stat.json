@@ -1,6 +1,8 @@
 {
 	"name": "stat",
 	"description": "One number and what it means. On the site these are the hours-saved figures and the claimed-name counts, each assembled by hand from a display-face number and a caption. The pairing is the unit: a figure without its label is trivia, and the two have a fixed relationship — the number leads, the label follows, and the label never competes.",
+	"surface": "site",
+	"surfaceNote": "the trust claims",
 	"interface": {
 		"props": {
 			"value": "string",

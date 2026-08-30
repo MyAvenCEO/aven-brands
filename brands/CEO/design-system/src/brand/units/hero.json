@@ -1,6 +1,8 @@
 {
 	"name": "hero",
 	"description": "The first screen, as the website actually renders it. A full-bleed stage with media behind it, a scrim over that, and the copy on top — and it is the one place on any surface where the page's inks do not apply, because text over a photograph has no measurable contrast. Two things make that text readable and both are parts of this unit rather than decisions at a call site: the scrim, and a text-shadow on every line. On the site this was a section with four ids, five hand-written rules and a scrim spelled as three stacked `color-mix` stops.",
+	"surface": "site",
+	"surfaceNote": "the opening stage",
 	"interface": {
 		"props": {
 			"labelledBy": "string",

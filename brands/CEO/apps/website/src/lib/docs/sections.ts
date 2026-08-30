@@ -133,6 +133,17 @@ export type Decls = Array<[string, string]>
 export type UnitRow = {
 	name: string
 	kind: 'leaf' | 'composite'
+	/**
+	 * Which surface this unit is chrome FOR, when it is chrome for one.
+	 *
+	 * Declared on the unit rather than inferred here: whether `navbar` is site
+	 * furniture is a fact about the unit, and a list kept in the docs page would
+	 * be the one hand-written list on a page whose whole contract is that it has
+	 * none. Most units have no surface — a button is a button everywhere.
+	 */
+	surface?: string
+	/** Why it belongs to that surface, in the unit's own words. */
+	surfaceNote?: string
 	description: string
 	/** The unit's own a11y note, which belongs beside its prose and not in a
 	    config dump nobody reads to the end. */
@@ -168,6 +179,8 @@ const note = (decl: Record<string, unknown> | undefined): string =>
 const unitRow = (name: string): UnitRow => {
 	const u = units[name] as {
 		description?: string
+		surface?: string
+		surfaceNote?: string
 		interface?: { slots?: Record<string, unknown> }
 		styling?: {
 			variants?: Record<string, Record<string, unknown>>
@@ -187,6 +200,8 @@ const unitRow = (name: string): UnitRow => {
 	return {
 		name,
 		kind: slots.length ? 'composite' : 'leaf',
+		surface: u.surface,
+		surfaceNote: u.surfaceNote,
 		description: u.description ?? '',
 		a11yNote: (u as { a11y?: { note?: string } }).a11y?.note ?? '',
 		slots,
@@ -218,6 +233,17 @@ export const unitNameList: string[] = [...unitNames]
 
 export const leafRows = unitRows.filter((u) => u.kind === 'leaf')
 export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
+/**
+ * The site's own chrome, collated.
+ *
+ * The bar, the menu, the footer, the lockup, the bands every marketing page is
+ * built from — spread across Leafs and Composites they were filed by their
+ * ARCHITECTURE, which is the right split for building one and the wrong one for
+ * answering "what does the website use". This is the same rows under a second
+ * index, not a copy: a unit appears in both, and the entry that gains a
+ * `surface` gains it here without being listed anywhere twice.
+ */
+export const siteRows = unitRows.filter((u) => u.surface === 'site')
 
 /* ── Migration ──────────────────────────────────────────────────────────── */
 
@@ -345,6 +371,7 @@ export const sections: DocSection[] = [
 	   composites under twelve leafs, which is how a library reads as "we only
 	   have leafs". The split is the architecture's own, so it navigates the
 	   same way it is built. */
+	{ id: 'website', label: 'Website', count: siteRows.length },
 	{ id: 'migration', label: 'Migration', count: migrationRows.length },
 	{ id: 'leafs', label: 'Leafs', count: leafRows.length },
 	{ id: 'composites', label: 'Composites', count: compositeRows.length },

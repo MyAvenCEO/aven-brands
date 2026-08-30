@@ -1,6 +1,8 @@
 {
 	"name": "social-row",
 	"description": "The row of social marks beside the wordmark in the header, and again in the footer. Four links, icon-only, quiet until pointed at.\n\nA unit because it is the same row twice with two different inks — dark on the header's pale bar, light on the footer's marine ground — and because the thing that keeps going wrong with it is not the look. An icon-only link has no accessible name unless someone gives it one, and a row of four is four unnamed links: a screen reader reads \"link, link, link, link\". Both existing copies pass an `aria-label` per item, which is correct and is exactly the care that gets dropped on the fifth copy.\n\nIt takes its ink from `currentColor`, so a surface tints the ROW once and every mark follows. The header does this today by passing a different class per context.",
+	"surface": "site",
+	"surfaceNote": "the profile row in the bar and the menu",
 	"interface": {
 		"props": {
 			"label": "string"

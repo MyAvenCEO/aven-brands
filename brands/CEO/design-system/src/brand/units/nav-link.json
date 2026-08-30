@@ -1,6 +1,8 @@
 {
 	"name": "nav-link",
 	"description": "One point of navigation. The three surfaces styled these three ways; the active treatment was different on each.",
+	"surface": "site",
+	"surfaceNote": "a destination in either",
 	"interface": {
 		"props": {
 			"label": "string",

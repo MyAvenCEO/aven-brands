@@ -1,6 +1,8 @@
 {
 	"name": "logo",
 	"description": "The avenCEO lockup: the mark, the wordmark, or both. The wordmark is TWO faces in one word — \"aven\" in the thin display face at 1.4em, \"CEO\" in the heaviest sans, uppercase — a specification that used to live inline at every call site, including two `style` attributes in the site header.\n\nIt was extracted as a SHELL, and that is worth recording. The unit declared the flex container and nothing else: no parts, and three `variant` options that differed only in `gap`. Everything inside it — the mark's size, the two faces, the baseline alignment — resolved through `logo-mark`, `logo-wordmark`, `logo-word-aven` and `logo-word-ceo`, which are LEGACY classes this unit exists to replace. So the unit rendered correctly while owning none of its own appearance, and would have rendered as unstyled text the day the legacy map was deleted.\n\nIt also could not do what its variants claimed. `mark` and `wordmark` only set `gap: 0`; the only thing producing a mark-only logo was the caller omitting the wordmark from the markup. A variant that needs the caller to change the children is not a variant — it is a naming convention. The variants now HIDE the part that does not belong, so one markup and one class give all three.",
+	"surface": "site",
+	"surfaceNote": "the lockup, in the bar and in running copy",
 	"interface": {
 		"props": {
 			"href": "string",

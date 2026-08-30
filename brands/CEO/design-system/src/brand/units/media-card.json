@@ -1,6 +1,8 @@
 {
 	"name": "media-card",
 	"description": "A card whose subject is a picture — an artifact thumbnail, a document preview, a generated image. The app has fifteen of these in a grid and the shape is doing something the plain `card` cannot: the media fills the card's whole upper area edge to edge, and the caption sits under it in a strip. A `card` pads its content; this one deliberately does not, because padding around a thumbnail wastes the only part of the card carrying information.\n\nThe placeholder is the part that gets skipped. A grid of these loads asynchronously, so most of them are empty most of the first second — and an empty card with no reserved height makes the whole grid reflow as each image lands.",
+	"surface": "site",
+	"surfaceNote": "a marketing card with art",
 	"interface": {
 		"props": {
 			"title": "string",

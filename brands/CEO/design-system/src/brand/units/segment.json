@@ -1,6 +1,8 @@
 {
 	"name": "segment",
 	"description": "Two or three mutually exclusive choices, side by side, with the current one marked. The language switch is one; so is the storybook's Light/Dark control; so is a monthly/yearly price toggle.\n\nIt exists because those three were about to be three components. They are one question — \"which of these is on\" — asked with two different faces, and the faces are the only thing that actually differs: DE | EN is text with a hairline between, Light | Dark is a stadium with the active half filled. Building them separately means three answers to how the current option is marked, and the current option is the entire point of the control.\n\nWhat it refuses to be is a segmented control with six options. Past three, the eye stops comparing and starts reading a list, and the right component is a select.",
+	"surface": "site",
+	"surfaceNote": "the DE/EN switch",
 	"interface": {
 		"props": {
 			"label": "string"

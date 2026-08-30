@@ -1,6 +1,8 @@
 {
 	"name": "section",
 	"description": "One band of a page. Eleven of them on the marketing site, spelled eight different ways — `px-5 py-12 sm:px-8 sm:py-14`, then `py-14 sm:py-16`, then `py-16 sm:py-20` — which is a vertical rhythm decided eight times rather than once. The gutter and the rule travel with it, because a section that sets its own padding and forgets its own divider is how a page loses its rhythm one edit at a time.",
+	"surface": "site",
+	"surfaceNote": "every marketing band on every page",
 	"interface": {
 		"props": {
 			"labelledBy": "string"
