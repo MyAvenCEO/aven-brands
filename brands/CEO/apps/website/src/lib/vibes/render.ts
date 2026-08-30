@@ -41,11 +41,15 @@ export async function renderSection(
 	view: ViewNode,
 	inject: Record<string, string> = {}
 ): Promise<string> {
-	let html = await renderViewToString(view, {}, {
-		evaluate: (expr, data) => evaluator.evaluate(expr, data),
-		icons,
-		units
-	})
+	let html = await renderViewToString(
+		view,
+		{},
+		{
+			evaluate: (expr, data) => evaluator.evaluate(expr, data),
+			icons,
+			units
+		}
+	)
 	for (const [token, fragment] of Object.entries(inject)) {
 		if (!html.includes(token))
 			throw new Error(`[vibes] section render: injection token ${token} not found in the view`)

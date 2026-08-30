@@ -431,7 +431,8 @@ function ownView(t: (typeof home)['de']): ViewNode {
 									},
 									{
 										tag: 'p',
-										class: 'mt-2 text-[length:var(--fs-section)] leading-snug text-foreground-quiet',
+										class:
+											'mt-2 text-[length:var(--fs-section)] leading-snug text-foreground-quiet',
 										text: rung.text
 									}
 								]
@@ -466,9 +467,7 @@ function founderBlock(
 			{
 				tag: 'div',
 				class: 'size-14 shrink-0 overflow-hidden rounded-full ring-2 ring-surface-page sm:size-16',
-				...(options.avatarId
-					? { attrs: { id: options.avatarId, 'aria-hidden': 'true' } }
-					: {}),
+				...(options.avatarId ? { attrs: { id: options.avatarId, 'aria-hidden': 'true' } } : {}),
 				text: options.photoToken
 			},
 			{ tag: 'p', class: 'mt-2 eyebrow-quiet', text: person.role },

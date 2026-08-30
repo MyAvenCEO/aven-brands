@@ -6,9 +6,10 @@
  * hydration, no client engine. With `prerender = true` this runs once per
  * route at build and the markup is in the emitted file.
  */
+import { footerHtml } from '$lib/vibes/footer'
 import { renderHomeSections } from '$lib/vibes/home'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async () => {
-	return { homeSections: await renderHomeSections('en') }
+	return { homeSections: await renderHomeSections('en'), footerHtml: await footerHtml('en') }
 }
