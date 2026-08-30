@@ -2206,20 +2206,20 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: block;
 	margin-block-end: var(--space-tight);
 	/*
-	 * BOTH SHADES FROM THE ACCENT RAMP — no navy in the mark.
+	 * A LIGHTER SUNFLOWER, and a mid-amber knocked out of it.
 	 *
-	 * The figure was marine, which made the icon read as two unrelated colours
-	 * rather than one duotone. It cannot be a LIGHTER yellow, though, and the
-	 * measurements say why: against the sunflower backing, accent-ring is
-	 * 1.49:1, accent-surface 1.57 and even cream 1.71 — all far under the 3:1 a
-	 * shape needs, so the figure would simply vanish into its own backing.
+	 * Two constraints pull against each other here and the measurements settle
+	 * them. The figure has to clear 3:1 against its own backing or it vanishes,
+	 * and the backing has to clear 3:1 against the chip or the mark does.
 	 *
-	 * The direction that works is DOWN the same ramp: `accent-foreground` is the
-	 * ink this palette already nominates for use on the accent, and it measures
-	 * 6.78:1 knocked out of sunflower. One hue, two strengths, both legible.
+	 * Against FULL sunflower nothing lighter works — accent-edge is 1.21:1,
+	 * accent-ring 1.49, accent-surface 1.57, cream 1.71. So the backing moves up
+	 * the ramp instead of the figure moving down it: `accent-edge` is the
+	 * lighter sunflower, 8.42:1 on the chip, and `accent-ink` sits inside it at
+	 * 3.99:1. One hue, two strengths, and the mark reads lighter than it did.
 	 */
-	color: var(--color-accent-foreground);
-	--icon-tint: var(--color-sunflower);
+	color: var(--color-accent-ink);
+	--icon-tint: var(--color-accent-edge);
 }
 :global(.trust-claim-icon svg path[opacity]) {
 	opacity: 1;
