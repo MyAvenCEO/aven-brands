@@ -227,15 +227,44 @@ function costView(t: (typeof home)['de']): ViewNode {
 					},
 					/* An illustration slot, described in place so the brief travels with
 					   the markup rather than in someone's notes. */
+					/*
+					 * ARCH-CROPPED, not a rectangle.
+					 *
+					 * The reference set never shows a plain rectangle: every image is
+					 * cut into an arch, an oval or a pill, and that shape is what makes
+					 * a page read as composed rather than as a CMS. The crop is a
+					 * `border-radius` on the figure with `overflow: hidden` — no mask
+					 * asset, no clip-path, and it degrades to a soft rectangle in
+					 * anything that cannot round a corner.
+					 *
+					 * `/hero.png` is a STAND-IN. The intended art is the horizon
+					 * illustration: a woman on a ridge, arms open, facing a low sun —
+					 * sunflower sky, marine and paradise ranges, sand rock. It is
+					 * already this palette, which is why it belongs here rather than
+					 * beside it: the section argues that starting is possible now, and
+					 * the picture is what that feels like rather than what it costs.
+					 */
 					{
 						tag: 'figure',
-						class: 'art-slot',
+						class: 'art-arch',
 						attrs: { id: 'cost-art' },
 						children: [
 							{
+								tag: 'img',
+								class: 'art-arch-img',
+								attrs: {
+									src: '/hero.png',
+									alt: '',
+									width: '1024',
+									height: '578',
+									loading: 'lazy',
+									decoding: 'async'
+								}
+							},
+							{
 								tag: 'figcaption',
-								class: 'art-slot-brief',
-								text: 'ILLUSTRATION — one founder at a desk before dawn, as a flat two-colour engraving in marine on sand: a single warm lamp, the rest of the floor empty. The point is one person doing what used to need a room of them.'
+								class: 'art-arch-brief',
+								text: 'STAND-IN — replace with the horizon illustration: a woman on a ridge, arms open, facing a low sun. Sunflower sky, marine ranges, sand rock.'
 							}
 						]
 					},
@@ -394,7 +423,16 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 			{
 				tag: 'div',
 				class: 'section-inner',
+				attrs: { id: 'shift-inner' },
 				children: [
+					/*
+					 * The head is PAIRED with an image, which is what stops this section
+					 * hanging off the left edge. A 544px block of text alone in a
+					 * 1344px field is not a composition, it is a column with a margin —
+					 * and four of those stacked was the "left-heavy" reading. An oval
+					 * crop rather than the arithmetic's arch, so the two sections rhyme
+					 * without repeating.
+					 */
 					{
 						tag: 'div',
 						attrs: { id: 'shift-head' },
@@ -419,6 +457,30 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '( ' },
 							{ tag: 'span', text: '@@shift-question@@' },
 							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ' )' }
+						]
+					},
+					{
+						tag: 'figure',
+						class: 'art-oval',
+						attrs: { id: 'shift-art' },
+						children: [
+							{
+								tag: 'img',
+								class: 'art-arch-img',
+								attrs: {
+									src: '/hero-poster.jpg',
+									alt: '',
+									width: '2560',
+									height: '1440',
+									loading: 'lazy',
+									decoding: 'async'
+								}
+							},
+							{
+								tag: 'figcaption',
+								class: 'art-arch-brief',
+								text: 'STAND-IN — replace with a two-panel engraving: the same desk crowded with other people’s marks, then the same desk with one Aven mark.'
+							}
 						]
 					},
 					{

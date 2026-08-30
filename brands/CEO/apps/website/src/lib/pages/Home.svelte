@@ -249,6 +249,26 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * starts on the same edge now, and the scripts are the only two-column
  * moment — which makes that split deliberate instead of accidental.
  */
+/* Head and image side by side, so the section opens on a spread rather than
+   on a left margin. */
+@media (min-width: 56rem) {
+	:global(#shift-inner) {
+		display: grid;
+		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+		gap: var(--space-loose);
+		align-items: center;
+	}
+	:global(#shift-question),
+	:global(#shift-scripts),
+	:global(#shift-turn) {
+		grid-column: 1 / -1;
+	}
+}
+:global(#shift-art) {
+	max-inline-size: 26rem;
+	margin-inline: auto;
+}
+
 :global(#shift-head) {
 	display: grid;
 	gap: var(--space-tight);
@@ -359,36 +379,54 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * ILLUSTRATION SLOTS.
+ * IMAGES ARE CUT INTO SHAPES, never left as rectangles.
  *
- * A described placeholder rather than a grey box: the brief for the artwork
- * lives in the markup, so whoever fills it does not have to find the
- * conversation it came from. The frame is drawn in brand tones and reads as
- * deliberate while it is empty, which is the difference between a placeholder
- * and a hole.
+ * The one device the reference set uses on every single frame: an arch, an
+ * oval, a pill. It is what makes a page read as composed rather than as a
+ * CMS, and it costs a `border-radius` plus `overflow: hidden` — no mask
+ * asset, no clip-path, and it degrades to a soft rectangle anywhere that
+ * cannot round a corner.
+ *
+ * Two shapes, one per section, so they rhyme without repeating: the
+ * arithmetic gets an ARCH (flat foot, domed head — a doorway, which is what
+ * that section is arguing you can now walk through), the shift gets an OVAL
+ * (no flat edge at all — a lens, which is what a question is).
  */
-:global(.art-slot) {
+:global(.art-arch),
+:global(.art-oval) {
 	position: relative;
-	display: grid;
-	align-content: end;
-	min-block-size: 16rem;
+	margin: 0;
+	overflow: hidden;
+	background: var(--color-surface-sunken);
+}
+:global(.art-arch) {
+	border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+	aspect-ratio: 4 / 5;
+}
+:global(.art-oval) {
+	border-radius: 999px;
+	aspect-ratio: 5 / 4;
+}
+:global(.art-arch-img) {
+	inline-size: 100%;
+	block-size: 100%;
+	object-fit: cover;
+	display: block;
+}
+/* The brief rides ON the image, so a stand-in announces itself instead of
+   quietly shipping as if it were the final art. It goes when the real
+   illustration lands. */
+:global(.art-arch-brief) {
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline: 0;
 	margin: 0;
 	padding: var(--space-comfortable);
-	background:
-		repeating-linear-gradient(
-			45deg,
-			color-mix(in oklab, var(--color-paradise) 7%, transparent) 0 2px,
-			transparent 2px 10px
-		),
-		var(--color-surface-sunken);
-	border: 1px solid var(--color-border-soft);
-}
-:global(.art-slot-brief) {
-	margin: 0;
-	font-family: var(--font-mono, var(--font-sans));
-	font-size: var(--fs-meta);
-	line-height: 1.5;
-	color: var(--color-foreground-soft);
+	background: color-mix(in oklab, var(--color-marine) 82%, transparent);
+	font-size: var(--fs-micro);
+	line-height: 1.45;
+	letter-spacing: var(--tracking-wide);
+	color: var(--color-on-dark);
 }
 
 /*
@@ -412,6 +450,25 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 		grid-column: 1 / -1;
 	}
 }
+/* The arch sits in the story column's own track, under the text: the column
+   was 544px of words alone in a 1344px field, which is a margin rather than a
+   composition. */
+@media (min-width: 56rem) {
+	:global(#cost-art) {
+		grid-row: 2;
+		grid-column: 1;
+		max-inline-size: 22rem;
+	}
+	:global(#cost-price) {
+		grid-row: 1 / 3;
+		grid-column: 2;
+		align-self: center;
+	}
+}
+:global(#cost-art) {
+	max-inline-size: 22rem;
+}
+
 :global(#cost-story) {
 	display: grid;
 	gap: var(--space-comfortable);
