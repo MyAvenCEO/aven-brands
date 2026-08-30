@@ -110,7 +110,15 @@ const read = el => {
   const isToggle = el.tagName === 'INPUT' && ['checkbox', 'radio'].includes(el.type);
   // WCAG 1.4.3 / 1.4.11 exempt disabled (inactive) controls from contrast.
   const isDisabled = el.disabled || el.getAttribute('aria-disabled') === 'true';
-  const skip = isToggle || el.getAttribute('role') === 'switch' || +cs.opacity === 0 || isDisabled;
+  /* `visibility: hidden` inherits, and `opacity` does NOT — a link inside a
+     closed menu computes opacity 1 while being completely imperceivable. The
+     old check read only the element's own opacity, so every control inside a
+     hidden overlay was colour-checked in its CLOSED state — and when that
+     overlay sat on a media ground, judged by rules meant for the imagery
+     behind a menu nobody can see. WCAG applies to what can be perceived. */
+  const skip =
+    isToggle || el.getAttribute('role') === 'switch' || +cs.opacity === 0 ||
+    cs.visibility === 'hidden' || isDisabled;
   /*
    * A ground that is a PICTURE, not a colour.
    *

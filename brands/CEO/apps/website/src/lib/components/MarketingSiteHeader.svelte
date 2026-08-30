@@ -15,8 +15,7 @@
  * be seen and gated.
  */
 import { SOCIAL_PROFILES, icons } from '@myavenceo/aven-ceo/icons'
-import { renderIcon } from '@myavenceo/aven-vibes'
-import { fade } from 'svelte/transition'
+import { onMount } from 'svelte'
 import { page } from '$app/state'
 import SocialIcon from '$lib/components/SocialIcon.svelte'
 import { type Lang, localeHref, pick, switchLangHref } from '$lib/i18n'
@@ -43,9 +42,6 @@ const t = $derived(pick(common, lang))
 
 /** The bar lines up with the content beneath it — see `--navbar-measure`. */
 const measure = $derived(maxWidth === '6xl' ? '72rem' : '64rem')
-
-/** Open state for the full-screen menu. */
-let menuOpen = $state(false)
 
 /** In overlay mode the bar is transparent over the hero video, then solidifies
  * once you scroll past most of it — so it sticks to the top like the sub-pages
@@ -76,6 +72,37 @@ $effect(() => {
  * menu sat under it.
  */
 const lightBar = $derived(overlay && !scrolled)
+
+/**
+ * THE MENU IS AN ISLAND — the first surface on this site whose markup AND
+ * behaviour are pure avenVIBES configuration.
+ *
+ * `+layout.server.ts` rendered the bundle to HTML at build time, so the
+ * hamburger and the whole menu are in the prerendered file; here the same
+ * bundle hydrates that markup in place. `Island` is imported inside onMount
+ * because it is client-only by nature and nothing about SSR needs it.
+ *
+ * Zero attached listeners means the build's HTML and this bundle disagree —
+ * a stale build, exactly the mismatch worth hearing about — so it logs.
+ */
+let islandHost: HTMLElement | undefined
+onMount(() => {
+	const data = page.data.menuIsland
+	if (!islandHost || !data) return
+	let disposed = false
+	let island: { dispose(): Promise<void> } | null = null
+	void import('@myavenceo/aven-vibes').then(async ({ Island }) => {
+		if (disposed || !islandHost) return
+		const live = new Island({ container: islandHost, icons })
+		island = live
+		const attached = await live.hydrate(data.bundle)
+		if (attached === 0) console.error('[menu-island] hydrated 0 listeners — stale build?')
+	})
+	return () => {
+		disposed = true
+		void island?.dispose()
+	}
+})
 /*
  * While the bar is clear it sits on the hero's footage, and its ground is a
  * PICTURE. A contrast gate walking up for a background-color finds the page
@@ -112,21 +139,10 @@ const MENU_ITEMS = $derived([
 const itemHref = (item: (typeof MENU_ITEMS)[number]) =>
 	item.localized ? localeHref(lang, item.href) : `${item.href}/`
 
-/** What each destination IS, for the menu. Five words tell you their names; the
- * line tells you which one you want. */
-const META: Record<NavActive, string> = $derived({
-	skills: t.nav.skillsMeta,
-	avens: t.nav.avensMeta,
-	pricing: t.nav.pricingMeta,
-	docs: t.nav.docsMeta
-})
-
 /** The same page in the other language — prerendered, so the pathname is known at build time. */
 const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 
-const menuIcon = renderIcon('menu', icons, { size: '1.25rem' })
-const closeIcon = renderIcon('close', icons, { size: '1.25rem' })
 </script>
 
 <header
@@ -188,73 +204,24 @@ const closeIcon = renderIcon('close', icons, { size: '1.25rem' })
 			</span>
 		</div>
 
-		<button
-			class="navbar-toggle"
-			type="button"
-			aria-label={t.nav.menu}
-			aria-expanded={menuOpen}
-			aria-controls="site-menu"
-			onclick={() => (menuOpen = !menuOpen)}
-		>
-			{@html menuOpen ? closeIcon : menuIcon}
-		</button>
+		<!-- The toggle and the menu, from the island's build-rendered HTML. The
+		     host and the island root are display: contents, so the toggle sits
+		     in the bar's flex flow as if it were a direct child and the fixed
+		     menu escapes to the viewport. -->
+		<span id="site-menu-island" bind:this={islandHost}>
+			{@html page.data.menuIsland?.html ?? ''}
+		</span>
 	</div>
 </header>
 
-<!--
-	A SIBLING of the bar, never a child. The glass bar carries a
-	`backdrop-filter`, and a filtered element becomes the containing block for
-	its `position: fixed` descendants — measured: a child asking for the full
-	viewport rendered 56px tall, the height of the bar, instead of 356px. A menu
-	nested in the header would be cropped to the bar, silently, and only while
-	the bar happened to be glass.
--->
-{#if menuOpen}
-	<div class="nav-menu" id="site-menu" data-open="true" transition:fade={{ duration: 150 }}>
-		<div class="nav-menu-scrim"></div>
-		<button
-			class="nav-menu-close"
-			type="button"
-			aria-label={t.nav.closeMenu}
-			onclick={() => (menuOpen = false)}
-		>
-			{@html closeIcon}
-		</button>
-		<nav class="nav-menu-panel" aria-label={t.nav.primaryLabel}>
-			<div class="nav-menu-head">
-				<div class="nav-menu-crest">
-					<img class="logo-mark" src="/aven-logo.svg" alt="" width="36" height="36">
-				</div>
-				<p class="text text--eyebrow nav-menu-eyebrow">{t.nav.whereTo}</p>
-			</div>
-			<div class="nav-menu-items">
-				{#each MENU_ITEMS as item (item.key)}
-					<a
-						class="nav-menu-item"
-						href={itemHref(item)}
-						aria-current={active === item.key ? 'page' : undefined}
-						onclick={() => (menuOpen = false)}
-					>
-						<span class="nav-menu-marker"></span>
-						{item.label}
-						<span class="nav-menu-meta">{META[item.key]}</span>
-					</a>
-				{/each}
-			</div>
-			<div class="nav-menu-footer">
-				<span class="segment" role="group" aria-label={t.switchLabel}>
-					<span class="segment-options">
-						<a class="segment-option" href={langHref('de')} hreflang="de"
-							aria-current={lang === 'de' ? 'true' : undefined}>DE</a
-						>
-						<span class="segment-divider" aria-hidden="true"></span>
-						<a class="segment-option" href={langHref('en')} hreflang="en"
-							aria-current={lang === 'en' ? 'true' : undefined}>EN</a
-						>
-					</span>
-				</span>
-				<p class="nav-menu-trust">{t.nav.trust}</p>
-			</div>
-		</nav>
-	</div>
-{/if}
+
+<style>
+/* The island host must not be a box: the toggle inside it belongs to the
+   bar's flex flow, and the menu inside it is position: fixed and belongs to
+   the viewport. Two wrappers stand between them and the bar — this span and
+   the island's own root — and both dissolve. */
+#site-menu-island,
+#site-menu-island > :global([data-aven-path]) {
+	display: contents;
+}
+</style>

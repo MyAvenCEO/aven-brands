@@ -3885,16 +3885,16 @@
 
 		@container navbar (max-width: 61.999rem) {
 
-			& .social-row {
+			& > .social-row {
 				display: none;
 			}
-			& .segment {
+			& .navbar-actions .segment {
 				display: none;
 			}
 			& .navbar-actions {
 				margin-inline-start: auto;
 			}
-			& .btn {
+			& .navbar-actions .btn {
 				--btn-block: 2rem;
 				--btn-pad: 0.875rem;
 				--btn-fs: var(--fs-eyebrow);
@@ -4010,16 +4010,16 @@
 		border-block-end-color: transparent;
 		color: var(--color-on-dark);
 
-		& .segment-option {
+		& .navbar-actions .segment-option {
 			color: var(--color-on-dark);
 		}
-		& .segment-option[aria-current] {
+		& .navbar-actions .segment-option[aria-current] {
 			color: var(--color-on-dark);
 			text-decoration: underline;
 			text-decoration-thickness: 1px;
 			text-underline-offset: 0.3em;
 		}
-		& .segment-divider {
+		& .navbar-actions .segment-divider {
 			background: color-mix(in oklab, var(--color-on-dark) 45%, transparent);
 		}
 	}
