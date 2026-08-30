@@ -1,5 +1,9 @@
-/** The build-rendered footer — this route's only build-time data. */
+/** The document and the footer, rendered at build — see $lib/vibes/legal.ts. */
+import { DATENSCHUTZ_DE } from '@myavenceo/aven-ceo'
 import { footerData } from '$lib/vibes/footer'
+import { legalDocHtml } from '$lib/vibes/legal'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = ({ url }) => footerData(url.pathname)
+export const load: PageServerLoad = async ({ url }) => {
+	return { legalHtml: await legalDocHtml(DATENSCHUTZ_DE), ...(await footerData(url.pathname)) }
+}
