@@ -18,6 +18,39 @@
  * through a correctly written reset. Last means it wins by cascade rather
  * than by `!important`. */
 
+@property --gap {
+	syntax: '*';
+	inherits: false;
+}
+@property --align {
+	syntax: '*';
+	inherits: false;
+}
+@property --measure {
+	syntax: '*';
+	inherits: false;
+}
+@property --gutter {
+	syntax: '*';
+	inherits: false;
+}
+@property --min {
+	syntax: '*';
+	inherits: false;
+}
+@property --side {
+	syntax: '*';
+	inherits: false;
+}
+@property --threshold {
+	syntax: '*';
+	inherits: false;
+}
+@property --ratio {
+	syntax: '*';
+	inherits: false;
+}
+
 @layer primitives {
 	/* The shapes almost every layout is made of. Each is one idea, tuned
 	 * at the call site through a custom property rather than by adding a

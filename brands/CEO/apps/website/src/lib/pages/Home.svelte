@@ -1231,59 +1231,6 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	display: block;
 }
 
-/* The figures share a baseline row; the terms sit under them. */
-:global(#id-price-figures) {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	justify-content: center;
-	gap: 0 var(--space-tight);
-	margin: 0;
-}
-:global(#id-price-terms) {
-	flex-basis: 100%;
-	margin-block-start: var(--space-hairline);
-	font-size: var(--fs-meta);
-	font-weight: 500;
-	text-align: center;
-	color: var(--color-foreground-quiet);
-}
-/*
- * The superseded price as a small tilted badge on the right of the one you pay.
- *
- * Absolutely positioned, so it contributes NO width: the amount stays exactly
- * where it would be with no offer running, and the badge hangs beside it. A
- * strike set inline moved the real number off centre, which defeats the point
- * of showing it.
- */
-:global(#id-price-now) {
-	position: relative;
-	display: inline-flex;
-	align-items: baseline;
-}
-:global(#id-price-was) {
-	position: absolute;
-	inset-inline-start: 100%;
-	inset-block-start: 50%;
-	margin-inline-start: var(--space-tight);
-	padding: var(--space-hairline) var(--space-tight);
-	border-radius: var(--radius-sm);
-	/* Sunflower at full strength, not the tint: a discount badge that whispers
-	   is not doing the one job it has. Marine on it measures 8.27:1. */
-	background: var(--color-sunflower);
-	font-size: var(--fs-title);
-	font-weight: 600;
-	font-variant-numeric: tabular-nums;
-	line-height: 1.2;
-	white-space: nowrap;
-	text-decoration: line-through;
-	text-decoration-thickness: 1px;
-	color: var(--color-marine);
-	box-shadow: var(--shadow-raised, none);
-	transform: translateY(-50%) rotate(-7deg);
-	transform-origin: left center;
-}
-
 /*
  * The trust line, which names the brand and so has to carry it.
  *

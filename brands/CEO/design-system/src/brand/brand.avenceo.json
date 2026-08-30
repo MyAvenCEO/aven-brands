@@ -436,6 +436,11 @@
 				"$value": "var(--color-terracotta)",
 				"$description": "something failed."
 			},
+			"terracotta-strong": {
+				"$type": "color",
+				"$value": "#a8452f",
+				"$description": "Terracotta darkened until light ink can sit on it. The tone itself is a mid-value and fails BOTH ways at body size: 2.45:1 as ink on the accent bar, 4.19:1 as a ground under cream, where 4.5 is the floor. This is the same rank `eyebrow-ink` occupies for paradise — the tone, moved exactly far enough to carry. Cream on it measures 5.70:1.\n\nTerracotta itself stays in `functional`, where it already lived; adding it to `tones` as well made `--color-terracotta` a name declared twice, and the shadowed-token test caught it before it could silently pick a winner."
+			},
 			"error-edge": {
 				"$type": "color",
 				"$value": "#d69280",

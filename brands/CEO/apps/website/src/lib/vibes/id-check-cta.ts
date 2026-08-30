@@ -194,7 +194,8 @@ function betaView(lang: Lang): ViewNode | null {
 	return {
 		tag: 'div',
 		class:
-			'-mx-5 -mb-9 mt-8 bg-accent px-5 py-4 text-center text-accent-foreground sm:-mx-10 sm:-mb-11 sm:px-10',
+			'-mx-5 -mb-9 mt-8 px-5 py-4 text-center sm:-mx-10 sm:-mb-11 sm:px-10',
+		attrs: { id: 'id-beta-bar' },
 		children: [
 			{
 				tag: 'p',
