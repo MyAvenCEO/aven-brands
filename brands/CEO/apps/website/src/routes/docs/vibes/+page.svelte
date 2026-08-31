@@ -93,7 +93,7 @@ $effect(() => {
 	>
 </svelte:head>
 
-<MarketingSiteHeader active="docs" maxWidth="6xl" lang="en" />
+<MarketingSiteHeader active="docs" maxWidth="6xl" lang="en" claimHref="/#claim" />
 
 <div id="docs-vibes" class="app-shell" {@attach stickBelowSiteHeader}>
 	<div id="dv-body">

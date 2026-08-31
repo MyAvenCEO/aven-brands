@@ -29,12 +29,18 @@ let {
 	lang = 'de',
 	/** Float the bar transparently over a dark hero (home) instead of the
 	 * solid sticky bar; the collapsed bar then goes light. */
-	overlay = false
+	overlay = false,
+	/** Where the CTA scrolls. Every MARKETING page mounts `ClaimSection`, so
+	 * the bare anchor resolves there; a page without one (the docs tools)
+	 * passes the home page's anchor instead — a bare `#claim` on such a page
+	 * is a dead link, and prerender rightly fails the build on it. */
+	claimHref = '#claim'
 }: {
 	active?: NavActive | null
 	maxWidth?: '5xl' | '6xl'
 	lang?: Lang
 	overlay?: boolean
+	claimHref?: string
 } = $props()
 
 const t = $derived(pick(common, lang))
@@ -201,10 +207,9 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 				</span>
 			</span>
 			<!-- Scrolls to the claim block rather than jumping to the external
-			     checkout. `ClaimSection` is on every page, so `#claim` always
-			     resolves — that is the whole reason it was made shared rather than
-			     left as five per-page copies. -->
-			<a class="btn btn--accent" href="#claim">{t.nav.cta}</a>
+			     checkout. `ClaimSection` is on every marketing page, so the bare
+			     anchor resolves there; pages without one pass `claimHref`. -->
+			<a class="btn btn--accent" href={claimHref}>{t.nav.cta}</a>
 		</div>
 
 		<!-- The toggle and the menu, from the island's build-rendered HTML. The
