@@ -1795,6 +1795,7 @@
 		container-type: inline-size;
 		container-name: row-list;
 		inline-size: 100%;
+		text-align: start;
 	}
 
 	.row-list-row {
@@ -4553,6 +4554,7 @@
 		inline-size: 100%;
 		max-inline-size: 72rem;
 		min-inline-size: 0;
+		padding-inline: var(--space-loose);
 	}
 
 	.site-footer-brand {
