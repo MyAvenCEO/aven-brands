@@ -47,15 +47,15 @@ import { renderSection } from '$lib/vibes/render'
 function heroView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
-		class: 'px-5 sm:px-8',
-		attrs: { id: 'home-hero', 'aria-labelledby': 'home-hero-heading' },
+		class: 'home-hero px-5 sm:px-8',
+		attrs: { 'aria-labelledby': 'home-hero-heading' },
 		children: [
 			/* The video element cannot be a view node (SAFE_TAGS), so it arrives
 			   through the seam; the wrapper dissolves via `display: contents`
 			   (#home-hero-media) so the video's own absolute positioning still
 			   resolves against the section. */
-			{ tag: 'div', attrs: { id: 'home-hero-media' }, text: '@@home-hero-video@@' },
-			{ tag: 'div', attrs: { id: 'home-hero-scrim', 'aria-hidden': 'true' } },
+			{ tag: 'div', class: 'home-hero-media', text: '@@home-hero-video@@' },
+			{ tag: 'div', class: 'home-hero-scrim', attrs: { 'aria-hidden': 'true' } },
 			/* Its ground is the FOOTAGE, not a colour. A contrast checker walks the
 			   cascade for a background and finds the page cream behind white copy —
 			   a number for a surface that is not there, and one it will keep
@@ -66,13 +66,13 @@ function heroView(t: (typeof home)['de']): ViewNode {
 			   2.57 and axe was right to shout. */
 			{
 				tag: 'div',
-				class: 'mx-auto max-w-3xl text-center',
-				attrs: { id: 'home-hero-content', 'data-ground': 'media' },
+				class: 'home-hero-content mx-auto max-w-3xl text-center',
+				attrs: { 'data-ground': 'media' },
 				children: [
 					{
 						tag: 'h1',
 						class:
-							'mx-auto max-w-3xl text-[clamp(2rem,6.5cqi,4rem)] font-light leading-tight tracking-tight text-pretty',
+							'home-hero-heading mx-auto max-w-3xl text-[clamp(2rem,6.5cqi,4rem)] font-light leading-tight tracking-tight text-pretty',
 						attrs: { id: 'home-hero-heading' },
 						children: [
 							/* The hero NAMES the brand, so it renders the brand — the
@@ -104,15 +104,13 @@ function heroView(t: (typeof home)['de']): ViewNode {
 							{
 								tag: 'p',
 								class:
-									'text-pretty text-[length:var(--fs-lead)] font-light leading-snug sm:text-[length:var(--fs-amount)]',
-								attrs: { id: 'home-hero-lead' },
+									'home-hero-lead text-pretty text-[length:var(--fs-lead)] font-light leading-snug sm:text-[length:var(--fs-amount)]',
 								text: '@@home-hero-lead@@'
 							},
 							{
 								tag: 'p',
 								class:
-									'mt-4 text-[length:var(--fs-section)] leading-snug sm:text-[length:var(--fs-lead)]',
-								attrs: { id: 'home-hero-helper' },
+									'home-hero-helper mt-4 text-[length:var(--fs-section)] leading-snug sm:text-[length:var(--fs-lead)]',
 								text: t.hero.helper
 							}
 						]
@@ -125,7 +123,7 @@ function heroView(t: (typeof home)['de']): ViewNode {
 
 /* The video, verbatim from the old markup — same attributes, same order. */
 const HERO_VIDEO_HTML =
-	'<video id="home-hero-video" autoplay muted loop playsinline preload="metadata" poster="/hero-poster.jpg" aria-hidden="true">' +
+	'<video class="home-hero-video" autoplay muted loop playsinline preload="metadata" poster="/hero-poster.jpg" aria-hidden="true">' +
 	'<source src="/hero-bg.mp4" type="video/mp4"></video>'
 
 /* ------------------------------------------------------------ trust band */

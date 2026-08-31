@@ -99,6 +99,7 @@ import cost from './brand/units/cost.json' with { type: 'json' }
 import company from './brand/units/company.json' with { type: 'json' }
 import shift from './brand/units/shift.json' with { type: 'json' }
 import own from './brand/units/own.json' with { type: 'json' }
+import homeHero from './brand/units/home-hero.json' with { type: 'json' }
 
 /*
  * Ordered by how much of the estate each one covers, measured across the
@@ -169,6 +170,7 @@ const documents = [
 	company,
 	shift,
 	own,
+	homeHero,
 ] as unknown as ActorDef[]
 
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */

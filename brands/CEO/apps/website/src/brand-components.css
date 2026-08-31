@@ -5356,4 +5356,69 @@
 		text-wrap: balance;
 		color: var(--color-foreground);
 	}
+
+	.home-hero {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 85vh;
+		padding-block: clamp(5rem, 12vh, 9rem);
+		container-type: inline-size;
+		container-name: home-hero;
+		inline-size: 100%;
+
+		& [data-emph='past'] {
+			color: var(--color-on-dark);
+			opacity: 0.6;
+		}
+		@media (prefers-reduced-motion: reduce) {
+			background: var(--color-marine) center / cover no-repeat url('/hero-poster.jpg');
+
+			& .home-hero-video {
+				display: none;
+			}
+		}
+	}
+
+	.home-hero-media {
+		display: contents;
+	}
+
+	.home-hero-video {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.home-hero-scrim {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(to bottom, var(--color-scrim-strong) 0%, var(--color-scrim-heavy) 45%, var(--color-scrim-heavy) 100%);
+	}
+
+	.home-hero-content {
+		position: relative;
+	}
+
+	.home-hero-heading {
+		color: var(--color-on-dark);
+		text-shadow: 0 2px 24px color-mix(in srgb, var(--color-marine) 45%, transparent);
+	}
+
+	.home-hero-lead {
+		color: color-mix(in srgb, var(--color-on-dark) 94%, transparent);
+		text-shadow: 0 1px 16px color-mix(in srgb, var(--color-marine) 40%, transparent);
+	}
+
+	.home-hero-helper {
+		color: color-mix(in srgb, var(--color-on-dark) 72%, transparent);
+		text-shadow: 0 1px 12px color-mix(in srgb, var(--color-marine) 40%, transparent);
+	}
 }
