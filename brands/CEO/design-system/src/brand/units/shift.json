@@ -1,0 +1,219 @@
+{
+	"name": "shift",
+	"description": "The 'why now' argument: head centred, the question as a marine pull-quote band, the two scripts stacked in two thirds with the picture in the last third, and the close on the page's one full-strength accent moment.\n\nThe two scripts are NOT equal, and one rule per part branches on `data-script` — there were paired rules for every part because the view chose a different id per side: twenty-five selectors describing two things that differ in exactly two ways, the ground and the ink. The past script is a quiet annotation with its lines struck (the page's own strike-the-old gesture, third appearance); the future script wears the accent tint under a sunflower rule — sunflower measures 1.71:1 on cream and cannot be a glyph, but as a 3px rule it is a shape, the job it can hold.\n\nThe question sits on marine because it was drowning: cream type on cream ground, centred in its own row, read as a page that failed to load. The close is a sunflower FRAME, not a fill — solid across a block that size was shouting; marine on `accent-edge` measures 9.99:1.",
+	"surface": "site",
+	"surfaceNote": "the shift argument",
+	"interface": {
+		"props": {},
+		"slots": {
+			"head": {},
+			"question": {},
+			"scripts": {},
+			"art": {},
+			"turn": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": "head"
+			},
+			{
+				"tag": "p",
+				"part": "question",
+				"$children": "question"
+			},
+			{
+				"tag": "div",
+				"part": "spread",
+				"$children": "scripts"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Hugging: the section unit's container is the box every cqi clamp in here measures, and a second container between them would change what they read.",
+			"inlineSize": "auto"
+		},
+		"parts": {
+			"inner": {
+				"$description": "One column, one left edge all the way down: the section mixed four measures and two alignments once, and the scripts read as a break rather than as its middle.",
+				"display": "grid",
+				"gap": "0"
+			},
+			"head": {
+				"--gap": "var(--space-tight)",
+				"--measure": "40rem"
+			},
+			"question": {
+				"$description": "A marine band, because the question was drowning: cream on cream, centred in its own row, its flex-item parens wrapping onto their own lines in three hundred pixels of nothing. The parens stay INLINE — inline cannot wrap onto its own line the way a flex item can — and on marine they are a shape and a tone rather than the 3.93:1 they have to justify on cream.",
+				"margin": "var(--space-section) 0 0",
+				"padding": "clamp(3rem, 7cqi, 5rem) var(--space-loose)",
+				"borderRadius": "var(--radius-xl)",
+				"background": "var(--color-marine)",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(1.75rem, 5cqi, 3rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.12",
+				"letterSpacing": "var(--tracking-tight)",
+				"textAlign": "center",
+				"textWrap": "balance",
+				"color": "var(--color-on-dark)"
+			},
+			"spread": {
+				"$description": "Two thirds argument, one third picture. The scripts stack — the old above the new, the order a reader moves through them — and the close spans BOTH tracks: it is the section's last word and belongs to the whole spread, not one column of it.",
+				"display": "grid",
+				"gap": "var(--space-loose)",
+				"marginBlockStart": "var(--space-section)",
+				"@container (min-width: 52rem)": {
+					"gridTemplateColumns": "minmax(0, 2fr) minmax(0, 1fr)",
+					"alignItems": "stretch"
+				}
+			},
+			"scripts": {
+				"$description": "The rule-label's index comes from the DOM position, not a parameter — `ruleLabel(text, '01')` was the view numbering itself; the counter numbers them from where they sit.",
+				"--gap": "var(--space-comfortable)",
+				"alignContent": "start",
+				"counterReset": "script",
+				"& .rule-label": {
+					"counterIncrement": "script"
+				},
+				"& .rule-label::before": {
+					"content": "counter(script, decimal-leading-zero)",
+					"fontFamily": "var(--font-display)",
+					"fontSize": "var(--fs-lead)",
+					"lineHeight": "1",
+					"color": "var(--color-foreground-quiet)"
+				}
+			},
+			"script": {
+				"padding": "var(--space-loose)",
+				"borderRadius": "var(--radius-xl)",
+				"display": "grid",
+				"--gap": "var(--space-comfortable)",
+				"minInlineSize": "0",
+				"alignContent": "start",
+				"&[data-script='without']": {
+					"background": "var(--color-surface-sunken)",
+					"& .shift-script-title": {
+						"color": "var(--color-foreground-quiet)"
+					},
+					"& .shift-script-items": {
+						"color": "var(--color-foreground-quiet)"
+					},
+					"& .shift-script-items > li > span:last-child": {
+						"$description": "Struck, like the salary and like 'working to survive': the script being left behind, said without a word of copy.",
+						"textDecoration": "line-through",
+						"textDecorationThickness": "1px",
+						"textDecorationColor": "color-mix(in oklab, var(--color-foreground) 35%, transparent)"
+					},
+					"& .shift-script-closing": {
+						"color": "var(--color-foreground-quiet)"
+					}
+				},
+				"&[data-script='with']": {
+					"$description": "Warm ground, warm ink: marine on this tint is 13.01:1 and correct, but it made the panel a blue island in a yellow field; `accent-foreground` is the ramp's own ink at 10.67:1, so the diptych differs in BOTH ground and ink rather than ground alone.",
+					"position": "relative",
+					"background": "var(--color-accent-surface)",
+					"color": "var(--color-accent-foreground)",
+					"& .rule-label": {
+						"color": "var(--color-accent-ink)"
+					},
+					"& .shift-script-title, & .shift-script-items, & .shift-script-closing": {
+						"color": "var(--color-accent-foreground)"
+					},
+					"& .shift-marker": {
+						"blockSize": "var(--rule-mark)",
+						"background": "var(--color-paradise)"
+					},
+					"&::before": {
+						"content": "''",
+						"position": "absolute",
+						"insetBlockStart": "0",
+						"insetInline": "var(--space-loose)",
+						"blockSize": "var(--rule-accent)",
+						"borderRadius": "var(--radius-full)",
+						"background": "var(--color-sunflower)"
+					}
+				}
+			},
+			"script-title": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-amount), 3.4cqi, 2rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.15",
+				"letterSpacing": "var(--tracking-tight)",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			},
+			"script-items": {
+				"display": "grid",
+				"gap": "var(--space-tight)",
+				"margin": "var(--space-tight) 0 0",
+				"padding": "0",
+				"listStyle": "none",
+				"fontSize": "var(--fs-lead)",
+				"lineHeight": "1.45",
+				"color": "var(--color-foreground)",
+				"& > li": {
+					"display": "flex",
+					"gap": "var(--space-comfortable)",
+					"alignItems": "baseline"
+				}
+			},
+			"marker": {
+				"flex": "0 0 auto",
+				"inlineSize": "1rem",
+				"blockSize": "1px",
+				"marginBlockStart": "0.55em",
+				"background": "color-mix(in oklab, var(--color-foreground) 25%, transparent)"
+			},
+			"script-closing": {
+				"margin": "var(--space-comfortable) 0 0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-lead), 3cqi, var(--fs-amount))",
+				"lineHeight": "1.3",
+				"textWrap": "pretty",
+				"color": "var(--color-foreground)"
+			},
+			"turn": {
+				"$description": "A FRAME, not a fill: solid sunflower across a block this size was the loudest thing on the page. The tone belongs on the edge, where it still says 'this is the accent moment', with the ground a step lighter behind the type. Used once on the page, at the moment there is something to decide — the only way an accent stays an accent.",
+				"display": "grid",
+				"justifyItems": "center",
+				"gap": "0",
+				"inlineSize": "100%",
+				"margin": "0",
+				"padding": "var(--space-section) var(--space-loose)",
+				"border": "var(--rule-frame) solid var(--color-sunflower)",
+				"borderRadius": "var(--radius-xl)",
+				"background": "var(--color-accent-edge)",
+				"textAlign": "center",
+				"@container (min-width: 52rem)": {
+					"gridColumn": "1 / -1"
+				}
+			},
+			"turn-lead": {
+				"margin": "0 0 var(--space-comfortable)",
+				"fontSize": "var(--fs-lead)",
+				"color": "var(--color-marine)"
+			},
+			"turn-kicker": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(2.25rem, 6cqi, 3.75rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.05",
+				"letterSpacing": "var(--tracking-tight)",
+				"textWrap": "balance",
+				"color": "var(--color-accent-foreground)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The heading keeps its id as the section's `aria-labelledby` target. The struck items carry their meaning in copy as well as in the strike; the script counters render through `::before` on the rule-label, so the numbering a reader hears matches the DOM order it is derived from."
+	}
+}

@@ -5056,4 +5056,193 @@
 		background: var(--color-marine);
 		color: var(--color-on-dark);
 	}
+
+	.shift {
+		inline-size: auto;
+	}
+
+	.shift-inner {
+		display: grid;
+		gap: 0;
+	}
+
+	.shift-head {
+		--gap: var(--space-tight);
+		--measure: 40rem;
+	}
+
+	.shift-question {
+		margin: var(--space-section) 0 0;
+		padding: clamp(3rem, 7cqi, 5rem) var(--space-loose);
+		border-radius: var(--radius-xl);
+		background: var(--color-marine);
+		font-family: var(--font-display);
+		font-size: clamp(1.75rem, 5cqi, 3rem);
+		font-weight: 400;
+		line-height: 1.12;
+		letter-spacing: var(--tracking-tight);
+		text-align: center;
+		text-wrap: balance;
+		color: var(--color-on-dark);
+	}
+
+	.shift-spread {
+		display: grid;
+		gap: var(--space-loose);
+		margin-block-start: var(--space-section);
+
+		@container (min-width: 52rem) {
+			grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+			align-items: stretch;
+		}
+	}
+
+	.shift-scripts {
+		--gap: var(--space-comfortable);
+		align-content: start;
+		counter-reset: script;
+
+		& .rule-label {
+			counter-increment: script;
+		}
+		& .rule-label::before {
+			content: counter(script, decimal-leading-zero);
+			font-family: var(--font-display);
+			font-size: var(--fs-lead);
+			line-height: 1;
+			color: var(--color-foreground-quiet);
+		}
+	}
+
+	.shift-script {
+		padding: var(--space-loose);
+		border-radius: var(--radius-xl);
+		display: grid;
+		--gap: var(--space-comfortable);
+		min-inline-size: 0;
+		align-content: start;
+
+		&[data-script='without'] {
+			background: var(--color-surface-sunken);
+
+			& .shift-script-title {
+				color: var(--color-foreground-quiet);
+			}
+			& .shift-script-items {
+				color: var(--color-foreground-quiet);
+			}
+			& .shift-script-items > li > span:last-child {
+				text-decoration: line-through;
+				text-decoration-thickness: 1px;
+				text-decoration-color: color-mix(in oklab, var(--color-foreground) 35%, transparent);
+			}
+			& .shift-script-closing {
+				color: var(--color-foreground-quiet);
+			}
+		}
+		&[data-script='with'] {
+			position: relative;
+			background: var(--color-accent-surface);
+			color: var(--color-accent-foreground);
+
+			& .rule-label {
+				color: var(--color-accent-ink);
+			}
+			& .shift-script-title, & .shift-script-items, & .shift-script-closing {
+				color: var(--color-accent-foreground);
+			}
+			& .shift-marker {
+				block-size: var(--rule-mark);
+				background: var(--color-paradise);
+			}
+			&::before {
+				content: '';
+				position: absolute;
+				inset-block-start: 0;
+				inset-inline: var(--space-loose);
+				block-size: var(--rule-accent);
+				border-radius: var(--radius-full);
+				background: var(--color-sunflower);
+			}
+		}
+	}
+
+	.shift-script-title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(var(--fs-amount), 3.4cqi, 2rem);
+		font-weight: 400;
+		line-height: 1.15;
+		letter-spacing: var(--tracking-tight);
+		text-wrap: balance;
+		color: var(--color-foreground);
+	}
+
+	.shift-script-items {
+		display: grid;
+		gap: var(--space-tight);
+		margin: var(--space-tight) 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--fs-lead);
+		line-height: 1.45;
+		color: var(--color-foreground);
+
+		& > li {
+			display: flex;
+			gap: var(--space-comfortable);
+			align-items: baseline;
+		}
+	}
+
+	.shift-marker {
+		flex: 0 0 auto;
+		inline-size: 1rem;
+		block-size: 1px;
+		margin-block-start: 0.55em;
+		background: color-mix(in oklab, var(--color-foreground) 25%, transparent);
+	}
+
+	.shift-script-closing {
+		margin: var(--space-comfortable) 0 0;
+		font-family: var(--font-display);
+		font-size: clamp(var(--fs-lead), 3cqi, var(--fs-amount));
+		line-height: 1.3;
+		text-wrap: pretty;
+		color: var(--color-foreground);
+	}
+
+	.shift-turn {
+		display: grid;
+		justify-items: center;
+		gap: 0;
+		inline-size: 100%;
+		margin: 0;
+		padding: var(--space-section) var(--space-loose);
+		border: var(--rule-frame) solid var(--color-sunflower);
+		border-radius: var(--radius-xl);
+		background: var(--color-accent-edge);
+		text-align: center;
+
+		@container (min-width: 52rem) {
+			grid-column: 1 / -1;
+		}
+	}
+
+	.shift-turn-lead {
+		margin: 0 0 var(--space-comfortable);
+		font-size: var(--fs-lead);
+		color: var(--color-marine);
+	}
+
+	.shift-turn-kicker {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(2.25rem, 6cqi, 3.75rem);
+		font-weight: 400;
+		line-height: 1.05;
+		letter-spacing: var(--tracking-tight);
+		text-wrap: balance;
+		color: var(--color-accent-foreground);
+	}
 }

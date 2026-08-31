@@ -535,8 +535,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 		children: [
 			{
 				tag: 'div',
-				class: 'section-inner',
-				attrs: { id: 'shift-inner' },
+				class: 'section-inner shift-inner',
 				children: [
 					/*
 					 * The head is PAIRED with an image, which is what stops this section
@@ -548,8 +547,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'div',
-						class: 'stack stack-center center',
-						attrs: { id: 'shift-head' },
+						class: 'stack stack-center center shift-head',
 						children: [
 							ruleLabel(t.shift.eyebrow, '03'),
 							{
@@ -566,7 +564,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 					   section's own container instead; the rule lives on the id. */
 					{
 						tag: 'p',
-						attrs: { id: 'shift-question' },
+						class: 'shift-question',
 						children: [
 							{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '( ' },
 							{ tag: 'span', text: '@@shift-question@@' },
@@ -585,12 +583,11 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'div',
-						attrs: { id: 'shift-spread' },
+						class: 'shift-spread',
 						children: [
 							{
 								tag: 'div',
-								class: 'stack',
-								attrs: { id: 'shift-scripts' },
+								class: 'stack shift-scripts',
 								children: [
 									scriptColumn(t.shift.without, 'without'),
 									scriptColumn(t.shift.with, 'with')
@@ -634,10 +631,10 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 							 */
 							{
 								tag: 'div',
-								attrs: { id: 'shift-turn' },
+								class: 'shift-turn',
 								children: [
-									{ tag: 'p', attrs: { id: 'shift-turn-lead' }, text: t.shift.closingBefore },
-									{ tag: 'p', attrs: { id: 'shift-turn-kicker' }, text: t.shift.closingStrong }
+									{ tag: 'p', class: 'shift-turn-lead', text: t.shift.closingBefore },
+									{ tag: 'p', class: 'shift-turn-kicker', text: t.shift.closingStrong }
 								]
 							}
 						]

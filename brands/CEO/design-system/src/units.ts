@@ -97,6 +97,7 @@ import emph from './brand/units/emph.json' with { type: 'json' }
 import trust from './brand/units/trust.json' with { type: 'json' }
 import cost from './brand/units/cost.json' with { type: 'json' }
 import company from './brand/units/company.json' with { type: 'json' }
+import shift from './brand/units/shift.json' with { type: 'json' }
 
 /*
  * Ordered by how much of the estate each one covers, measured across the
@@ -165,6 +166,7 @@ const documents = [
 	trust,
 	cost,
 	company,
+	shift,
 ] as unknown as ActorDef[]
 
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */
