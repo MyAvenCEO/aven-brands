@@ -1,0 +1,25 @@
+{
+	"name": "paren",
+	"description": "The framing parenthesis, as the reference set draws it: a display-size glyph in PARADISE, never sunflower — sunflower measures 1.71:1 on cream, a glyph nobody can read, while paradise is 3.93:1, which clears the 3:1 a shape needs at the display sizes these sit at. Inline, not a flex child: as flex items the parens wrapped onto their own lines above and below the sentence, which reads as a mistake rather than a frame.\n\nContexts re-ink it where the ground changes — the cost overlay's scrim takes `secondary-edge`, one step lighter on the same ramp, because paradise on that scrim measures 2.50:1.",
+	"surface": "site",
+	"surfaceNote": "an editorial mark",
+	"interface": {
+		"props": {},
+		"slots": {}
+	},
+	"view": {
+		"tag": "span",
+		"attrs": {
+			"aria-hidden": "true"
+		}
+	},
+	"styling": {
+		"base": {
+			"color": "var(--color-paradise)",
+			"fontStyle": "normal"
+		}
+	},
+	"a11y": {
+		"note": "Always `aria-hidden`: the parens frame the sentence visually and add nothing when read aloud."
+	}
+}

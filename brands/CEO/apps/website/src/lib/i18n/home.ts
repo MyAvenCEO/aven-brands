@@ -107,10 +107,13 @@ export type HomeMessages = {
  * misses are warnings rather than errors, which is exactly the wrong tier for
  * a decision the design depends on.
  *
- * `kind` is a role, not a colour. The hero styles `[data-emph]` itself.
+ * `kind` is a role, not a colour. The `emph` unit styles the roles; the hero
+ * re-inks `past` for its own dark ground. The class is the unit's — a
+ * generated component class, so the scanner knows it — and the attribute
+ * stays the branch the styling reads.
  */
 const s = (text: string, kind: 'strong' | 'lead' | 'past' = 'lead') =>
-	`<strong data-emph="${kind}">${text}</strong>`
+	`<strong class="emph" data-emph="${kind}">${text}</strong>`
 
 export const home: Record<Lang, HomeMessages> = {
 	de: {

@@ -91,6 +91,9 @@ import toast from './brand/units/toast.json' with { type: 'json' }
 import viewerFrame from './brand/units/viewer-frame.json' with { type: 'json' }
 import voicePill from './brand/units/voice-pill.json' with { type: 'json' }
 import workbench from './brand/units/workbench.json' with { type: 'json' }
+import ruleLabel from './brand/units/rule-label.json' with { type: 'json' }
+import paren from './brand/units/paren.json' with { type: 'json' }
+import emph from './brand/units/emph.json' with { type: 'json' }
 
 /*
  * Ordered by how much of the estate each one covers, measured across the
@@ -146,7 +149,12 @@ const documents = [
 	navLink,
 	navbar,
 	navMenu,
-	footer
+	footer,
+	/* The landing page's editorial devices — leaves, appended after the
+	   boxes so their declarations win ties inside the components layer. */
+	ruleLabel,
+	paren,
+	emph,
 ] as unknown as ActorDef[]
 
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */

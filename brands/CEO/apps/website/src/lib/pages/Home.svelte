@@ -125,16 +125,9 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * photograph, where the tone reads and the page's inks do not. `past` is the
  * life being left behind, so it is struck through and quiet.
  */
-:global([data-emph]) {
-	font-weight: 500;
-}
-:global([data-emph="strong"]) {
-	color: var(--color-accent);
-}
-:global([data-emph="past"]) {
-	color: var(--color-foreground-quiet);
-	text-decoration: line-through;
-}
+/* The three emphasis roles are the `emph` unit now — which also closes a
+   drift: they only loaded on this page, so the same spans rendered unstyled
+   inside the claim card on every other route. */
 /* On the hero photograph the page inks do not apply: everything there is the
    light ink, and `past` is that ink held back. */
 :global(#home-hero [data-emph="past"]) {
@@ -771,81 +764,11 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 }
 
 /*
- * EDITORIAL FURNITURE, shared by the two argued sections.
- *
- * Drawn, never illustrated: rules, corner brackets and tracked caps are what
- * the period actually used, and a stylesheet can make all of them without a
- * single asset. Brand colour throughout — the retro is in the STRUCTURE, not
- * in a new palette.
+ * `rule-label` and `paren` are UNITS now — the old decline note said the
+ * device becomes one "when the contract grows a non-container composite",
+ * and it did: the hugging class (content-sized inline-size) is exactly that.
+ * The declarations moved verbatim; only the address changed.
  */
-/*
- * NOT A UNIT, deliberately — and this is the note that stops the next attempt.
- *
- * It is already ONE implementation shared by three sections, so promoting it
- * removes no duplication; what it would add is a storyboard specimen. The price
- * is the system's own container contract: every composite declares a container,
- * every container declares its own `inline-size`, and `inline-size: 100%` on
- * this label makes its rule ALWAYS draw.
- *
- * That sounds like the point and is not. On a centred head the label shrinks to
- * its content and the rule collapses to nothing — which is how one device reads
- * as a plain eyebrow there and as an anchored one in a ranged column. Whether
- * the rule appears is the CALLER's layout decision, and the contract has no way
- * to say that. Measured both ways: forcing the width moved 12 elements,
- * dropping it to compensate broke the container test and moved 324.
- *
- * It becomes a unit when either the contract grows a non-container composite,
- * or the device stops depending on its own width.
- */
-:global(.rule-label) {
-	display: flex;
-	align-items: center;
-	gap: var(--space-tight);
-	margin: 0;
-	font-family: var(--font-sans);
-	font-size: var(--fs-eyebrow);
-	font-weight: 600;
-	letter-spacing: var(--tracking-widest);
-	text-transform: uppercase;
-	color: var(--color-eyebrow-ink);
-}
-:global(.rule-label-index) {
-	font-variant-numeric: tabular-nums;
-	color: var(--color-foreground-quiet);
-}
-:global(.rule-label-index)::after {
-	content: '';
-	display: inline-block;
-	inline-size: 1.25rem;
-	block-size: 1px;
-	margin-inline: var(--space-tight) 0;
-	vertical-align: middle;
-	background: var(--color-border-strong);
-}
-/* The rule takes whatever width is left, which is what anchors the label to
-   the column instead of leaving it floating over the content. */
-:global(.rule-label-line) {
-	flex: 1 1 auto;
-	block-size: 1px;
-	background: var(--color-border-soft);
-}
-/*
- * The framing parens, in PARADISE and not sunflower.
- *
- * They were sunflower, which measured 1.71:1 on cream — a glyph nobody can
- * read, and short of even the 3:1 a shape needs. That was me contradicting my
- * own measurement one pass after making it: sunflower on this ground is a
- * FIELD, never a mark. Paradise is 3.93:1, which clears 3:1 at the display
- * sizes these sit at.
- *
- * Inline, not flex children: as flex items they wrapped onto their own lines
- * above and below the sentence, which reads as a mistake rather than a frame.
- */
-:global(.paren) {
-	color: var(--color-paradise);
-	font-style: normal;
-}
-
 /*
  * IMAGES ARE CUT INTO SHAPES, never left as rectangles.
  *
