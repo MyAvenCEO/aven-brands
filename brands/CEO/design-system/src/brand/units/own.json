@@ -1,0 +1,147 @@
+{
+	"name": "own",
+	"description": "The ownership section: head, picture, ladder, close. It was three equal bordered cards in a row under a centred head — the arrangement that makes a section read as generated, because the eye lands nowhere and nothing says which of the three matters. They are STAGES, not options: numbered, and the last one carries the ground, because the fleet that compounds is the payoff the other two build to (marine on the success tint measures 12.15:1).\n\nThe rungs deliberately declare NO container. The rung title reads 3cqi of the SECTION; a container on the rung would make it read the rung's own width — narrower when the rungs sit in a row, WIDER when they stack — so the title would shrink and grow in opposite directions from the ones it was written for. A box unit that is also a container is not a drop-in for a box.",
+	"surface": "site",
+	"surfaceNote": "the ownership ladder",
+	"interface": {
+		"props": {},
+		"slots": {
+			"head": {},
+			"art": {},
+			"rungs": {},
+			"closing": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": "head"
+			},
+			{
+				"tag": "figure",
+				"part": "art",
+				"$children": "art"
+			},
+			{
+				"tag": "ol",
+				"part": "rungs",
+				"$children": "rungs"
+			},
+			{
+				"tag": "p",
+				"part": "closing",
+				"$children": "closing"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Hugging: the section unit's container is the box the heading and rung titles measure with cqi.",
+			"inlineSize": "auto"
+		},
+		"parts": {
+			"grid": {
+				"--gap": "var(--space-section)"
+			},
+			"head": {
+				"--measure": "56rem",
+				"paddingBlockStart": "var(--space-section)"
+			},
+			"heading": {
+				"$description": "Wide measure, NORMAL tracking. At 44rem with tracking-tight it broke to four lines and the negative tracking closed the letters exactly where a large display line needs them open. 46ch so each AUTHORED line fits on one rendered line — German is the constraint: 'Sondern einen fuer jede Idee, die du hast' is 41 characters against the English 34.",
+				"margin": "0",
+				"maxInlineSize": "46ch",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-display), 5cqi, 3rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.1",
+				"letterSpacing": "var(--tracking-normal)",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			},
+			"heading-line": {
+				"display": "block"
+			},
+			"lead": {
+				"margin": "0",
+				"maxInlineSize": "38rem",
+				"fontSize": "var(--fs-lead)",
+				"lineHeight": "1.5",
+				"textWrap": "pretty",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"rungs": {
+				"display": "grid",
+				"gap": "var(--space-loose)",
+				"margin": "0",
+				"padding": "0",
+				"listStyle": "none",
+				"@container (min-width: 48rem)": {
+					"gridTemplateColumns": "repeat(3, minmax(0, 1fr))",
+					"alignItems": "stretch"
+				}
+			},
+			"rung": {
+				"$description": "NOT a `surface`, and the reason is in the unit description: a container between the title and the box its 3cqi measures changes what the clamp reads. The rung keeps its own three declarations until the title is expressed in something that does not care.",
+				"padding": "var(--space-loose)",
+				"borderRadius": "var(--radius-xl)",
+				"background": "var(--color-surface-sunken)",
+				"display": "grid",
+				"alignContent": "start",
+				"--gap": "var(--space-tight)",
+				"&[data-rung='last']": {
+					"$description": "The payoff rung, on the success tint — marine on it measures 12.15:1.",
+					"background": "var(--color-success-surface)"
+				}
+			},
+			"rung-index": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "var(--fs-display)",
+				"fontWeight": "400",
+				"lineHeight": "1",
+				"color": "var(--color-secondary-strong)"
+			},
+			"rung-count": {
+				"margin": "0",
+				"fontSize": "var(--fs-eyebrow)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-widest)",
+				"textTransform": "uppercase",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"rung-title": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-amount), 3cqi, 1.75rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.15",
+				"letterSpacing": "var(--tracking-tight)",
+				"color": "var(--color-foreground)"
+			},
+			"rung-text": {
+				"margin": "0",
+				"fontSize": "var(--fs-section)",
+				"lineHeight": "1.5",
+				"textWrap": "pretty",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"closing": {
+				"--measure": "40rem",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-lead), 3.2cqi, 2rem)",
+				"lineHeight": "1.25",
+				"letterSpacing": "var(--tracking-tight)",
+				"textAlign": "center",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The rungs are a real `<ol>` — the ladder's order is the argument, and an ordered list announces it. The heading keeps its id as the section's `aria-labelledby` target; the printed 01/02/03 indexes are text, so what is heard matches what is shown."
+	}
+}

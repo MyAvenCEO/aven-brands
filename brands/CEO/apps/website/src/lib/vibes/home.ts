@@ -753,22 +753,21 @@ function ownView(t: (typeof home)['de']): ViewNode {
 		children: [
 			{
 				tag: 'div',
-				class: 'section-inner stack',
-				attrs: { id: 'own-grid' },
+				class: 'section-inner stack own-grid',
 				children: [
 					{
 						tag: 'div',
-						class: 'stack stack-center center',
-						attrs: { id: 'own-head' },
+						class: 'stack stack-center center own-head',
 						children: [
 							ruleLabel(t.own.eyebrow, '04'),
 							{
 								tag: 'h2',
+								class: 'own-heading',
 								attrs: { id: 'own-heading' },
 								text: t.own.headingLine1,
 								children: [{ tag: 'span', class: 'own-heading-line', text: t.own.headingLine2 }]
 							},
-							{ tag: 'p', attrs: { id: 'own-lead' }, text: t.own.lead }
+							{ tag: 'p', class: 'own-lead', text: t.own.lead }
 						]
 					},
 					/*
@@ -813,7 +812,7 @@ function ownView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'ol',
-						attrs: { id: 'own-rungs' },
+						class: 'own-rungs',
 						children: t.own.rungs.map(
 							(rung, i): ViewNode => ({
 								tag: 'li',
@@ -828,7 +827,7 @@ function ownView(t: (typeof home)['de']): ViewNode {
 							})
 						)
 					},
-					{ tag: 'p', class: 'center', attrs: { id: 'own-closing' }, text: t.own.closing }
+					{ tag: 'p', class: 'center own-closing', text: t.own.closing }
 				]
 			}
 		]

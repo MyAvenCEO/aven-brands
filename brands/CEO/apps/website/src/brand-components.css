@@ -5245,4 +5245,115 @@
 		text-wrap: balance;
 		color: var(--color-accent-foreground);
 	}
+
+	.own {
+		inline-size: auto;
+	}
+
+	.own-grid {
+		--gap: var(--space-section);
+	}
+
+	.own-head {
+		--measure: 56rem;
+		padding-block-start: var(--space-section);
+	}
+
+	.own-heading {
+		margin: 0;
+		max-inline-size: 46ch;
+		font-family: var(--font-display);
+		font-size: clamp(var(--fs-display), 5cqi, 3rem);
+		font-weight: 400;
+		line-height: 1.1;
+		letter-spacing: var(--tracking-normal);
+		text-wrap: balance;
+		color: var(--color-foreground);
+	}
+
+	.own-heading-line {
+		display: block;
+	}
+
+	.own-lead {
+		margin: 0;
+		max-inline-size: 38rem;
+		font-size: var(--fs-lead);
+		line-height: 1.5;
+		text-wrap: pretty;
+		color: var(--color-foreground-quiet);
+	}
+
+	.own-rungs {
+		display: grid;
+		gap: var(--space-loose);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		@container (min-width: 48rem) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			align-items: stretch;
+		}
+	}
+
+	.own-rung {
+		padding: var(--space-loose);
+		border-radius: var(--radius-xl);
+		background: var(--color-surface-sunken);
+		display: grid;
+		align-content: start;
+		--gap: var(--space-tight);
+
+		&[data-rung='last'] {
+			background: var(--color-success-surface);
+		}
+	}
+
+	.own-rung-index {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--fs-display);
+		font-weight: 400;
+		line-height: 1;
+		color: var(--color-secondary-strong);
+	}
+
+	.own-rung-count {
+		margin: 0;
+		font-size: var(--fs-eyebrow);
+		font-weight: 600;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-foreground-quiet);
+	}
+
+	.own-rung-title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(var(--fs-amount), 3cqi, 1.75rem);
+		font-weight: 400;
+		line-height: 1.15;
+		letter-spacing: var(--tracking-tight);
+		color: var(--color-foreground);
+	}
+
+	.own-rung-text {
+		margin: 0;
+		font-size: var(--fs-section);
+		line-height: 1.5;
+		text-wrap: pretty;
+		color: var(--color-foreground-quiet);
+	}
+
+	.own-closing {
+		--measure: 40rem;
+		font-family: var(--font-display);
+		font-size: clamp(var(--fs-lead), 3.2cqi, 2rem);
+		line-height: 1.25;
+		letter-spacing: var(--tracking-tight);
+		text-align: center;
+		text-wrap: balance;
+		color: var(--color-foreground);
+	}
 }
