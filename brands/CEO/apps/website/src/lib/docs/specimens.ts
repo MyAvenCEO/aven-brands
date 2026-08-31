@@ -415,7 +415,7 @@ export const specimens: Record<string, Specimen> = {
 		/* The real thing: media behind, scrim over it, three lines of copy on top.
 		   `min-block-size` is overridden only so the specimen fits a stage — every
 		   other value is the unit's. */
-		one: `<span class="hero hero--height-short" style="display:flex; inline-size:100%; border-radius: var(--radius-lg)">
+		one: `<span class="hero" style="display:flex; inline-size:100%; border-radius: var(--radius-lg); --hero-min-block: 14rem">
 			<span class="hero-media"><img class="media media--placement-behind" src="/hero-poster.jpg" alt=""></span>
 			<span class="hero-scrim" aria-hidden="true"></span>
 			<span class="hero-content">

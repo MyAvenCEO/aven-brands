@@ -1083,14 +1083,6 @@
 		}
 	}
 
-	.hero--height-full {
-		min-block-size: 100ddvh;
-	}
-
-	.hero--height-short {
-		min-block-size: min(56ddvh, 34rem);
-	}
-
 	.hero--align-start {
 
 		& .hero-content {
