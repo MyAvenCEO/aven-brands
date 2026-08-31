@@ -89,10 +89,7 @@
 			"paddingInline": "var(--space-comfortable)",
 			"paddingBlock": "clamp(3rem, 9cqi, 6rem)",
 			"color": "var(--color-on-dark)",
-			"containerType": "inline-size",
-			"containerName": "hero",
-			"inlineSize": "100%",
-			"minInlineSize": "0"
+			"containerType": "inline-size"
 		},
 		"parts": {
 			"media": {

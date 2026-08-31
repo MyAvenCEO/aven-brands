@@ -69,15 +69,12 @@
 		"base": {
 			"$description": "CONTAINER. This unit establishes an inline-size container named after itself, so anything inside it responds to the width of THIS BOX rather than the window. `inline-size: 100%` is the container's REQUIRED companion: `container-type: inline-size` makes the box's width independent of its contents, so a container with no width of its own collapses to zero. The border is `rule-mark` thick in the accent at quarter strength — the same edge the live card wore as a utility, now traceable.",
 			"display": "grid",
-			"minInlineSize": "0",
 			"borderRadius": "var(--radius-xl)",
 			"border": "var(--rule-mark) solid var(--color-accent-border)",
 			"background": "var(--color-surface-raised)",
 			"boxShadow": "var(--shadow-raised)",
 			"overflow": "clip",
-			"containerType": "inline-size",
-			"containerName": "claim-card",
-			"inlineSize": "100%"
+			"containerType": "inline-size"
 		},
 		"parts": {
 			"body": {

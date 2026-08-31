@@ -36,9 +36,7 @@
 			"$description": "The figure. It carries no crop mechanics — `.frame` on the crop part does that — only the block it occupies and its own container, which every composite here declares so a `cqi` inside measures the frame.\n\n`position: relative` because a frame is a positioning context for anything laid OVER the picture. Dropping it when the crop mechanics moved to `.frame` let an absolutely-positioned overlay escape to the page — it went from 1012px inside the figure to 1280px across the viewport, which a screenshot of the top of the page would not have shown.",
 			"position": "relative",
 			"display": "block",
-			"inlineSize": "100%",
 			"containerType": "inline-size",
-			"containerName": "media-frame",
 			"margin": "0"
 		},
 		"variants": {

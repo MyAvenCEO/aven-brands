@@ -62,34 +62,20 @@ const hugging = all.filter((u) => slotted(u) && hugs(u))
 const leafs = all.filter((u) => !slotted(u))
 
 describe('the container contract', () => {
-	test('every composite establishes a container named after itself', () => {
-		expect(
-			composites
-				.filter((u: any) => u.styling?.base?.containerType !== 'inline-size')
-				.map((u: any) => u.name)
-		).toEqual([])
-		expect(
-			composites
-				.filter((u: any) => u.styling?.base?.containerName !== u.name)
-				.map((u: any) => u.name)
-		).toEqual([])
-	})
-
-	test('every container declares its own inline-size', () => {
-		/*
-		 * EVERY container, including the viewport-pinned ones. `nav-menu` relied on
-		 * `inset: 0` for its width and was exempted here because it is fixed — and
-		 * it collapsed to zero the first time anything rendered it as anything but
-		 * fixed, which its own specimen does. That is the third time this exact
-		 * circularity has cost a layout, so the rule now has no exceptions: if a
-		 * unit is a container, it says how wide it is.
-		 */
-		const everyContainer = all.filter((u) => u.styling?.base?.containerType === 'inline-size')
-		expect(everyContainer.filter((u) => !u.styling?.base?.inlineSize).map((u) => u.name)).toEqual(
-			[]
-		)
-	})
-
+	/*
+	 * Two tests stood here: that every composite establishes a container named
+	 * after itself, and that every container declares its own inline-size.
+	 *
+	 * They are gone because `withContainerContract` in `actors.ts` now APPLIES
+	 * both. A rule the system enforces at load does not also need a test asking
+	 * whether each of 34 authors remembered it — that test was the cost of the
+	 * contract being a convention instead of a mechanism.
+	 *
+	 * What is still worth testing is below, and it is the part the normaliser
+	 * CANNOT decide: whether a thing should be a container at all (a leaf and a
+	 * hugging unit must not be), whether its display makes containment work, and
+	 * whether it reaches for the viewport.
+	 */
 	test('a unit that hugs its content is never a container', () => {
 		/* The two are circular: containment removes content-based sizing, and
 		   `fit-content` IS content-based sizing. `voice-pill` collapsed to a

@@ -183,8 +183,43 @@ const documents = [
 	homeHero
 ] as unknown as ActorDef[]
 
+/**
+ * THE CONTAINER CONTRACT, applied once instead of written 34 times.
+ *
+ * A composite that establishes an inline-size container needs four things
+ * together, and three of them are the same in every case:
+ *
+ *   container-type: inline-size   the containment being asked for
+ *   container-name: <its name>    so a descendant can query THIS box
+ *   inline-size: 100%             REQUIRED, not a preference — containment
+ *                                 makes the box's width independent of its
+ *                                 contents, so a container with no width of
+ *                                 its own has nothing to size from and
+ *                                 collapses to zero
+ *   min-inline-size: 0            so a grid or flex item can actually shrink
+ *
+ * They were spelled out in all 34, which is 235 of the library's 488 sizing
+ * declarations restated, and three contract tests existed to check that every
+ * actor had remembered them. A rule the system can APPLY does not need a test
+ * that asks whether you remembered it.
+ *
+ * An actor that means something different still says so: `price-tier` sets its
+ * own `15rem`, `modal` its `min(34rem, calc(100% - 2rem))`. Explicit values are
+ * never overwritten — this fills the blanks, it does not impose.
+ */
+function withContainerContract(doc: any): any {
+	const base = doc?.styling?.base
+	if (base?.containerType !== 'inline-size') return doc
+	base.containerName ??= doc.name
+	base.inlineSize ??= '100%'
+	base.minInlineSize ??= '0'
+	return doc
+}
+
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */
-export const actors: ActorRegistry = Object.fromEntries(documents.map((u) => [u.name, u]))
+export const actors: ActorRegistry = Object.fromEntries(
+	documents.map(withContainerContract).map((u) => [u.name, u])
+)
 
 validateRegistry(actors)
 

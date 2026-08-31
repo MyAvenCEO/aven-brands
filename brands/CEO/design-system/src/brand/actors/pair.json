@@ -35,9 +35,7 @@
 			"$description": "One column until there is room for two.\n\nIt DECLARES a container and QUERIES a different one, and both are needed. Declaring makes the pair a container for its own children, so a `cqi` inside a half measures the half's column — the rule every composite here follows. Querying asks an ANCESTOR, because an element can never be its own query container: the first version named its own container in the query and the pair simply never switched, reading as one 1024px column at every width. A query that matches nothing looks exactly like a threshold not yet reached.\n\nSo the query is unnamed and resolves to the nearest ancestor container, which on every surface here is the `section`.",
 			"position": "relative",
 			"display": "grid",
-			"inlineSize": "100%",
 			"containerType": "inline-size",
-			"containerName": "pair",
 			"gap": "var(--gap, var(--space-loose))",
 			"&::before": {
 				"$description": "The rule, drawn on the CONTAINER at the midpoint rather than as a border on either half — a border belongs to one side and this line belongs to neither. `currentColor` so a pair on a dark band gets a divider in that band's ink without the caller choosing one.",

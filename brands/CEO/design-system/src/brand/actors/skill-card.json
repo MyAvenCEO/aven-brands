@@ -88,10 +88,7 @@
 			"display": "flex",
 			"flexDirection": "column",
 			"gap": "var(--space-tight)",
-			"containerType": "inline-size",
-			"containerName": "skill-card",
-			"inlineSize": "100%",
-			"minInlineSize": "0"
+			"containerType": "inline-size"
 		},
 		"parts": {
 			"head": {
