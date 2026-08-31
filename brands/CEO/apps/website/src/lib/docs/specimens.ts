@@ -1174,5 +1174,164 @@ Let me know if anything is missing.</span>
 			<span class="step">Meet your aven</span>
 			<span class="step">Hand it the inbox</span>
 		</span>`
+	},
+
+	pair: {
+		one: `<span class="pair" style="inline-size:100%">
+			<span class="stack" style="--gap:var(--space-hairline)"><p style="margin:0; font-weight:600">1 human CEO</p><p style="margin:0; color:var(--color-foreground-quiet)">15.000&nbsp;€ / month</p></span>
+			<span class="stack" style="--gap:var(--space-hairline)"><p style="margin:0; font-weight:600">1 avenCEO</p><p style="margin:0; color:var(--color-foreground-quiet)">99&nbsp;€ / week</p></span>
+		</span>`
+	},
+	'media-frame': {
+		tall: true,
+		one: `<span class="media-frame media-frame--shape-arch media-frame--ratio-wide media-frame--edge-paper" style="max-inline-size:22rem">
+			<span class="frame media-frame-crop">
+				<img class="media" src="/woman-on-mountain.jpg" alt="" width="1920" height="1072" loading="lazy">
+			</span>
+		</span>`
+	},
+
+	/* ------------------------------------------------- the landing bands
+	 * The six sections of the home page, plus the three editorial devices
+	 * they share. These render from exactly the classes the live page uses —
+	 * a specimen that drifts from the page would be the drift the units
+	 * exist to close. */
+	'rule-label': {
+		one: `<span class="sp-stack sp-stack--wide">
+			<p class="rule-label"><span class="rule-label-index">02</span><span>The arithmetic</span><span class="rule-label-line" aria-hidden="true"></span></p>
+			<p class="rule-label"><span>What stays yours</span><span class="rule-label-line" aria-hidden="true"></span></p>
+		</span>`
+	},
+	paren: {
+		one: `<p style="margin:0; font-family:var(--font-display); font-size:1.5rem"><span class="paren" aria-hidden="true">( </span>This is your moment.<span class="paren" aria-hidden="true"> )</span></p>`
+	},
+	emph: {
+		one: `<p style="margin:0; max-inline-size:32rem; line-height:1.6">From <strong class="emph" data-emph="past">working to survive</strong> to the <strong class="emph" data-emph="strong">sovereign</strong> founder — at the <strong class="emph">price of electricity</strong>.</p>`
+	},
+	trust: {
+		tall: true,
+		one: `<span style="display:block; inline-size:100%; padding:var(--space-loose); border-radius:var(--radius-lg); background:var(--color-primary); container-type:inline-size">
+			<h3 class="trust-headline" style="font-size:1.25rem">Your own AI staff — <span class="logo logo--inline trust-lockup"><span class="logo-wordmark"><span class="logo-word-aven">aven</span><span class="logo-word-ceo">CEO</span></span></span> — that you own 100%.</h3>
+			<ul class="grid-auto center trust-claims">
+				<li class="trust-claim stack surface surface--lift surface--size-chip">
+					<span class="trust-claim-icon" aria-hidden="true">${icon('trust-encrypted', '1.75rem')}</span>
+					<p class="trust-claim-name">E2E-encrypted AI</p>
+					<p class="trust-claim-figure">100%</p>
+				</li>
+				<li class="trust-claim stack surface surface--lift surface--size-chip">
+					<span class="trust-claim-icon" aria-hidden="true">${icon('trust-privacy', '1.75rem')}</span>
+					<p class="trust-claim-name">Private by design</p>
+					<p class="trust-claim-figure">100%</p>
+				</li>
+				<li class="trust-claim stack surface surface--lift surface--size-chip">
+					<span class="trust-claim-icon" aria-hidden="true">${icon('trust-ownership', '1.75rem')}</span>
+					<p class="trust-claim-name">Yours to own</p>
+					<p class="trust-claim-figure">100%</p>
+				</li>
+			</ul>
+		</span>`
+	},
+	cost: {
+		tall: true,
+		one: `<span class="stack" style="inline-size:100%; container-type:inline-size; --gap:var(--space-comfortable)">
+			<span class="pair pair--rule-none cost-price">
+				<span class="cost-panel stack cost-was">
+					<p class="cost-panel-label">1 human CEO</p>
+					<p class="cost-was-figure"><span class="cost-was-value">15.000&nbsp;€</span><span class="cost-was-unit">/ month</span></p>
+					<p class="cost-was-note">Salary, office, overhead — and it sleeps.</p>
+				</span>
+				<span class="cost-panel stack cost-now">
+					<p class="cost-panel-label">1 avenCEO</p>
+					<p class="cost-now-figure"><span class="cost-now-value">99&nbsp;€</span><span class="cost-now-unit">/ week</span></p>
+					<p class="cost-now-note">Works around the clock, gets better daily.</p>
+				</span>
+			</span>
+			<p class="center cost-closing"><span class="cost-closing-rate">from €0.59/h</span><span class="cost-closing-line">not just cheaper — another order of efficiency.</span></p>
+			<ul class="cluster cost-does">
+				<li><span class="cost-does-mark" aria-hidden="true"></span><span>Writes</span></li>
+				<li><span class="cost-does-mark" aria-hidden="true"></span><span>Books</span></li>
+				<li><span class="cost-does-mark" aria-hidden="true"></span><span>Invoices</span></li>
+			</ul>
+		</span>`
+	},
+	company: {
+		tall: true,
+		one: `<span class="company bg-band text-band-foreground" style="display:block; padding:var(--space-loose); border-radius:var(--radius-lg)">
+			<h3 class="company-heading" style="margin:0; text-align:center; font-size:1.5rem; font-weight:300">1 human + 1 <b>avenCEO</b></h3>
+			<span class="pair company-roles">
+				<span class="company-role stack">
+					<p class="company-role-label">The human</p>
+					<p class="company-role-title">Brings the vision</p>
+					<p class="company-role-text">Direction, taste, the ideas worth building.</p>
+				</span>
+				<span class="company-role stack">
+					<p class="company-role-label">The avenCEO</p>
+					<p class="company-role-title">Runs the company</p>
+					<p class="company-role-text">Execution, memory, judgment — around the clock.</p>
+				</span>
+			</span>
+			<span class="company-closing-panel" style="display:block"><p style="margin:0">The company of the future.</p></span>
+		</span>`
+	},
+	shift: {
+		tall: true,
+		one: `<span style="display:block; inline-size:100%; container-type:inline-size"><span class="stack shift-scripts">
+			<span class="shift-script stack" data-script="without">
+				<p class="rule-label">The old script</p>
+				<h4 class="shift-script-title">Work to survive</h4>
+				<ul class="shift-script-items">
+					<li><span class="shift-marker" aria-hidden="true"></span><span>Trade time for money</span></li>
+					<li><span class="shift-marker" aria-hidden="true"></span><span>Build someone else's asset</span></li>
+				</ul>
+			</span>
+			<span class="shift-script stack" data-script="with">
+				<p class="rule-label">The new script</p>
+				<h4 class="shift-script-title">Found with an avenCEO</h4>
+				<ul class="shift-script-items">
+					<li><span class="shift-marker" aria-hidden="true"></span><span>Your ideas become companies</span></li>
+					<li><span class="shift-marker" aria-hidden="true"></span><span>Every correction compounds</span></li>
+				</ul>
+				<p class="shift-script-closing">Both start today.</p>
+			</span>
+			<span class="shift-turn">
+				<p class="shift-turn-lead">Both start today.</p>
+				<p class="shift-turn-kicker" style="font-size:1.75rem">Will you pick up the pen?</p>
+			</span>
+		</span></span>`
+	},
+	own: {
+		tall: true,
+		one: `<span style="display:block; inline-size:100%; container-type:inline-size">
+			<ol class="own-rungs">
+				<li class="own-rung stack">
+					<p class="own-rung-index">01</p>
+					<p class="own-rung-count">One aven</p>
+					<p class="own-rung-title">Your first company</p>
+					<p class="own-rung-text">It learns your life and runs the business you start it on.</p>
+				</li>
+				<li class="own-rung stack">
+					<p class="own-rung-index">02</p>
+					<p class="own-rung-count">One per idea</p>
+					<p class="own-rung-title">Not one company — one per idea</p>
+					<p class="own-rung-text">Each idea gets its own aven, its own name, its own books.</p>
+				</li>
+				<li class="own-rung stack" data-rung="last">
+					<p class="own-rung-index">03</p>
+					<p class="own-rung-count">A fleet</p>
+					<p class="own-rung-title">The fleet compounds</p>
+					<p class="own-rung-text">What one learns, all of them know. You own every one.</p>
+				</li>
+			</ol>
+		</span>`
+	},
+	'home-hero': {
+		tall: true,
+		one: `<span class="home-hero" style="min-height:16rem; padding:var(--space-loose); border-radius:var(--radius-lg); background:var(--color-marine) center / cover no-repeat url('/hero-poster.jpg')">
+			<span class="home-hero-scrim" style="border-radius:var(--radius-lg)" aria-hidden="true"></span>
+			<span class="home-hero-content" style="text-align:center">
+				<p class="home-hero-heading" style="margin:0; font-size:1.75rem; font-weight:300">avenCEO runs your company.</p>
+				<p class="home-hero-lead" style="margin:0.5rem 0 0">From <strong class="emph" data-emph="past">working to survive</strong> to founder of tomorrow.</p>
+			</span>
+		</span>`
 	}
 }

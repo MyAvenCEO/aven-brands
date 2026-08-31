@@ -74,7 +74,7 @@
 				}
 			},
 			"scripts": {
-				"$description": "The rule-label's index comes from the DOM position, not a parameter — `ruleLabel(text, '01')` was the view numbering itself; the counter numbers them from where they sit.",
+				"$description": "The rule-label's index comes from the DOM position, not a parameter — `ruleLabel(text, '01')` was the view numbering itself; the counter numbers them from where they sit. NEVER make this element a container: `container-type` imposes style containment, which scopes each `counter-increment` to its own subtree, and every script then reads 01. Measured in the storybook, where the specimen's stage wrapper did exactly that.",
 				"--gap": "var(--space-comfortable)",
 				"alignContent": "start",
 				"counterReset": "script",
