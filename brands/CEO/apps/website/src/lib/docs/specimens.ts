@@ -721,7 +721,7 @@ export const specimens: Record<string, Specimen> = {
 		tall: true,
 		one: `<span class="claim-card" style="inline-size:100%; max-inline-size:44rem">
 			<span class="claim-card-body">
-				<p class="text text--eyebrow claim-card-eyebrow">— Invite only —</p>
+				<p class="text text--eyebrow claim-card-eyebrow">Invite only</p>
 				<h3 class="claim-card-heading" style="margin:0">Claim your avenCEO name now</h3>
 				<p class="claim-card-lede">Like a domain — but for your avenCEO: e.g. maia.aven.ceo. It exists exactly once — claim it before someone else does.</p>
 				<ul class="claim-card-benefits">
@@ -731,25 +731,19 @@ export const specimens: Record<string, Specimen> = {
 					<li class="claim-card-benefit"><span class="claim-card-dot"></span><span>Your profile in the aven Marketplace</span></li>
 				</ul>
 				<span class="claim-card-price">
-					<span class="claim-card-amount">25 €</span>
-					<span class="claim-card-terms">one-time · incl. VAT</span>
-				</span>
-				<span class="claim-card-form">
-					<span class="field field--shape-affixed field--shape-pill field--size-hero field--align-end" style="flex:1 1 16rem; min-inline-size:0">
-						<span class="field-shell">
-							<input class="field-control" type="text" value="maia" readonly aria-label="Your aven name">
-							<span class="field-suffix">.aven.ceo</span>
+					<span class="claim-card-figures">
+						<span class="claim-card-now">
+							<span class="claim-card-amount">25 €</span>
+							<span class="claim-card-was"><span class="claim-card-was-price">78 €</span><span class="claim-card-off">−68%</span></span>
 						</span>
+						<span class="claim-card-terms">one-time · incl. VAT</span>
 					</span>
-					<button class="btn btn--primary btn--size-xl" type="button">
-						<span class="btn-label">Claim your name</span>
-						<span class="btn-icon-end">${icon('arrow-right', '1em')}</span>
+				</span>
+				<span class="claim-card-action">
+					<button class="btn btn--accent" type="button">
+						<span class="btn-label">Claim your avenNAME now</span>
 					</button>
 				</span>
-			</span>
-			<span class="claim-card-offer">
-				<p class="claim-card-offer-line">+ 30 % off your first 3 months of avenCEO</p>
-				<p class="claim-card-offer-note">1 / 10 claimed</p>
 			</span>
 		</span>`
 	},

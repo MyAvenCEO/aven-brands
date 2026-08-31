@@ -69,15 +69,13 @@ import { renderSection } from '$lib/vibes/render'
    Svelte template wrote as `&nbsp;`. */
 const NBSP = ' '
 
-const BULLET_CLASS = 'mt-1.5 size-1.5 shrink-0 rounded-full bg-accent'
-
 function bullet(text: string, weight: 'semibold' | 'medium'): ViewNode {
 	return {
 		tag: 'li',
-		class: 'flex gap-2',
+		class: 'claim-card-benefit',
 		children: [
-			{ tag: 'span', class: BULLET_CLASS, attrs: { 'aria-hidden': 'true' } },
-			{ tag: 'span', class: `font-${weight} text-foreground-soft`, text }
+			{ tag: 'span', class: 'claim-card-dot', attrs: { 'aria-hidden': 'true' } },
+			{ tag: 'span', class: `font-${weight}`, text }
 		]
 	}
 }
@@ -107,16 +105,12 @@ function bodyView(lang: Lang): ViewNode {
 				/* Our own static copy with inline emphasis, so it goes through the
 				   render seam rather than through a text node that would escape it. */
 				tag: 'p',
-				class:
-					'mt-3 text-[length:var(--fs-section)] leading-snug text-foreground-quiet sm:text-[length:var(--fs-title)] mx-auto max-w-2xl',
+				class: 'claim-card-lede mx-auto',
 				text: '@@id-cta-body@@'
 			},
 			{
-				/* Sized and styled exactly like the included-features bullets of avenCEO:
-				   a small accent dot and the title, no sub-copy. */
 				tag: 'ul',
-				class:
-					'mt-7 grid gap-x-8 gap-y-2 text-left text-[length:var(--fs-body)] leading-snug text-foreground-soft sm:grid-cols-2',
+				class: 'mt-7 claim-card-benefits',
 				children: bullets
 			}
 		]
@@ -128,11 +122,11 @@ function priceView(lang: Lang): ViewNode {
 	const avenId = plan('aven-name')
 	return {
 		tag: 'div',
-		class: 'rounded-lg border border-border/25 bg-surface-card px-5 py-4 text-center',
+		class: 'claim-card-price',
 		children: [
 			{
 				tag: 'p',
-				attrs: { id: 'id-price-figures' },
+				class: 'claim-card-figures',
 				children: [
 					/*
 					 * The list price, struck, BEFORE the one you pay. An offer that
@@ -142,35 +136,32 @@ function priceView(lang: Lang): ViewNode {
 					 * disappears with the offer instead of having to be remembered.
 					 */
 					{
-						/*
-						 * The price, with the struck one hung off its RIGHT edge as a
-						 * badge. The badge is absolutely positioned inside this wrapper,
-						 * so it adds no width and the amount you pay stays optically
-						 * centred — a strike set inline beside it pushed the real number
-						 * off centre, which is the one thing the offer must not do.
-						 */
 						tag: 'span',
-						attrs: { id: 'id-price-now' },
+						class: 'claim-card-now',
 						children: [
 							{
 								tag: 'span',
-								class: 'text-3xl font-semibold tabular-nums tracking-tight text-foreground',
+								class: 'claim-card-amount',
 								text: `${euro(avenId.eurPrice)}${NBSP}€`
 							},
 							...(avenId.listEurPrice
 								? [
 										{
 											tag: 'span',
-											attrs: { id: 'id-price-was' },
+											class: 'claim-card-was',
 											children: [
-												{ tag: 'span', text: `${euro(avenId.listEurPrice)}${NBSP}€` },
+												{
+													tag: 'span',
+													class: 'claim-card-was-price',
+													text: `${euro(avenId.listEurPrice)}${NBSP}€`
+												},
 												/*
 												 * The saving, computed rather than written down, so it
 												 * cannot drift from the two prices standing beside it.
 												 */
 												{
 													tag: 'span',
-													attrs: { id: 'id-price-off' },
+													class: 'claim-card-off',
 													text: `−${Math.round((1 - avenId.eurPrice / avenId.listEurPrice) * 100)}%`
 												}
 											]
@@ -180,11 +171,8 @@ function priceView(lang: Lang): ViewNode {
 						]
 					},
 					{
-						/* Its own row under the figures. On the baseline beside them it
-						   read as part of the amount and took width from it; below, the
-						   price is the price and the terms annotate it. */
 						tag: 'span',
-						attrs: { id: 'id-price-terms' },
+						class: 'claim-card-terms',
 						text: priceSuffix(avenId, lang)
 					}
 				]

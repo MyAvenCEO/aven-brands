@@ -57,25 +57,33 @@ if (!chrome)
 	throw new Error('[id-cta] missing idCtaChrome — this route has no server load for it')
 </script>
 
-<div
-	class="rounded-3xl border-2 border-accent/25 bg-surface-raised px-5 py-9 shadow-[var(--shadow-raised)] sm:px-10 sm:py-11 overflow-hidden text-center"
->
-	<p class="text--eyebrow">{t.eyebrow}</p>
-	<h3
-		class="mt-2 text-2xl font-semibold tracking-tight text-balance text-foreground sm:text-3xl md:text-[length:var(--fs-amount)] mx-auto max-w-xl"
-	>
-		{t.title}
-	</h3>
+<!-- The panel is the `claim-card` unit now — the shell it wore before was the
+     same design restated as ~15 utilities (`rounded-3xl border-2 border-accent/25
+     bg-surface-raised ...`), two of which (`rounded-3xl` at 24px, the price's
+     `text-3xl` at 30px) were not even on the brand's own scale. The unit is the
+     single statement of this card; the storybook composite and this page now
+     render from the same declarations.
 
-	{@html chrome.body}
+     The h3 KEEPS its class attribute: it is still the site's only certain-tier
+     holder of `text-2xl`, and demoting that utility to candidate tier reorders
+     it after the certain media blocks (see the header comment). -->
+<div class="claim-card">
+	<div class="claim-card-body">
+		<p class="text--eyebrow claim-card-eyebrow">{t.eyebrow}</p>
+		<h3
+			class="text-2xl font-semibold tracking-tight text-balance text-foreground sm:text-3xl md:text-[length:var(--fs-amount)] mx-auto max-w-xl"
+		>
+			{t.title}
+		</h3>
 
-	<!-- The action block: the price as prominently as avenCEO states its own,
-	     then one link to the place that takes the name. -->
-	<div class="mt-7 space-y-5">
+		{@html chrome.body}
+
 		{@html chrome.price}
-		<a href={idFunnelHref('aven-name')} id="id-claim-action" class="btn btn--accent">
-			{t.button}
-		</a>
+		<!-- The one action on the card; the part stretches its button full width. -->
+		<div class="claim-card-action">
+			<a href={idFunnelHref('aven-name')} class="btn btn--accent">
+				{t.button}
+			</a>
+		</div>
 	</div>
-
 </div>

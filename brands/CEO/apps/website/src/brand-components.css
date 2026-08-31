@@ -1342,7 +1342,7 @@
 		display: grid;
 		min-inline-size: 0;
 		border-radius: var(--radius-xl);
-		border: 1px solid var(--color-accent-border);
+		border: var(--rule-mark) solid var(--color-accent-border);
 		background: var(--color-surface-raised);
 		box-shadow: var(--shadow-raised);
 		overflow: clip;
@@ -1361,25 +1361,26 @@
 
 	.claim-card-eyebrow {
 		margin: 0;
-		color: var(--color-eyebrow-ink);
+		color: var(--color-accent-ink);
 	}
 
 	.claim-card-heading {
 		margin: 0;
 		font-family: var(--font-display);
-		font-size: var(--fs-display);
-		font-weight: 400;
-		line-height: 1.15;
+		font-size: var(--fs-amount);
+		font-weight: 600;
+		line-height: 1.2;
 		text-wrap: balance;
+		max-inline-size: 36rem;
 		color: var(--color-foreground);
 	}
 
 	.claim-card-lede {
 		margin: 0;
-		max-inline-size: 52ch;
-		font-size: var(--fs-body);
+		max-inline-size: 42rem;
+		font-size: var(--fs-section);
 		line-height: 1.55;
-		color: var(--color-foreground-soft);
+		color: var(--color-foreground-quiet);
 	}
 
 	.claim-card-benefits {
@@ -1398,9 +1399,9 @@
 		grid-template-columns: auto 1fr;
 		gap: var(--space-tight);
 		align-items: start;
-		font-size: var(--fs-meta);
+		font-size: var(--fs-body);
 		line-height: 1.45;
-		color: var(--color-foreground);
+		color: var(--color-foreground-soft);
 	}
 
 	.claim-card-price {
@@ -1409,9 +1410,24 @@
 		inline-size: 100%;
 		padding: var(--space-comfortable);
 		border-radius: var(--radius-md);
-		background: var(--color-surface-sunken);
-		justify-items: center;
+		background: var(--color-surface-card);
 		border: 1px solid var(--color-border);
+		justify-items: center;
+	}
+
+	.claim-card-figures {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: center;
+		gap: 0 var(--space-tight);
+		margin: 0;
+	}
+
+	.claim-card-now {
+		position: relative;
+		display: inline-flex;
+		align-items: baseline;
 	}
 
 	.claim-card-amount {
@@ -1423,36 +1439,60 @@
 		line-height: 1.05;
 	}
 
+	.claim-card-was {
+		position: absolute;
+		inset-inline-start: 100%;
+		inset-block-start: 50%;
+		margin-inline-start: var(--space-tight);
+		padding: var(--space-hairline) var(--space-snug);
+		border-radius: var(--radius-sm);
+		background: var(--color-terracotta-strong);
+		font-size: var(--fs-body);
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		line-height: 1.15;
+		white-space: nowrap;
+		color: var(--color-surface-page);
+		box-shadow: var(--shadow-raised);
+		transform: translateY(-50%) rotate(-7deg);
+		transform-origin: left center;
+	}
+
+	.claim-card-was-price {
+		text-decoration: line-through;
+		text-decoration-thickness: var(--rule-mark);
+		text-decoration-color: color-mix(in srgb, var(--color-surface-page) 70%, transparent);
+	}
+
+	.claim-card-off {
+		display: block;
+		margin-block-start: 1px;
+		font-size: var(--fs-micro);
+		font-weight: 700;
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		color: var(--color-accent-surface);
+	}
+
 	.claim-card-terms {
+		flex-basis: 100%;
+		margin-block-start: var(--space-hairline);
 		font-size: var(--fs-meta);
+		font-weight: 500;
+		text-align: center;
 		color: var(--color-foreground-quiet);
 	}
 
-	.claim-card-form {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: stretch;
-		justify-content: center;
-		gap: var(--space-tight);
+	.claim-card-action {
 		inline-size: 100%;
-	}
 
-	.claim-card-offer {
-		padding: var(--space-comfortable) var(--space-loose);
-		background: var(--color-accent);
-		color: var(--color-accent-foreground);
-		text-align: center;
-	}
-
-	.claim-card-offer-line {
-		margin: 0;
-		font-size: var(--fs-body);
-		font-weight: 700;
-	}
-
-	.claim-card-offer-note {
-		margin: 0.15rem 0 0;
-		font-size: var(--fs-micro);
+		& > .btn {
+			inline-size: 100%;
+			min-block-size: 3.5rem;
+			padding-inline: var(--space-section);
+			font-size: var(--fs-lead);
+			font-weight: 600;
+		}
 	}
 
 	.claim-card-dot {

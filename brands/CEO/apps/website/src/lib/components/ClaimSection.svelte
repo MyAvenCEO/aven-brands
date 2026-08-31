@@ -50,108 +50,13 @@ let {
 
 <style>
 /*
- * The claim block's own styling, which has to live HERE.
- *
- * These rules were in `Home.svelte`, whose `<style>` only loads on the home
- * page — so on /pricing/, /skills/, /avens/ and every legal route the offer bar
- * had no ground and the price figures ran together unstyled. A shared component
- * carrying page-scoped styles is a component that is only styled on one page.
+ * Only the page-composition rules remain: where the claim section sits, how
+ * wide it runs, and the banner that closes the page under it. Everything that
+ * styles the CARD ITSELF — the panel, the price block, the struck badge, the
+ * action — moved into the `claim-card` unit in the design system, where the
+ * storybook composite and this page render from the same declarations. The
+ * `#id-*` layer that lived here was the drift: two renderers of one offer.
  */
-/* The figures share a baseline row; the terms sit under them. */
-:global(#id-price-figures) {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	justify-content: center;
-	gap: 0 var(--space-tight);
-	margin: 0;
-}
-:global(#id-price-terms) {
-	flex-basis: 100%;
-	margin-block-start: var(--space-hairline);
-	font-size: var(--fs-meta);
-	font-weight: 500;
-	text-align: center;
-	color: var(--color-foreground-quiet);
-}
-/*
- * The superseded price as a small tilted badge on the right of the one you pay.
- *
- * Absolutely positioned, so it contributes NO width: the amount stays exactly
- * where it would be with no offer running, and the badge hangs beside it. A
- * strike set inline moved the real number off centre, which defeats the point
- * of showing it.
- */
-/*
- * The eyebrow in the brand yellow — `accent-ink`, which IS sunflower darkened
- * exactly far enough to be text. Sunflower itself measures 1.75:1 on this card
- * and this line is 11px, so WCAG asks 4.5 of it. The ink is 5.80:1. Same rank
- * `eyebrow-ink` holds for paradise, and the same reason it exists.
- */
-:global(#claim) :global(.text--eyebrow) {
-	color: var(--color-accent-ink);
-}
-/* Full width: it is the one action on the card, so it takes the card. */
-:global(#id-claim-action) {
-	inline-size: 100%;
-}
-
-:global(#id-price-now) {
-	position: relative;
-	display: inline-flex;
-	align-items: baseline;
-}
-:global(#id-price-was) {
-	position: absolute;
-	inset-inline-start: 100%;
-	inset-block-start: 50%;
-	margin-inline-start: var(--space-tight);
-	padding: var(--space-hairline) var(--space-snug);
-	border-radius: var(--radius-sm);
-	/*
-	 * Solid terracotta, not the tint it wore before.
-	 *
-	 * A discount badge drawn as a 1px outline on a near-white ground asks to be
-	 * read as chrome. This is the offer; it should be the second-loudest thing
-	 * on the card after the price it replaces. Cream on `terracotta-strong`
-	 * measures 5.70:1, so the strike survives being small AND being struck.
-	 */
-	background: var(--color-terracotta-strong);
-	border: 0;
-	font-size: var(--fs-body);
-	font-weight: 600;
-	font-variant-numeric: tabular-nums;
-	line-height: 1.15;
-	white-space: nowrap;
-	color: var(--color-surface-page);
-	box-shadow: var(--shadow-raised, none);
-	transform: translateY(-50%) rotate(-7deg);
-	transform-origin: left center;
-}
-/*
- * The saving, stated as a number, stacked under the struck price.
- *
- * The strike says what it WAS; on its own it leaves the reader to do the
- * subtraction. The percentage is the claim, so it takes the warm tint —
- * `accent-surface` measures 5.25:1 on this ground; the deeper yellows in
- * the ramp read 4.03 and 3.34 here and this line is 11px, so 4.5 rules.
- */
-/* The strike sits on the price alone — set on the badge it propagates into
-   the saving line below, striking the very number the badge exists to state. */
-:global(#id-price-was) > :global(span:first-child) {
-	text-decoration: line-through;
-	text-decoration-thickness: 2px;
-	text-decoration-color: color-mix(in srgb, var(--color-surface-page) 70%, transparent);
-}
-:global(#id-price-off) {
-	display: block;
-	margin-block-start: 1px;
-	font-size: var(--fs-micro, var(--fs-meta));
-	font-weight: 700;
-	letter-spacing: var(--tracking-wide);
-	text-transform: uppercase;
-	color: var(--color-accent-surface);
-}
 
 /* Matches the divider it replaced: the file's own 8:3, and no height cap —
    capping made `object-fit: cover` crop the picture to a strip. */
@@ -164,9 +69,9 @@ let {
 	background: var(--color-surface-sunken);
 }
 /*
- * The imprint sits in the bottom quarter, centred, in the display face at half
- * strength. `aria-hidden` and no contrast claim: it is part of the picture, and
- * anything a reader must be able to read is in the card above it.
+ * The imprint sits in the bottom quarter, centred, in the display face.
+ * `aria-hidden` and no contrast claim: it is part of the picture, and anything
+ * a reader must be able to read is in the card above it.
  */
 :global(#claim-imprint) {
 	position: absolute;
@@ -202,23 +107,8 @@ let {
  *
  * As `max-inline-size`, not `--measure`: this element is a `.section-inner`
  * first, and the section unit's own cap (1152px) wins over `.center`'s knob by
- * source order. The knob was set and silently did nothing — the block stayed
- * 1152px wide while the CSS claimed 42rem.
+ * source order.
  */
-/* The one action on the card, sized to be it: the claim is the whole point of
-   this block, so the button is the largest control on it rather than a link
-   under a paragraph. `btn--accent` is the brand yellow; marine on sunflower
-   measures 8.27:1. */
-:global(#id-claim-action) {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-block-size: 3.5rem;
-	padding-inline: var(--space-section);
-	font-size: var(--fs-lead);
-	font-weight: 600;
-}
-
 :global(#claim) :global(.section-inner) {
 	max-inline-size: 48rem;
 }
