@@ -41,8 +41,20 @@ const hugs = (u: any) => CONTENT_SIZED.has(u.styling?.base?.inlineSize)
  * deliberately uses `vw` because `vw` is measuring the box it actually
  * occupies. Containment here would be a declaration with nothing to contain.
  */
+/*
+ * A unit whose own box IS the viewport, so measuring the viewport is the unit
+ * measuring itself.
+ *
+ * Two ways to be that. `position: fixed` with an inset is the explicit one. A
+ * native `<dialog>` is the other and is easy to miss: opened with
+ * `showModal()` it is promoted to the top layer, where its containing block IS
+ * the viewport — no `position` declaration says so, the element type does. The
+ * modal's `max-block-size: calc(100dvh - 4rem)` is therefore a box bounding
+ * itself, not a component reaching for the window.
+ */
 const isViewport = (u: any) =>
-	u.styling?.base?.position === 'fixed' && u.styling?.base?.inset !== undefined
+	(u.styling?.base?.position === 'fixed' && u.styling?.base?.inset !== undefined) ||
+	u.view?.tag === 'dialog'
 
 const slotted = (u: any) => Object.keys(u.interface?.slots ?? {}).length
 const composites = all.filter((u) => slotted(u) && !hugs(u) && !isViewport(u))
@@ -120,7 +132,15 @@ describe('the container contract', () => {
 		 * does not.
 		 */
 		const ALLOWED = new Set(['workbench'])
-		const VIEWPORT = /[0-9.]+(?:dv|sv|lv)?(?:vw|vh|vmin|vmax)\b/
+		/*
+		 * `(?:d|s|l)?`, not `(?:dv|sv|lv)?`. The old alternation consumed the `v`
+		 * of the unit itself, so it could only match a doubled form like
+		 * `100dvvh` — `100dvh`, `56dvh` and `100svh` all walked straight past it.
+		 * That is not hypothetical: `hero` carried `100ddvh` from 90f34c3, which
+		 * this pattern missed AND the browser rejected, so a broken variant sat
+		 * behind a green gate.
+		 */
+		const VIEWPORT = /[0-9.]+(?:d|s|l)?(?:vw|vh|vmin|vmax|vi|vb)\b/
 		const offenders: string[] = []
 		for (const u of all) {
 			if (ALLOWED.has(u.name) || isViewport(u)) continue
