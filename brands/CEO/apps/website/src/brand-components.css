@@ -4683,4 +4683,77 @@
 			text-decoration: line-through;
 		}
 	}
+
+	.trust {
+		inline-size: auto;
+	}
+
+	.trust-headline {
+		max-inline-size: 66rem;
+		margin-inline: auto;
+		font-family: var(--font-display);
+		font-size: clamp(1.375rem, 3.1cqi, 2rem);
+		font-weight: 400;
+		line-height: 1.3;
+		letter-spacing: var(--tracking-normal);
+		text-align: center;
+		text-wrap: balance;
+		color: var(--color-band-foreground);
+	}
+
+	.trust-lockup {
+		font-size: 1em;
+		letter-spacing: var(--tracking-tight);
+		vertical-align: baseline;
+	}
+
+	.trust-claims {
+		--gap: var(--space-comfortable);
+		inline-size: 100%;
+		--measure: 52rem;
+		padding: 0;
+		list-style: none;
+		--min: 9rem;
+		margin-block-start: var(--space-loose);
+	}
+
+	.trust-claim {
+		display: grid;
+		padding: var(--space-comfortable) var(--space-tight);
+		justify-items: center;
+		--gap: var(--space-hairline);
+		text-align: center;
+	}
+
+	.trust-claim-icon {
+		display: block;
+		margin-block-end: var(--space-tight);
+		color: var(--color-accent-ink);
+		--icon-tint: var(--color-accent-edge);
+
+		& svg path[opacity] {
+			opacity: 1;
+		}
+	}
+
+	.trust-claim-name {
+		margin: 0;
+		font-size: var(--fs-meta);
+		font-weight: 400;
+		letter-spacing: var(--tracking-wide);
+		text-transform: uppercase;
+		text-wrap: balance;
+		color: var(--color-band-foreground);
+	}
+
+	.trust-claim-figure {
+		margin: 0;
+		font-family: var(--font-sans);
+		font-size: var(--fs-lead);
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		letter-spacing: var(--tracking-wide);
+		line-height: 1;
+		color: var(--color-accent-edge);
+	}
 }

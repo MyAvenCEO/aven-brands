@@ -172,12 +172,12 @@ function trustView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'h2',
+						class: 'trust-headline',
 						attrs: { id: 'trust-headline' },
 						children: [
 							{
 								tag: 'span',
-								class: 'logo logo--inline',
-								attrs: { id: 'trust-lockup' },
+								class: 'logo logo--inline trust-lockup',
 								children: [
 									{
 										tag: 'span',
@@ -194,8 +194,7 @@ function trustView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'ul',
-						class: 'grid-auto center',
-						attrs: { id: 'trust-claims' },
+						class: 'grid-auto center trust-claims',
 						/*
 						 * Each claim gets its mark. Solar Bold Duotone, the set the rest
 						 * of the UI already draws from, and chosen by MEANING rather than
