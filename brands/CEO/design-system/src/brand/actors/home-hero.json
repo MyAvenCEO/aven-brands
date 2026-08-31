@@ -44,8 +44,6 @@
 			"minBlockSize": "var(--home-hero-min-block, 34rem)",
 			"paddingBlock": "var(--home-hero-pad-block, clamp(3rem, 9cqi, 6rem))",
 			"containerType": "inline-size",
-			"containerName": "home-hero",
-			"inlineSize": "100%",
 			"& [data-emph='past']": {
 				"$description": "On the photograph the page inks do not apply: everything here is the light ink, and `past` is that ink held back.",
 				"color": "var(--color-on-dark)",
