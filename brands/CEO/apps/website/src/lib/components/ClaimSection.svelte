@@ -132,8 +132,9 @@ let {
  * The saving, stated as a number, stacked under the struck price.
  *
  * The strike says what it WAS; on its own it leaves the reader to do the
- * subtraction. The percentage is the claim, so it is the part set in the
- * brand's yellow — the only warm note on a terracotta ground, at 8.42:1.
+ * subtraction. The percentage is the claim, so it takes the warm tint —
+ * `accent-surface` measures 5.25:1 on this ground; the deeper yellows in
+ * the ramp read 4.03 and 3.34 here and this line is 11px, so 4.5 rules.
  */
 /* The strike sits on the price alone — set on the badge it propagates into
    the saving line below, striking the very number the badge exists to state. */
@@ -149,7 +150,7 @@ let {
 	font-weight: 700;
 	letter-spacing: var(--tracking-wide);
 	text-transform: uppercase;
-	color: var(--color-accent-edge);
+	color: var(--color-accent-surface);
 }
 
 /* Matches the divider it replaced: the file's own 8:3, and no height cap —
