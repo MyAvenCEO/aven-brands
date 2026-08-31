@@ -100,6 +100,7 @@ import socialRow from './brand/actors/social-row.json' with { type: 'json' }
 import spinner from './brand/actors/spinner.json' with { type: 'json' }
 import stat from './brand/actors/stat.json' with { type: 'json' }
 import step from './brand/actors/step.json' with { type: 'json' }
+import steps from './brand/actors/steps.json' with { type: 'json' }
 import surface from './brand/actors/surface.json' with { type: 'json' }
 import table from './brand/actors/table.json' with { type: 'json' }
 import tabs from './brand/actors/tabs.json' with { type: 'json' }
@@ -161,6 +162,7 @@ const documents = [
 	spinner,
 	skeleton,
 	step,
+	steps,
 	logo,
 	navLink,
 	navbar,

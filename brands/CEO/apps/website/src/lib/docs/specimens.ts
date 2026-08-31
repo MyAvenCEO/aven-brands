@@ -666,6 +666,19 @@ export const specimens: Record<string, Specimen> = {
 		 * sequence is that you can hold it beside the running surface.
 		 */
 		scenes: {
+			steps: {
+				one: `<span class="steps" style="inline-size:14rem">
+			<span class="step" aria-selected="true"></span>
+			<span class="step" aria-selected="true"></span>
+			<span class="step" aria-selected="false"></span>
+		</span>`,
+				html: `<span class="sp-stack sp-stack--wide">
+			<span class="steps"><span class="step" aria-selected="true"></span><span class="step" aria-selected="false"></span><span class="step" aria-selected="false"></span></span>
+			<span class="steps"><span class="step" aria-selected="true"></span><span class="step" aria-selected="true"></span><span class="step" aria-selected="false"></span></span>
+			<span class="steps"><span class="step" aria-selected="true"></span><span class="step" aria-selected="true"></span><span class="step" aria-selected="true"></span></span>
+		</span>`
+			},
+
 			step: {
 				identify: `<span class="flow-card flow-card--step-identify" style="display:grid">
 					<span class="flow-card-crest">${icon('key', '1.5rem')}</span>
