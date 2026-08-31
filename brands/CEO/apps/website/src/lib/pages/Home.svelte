@@ -135,147 +135,8 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	opacity: 0.6;
 }
 
-/*
- * Emphasis inside translated copy.
- *
- * The heading used to carry `<span style="color:var(--color-accent)">` in the
- * sentence itself — a colour decision living in content, in two languages, and
- * one that measured 2.72:1 against the band it sits on. Sunflower cannot be
- * made to read on paradise: the lightest version that clears 4.5:1 is white.
- * So on a band the emphasis is weight, and the copy says `<b>`, which is what
- * it meant.
- */
-/*
- * THE TEAL BAND WAS MONOTONE FOR A REASON, and the reason has to be worked
- * around rather than argued with.
- *
- * Every element on it was `text-band-foreground` — one ink across five type
- * sizes — which reads as flat. But the band is `#217c91`, and MEASURED against
- * it: white is 4.61:1, the accent ring 4.05, the accent edge 3.29, sunflower
- * itself 2.72. White barely clears the 4.5 body text needs, so there is no
- * second body ink available here. Anything tinted at paragraph size fails, and
- * accessibility outranks the aesthetics that want it.
- *
- * So the contrast comes from the two places it still can:
- *
- *   GROUND — the closing moves onto a marine block. Marine against paradise is
- *   a brand pairing, it gives the section an ending that is a shape rather than
- *   a hairline, and white on marine measures 13.98:1, which is the most
- *   headroom anything on this band has had.
- *
- *   LARGE TYPE — the 01/02 counters are 28px, so the 3:1 large-text threshold
- *   applies and `--color-accent-edge` (3.29:1) is legal there. It is the first
- *   warm note in the section and it lands on the only elements that can hold
- *   it.
- */
-/*
- * THE TWO ROLES, faced off across a rule.
- *
- * The picture that was behind this band is gone: the illustration and the copy
- * were competing for the same middle third, and every fix for one cost the
- * other. The section's own subject is the pair in its heading, so the pair is
- * the layout — human left ranged right, aven right ranged left, a hairline
- * between them. Same device the cost comparison uses, which is the point: two
- * things being weighed look the same wherever the page weighs them.
- */
-:global(#company-roles) {
-	--gap: var(--space-loose);
-	margin-block-start: var(--space-section);
-}
-/* Side by side the pair wants more air between the halves than it needs while
-   they are stacked — the same query the unit switches on. */
-@container (min-width: 44rem) {
-	:global(#company-roles) {
-		--gap: var(--space-section);
-	}
-}
-
-:global(.company-role) {
-	--gap: var(--space-hairline);
-	align-content: start;
-}
-:global(.company-role-label) {
-	margin: 0;
-	font-size: var(--fs-eyebrow);
-	font-weight: 600;
-	letter-spacing: var(--tracking-widest);
-	text-transform: uppercase;
-	/*
-	 * NO opacity. This band's white is 4.61:1 on the teal — 0.11 above what body
-	 * text needs — so there is nothing to fade. Softening ink with `opacity` on
-	 * a ground with no headroom is the same error twice now, and axe caught it
-	 * both times. On this band, hierarchy is size and weight, never strength.
-	 */
-	color: var(--color-band-foreground);
-}
-:global(.company-role-title) {
-	margin: 0;
-	font-family: var(--font-display);
-	font-size: clamp(var(--fs-amount), 3.4cqi, 2rem);
-	font-weight: 400;
-	line-height: 1.15;
-	letter-spacing: var(--tracking-tight);
-	text-wrap: balance;
-	color: var(--color-band-foreground);
-}
-:global(.company-role-text) {
-	margin: 0;
-	font-size: var(--fs-lead);
-	line-height: 1.4;
-	color: var(--color-band-foreground);
-}
-/*
- * ONE line under the heading, centred, and it sits ABOVE the roles rather than
- * below them: it is the section's thesis and the pair beneath is the evidence.
- */
-/* The close is centred, like the subline and the heading above it — it was the
-   only block in the band still ranged left. */
-:global(#company-closing-panel) {
-	text-align: center;
-}
-
-:global(#company-subline) {
-	--measure: 46rem;
-	margin-block-start: var(--space-loose);
-	font-size: var(--fs-lead);
-	line-height: 1.5;
-	text-align: center;
-	text-wrap: pretty;
-	color: var(--color-band-foreground);
-}
-
-:global(#company-closing-panel) {
-	margin-block-start: var(--space-section);
-	padding: var(--space-loose);
-	border-radius: var(--radius-xl);
-	background: var(--color-marine);
-	color: var(--color-on-dark);
-}
-
-:global(#company-heading b) {
-	font-weight: 600;
-}
-
-/* The company thesis sits on marine, but its emphasised words are authored
-   with the light-page tone (text-foreground) — lift them so they read on the
-   dark spread. Keyed off the id so the strict utility plugin ignores it. */
-/*
- * The thesis' emphasised words are authored with the light-page tone, so they
- * are lifted to read on the dark spread.
- *
- * This selector was a GROUP — `#company-prose strong, #founders-prose strong`
- * (now `#company-subline strong`, the prose grid having collapsed to one line)
- * — and the founders cleanup deleted from the second selector to the closing
- * brace, which left this one dangling with no body. It then took the NEXT
- * rule's block as its own: every `<strong>` in the thesis inherited
- * `#home-hero`'s `display: flex; position: relative; overflow: hidden`, which
- * is why the paragraphs exploded into separate blocks with a void between
- * them. Deleting a selector from inside a group is not deleting a rule.
- */
-:global(#company-subline strong) {
-	color: var(--color-primary-foreground);
-	font-weight: 500;
-}
+/* The thesis band is the `company` unit — the measured teal-headroom notes
+   live in its part descriptions now. */
 
 /* The hero is its own dark stage: the video sits behind, a soft scrim
    darkens the bright footage, and the copy goes light on top. Colours and
@@ -369,8 +230,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
  * The `section` unit declares its own; these three are still hand-rolled
  * markup, so they declare one here until they are units too.
  */
-:global(#home-hero),
-:global(#company-band) {
+:global(#home-hero) {
 	container-type: inline-size;
 }
 

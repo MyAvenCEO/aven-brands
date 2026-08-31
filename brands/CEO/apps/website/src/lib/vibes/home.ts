@@ -662,8 +662,8 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 function companyView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
-		class: 'bg-band px-5 py-20 text-band-foreground sm:px-8 sm:py-28',
-		attrs: { id: 'company-band', 'aria-labelledby': 'company-heading' },
+		class: 'company bg-band px-5 py-20 text-band-foreground sm:px-8 sm:py-28',
+		attrs: { 'aria-labelledby': 'company-heading' },
 		children: [
 			{
 				tag: 'div',
@@ -682,7 +682,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 							{
 								tag: 'h2',
 								class:
-									'mx-auto mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground',
+									'company-heading mx-auto mt-5 max-w-3xl text-[clamp(2rem,7cqi,4.5rem)] font-light leading-[1.03] tracking-tight text-band-foreground',
 								attrs: { id: 'company-heading' },
 								text: t.company.heading
 							}
@@ -690,8 +690,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'p',
-						class: 'center',
-						attrs: { id: 'company-subline' },
+						class: 'center company-subline',
 						text: '@@company-subline@@'
 					},
 					/*
@@ -704,8 +703,7 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					 */
 					{
 						tag: 'div',
-						class: 'pair',
-						attrs: { id: 'company-roles' },
+						class: 'pair company-roles',
 						children: t.company.roles.map(
 							(role, i): ViewNode => ({
 								tag: 'div',
@@ -721,8 +719,10 @@ function companyView(t: (typeof home)['de']): ViewNode {
 					},
 					{
 						tag: 'div',
-						class: 'mx-auto mt-16 max-w-xl',
-						attrs: { id: 'company-closing-panel' },
+						/* No `mt-16`: the unit owns the margin (space-section). The page's
+							   unlayered CSS used to beat the utility; in the components layer
+							   the utility would win the tie and add 24px. */
+						class: 'company-closing-panel mx-auto max-w-xl',
 						children: [
 							{
 								tag: 'p',

@@ -4974,4 +4974,86 @@
 		border-radius: var(--radius-full);
 		background: var(--color-paradise);
 	}
+
+	.company {
+		container-type: inline-size;
+		container-name: company;
+		inline-size: 100%;
+	}
+
+	.company-head {
+
+	}
+
+	.company-heading {
+
+		& b {
+			font-weight: 600;
+		}
+	}
+
+	.company-subline {
+		--measure: 46rem;
+		margin-block-start: var(--space-loose);
+		font-size: var(--fs-lead);
+		line-height: 1.5;
+		text-align: center;
+		text-wrap: pretty;
+		color: var(--color-band-foreground);
+
+		& strong {
+			color: var(--color-primary-foreground);
+			font-weight: 500;
+		}
+	}
+
+	.company-roles {
+		--gap: var(--space-loose);
+		margin-block-start: var(--space-section);
+
+		@container (min-width: 44rem) {
+			--gap: var(--space-section);
+		}
+	}
+
+	.company-role {
+		--gap: var(--space-hairline);
+		align-content: start;
+	}
+
+	.company-role-label {
+		margin: 0;
+		font-size: var(--fs-eyebrow);
+		font-weight: 600;
+		letter-spacing: var(--tracking-widest);
+		text-transform: uppercase;
+		color: var(--color-band-foreground);
+	}
+
+	.company-role-title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(var(--fs-amount), 3.4cqi, 2rem);
+		font-weight: 400;
+		line-height: 1.15;
+		letter-spacing: var(--tracking-tight);
+		text-wrap: balance;
+		color: var(--color-band-foreground);
+	}
+
+	.company-role-text {
+		margin: 0;
+		font-size: var(--fs-lead);
+		line-height: 1.4;
+		color: var(--color-band-foreground);
+	}
+
+	.company-closing-panel {
+		text-align: center;
+		margin-block-start: var(--space-section);
+		padding: var(--space-loose);
+		border-radius: var(--radius-xl);
+		background: var(--color-marine);
+		color: var(--color-on-dark);
+	}
 }
