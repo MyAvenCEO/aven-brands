@@ -8,9 +8,7 @@
 		"slots": {
 			"rows": {},
 			"empty": {
-				"accepts": [
-					"empty-state"
-				]
+				"accepts": ["empty-state"]
 			}
 		}
 	},

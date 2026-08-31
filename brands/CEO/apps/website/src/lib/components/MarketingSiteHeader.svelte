@@ -155,7 +155,6 @@ const itemHref = (item: (typeof MENU_ITEMS)[number]) =>
 /** The same page in the other language — prerendered, so the pathname is known at build time. */
 const otherHref = $derived(switchLangHref(lang, page.url.pathname))
 const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
-
 </script>
 
 <header
@@ -197,12 +196,20 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 		<div class="navbar-actions">
 			<span class="segment" role="group" aria-label={t.switchLabel}>
 				<span class="segment-options">
-					<a class="segment-option" href={langHref('de')} hreflang="de"
-						aria-current={lang === 'de' ? 'true' : undefined}>DE</a
+					<a
+						class="segment-option"
+						href={langHref('de')}
+						hreflang="de"
+						aria-current={lang === 'de' ? 'true' : undefined}
+						>DE</a
 					>
 					<span class="segment-divider" aria-hidden="true"></span>
-					<a class="segment-option" href={langHref('en')} hreflang="en"
-						aria-current={lang === 'en' ? 'true' : undefined}>EN</a
+					<a
+						class="segment-option"
+						href={langHref('en')}
+						hreflang="en"
+						aria-current={lang === 'en' ? 'true' : undefined}
+						>EN</a
 					>
 				</span>
 			</span>
@@ -221,7 +228,6 @@ const langHref = (l: Lang) => (lang === l ? page.url.pathname : otherHref)
 		</span>
 	</div>
 </header>
-
 
 <style>
 /* The island host must not be a box: the toggle inside it belongs to the

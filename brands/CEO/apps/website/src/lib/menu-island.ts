@@ -61,14 +61,19 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 	const langHref = (l: Lang) => (lang === l ? pathname : otherHref)
 
 	const items = [
-		{ href: localeHref(lang, '/skills'), label: t.nav.skills, meta: t.nav.skillsMeta, key: 'skills' },
+		{
+			href: localeHref(lang, '/skills'),
+			label: t.nav.skills,
+			meta: t.nav.skillsMeta,
+			key: 'skills'
+		},
 		{ href: localeHref(lang, '/avens'), label: t.nav.avens, meta: t.nav.avensMeta, key: 'avens' },
 		{
 			href: localeHref(lang, '/pricing'),
 			label: t.nav.pricing,
 			meta: t.nav.pricingMeta,
 			key: 'pricing'
-		},
+		}
 		/* ceoBRAND is written once, in English — never locale-prefixed.
 		   Hidden from the menu for now, exactly as it is hidden from the bar: the
 		   route still builds and the URL still works, it is simply not offered. */
@@ -122,7 +127,12 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 				class: 'nav-menu',
 				attrs: { id: 'site-menu', 'data-open': '$open' },
 				children: [
-					{ tag: 'div', class: 'nav-menu-scrim', attrs: { 'aria-hidden': 'true' }, $on: { click: close } },
+					{
+						tag: 'div',
+						class: 'nav-menu-scrim',
+						attrs: { 'aria-hidden': 'true' },
+						$on: { click: close }
+					},
 					{
 						tag: 'button',
 						class: 'btn btn--ghost btn--shape-icon nav-menu-close',
@@ -150,7 +160,7 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 											   logo was, at the size it was, so the takeover reads as
 											   the same chrome transformed rather than a second brand
 											   mark two hundred pixels from the first. */
-											attrs: { src: '/aven-logo.svg', alt: '', width: '28', height: '28' }
+												attrs: { src: '/aven-logo.svg', alt: '', width: '28', height: '28' }
 											}
 										]
 									},
@@ -158,34 +168,34 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 								]
 							},
 							{ tag: 'div', class: 'nav-menu-items', children: itemNodes },
-						{
-							/* What the collapsed bar sheds, the menu carries: below 62rem
+							{
+								/* What the collapsed bar sheds, the menu carries: below 62rem
 							   the bar hides its social row for room, and on a phone this
 							   menu is the only navigation surface there is. Same
 							   social-row composite, same profiles, from the brand. */
-							tag: 'span',
-							class: 'social-row nav-menu-social',
-							attrs: { role: 'group', 'aria-label': t.footer.socialLabel },
-							children: [
-								{
-									tag: 'span',
-									class: 'social-row-items',
-									children: SOCIAL_PROFILES.map(
-										(profile): ViewNode => ({
-											tag: 'a',
-											class: 'social-row-item',
-											attrs: {
-												href: profile.href,
-												target: '_blank',
-												rel: 'noopener noreferrer',
-												'aria-label': profile.name
-											},
-											$icon: { name: profile.icon, size: '1.125rem' }
-										})
-									)
-								}
-							]
-						},
+								tag: 'span',
+								class: 'social-row nav-menu-social',
+								attrs: { role: 'group', 'aria-label': t.footer.socialLabel },
+								children: [
+									{
+										tag: 'span',
+										class: 'social-row-items',
+										children: SOCIAL_PROFILES.map(
+											(profile): ViewNode => ({
+												tag: 'a',
+												class: 'social-row-item',
+												attrs: {
+													href: profile.href,
+													target: '_blank',
+													rel: 'noopener noreferrer',
+													'aria-label': profile.name
+												},
+												$icon: { name: profile.icon, size: '1.125rem' }
+											})
+										)
+									}
+								]
+							},
 							{
 								tag: 'div',
 								class: 'nav-menu-footer',
@@ -200,7 +210,11 @@ export function buildMenuBundle({ lang, pathname, active }: MenuIslandInput): Me
 												class: 'segment-options',
 												children: [
 													langOption('de', 'DE'),
-													{ tag: 'span', class: 'segment-divider', attrs: { 'aria-hidden': 'true' } },
+													{
+														tag: 'span',
+														class: 'segment-divider',
+														attrs: { 'aria-hidden': 'true' }
+													},
 													langOption('en', 'EN')
 												]
 											}

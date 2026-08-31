@@ -5,9 +5,7 @@
 		"props": {},
 		"slots": {
 			"rail": {
-				"accepts": [
-					"sidebar"
-				]
+				"accepts": ["sidebar"]
 			},
 			"main": {},
 			"aside": {}

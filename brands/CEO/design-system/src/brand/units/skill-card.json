@@ -15,9 +15,7 @@
 		},
 		"slots": {
 			"badge": {
-				"accepts": [
-					"badge"
-				]
+				"accepts": ["badge"]
 			},
 			"chains": {}
 		}

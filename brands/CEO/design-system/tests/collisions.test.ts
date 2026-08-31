@@ -40,7 +40,8 @@ describe('a unit never takes a legacy name by accident', () => {
 		for (const u of all) {
 			for (const part of Object.keys(u.styling?.parts ?? {})) {
 				const cls = `${u.name}-${part}`
-				if (seen.has(cls) && seen.get(cls) !== u.name) clashes.push(`${cls}: ${seen.get(cls)} vs ${u.name}`)
+				if (seen.has(cls) && seen.get(cls) !== u.name)
+					clashes.push(`${cls}: ${seen.get(cls)} vs ${u.name}`)
 				seen.set(cls, u.name)
 			}
 			if (seen.has(u.name) && seen.get(u.name) !== u.name)

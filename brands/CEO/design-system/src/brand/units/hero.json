@@ -11,18 +11,14 @@
 		},
 		"slots": {
 			"media": {
-				"accepts": [
-					"media"
-				]
+				"accepts": ["media"]
 			},
 			"eyebrow": {},
 			"heading": {},
 			"lead": {},
 			"helper": {},
 			"actions": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			}
 		}
 	},

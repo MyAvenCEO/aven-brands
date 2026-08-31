@@ -59,9 +59,7 @@ if (!sections) throw new Error('[home] missing homeSections — the route has no
 	{@html sections.company}
 	{@html sections.shift}
 
-
 	{@html sections.own}
-
 
 	<!-- Skills preview: what an Aven can already do, straight from the
 	     marketplace. The frame's head and the "see all" line are config; the

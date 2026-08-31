@@ -11,19 +11,13 @@
 		},
 		"slots": {
 			"brand": {
-				"accepts": [
-					"logo"
-				]
+				"accepts": ["logo"]
 			},
 			"links": {
-				"accepts": [
-					"nav-link"
-				]
+				"accepts": ["nav-link"]
 			},
 			"actions": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			},
 			"drawer": {}
 		},

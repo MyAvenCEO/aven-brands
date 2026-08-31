@@ -9,11 +9,7 @@
 		},
 		"slots": {
 			"control": {
-				"accepts": [
-					"btn",
-					"field",
-					"badge"
-				]
+				"accepts": ["btn", "field", "badge"]
 			}
 		}
 	},

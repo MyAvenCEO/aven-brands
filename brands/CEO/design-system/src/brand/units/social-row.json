@@ -9,9 +9,7 @@
 		},
 		"slots": {
 			"items": {
-				"accepts": [
-					"icon"
-				]
+				"accepts": ["icon"]
 			}
 		}
 	},

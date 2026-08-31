@@ -57,7 +57,9 @@ describe('the container contract', () => {
 				.map((u: any) => u.name)
 		).toEqual([])
 		expect(
-			composites.filter((u: any) => u.styling?.base?.containerName !== u.name).map((u: any) => u.name)
+			composites
+				.filter((u: any) => u.styling?.base?.containerName !== u.name)
+				.map((u: any) => u.name)
 		).toEqual([])
 	})
 
@@ -71,7 +73,9 @@ describe('the container contract', () => {
 		 * unit is a container, it says how wide it is.
 		 */
 		const everyContainer = all.filter((u) => u.styling?.base?.containerType === 'inline-size')
-		expect(everyContainer.filter((u) => !u.styling?.base?.inlineSize).map((u) => u.name)).toEqual([])
+		expect(everyContainer.filter((u) => !u.styling?.base?.inlineSize).map((u) => u.name)).toEqual(
+			[]
+		)
 	})
 
 	test('a unit that hugs its content is never a container', () => {
@@ -147,6 +151,8 @@ describe('the container contract', () => {
 		 */
 		const INERT = new Set(['inline', 'contents', undefined, ''])
 		const containers = all.filter((u) => u.styling?.base?.containerType === 'inline-size')
-		expect(containers.filter((u) => INERT.has(u.styling?.base?.display)).map((u) => u.name)).toEqual([])
+		expect(
+			containers.filter((u) => INERT.has(u.styling?.base?.display)).map((u) => u.name)
+		).toEqual([])
 	})
 })

@@ -11,10 +11,7 @@
 			"chip": {},
 			"leading": {},
 			"orb": {
-				"accepts": [
-					"icon",
-					"logo"
-				]
+				"accepts": ["icon", "logo"]
 			},
 			"trailing": {}
 		}

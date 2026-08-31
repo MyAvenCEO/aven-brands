@@ -27,9 +27,13 @@ let {
 
 <section id="claim" class="section" aria-labelledby="claim-heading">
 	<div class="section-inner center">
-		{#if head}{@html head}{/if}
+		{#if head}
+			{@html head}
+		{/if}
 		<AvenIdCheckCta variant="banner" {lang} />
-		{#if tail}{@html tail}{/if}
+		{#if tail}
+			{@html tail}
+		{/if}
 	</div>
 </section>
 
@@ -41,11 +45,13 @@ let {
      look before it had told them what they were looking at; the offer states
      the thing and the banner closes the page on it. -->
 <figure id="claim-banner" data-ground="media">
-	<img src="/family.jpg" alt="" width="1920" height="720" loading="lazy" decoding="async" />
+	<img src="/family.jpg" alt="" width="1920" height="720" loading="lazy" decoding="async">
 	<!-- An imprint, not a caption: it sits IN the picture the way a maker's mark
 	     sits in a print, at half strength so it belongs to the image rather than
 	     covering it. Decorative — the page has already said this. -->
-	<figcaption id="claim-imprint" aria-hidden="true"><span id="claim-imprint-mark">own your life</span></figcaption>
+	<figcaption id="claim-imprint" aria-hidden="true">
+		<span id="claim-imprint-mark">own your life</span>
+	</figcaption>
 </figure>
 
 <style>

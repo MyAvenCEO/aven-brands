@@ -9,14 +9,10 @@
 		},
 		"slots": {
 			"leading": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			},
 			"actions": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			},
 			"hint": {}
 		}

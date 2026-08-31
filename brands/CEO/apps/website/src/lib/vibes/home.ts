@@ -37,7 +37,6 @@ import { type Lang, localeHref, pick } from '$lib/i18n'
 import { home } from '$lib/i18n/home'
 import { renderSection } from '$lib/vibes/render'
 
-
 /* ------------------------------------------------------------------ hero */
 
 /** Full-bleed video banner: the 4K first frame is the poster, so a crisp
@@ -319,7 +318,12 @@ function costView(t: (typeof home)['de']): ViewNode {
 						class: 'stack stack-center center cost-story',
 						children: [
 							ruleLabel(t.trust.cost.eyebrow, '02'),
-							{ tag: 'h2', class: 'cost-heading', attrs: { id: 'cost-heading' }, text: t.trust.cost.heading },
+							{
+								tag: 'h2',
+								class: 'cost-heading',
+								attrs: { id: 'cost-heading' },
+								text: t.trust.cost.heading
+							},
 							{ tag: 'p', class: 'cost-lead', text: t.trust.cost.lead }
 						]
 					},
@@ -366,25 +370,25 @@ function costView(t: (typeof home)['de']): ViewNode {
 											decoding: 'async'
 										}
 									},
-								/*
-								 * The statement rides ON the picture. It was a line of type in
-								 * the flow below it, which made the illustration decoration and
-								 * the sentence a caption; over the image they are one thing —
-								 * the summit and what standing on it is called. A marine scrim
-								 * across the lower third carries it, because the art's own sky
-								 * is sunflower and nothing legible sits on that directly.
-								 */
-								{
-									tag: 'figcaption',
-									class: 'cluster cost-overlay',
-									children: [
-										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
-										{ tag: 'span', text: t.trust.cost.kicker },
-										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ')' }
-									]
-								}
+									/*
+									 * The statement rides ON the picture. It was a line of type in
+									 * the flow below it, which made the illustration decoration and
+									 * the sentence a caption; over the image they are one thing —
+									 * the summit and what standing on it is called. A marine scrim
+									 * across the lower third carries it, because the art's own sky
+									 * is sunflower and nothing legible sits on that directly.
+									 */
+									{
+										tag: 'figcaption',
+										class: 'cluster cost-overlay',
+										children: [
+											{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
+											{ tag: 'span', text: t.trust.cost.kicker },
+											{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ')' }
+										]
+									}
 								]
-							},
+							}
 						]
 					},
 					/* The ticker: short facts separated by marks, edge to edge. Static,
@@ -416,22 +420,22 @@ function costView(t: (typeof home)['de']): ViewNode {
 									{ tag: 'p', class: 'cost-was-note', text: t.trust.cost.human.note }
 								]
 							},
-						{
-							tag: 'div',
-							class: 'cost-panel stack cost-now',
-							children: [
-								{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
-								{
-									tag: 'p',
-									class: 'cost-now-figure',
-									children: [
-										{ tag: 'span', class: 'cost-now-value', text: t.trust.cost.aven.value },
-										{ tag: 'span', class: 'cost-now-unit', text: t.trust.cost.aven.unit }
-									]
-								},
-								{ tag: 'p', class: 'cost-now-note', text: t.trust.cost.aven.note }
-							]
-						},
+							{
+								tag: 'div',
+								class: 'cost-panel stack cost-now',
+								children: [
+									{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
+									{
+										tag: 'p',
+										class: 'cost-now-figure',
+										children: [
+											{ tag: 'span', class: 'cost-now-value', text: t.trust.cost.aven.value },
+											{ tag: 'span', class: 'cost-now-unit', text: t.trust.cost.aven.unit }
+										]
+									},
+									{ tag: 'p', class: 'cost-now-note', text: t.trust.cost.aven.note }
+								]
+							}
 						]
 					},
 					{
@@ -457,7 +461,7 @@ function costView(t: (typeof home)['de']): ViewNode {
 								]
 							})
 						)
-					},
+					}
 					/* The closing statement, centred and given the full width. It is the
 					   emotional turn of the section and it was tucked into the story
 					   column at body scale, which is where an argument goes to be
@@ -645,7 +649,7 @@ function shiftView(t: (typeof home)['de']): ViewNode {
 								]
 							}
 						]
-						}
+					}
 					/* The resolution, on the section's own left edge like everything
 					   else. It was centred with utility classes AND an inline `style`
 					   attribute carrying the colour — a token bypass, and the last

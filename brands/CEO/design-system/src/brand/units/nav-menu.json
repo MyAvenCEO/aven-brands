@@ -10,25 +10,17 @@
 		},
 		"slots": {
 			"close": {
-				"accepts": [
-					"icon"
-				]
+				"accepts": ["icon"]
 			},
 			"crest": {
-				"accepts": [
-					"logo"
-				]
+				"accepts": ["logo"]
 			},
 			"eyebrow": {},
 			"items": {
-				"accepts": [
-					"nav-link"
-				]
+				"accepts": ["nav-link"]
 			},
 			"footer": {
-				"accepts": [
-					"segment"
-				]
+				"accepts": ["segment"]
 			}
 		},
 		"events": {

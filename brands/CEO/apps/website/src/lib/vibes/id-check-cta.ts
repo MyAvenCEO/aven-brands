@@ -181,7 +181,6 @@ function priceView(lang: Lang): ViewNode {
 	}
 }
 
-
 /**
  * The three strings the card places around its heading and its field row.
  * `beta` is empty when no beta is running, which is how the bar disappears

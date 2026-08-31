@@ -9,9 +9,7 @@
 			"toolbar": {},
 			"content": {},
 			"empty": {
-				"accepts": [
-					"empty-state"
-				]
+				"accepts": ["empty-state"]
 			}
 		}
 	},

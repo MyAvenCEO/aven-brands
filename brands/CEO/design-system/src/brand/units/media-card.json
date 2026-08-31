@@ -9,14 +9,10 @@
 		},
 		"slots": {
 			"media": {
-				"accepts": [
-					"media"
-				]
+				"accepts": ["media"]
 			},
 			"badge": {
-				"accepts": [
-					"badge"
-				]
+				"accepts": ["badge"]
 			}
 		}
 	},

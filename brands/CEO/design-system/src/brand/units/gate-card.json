@@ -12,9 +12,7 @@
 			"detail": {},
 			"preview": {},
 			"actions": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			}
 		}
 	},

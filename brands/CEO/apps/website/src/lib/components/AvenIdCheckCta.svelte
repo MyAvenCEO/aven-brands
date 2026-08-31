@@ -53,8 +53,7 @@ let { lang = 'de' }: { variant?: 'inline' | 'banner'; lang?: Lang } = $props()
 const t = $derived(pick(common, lang).idCta)
 
 const chrome: IdCtaChrome = page.data.idCtaChrome
-if (!chrome)
-	throw new Error('[id-cta] missing idCtaChrome — this route has no server load for it')
+if (!chrome) throw new Error('[id-cta] missing idCtaChrome — this route has no server load for it')
 </script>
 
 <!-- The panel is the `claim-card` unit now — the shell it wore before was the

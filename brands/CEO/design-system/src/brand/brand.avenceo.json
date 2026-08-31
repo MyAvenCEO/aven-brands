@@ -30,13 +30,7 @@
 			"$description": "Ordered colour sets a generator walks. Not roles — nothing here is picked by meaning, only by index — so they live apart from the role map.",
 			"avatar": {
 				"$type": "color",
-				"$value": [
-					"#f7ead9",
-					"#ccc7a8",
-					"#88b499",
-					"#305669",
-					"#222e49"
-				],
+				"$value": ["#f7ead9", "#ccc7a8", "#88b499", "#305669", "#222e49"],
 				"$description": "The five colours a generated identicon draws from, light to dark. They are the logo's own palette and used to sit in the website as a bare array, which meant a second brand could not have its own and a change here reached nothing."
 			}
 		},

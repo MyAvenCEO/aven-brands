@@ -18,7 +18,6 @@ import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import {
 	colourGroups,
 	compositeRows,
-	siteRows,
 	declarationsOf,
 	elevationScale,
 	fontStacks,
@@ -31,6 +30,7 @@ import {
 	migrationRows,
 	radiusScale,
 	sections,
+	siteRows,
 	spaceScale,
 	tintScale,
 	trackingScale,

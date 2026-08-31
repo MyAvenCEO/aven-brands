@@ -9,10 +9,7 @@
 		},
 		"slots": {
 			"crest": {
-				"accepts": [
-					"logo",
-					"icon"
-				]
+				"accepts": ["logo", "icon"]
 			},
 			"eyebrow": {},
 			"heading": {},
@@ -20,9 +17,7 @@
 			"code": {},
 			"alert": {},
 			"actions": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			},
 			"trust": {}
 		}

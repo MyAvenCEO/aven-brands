@@ -14,9 +14,7 @@
 			"benefits": {},
 			"price": {},
 			"action": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			}
 		}
 	},

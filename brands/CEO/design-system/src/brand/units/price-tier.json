@@ -12,9 +12,7 @@
 		"slots": {
 			"features": {},
 			"action": {
-				"accepts": [
-					"btn"
-				]
+				"accepts": ["btn"]
 			},
 			"note": {}
 		}

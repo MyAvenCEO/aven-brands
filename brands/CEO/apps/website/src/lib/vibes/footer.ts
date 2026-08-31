@@ -140,8 +140,7 @@ function footerView(lang: Lang): ViewNode {
 								)
 							}
 						]
-					},
-
+					}
 				]
 			}
 		]

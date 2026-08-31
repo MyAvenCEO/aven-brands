@@ -3,9 +3,9 @@
      server load renders the ViewDef in $lib/vibes/legal.ts at build, and
      this shell places the HTML between the header and the footer. -->
 <script lang="ts">
-import ClaimSection from '$lib/components/ClaimSection.svelte'
 import type { LegalDocument } from '@myavenceo/aven-ceo'
 import { page } from '$app/state'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import type { Lang } from '$lib/i18n'

@@ -50,6 +50,9 @@ import badge from './brand/units/badge.json' with { type: 'json' }
 import button from './brand/units/button.json' with { type: 'json' }
 import card from './brand/units/card.json' with { type: 'json' }
 import claimCard from './brand/units/claim-card.json' with { type: 'json' }
+import company from './brand/units/company.json' with { type: 'json' }
+import cost from './brand/units/cost.json' with { type: 'json' }
+import emph from './brand/units/emph.json' with { type: 'json' }
 import emptyState from './brand/units/empty-state.json' with { type: 'json' }
 import field from './brand/units/field.json' with { type: 'json' }
 import flowCard from './brand/units/flow-card.json' with { type: 'json' }
@@ -57,28 +60,33 @@ import flowNode from './brand/units/flow-node.json' with { type: 'json' }
 import footer from './brand/units/footer.json' with { type: 'json' }
 import gateCard from './brand/units/gate-card.json' with { type: 'json' }
 import hero from './brand/units/hero.json' with { type: 'json' }
+import homeHero from './brand/units/home-hero.json' with { type: 'json' }
 import icon from './brand/units/icon.json' with { type: 'json' }
 import logo from './brand/units/logo.json' with { type: 'json' }
 import media from './brand/units/media.json' with { type: 'json' }
 import mediaCard from './brand/units/media-card.json' with { type: 'json' }
 import mediaFrame from './brand/units/media-frame.json' with { type: 'json' }
-import pair from './brand/units/pair.json' with { type: 'json' }
 import modal from './brand/units/modal.json' with { type: 'json' }
 import navLink from './brand/units/nav-link.json' with { type: 'json' }
 import navMenu from './brand/units/nav-menu.json' with { type: 'json' }
 import navbar from './brand/units/navbar.json' with { type: 'json' }
+import own from './brand/units/own.json' with { type: 'json' }
+import pair from './brand/units/pair.json' with { type: 'json' }
+import paren from './brand/units/paren.json' with { type: 'json' }
 import paymentFrame from './brand/units/payment-frame.json' with { type: 'json' }
 import priceTier from './brand/units/price-tier.json' with { type: 'json' }
 import promptBar from './brand/units/prompt-bar.json' with { type: 'json' }
 import prose from './brand/units/prose.json' with { type: 'json' }
 import rowList from './brand/units/row-list.json' with { type: 'json' }
+import ruleLabel from './brand/units/rule-label.json' with { type: 'json' }
 import section from './brand/units/section.json' with { type: 'json' }
 import segment from './brand/units/segment.json' with { type: 'json' }
-import socialRow from './brand/units/social-row.json' with { type: 'json' }
 import settingRow from './brand/units/setting-row.json' with { type: 'json' }
+import shift from './brand/units/shift.json' with { type: 'json' }
 import sidebar from './brand/units/sidebar.json' with { type: 'json' }
 import skeleton from './brand/units/skeleton.json' with { type: 'json' }
 import skillCard from './brand/units/skill-card.json' with { type: 'json' }
+import socialRow from './brand/units/social-row.json' with { type: 'json' }
 import spinner from './brand/units/spinner.json' with { type: 'json' }
 import stat from './brand/units/stat.json' with { type: 'json' }
 import step from './brand/units/step.json' with { type: 'json' }
@@ -88,18 +96,10 @@ import tabs from './brand/units/tabs.json' with { type: 'json' }
 import text from './brand/units/text.json' with { type: 'json' }
 import threadItem from './brand/units/thread-item.json' with { type: 'json' }
 import toast from './brand/units/toast.json' with { type: 'json' }
+import trust from './brand/units/trust.json' with { type: 'json' }
 import viewerFrame from './brand/units/viewer-frame.json' with { type: 'json' }
 import voicePill from './brand/units/voice-pill.json' with { type: 'json' }
 import workbench from './brand/units/workbench.json' with { type: 'json' }
-import ruleLabel from './brand/units/rule-label.json' with { type: 'json' }
-import paren from './brand/units/paren.json' with { type: 'json' }
-import emph from './brand/units/emph.json' with { type: 'json' }
-import trust from './brand/units/trust.json' with { type: 'json' }
-import cost from './brand/units/cost.json' with { type: 'json' }
-import company from './brand/units/company.json' with { type: 'json' }
-import shift from './brand/units/shift.json' with { type: 'json' }
-import own from './brand/units/own.json' with { type: 'json' }
-import homeHero from './brand/units/home-hero.json' with { type: 'json' }
 
 /*
  * Ordered by how much of the estate each one covers, measured across the
@@ -170,7 +170,7 @@ const documents = [
 	company,
 	shift,
 	own,
-	homeHero,
+	homeHero
 ] as unknown as ActorDef[]
 
 /** Every unit avenCEO defines, keyed by name. What a `$use` resolves against. */
@@ -251,8 +251,16 @@ export const SUPERSEDES: Record<string, Supersession> = {
 	card: { unit: 'card', note: 'same name, deliberately.' },
 	field: { unit: 'field', note: 'same name, deliberately.' },
 	logo: { unit: 'logo', note: 'same name, deliberately.' },
-	'logo--mark': { unit: 'logo', as: 'mark', note: 'the legacy modifier and the unit variant are the same thing.' },
-	'logo--wordmark': { unit: 'logo', as: 'wordmark', note: 'the legacy modifier and the unit variant are the same thing.' },
+	'logo--mark': {
+		unit: 'logo',
+		as: 'mark',
+		note: 'the legacy modifier and the unit variant are the same thing.'
+	},
+	'logo--wordmark': {
+		unit: 'logo',
+		as: 'wordmark',
+		note: 'the legacy modifier and the unit variant are the same thing.'
+	},
 	step: { unit: 'step', note: 'same name, deliberately.' },
 
 	/* Type — one unit, one axis, nine answers. */
@@ -282,8 +290,7 @@ export const SUPERSEDES: Record<string, Supersession> = {
 	},
 	'section-band': {
 		unit: 'section',
-		note:
-			"a padded section with a bottom rule — which is what `section` IS. NOT `section--ground-band`: that variant paints the teal ground and the band foreground, while the legacy class only ever set padding and a border. The two were matched on their names, and migrating on that mapping put page ink on a teal band at 1.18:1 across three routes."
+		note: 'a padded section with a bottom rule — which is what `section` IS. NOT `section--ground-band`: that variant paints the teal ground and the band foreground, while the legacy class only ever set padding and a border. The two were matched on their names, and migrating on that mapping put page ink on a teal band at 1.18:1 across three routes.'
 	},
 	steps: { unit: 'step', note: 'the rail is the container; `step` is the stage on it.' },
 
