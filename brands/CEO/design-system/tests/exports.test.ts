@@ -41,10 +41,23 @@ describe('the generate surface', () => {
 	})
 
 	test('element defaults cover the tags a class-free surface styles', () => {
+		/*
+		 * `button` only, and that is the whole list on purpose.
+		 *
+		 * `h1` and `label` were also here, pointing at `title` and `label` in the
+		 * superseded components map. That map is deleted — every surface renders
+		 * from actors now — and pointing an element default at a name that no
+		 * longer exists emitted nothing while the test still passed on the two
+		 * that did.
+		 *
+		 * A class-free heading is `prose`'s job: it styles `h1` through `h3`, `p`,
+		 * lists, links and code inside its own box, which is what a class-free
+		 * surface actually is. A bare `<button>` is different — it appears in
+		 * third-party and native markup nobody wraps — so it keeps a default, and
+		 * that default is the `btn` actor.
+		 */
 		const css = generate.elementCss()
-		for (const selector of ['h1', 'button', 'label']) {
-			expect(css).toContain(`${selector} {`)
-		}
+		expect(css).toContain('button {')
 	})
 })
 

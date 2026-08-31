@@ -11,7 +11,7 @@
  * then this reads the same source the generator does, so it cannot drift.
  */
 
-import { actorNames, actorStyles, actors, SUPERSEDES, UNCALLED } from '@myavenceo/aven-ceo/actors'
+import { actorNames, actorStyles, actors } from '@myavenceo/aven-ceo/actors'
 import {
 	COMPONENTS,
 	ELEVATION_SCALE,
@@ -246,76 +246,16 @@ export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
  */
 export const siteRows = unitRows.filter((u) => u.surface === 'site')
 
-/* ── Migration ──────────────────────────────────────────────────────────── */
-
-/**
- * The legacy vocabulary, and what replaces it.
+/*
+ * A Migration section stood here: a row per superseded class, the actor that
+ * replaced it, and whether anything still called it. It was built from
+ * SUPERSEDES and UNCALLED and it existed to make a 222-call-site migration
+ * visible while two vocabularies coexisted.
  *
- * Here rather than in a document because the migration has TWO consumers — the
- * website and the checkout at my.aven.ceo — and untying one without the other
- * breaks the one that was already doing the right thing. A row you can see is a
- * row somebody can act on; a plan in a markdown file is archaeology waiting to
- * happen.
+ * Both are gone. The website, the checkout at my.aven.ceo, avenID and the app
+ * all render from actors, the superseded map in `components.avenceo.json` is
+ * deleted, and a tab listing names that no longer exist documents nothing.
  */
-export type MigrationRow = {
-	legacy: string
-	unit: string
-	as?: string
-	note?: string
-	/** The class a caller writes, axis included. */
-	target: string
-	uncalled: boolean
-}
-
-/**
- * The class a caller actually writes for `unit` + `as`.
- *
- * The table used to compose this as `${unit}--${as}`, which is right only when
- * the option lives on an axis literally called `variant` — that is the one axis
- * the emitter leaves out of the class name. Every other axis is IN the name, so
- * `lede -> prose as lead` was printed as `prose--lead` while the stylesheet
- * emits `prose--size-lead`. The table was telling people to write a class that
- * does not exist, which is worse than not having the row.
- *
- * The axis is looked up in the registry rather than assumed, so this cannot
- * drift again: if an option moves to a different axis, the printed class moves
- * with it.
- */
-function supersessionClass(unit: string, as?: string): string {
-	if (!as) return unit
-	const styling = (
-		actors[unit] as {
-			styling?: { variants?: Record<string, object>; parts?: Record<string, object> }
-		}
-	)?.styling
-	for (const [axis, options] of Object.entries(styling?.variants ?? {})) {
-		if (as in (options as Record<string, unknown>)) {
-			return axis === 'variant' ? `${unit}--${as}` : `${unit}--${axis}-${as}`
-		}
-	}
-	/*
-	 * A PART, not a variant, and the two are different classes: a part is one
-	 * dash (`field-label`), a variant is two (`field--size-sm`). `label` is a
-	 * part of `field`, so composing it as a variant produced `field--label`,
-	 * which the stylesheet does not contain — the last of the twenty-four
-	 * targets that named a class nobody could write.
-	 */
-	if (as in (styling?.parts ?? {})) return `${unit}-${as}`
-	/* Neither: print the bare unit rather than inventing a class for it. */
-	return unit
-}
-
-export const migrationRows: MigrationRow[] = Object.entries(SUPERSEDES)
-	.map(([legacy, to]) => ({
-		legacy,
-		unit: to.unit,
-		as: to.as,
-		target: supersessionClass(to.unit, to.as),
-		note: to.note,
-		uncalled: UNCALLED.includes(legacy)
-	}))
-	/* Uncalled last: those are already done, they just need a regeneration. */
-	.sort((a, b) => Number(a.uncalled) - Number(b.uncalled) || a.legacy.localeCompare(b.legacy))
 
 /* ── Type ───────────────────────────────────────────────────────────────── */
 
@@ -414,7 +354,6 @@ export const sections: DocSection[] = [
 	   have leafs". The split is the architecture's own, so it navigates the
 	   same way it is built. */
 	{ id: 'website', label: 'Website', count: siteRows.length },
-	{ id: 'migration', label: 'Migration', count: migrationRows.length },
 	{ id: 'leafs', label: 'Leafs', count: leafRows.length },
 	{ id: 'composites', label: 'Composites', count: compositeRows.length },
 	{ id: 'layouts', label: 'Layouts', count: layoutNames.length }

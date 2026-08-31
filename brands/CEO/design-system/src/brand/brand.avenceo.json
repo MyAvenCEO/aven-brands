@@ -1205,9 +1205,7 @@
 		}
 	},
 	"elements": {
-		"h1": "title",
-		"button": "btn",
-		"label": "label"
+		"button": "btn"
 	},
 	"appIconPlate": "#faf9f4"
 }

@@ -22,14 +22,12 @@ const legacy = new Set(Object.keys((componentsDoc as any).components ?? {}))
 const all = (Array.isArray(actors) ? actors : Object.values(actors)) as any[]
 
 describe('a unit never takes a legacy name by accident', () => {
-	test('every unit class that shadows a legacy class is declared in SUPERSEDES', async () => {
-		const { SUPERSEDES } = await import('../src/actors.js')
-		const declared = new Set(Object.keys(SUPERSEDES))
-		const accidental = Object.keys(actorStyles)
-			.filter((name) => legacy.has(name) && !declared.has(name))
-			.sort()
-		expect(accidental).toEqual([])
-	})
+	/*
+	 * A test stood here checking that every actor class shadowing a legacy class
+	 * was declared in SUPERSEDES. It policed the transition: two vocabularies
+	 * coexisting, and a name could be taken by accident. There is one vocabulary
+	 * now, so the collision it guarded against cannot happen.
+	 */
 
 	test('no two units emit the same class', () => {
 		/* Two units with one part name produce one rule and the second silently
