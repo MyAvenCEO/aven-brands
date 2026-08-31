@@ -60,10 +60,16 @@ jobs:
         # the theme its consumers regenerate from. If a hex was edited anywhere but
         # tokens.ts, regenerating restores it and the tree goes dirty — so this is
         # the one place that has to notice, before a stale artifact reaches anyone.
+        #
+        # `bun run guidelines` used to run here too. That script and its renderer
+        # were deleted in 3274d7a when the storyboard at /docs/brand superseded
+        # the generated guideline page, but this workflow kept calling it — so
+        # every publish since has failed on `Script not found "guidelines"`
+        # before reaching npm. `build:packages` + `git diff` is the drift proof;
+        # the removed line added nothing to it.
         run: |
           set -euo pipefail
           bun run build:packages
-          bun run guidelines
           git diff --exit-code
       - name: The public surface must be intact before publishing
         # 0.4.0 shipped without elementCss -- deleted as collateral when a
