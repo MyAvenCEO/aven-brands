@@ -10,6 +10,8 @@
  * markup and become the units themselves rendered through aven-vibes. Until
  * then this reads the same source the generator does, so it cannot drift.
  */
+
+import { actorNames, actorStyles, actors, SUPERSEDES, UNCALLED } from '@myavenceo/aven-ceo/actors'
 import {
 	COMPONENTS,
 	ELEVATION_SCALE,
@@ -31,7 +33,6 @@ import {
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
-import { SUPERSEDES, UNCALLED, unitNames, unitStyles, units } from '@myavenceo/aven-ceo/units'
 import { renderIcon } from '@myavenceo/aven-vibes'
 
 export type SwatchRow = {
@@ -177,7 +178,7 @@ const note = (decl: Record<string, unknown> | undefined): string =>
 	typeof decl?.$description === 'string' ? decl.$description : ''
 
 const unitRow = (name: string): UnitRow => {
-	const u = units[name] as {
+	const u = actors[name] as {
 		description?: string
 		surface?: string
 		surfaceNote?: string
@@ -223,13 +224,13 @@ const unitRow = (name: string): UnitRow => {
 		/* The source, not a summary of it. A design-system viewer that shows only
 		   the render asks you to trust that the render matches the config; showing
 		   both in one place is the only way that claim is checkable. */
-		json: JSON.stringify(units[name], null, '\t')
+		json: JSON.stringify(actors[name], null, '\t')
 	}
 }
 
-export const unitRows: UnitRow[] = unitNames.map(unitRow)
+export const unitRows: UnitRow[] = actorNames.map(unitRow)
 /** The names, so a surface can ask whether a slot points at a real unit. */
-export const unitNameList: string[] = [...unitNames]
+export const unitNameList: string[] = [...actorNames]
 
 export const leafRows = unitRows.filter((u) => u.kind === 'leaf')
 export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
@@ -283,7 +284,7 @@ export type MigrationRow = {
 function supersessionClass(unit: string, as?: string): string {
 	if (!as) return unit
 	const styling = (
-		units[unit] as {
+		actors[unit] as {
 			styling?: { variants?: Record<string, object>; parts?: Record<string, object> }
 		}
 	)?.styling
@@ -357,11 +358,11 @@ export const layoutNames = Object.keys(LAYOUTS)
 
 /** The declarations behind a component, for the inspector panel. */
 export function declarationsOf(name: string): Array<[string, string]> {
-	/* `unitStyles` first: `COMPONENTS` is the legacy map from
+	/* `actorStyles` first: `COMPONENTS` is the legacy map from
 	   `components.avenceo.json`, and a unit's PARTS only exist in the compiled
 	   unit styles — so asking the legacy map for `skill-card-head` returned
 	   nothing and the parts panel showed an empty list. */
-	const decl = (unitStyles[name] ?? COMPONENTS[name] ?? LAYOUTS[name]) as
+	const decl = (actorStyles[name] ?? COMPONENTS[name] ?? LAYOUTS[name]) as
 		| Record<string, unknown>
 		| undefined
 	if (!decl) return []

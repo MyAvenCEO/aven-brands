@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { units } from '../src/units.js'
+import { actors } from '../src/actors.js'
 
 /**
  * THE CONTAINER CONTRACT.
@@ -31,7 +31,7 @@ import { units } from '../src/units.js'
  */
 const CONTENT_SIZED = new Set(['fit-content', 'max-content', 'min-content', 'auto'])
 
-const all = (Array.isArray(units) ? units : Object.values(units)) as any[]
+const all = (Array.isArray(actors) ? actors : Object.values(actors)) as any[]
 const hugs = (u: any) => CONTENT_SIZED.has(u.styling?.base?.inlineSize)
 
 /**

@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test'
+import * as actorsModule from '../src/actors.js'
 import * as design from '../src/design.js'
 import * as generate from '../src/generate.js'
 import * as tokens from '../src/tokens.js'
-import * as units from '../src/units.js'
 
 /**
  * The public surface, pinned.
@@ -118,14 +118,14 @@ describe('the unit registry', () => {
 		   regeneration — which it did. The storybook at /docs/brand reads this
 		   registry directly, so there is nothing to keep in sync. */
 		const css = generate.componentCss()
-		for (const name of Object.keys(units.units)) {
+		for (const name of Object.keys(actorsModule.actors)) {
 			expect(css).toContain(`.${name} {`)
 		}
 	})
 
 	test('a unit with parts emits every one of them', () => {
 		const css = generate.componentCss()
-		for (const [name, unit] of Object.entries(units.units)) {
+		for (const [name, unit] of Object.entries(actorsModule.actors)) {
 			for (const part of Object.keys(unit.styling?.parts ?? {})) {
 				expect(css).toContain(`.${name}-${part} {`)
 			}

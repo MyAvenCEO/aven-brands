@@ -31,8 +31,9 @@
  * A token that stays in the output is a defect (a section asked for a fragment
  * nobody supplied), so it throws rather than shipping `@@lead@@` to a reader.
  */
+
+import { actors } from '@myavenceo/aven-ceo/actors'
 import { icons } from '@myavenceo/aven-ceo/icons'
-import { units } from '@myavenceo/aven-ceo/units'
 import { Evaluator, renderViewToString, type ViewNode } from '@myavenceo/aven-vibes'
 
 const evaluator = new Evaluator()
@@ -47,7 +48,10 @@ export async function renderSection(
 		{
 			evaluate: (expr, data) => evaluator.evaluate(expr, data),
 			icons,
-			units
+			/* The engine's option is still spelled `units`: upstream renamed the
+			   TYPES (ActorDef, ActorRegistry) but not this field. Our registry
+			   is `actors`; the key stays whatever the engine asks for. */
+			units: actors
 		}
 	)
 	for (const [token, fragment] of Object.entries(inject)) {

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test'
+import { actorStyles, actors } from '../src/actors.js'
 import componentsDoc from '../src/brand/components.avenceo.json' with { type: 'json' }
-import { unitStyles, units } from '../src/units.js'
 
 /**
  * NAME COLLISIONS — the one migration hazard with no other gate.
@@ -19,13 +19,13 @@ import { unitStyles, units } from '../src/units.js'
  * So: a unit may share a name with a legacy class only if it says so.
  */
 const legacy = new Set(Object.keys((componentsDoc as any).components ?? {}))
-const all = (Array.isArray(units) ? units : Object.values(units)) as any[]
+const all = (Array.isArray(actors) ? actors : Object.values(actors)) as any[]
 
 describe('a unit never takes a legacy name by accident', () => {
 	test('every unit class that shadows a legacy class is declared in SUPERSEDES', async () => {
-		const { SUPERSEDES } = await import('../src/units.js')
+		const { SUPERSEDES } = await import('../src/actors.js')
 		const declared = new Set(Object.keys(SUPERSEDES))
-		const accidental = Object.keys(unitStyles)
+		const accidental = Object.keys(actorStyles)
 			.filter((name) => legacy.has(name) && !declared.has(name))
 			.sort()
 		expect(accidental).toEqual([])
