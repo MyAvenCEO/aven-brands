@@ -37,6 +37,10 @@
 			"types": "./dist/vibes/index.d.ts",
 			"import": "./dist/vibes/index.js"
 		},
+		"./vibe-style": {
+			"types": "./dist/vibe-style.d.ts",
+			"import": "./dist/vibe-style.js"
+		},
 		"./actors": {
 			"types": "./dist/actors.d.ts",
 			"import": "./dist/actors.js"
