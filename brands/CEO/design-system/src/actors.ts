@@ -39,10 +39,11 @@
  *                own comment said it was "applied alongside `step`, never
  *                instead", which is a state wearing a component's name.
  *
- * The old classes are still emitted by `components.avenceo.json`, because 222
- * call sites across the website and the app still name them. They are
- * SUPERSEDED, not kept: the surface migration deletes them once the last call
- * site moves, and `SUPERSEDES` below is the map that makes that mechanical.
+ * The old classes are GONE. `components.avenceo.json` carried 29 of them while
+ * 222 call sites across the website, the checkout, avenID and the app still
+ * named them; that count reached zero and the map was deleted rather than left
+ * deprecated. What the file keeps is the layout primitives, which are not a
+ * legacy vocabulary but the shapes actors compose inside.
  *
  * `validateRegistry` runs at module load rather than in a test. A unit that
  * cannot render should fail when the package is built, not when a page is
@@ -199,178 +200,22 @@ export const actorStyles = registryStyles(actors)
 /** The unit names, so a docs surface can list them without importing the JSON. */
 export const actorNames = Object.keys(actors)
 
-/**
- * Which legacy class each unit replaces.
+/*
+ * SUPERSEDES and UNCALLED lived here: a map from each legacy class to the actor
+ * that replaced it, and the list of the ones nothing called any more. They made
+ * a 222-call-site migration mechanical, and the docs page drew a Migration tab
+ * from them.
  *
- * Written down rather than remembered, because the surface migration is a
- * find-and-replace over 222 call sites and a map is the difference between
- * that being mechanical and being archaeology. When a row's classes have no
- * remaining callers, the row and the classes both go.
- *
- * Four legacy classes are already gone rather than listed: `card-sm`,
- * `btn-secondary`, `step-done` and `bullet` appeared nowhere but in the
- * generated stylesheet — declared, emitted, and never once used by any of the
- * three surfaces.
+ * They are gone because the migration is finished. Every surface — the website,
+ * the checkout at my.aven.ceo, avenID and the app — renders from actors, the
+ * superseded `components` map in `components.avenceo.json` is deleted, and a
+ * map from names that no longer exist to names that do is not a record, it is
+ * scaffolding that outlived its building.
  */
-export type Supersession = {
-	/** The unit that replaces it, and the variant if the mapping needs one. */
-	unit: string
-	as?: string
-	/** Why it is not a straight swap, where it is not. */
-	note?: string
-}
 
-/**
- * Every legacy class, and what replaces it.
- *
- * Measured across all four surfaces rather than remembered — the website, the
- * checkout at my.aven.ceo, avenID, and the Tauri app. That measurement changed
- * the plan twice.
- *
- * It found that CHECKOUT is the most design-system-adopted surface in the
- * estate, and adopted entirely on this vocabulary: `panel`, `well`, `steps`,
- * `eyebrow`, `mark`, `digits`, `alert`. So these classes cannot be deleted as
- * the website migrates — the migration has two consumers, and untying one
- * without the other breaks the one that was doing the right thing.
- *
- * And it found eight classes nothing calls at all, which are deleted rather
- * than mapped. Four of them are the logo's own parts, which nothing uses
- * because the site header never adopted the logo unit: it draws a bare `<img>`
- * with `size-7 shrink-0`. A class emitted for a unit nobody uses is a class
- * with a plan, not a caller.
+/*
+ * The `units` / `unitStyles` / `unitNames` aliases stood here through the actor
+ * rename so a consumer that had not caught up would still compile. avenOS took
+ * `actors` directly and the website was renamed with it, so nothing is left to
+ * strand and the aliases go with the rest of the transition layer.
  */
-export const SUPERSEDES: Record<string, Supersession> = {
-	/*
-	 * SAME-NAME replacements. A unit that takes the name of the legacy class it
-	 * replaces is the normal migration path — `btn` becomes `btn`. They are
-	 * listed anyway, because the alternative to listing them is a gate that
-	 * cannot tell them from an ACCIDENT.
-	 *
-	 * The accident is real and cost a day: a unit defined as `app-shell` took a
-	 * name six surfaces already used to mean "the page wrapper", and silently
-	 * restyled every one of them into a two-column grid. The class resolved, the
-	 * CSS was valid, and the docs page rendered with its content pushed 700px
-	 * right. Nothing could report it, because "took the name deliberately" and
-	 * "took the name by accident" look identical to a compiler.
-	 *
-	 * So intent is written down, and `tests/collisions.test.ts` fails on any unit
-	 * class that shadows a legacy class without an entry here.
-	 */
-	btn: { unit: 'btn', note: 'same name, deliberately — the unit IS the replacement.' },
-	card: { unit: 'card', note: 'same name, deliberately.' },
-	field: { unit: 'field', note: 'same name, deliberately.' },
-	logo: { unit: 'logo', note: 'same name, deliberately.' },
-	'logo--mark': {
-		unit: 'logo',
-		as: 'mark',
-		note: 'the legacy modifier and the unit variant are the same thing.'
-	},
-	'logo--wordmark': {
-		unit: 'logo',
-		as: 'wordmark',
-		note: 'the legacy modifier and the unit variant are the same thing.'
-	},
-	step: { unit: 'step', note: 'same name, deliberately.' },
-
-	/* Type — one unit, one axis, nine answers. */
-	title: { unit: 'text', as: 'title' },
-	'section-title': { unit: 'text', as: 'section-title' },
-	lede: {
-		unit: 'prose',
-		as: 'lead',
-		note: 'prose owns the measure; the old class did not have one.'
-	},
-	meta: { unit: 'text', as: 'meta' },
-	'mono-meta': { unit: 'text', as: 'mono-meta' },
-	digits: { unit: 'text', as: 'digits' },
-	eyebrow: { unit: 'text', as: 'eyebrow' },
-	'eyebrow-quiet': { unit: 'text', as: 'eyebrow-quiet' },
-	label: { unit: 'field', as: 'label', note: 'a label belongs to a field, not to the page.' },
-
-	/* Boxes — three of them differed only in radius, padding and ground. */
-	panel: { unit: 'surface', as: 'lg' },
-	well: { unit: 'surface', as: 'sunken' },
-	chip: { unit: 'badge' },
-
-	/* Structure. */
-	'app-shell': {
-		unit: 'section',
-		note: 'the shell is a section with no rule and the page ground.'
-	},
-	'section-band': {
-		unit: 'section',
-		note: 'a padded section with a bottom rule — which is what `section` IS. NOT `section--ground-band`: that variant paints the teal ground and the band foreground, while the legacy class only ever set padding and a border. The two were matched on their names, and migrating on that mapping put page ink on a teal band at 1.18:1 across three routes.'
-	},
-	steps: { unit: 'step', note: 'the rail is the container; `step` is the stage on it.' },
-
-	/* Controls and feedback. */
-	ghost: { unit: 'btn', as: 'ghost' },
-	alert: {
-		unit: 'toast',
-		as: 'placement-inline',
-		note: 'Was the one blocker both surfaces shared. A toast is transient and a page alert is not — an error the user must act on stays beside the thing that failed, and a toast that vanishes takes its instruction with it. `placement: inline` is that distinction, and it decides the ROLE too: inline is `role=alert` and interrupts, floating is `role=status` and does not.'
-	},
-	mark: {
-		unit: 'logo',
-		as: 'mark',
-		note: "checkout and avenID use `mark` for the brand image at the top of a trust screen — which is `flow-card`'s `crest` slot holding a `logo`."
-	},
-
-	/* The logo\'s own parts, which the logo unit now owns. */
-	'logo-mark': { unit: 'logo' },
-	'logo-wordmark': { unit: 'logo' },
-	'logo-word-aven': { unit: 'logo' },
-	'logo-word-ceo': { unit: 'logo' }
-}
-
-/**
- * Legacy classes nothing calls, on any surface.
- *
- * Deletable the moment someone regenerates the component map. Kept as a list
- * rather than simply removed so the next measurement can tell "gone because it
- * was replaced" from "gone because it was never used".
- */
-export const UNCALLED: string[] = [
-	/*
-	 * MEASURED across ALL FOUR surfaces, not one. That distinction is the whole
-	 * value of this list, and getting it wrong is how a migration breaks three
-	 * products at once.
-	 *
-	 * The previous contents were counted on the website alone and listed eight
-	 * classes. Six of them had live callers elsewhere — `title` (1 in the app),
-	 * `lede` (2 on the website itself), and the four `logo-*` parts (34 between
-	 * them). Acting on that list would have deleted classes with 39 call sites
-	 * behind them.
-	 *
-	 * Ten more classes read as dead from the website and are not: `panel` (9),
-	 * `mark` (9), `alert` (7), `mono-meta` (13, all in the Tauri app), `digits`
-	 * (4), `well` (3), `steps` (2), `ghost` (2). Checkout is the most
-	 * design-system-adopted surface in the estate and it is adopted entirely on
-	 * THESE classes, so a website-only count says the opposite of the truth.
-	 *
-	 * Reproduce before trusting it:
-	 *   grep for `class="..."` containing the bare class name across
-	 *   brands/CEO/apps/website/src, avenOS/services/checkout/src,
-	 *   avenOS/services/identity/src and avenOS/app/src.
-	 *
-	 * 172 call sites remain across 20 classes. These two are the only ones at
-	 * zero everywhere, and therefore the only ones deletable today.
-	 */
-	'label',
-	'chip'
-]
-
-/* ------------------------------------------------------------------ aliases
- * The pre-rename names, kept so a consumer that still says "unit" compiles.
- *
- * The engine does exactly this for `UnitDef`/`UnitRegistry`, and for the same
- * reason: the taxonomy changing is not a good enough reason to break a build
- * that has not caught up yet. New code uses the actor names; these go when no
- * caller is left. */
-
-/** @deprecated use `actors` */
-export const units = actors
-/** @deprecated use `actorStyles` */
-export const unitStyles = actorStyles
-/** @deprecated use `actorNames` */
-export const unitNames = actorNames

@@ -59,7 +59,9 @@
 				"marginInline": "auto",
 				"inlineSize": "100%",
 				"maxInlineSize": "72rem",
-				"minInlineSize": "0"
+				"minInlineSize": "0",
+				"paddingInline": "var(--space-loose)",
+				"$description": "\n\nIT PADS ITSELF. `max-inline-size` alone caps the measure but does nothing at any viewport narrower than the cap, where the content simply touches the edge. Every call site was left to supply that padding and they did it differently — the website's footer spells it `px-5 sm:px-8` — which is exactly the restatement this actor exists to remove."
 			},
 			"brand": {
 				"display": "grid",
