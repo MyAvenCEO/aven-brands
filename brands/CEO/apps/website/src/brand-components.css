@@ -4976,6 +4976,7 @@
 	}
 
 	.company {
+		display: block;
 		container-type: inline-size;
 		container-name: company;
 		inline-size: 100%;
@@ -5364,8 +5365,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 85vh;
-		padding-block: clamp(5rem, 12vh, 9rem);
+		min-block-size: var(--home-hero-min-block, 34rem);
+		padding-block: var(--home-hero-pad-block, clamp(3rem, 9cqi, 6rem));
 		container-type: inline-size;
 		container-name: home-hero;
 		inline-size: 100%;

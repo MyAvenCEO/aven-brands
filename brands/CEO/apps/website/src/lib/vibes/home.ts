@@ -48,7 +48,16 @@ function heroView(t: (typeof home)['de']): ViewNode {
 	return {
 		tag: 'section',
 		class: 'home-hero px-5 sm:px-8',
-		attrs: { 'aria-labelledby': 'home-hero-heading' },
+		/*
+		 * The viewport claim, stated HERE because this is the surface that owns
+		 * it. The unit no longer reads `vh` itself — a hero rendered in a 324px
+		 * docs card would otherwise ask for 85% of the monitor. This page is a
+		 * landing stage, so it says so, once.
+		 */
+		attrs: {
+			'aria-labelledby': 'home-hero-heading',
+			style: '--home-hero-min-block: 85dvh; --home-hero-pad-block: clamp(5rem, 12dvh, 9rem)'
+		},
 		children: [
 			/* The video element cannot be a view node (SAFE_TAGS), so it arrives
 			   through the seam; the wrapper dissolves via `display: contents`

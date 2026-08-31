@@ -39,7 +39,8 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "The band is its own container: the roles' side-by-side switch and the heading's cqi clamp both measure THIS box, not the window. `inline-size: 100%` is the container's required companion — containment makes the width independent of the contents, so a container without a width of its own collapses.",
+			"$description": "The band is its own container: the roles' side-by-side switch and the heading's cqi clamp both measure THIS box, not the window. `inline-size: 100%` is the container's required companion — containment makes the width independent of the contents, so a container without a width of its own collapses.\n\nDISPLAY IS DECLARED, and that is not decoration. `container-type: inline-size` imposes containment, and containment does nothing on an inert display — `inline`, `contents`, or whatever the tag happens to default to. This unit named a container and never said what box it was, so the `@container` query in `roles` could only ever work by the accident of the tag being a `<section>`; on the `<span>` the specimen uses it silently never matched. The contract test in `tests/containers.test.ts` exists for this exact failure, which looks identical to a threshold that is too low.",
+			"display": "block",
 			"containerType": "inline-size",
 			"containerName": "company",
 			"inlineSize": "100%"

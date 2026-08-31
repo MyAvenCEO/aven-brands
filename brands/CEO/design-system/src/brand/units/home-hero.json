@@ -34,15 +34,15 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "Its own container: the heading's 6.5cqi clamp measures this stage. `isolation: isolate` keeps the negative z-index video and scrim inside the section's own stacking context instead of behind the page.",
+			"$description": "Its own container: the heading's 6.5cqi clamp measures this stage. `isolation: isolate` keeps the negative z-index video and scrim inside the section's own stacking context instead of behind the page.\n\nITS HEIGHT COMES FROM THE SURFACE, not from `85vh`. A hero is the one unit with a real claim on the viewport, but the claim belongs to the page: the page knows whether this hero is a landing stage or a card in a preview grid, and the unit does not. Read directly, `vh` meant a hero rendered in a 324px docs card asked for 85% of the monitor. `--home-hero-min-block` and `--home-hero-pad-block` are how a surface still says fill the screen, written once where the viewport is genuinely the subject. This is the same correction `hero` already carries; this unit reintroduced the bug it was fixed for.",
 			"position": "relative",
 			"isolation": "isolate",
 			"overflow": "hidden",
 			"display": "flex",
 			"alignItems": "center",
 			"justifyContent": "center",
-			"minHeight": "85vh",
-			"paddingBlock": "clamp(5rem, 12vh, 9rem)",
+			"minBlockSize": "var(--home-hero-min-block, 34rem)",
+			"paddingBlock": "var(--home-hero-pad-block, clamp(3rem, 9cqi, 6rem))",
 			"containerType": "inline-size",
 			"containerName": "home-hero",
 			"inlineSize": "100%",
