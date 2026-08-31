@@ -45,7 +45,7 @@ let {
 	<!-- An imprint, not a caption: it sits IN the picture the way a maker's mark
 	     sits in a print, at half strength so it belongs to the image rather than
 	     covering it. Decorative — the page has already said this. -->
-	<figcaption id="claim-imprint" aria-hidden="true">— own your life —</figcaption>
+	<figcaption id="claim-imprint" aria-hidden="true"><span id="claim-imprint-mark">own your life</span></figcaption>
 </figure>
 
 <style>
@@ -81,16 +81,30 @@ let {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+/*
+ * The imprint wears the button's edge: a `radius-full` stadium with the ring
+ * drawn INSET, which is the one signature shape in this system and the reason
+ * the mark reads as part of the brand rather than as a caption someone typed
+ * on the picture.
+ *
+ * The RIM is half strength, the words are not. A rule drawn at full white cuts
+ * the photograph in two; the words at half white disappear into the bright of
+ * the dress behind them. So the frame recedes and the text stays: solid
+ * on-dark, 3.99:1 over the bottom quarter's #897b55 mean.
+ */
+:global(#claim-imprint-mark) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-tight) var(--space-loose);
+	border-radius: var(--radius-full);
+	box-shadow: inset 0 0 0 var(--rule-accent)
+		color-mix(in srgb, var(--color-on-dark) 50%, transparent);
 	font-family: var(--font-display);
 	font-size: clamp(0.625rem, 1.5cqi, 1.125rem);
 	letter-spacing: var(--tracking-wide);
-	/*
-	 * Marine, at full strength. The bottom quarter of this picture averages
-	 * #897b55 — sand and stone — and the brand's own dark reads against it at
-	 * 3.5:1, the same figure the cream reached at 78%, from the other side. A
-	 * mark pressed INTO the paper rather than laid over it.
-	 */
-	color: var(--color-marine);
+	color: var(--color-on-dark);
 }
 :global(#claim-banner img) {
 	display: block;
