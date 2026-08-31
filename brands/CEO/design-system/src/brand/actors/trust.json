@@ -1,0 +1,106 @@
+{
+	"name": "trust",
+	"description": "The proposition band: the sentence that names the brand, with the lockup ON the line, and the three claims as seals under it.\n\nThe headline is display type at thesis scale — it ran at 28px once, a caption for the sentence that states what the product IS, on a page whose section headings reach 48. Its measure is in REM, not ch: `ch` is the width of the font's own zero and the display serif's zero is narrow, so 36ch measured 558px and broke the sentence to three lines.\n\nThe claims are chips, not columns: identical weight on three columns floated, '100%' repeated as the largest element carried no information, and the actual claim was set smallest. Each chip leads with its mark in the lighter sunflower — `accent-edge` at 8.42:1 on the lifted ground, with `accent-ink` inside it at 3.99:1, one hue at two strengths — then the claim in full band ink, then the figure as the annotation.",
+	"surface": "site",
+	"surfaceNote": "the brand proposition band",
+	"interface": {
+		"props": {},
+		"slots": {
+			"headline": {},
+			"claims": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "h2",
+				"part": "headline",
+				"$children": "headline"
+			},
+			{
+				"tag": "ul",
+				"part": "claims",
+				"$children": "claims"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "The band itself is a `section` with `ground-primary`; this unit owns the type and the chips, not the ground. `inline-size: auto` — the parts size inside the section's own measure, and the unit adds no second container between the chips and the section width their grid reads.",
+			"inlineSize": "auto"
+		},
+		"parts": {
+			"headline": {
+				"maxInlineSize": "66rem",
+				"marginInline": "auto",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(1.375rem, 3.1cqi, 2rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.3",
+				"letterSpacing": "var(--tracking-normal)",
+				"textAlign": "center",
+				"textWrap": "balance",
+				"color": "var(--color-band-foreground)"
+			},
+			"lockup": {
+				"$description": "The logo sits ON the line: it takes the headline's size, and its two halves keep their own 0.714 ratio to each other. Baseline alignment comes from the logo unit — the display 'aven' is the taller half and centring would leave the two at different heights.",
+				"fontSize": "1em",
+				"letterSpacing": "var(--tracking-tight)",
+				"verticalAlign": "baseline"
+			},
+			"claims": {
+				"$description": "Composes `grid-auto center`. `--min` is the primitive's own knob for the narrowest column: 9rem, a third narrower than cards would take, because these are marks, not panels competing with the sentence above them.",
+				"--gap": "var(--space-comfortable)",
+				"inlineSize": "100%",
+				"--measure": "52rem",
+				"padding": "0",
+				"listStyle": "none",
+				"--min": "9rem",
+				"marginBlockStart": "var(--space-loose)"
+			},
+			"claim": {
+				"$description": "Composes `stack surface surface--lift surface--size-chip`. `surface` is a BOX and `stack` is a LAYOUT, and they collide on one line: surface's base sets `display: block`, so the grid is re-asserted here — this unit sits after `surface` in the components layer, which is what lets it win the tie.",
+				"display": "grid",
+				"padding": "var(--space-comfortable) var(--space-tight)",
+				"justifyItems": "center",
+				"--gap": "var(--space-hairline)",
+				"textAlign": "center"
+			},
+			"claim-icon": {
+				"$description": "The figure has to clear 3:1 against its own backing and the backing 3:1 against the chip. Against FULL sunflower nothing lighter works, so the backing moves UP the ramp instead of the figure moving down it: `accent-edge` is the lighter sunflower at 8.42:1 on the chip, and `accent-ink` sits inside it at 3.99:1.",
+				"display": "block",
+				"marginBlockEnd": "var(--space-tight)",
+				"color": "var(--color-accent-ink)",
+				"--icon-tint": "var(--color-accent-edge)",
+				"& svg path[opacity]": {
+					"opacity": "1"
+				}
+			},
+			"claim-name": {
+				"$description": "The claim leads, the figure supports it — it was the other way round, and '100%' three times is the same word three times.",
+				"margin": "0",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "400",
+				"letterSpacing": "var(--tracking-wide)",
+				"textTransform": "uppercase",
+				"textWrap": "balance",
+				"color": "var(--color-band-foreground)"
+			},
+			"claim-figure": {
+				"$description": "The sans face, not the display one — the serif made it read as a second heading competing with the claim it qualifies. The same lighter sunflower as the mark, so the chip is one colour at two strengths rather than three. No opacity: this band's headroom is thin and fading ink here is what axe caught twice.",
+				"margin": "0",
+				"fontFamily": "var(--font-sans)",
+				"fontSize": "var(--fs-lead)",
+				"fontWeight": "600",
+				"fontVariantNumeric": "tabular-nums",
+				"letterSpacing": "var(--tracking-wide)",
+				"lineHeight": "1",
+				"color": "var(--color-accent-edge)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The headline is the section's `aria-labelledby` target, so it keeps its id alongside the part class. The claims are a real `<ul>`; each icon is `aria-hidden` because the words underneath already say what it is."
+	}
+}

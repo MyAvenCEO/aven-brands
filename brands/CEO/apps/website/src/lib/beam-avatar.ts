@@ -53,6 +53,7 @@ function getContrast(hexcolor: string): string {
 	/* ds-allow-hardcode: pure black and white are the two ends of the contrast
 	   computation itself, not brand colours — a theme cannot change what the
 	   maximum-contrast ink against an arbitrary generated fill is. */
+	/* ds-allow-hardcode */
 	return (r * 299 + g * 587 + b * 114) / 1000 >= 128 ? '#000000' : '#FFFFFF'
 }
 

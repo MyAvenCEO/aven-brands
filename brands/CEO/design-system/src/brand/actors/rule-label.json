@@ -1,0 +1,77 @@
+{
+	"name": "rule-label",
+	"description": "The rule-anchored label: tracked caps, an optional tabular index with its own dash, and a hairline that takes whatever width is left — the editorial device that turns a caption into furniture holding the column together.\n\nThis unit was DECLINED once, and the old note said why: the composite contract of that pass made every unit a container with `inline-size: 100%`, which would have forced the rule to always draw — on a centred head the label is meant to shrink to its content and let the rule collapse. That objection was about the contract, not the device. As a LEAF unit — no container, no forced width, exactly like `text` — the label keeps its content-driven size and the caller's layout still decides whether the rule appears. The declarations below are the ones the page carried; only the address changed.",
+	"surface": "site",
+	"surfaceNote": "an editorial eyebrow",
+	"interface": {
+		"props": {},
+		"slots": {
+			"index": {},
+			"text": {},
+			"line": {}
+		}
+	},
+	"view": {
+		"tag": "p",
+		"$children": [
+			{
+				"tag": "span",
+				"part": "index",
+				"$children": "index"
+			},
+			{
+				"tag": "span",
+				"part": "text",
+				"$children": "text"
+			},
+			{
+				"tag": "span",
+				"part": "line",
+				"attrs": {
+					"aria-hidden": "true"
+				}
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "`inline-size: auto` is the point, not a default written out: the label sizes to its CONTENT, so on a centred head it shrinks and the rule collapses — the caller's layout decides whether the rule appears. That is the hugging class of the container contract, the exact non-container composite the old decline note said the contract lacked.",
+			"inlineSize": "auto",
+			"display": "flex",
+			"alignItems": "center",
+			"gap": "var(--space-tight)",
+			"margin": "0",
+			"fontFamily": "var(--font-sans)",
+			"fontSize": "var(--fs-eyebrow)",
+			"fontWeight": "600",
+			"letterSpacing": "var(--tracking-widest)",
+			"textTransform": "uppercase",
+			"color": "var(--color-eyebrow-ink)"
+		},
+		"parts": {
+			"index": {
+				"fontVariantNumeric": "tabular-nums",
+				"color": "var(--color-foreground-quiet)",
+				"&::after": {
+					"content": "''",
+					"display": "inline-block",
+					"inlineSize": "1.25rem",
+					"blockSize": "1px",
+					"marginInline": "var(--space-tight) 0",
+					"verticalAlign": "middle",
+					"background": "var(--color-border-strong)"
+				}
+			},
+			"text": {},
+			"line": {
+				"$description": "The rule takes whatever width is left, which is what anchors the label to the column instead of leaving it floating over the content — and on a centred head, where the label shrinks to its content, it collapses to nothing on its own.",
+				"flex": "1 1 auto",
+				"blockSize": "1px",
+				"background": "var(--color-border-soft)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The hairline is `aria-hidden`: it is drawn, not said. The index reads as text because it is one — the counter variant increments it from DOM position, so what is announced matches what is shown."
+	}
+}

@@ -26,6 +26,26 @@
  */
 import { readdirSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
+import { assertServed } from './_served.mjs'
+
+/**
+ * A target is either a file on disk or a URL to a running server.
+ *
+ * Every render gate here loaded `file://` unconditionally. For a static
+ * component harness that is correct. For a BUILT SvelteKit page it is not: the
+ * module scripts never execute over `file://`, so the page renders its markup
+ * and its CSS and hydrates nothing — and a gate that asks whether a control
+ * WORKS then reports that none of them do. `verify_interactive` failed the docs
+ * page's theme switch on exactly that basis, while the live control flips
+ * `aria-pressed`, flips `data-theme`, and repaints the page.
+ *
+ * A gate that fails on every page of a whole framework gets ignored, or gets
+ * "fixed" by deleting the real ARIA it was complaining about. So: pass a path
+ * and it is a file, pass an http(s) URL and it is served.
+ */
+const isUrl = (t) => /^https?:\/\//.test(t);
+const pageUrl = (t) => (isUrl(t) ? t : 'file://' + resolve(t));
+
 let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch {
@@ -46,6 +66,10 @@ if (!targets.length) {
 const widths = (argv.find(a => a.startsWith('--widths=')) || '--widths=320,414,1280').split('=')[1].split(',').map(Number);
 
 const files = targets.flatMap(t => {
+  /* A URL is one target and never touches the filesystem — `statSync` on
+     "http://localhost:1421/..." resolves it as a relative PATH and throws
+     ENOENT, which is where URL support silently stops. */
+  if (isUrl(t)) return [t];
   const abs = resolve(t);
   return statSync(abs).isDirectory()
     ? readdirSync(abs).filter(f => f.endsWith('.html')).map(f => join(abs, f))
@@ -135,7 +159,7 @@ const problems = [];
 for (const w of widths) {
   const page = await browser.newPage({ viewport: { width: w, height: 900 } });
   for (const f of files) {
-    await page.goto('file://' + f);
+    assertServed(await page.goto(pageUrl(f)), pageUrl(f));
     await page.waitForTimeout(120);
     const { clipped, overlaps } = await page.evaluate(AUDIT);
     const fname = f.split('/').pop();

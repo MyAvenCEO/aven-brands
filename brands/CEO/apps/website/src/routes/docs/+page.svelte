@@ -2,9 +2,11 @@
 /**
  * /docs — the index of what is documented.
  *
- * One card today (ceoBRAND). It is a grid because the next entries are already
- * named in the upgrade plan: the unit library, the vibe manifest, the gates.
+ * Two cards: the design system (ceoBRAND) and the framework it renders through
+ * (avenVIBES, whose sections come from the package's own shipped docs, so the
+ * count here can never disagree with the surface it links to).
  */
+import { DOCS } from '@myavenceo/aven-vibes'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import { sections } from '$lib/docs/sections'
 
@@ -15,6 +17,13 @@ const entries = [
 		title: 'Brand',
 		lede: 'Every token, face and component the avenCEO design system defines, rendered from the source it ships.',
 		meta: `${sections.reduce((n, s) => n + s.count, 0)} items across ${sections.length} sections`
+	},
+	{
+		href: '/docs/vibes/',
+		eyebrow: 'avenVIBES',
+		title: 'Framework',
+		lede: 'UI as data: views, units, actors, islands and the sandbox — the framework documented from the docs the package itself ships.',
+		meta: `${DOCS.length} sections, junior to internals`
 	}
 ]
 </script>
@@ -24,14 +33,14 @@ const entries = [
 	<meta name="description" content="Documentation for the avenCEO design system and platform.">
 </svelte:head>
 
-<MarketingSiteHeader active="docs" lang="en" />
+<MarketingSiteHeader active="docs" maxWidth="6xl" lang="en" claimHref="/#claim" />
 
 <main id="docs-index" class="app-shell">
 	<div class="center">
 		<header class="stack">
-			<p class="eyebrow-accent">Documentation</p>
-			<h1 class="title">Docs</h1>
-			<p class="lede">
+			<p class="text--eyebrow">Documentation</p>
+			<h1 class="text--title">Docs</h1>
+			<p class="prose--size-lead">
 				The reference surfaces, each rendered from the same source the product ships, so what you
 				read here is what runs.
 			</p>
@@ -41,10 +50,10 @@ const entries = [
 			{#each entries as entry (entry.href)}
 				<li>
 					<a class="card" href={entry.href}>
-						<p class="eyebrow-accent">{entry.eyebrow}</p>
-						<h2 class="title">{entry.title}</h2>
-						<p class="lede">{entry.lede}</p>
-						<p class="meta">{entry.meta}</p>
+						<p class="text--eyebrow">{entry.eyebrow}</p>
+						<h2 class="text--title">{entry.title}</h2>
+						<p class="prose--size-lead">{entry.lede}</p>
+						<p class="text--meta">{entry.meta}</p>
 					</a>
 				</li>
 			{/each}
@@ -79,12 +88,18 @@ const entries = [
 	text-decoration: none;
 	color: inherit;
 	block-size: 100%;
+	/* The motion scale exists now. 160ms hand-written here was the same value
+	   `--duration-quick` holds, arrived at independently — which is exactly the
+	   drift a scale prevents. */
 	transition:
-		box-shadow 160ms ease-out,
-		transform 160ms ease-out;
+		box-shadow var(--duration-quick) var(--ease-out),
+		transform var(--duration-quick) var(--ease-out);
 }
 #docs-grid a:hover {
 	box-shadow: var(--shadow-floating);
+	/* A 2px lift. The spacing scale starts at 0.25rem, twice this — a hover that
+	   moves four pixels is a jump rather than a lift. */
+	/* ds-allow-hardcode */
 	transform: translateY(-2px);
 }
 @media (prefers-reduced-motion: reduce) {

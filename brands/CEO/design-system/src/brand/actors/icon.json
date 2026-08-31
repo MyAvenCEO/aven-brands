@@ -1,0 +1,116 @@
+{
+	"name": "icon",
+	"description": "One glyph from the registry, at a size and a tone the system names. Every icon on every surface is this — the geometry lives once in `icons.avenceo.json` and a view supplies only a name, because the engine's tag allowlist admits no SVG and loosening it would let a view emit script. What this unit adds is the part the registry deliberately does not hold: how big, and in what colour, since geometry has no opinion about either.\n\nThe interface follows the practices the Iconify ecosystem settled on — 1em box, currentColor, a -0.125em baseline seat, flips and quarter-turns as transforms rather than duplicate drawings — plus one house rule Iconify leaves to callers: directional icons declare `mirror: rtl` and follow the reading direction themselves.",
+	"interface": {
+		"props": {
+			"name": "string",
+			"title": "string"
+		}
+	},
+	"view": {
+		"tag": "span",
+		"$icon": {
+			"name": "$props.name",
+			"size": "1em",
+			"title": "$props.title"
+		}
+	},
+	"styling": {
+		"base": {
+			"$description": "Sized in `em`, so an icon inside a control scales with that control rather than being pinned to a pixel value that is right in one place and wrong in the next. The DEFAULT is `lg` at 2rem — the type scale here tops out at 38px and bottoms at 9px, so an icon matched to body text lands at 13px, which is smaller than any glyph with a duotone backing can carry. An icon set inline beside a sentence should ask for `sm`. `flex-shrink:0` because a glyph is never the thing that should give way in a tight row.\n\nTHE DUOTONE BACKING IS A BRAND COLOUR, not a dimmed copy of the ink. The engine paints a secondary layer from `--icon-tint` (0.9.2), and this leaf points that at `--color-icon-tint` — a real role in the theme, so the backing follows the brand and the theme rather than whatever text colour the icon happens to sit in. Both layers took `currentColor` before, separated by opacity alone: at 50% of a near-black ink that is a heavy grey slab, which is what the Solar set looked like in the navbar.\n\nIT DECLARES `--icon-tint`, the colour the engine paints a duotone's secondary layer with. Declared HERE, on the unit that draws the glyph, and not once at the document root: a global custom property is the anti-pattern the whole scoping design exists to avoid — two brands on one page write the same name and the second wins. An app shell is no better, because a shell is a container that may host more than one vibe. A unit is the smallest thing that owns its own subtree, so the tint travels with the component that needs it and reaches nothing else.",
+			"display": "inline-flex",
+			"alignItems": "center",
+			"justifyContent": "center",
+			"flexShrink": "0",
+			"inlineSize": "1em",
+			"blockSize": "1em",
+			"fontSize": "2rem",
+			"color": "currentColor",
+			"--icon-tint": "var(--color-icon-tint)",
+			"verticalAlign": "-0.125em"
+		},
+		"variants": {
+			"size": {
+				"$description": "A ladder in rem rather than in type steps, because an icon is a shape and the type scale is a reading ladder — matching them made every icon smaller than the thing it labelled.",
+				"xs": {
+					"fontSize": "1rem"
+				},
+				"sm": {
+					"fontSize": "1.25rem"
+				},
+				"md": {
+					"fontSize": "1.5rem"
+				},
+				"lg": {
+					"fontSize": "2rem"
+				},
+				"xl": {
+					"fontSize": "2.5rem"
+				}
+			},
+			"tone": {
+				"$description": "An icon inherits `currentColor` by default, which is right almost everywhere — it is part of the sentence it sits in. These are for the cases where it is not: a status glyph that must carry its own meaning.",
+				"quiet": {
+					"color": "var(--color-foreground-quiet)"
+				},
+				"accent": {
+					"color": "var(--color-accent-ink)"
+				},
+				"progress": {
+					"color": "var(--color-progress-ink)"
+				},
+				"success": {
+					"color": "var(--color-success-ink)"
+				},
+				"warning": {
+					"color": "var(--color-warning-ink)"
+				},
+				"error": {
+					"color": "var(--color-error-ink)"
+				}
+			},
+			"flip": {
+				"$description": "Reuse one drawing four ways instead of registering four drawings — the practice every mature icon interface (Iconify's hFlip/vFlip among them) settled on, because a mirrored upload is a download and a set that stores both drifts in one of them. A transform costs nothing and cannot drift.",
+				"x": {
+					"transform": "scaleX(-1)"
+				},
+				"y": {
+					"transform": "scaleY(-1)"
+				},
+				"both": {
+					"transform": "scale(-1)"
+				}
+			},
+			"rotate": {
+				"$description": "Quarter turns, same reasoning as flip: one chevron is every chevron.",
+				"quarter": {
+					"transform": "rotate(90deg)"
+				},
+				"half": {
+					"transform": "rotate(180deg)"
+				},
+				"three-quarter": {
+					"transform": "rotate(270deg)"
+				}
+			},
+			"mirror": {
+				"$description": "Opt-in RTL awareness, and the one place this leaf goes past Iconify: Iconify leaves direction to the caller, and the caller forgets. A DIRECTIONAL icon — an arrow that means forward, a chevron that means deeper — declares `mirror: rtl` and flips itself under `[dir=\"rtl\"]`, so the geometry follows the reading direction without any call site knowing the locale. A glyph whose shape is meaning (a checkmark, a brand mark) simply never declares it. This is `accessibility/i18n-rtl.md` made structural, and it is what `verify_rtl` cannot check for icons any other way.",
+				"rtl": {
+					"[dir=\"rtl\"] &": {
+						"transform": "scaleX(-1)"
+					}
+				}
+			},
+			"placement": {
+				"$description": "`block` clears the baseline shift for an icon standing alone — a crest in a header, a glyph centred in an empty state. The default is inline, nudged -0.125em, because an icon in a sentence sits ON the baseline like a letter (Iconify's `inline` behaviour, made the default here since that is where icons actually live).",
+				"block": {
+					"display": "flex",
+					"verticalAlign": "baseline"
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "Decorative by default — `aria-hidden`, because an icon beside a label that already says the word makes a screen reader say it twice. Give it a `title` ONLY when the icon is the whole message, at which point it becomes `role=img` with a label. An icon-only button is the other case: the label belongs on the button, not on the glyph inside it. Colour is never the only signal: a red error glyph needs the word too."
+	}
+}

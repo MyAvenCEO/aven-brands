@@ -1,0 +1,37 @@
+{
+	"name": "brandkit",
+	"area": "foundation",
+	"summary": "Build a brand foundation from nothing: palette, type, scale, and a theme that passes WCAG in both modes before any screen is drawn.",
+	"trigger": {
+		"when": [
+			"a new brand or product has no design system at all"
+		],
+		"not": [
+			"extending a system that exists"
+		],
+		"instead": {
+			"tokens already exist": "design-tokens"
+		}
+	},
+	"reads": [
+		".claude/rules/tokens-and-color.md",
+		"skills/taste/aesthetic-systems.md"
+	],
+	"gates": [
+		"validate_contrast.py",
+		"validate_tokens.py",
+		"validate_template.py",
+		"build_tokens.mjs"
+	],
+	"steps": [
+		"Establish the brand hue and generate the OKLCH ladder before anything else.",
+		"Name the ROLES, not the tones. A role that means 'the second brand colour' points at one place so that every use of it moves together.",
+		"Prove the seeded theme passes WCAG light AND dark before a single screen is built. A foundation that fails contrast fails every screen built on it.",
+		"Set the type scale, the 4px spacing rhythm, and the radius scale."
+	],
+	"output": "A complete token source plus the generated theme layer.",
+	"done": [
+		"validate_contrast passes light and dark on the seeded theme",
+		"every semantic role resolves to a primitive, none to a literal"
+	]
+}

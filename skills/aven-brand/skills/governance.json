@@ -1,0 +1,46 @@
+{
+	"name": "governance",
+	"area": "operate",
+	"summary": "Version, contribute, deprecate and announce a change, so a system in use can move without breaking the people on it.",
+	"trigger": {
+		"when": [
+			"a breaking change is being considered",
+			"a component should be added or promoted",
+			"something needs deprecating",
+			"a contribution has arrived"
+		],
+		"not": [
+			"writing the release note itself",
+			"choosing the version number for one specific change"
+		],
+		"instead": {
+			"the announcement is the work": "change-communication",
+			"the question is only which number to bump": "version-bump-advisor"
+		}
+	},
+	"reads": [
+		"skills/workflows/governance.md"
+	],
+	"gates": [
+		"validate_tokens.py",
+		"validate_component_spec.py"
+	],
+	"steps": [
+		"Version by CONSUMER impact, not by effort. Renaming a token is major however small the diff.",
+		"A deprecation has three parts and needs all three: the replacement, the migration path, and the date it goes. Two of the three is an announcement, not a deprecation.",
+		"Promote from a product to the system only on the THIRD independent need. Two is a coincidence.",
+		"Record the decision where the next person will look for it."
+	],
+	"output": "The version decision with its reasoning, plus the deprecation or promotion record.",
+	"done": [
+		"the version reflects consumer impact",
+		"any deprecation names a replacement, a path and a date",
+		"the decision is written down, not only agreed"
+	],
+	"supersedes": [
+		"governance-encoder",
+		"governance-review",
+		"contribution-workflow",
+		"deprecation-process"
+	]
+}

@@ -4,6 +4,7 @@
      read, and the button once more at the bottom so nobody scrolls back up. -->
 <script lang="ts">
 import { legalDocument, REVOCATION_WIDGET } from '@myavenceo/aven-ceo'
+import ClaimSection from '$lib/components/ClaimSection.svelte'
 import MarketingSiteHeader from '$lib/components/MarketingSiteHeader.svelte'
 import SiteFooter from '$lib/components/SiteFooter.svelte'
 import type { Lang } from '$lib/i18n'
@@ -58,15 +59,15 @@ const t = $derived(
 
 	<section class="flex-1 px-5 py-16 sm:px-8 sm:py-20">
 		<div class="mx-auto max-w-2xl">
-			<p class="eyebrow-accent">
+			<p class="text--eyebrow">
 				{t.eyebrow}
 			</p>
-			<h1 class="section-title mt-3 sm:text-3xl">
+			<h1 class="text--section-title mt-3 sm:text-3xl">
 				{doc.title}
 			</h1>
 
 			<!-- Widerrufsbutton für den Shop "avenCEO GmbH" (eRecht24). -->
-			<div class="mt-8 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
+			<div class="mt-8 rounded-lg border border-border/25 bg-surface-card p-6 text-center">
 				<p class="text-[length:var(--fs-section)] leading-relaxed text-foreground-soft">
 					{t.intro}
 				</p>
@@ -116,7 +117,7 @@ const t = $derived(
 			     lands after reading the Belehrung. It opens the SAME inline
 			     widget modal by delegating to the upgraded top anchor; the
 			     hosted-form href is only the no-script fallback. -->
-			<div class="mt-10 rounded-2xl border border-border/25 bg-surface-card p-6 text-center">
+			<div class="mt-10 rounded-lg border border-border/25 bg-surface-card p-6 text-center">
 				<a
 					href={REVOCATION_WIDGET.href}
 					target="_blank"
@@ -129,6 +130,8 @@ const t = $derived(
 			</div>
 		</div>
 	</section>
+
+	<ClaimSection {lang} />
 
 	<SiteFooter {lang} />
 </div>

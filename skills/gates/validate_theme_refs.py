@@ -14,7 +14,29 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# Two different roots, and conflating them is what broke this file.
+#
+# KIT is where the kit's own material lives — components/, tokens/, taste/,
+# accessibility/. It is one level above the gates, and that has stayed true
+# through the move from `scripts/` to `skills/gates/`, because the kit moved
+# with them.
+#
+# REPO is the project being checked: the directory that holds CLAUDE.md. Only
+# gates that read the project need it. `validate_instruction_surface` did, used
+# `parent.parent`, and looked for `skills/CLAUDE.md` — it had been crashing
+# since the move. Naming both stops the next person picking the wrong one.
+KIT = Path(__file__).resolve().parent.parent
+
+
+def _repo_root() -> Path:
+    here = Path(__file__).resolve()
+    for candidate in here.parents:
+        if (candidate / "CLAUDE.md").is_file():
+            return candidate
+    raise SystemExit(f"{Path(__file__).name}: no CLAUDE.md above this script")
+
+
+ROOT = KIT
 DEF = re.compile(r"(--[A-Za-z0-9_-]+)\s*:")            # --x: value  (a definition)
 REF = re.compile(r"var\(\s*(--[A-Za-z0-9_-]+)\s*(?:,[^)]*)?\)")  # var(--x) or var(--x, fallback)
 CODE_EXT = {".css", ".scss", ".tsx", ".jsx", ".ts", ".js", ".vue", ".svelte", ".html", ".astro"}
@@ -61,7 +83,26 @@ def main(argv):
             text = f.read_text()
         except (UnicodeDecodeError, OSError):
             continue
+        # Comments are prose, not references. A file explaining WHY
+        # `var(--color-dark-foreground)` is undefined in the light theme was
+        # reported as referencing it — the same defect `lint_hardcodes` had, and
+        # the same cure: track block state, because a continuation line inside
+        # `/* */` or `<!-- -->` carries no marker of its own.
+        block_close = None
         for n, line in enumerate(text.splitlines(), 1):
+            if block_close:
+                if block_close in line:
+                    line = line.split(block_close, 1)[1]
+                    block_close = None
+                else:
+                    continue
+            for opener, closer in (("/*", "*/"), ("<!--", "-->")):
+                if opener in line and closer not in line.split(opener, 1)[1]:
+                    block_close = closer
+                    line = line.split(opener, 1)[0]
+                    break
+            if line.lstrip().startswith(("//", "*", "#")):
+                continue
             for m in REF.finditer(line):
                 var = m.group(1)
                 if var not in defined:

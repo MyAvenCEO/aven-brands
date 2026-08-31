@@ -18,6 +18,26 @@
  *   --strict → exit 1 on any HIGH finding (use as a gate). Default: report, exit 0.
  */
 import { resolve } from 'node:path';
+import { assertServed } from './_served.mjs'
+
+/**
+ * A target is either a file on disk or a URL to a running server.
+ *
+ * Every render gate here loaded `file://` unconditionally. For a static
+ * component harness that is correct. For a BUILT SvelteKit page it is not: the
+ * module scripts never execute over `file://`, so the page renders its markup
+ * and its CSS and hydrates nothing — and a gate that asks whether a control
+ * WORKS then reports that none of them do. `verify_interactive` failed the docs
+ * page's theme switch on exactly that basis, while the live control flips
+ * `aria-pressed`, flips `data-theme`, and repaints the page.
+ *
+ * A gate that fails on every page of a whole framework gets ignored, or gets
+ * "fixed" by deleting the real ARIA it was complaining about. So: pass a path
+ * and it is a file, pass an http(s) URL and it is served.
+ */
+const isUrl = (t) => /^https?:\/\//.test(t);
+const pageUrl = (t) => (isUrl(t) ? t : 'file://' + resolve(t));
+
 let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch {
@@ -40,7 +60,7 @@ let high = 0;
 
 for (const f of files) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
-  await page.goto('file://' + resolve(f), { waitUntil: 'networkidle' }).catch(() => {});
+  assertServed(await page.goto(pageUrl(f), { waitUntil: 'networkidle' }).catch(() => {}), pageUrl(f));
   await page.addStyleTag({ content: '*{transition:none!important;animation:none!important}' });
   if (dark) await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
   await page.waitForTimeout(300);

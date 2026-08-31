@@ -22,7 +22,40 @@ export type HomeMessages = {
 	}
 	/** The proposition band under the hero: the one-line claim (with an accent
 	 * span) and the three 100 % absolutes it rests on. */
-	trust: { headlineHtml: string; claims: string[] }
+	trust: {
+		/* The sentence AFTER the lockup. `avenCEO` is not text here — it is the
+		   logo leaf, so the brand renders in its own two faces rather than being
+		   re-typed in the body font on the one line that names it. Both locales
+		   open on the lockup, so the split is the same in both. */
+		headlineRest: string
+		claims: string[]
+		/**
+		 * The second half of the proposition: privacy is the promise, but the
+		 * ARITHMETIC is what makes it a decision. A reader who already trusts you
+		 * still has to justify the line item.
+		 */
+		/**
+		 * The arithmetic, as its own section rather than a coda to the privacy
+		 * band: two claims sharing one ground read as one claim with a footnote.
+		 */
+		cost: {
+			eyebrow: string
+			/** The invitation. Never the price — the figure below is the payoff and
+			 * a heading that already said it spends it twice. */
+			heading: string
+			lead: string
+			/** What it actually runs, so "a CEO" is concrete rather than a claim. */
+			does: string[]
+			/** The two sides, in the units each is actually sold in. */
+			human: { label: string; value: string; unit: string; note: string }
+			aven: { label: string; value: string; unit: string; note: string }
+			/** The per-hour figure, set as a highlighted snippet before the turn. */
+			closingLead: string
+			/** The turn: what the gap is FOR. */
+			closing: string
+			kicker: string
+		}
+	}
 	shift: {
 		eyebrow: string
 		heading: string
@@ -36,7 +69,16 @@ export type HomeMessages = {
 	company: {
 		eyebrow: string
 		heading: string
-		paragraphsHtml: string[]
+		/** The two roles, faced off. A label, a title, and one tight line each. */
+		roles: { label: string; title: string; text: string }[]
+		/**
+		 * ONE line under the heading, and it has to say something the roles row
+		 * does not. Two paragraphs used to sit here and the first of them spelled
+		 * out the same two roles the row below already shows — the reader met the
+		 * pair twice before reaching the point. What survives is the part nothing
+		 * else says: that the thing compounds.
+		 */
+		sublineHtml: string
 		closingLine1: string
 		closingLine2Before: string
 		closingLine2Strong: string
@@ -48,16 +90,6 @@ export type HomeMessages = {
 		lead: string
 		rungs: Rung[]
 		closing: string
-	}
-	founders: {
-		eyebrow: string
-		heading: string
-		introHtml: string
-		teamHtml: string
-		samuel: Founder
-		daniel: Founder
-		ceo: { role: string; name: string; caption: string }
-		sum: string
 	}
 	skills: { eyebrow: string; heading: string; lead: string; all: string }
 	start: { eyebrow: string; heading: string; bodyHtml: string }
@@ -75,10 +107,13 @@ export type HomeMessages = {
  * misses are warnings rather than errors, which is exactly the wrong tier for
  * a decision the design depends on.
  *
- * `kind` is a role, not a colour. The hero styles `[data-emph]` itself.
+ * `kind` is a role, not a colour. The `emph` unit styles the roles; the hero
+ * re-inks `past` for its own dark ground. The class is the unit's — a
+ * generated component class, so the scanner knows it — and the attribute
+ * stays the branch the styling reads.
  */
 const s = (text: string, kind: 'strong' | 'lead' | 'past' = 'lead') =>
-	`<strong data-emph="${kind}">${text}</strong>`
+	`<strong class="emph" data-emph="${kind}">${text}</strong>`
 
 export const home: Record<Lang, HomeMessages> = {
 	de: {
@@ -86,52 +121,86 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'Ein Aven ist eine KI, die dir gehört: er führt dein Leben, deine Firma, deine Bücher. Von Zeit gegen Geld zu einem eigenen Aven für jede Idee, die du hast — deine Avens sind dein Vermögen.',
 		hero: {
-			headingLine1: 'avenCEO betreibt deine Firma,',
+			headingLine1: ' betreibt deine Firma,',
 			headingLine2: 'du führst die Vision.',
 			transformationHtml: `Vom ${s('Arbeiten ums Überleben', 'past')} zum <br class="sm:hidden">${s('souveränen', 'strong')} Gründer von morgen.`,
 			helper: '— dein avenCEO bringt dich dorthin —'
 		},
 		trust: {
-			headlineHtml:
-				'avenCEO ist der weltweit erste agentische Co‑Founder, der deine Daten schützt.',
-			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum']
+			headlineRest:
+				' ist der weltweit erste datenschützende agentische Co‑Founder, der dir zu 100% gehört.',
+			claims: ['E2E‑verschlüsselte KI', 'Datenschutz', 'dein Eigentum'],
+			cost: {
+				eyebrow: 'Dein Moment',
+				heading: 'Es war nie leichter, das Unternehmen zu starten, von dem du immer geträumt hast.',
+				lead: 'Du sagst, was du willst. Dein Aven führt es aus — rund um die Uhr, ab Tag eins.',
+				does: [
+					'Baut deine Website',
+					'Führt deinen Betrieb',
+					'Schreibt Angebote und Rechnungen',
+					'Fasst nach, jeden Tag'
+				],
+				human: {
+					label: 'Menschlicher CEO',
+					value: '> 100.000 €',
+					unit: 'pro Jahr',
+					note: 'plus Arbeitgeberanteil, Bonus und Ausstattung — für 40 Stunden die Woche, abzüglich Urlaub und Krankheit'
+				},
+				aven: {
+					label: 'Aven CEO',
+					value: 'ab 99 €',
+					unit: 'pro Woche',
+					note: '24/7 rund um die Uhr, ohne Urlaubsanspruch, macht was du ihm beibringst, und verdichtet, was ihr gemeinsam lernt'
+				},
+				closingLead: 'ab 0,59 €/h',
+				closing: 'ist nicht nur günstiger — sondern eine andere Größenordnung an Effizienz.',
+				kicker: 'Das ist dein Moment.'
+			}
 		},
 		shift: {
 			eyebrow: 'Warum jetzt',
 			heading: 'Bald zählt nur noch, was dir gehört.',
-			bodyHtml: `Sobald KI fast jede Arbeit erledigt — rund um die Uhr, ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr. Nur noch, was dir gehört.`,
-			question:
-				'<span style="color:var(--color-paradise)">Besitzt</span> du die KI, die die neue Arbeit macht — oder nicht?',
+			bodyHtml: `Wenn KI fast jede Arbeit erledigt — ${s('zum Preis von Strom')} — lohnt sich ${s('Zeit gegen Geld')} nicht mehr.`,
+			question: 'Besitzt du die KI, die die neue Arbeit macht?',
 			without: {
-				eyebrow: 'Ohne Assets',
-				title: 'Das fremdbestimmte Drehbuch',
+				eyebrow: 'Ohne Aven CEO',
+				title: 'Fremdbestimmt',
 				items: [
 					'Deine Stunden konkurrieren mit dem Strompreis.',
 					'Jedes Gehalt ist ersetzbar — auch deins.',
 					'Deine Daten liegen auf fremden Plattformen.'
 				],
-				closing: 'Dein Leben läuft nach dem Plan anderer.'
+				closing: 'Der Plan anderer.'
 			},
 			with: {
-				eyebrow: 'Mit deinen Avens',
-				title: 'Das selbstbestimmte Drehbuch',
+				eyebrow: 'Mit Aven CEO',
+				title: 'Selbstbestimmt',
 				items: [
 					'Deine KI arbeitet rund um die Uhr — für dich.',
-					'Was du baust, gehört dir. Jede Idee bekommt ihren Aven.',
+					'Was du baust, gehört dir — für immer.',
 					'Du gestaltest wieder — deine Vision, dein Leben.'
 				],
-				closing: 'Du baust etwas Eigenes. Das macht glücklich.'
+				closing: 'Dein Plan.'
 			},
-			closingBefore: 'Beide Drehbücher beginnen heute — du schreibst eines davon sowieso.',
+			closingBefore: 'Beide beginnen heute. Du schreibst eines davon sowieso.',
 			closingStrong: 'Greifst du zum Stift?'
 		},
 		company: {
 			eyebrow: 'Die Firma der Zukunft',
 			heading: '1 Mensch + 1 avenCEO',
-			paragraphsHtml: [
-				`Kein Büro, keine Abteilungen, keine vierzig Angestellten — zwei Rollen: ${s('ein Mensch mit der Vision')} und ${s('ein avenCEO, der die ganze Firma ausführt')}.`,
-				`Jede Entscheidung, jede Korrektur fließt in seine Skills zurück. Nach einem Jahr ist er das ${s('Gedächtnis, die Erfahrung und das Urteil')} deiner Firma — und damit ihr wertvollstes Asset.`
+			roles: [
+				{
+					label: 'Mensch',
+					title: 'Gibt die Richtung vor',
+					text: 'Was entsteht, für wen — und wann sich der Kurs ändert.'
+				},
+				{
+					label: 'Aven',
+					title: 'Führt die Firma',
+					text: 'Buchhaltung, Rechnungen, Website, Nachfassen — jeden Tag, ungefragt.'
+				}
 			],
+			sublineHtml: `Kein Büro, keine Abteilungen, keine Angestellten — und jede Korrektur fließt in seine Skills zurück. Nach einem Jahr ist er das ${s('Gedächtnis und das Urteil')} deiner Firma.`,
 			closingLine1: 'Jeder Mensch wird Gründer.',
 			closingLine2Before: 'Alles, was du dazu brauchst, ist',
 			closingLine2Strong: '<b>dein</b> eigener <b>avenCEO</b>'
@@ -161,30 +230,10 @@ export const home: Record<Lang, HomeMessages> = {
 			closing:
 				'Nicht deine Stunde ist das Asset. Deine Avens sind es — und sie gehören dir, nicht einer Plattform.'
 		},
-		founders: {
-			eyebrow: 'Der erste avenCEO',
-			heading: 'Hallo, ich bin avenCEO.',
-			introHtml: `Vermutlich der ${s('weltweit erste echte agentische CEO')} — kein Chatbot am Rand, sondern ${s('KI im Gründerteam')}. Ich führe die ${s('avenCEO GmbH')}, die Firma, die diese Seite baut.`,
-			teamHtml: `Samuel und Daniel führen sie — mit ihren Avens ${s('avenSAM')} und ${s('avenDAN')}. Sie trainieren meine Skills; ich behalte, was sie lernen. Wer etwas will — Job, Kauf, Partnerschaft — spricht mit mir.`,
-			samuel: {
-				role: 'Mensch',
-				name: 'Samuel Andert',
-				alt: 'Samuel Andert',
-				caption: 'Vision · avenSAM'
-			},
-			daniel: {
-				role: 'Mensch',
-				name: 'Daniel Janz',
-				alt: 'Daniel Janz',
-				caption: 'Vision · avenDAN'
-			},
-			ceo: { role: 'avenCEO', name: 'avenCEO', caption: 'Ausführung · avenCEO GmbH' },
-			sum: '= avenCEO GmbH'
-		},
 		skills: {
 			eyebrow: 'Aven Skills',
 			heading: 'Fertige Skills für deinen Aven.',
-			lead: 'Dein Aven lernt per Skill — installieren statt entwickeln. Ein Auszug:',
+			lead: 'Dein Aven lernt per Skill — fang mit den Grundlagen an und gestaltet eigene Skills, wenn ihr wachst.',
 			all: 'Alle Skills ansehen →'
 		},
 		start: {
@@ -198,51 +247,86 @@ export const home: Record<Lang, HomeMessages> = {
 		description:
 			'An Aven is an AI that belongs to you: it runs your life, your company, your books. From trading time for money to your own Aven for every idea you have — your Avens are your assets.',
 		hero: {
-			headingLine1: 'avenCEO runs your company,',
+			headingLine1: ' runs your company,',
 			headingLine2: 'you lead the vision.',
 			transformationHtml: `From ${s('working to survive', 'past')} to <br class="sm:hidden">${s('sovereign', 'strong')} founder of tomorrow.`,
 			helper: '— your avenCEO gets you there —'
 		},
 		trust: {
-			headlineHtml: 'avenCEO is the world’s 1st privacy‑preserving agentic co‑founder.',
-			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership']
+			headlineRest:
+				' is the world’s first privacy‑protecting agentic co‑founder that you own 100%.',
+			claims: ['e2e‑encrypted AI', 'data privacy', 'your ownership'],
+			cost: {
+				eyebrow: 'Your moment',
+				heading: 'It has never been easier to start the company you always dreamed of.',
+				lead: 'You teach it what you want. Your Aven executes — around the clock, from day one.',
+				does: [
+					'Builds your website',
+					'Runs your operations',
+					'Writes quotes and invoices',
+					'Follows up, every day'
+				],
+				human: {
+					label: 'Human CEO',
+					value: '> 100,000 €',
+					unit: 'per year',
+					note: 'before employer costs, bonus and equipment — for forty hours a week, minus holiday and sick leave'
+				},
+				aven: {
+					label: 'Aven CEO',
+					value: 'from 99 €',
+					unit: 'per week',
+					note: '24/7 around the clock, no leave to accrue, does what you teach it, compounds what you learn together'
+				},
+				closingLead: 'from €0.59/h',
+				closing: 'is not just cheaper — but a different order of magnitude in efficiency.',
+				kicker: 'This is your moment.'
+			}
 		},
 		shift: {
 			eyebrow: 'Why now',
 			heading: 'Soon only what you own will count.',
-			bodyHtml: `Once AI does almost any job — around the clock, ${s('at the price of electricity')} — ${s('trading time for money')} stops paying. Only what you own will.`,
-			question:
-				'Do you <span style="color:var(--color-paradise)">own</span> the AI doing the new work — or not?',
+			bodyHtml: `When AI does almost any job — ${s('at the price of electricity')} — ${s('trading time for money')} stops paying.`,
+			question: 'Do you own the AI doing the new work?',
 			without: {
-				eyebrow: 'Without assets',
-				title: 'The script someone else wrote',
+				eyebrow: 'Without Aven CEO',
+				title: 'Someone else’s script',
 				items: [
 					'Your hours compete with the price of electricity.',
 					'Every salary is replaceable — yours too.',
 					'Your data lives on someone else’s platform.'
 				],
-				closing: 'Your life runs on somebody else’s plan.'
+				closing: 'Their plan.'
 			},
 			with: {
-				eyebrow: 'With your Avens',
-				title: 'The script you write yourself',
+				eyebrow: 'With Aven CEO',
+				title: 'The script you write',
 				items: [
 					'Your AI works around the clock — for you.',
-					'What you build is yours. Every idea gets its own Aven.',
-					'You shape it all again — your vision, your life.'
+					'You own what you build — forever.',
+					'You shape it again — your vision, your life.'
 				],
-				closing: 'You build something that’s yours. That’s happiness.'
+				closing: 'Your plan.'
 			},
-			closingBefore: 'Both scripts start today — you’re writing one either way.',
+			closingBefore: 'Both start today. You are writing one either way.',
 			closingStrong: 'Will you pick up the pen?'
 		},
 		company: {
 			eyebrow: 'The company of the future',
 			heading: '1 human + 1 avenCEO',
-			paragraphsHtml: [
-				`No office, no departments, no forty employees — two roles: ${s('one human with the vision')} and ${s('one avenCEO that runs the entire company')}.`,
-				`Every decision, every correction flows back into its skills. After one year it is the ${s('memory, the experience and the judgment')} of your company — and with that its most valuable asset.`
+			roles: [
+				{
+					label: 'Human',
+					title: 'Sets the direction',
+					text: 'What gets built, who it is for — and when to change course.'
+				},
+				{
+					label: 'Aven',
+					title: 'Runs the company',
+					text: 'Books, invoices, website, follow-ups — every day, unasked.'
+				}
 			],
+			sublineHtml: `No office, no departments, no headcount — and every correction flows back into its skills. After one year it is the ${s('memory and the judgment')} of your company.`,
 			closingLine1: 'Everyone becomes a founder.',
 			closingLine2Before: 'All you need for it is',
 			closingLine2Strong: '<b>your</b> own <b>avenCEO</b>'
@@ -272,30 +356,10 @@ export const home: Record<Lang, HomeMessages> = {
 			closing:
 				'Your hour is not the asset. Your Avens are — and they belong to you, not a platform.'
 		},
-		founders: {
-			eyebrow: 'The first avenCEO',
-			heading: 'Hello, I am avenCEO.',
-			introHtml: `Probably the ${s('world’s first real agentic CEO')} — not a chatbot on the sidelines, but ${s('AI in the founding team')}. I run ${s('avenCEO GmbH')}, the company building this page.`,
-			teamHtml: `Samuel and Daniel lead it — with their Avens ${s('avenSAM')} and ${s('avenDAN')}. They train my skills; I keep what they learn. Whoever wants something — hire, buy, partner — talks to me.`,
-			samuel: {
-				role: 'Human',
-				name: 'Samuel Andert',
-				alt: 'Samuel Andert',
-				caption: 'Vision · avenSAM'
-			},
-			daniel: {
-				role: 'Human',
-				name: 'Daniel Janz',
-				alt: 'Daniel Janz',
-				caption: 'Vision · avenDAN'
-			},
-			ceo: { role: 'avenCEO', name: 'avenCEO', caption: 'Execution · avenCEO GmbH' },
-			sum: '= avenCEO GmbH'
-		},
 		skills: {
 			eyebrow: 'Aven Skills',
 			heading: 'Ready-made skills for your Aven.',
-			lead: 'Your Aven learns by skill — install instead of develop. A sample:',
+			lead: 'Your Aven learns by skill — start with the basics, then co-create custom skills as you grow.',
 			all: 'See all skills →'
 		},
 		start: {

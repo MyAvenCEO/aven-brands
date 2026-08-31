@@ -10,6 +10,8 @@
  * markup and become the units themselves rendered through aven-vibes. Until
  * then this reads the same source the generator does, so it cannot drift.
  */
+
+import { actorNames, actorStyles, actors, SUPERSEDES, UNCALLED } from '@myavenceo/aven-ceo/actors'
 import {
 	COMPONENTS,
 	ELEVATION_SCALE,
@@ -31,7 +33,6 @@ import {
 	SURFACES,
 	TONES
 } from '@myavenceo/aven-ceo/tokens'
-import { unitNames, unitStyles, units } from '@myavenceo/aven-ceo/units'
 import { renderIcon } from '@myavenceo/aven-vibes'
 
 export type SwatchRow = {
@@ -133,7 +134,21 @@ export type Decls = Array<[string, string]>
 export type UnitRow = {
 	name: string
 	kind: 'leaf' | 'composite'
+	/**
+	 * Which surface this unit is chrome FOR, when it is chrome for one.
+	 *
+	 * Declared on the unit rather than inferred here: whether `navbar` is site
+	 * furniture is a fact about the unit, and a list kept in the docs page would
+	 * be the one hand-written list on a page whose whole contract is that it has
+	 * none. Most units have no surface — a button is a button everywhere.
+	 */
+	surface?: string
+	/** Why it belongs to that surface, in the unit's own words. */
+	surfaceNote?: string
 	description: string
+	/** The unit's own a11y note, which belongs beside its prose and not in a
+	    config dump nobody reads to the end. */
+	a11yNote: string
 	slots: string[]
 	variants: Array<{ axis: string; options: Array<{ name: string; note: string }> }>
 	/**
@@ -163,8 +178,10 @@ const note = (decl: Record<string, unknown> | undefined): string =>
 	typeof decl?.$description === 'string' ? decl.$description : ''
 
 const unitRow = (name: string): UnitRow => {
-	const u = units[name] as {
+	const u = actors[name] as {
 		description?: string
+		surface?: string
+		surfaceNote?: string
 		interface?: { slots?: Record<string, unknown> }
 		styling?: {
 			variants?: Record<string, Record<string, unknown>>
@@ -184,7 +201,10 @@ const unitRow = (name: string): UnitRow => {
 	return {
 		name,
 		kind: slots.length ? 'composite' : 'leaf',
+		surface: u.surface,
+		surfaceNote: u.surfaceNote,
 		description: u.description ?? '',
+		a11yNote: (u as { a11y?: { note?: string } }).a11y?.note ?? '',
 		slots,
 		variants: Object.entries(styling.variants ?? {}).map(([axis, options]) => ({
 			axis,
@@ -204,16 +224,98 @@ const unitRow = (name: string): UnitRow => {
 		/* The source, not a summary of it. A design-system viewer that shows only
 		   the render asks you to trust that the render matches the config; showing
 		   both in one place is the only way that claim is checkable. */
-		json: JSON.stringify(units[name], null, '\t')
+		json: JSON.stringify(actors[name], null, '\t')
 	}
 }
 
-export const unitRows: UnitRow[] = unitNames.map(unitRow)
+export const unitRows: UnitRow[] = actorNames.map(unitRow)
 /** The names, so a surface can ask whether a slot points at a real unit. */
-export const unitNameList: string[] = [...unitNames]
+export const unitNameList: string[] = [...actorNames]
 
 export const leafRows = unitRows.filter((u) => u.kind === 'leaf')
 export const compositeRows = unitRows.filter((u) => u.kind === 'composite')
+/**
+ * The site's own chrome, collated.
+ *
+ * The bar, the menu, the footer, the lockup, the bands every marketing page is
+ * built from — spread across Leafs and Composites they were filed by their
+ * ARCHITECTURE, which is the right split for building one and the wrong one for
+ * answering "what does the website use". This is the same rows under a second
+ * index, not a copy: a unit appears in both, and the entry that gains a
+ * `surface` gains it here without being listed anywhere twice.
+ */
+export const siteRows = unitRows.filter((u) => u.surface === 'site')
+
+/* ── Migration ──────────────────────────────────────────────────────────── */
+
+/**
+ * The legacy vocabulary, and what replaces it.
+ *
+ * Here rather than in a document because the migration has TWO consumers — the
+ * website and the checkout at my.aven.ceo — and untying one without the other
+ * breaks the one that was already doing the right thing. A row you can see is a
+ * row somebody can act on; a plan in a markdown file is archaeology waiting to
+ * happen.
+ */
+export type MigrationRow = {
+	legacy: string
+	unit: string
+	as?: string
+	note?: string
+	/** The class a caller writes, axis included. */
+	target: string
+	uncalled: boolean
+}
+
+/**
+ * The class a caller actually writes for `unit` + `as`.
+ *
+ * The table used to compose this as `${unit}--${as}`, which is right only when
+ * the option lives on an axis literally called `variant` — that is the one axis
+ * the emitter leaves out of the class name. Every other axis is IN the name, so
+ * `lede -> prose as lead` was printed as `prose--lead` while the stylesheet
+ * emits `prose--size-lead`. The table was telling people to write a class that
+ * does not exist, which is worse than not having the row.
+ *
+ * The axis is looked up in the registry rather than assumed, so this cannot
+ * drift again: if an option moves to a different axis, the printed class moves
+ * with it.
+ */
+function supersessionClass(unit: string, as?: string): string {
+	if (!as) return unit
+	const styling = (
+		actors[unit] as {
+			styling?: { variants?: Record<string, object>; parts?: Record<string, object> }
+		}
+	)?.styling
+	for (const [axis, options] of Object.entries(styling?.variants ?? {})) {
+		if (as in (options as Record<string, unknown>)) {
+			return axis === 'variant' ? `${unit}--${as}` : `${unit}--${axis}-${as}`
+		}
+	}
+	/*
+	 * A PART, not a variant, and the two are different classes: a part is one
+	 * dash (`field-label`), a variant is two (`field--size-sm`). `label` is a
+	 * part of `field`, so composing it as a variant produced `field--label`,
+	 * which the stylesheet does not contain — the last of the twenty-four
+	 * targets that named a class nobody could write.
+	 */
+	if (as in (styling?.parts ?? {})) return `${unit}-${as}`
+	/* Neither: print the bare unit rather than inventing a class for it. */
+	return unit
+}
+
+export const migrationRows: MigrationRow[] = Object.entries(SUPERSEDES)
+	.map(([legacy, to]) => ({
+		legacy,
+		unit: to.unit,
+		as: to.as,
+		target: supersessionClass(to.unit, to.as),
+		note: to.note,
+		uncalled: UNCALLED.includes(legacy)
+	}))
+	/* Uncalled last: those are already done, they just need a regeneration. */
+	.sort((a, b) => Number(a.uncalled) - Number(b.uncalled) || a.legacy.localeCompare(b.legacy))
 
 /* ── Type ───────────────────────────────────────────────────────────────── */
 
@@ -256,11 +358,11 @@ export const layoutNames = Object.keys(LAYOUTS)
 
 /** The declarations behind a component, for the inspector panel. */
 export function declarationsOf(name: string): Array<[string, string]> {
-	/* `unitStyles` first: `COMPONENTS` is the legacy map from
+	/* `actorStyles` first: `COMPONENTS` is the legacy map from
 	   `components.avenceo.json`, and a unit's PARTS only exist in the compiled
 	   unit styles — so asking the legacy map for `skill-card-head` returned
 	   nothing and the parts panel showed an empty list. */
-	const decl = (unitStyles[name] ?? COMPONENTS[name] ?? LAYOUTS[name]) as
+	const decl = (actorStyles[name] ?? COMPONENTS[name] ?? LAYOUTS[name]) as
 		| Record<string, unknown>
 		| undefined
 	if (!decl) return []
@@ -311,6 +413,8 @@ export const sections: DocSection[] = [
 	   composites under twelve leafs, which is how a library reads as "we only
 	   have leafs". The split is the architecture's own, so it navigates the
 	   same way it is built. */
+	{ id: 'website', label: 'Website', count: siteRows.length },
+	{ id: 'migration', label: 'Migration', count: migrationRows.length },
 	{ id: 'leafs', label: 'Leafs', count: leafRows.length },
 	{ id: 'composites', label: 'Composites', count: compositeRows.length },
 	{ id: 'layouts', label: 'Layouts', count: layoutNames.length }

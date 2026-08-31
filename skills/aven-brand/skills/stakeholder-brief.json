@@ -1,0 +1,42 @@
+{
+	"name": "stakeholder-brief",
+	"area": "communicate",
+	"summary": "Explain the system's state to people who do not work in it, in their terms, with the real numbers.",
+	"trigger": {
+		"when": [
+			"someone outside the team needs to understand what the system is doing",
+			"investment or headcount is being discussed",
+			"a quarterly summary is due"
+		],
+		"not": [
+			"telling engineers what changed in a release"
+		],
+		"instead": {
+			"the audience is on the system": "change-communication"
+		}
+	},
+	"reads": [
+		"skills/aven-brand/knowledge/measurement.md",
+		"skills/content/voice-tone.md"
+	],
+	"gates": [
+		"check_no_emoji.py"
+	],
+	"steps": [
+		"Run system-health FIRST and use its numbers. A brief written from impressions is the thing that destroys credibility the first time someone checks one.",
+		"Translate each measure into a consequence they already care about: time, risk, or consistency across the products they see.",
+		"Include what is going badly. A brief with no bad news is read as marketing and discounted entirely, including the good news.",
+		"Ask for one thing. A brief with four asks gets none of them."
+	],
+	"output": "State, trend, what is going badly, and one ask.",
+	"done": [
+		"every number traces to a measured gate",
+		"at least one genuine problem is stated",
+		"exactly one ask is made"
+	],
+	"supersedes": [
+		"system-pitch",
+		"visual-report",
+		"release-retrospective"
+	]
+}

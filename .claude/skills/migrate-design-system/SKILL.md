@@ -1,21 +1,39 @@
 ---
 name: migrate-design-system
-description: Map this token system to or from any external design system (Material Design 3, Apple HIG, Fluent, Carbon, Ant, shadcn/ui, Radix, Chakra, Mantine, Bootstrap…) — adopt their look, build on their stack, or migrate between systems. Use when the user mentions interop, migration, or a specific design-system/component-library bridge.
-invocation: user
+description: "Map this system to or from another one, and keep the crosswalk as a record rather than a one-off translation. Use when: work has to interoperate with Material, HIG, Fluent, Carbon, shadcn, Radix or similar; a system is being adopted or replaced. Do NOT use for: moving call sites off a class this system already replaced. If the migration is internal, from old classes to new units, use migration-plan instead."
+invocation: model
 ---
 
-# Skill: Migrate / Interop Design System
+<!-- GENERATED from skills/aven-brand/skills/migrate-design-system.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
 
-Bridge to or from external design systems via a role-based crosswalk.
+# migrate-design-system
+
+Map this system to or from another one, and keep the crosswalk as a record rather than a one-off translation.
+
+## Read first
+
+- `skills/design-systems/interop-protocol.md`
+- `skills/design-systems/crosswalk.md`
 
 ## Steps
-1. Read `design-systems/interop-protocol.md` (Crosswalk Method, the three directions, headless-vs-styled guidance, verification).
-2. Use the curated tables in `design-systems/crosswalk.md` for Material 3 / Apple HIG / Fluent 2 / Carbon / shadcn/ui / Radix. For others, derive a mapping with the Crosswalk Method (map by role/intent across 6 axes: color roles, type scale, spacing unit, radius, elevation, motion).
-3. Choose the direction:
-   - **FROM** external → our tokens (adopt their look): re-point `semantic.*`.
-   - **TO** external stack (our components on their foundation): theme their primitives with our tokens.
-   - **Migrate**: Audit → Map → Bridge (alias layer) → Verify, screen by screen.
-4. **Verify** every mapped color pair for contrast (`scripts/contrast.py` / `a11y-audit`); confirm all 8 states + dark mode survive the mapping.
+
+1. Build the crosswalk at the SEMANTIC tier. Primitive-to-primitive mapping produces a palette that resolves and means nothing.
+2. Name what has no counterpart. The gaps are the actual finding; the matches are the easy half.
+3. Verify contrast after mapping — another system's token that resolves here may not pass here.
 
 ## Output
-A crosswalk table (our token → their token → value note), a bridge plan if migrating, and verified token overrides. Render via `design-code`.
+
+A crosswalk table plus an explicit list of what does not map.
+
+## Gates
+
+Run these and report their real output. A number you did not measure is not a number.
+
+- `skills/gates/validate_tokens.py`
+- `skills/gates/validate_contrast.py`
+
+## Done when
+
+- every mapped pair passes contrast in this system
+- unmapped concepts are listed rather than quietly dropped

@@ -1,0 +1,272 @@
+{
+	"name": "navbar",
+	"description": "The bar at the top of every surface, and the most under-described unit in the system — it was two slots and three variants while the real header carried a fixed-over-hero mode, a sticky mode, a scroll-triggered glass-to-solid swap, a light/dark bar that depends on both, and a full-screen mobile menu, all of it written inline with `color-mix` and `backdrop-filter` in a `style` attribute. A composite of composites: it holds the logo, a set of nav-links, a set of buttons, and on a narrow viewport a drawer holding the same links rather than a second copy of them.\n\nIt collapses ON ITS OWN CONTAINER. Below 48rem of BAR width the links hide and the toggle appears; above it, the reverse. Neither depends on the viewport, so the same navbar behaves correctly in a phone, in a 400px preview card, and in a split pane — and the surface no longer has to tell it which of those it is in.\n\nThe drawer it opens is not part of this unit. `nav-menu` is a separate composite because the full-screen menu is `position: fixed` over the whole page and must escape this bar's `backdrop-filter` — a filtered ancestor creates a containing block for fixed descendants, so a menu nested inside a glass bar is trapped inside the bar. The real header already discovered this and renders the menu as a sibling.",
+	"surface": "site",
+	"surfaceNote": "the bar itself",
+	"interface": {
+		"props": {
+			"label": "string",
+			"open": "boolean",
+			"scrolled": "boolean"
+		},
+		"slots": {
+			"brand": {
+				"accepts": ["logo"]
+			},
+			"links": {
+				"accepts": ["nav-link"]
+			},
+			"actions": {
+				"accepts": ["btn"]
+			},
+			"drawer": {}
+		},
+		"events": {
+			"toggle": {
+				"open": "boolean"
+			}
+		}
+	},
+	"view": {
+		"tag": "header",
+		"attrs": {
+			"data-open": "$props.open",
+			"data-scrolled": "$props.scrolled"
+		},
+		"$children": [
+			{
+				"tag": "div",
+				"part": "bar",
+				"$children": [
+					{
+						"tag": "div",
+						"part": "brand",
+						"$children": "brand"
+					},
+					{
+						"tag": "nav",
+						"part": "links",
+						"attrs": {
+							"aria-label": "$props.label"
+						},
+						"$children": "links"
+					},
+					{
+						"tag": "div",
+						"part": "actions",
+						"$children": "actions"
+					},
+					{
+						"tag": "button",
+						"part": "toggle",
+						"attrs": {
+							"type": "button",
+							"aria-expanded": "$props.open",
+							"aria-controls": "$props.drawerId",
+							"aria-label": "Menu"
+						},
+						"$icon": {
+							"name": "menu",
+							"size": "1.25rem"
+						}
+					}
+				]
+			},
+			{
+				"tag": "div",
+				"part": "drawer",
+				"attrs": {
+					"id": "$props.drawerId"
+				},
+				"$children": "drawer"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"display": "block",
+			"position": "sticky",
+			"insetBlockStart": "0",
+			"insetInline": "0",
+			"zIndex": "var(--z-sticky)",
+			"background": "var(--color-surface-page)",
+			"borderBlockEnd": "1px solid var(--color-border-soft)",
+			"transition": "background var(--duration-moderate) var(--ease-out), border-color var(--duration-moderate) var(--ease-out)",
+			"containerType": "inline-size",
+			"containerName": "navbar",
+			"inlineSize": "100%",
+			"minInlineSize": "0",
+			"$description": "CONTAINER. This unit establishes an inline-size container named after itself, so anything inside it can respond to the width of THIS BOX rather than to the width of the window. That is the difference that matters for a design system: a composite dropped into a 320px sidebar and the same composite on a 320px phone are the same situation, and a viewport query calls them different ones. The library carries no viewport media query anywhere for exactly this reason — the only `@media` in it is `prefers-reduced-motion`, which is a person's setting and not a size.\n\n`inline-size: 100%` is the container's REQUIRED companion, not a preference. `container-type: inline-size` makes the box's width independent of its contents — that is the containment being asked for — so a container with no width of its own has nothing left to size from and collapses to zero. This unit did: centred in a grid it became a column of single words. A container fills what it is given and bounds itself with `max-inline-size`; it never sizes to its text.\n\nAn explicit `display`, and it is load-bearing rather than tidy. `container-type: inline-size` has NO EFFECT on an element whose display is `inline` — containment needs a block box. This unit declared no display, so rendered as a `<span>` it was `inline`, its containment was inert, and every `@container` rule inside it silently never matched. The navbar found it: at 318px it was still showing a full desktop nav because the query it was waiting on could not fire.\n\nIT DECLARES `--icon-tint`, the colour the engine paints a duotone's secondary layer with. Declared HERE, on the unit that draws the glyph, and not once at the document root: a global custom property is the anti-pattern the whole scoping design exists to avoid — two brands on one page write the same name and the second wins. An app shell is no better, because a shell is a container that may host more than one vibe. A unit is the smallest thing that owns its own subtree, so the tint travels with the component that needs it and reaches nothing else.",
+			"--icon-tint": "var(--color-icon-tint)"
+		},
+		"parts": {
+			"bar": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-comfortable)",
+				"marginInline": "auto",
+				"inlineSize": "100%",
+				"maxInlineSize": "var(--navbar-measure, 84rem)",
+				"minBlockSize": "3.5rem",
+				"paddingInline": "var(--space-comfortable)",
+				"$description": "The bar's MEASURE is a property the surface can set, defaulting to 84rem. A navigation bar has to line up with the content underneath it — a logo that starts 10rem left of the first paragraph reads as two pages stacked — and the pages this bar sits on are not all one width. A variant per width would be a variant per page; one custom property is the same decision without the combinatorics, and it is how `btn` already takes its size from a narrow bar.\n\nWhen the bar is narrow, EVERYTHING except the brand and the toggle goes. It was only the links: the social row and the language switch stayed, crowding a 320px bar beside a hamburger that offers the same things one tap away. The menu is where they live at that width — which is what the menu is for.\n\nIT COLLAPSES IN TWO STAGES, because the things in it are not equally important. Below 62rem the social row and the language switch go — they are reachable in the menu and neither is why anyone came. Below 34rem the LINKS go too. Between those two widths, which is where a tablet sits, you get the navigation and the call to action and nothing else: the destinations survive longest because they are the bar's actual job.\n\nOne stage was wrong in both directions. At 768px it hid the nav — a tablet has room for four links — and at 400px it kept the social row beside a hamburger offering the same four marks one tap away.\n\nThe call to action SHRINKS with the bar. At full width it is the page's main affordance and earns its size; beside a hamburger on a 390px bar the same button is most of the row. It sets the button's own size properties rather than restating what `sm` means, so the two cannot drift apart.\n\nAND A THIRD STAGE, at 22rem. At 280px the bar cannot hold the lockup, the call to action and the menu at once — measured: brand 118 + actions 108 + toggle 44, plus gaps and padding, is 334px of content in a 280px bar. The WORDMARK goes and the mark stays: the logo is the one thing that must survive to the narrowest width, and a mark alone still says whose site this is where six letters cost eighty pixels. The rhythm tightens with it, because a bar this narrow has no room for comfortable gaps.\n\nEVERY RULE IN THE COLLAPSE IS SCOPED TO THE BAR'S OWN PIECES — direct child for the social row, `.navbar-actions` descent for the switch and the button sizing. `& .segment` read as obviously fine until the full-screen menu became a DOM descendant of this bar (the menu island lives beside the toggle, which lives here): the collapse that correctly removes the BAR'S language switch then removed the MENU'S language switch too, at exactly the widths where the menu is the only way to reach it. A container query does not care that the fixed-position menu has left the layout; it is still a descendant, and a descendant selector still finds it.\n\nThe button sizing is scoped to `& .btn` and not to `.navbar-actions .btn`, because the TOGGLE is a button too and does not live in the actions group. Scoping it to the actions left a 40px hamburger beside a 32px call to action at tablet widths — the collapse shrank one and not the other, which is the same row reading as two different systems. The menu's own controls are unaffected: the open menu is a sibling of the bar, not a descendant of `.navbar-bar`.",
+				"@container navbar (max-width: 61.999rem)": {
+					"& > .social-row": {
+						"display": "none"
+					},
+					"& .navbar-actions .segment": {
+						"display": "none"
+					},
+					"& .navbar-actions": {
+						"marginInlineStart": "auto"
+					},
+					"& .btn": {
+						"--btn-block": "2rem",
+						"--btn-pad": "0.875rem",
+						"--btn-fs": "var(--fs-eyebrow)"
+					}
+				},
+				"@container navbar (max-width: 21.999rem)": {
+					"gap": "var(--space-tight)",
+					"paddingInline": "var(--space-tight)",
+					"& .logo-wordmark": {
+						"display": "none"
+					}
+				}
+			},
+			"brand": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"flexShrink": "0"
+			},
+			"links": {
+				"$description": "Visible by DEFAULT, hidden when the bar is narrow. It was the other way round — `display: none` in the base, and a `breakpoint: md` variant that set `display: none` again. So the links were hidden always, the variant that claimed to hide them changed nothing, and the only thing ever revealing them was a surface writing its own rule. Three separate bugs agreeing with each other.\n\nThe threshold is measured, not chosen: brand 118px + links 360px + actions 128px + gaps needs 686px, so 48rem gives about 80px of headroom — which the German labels use, since MARKTPLATZ runs longer than MARKETPLACE.\n\nHidden on the BAR's width, not the window's. A navbar in a 400px preview card and a navbar on a 400px phone are the same problem; a viewport query gets the first one wrong, which is exactly what the storybook showed.\n\nThe LAST thing to go, at 34rem. The links are what a navigation bar is for, so they outlive the social row and the language switch by nearly thirty rem — a tablet keeps its navigation, a phone does not have room for it.",
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-comfortable)",
+				"marginInlineStart": "auto",
+				"@container navbar (max-width: 33.999rem)": {
+					"display": "none"
+				}
+			},
+			"actions": {
+				"display": "flex",
+				"alignItems": "center",
+				"gap": "var(--space-tight)",
+				"marginInlineStart": "auto",
+				"$description": "The bar's right-hand group: the call to action and the language switch.\n\nTHE SWITCH IS SET LIKE A NAV POINT, because in this bar it IS one. `segment-option` inherits its type (`font: inherit`), which is right for a switch standing alone in a rail and wrong in a row of `nav-link`s at `--fs-eyebrow`: DE and EN came out at the bar's own 16px beside 11px uppercase destinations, so the smallest decision on the bar was set larger than the navigation. Matching happens HERE rather than in `segment`, because it is true of this bar and not of the unit — the docs theme switch wants its own size.",
+				"& .segment-option": {
+					"fontSize": "var(--fs-eyebrow)",
+					"letterSpacing": "var(--tracking-wider)",
+					"textTransform": "uppercase"
+				}
+			},
+			"toggle": {
+				"$description": "The menu control's PLACE in the bar, not its looks. It carries `btn btn--neutral btn--shape-circle` now, so it is the same height as the call to action beside it and shrinks with it through the bar's collapse — it was a 2.75rem bare circle next to a 2.5rem pill that becomes 2rem on tablets, three heights in one row with the odd one out being the control the whole mobile navigation depends on. What stays here is the negative margin that pulls it to the content edge, and the width at which the bar stops needing it at all.",
+				"marginInlineEnd": "calc(var(--space-tight) * -1)",
+				"@container navbar (min-width: 62rem)": {
+					"display": "none"
+				}
+			},
+			"drawer": {
+				"$description": "Full-height and translated off-screen rather than `display: none`, so it can animate and so focus management has something real to trap. It is `inert` while closed, which is what stops a keyboard tabbing into a menu nobody can see.\n\nIts `transform` makes it a containing block, so a `position: fixed` child resolves against THE DRAWER and not the viewport. That is correct for a panel — it is what keeps the drawer's contents inside the drawer — but it means a full-surface unit like `nav-menu` nested here is sized by the drawer rather than covering the screen. A whole-screen menu belongs beside this header, not inside it.",
+				"position": "fixed",
+				"insetBlockStart": "3.5rem",
+				"insetInline": "0",
+				"insetBlockEnd": "0",
+				"display": "grid",
+				"alignContent": "start",
+				"gap": "var(--space-tight)",
+				"padding": "var(--space-loose)",
+				"background": "var(--color-surface-page)",
+				"transform": "translateY(-100%)",
+				"visibility": "hidden",
+				"transition": "transform var(--duration-moderate) var(--ease-out), visibility var(--duration-moderate)"
+			}
+		},
+		"variants": {
+			"placement": {
+				"overlay": {
+					"$description": "Fixed over a full-bleed hero, so the media sits behind the bar rather than starting under it.\n\nPOSITION ONLY. This variant used to carry the transparency and the light ink as well, which fused two independent facts: WHERE the bar sits, and WHAT it looks like right now. They come apart the moment the page scrolls — a bar over a hero stays fixed and stops being transparent — and a call site that had to drop `placement--overlay` to get the scrolled look would also drop `position: fixed` and make the bar jump.",
+					"position": "fixed"
+				}
+			},
+			"tone": {
+				"glass": {
+					"$description": "A translucent bar with a backdrop blur, for the scrolled state over content. The fill is a named tint rather than the inline `color-mix` in a `style` attribute this used to be, in one component, unthemeable — and the radius is `--blur-firm`, the same step the open menu's scrim is a shade of.\n\nTHE BLUR IS ON A PSEUDO-ELEMENT, not on the bar. `backdrop-filter` makes an element a containing block for its `position: fixed` descendants, exactly as `transform` and `filter` do. Measured: a fixed child asking for the full viewport rendered 356px tall under a plain parent and 56px — the bar's own height — under a blurred one. Any full-screen surface inside this header would therefore be cropped to the bar, silently, and only when the bar happened to be glass. The pseudo-element carries the effect and contains nothing, because nothing is its descendant.",
+					"background": "transparent",
+					"borderBlockEndColor": "var(--color-border-soft)",
+					"&::before": {
+						"content": "''",
+						"position": "absolute",
+						"inset": "0",
+						"zIndex": "-1",
+						"background": "var(--color-scrim-thin)",
+						"backdropFilter": "blur(var(--blur-firm))"
+					}
+				},
+				"clear": {
+					"$description": "Nothing but the ink, for a bar floating over imagery before the page has scrolled. Text over a photograph is the one case where the page inks do not apply — the ground is whatever the image happens to be — so the light ink is used throughout and the hero's own scrim is what guarantees it.\n\nIt carries NO scrim of its own. A bar cannot know what is behind it, but the hero can, and `hero-scrim` is already stronger at the top for exactly this reason — two veils stacked would be twice as dark as either was designed to be. The guarantee lives in `--color-scrim-strong`, which was raised from 50% to a measured 65% because 50% left the links at 2.99:1 over sky.\n\nIT RE-INKS THE LANGUAGE SWITCH, because `segment` sets its own colours and inheritance never reaches it. `foreground` and `foreground-quiet` are the page's inks — near-black — and over the hero's footage that is dark on dark: the unselected half vanished and the selected half was barely there.\n\nBOTH HALVES GO FULL STRENGTH, and the current one is marked with a RULE instead of the other one being dimmed. Dimming cannot survive a ground that changes: over the brightest frame the quiet half lands near 3.2:1 where 16px text needs 4.5, and the alpha that would fix it is so close to opaque that there is no longer a quiet half. Both at 4.54:1 with an underline on the current one is the same information, legible on any frame — and it is the rule the system already holds anyway, that colour is never the only signal.\n\nTHE CURRENT OPTION HAS TO BE RE-INKED IN ITS OWN SELECTOR, not just in the base one. `segment`'s selected state is `[aria-current]:not([aria-current=\"false\"])` — specificity 0,3,0 — and a `.navbar--tone-clear .segment-option` rule is 0,2,0, so it lost to it no matter where it sat in the file. The result was the SELECTED language rendering in `--color-foreground`, near-black marine, on a dark video: measured `rgb(30, 41, 59)` while the unselected half was correctly `rgb(248, 250, 252)`. The half that says where you are was the invisible one.\n\nScoped through `.navbar-actions`, because the open menu is also a descendant of this bar now: unscoped, the clear tone's on-dark ink painted the MENU'S language switch white on the menu's own light surface — measured rgb(248, 250, 252) on a 97% surface-page scrim. The bar's ground logic must never reach a surface that brings its own ground.\n\nAND THE TOGGLE, for the same reason as the switch: `btn--ghost` inks itself `foreground-soft`, which is a page ink, and over the hero's footage that is dark on dark. Anything in this bar that declares its own colour has to be answered when the bar changes ground.",
+					"background": "transparent",
+					"borderBlockEndColor": "transparent",
+					"color": "var(--color-on-dark)",
+					"& .navbar-actions .segment-option": {
+						"color": "var(--color-on-dark)"
+					},
+					"& .navbar-actions .segment-option:hover": {
+						"$description": "The hover has to be re-inked too, and it was not. `segment`'s own hover goes from `foreground-quiet` to `foreground` — quiet to full — which is right on the page and inverts here: this tone already sets the base to `on-dark`, so hovering turned the letters to the page's DARK ink over a dark bar and the label disappeared under the cursor. A tone that re-inks a control has to re-ink its states.",
+						"color": "var(--color-on-dark)",
+						"background": "color-mix(in srgb, var(--color-on-dark) 12%, transparent)",
+						"borderRadius": "var(--radius-xs)"
+					},
+					"& .navbar-actions .segment-option[aria-current]": {
+						"color": "var(--color-on-dark)",
+						"textDecoration": "underline",
+						"textDecorationThickness": "1px",
+						"textUnderlineOffset": "0.3em"
+					},
+					"& .navbar-actions .segment-divider": {
+						"background": "color-mix(in oklab, var(--color-on-dark) 45%, transparent)"
+					},
+					"& .navbar-toggle": {
+						"color": "var(--color-on-dark)"
+					}
+				}
+			}
+		},
+		"states": {
+			"open": {
+				"$description": "The drawer arrives. The toggle keeps `aria-expanded` in step; the bar itself goes solid so the drawer does not appear to float over nothing.",
+				"$part": "drawer",
+				"transform": "translateY(0)",
+				"visibility": "visible"
+			},
+			"hover": {
+				"$part": "toggle",
+				"background": "var(--color-muted)"
+			},
+			"focus": {
+				"$part": "toggle",
+				"outline": "1px solid var(--color-focus)"
+			},
+			"active": {
+				"$part": "toggle",
+				"background": "var(--color-surface-sunken)"
+			},
+			"disabled": {
+				"$part": "toggle",
+				"opacity": "0.55",
+				"cursor": "default"
+			}
+		},
+		"interactive": true,
+		"reducedMotion": {
+			"$description": "The drawer still moves — removing the transform leaves it permanently off-screen — it just arrives instantly.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "ONE `<nav>` with one label, in both layouts. The toggle is a real button carrying `aria-expanded` and `aria-controls`; while the drawer is closed it must be `inert` or hidden, or a keyboard tabs into an invisible menu. Opening moves focus into the drawer, Escape closes it, and focus returns to the toggle. WCAG 2.4.11: a sticky bar must not cover a focused element, so anything focusable below it needs scroll-margin at least the bar's height."
+	}
+}

@@ -1,6 +1,6 @@
 {
 	"name": "@myavenceo/aven-ceo",
-	"version": "0.10.0",
+	"version": "0.11.0",
 	"type": "module",
 	"description": "Everything every avenCEO surface shares: company facts, the legal documents built from them, the plans, the skill catalog, the design tokens and the brand assets.",
 	"license": "GPL-3.0-only",
@@ -33,17 +33,17 @@
 			"types": "./dist/design.d.ts",
 			"import": "./dist/design.js"
 		},
-		"./kitchen-sink": {
-			"types": "./dist/kitchen-sink.d.ts",
-			"import": "./dist/kitchen-sink.js"
-		},
 		"./vibes": {
 			"types": "./dist/vibes/index.d.ts",
 			"import": "./dist/vibes/index.js"
 		},
+		"./actors": {
+			"types": "./dist/actors.d.ts",
+			"import": "./dist/actors.js"
+		},
 		"./units": {
-			"types": "./dist/units.d.ts",
-			"import": "./dist/units.js"
+			"types": "./dist/actors.d.ts",
+			"import": "./dist/actors.js"
 		},
 		"./icons": {
 			"types": "./dist/icons.d.ts",
@@ -88,6 +88,6 @@
 		"@types/node": "^26.3.0"
 	},
 	"dependencies": {
-		"@myavenceo/aven-vibes": "^0.5.0"
+		"@myavenceo/aven-vibes": "^0.9.5"
 	}
 }

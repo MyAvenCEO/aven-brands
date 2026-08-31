@@ -1,0 +1,102 @@
+{
+	"name": "home-hero",
+	"description": "The full-bleed video stage: the 4K first frame is the poster so a crisp still is on screen the instant the page paints, the muted loop fades in once it can play, and a scrim carries light copy over bright footage. The stage is dark in either theme — its ground is the FOOTAGE, not a colour, which is why the contrast gate is pointed at the composited pixels via `data-ground=\"media\"` on the content wrapper.\n\nThe scrim's three stops are TOKENS, not percentages written at a call site. They were 50/32/55 of marine mixed in page CSS, which is how the top stop came to be measurably unable to carry white nav ink over the video's sky (2.99:1 where the links need 4.5). The guarantee lives in `--color-scrim-strong` now; raising it fixes every surface that floats text on media. The middle stop is `--color-scrim-heavy` (55%) — the lightest stop that holds: 45% measured 2.99:1 behind the display line, a hundredth under the 3:1 it needs, in exactly the place every gate reports as 'sits on imagery, check by eye'.\n\nThe one deliberate exception in this unit: `min-height: 85vh` and the `12vh` clamp term. The stage is the viewport's opening frame — the box it sizes against IS the window — so the viewport unit is measuring the right box, the same reasoning nav-menu records for its `vw`.",
+	"surface": "site",
+	"surfaceNote": "the opening stage",
+	"interface": {
+		"props": {},
+		"slots": {
+			"media": {},
+			"content": {}
+		}
+	},
+	"view": {
+		"tag": "section",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "media",
+				"$children": "media"
+			},
+			{
+				"tag": "div",
+				"part": "scrim",
+				"attrs": {
+					"aria-hidden": "true"
+				}
+			},
+			{
+				"tag": "div",
+				"part": "content",
+				"$children": "content"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Its own container: the heading's 6.5cqi clamp measures this stage. `isolation: isolate` keeps the negative z-index video and scrim inside the section's own stacking context instead of behind the page.\n\nITS HEIGHT COMES FROM THE SURFACE, not from `85vh`. A hero is the one unit with a real claim on the viewport, but the claim belongs to the page: the page knows whether this hero is a landing stage or a card in a preview grid, and the unit does not. Read directly, `vh` meant a hero rendered in a 324px docs card asked for 85% of the monitor. `--home-hero-min-block` and `--home-hero-pad-block` are how a surface still says fill the screen, written once where the viewport is genuinely the subject. This is the same correction `hero` already carries; this unit reintroduced the bug it was fixed for.",
+			"position": "relative",
+			"isolation": "isolate",
+			"overflow": "hidden",
+			"display": "flex",
+			"alignItems": "center",
+			"justifyContent": "center",
+			"minBlockSize": "var(--home-hero-min-block, 34rem)",
+			"paddingBlock": "var(--home-hero-pad-block, clamp(3rem, 9cqi, 6rem))",
+			"containerType": "inline-size",
+			"containerName": "home-hero",
+			"inlineSize": "100%",
+			"& [data-emph='past']": {
+				"$description": "On the photograph the page inks do not apply: everything here is the light ink, and `past` is that ink held back.",
+				"color": "var(--color-on-dark)",
+				"opacity": "0.6"
+			},
+			"@media (prefers-reduced-motion: reduce)": {
+				"$description": "With the video hidden, the poster still shows via the section's own background so the stage is never blank.",
+				"background": "var(--color-marine) center / cover no-repeat url('/hero-poster.jpg')",
+				"& .home-hero-video": {
+					"display": "none"
+				}
+			}
+		},
+		"parts": {
+			"media": {
+				"$description": "The video cannot be a view node (SAFE_TAGS admits no `<video>`), so it arrives through the render seam inside this wrapper — which dissolves, so the video's absolute inset still resolves against the section.",
+				"display": "contents"
+			},
+			"video": {
+				"position": "absolute",
+				"inset": "0",
+				"zIndex": "-2",
+				"width": "100%",
+				"height": "100%",
+				"objectFit": "cover"
+			},
+			"scrim": {
+				"$description": "Slightly stronger at top and bottom, lighter through the middle where the scene reads — enough to carry white text, not enough to flatten it. The top stop is the documented guarantee for the nav links over the video's sky; dropping it re-breaks exactly the bug the unit description records.",
+				"position": "absolute",
+				"inset": "0",
+				"zIndex": "-1",
+				"background": "linear-gradient(to bottom, var(--color-scrim-strong) 0%, var(--color-scrim-heavy) 45%, var(--color-scrim-heavy) 100%)"
+			},
+			"content": {
+				"position": "relative"
+			},
+			"heading": {
+				"color": "var(--color-on-dark)",
+				"textShadow": "0 2px 24px color-mix(in srgb, var(--color-marine) 45%, transparent)"
+			},
+			"lead": {
+				"color": "color-mix(in srgb, var(--color-on-dark) 94%, transparent)",
+				"textShadow": "0 1px 16px color-mix(in srgb, var(--color-marine) 40%, transparent)"
+			},
+			"helper": {
+				"color": "color-mix(in srgb, var(--color-on-dark) 72%, transparent)",
+				"textShadow": "0 1px 12px color-mix(in srgb, var(--color-marine) 40%, transparent)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The video and scrim are `aria-hidden` decoration behind a real `<h1>`; under `prefers-reduced-motion` the video is removed entirely and the poster takes its place, so nothing moves and nothing is lost. The content wrapper carries `data-ground=\"media\"` so the contrast gate measures the composited pixels the copy actually sits on."
+	}
+}

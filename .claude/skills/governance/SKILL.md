@@ -1,22 +1,44 @@
 ---
 name: governance
-description: Govern how the design system evolves — SemVer for tokens/components, the contribution workflow, deprecation policy, and change communication. Use when the user wants to add/promote/deprecate a component or token, decide a version bump, set up a contribution process, or keep the system from fragmenting.
-invocation: user
+description: "Version, contribute, deprecate and announce a change, so a system in use can move without breaking the people on it. Use when: a breaking change is being considered; a component should be added or promoted; something needs deprecating; a contribution has arrived. Do NOT use for: writing the release note itself; choosing the version number for one specific change. If the announcement is the work, use change-communication instead. If the question is only which number to bump, use version-bump-advisor instead."
+invocation: model
 ---
 
-# Skill: Governance
+<!-- GENERATED from skills/aven-brand/skills/governance.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
 
-Keep the system consistent as it grows. Apply versioning, contribution, and deprecation rules.
+# governance
+
+Version, contribute, deprecate and announce a change, so a system in use can move without breaking the people on it.
+
+## Read first
+
+- `skills/workflows/governance.md`
 
 ## Steps
-1. Read `workflows/governance.md` (SemVer table, contribution workflow, deprecation policy, change comms).
-2. Classify the change: **major** (breaking — renamed/removed token or prop, changed anatomy/default), **minor** (additive — new token/component/variant/optional prop), **patch** (fix — contrast/bug/doc/value tweak in tolerance).
-3. For a **new** component/token: confirm it serves a real, repeated need (≥ 2 places) before promoting product → candidate → core. Design it to the full quality bar (`.claude/rules/components.md` → Component Quality Bar).
-4. For a **deprecation**: mark with reason + replacement + removal version; keep working ≥ 1 minor cycle; provide a migration map (`design-systems/crosswalk.md` style); remove only in a major.
-5. Wire any new file into `CLAUDE.md` (File Reference Map + relevant table/router) and add a changelog entry.
 
-## Verification (definition of done)
-- Change has a SemVer level **and** a changelog entry.
-- Removals have a deprecation window, a replacement, and a migration table.
-- New spec meets the 8-state + a11y + token-mapping bar and is reachable via the router.
-- `python3 scripts/validate_tokens.py` passes; contrast re-checked if colors changed.
+1. Version by CONSUMER impact, not by effort. Renaming a token is major however small the diff.
+2. A deprecation has three parts and needs all three: the replacement, the migration path, and the date it goes. Two of the three is an announcement, not a deprecation.
+3. Promote from a product to the system only on the THIRD independent need. Two is a coincidence.
+4. Record the decision where the next person will look for it.
+
+## Output
+
+The version decision with its reasoning, plus the deprecation or promotion record.
+
+## Gates
+
+Run these and report their real output. A number you did not measure is not a number.
+
+- `skills/gates/validate_tokens.py`
+- `skills/gates/validate_component_spec.py`
+
+## Done when
+
+- the version reflects consumer impact
+- any deprecation names a replacement, a path and a date
+- the decision is written down, not only agreed
+
+## Absorbed
+
+Merged in from `design-system-ops`: `governance-encoder`, `governance-review`, `contribution-workflow`, `deprecation-process`.

@@ -1,0 +1,179 @@
+{
+	"name": "gate-card",
+	"description": "The human gate \u2014 where an autonomous process stops and asks. The app calls it HITL and it is the most consequential shape in the estate: the one interface where a person takes responsibility for what a machine is about to do.\n\nTwo things in the original carry that weight and I had lost both by writing the unit from its class names rather than its render. The border is 2px MARINE, not a tint \u2014 this card is meant to stop the eye in a scrolling log, and a soft accent wash does the opposite. And the action lives in a marine FOOTER BAR across the bottom, inverted: a light pill on a dark ground, which is the only place the gate opens. Putting the buttons in a plain row made it look like any other card with two buttons.\n\nThe rule underneath: the preview of what will happen is in the same card as the action. An approve button whose consequence is on another screen is a signature on a blank page.",
+	"interface": {
+		"props": {
+			"labelledBy": "string",
+			"asked": "string",
+			"kind": "string"
+		},
+		"slots": {
+			"question": {},
+			"detail": {},
+			"preview": {},
+			"actions": {
+				"accepts": ["btn"]
+			}
+		}
+	},
+	"view": {
+		"tag": "section",
+		"attrs": {
+			"aria-labelledby": "$props.labelledBy",
+			"role": "group"
+		},
+		"$children": [
+			{
+				"tag": "div",
+				"part": "body",
+				"$children": [
+					{
+						"tag": "div",
+						"part": "head",
+						"$children": [
+							{
+								"tag": "span",
+								"part": "kind",
+								"text": "$props.kind"
+							},
+							{
+								"tag": "p",
+								"part": "question",
+								"attrs": {
+									"id": "$props.labelledBy"
+								},
+								"$children": "question"
+							},
+							{
+								"tag": "span",
+								"part": "asked",
+								"text": "$props.asked"
+							}
+						]
+					},
+					{
+						"tag": "p",
+						"part": "detail",
+						"$children": "detail"
+					},
+					{
+						"tag": "div",
+						"part": "preview",
+						"$children": "preview"
+					}
+				]
+			},
+			{
+				"tag": "div",
+				"part": "actions",
+				"$children": "actions"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "ONE EDGE, AND IT IS THE RING \u2014 the same rule the button follows, because they are the same statement at two scales. A button is the shape that says 'press me'; this is the one CARD that exists to be pressed.\n\nIt had a 1px marine line AND a 4px halo: two edges of different weights and colours describing one rim, which reads as a card inside a box rather than as a card with an edge. The dark line is gone and the lighter ring is the whole treatment.\n\nInset, so the ring stays inside the card's own bounds. Outside, a gate in a scrolling log painted four pixels into whatever sat above it \u2014 and the thing above a gate is usually another gate.",
+			"display": "grid",
+			"minInlineSize": "0",
+			"inlineSize": "100%",
+			"overflow": "hidden",
+			"borderRadius": "var(--radius-lg)",
+			"border": "0",
+			"background": "var(--color-surface-raised)",
+			"boxShadow": "inset 0 0 0 4px var(--color-primary-ring), var(--shadow-raised)",
+			"color": "var(--color-foreground)",
+			"containerType": "inline-size",
+			"containerName": "gate-card"
+		},
+		"parts": {
+			"head": {
+				"display": "flex",
+				"alignItems": "baseline",
+				"gap": "var(--space-tight)",
+				"minInlineSize": "0"
+			},
+			"question": {
+				"$description": "The ask, in one sentence, in the imperative of what YOU are deciding \u2014 not 'Gate 4 pending'. A gate whose question is a status line is a gate nobody can answer without opening something else.",
+				"margin": "0",
+				"minInlineSize": "0",
+				"flex": "1 1 auto",
+				"fontSize": "var(--fs-meta)",
+				"fontWeight": "500"
+			},
+			"asked": {
+				"flexShrink": "0",
+				"fontSize": "var(--fs-micro)",
+				"color": "var(--color-foreground-quiet)",
+				"$description": "Composes `text--mono-meta`. The face comes from the one definition."
+			},
+			"detail": {
+				"margin": "0",
+				"maxInlineSize": "62ch",
+				"fontSize": "var(--fs-micro)",
+				"lineHeight": "1.55",
+				"color": "var(--color-foreground-soft)",
+				"paddingBlock": "var(--space-hairline) var(--space-tight)"
+			},
+			"preview": {
+				"$description": "WHAT WILL HAPPEN, shown rather than described \u2014 on its own white ground inside the card, so it reads as the artefact and not as more of the card's copy. `white-space: pre-wrap` because a draft's line breaks are part of the draft.",
+				"maxBlockSize": "16rem",
+				"overflow": "auto",
+				"padding": "var(--space-comfortable) var(--space-loose)",
+				"borderRadius": "var(--radius-md)",
+				"border": "1px solid var(--color-border)",
+				"background": "var(--color-input)",
+				"fontSize": "var(--fs-body)",
+				"lineHeight": "1.6",
+				"whiteSpace": "pre-wrap",
+				"color": "var(--color-foreground-soft)"
+			},
+			"actions": {
+				"$description": "A marine bar across the bottom \u2014 the only place the gate opens. Full-bleed, which `overflow: hidden` on the card makes possible without negative margins, and the action inside it is INVERTED: a light pill on a dark ground. In a plain row this card looked like any other card with two buttons; the bar is what says a decision is required here. The way out first, the commit last. The block padding is `comfortable`, not `tight`: against a 2.5rem pill the tight value left about four pixels of ground above and below, so the buttons read as cropped by the bar rather than seated in it.",
+				"display": "flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"flexWrap": "wrap",
+				"gap": "var(--space-tight)",
+				"padding": "var(--space-comfortable) var(--space-loose)",
+				"background": "var(--color-primary)",
+				"color": "var(--color-primary-foreground)"
+			},
+			"body": {
+				"$description": "Everything above the bar.",
+				"display": "grid",
+				"gap": "var(--space-hairline)",
+				"padding": "var(--space-comfortable) var(--space-loose)"
+			},
+			"kind": {
+				"$description": "Composes `badge badge--face-mono badge--tone-progress`. It was a hand-built mono pill; the shape, the tint and the ink all belong to `badge`, and only the placement is this unit's.",
+				"flexShrink": "0",
+				"color": "var(--color-primary)"
+			}
+		},
+		"variants": {
+			"weight": {
+				"$description": "How much is at stake, which decides how hard the card is to skim past.",
+				"routine": {
+					"$description": "A confirmation the answer to which is almost always yes. It drops the ring to a hairline \u2014 a quiet gate that still stands off the page is a gate crying wolf, and not training the eye to click through is this weight's entire purpose.",
+					"boxShadow": "inset 0 0 0 1px var(--color-border), var(--shadow-raised)",
+					"background": "var(--color-surface-raised)",
+					"& .gate-card-actions": {
+						"background": "var(--color-surface-sunken)",
+						"color": "var(--color-foreground)"
+					}
+				},
+				"grave": {
+					"$description": "Irreversible \u2014 money moving, data deleted, a message sent to a customer. The commit here wears `btn--danger` regardless of whether the action sounds destructive, because irreversible IS the destructive property.",
+					"boxShadow": "inset 0 0 0 4px var(--color-error-ring), var(--shadow-raised)",
+					"background": "var(--color-error-surface)",
+					"& .gate-card-actions": {
+						"background": "var(--color-error)"
+					}
+				}
+			}
+		}
+	},
+	"a11y": {
+		"note": "`role=group` named by the question, so a screen reader reaching the buttons has the question as their context rather than two bare verbs. The preview is inside the group for the same reason. A pending gate is announced ONCE via a live region when it appears \u2014 not polled, and not silent: a decision waiting where nobody is looking is a stalled process. Never auto-focus the approve button: focus goes to the card, and the person moves to the answer themselves."
+	}
+}

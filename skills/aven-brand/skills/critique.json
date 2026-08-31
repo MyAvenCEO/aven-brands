@@ -1,0 +1,43 @@
+{
+	"name": "critique",
+	"area": "verify",
+	"summary": "Argue for rejecting the work: render it, find what is actually wrong, and cite evidence per finding.",
+	"trigger": {
+		"when": [
+			"someone asks whether the work is any good",
+			"the gates are green and it still looks generated",
+			"a taste verdict is wanted"
+		],
+		"not": [
+			"scoring a design on the standard rubric"
+		],
+		"instead": {
+			"a scored review is wanted": "design-review"
+		}
+	},
+	"reads": [
+		"skills/taste/design-taste.md",
+		"skills/taste/aesthetic-systems.md",
+		".claude/rules/components.md"
+	],
+	"gates": [
+		"taste_audit.mjs",
+		"slop_tells.mjs",
+		"measure_render.mjs",
+		"verify_interactive.mjs"
+	],
+	"steps": [
+		"RENDER IT FIRST. A critique from source is a critique of what you imagined the source produces.",
+		"Argue for rejection. The default posture is that this ships and nobody looks again, so the useful question is what a hostile reader would say.",
+		"Cite evidence per finding: a screenshot, a measured value, a gate line. An unevidenced taste claim is an opinion with a job title.",
+		"Check the composition decisions no gate can see: whether one thing leads, whether display type is a different size rather than a bolder body, whether the empty state owns its viewport, whether the page ends on purpose.",
+		"Click every control that declares a state and confirm the state changed. A sort header that draws a chevron and sorts nothing passes every gate.",
+		"Say plainly which findings are taste and which are defects. Conflating them lets someone dismiss the defects along with the taste."
+	],
+	"output": "Findings with evidence, split into defects and taste.",
+	"done": [
+		"the work was rendered and screenshotted, not read",
+		"every finding cites something",
+		"defects and taste are separated"
+	]
+}

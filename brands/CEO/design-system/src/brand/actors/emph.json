@@ -1,0 +1,28 @@
+{
+	"name": "emph",
+	"description": "Emphasis inside translated copy — three roles, styled here rather than in the sentence, because a colour decision living in content lives in every language at once.\n\n`lead` is the default and is only a weight: it used to be four different opacities (80, 82, 85, 88) for one idea, none of which anyone could tell apart. `strong` is the accent highlight. `past` is the life being left behind, struck through and quiet. Dark grounds re-ink `past` at their own call sites — the hero holds it as the light ink at 0.6.",
+	"surface": "site",
+	"surfaceNote": "inline emphasis in copy",
+	"interface": {
+		"props": {},
+		"slots": {}
+	},
+	"view": {
+		"tag": "strong"
+	},
+	"styling": {
+		"base": {
+			"fontWeight": "500",
+			"&[data-emph='strong']": {
+				"color": "var(--color-accent)"
+			},
+			"&[data-emph='past']": {
+				"color": "var(--color-foreground-quiet)",
+				"textDecoration": "line-through"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The element is a real `<strong>`, so the emphasis is announced. The struck `past` role also carries the meaning in its copy — the sentence names what is being left behind — so the strike is reinforcement, not the only signal."
+	}
+}

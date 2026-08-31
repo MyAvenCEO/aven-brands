@@ -1,0 +1,38 @@
+{
+	"name": "redesign",
+	"area": "build",
+	"summary": "Modernise an existing UI by auditing it first, then delivering every screen in scope \u2014 not a sample.",
+	"trigger": {
+		"when": [
+			"an existing product or page needs to be brought up to standard"
+		],
+		"not": [
+			"a single new component"
+		],
+		"instead": {
+			"only one component is in scope": "design-component"
+		}
+	},
+	"reads": [
+		"skills/workflows/redesign-audit.md",
+		"skills/taste/design-taste.md"
+	],
+	"gates": [
+		"accuracy_report.mjs",
+		"taste_audit.mjs",
+		"slop_tells.mjs",
+		"measure_render.mjs"
+	],
+	"steps": [
+		"Audit before touching anything: what is actually wrong, and which of it is a token problem rather than a screen problem.",
+		"Fix at the token layer wherever the fault is systemic. A redesign that repaints screens one at a time rebuilds the drift.",
+		"Deliver every screen in scope. Split only at a clean boundary when length forces it, and continue to completion.",
+		"Render and look at each one."
+	],
+	"output": "The audit, then the complete redesigned set.",
+	"done": [
+		"the count delivered equals the count in scope",
+		"accuracy_report is green",
+		"each screen was screenshotted and inspected, not just generated"
+	]
+}

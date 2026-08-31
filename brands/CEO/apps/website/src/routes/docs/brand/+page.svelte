@@ -27,8 +27,10 @@ import {
 	layoutNames,
 	leafRows,
 	logoVariants,
+	migrationRows,
 	radiusScale,
 	sections,
+	siteRows,
 	spaceScale,
 	tintScale,
 	trackingScale,
@@ -76,6 +78,21 @@ let theme = $state<'light' | 'dark'>('light')
  * rendered a dark page with light text at 1.13:1.
  */
 const unitGroups = [
+	/*
+	 * A THIRD index over the same rows, not a third set of them.
+	 *
+	 * Leafs and Composites file a unit by its architecture, which is the right
+	 * question when you are building one and the wrong one when you are asking
+	 * what the marketing site is made of — the bar, the menu, the footer and the
+	 * bands were scattered across both. `surface` is declared on the unit, so a
+	 * unit that becomes site chrome appears here without being listed twice.
+	 */
+	{
+		id: 'website',
+		title: 'Website',
+		rows: siteRows,
+		lede: 'The marketing site’s own chrome: the bar, the menu, the footer, the lockup, and the bands every page is composed from. These also appear under Leafs or Composites — this is the same unit filed by where it is used rather than by how it is built.'
+	},
 	{
 		id: 'leafs',
 		title: 'Leafs',
@@ -104,9 +121,57 @@ let open = $state<string | null>(null)
 let forcedState = $state<string | null>(null)
 /* `as const` so the each-block yields the union rather than `string` — an
    inline array literal widens, and the assignment then fails to type. */
-const DETAIL_VIEWS = ['preview', 'config'] as const
+/* Three views, and `notes` exists because the prose does not belong under the
+   specimen. A unit's description runs to several paragraphs of reasoning — worth
+   reading once — and printing it beneath the preview pushed the thing you came
+   to look at into the top third of the panel and left the rest to text you had
+   already read. */
+const DETAIL_VIEWS = ['preview', 'notes', 'config'] as const
+
+/**
+ * The widths a specimen is checked at.
+ *
+ * Not a device list — a width list. `mobile` is 390 because that is where a
+ * two-column card becomes one and a nav collapses into a drawer, and those are
+ * the decisions a storybook exists to let you see. The stage constrains the
+ * specimen rather than the browser, so the whole page does not have to reflow
+ * to answer the question.
+ */
+const VIEWPORTS = [
+	/* ds-allow-hardcode:start — every number here IS the specification. A token
+	   would name a breakpoint the design system uses for LAYOUT; these are the
+	   widths a specimen is being INSPECTED at, and each label says its number out
+	   loud because the reader needs to know where they are.
+
+	   SMALLEST TO LARGEST, left to right. The row is a scale, and a scale that
+	   does not run in order is a scale you have to read rather than recognise.
+	   Tablet is still the DEFAULT — it is the width where the most decisions are
+	   visible at once, with the navigation surviving, the extras gone and the
+	   hamburger present — but the default is which one is selected, not which one
+	   comes first. */
+	{
+		id: 'mobile',
+		label: 'Mobile — 390px',
+		width: 390,
+		icon: renderIcon('device-phone', icons, { size: '1em' })
+	},
+	{
+		id: 'tablet',
+		label: 'Tablet — 768px',
+		width: 768,
+		icon: renderIcon('device-tablet', icons, { size: '1em' })
+	},
+	{
+		id: 'desktop',
+		label: 'Desktop — 1440px',
+		width: 1440,
+		/* ds-allow-hardcode:end */
+		icon: renderIcon('device-desktop', icons, { size: '1em' })
+	}
+] as const
 let detailView = $state<(typeof DETAIL_VIEWS)[number]>('preview')
 let openPart = $state<string | null>(null)
+let viewport = $state<(typeof VIEWPORTS)[number]['id']>('tablet')
 let chosen = $state<Record<string, string>>({})
 
 const allRows = $derived([...leafRows, ...compositeRows])
@@ -115,9 +180,93 @@ const activeState = $derived(openUnit?.states.find((s) => s.name === forcedState
 const activePart = $derived(openUnit?.parts.find((p) => p.name === openPart))
 /* A part's own declarations, read from the compiled stylesheet rather than
    restated here — the part is a real class, so the system already knows. */
+/**
+ * The stage, pretending to be a screen it is not.
+ *
+ * `inline-size` is the width the specimen BELIEVES it has, so a container query
+ * inside it fires at that width — a navbar in a 700px panel collapses exactly as
+ * it would at 1440px, which is the only way to check a desktop layout on a
+ * laptop already showing a rail and a detail pane.
+ *
+ * The SCALE is computed to fit rather than fixed, so the preview always fills
+ * the panel exactly and never overflows it. A fixed 0.5 left a 1440px box in a
+ * 720px panel: the layout box does not shrink with a transform, so it painted
+ * straight over the controls beside it.
+ *
+ * `transform`, not `zoom` — zoom re-lays-out at the scaled size, so the queries
+ * would see the small width again and the whole exercise cancels itself.
+ * `transform-origin: top left` so the scaled result starts where the box does;
+ * with `center` half of a too-wide element travels leftwards out of the panel.
+ */
+const believedWidth = $derived(VIEWPORTS.find((x) => x.id === viewport)?.width ?? 1440)
 const partDecls = $derived(
 	openUnit && openPart ? declarationsOf(`${openUnit.name}-${openPart}`) : []
 )
+
+/**
+ * The specimen to show, given what is chosen.
+ *
+ * A variant axis usually DRESSES the specimen — `tone: quiet` is the same card,
+ * quieter — and for those the one instance is right and the modifier class does
+ * the rest. But some axes name different CONTENT: `flow-card`'s `step` is four
+ * real screens of one sequence, and `voice-pill`'s `phase` is eight things the
+ * system can be doing. Recolouring a crest and leaving the heading saying
+ * "Authorize this device" while the switch reads `pay` is worse than having no
+ * switch, because it teaches you the control is broken.
+ *
+ * First match in axis-declaration order, so two scened axes on one unit resolve
+ * the same way every time rather than by whichever was clicked last.
+ */
+const sceneAxes = $derived(
+	openUnit
+		? openUnit.variants
+				.map((a) => a.axis)
+				.filter((axis) => specimens[openUnit.name]?.scenes?.[axis])
+		: []
+)
+const specimenHtml = $derived(
+	(() => {
+		if (!openUnit) return ''
+		const spec = specimens[openUnit.name]
+		if (!spec) return ''
+		for (const axis of sceneAxes) {
+			const scene = spec.scenes?.[axis]?.[chosen[axis] ?? '']
+			if (scene) return scene
+		}
+		return spec.one ?? spec.html ?? ''
+	})()
+)
+/**
+ * Walking the sequence, rather than clicking four chips in the right order.
+ *
+ * Only where an axis has scenes: an axis whose options are a look — quiet,
+ * featured — is not a sequence and Back/Next on it would imply an order that
+ * does not exist. `default` is position 0, because the resting card IS where
+ * these flows start.
+ */
+const walkAxis = $derived(sceneAxes[0] ?? null)
+const walkSteps = $derived(
+	walkAxis && openUnit
+		? [
+				/* Same word, same reason: this step is "no option applied", and the
+				   sequences it walks all start from the resting card. */
+				'none',
+				...(openUnit.variants
+					.find((a) => a.axis === walkAxis)
+					?.options.filter((o) => specimens[openUnit.name]?.scenes?.[walkAxis]?.[o.name])
+					.map((o) => o.name) ?? [])
+			]
+		: []
+)
+const walkAt = $derived(walkAxis ? Math.max(0, walkSteps.indexOf(chosen[walkAxis] ?? 'none')) : 0)
+
+function walk(delta: number) {
+	if (!walkAxis) return
+	const next = walkSteps[walkAt + delta]
+	if (next === undefined) return
+	if (next === 'none') clear(walkAxis)
+	else pick(walkAxis, next)
+}
 
 /** The modifier classes the chosen variants add, as one string. */
 const variantClass = $derived(
@@ -125,6 +274,12 @@ const variantClass = $derived(
 		.map(([axis, option]) => (axis === 'variant' ? option : `${axis}-${option}`))
 		.join(' ')
 )
+
+/** Jump from a migration row into the unit that replaces it. */
+function openUnitFrom(unit: string) {
+	active = compositeRows.some((u) => u.name === unit) ? 'composites' : 'leafs'
+	openDetail(unit)
+}
 
 function openDetail(name: string) {
 	open = name
@@ -149,6 +304,30 @@ const omit = (map: Record<string, string>, key: string) =>
 const backIcon = renderIcon('chevron-right', icons, { size: '1rem' })
 
 /**
+ * Stop the rail at the site header's edge, not the screen's.
+ *
+ * The marketing header is `position: sticky` and about 61px tall — but "about"
+ * is the problem: it is 61 at this width and something else on a phone, after a
+ * font swap, or once a nav item wraps. A hardcoded offset is both a lint failure
+ * and wrong half the time, so the height is MEASURED and published as
+ * `--cb-top`, and a `ResizeObserver` keeps it true when the header reflows.
+ *
+ * Without it the rail scrolls under the header and its first item is covered —
+ * WCAG 2.4.11, which is about a focused element hiding behind sticky chrome and
+ * is exactly this bug with a keyboard attached.
+ */
+function stickBelowSiteHeader(node: HTMLElement) {
+	const header = document.querySelector('header')
+	if (!header) return
+	const apply = () =>
+		node.style.setProperty('--cb-top', `${header.getBoundingClientRect().height}px`)
+	apply()
+	const observer = new ResizeObserver(apply)
+	observer.observe(header)
+	return () => observer.disconnect()
+}
+
+/**
  * Dress the specimen with the chosen variant and state.
  *
  * An attachment rather than a class, because the thing being dressed is inside
@@ -169,6 +348,105 @@ const STATE_ATTR: Record<string, [string, string]> = {
 	loading: ['aria-busy', 'true'],
 	selected: ['aria-selected', 'true'],
 	error: ['aria-invalid', 'true']
+}
+
+/**
+ * Make a specimen's declared controls actually work.
+ *
+ * The navbar's hamburger declares `aria-expanded` and did nothing when pressed —
+ * the exact defect `verify_interactive` exists to catch, sitting in the page
+ * that documents the system. A specimen is static markup, so nothing was ever
+ * going to wire it; but the CONTRACT between these two units is part of what
+ * this page is documenting, and a reader should be able to press the button and
+ * see the menu.
+ *
+ * Deliberately tiny and generic: one delegated listener that flips
+ * `aria-expanded` on the control and `data-open` on the menu it names through
+ * `aria-controls`. It encodes no product logic — the same two attributes a real
+ * surface would drive — so it demonstrates the contract rather than reimplementing
+ * a header.
+ */
+/**
+ * Reserve the height a scaled stage actually occupies.
+ *
+ * `transform: scale()` paints smaller and lays out the same, so a half-size
+ * specimen leaves half a stage of empty panel under it. The height has to be
+ * measured because it depends on the specimen — and a percentage margin cannot
+ * do it: percentage margins resolve against the containing block's INLINE size,
+ * never its block size, which is how the first attempt collapsed the stage to
+ * nothing at all.
+ */
+function fitScaledStage(node: HTMLElement) {
+	const stage = node.querySelector<HTMLElement>('.cb-detail-stage')
+	if (!stage) return
+	const apply = () => {
+		const believes = Number(getComputedStyle(node).getPropertyValue('--cb-believes')) || 0
+		/* Measured on the PARENT: the bezel is now sized to the device, so reading
+		   its own width would feed its previous answer back into the next one. */
+		const bezel = parseFloat(getComputedStyle(node).paddingLeft) || 0
+		const available = (node.parentElement?.clientWidth ?? node.clientWidth) - bezel * 2
+		if (!believes || !available) return
+		/* Never scale UP. A 390px phone preview inside a 700px panel should be a
+		   390px phone, not a blurry enlargement of one. */
+		const scale = Math.min(1, available / believes)
+		node.style.setProperty('--cb-scale', String(scale))
+		/* The bezel is the size of the DEVICE, not of the panel. A 390px phone in
+		   an 830px column should be a phone with space either side, not a wide
+		   earth rectangle with a narrow screen down the middle. */
+		node.style.setProperty('--cb-device-w', `${believes * scale + bezel * 2}px`)
+		/* `scrollHeight`, not `offsetHeight`: the stage is a scroll container, so
+		   its offset height is the box it was GIVEN and its scroll height is what
+		   the specimen needs. Reserving the former clipped every specimen taller
+		   than the panel. */
+		/* The screen fills the bezel; only a SCALED one needs its height reserved,
+		   because the transform gives the space back.
+
+		   Read from the frame's DECLARED height, a `calc()` on the viewport that
+		   cannot depend on its own children. Reading the RENDERED height made this
+		   a ResizeObserver loop — the frame grew to fit the screen, the screen was
+		   sized from the frame — and the desktop bezel reached 6,916,904px within
+		   a few frames. */
+		/* The screen fills the bezel's CONTENT box, not its border box. Reserving
+		   the full height meant the scaled screen ran past the bottom padding and
+		   was clipped there — the bezel wrapped three sides and stopped, which is
+		   what made the desktop preview look cut off along its bottom edge. */
+		const cs = getComputedStyle(node)
+		const declared = parseFloat(cs.blockSize)
+		const frame = Number.isFinite(declared) ? declared : node.clientHeight
+		const vertical =
+			(parseFloat(cs.paddingTop) || 0) +
+			(parseFloat(cs.paddingBottom) || 0) +
+			(parseFloat(cs.borderTopWidth) || 0) +
+			(parseFloat(cs.borderBottomWidth) || 0)
+		node.style.setProperty('--cb-screen-h', scale < 1 ? `${(frame - vertical) / scale}px` : '100%')
+		/* NO horizontal offset. This used to centre the scaled screen inside the
+		   PANEL, which was right while the bezel was panel-width and became a
+		   double-count the moment the bezel started sizing itself to the device:
+		   the frame centres itself with `margin-inline: auto`, and the screen then
+		   shifted again inside it — so the earth showed only on the left and the
+		   screen ran past the right edge. The bezel's content box is exactly the
+		   scaled screen; the screen sits at its origin. */
+		node.style.setProperty('--cb-inset', '0px')
+	}
+	apply()
+	const observer = new ResizeObserver(apply)
+	observer.observe(stage)
+	observer.observe(node)
+	return () => observer.disconnect()
+}
+
+function wireSpecimen(node: HTMLElement) {
+	const onClick = (event: Event) => {
+		const control = (event.target as HTMLElement)?.closest<HTMLElement>('[aria-expanded]')
+		if (!control || !node.contains(control)) return
+		const open = control.getAttribute('aria-expanded') !== 'true'
+		control.setAttribute('aria-expanded', String(open))
+		const id = control.getAttribute('aria-controls')
+		const target = id ? node.querySelector<HTMLElement>(`#${CSS.escape(id)}`) : null
+		if (target) target.setAttribute('data-open', String(open))
+	}
+	node.addEventListener('click', onClick)
+	return () => node.removeEventListener('click', onClick)
 }
 
 const applyPreview =
@@ -230,69 +508,80 @@ function inspect(name: string) {
 	>
 </svelte:head>
 
-<MarketingSiteHeader active="docs" lang="en" />
+<MarketingSiteHeader active="docs" maxWidth="6xl" lang="en" claimHref="/#claim" />
 
-<div id="ceobrand" class="app-shell" data-theme={theme}>
-	<header id="cb-head">
-		<div>
-			<p class="eyebrow-accent">ceoBRAND</p>
-			<h1 class="title">Design system</h1>
-			<p class="lede">
-				Rendered from the brand config itself. If it renders wrong, the system is wrong.
-			</p>
-		</div>
-		<div id="cb-head-actions">
-			<div id="cb-theme" role="group" aria-label="Theme">
-				{#each ['light', 'dark'] as const as option (option)}
-					<button
-						type="button"
-						class="cb-theme-option"
-						aria-pressed={theme === option}
-						onclick={() => {
-							theme = option
-						}}
-					>
-						{option}
-					</button>
-				{/each}
-			</div>
-			<a class="meta" href="/docs/">Back to docs</a>
-		</div>
-	</header>
-
+<div id="ceobrand" class="app-shell" data-theme={theme} {@attach stickBelowSiteHeader}>
 	<div id="cb-body">
-		<aside id="cb-aside" aria-label="Sections">
-			<nav>
-				<ul>
-					{#each sections as section (section.id)}
-						<li>
+		<!-- The page's own header lives INSIDE the rail, above the index — one
+		     column that identifies the page, switches its theme and navigates it,
+		     rather than a full-width band that pushed the first specimen a
+		     screenful down and left a wide empty gutter beside the title.
+
+		     And the rail is the `sidebar` composite itself, not a private copy of
+		     one. This page documents that unit; a documentation page that hand-
+		     rolls the navigation it is documenting is the drift the whole system
+		     exists to stop, and it is the only place where a regression in
+		     `sidebar` would be noticed immediately by whoever is reading it. -->
+		<aside id="cb-aside">
+			<nav class="sidebar sidebar--tone-plain" aria-label="Sections">
+				<div id="cb-brand">
+					<p class="text text--eyebrow">ceoBRAND</p>
+					<h1 class="text text--section-title">Design system</h1>
+					<p class="text text--meta">
+						Rendered from the brand config itself. If it renders wrong, the system is wrong.
+					</p>
+					<div id="cb-theme" role="group" aria-label="Theme">
+						{#each ['light', 'dark'] as const as option (option)}
 							<button
 								type="button"
-								class="cb-nav"
-								aria-current={active === section.id ? 'true' : undefined}
+								class="cb-theme-option"
+								aria-pressed={theme === option}
 								onclick={() => {
-									active = section.id
-									inspecting = null
-									/* Leaving the detail view with the section. Without this, moving
-									   from Leafs to Composites kept one leaf's detail on screen and
-									   the Composites list rendered as empty. */
-									open = null
+									theme = option
 								}}
 							>
-								<span>{section.label}</span>
-								<span class="cb-count">{section.count}</span>
+								{option}
 							</button>
-						</li>
+						{/each}
+					</div>
+				</div>
+
+				<div class="sidebar-items">
+					{#each sections as section (section.id)}
+						<button
+							type="button"
+							class="sidebar-item"
+							aria-current={active === section.id ? 'true' : undefined}
+							onclick={() => {
+								active = section.id
+								inspecting = null
+								/* Leaving the detail view with the section. Without this, moving
+								   from Leafs to Composites kept one leaf's detail on screen and
+								   the Composites list rendered as empty. */
+								open = null
+							}}
+						>
+							<span class="sidebar-marker"></span>
+							<span>{section.label}</span>
+							<span class="sidebar-count">{section.count}</span>
+						</button>
 					{/each}
-				</ul>
+				</div>
+
+				<div class="sidebar-footer">
+					<a class="sidebar-item" href="/docs/">
+						<span class="sidebar-marker"></span>
+						Back to docs
+					</a>
+				</div>
 			</nav>
 		</aside>
 
 		<main id="cb-main">
 			{#if active === 'logo'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Logo</p>
-					<p class="meta">
+					<p class="text text--eyebrow">Logo</p>
+					<p class="text--meta">
 						The mark, the wordmark and the lockup. The wordmark is two faces in one word — "aven" in
 						the thin display face, "CEO" in the heaviest sans — a specification that used to live
 						inline at every call site, including two <span class="cb-mono">style</span> attributes
@@ -322,9 +611,9 @@ function inspect(name: string) {
 					</div>
 				</section>
 			{:else if active === 'icons'}
-				<section class="cb-section">
-					<p class="eyebrow-quiet">Icons</p>
-					<p class="meta">
+				<section class="cb-section cb-section--full">
+					<p class="text text--eyebrow">Icons</p>
+					<p class="text--meta">
 						Duotone: a filled backing at 0.2 under the figure, both in
 						<span class="cb-mono">currentColor</span>. Two opacities of one colour, never two
 						colours — two colours could not be themed, and this is why the row below inverts with
@@ -344,8 +633,8 @@ function inspect(name: string) {
 			{:else if active === 'colour'}
 				{#each colourGroups as group (group.id)}
 					<section class="cb-section">
-						<p class="eyebrow-quiet">{group.title}</p>
-						<p class="meta">{group.lede}</p>
+						<p class="text text--eyebrow">{group.title}</p>
+						<p class="text--meta">{group.lede}</p>
 						<div class="cb-swatches">
 							{#each group.rows as row (row.name)}
 								<div class="cb-swatch">
@@ -371,8 +660,8 @@ function inspect(name: string) {
 				{/each}
 			{:else if active === 'type'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Faces</p>
-					<p class="meta">The stacks the brand sets its words in.</p>
+					<p class="text text--eyebrow">Faces</p>
+					<p class="text--meta">The stacks the brand sets its words in.</p>
 					<div class="cb-rows">
 						{#each fontStacks as font (font.name)}
 							<div class="cb-row">
@@ -385,7 +674,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Weights</p>
+					<p class="text text--eyebrow">Weights</p>
 					<div class="cb-rows">
 						{#each fontWeights as weight (weight.name)}
 							<div class="cb-row">
@@ -398,8 +687,8 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Ramp</p>
-					<p class="meta">Twelve steps. A size not on the ramp is not available.</p>
+					<p class="text text--eyebrow">Ramp</p>
+					<p class="text--meta">Twelve steps. A size not on the ramp is not available.</p>
 					<div class="cb-rows">
 						{#each typeScale as step (step.name)}
 							{@const display = DISPLAY_STEPS.includes(step.name)}
@@ -420,7 +709,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Tracking</p>
+					<p class="text text--eyebrow">Tracking</p>
 					<div class="cb-rows">
 						{#each trackingScale as step (step.name)}
 							<div class="cb-row">
@@ -436,8 +725,8 @@ function inspect(name: string) {
 				</section>
 			{:else if active === 'alpha'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Alpha · on text</p>
-					<p class="meta">
+					<p class="text text--eyebrow">Alpha · on text</p>
+					<p class="text--meta">
 						Text emphasis as steps, not a continuum. The faintest step is the disabled and watermark
 						level and deliberately sits below AA, so it must never carry live text.
 					</p>
@@ -455,8 +744,8 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Alpha · on surface</p>
-					<p class="meta">The same ink as a surface rather than as text.</p>
+					<p class="text text--eyebrow">Alpha · on surface</p>
+					<p class="text--meta">The same ink as a surface rather than as text.</p>
 					<div class="cb-rows">
 						{#each tintScale as step (step.name)}
 							<div class="cb-row">
@@ -471,7 +760,7 @@ function inspect(name: string) {
 				</section>
 			{:else if active === 'geometry'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Radius</p>
+					<p class="text text--eyebrow">Radius</p>
 					<div class="cb-rows">
 						{#each radiusScale as step (step.name)}
 							<div class="cb-row">
@@ -482,7 +771,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Space</p>
+					<p class="text text--eyebrow">Space</p>
 					<div class="cb-rows">
 						{#each spaceScale as step (step.name)}
 							<div class="cb-row">
@@ -493,7 +782,7 @@ function inspect(name: string) {
 					</div>
 				</section>
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Elevation</p>
+					<p class="text text--eyebrow">Elevation</p>
 					<div class="cb-rows">
 						{#each elevationScale as step (step.name)}
 							<div class="cb-row">
@@ -503,7 +792,44 @@ function inspect(name: string) {
 						{/each}
 					</div>
 				</section>
-			{:else if active === 'leafs' || active === 'composites'}
+			{:else if active === 'migration'}
+				<section class="cb-section cb-section--full">
+					<p class="text text--eyebrow">Migration</p>
+					<p class="text--meta">
+						Every class from the vocabulary that predates units, and what replaces it. Measured
+						across all four surfaces — the website, the checkout at my.aven.ceo, avenID and the
+						Tauri app — not remembered. The measurement is the point: checkout is the most
+						design-system-adopted surface in the estate and it is adopted entirely on THESE classes,
+						so untying the website without it would break the one that was already doing the right
+						thing.
+					</p>
+					<div class="cb-migration">
+						{#each migrationRows as row (row.legacy)}
+							<div class="cb-mig" class:cb-mig--done={row.uncalled}>
+								<span class="cb-mono cb-mig-from">.{row.legacy}</span>
+								<span class="cb-mig-arrow" aria-hidden="true">{@html backIcon}</span>
+								<button
+									type="button"
+									class="cb-mono cb-mig-to"
+									onclick={() => openUnitFrom(row.unit)}
+								>
+									{row.target}
+								</button>
+								{#if row.uncalled}
+									<span class="cb-tag">nothing calls it</span>
+								{/if}
+								{#if row.note}
+									<p class="cb-mig-note">{row.note}</p>
+								{/if}
+							</div>
+						{/each}
+					</div>
+				</section>
+			<!-- Derived from `unitGroups`, not a list of ids repeated here: the branch
+			     named 'leafs' and 'composites' explicitly, so adding a third group gave
+			     it an aside entry, a count, and an empty panel. The condition follows
+			     the data now, and a fourth group will render without touching it. -->
+			{:else if unitGroups.some((g) => g.id === active)}
 				{#if openUnit}
 					{@const unit = openUnit}
 					<!-- No 62rem cap here. A reading column is right for a page of prose
@@ -517,6 +843,21 @@ function inspect(name: string) {
 								<span>All {active}</span>
 							</button>
 							<h2 class="cb-detail-name">{unit.name}</h2>
+							<div class="cb-tabs" role="tablist" aria-label="Viewport">
+								{#each VIEWPORTS as vp (vp.id)}
+									<button
+										type="button"
+										class="cb-tab"
+										role="tab"
+										aria-selected={viewport === vp.id}
+										aria-label={vp.label}
+										title={vp.label}
+										onclick={() => (viewport = vp.id)}
+									>
+										{@html vp.icon}
+									</button>
+								{/each}
+							</div>
 							<div class="cb-tabs" role="tablist" aria-label="View">
 								{#each DETAIL_VIEWS as view (view)}
 									<button
@@ -537,15 +878,82 @@ function inspect(name: string) {
 								{#if detailView === 'preview'}
 									<!-- The `one` specimen. Applying a variant to a stage holding six
 									     buttons turns all six primary at once, which shows nothing. -->
+									<!-- The scale is a TRANSFORM, so it costs no layout height — a
+									     half-size specimen would leave half a stage of gap under it.
+									     The frame reserves what the transform gave back. -->
 									<div
-										class="cb-detail-stage"
-										class:cb-detail-stage--tall={specimens[unit.name]?.tall}
-										{@attach applyPreview(unit, variantClass, forcedState)}
+										class="cb-detail-frame"
+										style="--cb-believes:{believedWidth}"
+										{@attach fitScaledStage}
 									>
-										{#if specimens[unit.name]?.one ?? specimens[unit.name]}
-											{@html specimens[unit.name].one ?? specimens[unit.name].html}
-										{:else}
-											<p class="cb-mono cb-unit-todo">no specimen yet</p>
+										<div
+											class="cb-detail-stage"
+											class:cb-detail-stage--tall={specimens[unit.name]?.tall}
+											data-anchor={specimens[unit.name]?.anchor}
+											style="inline-size:{believedWidth}px"
+											{@attach applyPreview(unit, variantClass, forcedState)}
+											{@attach wireSpecimen}
+										>
+											{#if specimenHtml}
+												{@html specimenHtml}
+											{:else}
+												<p class="cb-mono cb-unit-todo">no specimen yet</p>
+											{/if}
+										</div>
+									</div>
+
+									<!-- Walk the sequence. Only where the axis IS one: an axis whose
+									     options are a look has no order, and offering Back/Next on it
+									     would invent one. -->
+									{#if walkSteps.length > 1}
+										<div class="cb-walk">
+											<!-- The rail carries the axis NAME. Without it a row reading
+											     "identify authorise pay done" is five words with no subject,
+											     and the reader has to infer which switch they are holding. -->
+											<p class="cb-walk-label">{walkAxis}</p>
+											<button
+												type="button"
+												class="cb-walk-step cb-walk-arrow"
+												disabled={walkAt === 0}
+												onclick={() => walk(-1)}
+												aria-label="Previous {walkAxis}"
+											>
+												Back
+											</button>
+											<ol class="cb-walk-rail">
+												{#each walkSteps as name, i (name)}
+													<li>
+														<button
+															type="button"
+															class="cb-walk-step"
+															aria-current={walkAt === i ? 'step' : undefined}
+															onclick={() =>
+																name === 'none' ? clear(walkAxis ?? '') : pick(walkAxis ?? '', name)}
+														>
+															{name}
+														</button>
+													</li>
+												{/each}
+											</ol>
+											<button
+												type="button"
+												class="cb-walk-step cb-walk-arrow"
+												disabled={walkAt === walkSteps.length - 1}
+												onclick={() => walk(1)}
+												aria-label="Next {walkAxis}"
+											>
+												Next
+											</button>
+										</div>
+									{/if}
+								{:else if detailView === 'notes'}
+									<div class="cb-detail-notes">
+										<p class="cb-detail-note">{unit.description}</p>
+										{#if unit.a11yNote}
+											<div class="cb-detail-a11y">
+												<p class="text text--eyebrow">Accessibility</p>
+												<p class="cb-detail-note">{unit.a11yNote}</p>
+											</div>
 										{/if}
 									</div>
 								{:else}
@@ -557,10 +965,6 @@ function inspect(name: string) {
 							     axes pushed the specimen off the top of the screen, so you were
 							     choosing a variant you could no longer see. -->
 							<aside class="cb-detail-controls" aria-label="Variants and states">
-								<!-- The description belongs where the reading happens, beside the
-								     specimen rather than under it — the stage keeps its height. -->
-								<p class="cb-detail-note">{unit.description}</p>
-
 								{#if unit.states.length}
 									<div class="cb-controls">
 										<p class="cb-control-label">State</p>
@@ -584,26 +988,40 @@ function inspect(name: string) {
 												</button>
 											{/each}
 										</div>
-										{#if activeState}
-											<p class="cb-control-note">{activeState.note || 'No note on this state.'}</p>
+										{#if activeState?.note}
+											<!-- Collapsed. The prose is the reason a decision was made and it
+											     is worth reading once; leaving four of them open at a time
+											     pushes every switch below the fold. -->
+											<details class="cb-why">
+												<summary class="cb-why-summary">Why</summary>
+												<p class="cb-control-note">{activeState.note}</p>
+											</details>
 										{/if}
 									</div>
 								{/if}
 
-								{#each unit.variants as axis (axis.axis)}
+								<!-- Axes the WALKER drives are not repeated here. A scened axis had
+								     its options as chips in this column AND as a rail under the stage —
+								     the same five buttons twice, in two visual languages, with no way
+								     to tell which was authoritative. One axis, one control. -->
+								{#each unit.variants.filter((a) => !sceneAxes.includes(a.axis)) as axis (axis.axis)}
 									<div class="cb-controls">
 										<p class="cb-control-label">{axis.axis}</p>
 										<div class="cb-chips">
-											<!-- Every axis gets a `default`. Without it, choosing an
-											     emphasis was a one-way door: there was no way back to the
-											     resting look short of reloading. -->
+											<!-- "None", not "default". Every axis needs a way back —
+											     choosing an emphasis was otherwise a one-way door short of
+											     reloading — but calling it `default` said the same word as
+											     the STATE axis, where `default` is a real declared state
+											     with real declarations behind it. One word, two meanings,
+											     three inches apart. This chip means "no option from this
+											     axis is applied", and no class is emitted for it. -->
 											<button
 												type="button"
 												class="cb-chip-btn"
 												aria-pressed={!chosen[axis.axis]}
 												onclick={() => clear(axis.axis)}
 											>
-												default
+												none
 											</button>
 											{#each axis.options as option (option.name)}
 												<button
@@ -664,7 +1082,12 @@ function inspect(name: string) {
 											{/each}
 										</div>
 										{#if activePart}
-											<p class="cb-control-note">{activePart.note || 'No note on this part.'}</p>
+											{#if activePart.note}
+												<details class="cb-why">
+													<summary class="cb-why-summary">Why</summary>
+													<p class="cb-control-note">{activePart.note}</p>
+												</details>
+											{/if}
 											<dl class="cb-decls">
 												{#each partDecls as [prop, value] (prop)}
 													<div class="cb-decl">
@@ -681,19 +1104,33 @@ function inspect(name: string) {
 					</section>
 				{:else}
 					{#each unitGroups.filter((g) => g.id === active) as group (group.id)}
-						<section class="cb-section">
-							<p class="eyebrow-quiet">{group.title}</p>
-							<p class="meta">{group.lede}</p>
+						<!-- Full width. A 62rem reading column is right for prose and wrong for a
+						     gallery: it gave a 1216px-wide main two columns of cards and left a third
+						     the screen empty. -->
+						<section class="cb-section cb-section--full">
+							<p class="text text--eyebrow">{group.title}</p>
+							<p class="text--meta">{group.lede}</p>
 							<div class="cb-units">
 								{#each group.rows as unit (unit.name)}
-									<button
-										type="button"
-										class="cb-unit"
-										class:cb-unit--tall={specimens[unit.name]?.tall}
-										onclick={() => openDetail(unit.name)}
-									>
+									<!-- An ARTICLE, not a button. Wrapping a specimen in a <button>
+									     put real buttons and links inside a button — invalid HTML, and
+									     it broke the thing it was previewing: pressing the navbar's
+									     hamburger bubbled to the card and opened the detail view
+									     instead of opening the menu.
+
+									     So the card opens from its NAME, which is one honest target,
+									     and the stage below is inert. Preview here, playground in the
+									     detail view; a grid of forty live components is forty things
+									     that can be in the wrong state while you are trying to scan. -->
+									<article class="cb-unit">
 										<span class="cb-unit-head">
-											<span class="cb-unit-name">{unit.name}</span>
+											<button
+												type="button"
+												class="cb-unit-name"
+												onclick={() => openDetail(unit.name)}
+											>
+												{unit.name}
+											</button>
 											<span class="cb-unit-tags">
 												{#if unit.animates}
 													<span class="cb-tag">animates</span>
@@ -709,7 +1146,13 @@ function inspect(name: string) {
 												{/if}
 											</span>
 										</span>
-										<span class="cb-unit-stage">
+										<!-- `inert`, not `pointer-events: none`. The CSS blocks the
+										     mouse and leaves every control in the TAB ORDER, so a
+										     keyboard user walked through up to nineteen dead buttons
+										     per card, forty cards of them, before reaching anything.
+										     `inert` removes them from the tab order and the
+										     accessibility tree too, which is what a preview is. -->
+										<span class="cb-unit-stage" inert>
 											<!-- One instance here too. A grid card showing three variants
 											     of a card is three cards, and the eye reads the row as
 											     nine things rather than three units. -->
@@ -719,8 +1162,7 @@ function inspect(name: string) {
 												<span class="cb-mono cb-unit-todo">no specimen yet</span>
 											{/if}
 										</span>
-										<span class="cb-unit-note">{unit.description}</span>
-									</button>
+									</article>
 								{/each}
 							</div>
 						</section>
@@ -728,8 +1170,8 @@ function inspect(name: string) {
 				{/if}
 			{:else if active === 'layouts'}
 				<section class="cb-section">
-					<p class="eyebrow-quiet">Layouts</p>
-					<p class="meta">
+					<p class="text text--eyebrow">Layouts</p>
+					<p class="text--meta">
 						The layout shapes almost every page is made of. Renamed from "primitives": a unit is now
 						the smallest piece, which is what primitive means everywhere else.
 					</p>
@@ -772,40 +1214,52 @@ function inspect(name: string) {
 </div>
 
 <style>
+/*
+ * These stay `@media`, and that is the rule rather than an exception to it.
+ *
+ * Space questions belong in `@container` — a block that might render in a
+ * sidebar or a preview should ask its own box, not the window. A PAGE SHELL is
+ * the one case where those are the same question: nothing wraps it, so the
+ * viewport IS its container. Declaring `container-type` here would buy no
+ * accuracy and would cost containment — it establishes a containing block for
+ * positioned descendants, and this page has a sticky attachment that depends on
+ * not having one.
+ *
+ * The test for the next reader: is there a box above this that could be
+ * narrower than the window? If yes, `@container`. If no, `@media`.
+ */
+
 #ceobrand {
 	min-block-size: 100vh;
 }
-#cb-head {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-comfortable);
-	align-items: flex-end;
-	justify-content: space-between;
-	padding: var(--space-section) 1.25rem var(--space-loose);
-	border-block-end: 1px solid var(--color-border);
-}
-#cb-head > div {
+/* The rail's own header — identity, then the theme switch, then the index.
+   Separated by a rule rather than by a gap, so it reads as the head OF the
+   list and not as a first item in it. */
+#cb-brand {
 	display: grid;
 	gap: 0.25rem;
-}
-#cb-head-actions {
-	display: flex;
-	align-items: center;
-	gap: var(--space-comfortable);
+	/* Tighter at the bottom than the top. The rule below is what separates this
+	   from the index, so the space between the switch and the rule only has to
+	   stop them touching — anything more reads as a missing element. */
+	padding: var(--space-comfortable) 0.75rem var(--space-tight);
+	border-block-end: 1px solid var(--color-border-soft);
+	margin-block-end: var(--space-hairline);
 }
 #cb-theme {
 	display: inline-flex;
+	justify-self: start;
+	margin-block-start: var(--space-hairline);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-full);
 	overflow: hidden;
 }
 .cb-theme-option {
-	min-block-size: 2.25rem;
+	min-block-size: 2rem;
 	padding-inline: var(--space-comfortable);
 	border: 0;
 	background: transparent;
 	font: inherit;
-	font-size: var(--fs-meta);
+	font-size: var(--fs-micro);
 	/* Not muted-foreground: it measures 3.59:1 here and fails AA. The unselected
 	   half of a switch is still a label someone has to read to operate it. */
 	color: var(--color-foreground-quiet);
@@ -823,62 +1277,72 @@ function inspect(name: string) {
 }
 @media (min-width: 56rem) {
 	#cb-body {
-		grid-template-columns: 14rem minmax(0, 1fr);
+		/* The LAYOUT declares the track; the unit fills it. This said `auto` —
+		   the layout declining to decide — which handed the decision to the
+		   content, and the content is a container that has nothing to size from.
+		   The rail collapsed to zero and the navigation vanished. */
+		grid-template-columns: 16rem minmax(0, 1fr);
 	}
 	#cb-aside {
-		border-inline-end: 1px solid var(--color-border);
-		border-block-end: none;
 		position: sticky;
-		top: 0;
+		/* The site header is sticky and sits above this. At `top: 0` the rail
+		   slid underneath it and lost its first item — and a keyboard tabbing
+		   into that item put focus behind opaque chrome, which is WCAG 2.4.11.
+		   `--cb-top` is the header's measured height, republished on resize. */
+		top: var(--cb-top, 0px);
 		align-self: start;
-		max-block-size: 100vh;
+		max-block-size: calc(100dvh - var(--cb-top, 0px));
 		overflow-y: auto;
+	}
+	#cb-aside .sidebar {
+		block-size: 100%;
+		border-inline-end: 1px solid var(--color-border);
+	}
+	#cb-aside {
+		min-inline-size: 0;
 	}
 }
 #cb-aside {
-	padding: var(--space-comfortable) 1.25rem;
 	border-block-end: 1px solid var(--color-border);
 }
-#cb-aside ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: grid;
-	gap: 0.125rem;
+@media (min-width: 56rem) {
+	#cb-aside {
+		border-block-end: none;
+	}
 }
-.cb-nav {
+/* The rail's items are `sidebar-item`s, which the unit styles. Only two things
+   are this page's: a <button> does not inherit the page font or fill its track,
+   and the label has to take the free space so the count stays at the edge. */
+#cb-aside .sidebar-item {
 	inline-size: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--space-tight);
-	padding: 0.5rem 0.625rem;
-	background: none;
 	border: 0;
-	border-radius: var(--radius-xs);
 	font: inherit;
-	font-size: var(--fs-section);
-	color: color-mix(in srgb, var(--color-foreground) 75%, transparent);
-	cursor: pointer;
+	font-size: var(--fs-meta);
+	font-weight: 500;
 	text-align: start;
-	min-block-size: 2.25rem;
+	cursor: pointer;
+	background: none;
 }
-.cb-nav:hover {
-	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
-	color: var(--color-foreground);
+#cb-aside .sidebar-item > span:not([class]) {
+	flex: 1 1 auto;
+	min-inline-size: 0;
 }
-.cb-nav[aria-current="true"] {
-	background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+/* TEMPORARY — remove once `@myavenceo/aven-vibes` >= 0.5.1 is installed.
+   `sidebar` declares a `selected` state that draws the fill and reveals the
+   marker, and this rail marks its current section the only correct way for a
+   navigation: `aria-current`. Up to 0.5.0 the engine compiled `selected` to
+   `[aria-selected="true"], [aria-pressed="true"]` only, so the state was
+   declared, correctly triggered and rendered nothing. The fix is MyAvenCEO/
+   avenVIBES#4; until it is published this page draws what the unit will draw,
+   with the unit's own values, so the docs nav does not ship without a current
+   item. It is a duplicate on purpose and it is dated. */
+#cb-aside .sidebar-item[aria-current="true"] {
+	background: var(--color-surface-sunken);
 	color: var(--color-foreground);
 	font-weight: 600;
 }
-.cb-count {
-	font-size: var(--fs-micro);
-	font-variant-numeric: tabular-nums;
-	/* Not a color-mix: 65% of the foreground over an unknown ground is a
-	   relationship, and the count chip sits on a tint the ladder does not
-	   name. The role is measured; the relationship was not. */
-	color: var(--color-foreground-quiet);
+#cb-aside .sidebar-item[aria-current="true"] .sidebar-marker {
+	opacity: 1;
 }
 #cb-main {
 	padding: var(--space-loose) 1.25rem 4rem;
@@ -957,7 +1421,23 @@ function inspect(name: string) {
 	}
 }
 .cb-detail-main {
+	/* A column, so the stage can take the height the prose used to. */
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
 	min-inline-size: 0;
+	min-block-size: 0;
+}
+.cb-detail-notes {
+	display: grid;
+	gap: var(--space-loose);
+	align-content: start;
+	padding-block: var(--space-tight);
+}
+.cb-detail-a11y {
+	display: grid;
+	gap: var(--space-tight);
+	padding-block-start: var(--space-comfortable);
+	border-block-start: 1px solid var(--color-border-soft);
 }
 .cb-detail-controls {
 	display: grid;
@@ -974,6 +1454,9 @@ function inspect(name: string) {
 	min-block-size: 2.25rem;
 	padding-inline: var(--space-tight);
 	border: 0;
+	/* A tab's underline: 1px does not read as a selection, and the scale has no
+	   equivalent because this is a marker rather than a border. */
+	/* ds-allow-hardcode */
 	border-block-end: 2px solid transparent;
 	background: transparent;
 	font: inherit;
@@ -1050,20 +1533,71 @@ function inspect(name: string) {
 	color: var(--color-foreground);
 }
 .cb-detail-note {
-	margin: 0 0 var(--space-comfortable);
-	font-size: var(--fs-micro);
+	margin: 0;
+	max-inline-size: 74ch;
+	font-size: var(--fs-meta);
 	line-height: 1.6;
-	color: var(--color-foreground-quiet);
+	white-space: pre-line;
+	color: var(--color-foreground-soft);
 }
 .cb-detail-stage {
 	display: grid;
-	place-items: center;
-	min-block-size: 22rem;
-	margin-block: 0 var(--space-comfortable);
-	padding: var(--space-section);
-	border: 1px solid var(--color-border);
+	/* The screen's own edge, inside the bezel. Slightly tighter than the frame's
+	   radius so the two curves nest rather than fight. */
 	border-radius: var(--radius-lg);
+	/* `safe center`, the same rule the grid uses. A specimen that FITS is centred
+	   — a button pinned to the top edge of a phone screen reads as a mistake —
+	   and one that overflows falls back to the top, so its head and its foot are
+	   not both cut off at once. The `safe` keyword is exactly that switch, and it
+	   is why a navbar still meets the top edge: at 100% width and full height it
+	   fills the screen rather than floating in it. */
+	align-content: safe center;
+	justify-items: safe center;
+	block-size: var(--cb-screen-h, 100%);
+	margin-block: 0;
+	padding: 0;
+	border: 1px solid var(--color-border);
+	overflow: hidden;
+	/*
+	 * THE SCREEN'S OWN GROUND — a paper-like dot grid, not the bezel showing
+	 * through. It was transparent, so the earth read straight through the whole
+	 * preview and the screen looked like a solid earth panel: an empty area that
+	 * appeared to be a component rather than the space one sits in.
+	 *
+	 * A near-white surface with a faint dot lattice says "backdrop" the way graph
+	 * paper does — present enough to read as a surface, quiet enough that nothing
+	 * placed on it competes. The dots are a radial-gradient rather than an image,
+	 * so they cost no request and inherit the theme.
+	 */
+}
+/* An ANCHORED specimen. A navbar belongs against the top of the screen and a
+   footer against the bottom; centring either is the same mistake as pinning a
+   button to the top edge, only in the other direction. */
+.cb-detail-stage[data-anchor="top"] {
+	align-content: start;
+}
+.cb-detail-stage[data-anchor="bottom"] {
+	align-content: end;
+}
+.cb-detail-stage[data-anchor="fill"] {
+	align-content: stretch;
+	justify-items: stretch;
+	/* FULL HEIGHT, and no padding. The stage is standing in for a viewport, so a
+	   navbar has to be able to sit against its top edge and a footer against its
+	   bottom the way they would on a real page. `space-section` of padding meant
+	   every composite floated in the middle of a frame, which is the one thing a
+	   device preview must not do — it hides exactly the edge behaviour the
+	   preview exists to show. */
+	block-size: 100%;
+	/* Tall enough to be a screen. `100%` alone resolves against a row whose
+	   height is its content, so the stage was only ever as tall as the specimen —
+	   a navbar preview 60px high in a panel with room for six hundred. */
+	min-block-size: min(68dvh, 44rem);
+	margin-block: 0;
+	padding: 0;
+	border: 1px solid var(--color-border);
 	background: var(--color-surface-page);
+	overflow: hidden;
 }
 .cb-detail-stage--tall {
 	min-block-size: 22rem;
@@ -1088,6 +1622,33 @@ function inspect(name: string) {
 	line-height: 1.55;
 	color: var(--color-foreground-soft);
 }
+/* The prose behind a decision, collapsed. Worth reading once, not worth four
+   of them open at a time pushing every switch below the fold. */
+.cb-why {
+	margin-block-start: 0.4rem;
+}
+.cb-why-summary {
+	list-style: none;
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 1.5rem;
+	font-family: var(--font-mono);
+	font-size: var(--fs-nano);
+	color: var(--color-foreground-quiet);
+	cursor: pointer;
+}
+.cb-why-summary::-webkit-details-marker {
+	display: none;
+}
+.cb-why-summary::after {
+	content: " +";
+}
+.cb-why[open] .cb-why-summary::after {
+	content: " −";
+}
+.cb-why-summary:hover {
+	color: var(--color-foreground);
+}
 .cb-chips {
 	display: flex;
 	flex-wrap: wrap;
@@ -1109,23 +1670,104 @@ function inspect(name: string) {
 	border-color: var(--color-primary);
 	color: var(--color-primary-foreground);
 }
+/* One row per legacy class. Flat and dense on purpose — this is a worklist,
+   not a gallery, and the thing you want from it is "how many are left". */
+.cb-migration {
+	display: grid;
+	gap: 0.15rem;
+	margin-block-start: var(--space-tight);
+}
+.cb-mig {
+	display: grid;
+	grid-template-columns: minmax(0, 12rem) auto minmax(0, 14rem) auto;
+	align-items: center;
+	gap: var(--space-tight);
+	padding: var(--space-tight) var(--space-comfortable);
+	border: 1px solid var(--color-border-soft);
+	border-radius: var(--radius-sm);
+	background: var(--color-surface-raised);
+}
+.cb-mig--done {
+	opacity: 0.62;
+}
+.cb-mig-from {
+	color: var(--color-foreground-quiet);
+	overflow-wrap: anywhere;
+}
+.cb-mig-arrow {
+	display: inline-flex;
+	color: var(--color-border-strong);
+}
+.cb-mig-to {
+	justify-self: start;
+	padding: 0.1rem 0.45rem;
+	border: 1px solid var(--color-border-soft);
+	border-radius: var(--radius-full);
+	background: transparent;
+	font: inherit;
+	font-family: var(--font-mono);
+	font-size: var(--fs-micro);
+	color: var(--color-foreground);
+	cursor: pointer;
+}
+.cb-mig-to:hover {
+	border-color: var(--color-border-strong);
+	background: var(--color-muted);
+}
+.cb-mig-note {
+	grid-column: 1 / -1;
+	margin: 0.15rem 0 0;
+	font-size: var(--fs-micro);
+	line-height: 1.5;
+	color: var(--color-foreground-soft);
+}
 .cb-units {
 	display: grid;
 	gap: var(--space-comfortable);
-	grid-template-columns: repeat(auto-fill, minmax(min(24rem, 100%), 1fr));
+	/* The track has a CEILING as well as a floor, and the ceiling is what the
+	   square made necessary. With `1fr` the tracks absorb every spare pixel, and
+	   a card that is square absorbs them on both axes: at a 1044px main region
+	   that produced two 494x494 cards, each holding one badge in an ocean of
+	   ground. Capping at 22rem keeps a card the size of the thing it is showing.
+	   The floor is 19rem, not 21: `auto-fill` fits as many columns as the MINIMUM
+	   allows, and 21 gave two tracks at this width where 19 gives three, which
+	   then share the space and land at ~337px each.
+	   The cap goes on the CARD, not the track. `auto-fill` counts tracks by the
+	   track's MAX when that max is definite, so capping the track at 22rem gave
+	   two columns and a centred grid with 320px of margin either side. A `1fr`
+	   track still gives three; the card is bounded inside it and centred. */
+	grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr));
 	margin-block-start: var(--space-tight);
 }
 .cb-unit {
+	/* Head and stage. No prose: a grid is for finding a unit, and a paragraph
+	   under each one turns twenty cards into a wall of text you scroll past.
+	   The description lives in the detail view, under the specimen.
+
+	   SQUARE, every one of them. A grid where a claim-card is four times the
+	   height of a badge is a grid you scroll rather than scan — the eye loses
+	   the row and the tall cards decide the rhythm. A fixed ratio makes the
+	   cards comparable, and anything that does not fit scrolls inside its own
+	   stage instead of stretching the card. */
 	display: grid;
-	grid-template-rows: auto 1fr auto;
+	grid-template-rows: auto minmax(0, 1fr);
+	aspect-ratio: 1;
 	min-inline-size: 0;
+	/* The containing block for the stretched target above. Without it the
+	   pseudo-element resolves against the nearest positioned ancestor, which is
+	   the page, and one card would cover the whole grid. */
+	position: relative;
+	/* Square, and bounded. A square that grows with its track grows on BOTH
+	   axes: at a 1044px main region an unbounded card was 494x494 holding one
+	   badge. 22rem is about the size of the largest thing any specimen actually
+	   is. */
+	max-inline-size: 22rem;
+	margin-inline: auto;
+	inline-size: 100%;
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	background: var(--color-surface-raised);
 	overflow: hidden;
-}
-.cb-unit--tall .cb-unit-stage {
-	min-block-size: 16rem;
 }
 .cb-unit-head {
 	display: flex;
@@ -1138,10 +1780,85 @@ function inspect(name: string) {
 	background: var(--color-muted);
 }
 .cb-unit-name {
+	border: 0;
+	padding: 0;
+	background: none;
 	font-family: var(--font-mono);
 	font-size: var(--fs-meta);
 	font-weight: 600;
 	color: var(--color-foreground);
+	cursor: pointer;
+	text-align: start;
+}
+/*
+ * THE WHOLE CARD IS THE TARGET, from one button.
+ *
+ * A stretched pseudo-element rather than a <button> around everything: wrapping
+ * the card put real buttons and links inside a button, which is invalid HTML and
+ * swallowed their clicks — pressing the navbar's hamburger opened the detail
+ * view instead of the menu. `::after` covers the same area and nests nothing, so
+ * there is exactly one control and it is the size of the card.
+ */
+.cb-unit-name::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	border-radius: inherit;
+}
+.cb-unit:hover .cb-unit-name {
+	text-decoration: underline;
+	/* ds-allow-hardcode */
+	text-underline-offset: 3px;
+}
+.cb-unit:hover {
+	border-color: var(--color-border-strong);
+}
+/* The ring goes on the CARD, because the card is what the button covers. A ring
+   around three words in the corner would describe a target that is not there. */
+.cb-unit:has(.cb-unit-name:focus-visible) {
+	outline: 1px solid var(--color-focus);
+	/* The ring sits 2px off the card edge. The spacing scale starts at 0.25rem,
+	   twice this — at 4px it reads as a second border rather than as focus. */
+	/* ds-allow-hardcode */
+	outline-offset: 2px;
+}
+.cb-unit-name:focus-visible {
+	outline: none;
+}
+/* The stage is a PREVIEW — see the `inert` attribute on it, which handles the
+   mouse, the tab order and the accessibility tree together. This only has to
+   keep the stretched target above reachable through it. */
+.cb-unit-stage {
+	pointer-events: none;
+}
+/* THE PAPER GROUND, defined once and worn by both stages.
+ *
+ * A specimen needs somewhere to sit that is legibly NOT the specimen. A flat
+ * fill cannot do that job: a component with its own pale surface dissolves
+ * into it, and one without reads as though its background failed to load. A
+ * faint dot grid is the drafting-paper convention for exactly this — it says
+ * "room", and no component in this system is made of dots, so nothing can be
+ * mistaken for it.
+ *
+ * ONE rule, two stages, because the alternative is two copies that agree today
+ * and drift the first time either is touched. The blur values in this brand
+ * were 10px in the navbar and an undefined variable in the menu for precisely
+ * that reason, and both of them RENDERED, so nothing reported it.
+ *
+ * 10% of the foreground: visible at reading distance, gone at a glance. It is
+ * texture, and texture that competes with the thing it sits behind is
+ * decoration.
+ */
+.cb-unit-stage,
+.cb-detail-stage {
+	background-color: var(--color-surface-raised);
+	background-image: radial-gradient(
+		circle at 1px 1px,
+		color-mix(in oklab, var(--color-foreground) 10%, transparent) 1px,
+		transparent 0
+	);
+	background-size: 1rem 1rem;
 }
 .cb-unit-tags {
 	display: flex;
@@ -1177,22 +1894,144 @@ function inspect(name: string) {
 }
 .cb-unit-stage {
 	display: grid;
-	place-items: center;
+	/* `safe center`, which is centred until it would cost you something.
+	   A badge alone in a square looks wrong pinned to the top edge, so the
+	   resting behaviour is centred. But centring a specimen TALLER than its
+	   stage hides the head and the foot at once — you scroll up for the title
+	   and down for the action, and the first glance lands in the middle of a
+	   card. The `safe` keyword is exactly that rule: centre while it fits, fall
+	   back to `start` the moment it overflows. Without it the choice is one
+	   behaviour for both cases and one of them is always wrong. */
+	/* A DEFINITE track, then centre within it. Without the explicit column the
+	   track is content-sized, and a specimen whose root is now a container at
+	   `inline-size: 100%` resolves 100% against a track being sized BY that same
+	   element — circular, and it lands on zero. The accordion specimen collapsed
+	   to a 0px column exactly this way. `minmax(0, 1fr)` makes the track the
+	   stage's own width, so `safe center` still centres and 100% still means the
+	   stage. */
+	grid-template-columns: minmax(0, 1fr);
+	align-content: safe center;
+	justify-items: safe center;
 	gap: var(--space-tight);
-	min-block-size: 9rem;
+	/* `min-block-size: 0` is what lets the stage shrink inside the square and
+	   scroll instead of pushing the card taller — a grid child defaults to
+	   `auto` and refuses to go below its content. */
+	min-block-size: 0;
+	/* `auto`, and declared ONCE. A second `overflow: hidden` used to sit at the
+	   bottom of this block and win on source order, so the six specimens taller
+	   than their square were silently cropped rather than scrollable — the
+	   scrollHeight was right, the scrollbar was gone, and nothing reported it. */
+	overflow: auto;
+	overscroll-behavior: contain;
 	padding: var(--space-comfortable);
-	/* The stage is the PAGE ground, not the card's — a specimen has to be seen
-	   against what it will actually sit on. */
-	background: var(--color-surface-page);
+	/* The paper ground, shared with the detail stage — see `.cb-paper` below.
+	   This used to be a flat `--color-surface-page` on the reasoning that a
+	   specimen should sit on the ground it will really sit on. True, and it
+	   still left the card unable to say which pixels were the component and
+	   which were the room around it: a specimen with its own pale surface
+	   dissolved into the stage, and one without looked like it was missing a
+	   background. The dots answer that without pretending to be a component. */
+}
+/* Walking a flow, not choosing a look. A rail under the stage: where you are,
+   what is either side of you, and two arrows — the sequence read left to right,
+   which is the direction the flow itself runs. */
+/* THE DEVICE. An earth-tinted bezel with a thin edge around the screen, so the
+   preview reads as a thing being simulated rather than as a panel of the docs
+   page that happens to be a different width. The bezel is what makes 390px look
+   like a phone instead of a narrow column. */
+.cb-detail-frame {
+	display: grid;
+	/* As wide as the device it is drawing, centred in the panel. */
+	inline-size: var(--cb-device-w, 100%);
+	max-inline-size: 100%;
+	margin-inline: auto;
+	/* Fills the panel. The stage was only ever as tall as its specimen, so a
+	   60px navbar sat in a screen 60px high — a device preview has to be the
+	   size of the device, whatever is on it. */
+	/* `block-size`, not `min-`. The screen inside reserves its UNSCALED height so
+	   the transform has something to shrink, and a `min-` frame grew to fit that
+	   rather than clipping it — the desktop device came out 1226px tall beside a
+	   705px phone. A fixed height plus `overflow: hidden` is what makes all three
+	   devices the same size, which is the point of standing them side by side. */
+	/* With a FLOOR. The viewport allowance alone put the device at ~200px on a
+	   short window — the phone showed its own status bar and clipped the first
+	   row of whatever it was previewing, which reads as a broken component
+	   rather than a small screen. `max()` keeps this a DEFINITE height, so the
+	   frame still refuses to grow to its unscaled content; below the floor the
+	   page scrolls instead, which is the honest trade. */
+	block-size: max(30rem, calc(100dvh - var(--cb-top, 0px) - 11rem));
+	padding: var(--space-tight);
+	border: 1px solid var(--color-border-strong);
+	border-radius: var(--radius-xl);
+	/* A LIGHT earth rim. At 14% it was a field of colour rather than a bezel —
+	   and with the screen transparent it covered the whole preview. 7% is enough
+	   to read as a device edge and not enough to be a surface of its own. */
+	background: color-mix(in oklab, var(--color-earth) 7%, var(--color-surface-page));
 	overflow: hidden;
 }
-.cb-unit-note {
+.cb-detail-frame > .cb-detail-stage {
+	/* The SCREEN inside the bezel. A transform costs no layout width or height —
+	   the box keeps its believed size — so the 1440px desktop preview would paint
+	   over the controls beside it; the bezel's `overflow: hidden` is what stops
+	   that, and the measured height is what stops the gap below. */
+	transform: scale(var(--cb-scale, 1));
+	transform-origin: top left;
+	block-size: var(--cb-screen-h, 100%);
+}
+.cb-walk {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-tight);
+	margin-block-start: var(--space-comfortable);
+}
+.cb-walk-label {
 	margin: 0;
-	padding: var(--space-tight) var(--space-comfortable);
-	border-block-start: 1px solid var(--color-border-soft);
-	font-size: var(--fs-micro);
-	line-height: 1.5;
+	font-family: var(--font-mono);
+	font-size: var(--fs-nano);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-widest);
 	color: var(--color-foreground-quiet);
+}
+.cb-walk-rail {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-hairline);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.cb-walk-step {
+	min-block-size: 1.75rem;
+	padding: 0 0.75rem;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-full);
+	background: var(--color-surface-raised);
+	font: inherit;
+	font-size: var(--fs-micro);
+	color: var(--color-foreground-soft);
+	cursor: pointer;
+	transition: background var(--duration-quick) var(--ease-out);
+}
+.cb-walk-step:hover:not(:disabled) {
+	background: var(--color-muted);
+	color: var(--color-foreground);
+}
+.cb-walk-step[aria-current="step"] {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+	font-weight: 600;
+}
+.cb-walk-step:disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+.cb-walk-arrow {
+	font-weight: 500;
 }
 .cb-unit-slots,
 .cb-unit-todo {
@@ -1201,25 +2040,41 @@ function inspect(name: string) {
 	color: var(--color-foreground-quiet);
 }
 /* The specimens' own scaffolding — a row, or a stack. Deliberately only two:
-   a specimen that needs a third layout is a specimen doing too much. */
-.sp-row--cards {
+   a specimen that needs a third layout is a specimen doing too much.
+
+   `:global`, and that is not a style choice. These classes dress markup that
+   arrives through `{@html}`, which Svelte compiles nothing of — so it never
+   stamps the scoping class on it, and a scoped `.sp-stack` selector matches
+   nothing at all. All four of these were scoped and therefore DEAD: every
+   gallery in this page has been laying out by default flow rather than by the
+   scaffold, which looked close enough to right that nobody checked. It surfaced
+   only when the specimens became containers and one of them resolved 100% of a
+   rule that was not applying. */
+:global(.sp-row--cards) {
 	align-items: stretch;
 }
-.sp-row {
+:global(.sp-row) {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
 	gap: var(--space-tight);
 }
-.sp-stack {
+:global(.sp-stack) {
 	display: grid;
 	gap: var(--space-tight);
 	inline-size: 100%;
 	max-inline-size: 22rem;
 	min-inline-size: 0;
 }
-.sp-stack--wide {
+:global(.sp-stack--wide) {
+	/* `inline-size`, not only `max-inline-size`. A max alone leaves the wrapper
+	   shrink-wrapping its content, and its content is now a CONTAINER at
+	   `inline-size: 100%` — 100% of a box that is sizing itself from its content
+	   is zero, and the whole specimen collapsed to a 0px column. A container
+	   cannot be measured by what is inside it; that is the point of containment,
+	   and anything holding one has to have a width of its own. */
+	inline-size: 100%;
 	max-inline-size: 100%;
 }
 .cb-swatches {

@@ -20,27 +20,26 @@
 
 import type { Brand } from '@myavenceo/aven-vibes/brand'
 import { brandFromDocuments } from '@myavenceo/aven-vibes/brand'
-
+import { actorStyles } from './actors.js'
 import brandDocument from './brand/brand.avenceo.json' with { type: 'json' }
 import componentsDocument from './brand/components.avenceo.json' with { type: 'json' }
-import { unitStyles } from './units.js'
 
 /**
- * The brand, with the units folded into its component map.
+ * The brand, with the actors folded into its component map.
  *
  * Two sources on purpose, for now. `components.avenceo.json` still holds the
- * classes the surfaces call today; `unitStyles` holds what the units compile
+ * classes the surfaces call today; `actorStyles` holds what the units compile
  * to. They merge here rather than in the generator so there is exactly one
- * stylesheet — the alternative, a second `<style>` for units, is how a system
+ * stylesheet — the alternative, a second `<style>` for actors, is how a system
  * ends up with two answers for the same class.
  *
- * The units win a collision, because a unit is the migrated form of whatever
+ * The actors win a collision, because an actor is the migrated form of whatever
  * legacy class it replaces. The row goes from `components.avenceo.json` once
  * its last caller does.
  */
 export const avenCeo: Brand = (() => {
 	const brand = brandFromDocuments(brandDocument, componentsDocument)
-	return { ...brand, components: { ...brand.components, ...unitStyles } }
+	return { ...brand, components: { ...brand.components, ...actorStyles } }
 })()
 
 export default avenCeo

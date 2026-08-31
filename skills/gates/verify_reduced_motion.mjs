@@ -25,6 +25,26 @@
  */
 import { readdirSync, statSync, readFileSync } from 'node:fs';
 import { resolve, join, dirname } from 'node:path';
+import { assertServed } from './_served.mjs'
+
+/**
+ * A target is either a file on disk or a URL to a running server.
+ *
+ * Every render gate here loaded `file://` unconditionally. For a static
+ * component harness that is correct. For a BUILT SvelteKit page it is not: the
+ * module scripts never execute over `file://`, so the page renders its markup
+ * and its CSS and hydrates nothing — and a gate that asks whether a control
+ * WORKS then reports that none of them do. `verify_interactive` failed the docs
+ * page's theme switch on exactly that basis, while the live control flips
+ * `aria-pressed`, flips `data-theme`, and repaints the page.
+ *
+ * A gate that fails on every page of a whole framework gets ignored, or gets
+ * "fixed" by deleting the real ARIA it was complaining about. So: pass a path
+ * and it is a file, pass an http(s) URL and it is served.
+ */
+const isUrl = (t) => /^https?:\/\//.test(t);
+const pageUrl = (t) => (isUrl(t) ? t : 'file://' + resolve(t));
+
 let chromium;
 try { ({ chromium } = await import('playwright')); }
 catch {
@@ -45,6 +65,10 @@ if (!targets.length) {
 const THRESHOLD = Number((argv.find(a => a.startsWith('--threshold=')) || '--threshold=0.1').split('=')[1]);
 
 const files = targets.flatMap(t => {
+  /* A URL is one target and never touches the filesystem — `statSync` on
+     "http://localhost:1421/..." resolves it as a relative PATH and throws
+     ENOENT, which is where URL support silently stops. */
+  if (isUrl(t)) return [t];
   const abs = resolve(t);
   return statSync(abs).isDirectory()
     ? readdirSync(abs).filter(f => f.endsWith('.html')).map(f => join(abs, f))
@@ -127,16 +151,34 @@ for (const f of files) {
   const name = f.split('/').pop();
   // Read every stylesheet the page links, so a policy that lives in a .css file
   // counts the same as one written inline.
-  const html = readFileSync(f, 'utf8');
-  const linkedCss = [...html.matchAll(/<link[^>]+rel=["']?stylesheet["']?[^>]*>/gi)]
-    .map(m => (m[0].match(/href=["']([^"']+)["']/i) || [])[1])
-    .filter(h => h && !/^(https?:)?\/\//.test(h))
-    .map(h => { try { return readFileSync(resolve(dirname(f), h), 'utf8'); } catch { return ''; } })
-    .join('\n');
+  /* A served page's stylesheets are fetched, not read off disk — and on a
+     hydrating build most of the CSS is not in a <link> at all but injected by
+     the client, so reading the HTML file would miss the policy entirely and
+     report a page with a perfectly good reduced-motion block as having none. */
+  const linkedCss = isUrl(f)
+    ? await (async () => {
+        const p = await browser.newPage();
+        assertServed(await p.goto(f, { waitUntil: 'networkidle' }), f);
+        const css = await p.evaluate(() =>
+          [...document.styleSheets]
+            .map(s => { try { return [...s.cssRules].map(r => r.cssText).join('\n'); } catch { return ''; } })
+            .join('\n')
+        );
+        await p.close();
+        return css;
+      })()
+    : (() => {
+        const html = readFileSync(f, 'utf8');
+        return [...html.matchAll(/<link[^>]+rel=["']?stylesheet["']?[^>]*>/gi)]
+          .map(m => (m[0].match(/href=["']([^"']+)["']/i) || [])[1])
+          .filter(h => h && !/^(https?:)?\/\//.test(h))
+          .map(h => { try { return readFileSync(resolve(dirname(f), h), 'utf8'); } catch { return ''; } })
+          .join('\n');
+      })();
 
   const shoot = async (reducedMotion) => {
     const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion });
-    await page.goto('file://' + f);
+    assertServed(await page.goto(pageUrl(f)), pageUrl(f));
     await page.waitForTimeout(450); // let entrance animations settle
     const snap = await page.evaluate(SNAPSHOT, { THRESHOLD, linkedCss });
     await page.close();

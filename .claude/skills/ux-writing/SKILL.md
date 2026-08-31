@@ -1,30 +1,40 @@
 ---
 name: ux-writing
-description: Write or review UI copy — buttons, errors, empty states, microcopy, notifications, labels — using the voice & tone system (clear, concise, useful, human, honest) with the what→why→how error formula and inclusive-language rules. Use when the user needs interface copy, error messages, empty-state text, or a copy review.
+description: "Write or review interface copy: frontload the verb, say what happened and how to fix it, and never let an empty state say 'No data'. Use when: labels, errors, empty states or microcopy need writing or reviewing. Do NOT use for: explaining the system to stakeholders. If the audience is outside the product, use stakeholder-brief instead."
 invocation: model
 ---
 
-# Skill: UX Writing
+<!-- GENERATED from skills/aven-brand/skills/ux-writing.json — do not edit.
+     Edit the JSON and run `node skills/aven-brand/generate.mjs`. -->
 
-Produce or critique interface copy in the project's voice.
+# ux-writing
+
+Write or review interface copy: frontload the verb, say what happened and how to fix it, and never let an empty state say 'No data'.
+
+## Read first
+
+- `skills/content/voice-tone.md`
 
 ## Steps
-1. Read `content/voice-tone.md` (voice principles, tone spectrum, formulas, microcopy patterns, inclusive language, pre-ship checklist).
-2. Match tone to the user's emotional state (onboarding/success/routine/error/destructive). Higher stress → plainer language.
-3. Apply the formulas:
-   - Buttons: frontload the verb, name the outcome.
-   - **Confirmation dialogs:** the confirm button **restates the action and object** — "Delete account", not "Delete"/"OK"/"Yes"/"Confirm". The title asks ("Delete account?"), the button answers in matching words. Cancel stays "Cancel". For irreversible/high-stakes actions, require a **type-to-confirm** step (WCAG 3.3.4/3.3.6).
-   - Errors: what happened → why → how to fix (no dead ends, no codes/stack traces).
-   - Empty states: value → first action.
-4. Enforce mechanics: sentence case, no ALL CAPS, numerals, no blame on the user, labels (not placeholders), no directional/color-only instructions.
-5. Run the 10-item pre-ship copy checklist.
+
+1. Frontload the verb. 'Save changes', not 'Click here to save your changes'.
+2. An error says what happened, why, and how to fix it. 'Error: Invalid input' does none of the three.
+3. An empty state explains the value and points at the first action.
+4. A control names exactly what will happen, and the confirmation uses the same word back.
+5. No emoji. Not as a bullet, not as a status dot, not as tone.
 
 ## Output
-Final copy (or a redline review) that reads naturally aloud and passes the checklist. Keep within any character limits for tight UI.
 
-## Verification (mandatory before declaring done)
-Run every line through the 10-item pre-ship checklist in `content/voice-tone.md` — do not skip it:
-- Reads naturally **aloud**; frontloaded verb on actions; no jargon/blame/dead-ends.
-- Errors follow what→why→how; empty states give value→action; no bare "No data"/"Error".
-- Mechanics: sentence case, numerals, labels (not placeholders), no color/direction-only cues, inclusive language.
-- Within character limits; translatable (no concatenation — see `accessibility/i18n-rtl.md`).
+The copy, plus what each line replaced and why.
+
+## Gates
+
+Run these and report their real output. A number you did not measure is not a number.
+
+- `skills/gates/check_no_emoji.py`
+
+## Done when
+
+- check_no_emoji passes
+- every error names a recovery
+- no empty state says 'No data' or equivalent

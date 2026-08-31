@@ -205,6 +205,16 @@
 				"$value": "var(--color-marine)",
 				"$description": "the one main affirmative action."
 			},
+			"primary-edge": {
+				"$type": "color",
+				"$value": "#68707d",
+				"$description": "The rim of a primary button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 2.93:1 against the fill."
+			},
+			"primary-ring": {
+				"$type": "color",
+				"$value": "#c3c4c3",
+				"$description": "The halo a primary button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
+			},
 			"primary-foreground": {
 				"$type": "color",
 				"$value": "var(--color-on-primary)",
@@ -220,6 +230,26 @@
 				"$value": "var(--color-on-primary-quiet)",
 				"$description": "the quiet step of text on primary — footer meta, the legal line."
 			},
+			"secondary": {
+				"$type": "color",
+				"$value": "var(--color-paradise)",
+				"$description": "THE SECOND BRAND COLOUR. Paradise. Stated once here so every role that means \"the second colour\" points at this rather than naming the tone — `progress` did, `band` did, and the three had no way of moving together. It replaces a `secondary` that pointed at a sand SURFACE, which was a surface wearing an action name."
+			},
+			"secondary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on the second brand colour."
+			},
+			"tertiary": {
+				"$type": "color",
+				"$value": "var(--color-turquoise)",
+				"$description": "THE THIRD BRAND COLOUR. Turquoise. Same rule: `success` and `band-alt` both meant this and both named the tone."
+			},
+			"tertiary-foreground": {
+				"$type": "color",
+				"$value": "var(--color-on-dark)",
+				"$description": "text on the third brand colour."
+			},
 			"band": {
 				"$type": "color",
 				"$value": "#217c91",
@@ -228,7 +258,7 @@
 			"band-alt": {
 				"$type": "color",
 				"$value": "#377d77",
-				"$description": "the second editorial band, from turquoise. Same rule, same 4.6:1 with white."
+				"$description": "the second editorial band, from the THIRD brand colour. Same rule, same 4.6:1 with white."
 			},
 			"band-foreground": {
 				"$type": "color",
@@ -242,13 +272,13 @@
 			},
 			"scrim": {
 				"$type": "color",
-				"$value": "#1e293b52",
-				"$description": "The veil over hero media. 32% marine — enough that the light ink reads on any frame the video lands on, little enough that the scene is still a scene. It was three stacked `color-mix` stops in one component."
+				"$value": "#1e293bad",
+				"$description": "68% marine, through the middle of a hero where the copy sits.\n\nIt was 32%, described as light enough that the scene still reads — and it was, and the copy on top of it did not. Measured against the home page's own footage, compositing the gradient at the height each element actually sits at: the headline reached 2.25:1 where large text needs 3.0, and the lead 2.57:1 where 17px text needs 4.5. axe-core flagged all five nodes and was right; the earlier belief that this was a gate failing to see a video was wrong, and checking it rather than assuming is the only reason that was caught. Solved numerically: 0.55 leaves the lead at 3.90, 0.62 at 4.49 — still short — and 0.68 clears both at 5.11 and 4.72.\n\nIT COSTS THE PICTURE, and that is the trade this system says to make. The gradient now runs 0.65 / 0.68 / 0.55, which is nearly flat, so the intent this stop was written for — lighter through the middle where the scene reads — no longer survives on high-key footage. Bright sky and bright water leave no low-contrast region to hide text in. Accessibility outranks aesthetics here; the way to get the photograph back is to darken only BEHIND the copy rather than across the frame, which is a change to the hero's composition and not to this token."
 			},
 			"scrim-strong": {
 				"$type": "color",
-				"$value": "#1e293b80",
-				"$description": "50% marine, for the top of a hero where the nav sits."
+				"$value": "#1e293ba6",
+				"$description": "65% marine, for the top of a hero where the nav sits — the one stop in the scrim whose job is a CONTRAST GUARANTEE rather than a mood.\n\nIt was 50%, and 50% does not carry it. Measured on the home page's own footage, compositing the scrim over the video's top band and reading white nav ink against it: worst pixel 2.94:1 and the 95th percentile 2.99:1, where the nav links need 4.5:1. The bright quarter of that band is sky, the links sit on the right where the sky is, and the frame CHANGES — a video cannot be checked once. Solved numerically rather than chosen: 0.60 reaches 3.88:1, 0.65 reaches 4.53:1, so 0.65 is the first step that clears the bar for any frame."
 			},
 			"scrim-heavy": {
 				"$type": "color",
@@ -264,16 +294,6 @@
 				"$type": "color",
 				"$value": "#151e30e6",
 				"$description": "the glass bar on dark."
-			},
-			"secondary": {
-				"$type": "color",
-				"$value": "var(--color-surface-selected)",
-				"$description": "the warm second action."
-			},
-			"secondary-foreground": {
-				"$type": "color",
-				"$value": "var(--color-marine)",
-				"$description": "text on secondary."
 			},
 			"quiet": {
 				"$type": "color",
@@ -292,8 +312,8 @@
 			},
 			"progress": {
 				"$type": "color",
-				"$value": "var(--color-paradise)",
-				"$description": "in motion."
+				"$value": "var(--color-secondary)",
+				"$description": "in motion. Points at the RANK rather than at paradise, so the second brand colour and everything that means it move together."
 			},
 			"progress-foreground": {
 				"$type": "color",
@@ -327,8 +347,18 @@
 			},
 			"success": {
 				"$type": "color",
-				"$value": "var(--color-turquoise)",
-				"$description": "settled."
+				"$value": "var(--color-tertiary)",
+				"$description": "settled. Points at the rank rather than at turquoise."
+			},
+			"success-edge": {
+				"$type": "color",
+				"$value": "#84beb8",
+				"$description": "The rim of a success button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.56:1 against the fill."
+			},
+			"success-ring": {
+				"$type": "color",
+				"$value": "#cde2da",
+				"$description": "The halo a success button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
 			},
 			"success-foreground": {
 				"$type": "color",
@@ -400,6 +430,31 @@
 				"$value": "var(--color-terracotta)",
 				"$description": "something failed."
 			},
+			"terracotta-strong": {
+				"$type": "color",
+				"$value": "#a8452f",
+				"$description": "Terracotta darkened until light ink can sit on it. The tone itself is a mid-value and fails BOTH ways at body size: 2.45:1 as ink on the accent bar, 4.19:1 as a ground under cream, where 4.5 is the floor. This is the same rank `eyebrow-ink` occupies for paradise — the tone, moved exactly far enough to carry. Cream on it measures 5.70:1.\n\nTerracotta itself stays in `functional`, where it already lived; adding it to `tones` as well made `--color-terracotta` a name declared twice, and the shadowed-token test caught it before it could silently pick a winner."
+			},
+			"terracotta-surface": {
+				"$type": "color",
+				"$value": "#faf0e8",
+				"$description": "The tint a terracotta note sits on. Same value as `error-surface` today and a different NAME on purpose: a discount flag in error tokens reads as a warning to anyone auditing the palette, and the two are free to diverge the moment either job changes. `terracotta-strong` on it measures 5.26:1."
+			},
+			"terracotta-edge": {
+				"$type": "color",
+				"$value": "var(--color-terracotta)",
+				"$description": "The border of a terracotta note — the tone at full strength, where it works as a line rather than as ink or a ground."
+			},
+			"error-edge": {
+				"$type": "color",
+				"$value": "#d69280",
+				"$description": "The rim of a error button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.71:1 against the fill."
+			},
+			"error-ring": {
+				"$type": "color",
+				"$value": "#edd1c4",
+				"$description": "The halo a error button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
+			},
 			"error-foreground": {
 				"$type": "color",
 				"$value": "var(--color-on-error)",
@@ -450,10 +505,20 @@
 				"$value": "var(--color-sunflower)",
 				"$description": "the marketing highlight. Same paint as `warning`, different job — and the job is the reason the name survives the merge."
 			},
+			"accent-edge": {
+				"$type": "color",
+				"$value": "#f6d17f",
+				"$description": "The rim of a accent button. Lighter than its fill and by enough to see — at 22% the two were the same colour at arm's length, which is a border that costs a declaration and reads as nothing. 1.21:1 against the fill."
+			},
+			"accent-ring": {
+				"$type": "color",
+				"$value": "#faeac4",
+				"$description": "The halo a accent button grows on hover and while loading. The fill, softened into the page, so it reads as the button's own light rather than as a second border."
+			},
 			"accent-foreground": {
 				"$type": "color",
-				"$value": "var(--color-on-warning)",
-				"$description": "text on accent."
+				"$value": "#4a3208",
+				"$description": "The label on a sunflower fill: a DARK GOLD, not the near-black ink used on every other ground. Black on yellow is a hazard sign — the pairing has a meaning outside this brand and it is 'caution', which is the opposite of what the primary call to action is for. Sunflower darkened until it is unmistakably text reads as the same colour speaking rather than as a warning label.\n\nMeasured at 6.78:1 on #f2ba3d — comfortably past AA, and deliberately not the maximum available: #1e293b scores 8.27 and is the thing being replaced. Contrast past the floor is a budget to spend on tone, not a score to maximise."
 			},
 			"accent-ink": {
 				"$type": "color",
@@ -479,41 +544,6 @@
 				"$type": "color",
 				"$value": "#726035",
 				"$description": "the accent tint edge on dark."
-			},
-			"offer": {
-				"$type": "color",
-				"$value": "var(--color-terracotta)",
-				"$description": "the BETA window, which closes. Borrows the failure tone so an offer never reads as merely a highlight."
-			},
-			"offer-foreground": {
-				"$type": "color",
-				"$value": "var(--color-on-error)",
-				"$description": "text on an offer."
-			},
-			"offer-ink": {
-				"$type": "color",
-				"$value": "#a24b34",
-				"$description": "offer, as running text."
-			},
-			"offer-surface": {
-				"$type": "color",
-				"$value": "#f4e3d8",
-				"$description": "the quiet form of offer — a tint to sit offer-ink on. Concrete, not `bg-offer/15`: an alpha tint over an unknown ground has no guaranteed contrast, and the site had five different alphas doing this by eye. offer-ink measures 4.68:1 on it."
-			},
-			"offer-border": {
-				"$type": "color",
-				"$value": "#eac8ba",
-				"$description": "the edge of a offer tint. Decorative — it separates the tint from the page, and the meaning is carried by the ink and the words, never by this line alone."
-			},
-			"dark-offer-surface": {
-				"$type": "color",
-				"$value": "#3c2c34",
-				"$description": "the offer tint on dark."
-			},
-			"dark-offer-border": {
-				"$type": "color",
-				"$value": "#5e3837",
-				"$description": "the offer tint edge on dark."
 			},
 			"card": {
 				"$type": "color",
@@ -615,11 +645,6 @@
 				"$value": "#f2c766",
 				"$description": "accent running text on dark."
 			},
-			"dark-offer-ink": {
-				"$type": "color",
-				"$value": "#e08b73",
-				"$description": "offer running text on dark."
-			},
 			"border-strong": {
 				"$type": "color",
 				"$value": "#c7c7c8",
@@ -685,6 +710,16 @@
 				"$value": "#1d7084",
 				"$description": "the site eyebrow. Paradise darkened only as far as legibility on the DARKEST ground an eyebrow lands on — which is not the page but a sunflower-tinted panel. Tuning it against the page alone left it at 4.02:1 on light-selected and 4.25:1 on an accent tint."
 			},
+			"icon-tint": {
+				"$type": "color",
+				"$value": "#8fa0b4",
+				"$description": "The duotone BACKING — the quiet half of every two-tone glyph.\n\nIt is a colour, not a dimming. Both layers used to take the ink and separate by opacity, and at 50% of marine that is a heavy grey slab: the backing read as a filled box with a figure punched out of it rather than as the soft shape behind a mark. This is marine lifted toward the page — light enough that the primary reads as the subject, saturated enough to stay in the family. Measured on the bar's cream at 50% opacity: 1.35:1 against the ground, which is the point — a backing that meets text contrast is a backing competing with its own figure. It is decoration; the FIGURE carries the meaning and the figure is marine."
+			},
+			"dark-icon-tint": {
+				"$type": "color",
+				"$value": "#54657c",
+				"$description": "The same backing on a dark ground, where it must go DARKER rather than lighter — lifted toward the surface it sits on, not away from it, or the quiet half becomes the brightest thing in the glyph and the duotone's hierarchy inverts."
+			},
 			"focus": {
 				"$type": "color",
 				"$value": "#ab790b",
@@ -699,6 +734,66 @@
 				"$type": "color",
 				"$value": "#6cc3dd",
 				"$description": "the same eyebrow on a dark ground, where the tone must go LIGHTER rather than darker — which is the whole reason this is a role and not a darkening written at the call site."
+			},
+			"secondary-ink": {
+				"$type": "color",
+				"$value": "var(--color-progress-ink)",
+				"$description": "the second brand colour, as running text."
+			},
+			"tertiary-ink": {
+				"$type": "color",
+				"$value": "var(--color-success-ink)",
+				"$description": "the third brand colour, as running text."
+			},
+			"secondary-edge": {
+				"$type": "color",
+				"$value": "#6ca9b6",
+				"$description": "The rim of a secondary button. Lighter than its fill and by enough to see."
+			},
+			"secondary-ring": {
+				"$type": "color",
+				"$value": "#c4dada",
+				"$description": "The halo a secondary button carries. The fill, softened into the page."
+			},
+			"tertiary-edge": {
+				"$type": "color",
+				"$value": "#7ba9a5",
+				"$description": "The rim of a tertiary button. Lighter than its fill and by enough to see."
+			},
+			"tertiary-ring": {
+				"$type": "color",
+				"$value": "#cadad3",
+				"$description": "The halo a tertiary button carries. The fill, softened into the page."
+			},
+			"secondary-strong": {
+				"$type": "color",
+				"$value": "#217c91",
+				"$description": "The second brand colour, darkened until white reads on it — 4.61:1. Raw paradise gives 3.89, so a filled secondary button in the tone itself fails AA at body size. This is the same value the band uses, and for the same reason: a mid-tone cannot carry text without being taken down a step."
+			},
+			"tertiary-strong": {
+				"$type": "color",
+				"$value": "#377d77",
+				"$description": "The third brand colour, darkened until white reads on it — 4.60:1. Raw turquoise gives 3.12."
+			},
+			"secondary-surface": {
+				"$type": "color",
+				"$value": "#dceae7",
+				"$description": "the secondary tint, shared with `progress` — same colour, named by rank."
+			},
+			"secondary-border": {
+				"$type": "color",
+				"$value": "#b8d7d8",
+				"$description": "the secondary tint, shared with `progress` — same colour, named by rank."
+			},
+			"tertiary-surface": {
+				"$type": "color",
+				"$value": "#e1ede5",
+				"$description": "the tertiary tint, shared with `success` — same colour, named by rank."
+			},
+			"tertiary-border": {
+				"$type": "color",
+				"$value": "#c2ddd5",
+				"$description": "the tertiary tint, shared with `success` — same colour, named by rank."
 			}
 		}
 	},
@@ -979,7 +1074,30 @@
 				"$description": "Buttons, and nothing else. A fully rounded card is a stadium, and a fully rounded input is a pill you cannot tell from a button."
 			}
 		},
+		"rule": {
+			"$description": "How thick a DRAWN rule is — the accent bar over a panel, the dash before a list item, the underline that is a shape rather than a border.\n\nIt did not exist, so every call site wrote a raw px and `lint_hardcodes` was right to fail them: two sites, two different values (2px and 3px), neither traceable to anything. A border-width is not a spacing value and `--space-hairline` (4px) is neither — reaching for it was the workaround that made this gap look filled.\n\nTwo steps, because a rule is either a mark or an emphasis and there is no third thing.",
+			"rule-mark": {
+				"$type": "dimension",
+				"$value": "2px",
+				"$description": "A list marker, a dash before an item. Reads as punctuation."
+			},
+			"rule-accent": {
+				"$type": "dimension",
+				"$value": "3px",
+				"$description": "An accent bar across a panel head. Reads as emphasis."
+			},
+			"rule-frame": {
+				"$type": "dimension",
+				"$value": "6px",
+				"$description": "A card FRAME — a border thick enough to be part of the shape rather than an edge on it. Two steps up from the accent bar because the jobs are different: a rule separates, a frame contains."
+			}
+		},
 		"space": {
+			"space-hairline": {
+				"$type": "dimension",
+				"$value": "0.25rem",
+				"$description": "Half a tight. Twelve declarations across the units referenced `--space-hairline` and it was never defined — every one of them computed to nothing, so a `gap` meant for a hair's breadth was zero and the two things it separated touched. Nothing reported it: an undefined custom property is not an error, it is an empty string, and the declaration is simply dropped."
+			},
 			"space-tight": {
 				"$type": "dimension",
 				"$value": "0.5rem"
@@ -999,6 +1117,90 @@
 			"space-section": {
 				"$type": "dimension",
 				"$value": "2.5rem"
+			}
+		},
+		"motion": {
+			"$description": "The motion scale. It did not exist, and 53 declarations across the units referenced it anyway — `--ease-out` 26 times, `--duration-quick` 19, `--duration-moderate` 8. Every one of those transitions was DEAD: an undefined custom property is an empty string, a declaration containing one is discarded whole, and `transition-duration` computed to `0s` on every button in the system. No gate saw it, because a missing transition renders as a working component that simply snaps.\n\nDurations sit inside the 100-300ms band the rules set for UI transitions. `ease-out` for entrances, `ease-in` for exits, `ease-in-out` for a state change that goes and comes back.",
+			"duration-instant": {
+				"$type": "duration",
+				"$value": "80ms",
+				"$description": "A colour swap that should feel immediate but not jump."
+			},
+			"duration-quick": {
+				"$type": "duration",
+				"$value": "140ms",
+				"$description": "The default. Hover, focus, a control changing under the pointer."
+			},
+			"duration-moderate": {
+				"$type": "duration",
+				"$value": "240ms",
+				"$description": "Something ARRIVING — a drawer, a toast, a panel opening."
+			},
+			"duration-slow": {
+				"$type": "duration",
+				"$value": "360ms",
+				"$description": "A whole region changing. Above this the user is waiting for the interface rather than reading it."
+			},
+			"ease-out": {
+				"$type": "cubicBezier",
+				"$value": "cubic-bezier(0.2, 0, 0, 1)",
+				"$description": "Entrances. Fast at the start, settling at the end — the thing arrives and stops."
+			},
+			"ease-in": {
+				"$type": "cubicBezier",
+				"$value": "cubic-bezier(0.4, 0, 1, 1)",
+				"$description": "Exits. Slow to leave, then gone — nothing decelerates on its way off screen."
+			},
+			"ease-in-out": {
+				"$type": "cubicBezier",
+				"$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+				"$description": "A state change that returns: pressed and released, opened and closed."
+			}
+		},
+		"z": {
+			"$description": "Stacking order. `--z-overlay` and `--z-sticky` were referenced by the sidebar and the navbar and defined nowhere, so a fixed drawer had no stacking order at all and sat behind the content it was covering. Four steps, far apart, because the point of a scale here is that nobody ever writes `z-index: 9999` to win an argument with a number they cannot see.",
+			"z-base": {
+				"$type": "number",
+				"$value": "0",
+				"$description": "The document. Anything that needs to sit above a sibling and nothing else."
+			},
+			"z-sticky": {
+				"$type": "number",
+				"$value": "50",
+				"$description": "A header or rail that stays while the page scrolls under it."
+			},
+			"z-overlay": {
+				"$type": "number",
+				"$value": "100",
+				"$description": "A drawer, a popover, a dropdown — above the page, below a modal."
+			},
+			"z-modal": {
+				"$type": "number",
+				"$value": "200",
+				"$description": "A dialog and its scrim. Nothing routine goes here."
+			},
+			"z-toast": {
+				"$type": "number",
+				"$value": "300",
+				"$description": "The top. A message about what just happened has to clear a modal, because it may be about the modal."
+			}
+		},
+		"blur": {
+			"$description": "Backdrop blur. It did not exist, and the two surfaces that frost themselves had each invented their own answer: the navbar hardcoded `blur(10px)`, the open menu referenced `--blur-soft`, which was defined nowhere and therefore resolved to its own inline fallback. Two values, one question, neither themeable — the exact drift the token layer exists to stop, and invisible to every gate because both of them RENDER.\n\nThree steps, because frosted glass is a legibility device and not a continuum: enough to separate a layer, enough to obscure one, and a veil for the case where the thing behind is noise.",
+			"blur-soft": {
+				"$type": "dimension",
+				"$value": "8px",
+				"$description": "A layer reads as in front without the ground becoming unreadable. The open menu's scrim."
+			},
+			"blur-firm": {
+				"$type": "dimension",
+				"$value": "10px",
+				"$description": "The navbar's glass. It was `blur(10px)` written at the call site; the value is kept exactly so nothing moves, and now it has a name."
+			},
+			"blur-veil": {
+				"$type": "dimension",
+				"$value": "16px",
+				"$description": "The ground is texture, not context — a modal over a dense page."
 			}
 		}
 	},

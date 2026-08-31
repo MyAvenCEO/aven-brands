@@ -1,0 +1,39 @@
+{
+	"name": "design-review",
+	"area": "verify",
+	"summary": "Score a design on six weighted dimensions and return prioritised findings, each with the fix.",
+	"trigger": {
+		"when": [
+			"a design needs judging before it ships",
+			"an existing product needs a consistency audit"
+		],
+		"not": [
+			"deciding whether something is any GOOD, as taste"
+		],
+		"instead": {
+			"the question is taste and beauty": "critique"
+		}
+	},
+	"reads": [
+		".claude/rules/review-and-research.md",
+		"skills/taste/design-taste.md"
+	],
+	"gates": [
+		"contrast.py",
+		"taste_audit.mjs",
+		"slop_tells.mjs"
+	],
+	"steps": [
+		"Score Visual Hierarchy, Consistency, Accessibility, Usability (20% each), Responsiveness and Performance (10% each). Compute the weighted total.",
+		"Run the accessibility lens properly; use contrast.py for any pair you are unsure of rather than estimating.",
+		"Check the anti-slop tells. A passing gate is never evidence of taste.",
+		"Apply the ten usability heuristics and flag violations by number.",
+		"Rank findings Critical, Major, Minor, Enhancement. Every finding names a specific fix, not a direction."
+	],
+	"output": "The six-dimension scored table, then a findings table: number, severity, finding, recommendation.",
+	"done": [
+		"every score is justified by a named observation",
+		"every finding has a specific fix",
+		"any number quoted came from a gate that was actually run"
+	]
+}

@@ -1,0 +1,143 @@
+{
+	"name": "segment",
+	"description": "Two or three mutually exclusive choices, side by side, with the current one marked. The language switch is one; so is the storybook's Light/Dark control; so is a monthly/yearly price toggle.\n\nIt exists because those three were about to be three components. They are one question — \"which of these is on\" — asked with two different faces, and the faces are the only thing that actually differs: DE | EN is text with a hairline between, Light | Dark is a stadium with the active half filled. Building them separately means three answers to how the current option is marked, and the current option is the entire point of the control.\n\nWhat it refuses to be is a segmented control with six options. Past three, the eye stops comparing and starts reading a list, and the right component is a select.",
+	"surface": "site",
+	"surfaceNote": "the DE/EN switch",
+	"interface": {
+		"props": {
+			"label": "string"
+		},
+		"slots": {
+			"options": {}
+		}
+	},
+	"view": {
+		"tag": "span",
+		"attrs": {
+			"role": "group",
+			"aria-label": "$props.label"
+		},
+		"$children": [
+			{
+				"tag": "span",
+				"part": "options",
+				"$children": "options"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Inline and content-sized — it sits in a bar, beside other things, and a control that stretches to its column is a control that has stopped looking like a choice.\n\nNot a container: `fit-content` is width from contents, and containment takes that away.",
+			"display": "inline-flex",
+			"alignItems": "center",
+			"inlineSize": "fit-content",
+			"flexShrink": "0",
+			"fontVariantNumeric": "tabular-nums"
+		},
+		"parts": {
+			"options": {
+				"display": "inline-flex",
+				"alignItems": "center",
+				"gap": "var(--space-hairline)"
+			},
+			"option": {
+				"$description": "One choice. Quiet until it is the current one — and the quiet state uses `foreground-quiet`, a measured role, rather than an opacity. The site's language switch dimmed with `opacity: 0.5` on near-black, which is 3.0:1 and the only axe violation the docs page had: the unselected half of a switch is still a label somebody has to read to operate it.",
+				"display": "inline-flex",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"minBlockSize": "1.75rem",
+				"paddingInline": "var(--space-tight)",
+				"border": "0",
+				"background": "transparent",
+				"font": "inherit",
+				"fontWeight": "600",
+				"color": "var(--color-foreground-quiet)",
+				"textDecoration": "none",
+				"cursor": "pointer",
+				"transition": "color var(--duration-quick) var(--ease-out), background var(--duration-quick) var(--ease-out)"
+			},
+			"divider": {
+				"$description": "The hairline between two text options. `aria-hidden`, because it is punctuation — a screen reader announcing \"DE bar EN\" is reading the furniture.\n\nIt is DRAWN, and it holds NO TEXT. As a `|` glyph it was text to anything measuring the page, and a separator tinted `border-strong` is 1.63:1 against the page — right for a hairline, a failure for a character. Colouring the glyph transparent only moved the problem: the gate then read transparent ink on the rule's own fill and called it 1.00:1, which is a worse answer to a question that should not be asked. The element is empty, so there is nothing to read and nothing to measure; the rule is its background.",
+				"inlineSize": "1px",
+				"blockSize": "1em",
+				"alignSelf": "center",
+				"background": "var(--color-border-strong)",
+				"userSelect": "none",
+				"pointerEvents": "none"
+			}
+		},
+		"variants": {
+			"face": {
+				"$description": "How the choice is drawn. The only thing that genuinely differs between the three uses.",
+				"pill": {
+					"$description": "A stadium with the active half filled — for a control that has to be FOUND, like a theme switch sitting alone in a rail. The divider is dropped: a fill already separates the halves, and a rule inside a border is two separators doing one job.",
+					"border": "1px solid var(--color-border)",
+					"borderRadius": "var(--radius-full)",
+					"overflow": "hidden",
+					"& .segment-options": {
+						"gap": "0"
+					},
+					"& .segment-option": {
+						"minBlockSize": "2rem",
+						"paddingInline": "var(--space-comfortable)"
+					},
+					"& .segment-divider": {
+						"display": "none"
+					}
+				},
+				"large": {
+					"$description": "For the full-screen menu, where the language switch sits under nav points set at 3.75rem and would otherwise disappear.",
+					"& .segment-option": {
+						"fontSize": "var(--fs-hero)",
+						"paddingInline": "var(--space-comfortable)"
+					}
+				}
+			},
+			"tone": {
+				"$description": "The ground it sits on. A segment on a marine panel cannot use the page's inks.",
+				"inverted": {
+					"$description": "On a genuinely dark ground — the site footer's marine band. NOT the open menu: that surface follows the theme now, so an inverted tone there paints light ink on a light ground.\n\nThe inactive option sits at 78%, not 65%. The quiet half of a switch still has to be READ — it is the thing you are about to press — and 65% of the foreground on its own ground is under 4.5:1, which made 'DE' next to a full-strength 'EN' look disabled rather than unselected.",
+					"& .segment-option": {
+						"color": "color-mix(in oklab, var(--color-primary-foreground) 78%, transparent)"
+					},
+					"& .segment-divider": {
+						"background": "color-mix(in oklab, var(--color-primary-foreground) 45%, transparent)"
+					}
+				}
+			}
+		},
+		"states": {
+			"hover": {
+				"$part": "option",
+				"color": "var(--color-foreground)"
+			},
+			"focus": {
+				"$part": "option",
+				"outline": "1px solid var(--color-focus)",
+				"outlineOffset": "1px"
+			},
+			"active": {
+				"$part": "option",
+				"color": "var(--color-foreground)"
+			},
+			"disabled": {
+				"$part": "option",
+				"opacity": "0.5",
+				"cursor": "default"
+			},
+			"selected": {
+				"$description": "The one that is on. Full-strength ink, and on the `pill` face a filled ground as well — because a colour change alone is the thing people miss on a dim screen, and this control has no other affordance.",
+				"$part": "option",
+				"color": "var(--color-foreground)"
+			}
+		},
+		"interactive": true,
+		"reducedMotion": {
+			"$description": "The colour change stays; only the easing goes. A segment's transition is carrying the one thing this control communicates — which option is on — so removing the change rather than the animation would leave the current choice unmarked for exactly the people who asked for less movement.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "The marking depends on what the options ARE, and getting this wrong is the usual defect. Links that navigate — a language switch — carry `aria-current`; buttons that change state in place — a theme switch — carry `aria-pressed`. `aria-selected` belongs to neither and is invalid on both.\n\nThe group carries a label, so a screen reader says what the two options are choosing BETWEEN rather than reading two bare words.\n\nThe divider is `aria-hidden`: it is punctuation, and \"DE bar EN\" is the furniture being read aloud.\n\nNever colour alone. The current option is heavier and, on the pill face, filled — the site's language switch marked it with a 0.5 opacity on near-black, 3.0:1, which was the one axe violation on the docs page."
+	}
+}

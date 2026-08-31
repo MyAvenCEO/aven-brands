@@ -4,7 +4,29 @@ import type { Lang } from './index'
 export const common: Record<
 	Lang,
 	{
-		nav: { skills: string; avens: string; pricing: string; docs: string; cta: string; menu: string }
+		nav: {
+			skills: string
+			avens: string
+			pricing: string
+			docs: string
+			cta: string
+			menu: string
+			closeMenu: string
+			/** Names the navigation for a screen reader — the bar and the menu are two
+			 * renderings of one set of destinations, so they share the label. */
+			primaryLabel: string
+			/** The menu's eyebrow. */
+			whereTo: string
+			/** The line that lets the menu end on purpose rather than stop. */
+			trust: string
+			/** What each destination IS. Four words tell you their names; these tell
+			 * you which one you want, which is the question someone opening a menu is
+			 * actually asking. */
+			skillsMeta: string
+			avensMeta: string
+			pricingMeta: string
+			docsMeta: string
+		}
 		switchLabel: string
 		footer: {
 			tagline: string
@@ -27,9 +49,6 @@ export const common: Record<
 			/** HTML — our own static copy, carries <strong> emphasis. */
 			bodyHtml: string
 			/** The early-adopter perk this €25 unlocks — the real hook, as a bullet. */
-			betaLine: (pct: number, months: number) => string
-			betaPriceLine: (discounted: string, regular: string) => string
-			betaScarcity: string
 			placeholder: string
 			button: string
 			exampleLabel: string
@@ -51,8 +70,16 @@ export const common: Record<
 			avens: 'Marketplace',
 			pricing: 'Preise',
 			docs: 'Docs',
-			cta: 'Aven einstellen',
-			menu: 'Menü'
+			cta: 'Aven anstellen',
+			menu: 'Menü',
+			closeMenu: 'Menü schließen',
+			primaryLabel: 'Hauptnavigation',
+			whereTo: 'Wohin',
+			trust: 'Sicher verbunden über aven.id',
+			skillsMeta: 'Die Arbeit, die dein Aven schon beherrscht.',
+			avensMeta: 'Skills von anderen, bereit zum Einstellen.',
+			pricingMeta: 'Was es kostet und was du dafür bekommst.',
+			docsMeta: 'Die Tokens und Bausteine, aus denen das hier besteht.'
 		},
 		switchLabel: 'Sprache',
 		footer: {
@@ -74,12 +101,9 @@ export const common: Record<
 			eyebrow: 'Invite only',
 			title: 'Sichere dir jetzt deinen avenCEO‑Namen',
 			bodyHtml:
-				'Wie eine Domain — aber für deinen avenCEO: z. B. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Diesen Namen gibt es genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
-			betaLine: (pct, months) => `+ ${pct} % Rabatt auf die ersten ${months} Monate avenCEO`,
-			betaPriceLine: (discounted, regular) => `${discounted} €/m statt ${regular} €`,
-			betaScarcity: '1 / 10 vergeben',
+				'Dein eigener avenNAME — z. B. <strong class="font-medium text-foreground/82">avenMAIA</strong> — samt eigener Domain <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. Er ist Name und Adresse deines Avens in einem: wie eine Telefonnummer ist er der Weg, auf dem jemand deinen Aven erreicht, der mit ihm sprechen will. Es gibt ihn genau einmal — sichere ihn dir, bevor es jemand anderes tut.',
 			placeholder: 'maia',
-			button: 'Namen sichern →',
+			button: 'Sichere dir jetzt deinen avenNAME',
 			exampleLabel: 'Beispiel:',
 			priceNote: (price) => `einmalig ${price} € inkl. USt.`,
 			formLabel: 'Namen sichern'
@@ -99,7 +123,15 @@ export const common: Record<
 			pricing: 'Pricing',
 			docs: 'Docs',
 			cta: 'Hire your Aven',
-			menu: 'Menu'
+			menu: 'Menu',
+			closeMenu: 'Close menu',
+			primaryLabel: 'Main navigation',
+			whereTo: 'Where to',
+			trust: 'Securely connected through aven.id',
+			skillsMeta: 'The work your aven already knows how to do.',
+			avensMeta: 'Skills other people built, ready to hire.',
+			pricingMeta: 'What it costs, and what you get for it.',
+			docsMeta: 'The tokens and parts this is all built from.'
 		},
 		switchLabel: 'Language',
 		footer: {
@@ -121,12 +153,9 @@ export const common: Record<
 			eyebrow: 'Invite only',
 			title: 'Claim your avenCEO name now',
 			bodyHtml:
-				'Like a domain — but for your avenCEO: e.g. <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It exists exactly once — claim it before someone else does.',
-			betaLine: (pct, months) => `+ ${pct} % off your first ${months} months of avenCEO`,
-			betaPriceLine: (discounted, regular) => `${discounted} €/m instead of ${regular} €`,
-			betaScarcity: '1 / 10 claimed',
+				'Your own avenNAME — e.g. <strong class="font-medium text-foreground/82">avenMAIA</strong> — with your own domain <strong class="font-medium text-foreground/82">maia.aven.ceo</strong>. It is your Aven’s name and address in one: like a phone number, it is how anyone reaches yours when they want to talk to it. It exists exactly once — claim it before someone else does.',
 			placeholder: 'maia',
-			button: 'Claim your name →',
+			button: 'Claim your avenNAME now',
 			exampleLabel: 'Example:',
 			priceNote: (price) => `one-time ${price} € incl. VAT`,
 			formLabel: 'Claim your name'

@@ -21,15 +21,29 @@
  * styles live in the latter and that is where three of the four escapes were.
  */
 import { chromium } from 'playwright'
+import { assertServed } from './_served.mjs'
 
-/* Set at the call site by design — a layout primitive's knobs and the utility
-   layer's internals are meant to be undefined until something sets them. */
-const BY_DESIGN = new Set([
-	'--gap', '--align', '--measure', '--gutter', '--min', '--side',
-	'--threshold', '--ratio', '--ring-offset-width', '--ring-offset-color',
-	'--ring-color', '--gradient-stops', '--gradient-from', '--gradient-to',
-	'--gradient-via'
-])
+/*
+ * THE FALLBACK IS THE DECLARATION OF INTENT.
+ *
+ * `var(--btn-block, 2.5rem)` says: something may set this, and here is what
+ * happens when nothing does. It is an API, and an undeclared value is its
+ * normal resting state. `var(--btn-block)` with no fallback says: this WILL be
+ * defined — and when it is not, the whole declaration is discarded and the
+ * element silently loses that property.
+ *
+ * So the guarded and unguarded cases are opposite facts, and only the second
+ * is a defect. This used to be a hand-kept allowlist, which meant every new
+ * call-site property had to be remembered into it; ten by-design entries had
+ * accumulated as failures, and a gate that is permanently red is a gate nobody
+ * reads. Worse, the allowlist hid the one real defect among them:
+ * `--radius-2xl` was emitted by the utility layer for `rounded-2xl` across
+ * fifteen call sites while this brand's radius scale stops at `xl`, and every
+ * one of those cards rendered with square corners.
+ *
+ * A reference is now reported only if EVERY occurrence of it lacks a fallback.
+ * One guarded use is enough to say the author knew.
+ */
 
 const urls = process.argv.slice(2)
 if (!urls.length) {
@@ -43,7 +57,7 @@ let failures = 0
 for (const url of urls) {
 	const page = await browser.newPage()
 	try {
-		await page.goto(url, { waitUntil: 'networkidle' })
+		assertServed(await page.goto(url, { waitUntil: 'networkidle' }), url)
 	} catch (error) {
 		console.log(`  SKIP ${url} — ${error.message.split('\n')[0]}`)
 		await page.close()
@@ -61,16 +75,37 @@ for (const url of urls) {
 			})
 			.join(' ')
 		const inline = [...document.querySelectorAll('style')].map((s) => s.textContent).join(' ')
-		const referenced = [
-			...new Set([...`${sheets} ${inline}`.matchAll(/var\((--[a-z0-9-]+)/g)].map((m) => m[1]))
-		]
-		return referenced.filter((name) => !root.getPropertyValue(name).trim())
+		const css = `${sheets} ${inline}`
+		/* Capture what follows the name, so a fallback can be told from its absence. */
+		const guarded = new Set()
+		const seen = new Set()
+		for (const m of css.matchAll(/var\((--[a-z0-9-]+)\s*([,)])/g)) {
+			seen.add(m[1])
+			if (m[2] === ',') guarded.add(m[1])
+		}
+		/* DECLARED ANYWHERE, not just on :root. `via-white/15` sets
+		   `--gradient-via` on the element that wears it, and asking the root
+		   element for it returns nothing — so a property that is declared and
+		   working read as dangling. The question is whether the page declares it
+		   at all, and the stylesheets answer that. */
+		const declaredInCss = new Set(
+			[...css.matchAll(/(--[a-z0-9-]+)\s*:/g)].map((m) => m[1])
+		)
+		return [...seen].filter(
+			(name) =>
+				!root.getPropertyValue(name).trim() &&
+				!declaredInCss.has(name) &&
+				!guarded.has(name)
+		)
 	})
-	const real = dangling.filter((name) => !BY_DESIGN.has(name))
+	const real = dangling
 	if (real.length) {
 		failures += real.length
 		console.log(`FAIL ${url}`)
-		for (const name of real) console.log(`  x ${name} is referenced but never declared`)
+		for (const name of real) {
+			console.log(`  x ${name} is referenced with NO fallback and never declared —`)
+			console.log('      every declaration using it is silently discarded.')
+		}
 	} else {
 		console.log(`  OK   ${url}`)
 	}

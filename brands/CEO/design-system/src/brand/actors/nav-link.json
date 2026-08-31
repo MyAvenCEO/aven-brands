@@ -1,0 +1,68 @@
+{
+	"name": "nav-link",
+	"description": "One point of navigation. The three surfaces styled these three ways; the active treatment was different on each.",
+	"surface": "site",
+	"surfaceNote": "a destination in either",
+	"interface": {
+		"props": {
+			"label": "string",
+			"href": "string",
+			"current": "string"
+		},
+		"events": {
+			"navigate": {
+				"href": "string"
+			}
+		}
+	},
+	"view": {
+		"tag": "a",
+		"attrs": {
+			"href": "$props.href",
+			"aria-current": "$props.current"
+		},
+		"text": "$props.label"
+	},
+	"styling": {
+		"interactive": true,
+		"base": {
+			"display": "inline-flex",
+			"alignItems": "center",
+			"minHeight": "2.75rem",
+			"padding": "0 var(--space-tight)",
+			"textDecoration": "none",
+			"color": "inherit",
+			"fontSize": "var(--fs-eyebrow)",
+			"fontWeight": "600",
+			"textTransform": "uppercase",
+			"letterSpacing": "var(--tracking-wider)",
+			"opacity": "0.7",
+			"transition": "opacity var(--duration-quick) var(--ease-out)"
+		},
+		"states": {
+			"hover": {
+				"opacity": "1"
+			},
+			"focus": {
+				"outline": "1px solid var(--color-focus)"
+			},
+			"active": {
+				"opacity": "0.85"
+			},
+			"disabled": {
+				"opacity": "0.4",
+				"pointerEvents": "none"
+			},
+			"selected": {
+				"opacity": "1"
+			}
+		},
+		"reducedMotion": {
+			"$description": "Motion removed, state kept. The declaration is per unit because a blanket `animation:none` can hide content that only an entrance animation reveals.",
+			"transition": "none"
+		}
+	},
+	"a11y": {
+		"note": "The current page carries `aria-current=\"page\"`, never `aria-selected` — that belongs to a tab or an option, and on an `<a>` it is invalid ARIA that axe rejects. It is also never marked by colour alone: the current item changes weight and carries a marker, because a tint is the first thing lost on a dim screen or in forced-colors mode.\n\nThe whole row is the target, not the words in it — a nav item you have to hit the text of is one that misses on a trackpad, and it is how a 24px target requirement gets met on paper and failed in practice."
+	}
+}

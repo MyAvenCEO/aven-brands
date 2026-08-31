@@ -1,5 +1,5 @@
 {
-	"$description": "avenCEO component and primitive style declarations. Loaded by the TypeScript package; the generator emits these as CSS classes. Property names are camelCase CSS properties; a nested object is a selector block containing \"&\". Four classes were removed after measuring that no surface used them: card-sm, btn-secondary, step-done and bullet appeared only in the generated stylesheet. step-done is now the `selected` state of the `step` unit, and btn-secondary a variant of `btn`.",
+	"$description": "avenCEO component and primitive style declarations. Loaded by the TypeScript package; the generator emits these as CSS classes. Property names are camelCase CSS properties; a nested object is a selector block containing \"&\". Four classes were removed after measuring that no surface used them: card-sm, btn-secondary, step-done and bullet appeared only in the generated stylesheet. step-done is now the `selected` state of the `step` unit, and btn-secondary a variant of `btn`.\n\nA false start worth keeping: a `[data-brand-root], :root` entry in this map shipped as `.[data-brand-root], :root`, because every key here is a CLASS NAME the emitter prefixes with a dot — an invalid selector the browser discards in silence, found only by measuring the rendered fill. Nothing in this map can express a root rule, and nothing in it should: the duotone tint that briefly lived here now rides on each UNIT that draws a glyph.",
 	"components": {
 		"card": {
 			"borderRadius": "var(--radius-lg)",
@@ -9,18 +9,11 @@
 			"boxShadow": "var(--shadow-raised)"
 		},
 		"eyebrow": {
-			"fontSize": "var(--fs-eyebrow)",
-			"fontWeight": "600",
-			"textTransform": "uppercase",
-			"letterSpacing": "var(--tracking-wide)",
-			"color": "var(--color-foreground-quiet)"
-		},
-		"eyebrow-accent": {
 			"fontSize": "var(--fs-micro)",
 			"fontWeight": "700",
 			"textTransform": "uppercase",
 			"letterSpacing": "var(--tracking-widest)",
-			"color": "var(--color-accent-ink, color-mix(in oklab, var(--color-sunflower) 62%, black))"
+			"color": "var(--color-eyebrow-ink)"
 		},
 		"eyebrow-quiet": {
 			"fontSize": "var(--fs-nano)",

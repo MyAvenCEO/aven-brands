@@ -23,12 +23,16 @@ const t = $derived(pick(messages, lang).card)
  * card had no shared definition at all and drifted independently. `p-5` here,
  * `p-6` there, `p-7` in the third.
  */
+/* `card skill-card`, both. The skill card COMPOSES the card — it holds the
+   promise line and the footer rail, and the card holds the box, the border, the
+   ground and the hover. Carrying only `skill-card` was how this lost its border
+   and its padding the moment the two stopped duplicating each other. */
 const cardClass = $derived(
 	skill.comingSoon
-		? 'skill-card skill-card--emphasis-soon'
+		? 'card skill-card skill-card--emphasis-soon'
 		: variant === 'spotlight'
-			? 'skill-card skill-card--emphasis-featured'
-			: 'skill-card'
+			? 'card skill-card skill-card--emphasis-featured'
+			: 'card skill-card'
 )
 </script>
 
@@ -38,7 +42,7 @@ const cardClass = $derived(
 	aria-label={`${skillLabel(skill.slug)} — ${skill.oneLineCopy}`}
 >
 	<div class="skill-card-head">
-		<p class="skill-card-eyebrow">{plan(skill.plan).name}</p>
+		<p class="text text--eyebrow skill-card-eyebrow">{plan(skill.plan).name}</p>
 		<span class="badge {skill.comingSoon ? '' : 'badge--tone-accent'}">
 			{skill.comingSoon ? t.soon : t.skill}
 		</span>

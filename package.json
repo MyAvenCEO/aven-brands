@@ -19,12 +19,13 @@
 		"brand:generate": "bun run --cwd brands/CEO/design-system generate",
 		"dev:yma": "bun run build:packages:yma && bun run --cwd brands/YMA/apps/website dev",
 		"build:yma": "bun run build:packages:yma && bun run --cwd brands/YMA/apps/website build",
-		"guidelines": "bun run build:packages && bun ./scripts/render-guidelines.ts",
-		"build:packages:yma": "bun run --cwd brands/YMA/design-system build && bun run --cwd brands/YMA/apps/website brand:generate"
+		"build:packages:yma": "bun run --cwd brands/YMA/design-system build && bun run --cwd brands/YMA/apps/website brand:generate",
+		"skills:build": "node skills/aven-brand/generate.mjs",
+		"skills:check": "node -e \"import('./skills/aven-brand/registry.mjs').then(m=>console.log('aven-brand: '+m.skills.length+' skill(s) valid'))\""
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.6",
-		"@myavenceo/aven-vibes": "^0.5.0",
+		"@myavenceo/aven-vibes": "^0.9.5",
 		"typescript": "6.0.2"
 	},
 	"engines": {

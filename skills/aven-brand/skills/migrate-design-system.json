@@ -1,0 +1,35 @@
+{
+	"name": "migrate-design-system",
+	"area": "operate",
+	"summary": "Map this system to or from another one, and keep the crosswalk as a record rather than a one-off translation.",
+	"trigger": {
+		"when": [
+			"work has to interoperate with Material, HIG, Fluent, Carbon, shadcn, Radix or similar",
+			"a system is being adopted or replaced"
+		],
+		"not": [
+			"moving call sites off a class this system already replaced"
+		],
+		"instead": {
+			"the migration is internal, from old classes to new units": "migration-plan"
+		}
+	},
+	"reads": [
+		"skills/design-systems/interop-protocol.md",
+		"skills/design-systems/crosswalk.md"
+	],
+	"gates": [
+		"validate_tokens.py",
+		"validate_contrast.py"
+	],
+	"steps": [
+		"Build the crosswalk at the SEMANTIC tier. Primitive-to-primitive mapping produces a palette that resolves and means nothing.",
+		"Name what has no counterpart. The gaps are the actual finding; the matches are the easy half.",
+		"Verify contrast after mapping \u2014 another system's token that resolves here may not pass here."
+	],
+	"output": "A crosswalk table plus an explicit list of what does not map.",
+	"done": [
+		"every mapped pair passes contrast in this system",
+		"unmapped concepts are listed rather than quietly dropped"
+	]
+}

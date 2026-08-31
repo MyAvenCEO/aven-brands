@@ -1,0 +1,255 @@
+{
+	"name": "cost",
+	"description": "The arithmetic, as an editorial price sheet: head centred, the illustration full-width with the statement riding on it, the comparison as two cards facing each other across the pair's rule, the highlighted rate leading the claim, and a ticker of what the price buys.\n\nThe comparison is carried by what each card IS — the old cost dimmed and struck like a disabled control, the offer on the success tint (marine on it measures 12.15:1, the most headroom either card has, which is the right way round for the one you are meant to read). Both figures are set at the SAME size: a comparison whose two figures differ in scale has already answered itself.\n\nEvery colour here is a measurement. The overlay's parens take `secondary-edge` (3.87:1 on the scrim, where paradise reads 2.50). The closing rate sits on `secondary-strong` (4.61:1 under cream) because it is running text and paradise itself is 3.93. The offer card's ink never softens: 78% marine measured 3.21:1 on the unit line and axe was right.",
+	"surface": "site",
+	"surfaceNote": "the price argument",
+	"interface": {
+		"props": {},
+		"slots": {
+			"story": {},
+			"art": {},
+			"price": {},
+			"closing": {},
+			"does": {}
+		}
+	},
+	"view": {
+		"tag": "div",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "story",
+				"$children": "story"
+			},
+			{
+				"tag": "figure",
+				"part": "art",
+				"$children": "art"
+			},
+			{
+				"tag": "div",
+				"part": "price",
+				"$children": "price"
+			},
+			{
+				"tag": "p",
+				"part": "closing",
+				"$children": "closing"
+			},
+			{
+				"tag": "ul",
+				"part": "does",
+				"$children": "does"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "Hugging on purpose: the section unit already declares the container everything in here measures with `cqi`, and a second container between them would change what every clamp reads.",
+			"inlineSize": "auto"
+		},
+		"parts": {
+			"grid": {
+				"--gap": "var(--space-section)",
+				"alignItems": "start"
+			},
+			"story": {
+				"$description": "The head is centred with everything else in the section, and it opens with room: an eyebrow butted against the band above it reads as a continuation of that band rather than the start of this one.",
+				"--measure": "44rem",
+				"paddingBlockStart": "var(--space-section)"
+			},
+			"heading": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-display), 5cqi, 3rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.08",
+				"letterSpacing": "var(--tracking-tight)",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			},
+			"lead": {
+				"margin": "0",
+				"fontSize": "var(--fs-lead)",
+				"lineHeight": "1.5",
+				"textWrap": "pretty",
+				"color": "var(--color-foreground-soft)"
+			},
+			"overlay": {
+				"$description": "The statement rides ON the picture, on the bottom THIRD as a band — not a caption sized by its own padding. A marine scrim rather than a drop shadow: the illustration's sky is sunflower and its water pale, so no single tone carries type unaided. The gradient ABOVE fades the scrim up so the summit stays untouched.",
+				"position": "absolute",
+				"insetInline": "0",
+				"insetBlockEnd": "0",
+				"blockSize": "34%",
+				"alignItems": "center",
+				"justifyContent": "center",
+				"--gap": "var(--space-comfortable)",
+				"margin": "0",
+				"paddingInline": "var(--space-loose)",
+				"backgroundColor": "color-mix(in oklab, var(--color-marine) 88%, transparent)",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(1.5rem, 4.5cqi, 2.75rem)",
+				"lineHeight": "1.1",
+				"letterSpacing": "var(--tracking-tight)",
+				"textAlign": "center",
+				"color": "var(--color-on-dark)",
+				"&::before": {
+					"content": "''",
+					"position": "absolute",
+					"insetInline": "0",
+					"insetBlockEnd": "100%",
+					"blockSize": "var(--space-section)",
+					"background": "linear-gradient(to top, color-mix(in oklab, var(--color-marine) 88%, transparent), transparent)"
+				},
+				"& .paren": {
+					"$description": "One step lighter on the same ramp: paradise measures 2.50:1 on this scrim, `secondary-edge` 3.87 — a colour that carries on one ground does not carry on every ground.",
+					"color": "var(--color-secondary-edge)"
+				}
+			},
+			"price": {
+				"$description": "Composes `pair pair--rule-none`. The gap the cascade was actually resolving to — two rules set it once, and the later 16px won; the pair unit reads `--gap`.",
+				"--gap": "var(--space-comfortable)"
+			},
+			"panel": {
+				"position": "relative",
+				"--gap": "var(--space-hairline)",
+				"padding": "var(--space-loose)",
+				"borderRadius": "var(--radius-xl)",
+				"alignContent": "start"
+			},
+			"panel-label": {
+				"margin": "0",
+				"fontSize": "var(--fs-eyebrow)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-widest)",
+				"textTransform": "uppercase",
+				"color": "inherit"
+			},
+			"was": {
+				"$description": "The cost being declined, styled the way this system styles something no longer available: muted ground, quiet ink, the whole card carrying the dimming rather than the number alone. Ranged toward the rule — two blocks both ranged left is a list; ranged toward each other, a comparison.",
+				"background": "var(--color-muted)",
+				"color": "var(--color-foreground-quiet)",
+				"textAlign": "end"
+			},
+			"now": {
+				"background": "var(--color-success-surface)",
+				"color": "var(--color-marine)",
+				"textAlign": "start",
+				"& .cost-panel-label, & .cost-now-unit, & .cost-now-note": {
+					"$description": "FULL marine on the tinted field. Softening ink on a coloured field is the same error as tinting it on cream: 78% marine measured 3.21:1 on the unit and 4.39 on the note, both short of the 4.5 body text needs.",
+					"color": "var(--color-marine)"
+				}
+			},
+			"was-figure": {
+				"display": "grid",
+				"gap": "var(--space-hairline)",
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontVariantNumeric": "tabular-nums",
+				"lineHeight": "1",
+				"justifyItems": "end"
+			},
+			"now-figure": {
+				"display": "grid",
+				"gap": "var(--space-hairline)",
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontVariantNumeric": "tabular-nums",
+				"lineHeight": "1",
+				"justifyItems": "start"
+			},
+			"was-value": {
+				"$description": "The page's own gesture, third appearance: the hero strikes a sentence, the shift a script, this a salary. CSS, not `<s>` — SAFE_TAGS admits no `s`.",
+				"fontSize": "clamp(2.25rem, 6cqi, 3.75rem)",
+				"color": "var(--color-foreground-quiet)",
+				"textDecoration": "line-through",
+				"textDecorationThickness": "1px",
+				"textDecorationColor": "currentColor"
+			},
+			"now-value": {
+				"fontSize": "clamp(2.25rem, 6cqi, 3.75rem)",
+				"color": "var(--color-marine)"
+			},
+			"was-unit": {
+				"fontFamily": "var(--font-sans)",
+				"fontSize": "var(--fs-meta)",
+				"color": "inherit"
+			},
+			"now-unit": {
+				"fontFamily": "var(--font-sans)",
+				"fontSize": "var(--fs-meta)",
+				"color": "inherit"
+			},
+			"was-note": {
+				"margin": "var(--space-tight) 0 0",
+				"fontSize": "var(--fs-meta)",
+				"lineHeight": "1.5",
+				"color": "var(--color-foreground-soft)"
+			},
+			"now-note": {
+				"margin": "var(--space-tight) 0 0",
+				"fontSize": "var(--fs-meta)",
+				"lineHeight": "1.5",
+				"color": "var(--color-foreground-soft)"
+			},
+			"closing": {
+				"$description": "The verdict the whole comparison exists to deliver, set like one: the page's ink, a step up in size, tracked caps.",
+				"--measure": "40rem",
+				"fontSize": "var(--fs-section)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-wider)",
+				"textTransform": "uppercase",
+				"textAlign": "center",
+				"textWrap": "balance",
+				"color": "var(--color-foreground)"
+			},
+			"closing-rate": {
+				"$description": "The rate leads, highlighted — it is the thing being claimed. `secondary-strong`, not paradise: cream on paradise is 3.93:1 and this is a running snippet, so 4.5 applies; the darkened step is 4.61 and holds at any size.",
+				"display": "inline-block",
+				"marginInlineEnd": "var(--space-tight)",
+				"padding": "var(--space-hairline) var(--space-tight)",
+				"borderRadius": "var(--radius-xs)",
+				"background": "var(--color-secondary-strong)",
+				"fontSize": "var(--fs-section)",
+				"fontWeight": "700",
+				"letterSpacing": "var(--tracking-wide)",
+				"textTransform": "none",
+				"color": "var(--color-surface-page)"
+			},
+			"closing-line": {
+				"display": "inline"
+			},
+			"does": {
+				"$description": "The ticker: short facts edge to edge, separated by marks. Static — motion here would be decoration that has to be switched off again for anyone who asked for less of it.",
+				"--gap": "var(--space-comfortable) var(--space-loose)",
+				"margin": "0",
+				"paddingBlock": "var(--space-comfortable)",
+				"borderBlock": "1px solid var(--color-border-soft)",
+				"listStyle": "none",
+				"fontSize": "var(--fs-eyebrow)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-wider)",
+				"textTransform": "uppercase",
+				"color": "var(--color-foreground)",
+				"justifyContent": "center",
+				"textAlign": "center",
+				"& > li": {
+					"display": "flex",
+					"alignItems": "center",
+					"gap": "var(--space-tight)",
+					"justifyContent": "center"
+				}
+			},
+			"does-mark": {
+				"flex": "0 0 auto",
+				"inlineSize": "0.3rem",
+				"blockSize": "0.3rem",
+				"borderRadius": "var(--radius-full)",
+				"background": "var(--color-paradise)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The heading keeps its id as the section's `aria-labelledby` target. The struck salary is real text — a reader hears both figures — and the strike is reinforced by the copy naming which cost is being declined. The overlay statement is a `<figcaption>`, so the picture and its claim announce as one figure."
+	}
+}

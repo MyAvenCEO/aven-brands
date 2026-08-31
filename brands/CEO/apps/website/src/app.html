@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="text-scale" content="scale">
-		<!-- Brand faces are self-hosted (see app.css @font-face) — no remote font
-		     CDN. Preload the two files so the first paint has them. -->
+		<!-- Brand faces are self-hosted — no remote font CDN. Preload the two files
+		     so the first paint has them. -->
 		<link
 			rel="preload"
 			href="/fonts/GoogleSansFlex-latin.woff2"
@@ -14,6 +14,46 @@
 			crossorigin
 		>
 		<link rel="preload" href="/fonts/FogtwoNo5.otf" as="font" type="font/otf" crossorigin>
+		<!--
+			THE @font-face RULES LIVE HERE, not in app.css, and that is the fix for a
+			real bug rather than a preference.
+
+			`app.css` carries `@aven-utilities`, so Vite transforms and RE-EMITS it
+			three times on a cold dev start — SSR, client, and once more as the graph
+			settles. Each emission replaces the injected `<style>`, and replacing a
+			style tag drops and re-adds every `@font-face` in it: the browser then
+			re-resolves both faces, and every glyph on the page flips to the fallback
+			and back. Measured at three fetches per font, 3-5 seconds of visible
+			pumping on every reload.
+
+			Memoising the scan (aven-vibes 0.6.1) removed the repeated directory walk
+			but not this: the transform still RETURNS the stylesheet three times, so
+			the tag is still replaced three times. Static markup in the head is parsed
+			once and never replaced, which is the only thing that actually stops it.
+
+			A token cannot declare a font family; it can only point at one declared
+			here. The NAMES are still the SSOT's — `--font-sans` and `--font-display`
+			in brand-theme.css reference these families.
+		-->
+		<!-- ds-allow-hardcode:start — an @font-face IS the font definition. A token
+		     cannot declare a family; it can only point at one declared here. -->
+		<style>
+		@font-face {
+			font-family: "Google Sans Flex";
+			src: url("/fonts/GoogleSansFlex-latin.woff2") format("woff2");
+			font-weight: 1 1000;
+			font-style: normal;
+			font-display: swap;
+		}
+		@font-face {
+			font-family: "FogtwoNo5";
+			src: url("/fonts/FogtwoNo5.otf") format("opentype");
+			font-weight: 100 900;
+			font-style: normal;
+			font-display: swap;
+		}
+		</style>
+		<!-- ds-allow-hardcode:end -->
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="off">

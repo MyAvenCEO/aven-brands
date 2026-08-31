@@ -1,0 +1,35 @@
+{
+	"name": "ux-writing",
+	"area": "communicate",
+	"summary": "Write or review interface copy: frontload the verb, say what happened and how to fix it, and never let an empty state say 'No data'.",
+	"trigger": {
+		"when": [
+			"labels, errors, empty states or microcopy need writing or reviewing"
+		],
+		"not": [
+			"explaining the system to stakeholders"
+		],
+		"instead": {
+			"the audience is outside the product": "stakeholder-brief"
+		}
+	},
+	"reads": [
+		"skills/content/voice-tone.md"
+	],
+	"gates": [
+		"check_no_emoji.py"
+	],
+	"steps": [
+		"Frontload the verb. 'Save changes', not 'Click here to save your changes'.",
+		"An error says what happened, why, and how to fix it. 'Error: Invalid input' does none of the three.",
+		"An empty state explains the value and points at the first action.",
+		"A control names exactly what will happen, and the confirmation uses the same word back.",
+		"No emoji. Not as a bullet, not as a status dot, not as tone."
+	],
+	"output": "The copy, plus what each line replaced and why.",
+	"done": [
+		"check_no_emoji passes",
+		"every error names a recovery",
+		"no empty state says 'No data' or equivalent"
+	]
+}

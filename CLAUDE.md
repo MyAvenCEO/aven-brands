@@ -47,28 +47,36 @@ Match the request to the files to load (and the runnable skill, invocable via `/
 
 | Request | Skill | Load |
 |---------|-------|------|
-| Generate/extend/validate tokens, palettes, theming | `design-tokens` | `tokens/*.json`, "Token System"; `scripts/validate_tokens.py` |
-| Design or build a screen / component | `design-component` | `components/*`, `accessibility/aria-patterns.md`, `tokens/*`; `scripts/scaffold_component.py` |
-| Generate code in any framework | `design-code` | `frameworks/adapter-protocol.md` → `frameworks/` + `frameworks/adapters/*`, `components/*` |
-| Review / audit / score a design | `design-review` | `workflows/design-review.md`, `taste/design-taste.md` |
-| Accessibility / WCAG / contrast check | `a11y-audit` | `accessibility/*`; `scripts/contrast.py` |
-| Apply a look / vibe / brand feel | `apply-aesthetic` | `taste/aesthetic-systems.md`, `design-systems/library/*`; `scripts/design_systems.py` |
-| Reference image / screenshot / mockup → matching code | `image-to-code` | `taste/*`, `design-tokens` + `design-code`; `scripts/measure_render.mjs`, `scripts/taste_audit.mjs` |
-| Build a brand design system / foundation from scratch | `brandkit` | "Token System" + "Color Generation", `taste/aesthetic-systems.md`; `scripts/validate_contrast.py` |
-| Improve/modernize an existing UI | `redesign` | `workflows/redesign-audit.md`, `taste/*` |
-| Map to/from another design system | `migrate-design-system` | `design-systems/interop-protocol.md` + `crosswalk.md` |
-| Prototype / wireframe / user flow / usability test | `prototype` | `workflows/prototyping.md` |
-| Write/review UI copy | `ux-writing` | `content/voice-tone.md` |
-| Versioning / contribution / deprecation / add-or-promote a component | `governance` | `workflows/governance.md`; `scripts/validate_tokens.py` |
-| Token build pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG) | `token-build` | `workflows/token-build.md`; `scripts/validate_tokens.py` |
-| Figma ↔ code sync, Variables, Code Connect, Figma MCP | `figma-integration` | `workflows/figma-integration.md` |
-| QA gates / CI / visual regression / prevent regressions | `design-qa` | `workflows/design-qa.md`; `scripts/validate_contrast.py`, `scripts/lint_hardcodes.py` |
-| Performance / Core Web Vitals / jank / layout shift | `performance` | `workflows/performance.md` |
-| Charts / data-viz / chart colors | `design-component` | `components/data-viz.md`, `tokens/data-viz.json` |
-| Calendar / Carousel / Tree | `design-component` | `components/data-display.md` |
-| Icon system / icon sizing / icon a11y | `design-component` | `components/icon-system.md` |
-| Cognitive a11y / i18n-RTL / low-vision / WCAG AAA | `a11y-audit` | `accessibility/cognitive.md`, `accessibility/i18n-rtl.md`, `accessibility/vision.md`, `accessibility/wcag-aaa.md` |
-| Critique / taste verdict / "is this actually good" | `/critique` | `.claude/agents/design-critic.md`, `taste/*`; `scripts/taste_audit.mjs`, `scripts/slop_tells.mjs` |
+| Generate/extend/validate tokens, palettes, theming | `design-tokens` | `.claude/rules/tokens-and-color.md`; `skills/gates/validate_tokens.py` |
+| Build a brand design system / foundation from scratch | `brandkit` | `skills/taste/aesthetic-systems.md`; `skills/gates/validate_contrast.py` |
+| Design or build a screen / component | `design-component` | `skills/components/*`, `skills/accessibility/aria-patterns.md` |
+| Generate code in any framework | `design-code` | `skills/frameworks/adapter-protocol.md` -> `skills/frameworks/adapters/*` |
+| Apply a look / vibe / brand feel | `apply-aesthetic` | `skills/taste/aesthetic-systems.md`, `skills/design-systems/library/*` |
+| Reference image / screenshot / mockup -> matching code | `image-to-code` | `skills/taste/*`; `skills/gates/measure_render.mjs`, `taste_audit.mjs` |
+| Improve/modernize an existing UI | `redesign` | `skills/workflows/redesign-audit.md`, `skills/taste/*` |
+| Prototype / wireframe / user flow / usability test | `prototype` | `skills/workflows/prototyping.md` |
+| Charts / data-viz · Calendar/Carousel/Tree · Icon system | `design-component` | `skills/components/data-viz.md`, `data-display.md`, `icon-system.md` |
+| Review / audit / score a design | `design-review` | `skills/workflows/design-review.md`, `skills/taste/design-taste.md` |
+| Accessibility / WCAG / contrast check | `a11y-audit` | `skills/accessibility/*`; `skills/gates/contrast.py` |
+| Cognitive a11y / i18n-RTL / low-vision / WCAG AAA | `a11y-audit` | `skills/accessibility/cognitive.md`, `i18n-rtl.md`, `vision.md`, `wcag-aaa.md` |
+| QA gates / CI / visual regression / prevent regressions | `design-qa` | `skills/workflows/design-qa.md`, `skills/aven-brand/knowledge/gate-discipline.md` |
+| Performance / Core Web Vitals / jank / layout shift | `performance` | `skills/workflows/performance.md` |
+| Critique / taste verdict / "is this actually good" | `critique` | `skills/taste/*`; `skills/gates/taste_audit.mjs`, `slop_tells.mjs` |
+| Where has the system diverged from itself | `drift-check` | `skills/aven-brand/knowledge/drift.md` |
+| Move call sites off a superseded class/token/component | `migration-plan` | `skills/aven-brand/knowledge/drift.md` |
+| How is the design system doing · adoption · coverage | `system-health` | `skills/aven-brand/knowledge/measurement.md` |
+| Versioning / contribution / deprecation / promote a component | `governance` | `skills/workflows/governance.md` |
+| Which number to bump for this change | `version-bump-advisor` | `skills/workflows/governance.md` |
+| Order a backlog of design system requests | `triage` | `skills/aven-brand/knowledge/measurement.md` |
+| Token build pipeline -> CSS/Tailwind/iOS/Android | `token-build` | `skills/workflows/token-build.md` |
+| Map to/from another design system | `migrate-design-system` | `skills/design-systems/interop-protocol.md` + `crosswalk.md` |
+| Write/review UI copy | `ux-writing` | `skills/content/voice-tone.md` |
+| Which components ship undocumented | `docs-coverage` | `skills/aven-brand/knowledge/measurement.md` |
+| Record why a decision was made | `decision-record` | `skills/workflows/governance.md` |
+| Announce a release / deprecation to consumers | `change-communication` | `skills/workflows/governance.md`, `skills/content/voice-tone.md` |
+| Explain the system to people outside it | `stakeholder-brief` | `skills/aven-brand/knowledge/measurement.md` |
+| Get a designer or engineer started on the system | `onboarding` | `skills/workflows/design-to-code.md` |
+| Add, change or remove a skill | - | `skills/aven-brand/skills/*.json`, then `node skills/aven-brand/generate.mjs` |
 | Eval the kit itself (cold-start brief -> measured output) | - | `evals/README.md`, `evals/briefs/*`; `node evals/run.mjs` |
 
 Every row also has depth in `.claude/rules/` (see the Rules table below). Load the
@@ -218,7 +226,6 @@ workflows/
 ├── redesign-audit.md     ← Audit-first redesign + output completeness
 ├── governance.md         ← Versioning (SemVer), contribution, deprecation, change comms
 ├── token-build.md        ← Token pipeline → CSS/Tailwind/iOS/Android (Style Dictionary, DTCG)
-├── figma-integration.md  ← Token↔Variable sync, Figma MCP, component parity
 ├── design-qa.md          ← Visual regression + a11y CI gates (axe, snapshots)
 └── performance.md        ← Core Web Vitals, loading, CLS, animation perf
 
@@ -242,10 +249,15 @@ templates/product-design/ ← Starter layout for a NEW product repo (CLAUDE.md b
 
 .claude/agents/           ← design-critic: the adversarial reviewer behind /critique
 
-.claude/skills/           ← Runnable skills (invoke via /name): design-tokens, design-component,
-                            design-code, design-review, a11y-audit, apply-aesthetic, redesign,
-                            migrate-design-system, prototype, ux-writing, governance, token-build,
-                            figma-integration, design-qa, performance, image-to-code, brandkit
+skills/aven-brand/        ← THE SKILL LIBRARY, as data — same delivery pattern as the units.
+                            `skills/*.json` is the source for all 28; `registry.mjs` validates each
+                            at load (a missing gate or depth file, a route to a merged-away skill, a
+                            duplicate name, an emoji — each fails the build); `generate.mjs` writes
+                            `.claude/skills/*/SKILL.md`. `manifest.json` records the merge with
+                            `design-system-ops` (MIT). `knowledge/`: drift, measurement,
+                            integrations, gate-discipline.
+
+.claude/skills/           ← GENERATED, do not hand-edit. Change the JSON and re-run the generator.
 scripts/                  ← validate_tokens.py [file|dir] · contrast.py · validate_contrast.py [file]
                             (batch WCAG, light+dark; both accept a product repo's design-tokens.json)
                             · validate_component_spec.py · lint_hardcodes.py (hex/px/ms + Tailwind palette + font)

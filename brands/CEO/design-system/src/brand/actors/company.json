@@ -1,0 +1,121 @@
+{
+	"name": "company",
+	"description": "The thesis band: the company of the future, named, on the brand's teal. The two roles from the heading — 1 human, 1 avenCEO — ARE the layout, faced off across the pair's rule, and the close sits on a marine panel because the band itself has almost no ink headroom.\n\nThe teal is `#217c91` and every colour on it is a measurement: white is 4.61:1 — 0.11 above what body text needs — so there is NO second body ink here, nothing fades, and hierarchy is size and weight only. Softening ink with opacity on this ground is the same error twice over, and axe caught it both times. The close moves onto marine because white on marine is 13.98:1, the most headroom anything in this band has had.",
+	"surface": "site",
+	"surfaceNote": "the thesis band",
+	"interface": {
+		"props": {},
+		"slots": {
+			"head": {},
+			"subline": {},
+			"roles": {},
+			"closing": {}
+		}
+	},
+	"view": {
+		"tag": "section",
+		"$children": [
+			{
+				"tag": "div",
+				"part": "head",
+				"$children": "head"
+			},
+			{
+				"tag": "p",
+				"part": "subline",
+				"$children": "subline"
+			},
+			{
+				"tag": "div",
+				"part": "roles",
+				"$children": "roles"
+			},
+			{
+				"tag": "div",
+				"part": "closing-panel",
+				"$children": "closing"
+			}
+		]
+	},
+	"styling": {
+		"base": {
+			"$description": "The band is its own container: the roles' side-by-side switch and the heading's cqi clamp both measure THIS box, not the window. `inline-size: 100%` is the container's required companion — containment makes the width independent of the contents, so a container without a width of its own collapses.\n\nDISPLAY IS DECLARED, and that is not decoration. `container-type: inline-size` imposes containment, and containment does nothing on an inert display — `inline`, `contents`, or whatever the tag happens to default to. This unit named a container and never said what box it was, so the `@container` query in `roles` could only ever work by the accident of the tag being a `<section>`; on the `<span>` the specimen uses it silently never matched. The contract test in `tests/containers.test.ts` exists for this exact failure, which looks identical to a threshold that is too low.",
+			"display": "block",
+			"containerType": "inline-size",
+			"containerName": "company",
+			"inlineSize": "100%"
+		},
+		"parts": {
+			"head": {},
+			"heading": {
+				"$description": "Emphasis is WEIGHT here, never colour: the heading's emphasised words say `<b>`, because sunflower measures 2.72:1 on this band and cannot be made to read — the lightest version that clears 4.5 is white.",
+				"& b": {
+					"fontWeight": "600"
+				}
+			},
+			"subline": {
+				"$description": "One line under the heading, centred, ABOVE the roles: it is the section's thesis and the pair beneath is the evidence. Its emphasised words are authored with the light-page tone, lifted to read on the band.",
+				"--measure": "46rem",
+				"marginBlockStart": "var(--space-loose)",
+				"fontSize": "var(--fs-lead)",
+				"lineHeight": "1.5",
+				"textAlign": "center",
+				"textWrap": "pretty",
+				"color": "var(--color-band-foreground)",
+				"& strong": {
+					"color": "var(--color-primary-foreground)",
+					"fontWeight": "500"
+				}
+			},
+			"roles": {
+				"$description": "Composes `pair`. Side by side the halves want more air than they need stacked — the same query the pair unit itself switches on, asked of this band's own container.",
+				"--gap": "var(--space-loose)",
+				"marginBlockStart": "var(--space-section)",
+				"@container (min-width: 44rem)": {
+					"--gap": "var(--space-section)"
+				}
+			},
+			"role": {
+				"--gap": "var(--space-hairline)",
+				"alignContent": "start"
+			},
+			"role-label": {
+				"$description": "NO opacity. This band's white is 4.61:1 — there is nothing to fade. On this ground, hierarchy is size and weight, never strength.",
+				"margin": "0",
+				"fontSize": "var(--fs-eyebrow)",
+				"fontWeight": "600",
+				"letterSpacing": "var(--tracking-widest)",
+				"textTransform": "uppercase",
+				"color": "var(--color-band-foreground)"
+			},
+			"role-title": {
+				"margin": "0",
+				"fontFamily": "var(--font-display)",
+				"fontSize": "clamp(var(--fs-amount), 3.4cqi, 2rem)",
+				"fontWeight": "400",
+				"lineHeight": "1.15",
+				"letterSpacing": "var(--tracking-tight)",
+				"textWrap": "balance",
+				"color": "var(--color-band-foreground)"
+			},
+			"role-text": {
+				"margin": "0",
+				"fontSize": "var(--fs-lead)",
+				"lineHeight": "1.4",
+				"color": "var(--color-band-foreground)"
+			},
+			"closing-panel": {
+				"$description": "The close carries a GROUND rather than a hairline: marine against the teal is a brand pairing, it gives the band an ending that is a shape, and white on it measures 13.98:1.",
+				"textAlign": "center",
+				"marginBlockStart": "var(--space-section)",
+				"padding": "var(--space-loose)",
+				"borderRadius": "var(--radius-xl)",
+				"background": "var(--color-marine)",
+				"color": "var(--color-on-dark)"
+			}
+		}
+	},
+	"a11y": {
+		"note": "The heading keeps its id as the band's `aria-labelledby` target. Emphasis on the band is weight (`<b>`), which announces; nothing on the teal is faded, because the ground's 4.61:1 has no headroom for it."
+	}
+}

@@ -100,6 +100,15 @@ export interface Plan {
 	 * before you print a `/m`.
 	 */
 	eurPrice: number
+	/**
+	 * The price this one is discounted FROM, when it is on a limited offer.
+	 *
+	 * `eurPrice` stays the number a person actually pays; this is the number
+	 * struck through beside it. Absent on a plan that is simply priced, which
+	 * is how a surface knows there is nothing to strike — an offer whose window
+	 * has to be remembered somewhere else is an offer that outlives it.
+	 */
+	listEurPrice?: number
 	billing: 'once' | 'weekly' | 'monthly'
 	/**
 	 * How many of this product ONE account may ever hold. `1` on every plan

@@ -1,0 +1,66 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "aven-brand-skill",
+	"title": "An aven-brand skill",
+	"description": "A skill is a DOCUMENT, not a file of prose — the same decision the unit library made. `units/*.json` declares what a component is and the engine renders it; `skills/*.json` declares what a skill is and the generator writes it. The reason is identical in both places: a document can be validated at load, and a skill that names a gate which does not exist, or a depth file that was deleted, should fail when the library is built rather than when someone invokes it and gets a dead reference.\n\nWhat this buys that 41 loose SKILL.md files did not: every skill is guaranteed to route somewhere real, no two skills can claim the same trigger, and the consumable form is generated rather than hand-maintained — so the frontmatter cannot drift from the body.",
+	"type": "object",
+	"required": ["name", "summary", "trigger", "steps", "done"],
+	"additionalProperties": false,
+	"properties": {
+		"name": {
+			"type": "string",
+			"pattern": "^[a-z][a-z0-9-]*$",
+			"description": "The invocation name. `/design-component` runs the skill named `design-component`."
+		},
+		"summary": {
+			"type": "string",
+			"description": "One line. It becomes the description Claude Code matches against, so it says what the skill DOES, not what it is about."
+		},
+		"area": {
+			"type": "string",
+			"enum": ["foundation", "build", "verify", "operate", "communicate"],
+			"description": "Which half of the lifecycle. `foundation` is tokens and brand; `build` makes something; `verify` checks it; `operate` keeps a used system healthy; `communicate` explains it to people who are not in it. The ops half — operate and communicate — is what the UI/UX kit had almost nothing of."
+		},
+		"trigger": {
+			"type": "object",
+			"required": ["when"],
+			"additionalProperties": false,
+			"description": "When to reach for this and when not to. The `not` half is load-bearing: two skills that both sound right for a request is the most common failure of a large library, and the only cure is for each to say what it is NOT.",
+			"properties": {
+				"when": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+				"not": { "type": "array", "items": { "type": "string" } },
+				"instead": {
+					"type": "object",
+					"additionalProperties": { "type": "string" },
+					"description": "Map of situation -> the skill that actually handles it. Validated: every value must name a real skill."
+				}
+			}
+		},
+		"reads": {
+			"type": "array",
+			"items": { "type": "string" },
+			"description": "Depth files this skill loads, relative to the repo root. Validated to exist — a skill pointing at a deleted rule file is a skill that silently does less."
+		},
+		"gates": {
+			"type": "array",
+			"items": { "type": "string" },
+			"description": "Runnable gates, by FILENAME in skills/gates. Validated to exist. A skill with no gates has to say why in `done`, because 'looks right' is not a verification."
+		},
+		"steps": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+		"output": {
+			"type": "string",
+			"description": "The shape of what the skill produces."
+		},
+		"done": {
+			"type": "array",
+			"items": { "type": "string" },
+			"minItems": 1,
+			"description": "Definition of done, in terms a reader can check. Not 'the component is good' — 'the gate printed N/N'."
+		},
+		"supersedes": {
+			"type": "array",
+			"items": { "type": "string" },
+			"description": "Skills from a merged library that this one absorbed, so the merge is a record rather than a deletion."
+		}
+	}
+}

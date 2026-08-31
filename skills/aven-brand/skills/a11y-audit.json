@@ -1,0 +1,51 @@
+{
+	"name": "a11y-audit",
+	"area": "verify",
+	"summary": "Audit against WCAG 2.2 AA with real measurements \u2014 contrast, keyboard, targets, motion, RTL \u2014 and name the criterion for every finding.",
+	"trigger": {
+		"when": [
+			"an accessibility check is asked for",
+			"a component is being finished",
+			"someone asks whether a colour pair passes"
+		],
+		"not": [
+			"choosing which token to use in the first place"
+		],
+		"instead": {
+			"the palette itself is in question": "design-tokens"
+		}
+	},
+	"reads": [
+		".claude/rules/accessibility.md",
+		"skills/accessibility/wcag-checklist.md",
+		"skills/accessibility/aria-patterns.md",
+		"skills/accessibility/cognitive.md",
+		"skills/accessibility/i18n-rtl.md",
+		"skills/accessibility/vision.md",
+		"skills/accessibility/wcag-aaa.md"
+	],
+	"gates": [
+		"measure_render.mjs",
+		"verify_states.mjs",
+		"axe_audit.mjs",
+		"verify_keyboard.mjs",
+		"verify_target_size.mjs",
+		"verify_focustrap.mjs",
+		"verify_reduced_motion.mjs",
+		"verify_rtl.mjs",
+		"contrast.py"
+	],
+	"steps": [
+		"Run the P0 checks on every interactive element: reachable by Tab, operable by Enter or Space, a visible focus ring at 3:1, name and role and state announced, target at least 24x24, and nothing carried by colour alone.",
+		"Measure contrast on the RENDER, not on the tokens \u2014 and in every state, because a control that passes at rest can fail on hover through a specificity trap.",
+		"Prioritise the WCAG 2.2 additions: focus not obscured by sticky chrome, target size, and authentication that does not test memory.",
+		"Check reduced motion for CONTENT LOSS, not just for stillness. An entrance animation that is the only thing revealing text hides that text from the people who asked for less motion.",
+		"Name the criterion number, the severity, and the specific fix for every finding."
+	],
+	"output": "Findings as criterion, severity, fix. Real measured ratios, never estimated ones.",
+	"done": [
+		"every gate above ran and its output is quoted",
+		"no ratio in the report was reasoned rather than measured",
+		"each finding cites its WCAG criterion"
+	]
+}
