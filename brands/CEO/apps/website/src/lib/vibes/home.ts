@@ -305,17 +305,15 @@ function costView(t: (typeof home)['de']): ViewNode {
 		children: [
 			{
 				tag: 'div',
-				class: 'section-inner stack',
-				attrs: { id: 'cost-grid' },
+				class: 'section-inner stack cost-grid',
 				children: [
 					{
 						tag: 'div',
-						class: 'stack stack-center center',
-						attrs: { id: 'cost-story' },
+						class: 'stack stack-center center cost-story',
 						children: [
 							ruleLabel(t.trust.cost.eyebrow, '02'),
-							{ tag: 'h2', attrs: { id: 'cost-heading' }, text: t.trust.cost.heading },
-							{ tag: 'p', attrs: { id: 'cost-lead' }, text: t.trust.cost.lead }
+							{ tag: 'h2', class: 'cost-heading', attrs: { id: 'cost-heading' }, text: t.trust.cost.heading },
+							{ tag: 'p', class: 'cost-lead', text: t.trust.cost.lead }
 						]
 					},
 					/* An illustration slot, described in place so the brief travels with
@@ -371,11 +369,10 @@ function costView(t: (typeof home)['de']): ViewNode {
 								 */
 								{
 									tag: 'figcaption',
-									class: 'cluster',
-										attrs: { id: 'cost-overlay' },
+									class: 'cluster cost-overlay',
 									children: [
 										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: '(' },
-										{ tag: 'span', attrs: { id: 'cost-kicker' }, text: t.trust.cost.kicker },
+										{ tag: 'span', text: t.trust.cost.kicker },
 										{ tag: 'span', class: 'paren', attrs: { 'aria-hidden': 'true' }, text: ')' }
 									]
 								}
@@ -394,61 +391,56 @@ function costView(t: (typeof home)['de']): ViewNode {
 					   still be a field. */
 					{
 						tag: 'div',
-						class: 'pair pair--rule-none',
-						attrs: { id: 'cost-price' },
+						class: 'pair pair--rule-none cost-price',
 						children: [
 							{
 								tag: 'div',
-								class: 'cost-panel stack',
-								attrs: { id: 'cost-was' },
+								class: 'cost-panel stack cost-was',
 								children: [
 									{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.human.label },
 									{
 										tag: 'p',
-										attrs: { id: 'cost-was-figure' },
+										class: 'cost-was-figure',
 										children: [
-											{ tag: 'span', attrs: { id: 'cost-was-value' }, text: t.trust.cost.human.value },
-											{ tag: 'span', attrs: { id: 'cost-was-unit' }, text: t.trust.cost.human.unit }
+											{ tag: 'span', class: 'cost-was-value', text: t.trust.cost.human.value },
+											{ tag: 'span', class: 'cost-was-unit', text: t.trust.cost.human.unit }
 										]
 									},
-									{ tag: 'p', attrs: { id: 'cost-was-note' }, text: t.trust.cost.human.note }
+									{ tag: 'p', class: 'cost-was-note', text: t.trust.cost.human.note }
 								]
 							},
 						{
 							tag: 'div',
-							class: 'cost-panel stack',
-							attrs: { id: 'cost-now' },
+							class: 'cost-panel stack cost-now',
 							children: [
 								{ tag: 'p', class: 'cost-panel-label', text: t.trust.cost.aven.label },
 								{
 									tag: 'p',
-									attrs: { id: 'cost-now-figure' },
+									class: 'cost-now-figure',
 									children: [
-										{ tag: 'span', attrs: { id: 'cost-now-value' }, text: t.trust.cost.aven.value },
-										{ tag: 'span', attrs: { id: 'cost-now-unit' }, text: t.trust.cost.aven.unit }
+										{ tag: 'span', class: 'cost-now-value', text: t.trust.cost.aven.value },
+										{ tag: 'span', class: 'cost-now-unit', text: t.trust.cost.aven.unit }
 									]
 								},
-								{ tag: 'p', attrs: { id: 'cost-now-note' }, text: t.trust.cost.aven.note }
+								{ tag: 'p', class: 'cost-now-note', text: t.trust.cost.aven.note }
 							]
 						},
 						]
 					},
 					{
 						tag: 'p',
-						class: 'center',
-						attrs: { id: 'cost-closing' },
+						class: 'center cost-closing',
 						children: [
 							/* The rate leads, highlighted — it is the thing being claimed,
 							   and a claim whose evidence sits unmarked in the sentence
 							   beside it reads as an opinion. */
-							{ tag: 'span', attrs: { id: 'cost-closing-rate' }, text: t.trust.cost.closingLead },
-							{ tag: 'span', attrs: { id: 'cost-closing-line' }, text: t.trust.cost.closing }
+							{ tag: 'span', class: 'cost-closing-rate', text: t.trust.cost.closingLead },
+							{ tag: 'span', class: 'cost-closing-line', text: t.trust.cost.closing }
 						]
 					},
 					{
 						tag: 'ul',
-						class: 'cluster',
-						attrs: { id: 'cost-does' },
+						class: 'cluster cost-does',
 						children: t.trust.cost.does.map(
 							(job): ViewNode => ({
 								tag: 'li',
