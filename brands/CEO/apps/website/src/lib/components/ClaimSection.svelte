@@ -106,26 +106,50 @@ let {
 	inset-inline-start: 100%;
 	inset-block-start: 50%;
 	margin-inline-start: var(--space-tight);
-	padding: var(--space-hairline) var(--space-tight);
+	padding: var(--space-hairline) var(--space-snug);
 	border-radius: var(--radius-sm);
-	/* Sunflower at full strength, not the tint: a discount badge that whispers
-	   is not doing the one job it has. Marine on it measures 8.27:1. */
-	/* The same family as the offer note below it: this IS the offer, stated as
-	   the price it replaces. `terracotta-strong` on the light tint measures
-	   5.26:1 — the raw tone is 3.86 and would not carry a strike this size. */
-	background: var(--color-terracotta-surface);
-	border: 1px solid var(--color-terracotta-edge);
-	font-size: var(--fs-title);
+	/*
+	 * Solid terracotta, not the tint it wore before.
+	 *
+	 * A discount badge drawn as a 1px outline on a near-white ground asks to be
+	 * read as chrome. This is the offer; it should be the second-loudest thing
+	 * on the card after the price it replaces. Cream on `terracotta-strong`
+	 * measures 5.70:1, so the strike survives being small AND being struck.
+	 */
+	background: var(--color-terracotta-strong);
+	border: 0;
+	font-size: var(--fs-body);
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
-	line-height: 1.2;
+	line-height: 1.15;
 	white-space: nowrap;
-	text-decoration: line-through;
-	text-decoration-thickness: 1px;
-	color: var(--color-marine);
+	color: var(--color-surface-page);
 	box-shadow: var(--shadow-raised, none);
 	transform: translateY(-50%) rotate(-7deg);
 	transform-origin: left center;
+}
+/*
+ * The saving, stated as a number, stacked under the struck price.
+ *
+ * The strike says what it WAS; on its own it leaves the reader to do the
+ * subtraction. The percentage is the claim, so it is the part set in the
+ * brand's yellow — the only warm note on a terracotta ground, at 8.42:1.
+ */
+/* The strike sits on the price alone — set on the badge it propagates into
+   the saving line below, striking the very number the badge exists to state. */
+:global(#id-price-was) > :global(span:first-child) {
+	text-decoration: line-through;
+	text-decoration-thickness: 2px;
+	text-decoration-color: color-mix(in srgb, var(--color-surface-page) 70%, transparent);
+}
+:global(#id-price-off) {
+	display: block;
+	margin-block-start: 1px;
+	font-size: var(--fs-micro, var(--fs-meta));
+	font-weight: 700;
+	letter-spacing: var(--tracking-wide);
+	text-transform: uppercase;
+	color: var(--color-accent-edge);
 }
 
 /* Matches the divider it replaced: the file's own 8:3, and no height cap —
@@ -152,15 +176,15 @@ let {
 	align-items: center;
 	justify-content: center;
 	font-family: var(--font-display);
-	font-size: clamp(1.25rem, 3cqi, 2.25rem);
+	font-size: clamp(0.625rem, 1.5cqi, 1.125rem);
 	letter-spacing: var(--tracking-wide);
 	/*
-	 * 78%, not 50%. The bottom quarter of this picture averages #897b55 — sand
-	 * and stone, not dark — and cream at half strength measures about 2:1 there,
-	 * which is not an imprint but an absence. At 78% it is 3.5:1 against that
-	 * mean: still clearly part of the image, and still readable.
+	 * Marine, at full strength. The bottom quarter of this picture averages
+	 * #897b55 — sand and stone — and the brand's own dark reads against it at
+	 * 3.5:1, the same figure the cream reached at 78%, from the other side. A
+	 * mark pressed INTO the paper rather than laid over it.
 	 */
-	color: color-mix(in srgb, var(--color-surface-page) 78%, transparent);
+	color: var(--color-marine);
 }
 :global(#claim-banner img) {
 	display: block;

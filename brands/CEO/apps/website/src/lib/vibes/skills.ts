@@ -65,7 +65,7 @@ function heroView(t: Messages): ViewNode {
 							{
 								tag: 'span',
 								class:
-									'mt-2 block text-[clamp(1.25rem,3.85cqi,2.05rem)] font-light leading-[1.08] tracking-tight text-foreground-soft',
+									'mt-3 block font-sans text-[clamp(1rem,2.6cqi,1.375rem)] font-light leading-snug tracking-normal text-foreground-soft',
 								text: t.hero.subheading
 							}
 						]

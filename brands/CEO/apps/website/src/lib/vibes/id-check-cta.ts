@@ -162,7 +162,18 @@ function priceView(lang: Lang): ViewNode {
 										{
 											tag: 'span',
 											attrs: { id: 'id-price-was' },
-											text: `${euro(avenId.listEurPrice)}${NBSP}€`
+											children: [
+												{ tag: 'span', text: `${euro(avenId.listEurPrice)}${NBSP}€` },
+												/*
+												 * The saving, computed rather than written down, so it
+												 * cannot drift from the two prices standing beside it.
+												 */
+												{
+													tag: 'span',
+													attrs: { id: 'id-price-off' },
+													text: `−${Math.round((1 - avenId.eurPrice / avenId.listEurPrice) * 100)}%`
+												}
+											]
 										} satisfies ViewNode
 									]
 								: [])

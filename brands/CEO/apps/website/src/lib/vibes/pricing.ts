@@ -287,12 +287,6 @@ function plansView(lang: Lang): ViewNode {
 								class: 'text-center text-2xl font-semibold tracking-tight text-foreground',
 								text: ceo.name
 							},
-							{
-								tag: 'p',
-								class:
-									'mt-1 text-center text-[length:var(--fs-meta)] leading-snug text-foreground-quiet',
-								text: ceo.role
-							},
 							pitchLine(ceo),
 							{
 								tag: 'div',
