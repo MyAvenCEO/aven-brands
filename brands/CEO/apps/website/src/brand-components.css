@@ -4533,17 +4533,23 @@
 	}
 
 	.site-footer--layout-inline {
+		padding-block: var(--space-loose);
+		padding-inline: var(--space-comfortable);
+		background: transparent;
+		color: inherit;
+		border-block-start: 1px solid var(--color-border-soft);
 
 		& .site-footer-inner {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
-			column-gap: var(--space-loose);
-			row-gap: var(--space-tight);
 			gap: var(--space-tight) var(--space-loose);
-			padding-block: var(--space-loose);
+			padding-block: 0;
 			text-align: center;
 			font-size: var(--fs-micro);
+		}
+		& .site-footer-link {
+			color: var(--color-foreground-soft);
 		}
 	}
 
