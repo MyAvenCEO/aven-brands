@@ -115,16 +115,24 @@
 			"layout": {
 				"$description": "How much footer the surface needs. The default is the marketing footer: a brand block and named groups of links. `inline` is the other real case and it is most of the estate — a service page whose footer is one centred line of legal links and nothing else.\n\navenID and the checkout both had exactly that, hand-written, and the first pass onto this actor gave them the full grouped marketing footer instead: a 'Legal' heading over two links, on a page whose entire content is one card. A footer that is larger than the thing it closes is the wrong footer.",
 				"inline": {
-					"$part": "inner",
-					"display": "flex",
-					"flexWrap": "wrap",
-					"justifyContent": "center",
-					"columnGap": "var(--space-loose)",
-					"rowGap": "var(--space-tight)",
-					"gap": "var(--space-tight) var(--space-loose)",
+					"$description": "One centred line of links, and it must undo the base as well as set the inner: the marketing footer pads 2.5rem top and bottom and fills with the brand dark, which around a single 15px line is 128px of padding and a black band. The original was 1.25rem of padding, a hairline rule above, and the page's own ground showing through.",
 					"paddingBlock": "var(--space-loose)",
-					"textAlign": "center",
-					"fontSize": "var(--fs-micro)"
+					"paddingInline": "var(--space-comfortable)",
+					"background": "transparent",
+					"color": "inherit",
+					"borderBlockStart": "1px solid var(--color-border-soft)",
+					"& .site-footer-inner": {
+						"display": "flex",
+						"flexWrap": "wrap",
+						"justifyContent": "center",
+						"gap": "var(--space-tight) var(--space-loose)",
+						"paddingBlock": "0",
+						"textAlign": "center",
+						"fontSize": "var(--fs-micro)"
+					},
+					"& .site-footer-link": {
+						"color": "var(--color-foreground-soft)"
+					}
 				}
 			}
 		},
