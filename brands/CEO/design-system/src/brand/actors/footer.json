@@ -111,6 +111,21 @@
 					"background": "var(--color-surface-raised)",
 					"color": "var(--color-foreground)"
 				}
+			},
+			"layout": {
+				"$description": "How much footer the surface needs. The default is the marketing footer: a brand block and named groups of links. `inline` is the other real case and it is most of the estate — a service page whose footer is one centred line of legal links and nothing else.\n\navenID and the checkout both had exactly that, hand-written, and the first pass onto this actor gave them the full grouped marketing footer instead: a 'Legal' heading over two links, on a page whose entire content is one card. A footer that is larger than the thing it closes is the wrong footer.",
+				"inline": {
+					"$part": "inner",
+					"display": "flex",
+					"flexWrap": "wrap",
+					"justifyContent": "center",
+					"columnGap": "var(--space-loose)",
+					"rowGap": "var(--space-tight)",
+					"gap": "var(--space-tight) var(--space-loose)",
+					"paddingBlock": "var(--space-loose)",
+					"textAlign": "center",
+					"fontSize": "var(--fs-micro)"
+				}
 			}
 		},
 		"states": {

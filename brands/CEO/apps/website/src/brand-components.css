@@ -1240,57 +1240,60 @@
 		justify-items: center;
 		gap: var(--space-tight);
 		margin-inline: auto;
-		max-inline-size: 26rem;
-		padding: var(--space-section) var(--space-loose);
-		border-radius: var(--radius-xl);
-		border: 1px solid var(--color-border);
-		background: var(--color-surface-raised);
-		box-shadow: var(--shadow-raised);
+		max-inline-size: 32rem;
+		padding: clamp(2rem, 6cqi, 3.25rem);
+		border-radius: var(--radius-2xl);
+		border: 1px solid var(--color-border-soft);
+		background: color-mix(in srgb, var(--color-surface-raised) 82%, transparent);
+		box-shadow: var(--shadow-ambient);
 		text-align: center;
 		container-type: inline-size;
-		container-name: flow-card;
 		inline-size: 100%;
+		backdrop-filter: blur(var(--blur-glass));
+		container-name: flow-card;
 		min-inline-size: 0;
 	}
 
 	.flow-card-eyebrow {
-		margin: 0;
+		margin: 0 0 var(--space-snug);
 		color: var(--color-foreground-quiet);
 	}
 
 	.flow-card-heading {
 		margin: 0;
-		font-size: var(--fs-title);
+		font-size: clamp(var(--fs-display), 5cqi, var(--fs-display-lg));
 		font-weight: 600;
-		line-height: 1.25;
+		line-height: 1.12;
+		letter-spacing: var(--tracking-tighter, -0.035em);
+		max-inline-size: 25rem;
 		text-wrap: balance;
 		color: var(--color-foreground);
 	}
 
 	.flow-card-description {
-		margin: 0;
-		max-inline-size: 40ch;
-		font-size: var(--fs-meta);
-		line-height: 1.55;
+		margin: var(--space-comfortable) 0 0;
+		max-inline-size: 25rem;
+		font-size: var(--fs-section);
+		line-height: 1.65;
 		color: var(--color-foreground-soft);
 	}
 
 	.flow-card-code {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--space-tight);
-		margin-block: var(--space-tight);
-		padding: var(--space-tight) var(--space-comfortable);
-		border-radius: var(--radius-sm);
+		display: grid;
+		gap: var(--space-hairline);
+		inline-size: 100%;
+		margin-block-start: var(--space-loose);
+		padding: var(--space-comfortable) var(--space-loose);
+		border-radius: 1rem;
 		border: 1px solid var(--color-border-soft);
-		background: var(--color-surface-sunken);
+		background: color-mix(in srgb, var(--color-surface-sunken) 78%, transparent);
 		font-family: var(--font-mono);
-		font-size: var(--fs-lead);
+		font-size: var(--fs-hero);
 		font-weight: 600;
-		letter-spacing: var(--tracking-wider);
+		letter-spacing: 0.17em;
 		font-variant-numeric: tabular-nums;
 		user-select: all;
-		color: var(--color-foreground);
+		color: var(--color-primary);
 	}
 
 	.flow-card-alert {
@@ -1308,12 +1311,12 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		gap: var(--space-tight);
-		margin-block-start: var(--space-tight);
+		margin-block-start: var(--space-loose);
 		inline-size: 100%;
 	}
 
 	.flow-card-trust {
-		margin: var(--space-tight) 0 0;
+		margin: var(--space-loose) 0 0;
 		font-size: var(--fs-micro);
 		color: var(--color-foreground-quiet);
 	}
@@ -1321,14 +1324,24 @@
 	.flow-card-crest {
 		display: grid;
 		place-items: center;
-		inline-size: 3rem;
-		block-size: 3rem;
-		margin-block-end: var(--space-tight);
-		border-radius: var(--radius-full);
-		border: 1px solid var(--color-border-soft);
-		background: var(--color-muted);
-		color: var(--color-foreground-soft);
+		inline-size: 4rem;
+		block-size: 4rem;
+		margin-block-end: var(--space-loose);
+		border-radius: 1rem;
+		background: var(--color-primary);
+		color: var(--color-primary-foreground);
+		box-shadow: var(--shadow-floating);
 		overflow: hidden;
+
+		& svg {
+			inline-size: 1.75rem;
+			block-size: 1.75rem;
+			stroke-width: 1.7;
+		}
+		& img {
+			inline-size: 1.75rem;
+			block-size: 1.75rem;
+		}
 	}
 
 	.flow-card-status {
@@ -4493,6 +4506,21 @@
 	.site-footer--ground-page {
 		background: var(--color-surface-raised);
 		color: var(--color-foreground);
+	}
+
+	.site-footer--layout-inline {
+
+		& .site-footer-inner {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			column-gap: var(--space-loose);
+			row-gap: var(--space-tight);
+			gap: var(--space-tight) var(--space-loose);
+			padding-block: var(--space-loose);
+			text-align: center;
+			font-size: var(--fs-micro);
+		}
 	}
 
 	.rule-label {
