@@ -80,10 +80,10 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "THE CARD IS THE PAGE. These screens have one thing on them and nothing else, so the card is not a tile in a column of tiles — it floats, and it is sized and lifted accordingly: 32rem wide, a 2rem radius, a wide soft ambient shadow, and a translucent ground with a glass blur so the page's own gradient reads through it.\n\nAll of that is recovered, not invented. avenID's cards had it, spelled by hand in that service's app.css; the first pass onto this actor flattened them into a plain 26rem panel with a hairline shadow and a 15px heading. The design was the better one, so it moved in here where all four surfaces get it.\n\nCONTAINER, and the clamps read `cqi` — the card's own width — rather than `vw`. The heading spans `fs-display` to `fs-display-lg` because on a screen with one sentence on it, that sentence is display type.",
+			"$description": "THE CARD IS THE PAGE. These screens have one thing on them and nothing else, so the card is not a tile in a column of tiles — it floats, and it is sized and lifted accordingly: 32rem wide, a 2rem radius, a wide soft ambient shadow, and a translucent ground with a glass blur so the page's own gradient reads through it.\n\nAll of that is recovered, not invented. avenID's cards had it, spelled by hand in that service's app.css; the first pass onto this actor flattened them into a plain 26rem panel with a hairline shadow and a 15px heading. The design was the better one, so it moved in here where all four surfaces get it.\n\nCONTAINER, and the clamps read `cqi` — the card's own width — rather than `vw`. The heading spans `fs-display` to `fs-display-lg` because on a screen with one sentence on it, that sentence is display type.\n\nGAP IS ZERO ON PURPOSE. Each part states the space above it — crest 1.5rem, eyebrow 0.7rem, description 1rem, code 1.75rem, trust 1.6rem — which is how the original set its rhythm. A grid gap on top of those margins adds a step between every pair and the card loses the uneven spacing that made it read as composed rather than stacked.",
 			"display": "grid",
 			"justifyItems": "center",
-			"gap": "var(--space-tight)",
+			"gap": "0",
 			"marginInline": "auto",
 			"maxInlineSize": "32rem",
 			"padding": "clamp(2rem, 6cqi, 3.25rem)",
@@ -98,15 +98,19 @@
 		},
 		"parts": {
 			"eyebrow": {
-				"$description": "Composes `text--eyebrow`; only the colour and the space beneath it are this unit's.",
+				"$description": "Small, heavy and widely tracked.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
 				"margin": "0 0 var(--space-snug)",
-				"color": "var(--color-foreground-quiet)"
+				"color": "var(--color-foreground-quiet)",
+				"fontSize": "0.7rem",
+				"letterSpacing": "0.16em",
+				"fontWeight": "700",
+				"textTransform": "uppercase"
 			},
 			"heading": {
-				"$description": "Display type. One sentence is the whole screen here, so it is set at display size and tracked in, not at a card-title size — the flattened 15px version read as a form label.",
-				"margin": "0",
-				"fontSize": "clamp(var(--fs-display), 5cqi, var(--fs-display-lg))",
-				"fontWeight": "600",
+				"$description": "Display type, and the heaviest thing on the screen. One sentence IS the screen here.\n\n`9.1cqi`, not the original's `5vw`: `vw` measured an 800px window, `cqi` measures the card's CONTENT box (414px inside a 512px card), so the multiplier has to be nearly double to land on the same 37.6px. The `0.67em` margin is the browser's own h1 default on BOTH sides, which the original inherited: it sets the space under the crest AND the space above the description. Setting it on the top alone closed the gap under the heading by 26px and the whole card came up short.",
+				"margin": "0.67em 0",
+				"fontSize": "clamp(var(--fs-display), 9.1cqi, var(--fs-display-lg))",
+				"fontWeight": "700",
 				"lineHeight": "1.12",
 				"letterSpacing": "var(--tracking-tighter, -0.035em)",
 				"maxInlineSize": "25rem",
@@ -114,29 +118,40 @@
 				"color": "var(--color-foreground)"
 			},
 			"description": {
-				"$description": "Reads at body size with generous leading — it is the only prose on the screen.",
+				"$description": "The only prose on the screen, at generous leading.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
 				"margin": "var(--space-comfortable) 0 0",
 				"maxInlineSize": "25rem",
-				"fontSize": "var(--fs-section)",
+				"fontSize": "0.95rem",
 				"lineHeight": "1.65",
 				"color": "var(--color-foreground-soft)"
 			},
 			"code": {
-				"$description": "A full-width well, not an inline pill: the code is the thing being handed over, and it gets a block of its own. `user-select: all` so one click takes the whole thing.",
+				"$description": "A full-width well holding a label and the value it names. The label sits INSIDE, which is the original's shape: the well is one block that says 'here is the code', not a bare pill with a caption floating above it.",
 				"display": "grid",
 				"gap": "var(--space-hairline)",
 				"inlineSize": "100%",
-				"marginBlockStart": "var(--space-loose)",
+				"marginBlockStart": "1.75rem",
 				"padding": "var(--space-comfortable) var(--space-loose)",
 				"borderRadius": "1rem",
 				"border": "1px solid var(--color-border-soft)",
 				"background": "color-mix(in srgb, var(--color-surface-sunken) 78%, transparent)",
+				"userSelect": "all"
+			},
+			"code-label": {
+				"$description": "What the value below it is.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
+				"fontSize": "0.65rem",
+				"fontWeight": "650",
+				"letterSpacing": "0.15em",
+				"textTransform": "uppercase",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"code-value": {
+				"$description": "The code itself: mono, widely tracked, in the brand dark. Tracking matters more here than anywhere else in the system — this string gets read aloud down a phone line.",
 				"fontFamily": "var(--font-mono)",
 				"fontSize": "var(--fs-hero)",
-				"fontWeight": "600",
+				"fontWeight": "700",
 				"letterSpacing": "0.17em",
 				"fontVariantNumeric": "tabular-nums",
-				"userSelect": "all",
 				"color": "var(--color-primary)"
 			},
 			"alert": {
@@ -146,21 +161,29 @@
 				"border": "1px solid var(--color-error-border)",
 				"background": "var(--color-error-surface)",
 				"fontSize": "var(--fs-meta)",
-				"color": "var(--color-error-ink)"
+				"color": "var(--color-error-ink)",
+				"marginBlockStart": "var(--space-comfortable)"
 			},
 			"actions": {
+				"$description": "A full-width row, and a SINGLE action fills it.\n\nThat last part is the original's, and it is the difference between a card that closes with a decision and one that closes with a link: avenID's `.device-flow > button` was `width: 100%; min-height: 3.25rem`. Two actions stay auto-width and centred, which is what the checkout's Zurück/Weiter pair was — so `:only-child` carries the distinction rather than a variant the call site has to remember.",
 				"display": "flex",
 				"flexWrap": "wrap",
+				"alignItems": "center",
 				"justifyContent": "center",
-				"gap": "var(--space-tight)",
-				"marginBlockStart": "var(--space-loose)",
+				"gap": "var(--space-comfortable)",
 				"inlineSize": "100%",
-				"$description": "The affirmative action goes LAST — rightmost in a left-to-right reading order — and the way out goes first. That is the direction of travel: you read to the end of the row and the end is the thing you came to do. Putting the primary first means the eye lands on it before it has read what it is agreeing to, and it puts Cancel where the thumb expects Confirm."
+				"marginBlockStart": "var(--space-comfortable)",
+				"& > .btn": {
+					"minBlockSize": "3.25rem"
+				},
+				"& > .btn:only-child": {
+					"flex": "1"
+				}
 			},
 			"trust": {
-				"$description": "The line that says who you are talking to. Quiet, and set away from the action above it.",
-				"margin": "var(--space-loose) 0 0",
-				"fontSize": "var(--fs-micro)",
+				"$description": "Who you are talking to. Quiet, and set well away from the action.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
+				"margin": "1.6rem 0 0",
+				"fontSize": "0.72rem",
 				"color": "var(--color-foreground-quiet)"
 			},
 			"crest": {

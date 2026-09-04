@@ -1238,7 +1238,7 @@
 	.flow-card {
 		display: grid;
 		justify-items: center;
-		gap: var(--space-tight);
+		gap: 0;
 		margin-inline: auto;
 		max-inline-size: 32rem;
 		padding: clamp(2rem, 6cqi, 3.25rem);
@@ -1257,12 +1257,16 @@
 	.flow-card-eyebrow {
 		margin: 0 0 var(--space-snug);
 		color: var(--color-foreground-quiet);
+		font-size: 0.7rem;
+		letter-spacing: 0.16em;
+		font-weight: 700;
+		text-transform: uppercase;
 	}
 
 	.flow-card-heading {
-		margin: 0;
-		font-size: clamp(var(--fs-display), 5cqi, var(--fs-display-lg));
-		font-weight: 600;
+		margin: 0.67em 0;
+		font-size: clamp(var(--fs-display), 9.1cqi, var(--fs-display-lg));
+		font-weight: 700;
 		line-height: 1.12;
 		letter-spacing: var(--tracking-tighter, -0.035em);
 		max-inline-size: 25rem;
@@ -1273,7 +1277,7 @@
 	.flow-card-description {
 		margin: var(--space-comfortable) 0 0;
 		max-inline-size: 25rem;
-		font-size: var(--fs-section);
+		font-size: 0.95rem;
 		line-height: 1.65;
 		color: var(--color-foreground-soft);
 	}
@@ -1282,17 +1286,28 @@
 		display: grid;
 		gap: var(--space-hairline);
 		inline-size: 100%;
-		margin-block-start: var(--space-loose);
+		margin-block-start: 1.75rem;
 		padding: var(--space-comfortable) var(--space-loose);
 		border-radius: 1rem;
 		border: 1px solid var(--color-border-soft);
 		background: color-mix(in srgb, var(--color-surface-sunken) 78%, transparent);
+		user-select: all;
+	}
+
+	.flow-card-code-label {
+		font-size: 0.65rem;
+		font-weight: 650;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: var(--color-foreground-quiet);
+	}
+
+	.flow-card-code-value {
 		font-family: var(--font-mono);
 		font-size: var(--fs-hero);
-		font-weight: 600;
+		font-weight: 700;
 		letter-spacing: 0.17em;
 		font-variant-numeric: tabular-nums;
-		user-select: all;
 		color: var(--color-primary);
 	}
 
@@ -1304,20 +1319,29 @@
 		background: var(--color-error-surface);
 		font-size: var(--fs-meta);
 		color: var(--color-error-ink);
+		margin-block-start: var(--space-comfortable);
 	}
 
 	.flow-card-actions {
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
 		justify-content: center;
-		gap: var(--space-tight);
-		margin-block-start: var(--space-loose);
+		gap: var(--space-comfortable);
 		inline-size: 100%;
+		margin-block-start: var(--space-comfortable);
+
+		& > .btn {
+			min-block-size: 3.25rem;
+		}
+		& > .btn:only-child {
+			flex: 1;
+		}
 	}
 
 	.flow-card-trust {
-		margin: var(--space-loose) 0 0;
-		font-size: var(--fs-micro);
+		margin: 1.6rem 0 0;
+		font-size: 0.72rem;
 		color: var(--color-foreground-quiet);
 	}
 
