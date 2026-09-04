@@ -80,58 +80,79 @@
 	},
 	"styling": {
 		"base": {
-			"$description": "Centred and narrow. This screen has exactly one job and nothing else on it, so the measure is tight and the whole card is the focal point — the composition rule that an empty-ish screen owns its viewport rather than floating under a header.\n\nCONTAINER. This unit establishes an inline-size container named after itself, so anything inside it can respond to the width of THIS BOX rather than to the width of the window. That is the difference that matters for a design system: a composite dropped into a 320px sidebar and the same composite on a 320px phone are the same situation, and a viewport query calls them different ones. The library carries no viewport media query anywhere for exactly this reason — the only `@media` in it is `prefers-reduced-motion`, which is a person's setting and not a size.",
+			"$description": "THE CARD IS THE PAGE. These screens have one thing on them and nothing else, so the card is not a tile in a column of tiles — it floats, and it is sized and lifted accordingly: 32rem wide, a 2rem radius, a wide soft ambient shadow, and a translucent ground with a glass blur so the page's own gradient reads through it.\n\nAll of that is recovered, not invented. avenID's cards had it, spelled by hand in that service's app.css; the first pass onto this actor flattened them into a plain 26rem panel with a hairline shadow and a 15px heading. The design was the better one, so it moved in here where all four surfaces get it.\n\nCONTAINER, and the clamps read `cqi` — the card's own width — rather than `vw`. The heading spans `fs-display` to `fs-display-lg` because on a screen with one sentence on it, that sentence is display type.\n\nGAP IS ZERO ON PURPOSE. Each part states the space above it — crest 1.5rem, eyebrow 0.7rem, description 1rem, code 1.75rem, trust 1.6rem — which is how the original set its rhythm. A grid gap on top of those margins adds a step between every pair and the card loses the uneven spacing that made it read as composed rather than stacked.",
 			"display": "grid",
 			"justifyItems": "center",
-			"gap": "var(--space-tight)",
+			"gap": "0",
 			"marginInline": "auto",
-			"maxInlineSize": "26rem",
-			"padding": "var(--space-section) var(--space-loose)",
-			"borderRadius": "var(--radius-xl)",
-			"border": "1px solid var(--color-border)",
-			"background": "var(--color-surface-raised)",
-			"boxShadow": "var(--shadow-raised)",
+			"maxInlineSize": "32rem",
+			"padding": "clamp(2rem, 6cqi, 3.25rem)",
+			"borderRadius": "var(--radius-2xl)",
+			"border": "1px solid var(--color-border-soft)",
+			"background": "color-mix(in srgb, var(--color-surface-raised) 82%, transparent)",
+			"boxShadow": "var(--shadow-ambient)",
 			"textAlign": "center",
-			"containerType": "inline-size"
+			"containerType": "inline-size",
+			"inlineSize": "100%",
+			"backdropFilter": "blur(var(--blur-glass))"
 		},
 		"parts": {
 			"eyebrow": {
-				"margin": "0",
+				"$description": "Small, heavy and widely tracked.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
+				"margin": "0 0 var(--space-snug)",
 				"color": "var(--color-foreground-quiet)",
-				"$description": "Composes `text--eyebrow`. Only the colour is this unit's; the size, weight, case and tracking come from the one definition."
+				"fontSize": "0.7rem",
+				"letterSpacing": "0.16em",
+				"fontWeight": "700",
+				"textTransform": "uppercase"
 			},
 			"heading": {
-				"margin": "0",
-				"fontSize": "var(--fs-title)",
-				"fontWeight": "600",
-				"lineHeight": "1.25",
+				"$description": "Display type, and the heaviest thing on the screen. One sentence IS the screen here.\n\n`9.1cqi`, not the original's `5vw`: `vw` measured an 800px window, `cqi` measures the card's CONTENT box (414px inside a 512px card), so the multiplier has to be nearly double to land on the same 37.6px. The `0.67em` margin is the browser's own h1 default on BOTH sides, which the original inherited: it sets the space under the crest AND the space above the description. Setting it on the top alone closed the gap under the heading by 26px and the whole card came up short.",
+				"margin": "0.67em 0",
+				"fontSize": "clamp(var(--fs-display), 9.1cqi, var(--fs-display-lg))",
+				"fontWeight": "700",
+				"lineHeight": "1.12",
+				"letterSpacing": "var(--tracking-tighter, -0.035em)",
+				"maxInlineSize": "25rem",
 				"textWrap": "balance",
 				"color": "var(--color-foreground)"
 			},
 			"description": {
-				"margin": "0",
-				"maxInlineSize": "40ch",
-				"fontSize": "var(--fs-meta)",
-				"lineHeight": "1.55",
+				"$description": "The only prose on the screen, at generous leading.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
+				"margin": "var(--space-comfortable) 0 0",
+				"maxInlineSize": "25rem",
+				"fontSize": "0.95rem",
+				"lineHeight": "1.65",
 				"color": "var(--color-foreground-soft)"
 			},
 			"code": {
-				"$description": "A code the user reads aloud or types into another device. Tabular, wide-tracked and grouped, because the failure mode here is misreading an 8 as a B — and `user-select: all` so one click selects the whole thing rather than half of it.",
-				"display": "inline-flex",
-				"alignItems": "center",
-				"gap": "var(--space-tight)",
-				"marginBlock": "var(--space-tight)",
-				"padding": "var(--space-tight) var(--space-comfortable)",
-				"borderRadius": "var(--radius-sm)",
+				"$description": "A full-width well holding a label and the value it names. The label sits INSIDE, which is the original's shape: the well is one block that says 'here is the code', not a bare pill with a caption floating above it.",
+				"display": "grid",
+				"gap": "var(--space-hairline)",
+				"inlineSize": "100%",
+				"marginBlockStart": "1.75rem",
+				"padding": "var(--space-comfortable) var(--space-loose)",
+				"borderRadius": "1rem",
 				"border": "1px solid var(--color-border-soft)",
-				"background": "var(--color-surface-sunken)",
+				"background": "color-mix(in srgb, var(--color-surface-sunken) 78%, transparent)",
+				"userSelect": "all"
+			},
+			"code-label": {
+				"$description": "What the value below it is.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
+				"fontSize": "0.65rem",
+				"fontWeight": "650",
+				"letterSpacing": "0.15em",
+				"textTransform": "uppercase",
+				"color": "var(--color-foreground-quiet)"
+			},
+			"code-value": {
+				"$description": "The code itself: mono, widely tracked, in the brand dark. Tracking matters more here than anywhere else in the system — this string gets read aloud down a phone line.",
 				"fontFamily": "var(--font-mono)",
-				"fontSize": "var(--fs-lead)",
-				"fontWeight": "600",
-				"letterSpacing": "var(--tracking-wider)",
+				"fontSize": "var(--fs-hero)",
+				"fontWeight": "700",
+				"letterSpacing": "0.17em",
 				"fontVariantNumeric": "tabular-nums",
-				"userSelect": "all",
-				"color": "var(--color-foreground)"
+				"color": "var(--color-primary)"
 			},
 			"alert": {
 				"inlineSize": "100%",
@@ -140,35 +161,52 @@
 				"border": "1px solid var(--color-error-border)",
 				"background": "var(--color-error-surface)",
 				"fontSize": "var(--fs-meta)",
-				"color": "var(--color-error-ink)"
+				"color": "var(--color-error-ink)",
+				"marginBlockStart": "var(--space-comfortable)"
 			},
 			"actions": {
+				"$description": "A full-width row, and a SINGLE action fills it.\n\nThat last part is the original's, and it is the difference between a card that closes with a decision and one that closes with a link: avenID's `.device-flow > button` was `width: 100%; min-height: 3.25rem`. Two actions stay auto-width and centred, which is what the checkout's Zurück/Weiter pair was — so `:only-child` carries the distinction rather than a variant the call site has to remember.",
 				"display": "flex",
 				"flexWrap": "wrap",
+				"alignItems": "center",
 				"justifyContent": "center",
-				"gap": "var(--space-tight)",
-				"marginBlockStart": "var(--space-tight)",
+				"gap": "var(--space-comfortable)",
 				"inlineSize": "100%",
-				"$description": "The affirmative action goes LAST — rightmost in a left-to-right reading order — and the way out goes first. That is the direction of travel: you read to the end of the row and the end is the thing you came to do. Putting the primary first means the eye lands on it before it has read what it is agreeing to, and it puts Cancel where the thumb expects Confirm."
+				"marginBlockStart": "var(--space-comfortable)",
+				"& > .btn": {
+					"minBlockSize": "3.25rem"
+				},
+				"& > .btn:only-child": {
+					"flex": "1"
+				}
 			},
 			"trust": {
-				"$description": "Who you are actually talking to. On a screen whose whole purpose is being trusted, this is content and not a footer — it is the sentence that answers 'should I press this'.",
-				"margin": "var(--space-tight) 0 0",
-				"fontSize": "var(--fs-micro)",
+				"$description": "Who you are talking to. Quiet, and set well away from the action.\n\nTHE SIZE IS THE ORIGINAL'S, and it is off the type scale. avenID set these by hand — 0.7rem, 0.95rem, 0.65rem, 0.72rem — and the nearest tokens are a step away in each case. Matched to the original rather than rounded to the scale, because these four screens are the ones people judge the product by and the original was better. If the scale should absorb them, that is a change to the scale, not to this card.",
+				"margin": "1.6rem 0 0",
+				"fontSize": "0.72rem",
 				"color": "var(--color-foreground-quiet)"
 			},
 			"crest": {
-				"$description": "What sits at the top of a trust screen — a status glyph on avenID, the brand mark on checkout. A slot rather than a fixed glyph, because those two surfaces are answering different questions: 'how is this going' and 'who is this'. The tinted disc is the same tint/ink pairing a badge uses, so a status here and a status in a table read as one system.",
+				"$description": "A SOLID TILE, not an outlined circle. 4rem square at a 1rem radius, filled with the brand dark and carrying its own lift, so the glyph reads light on dark and the tile sits above the card the way the card sits above the page. The outlined-circle version this replaces was the same shape as every avatar in the system, which is exactly what a status crest must not be.",
 				"display": "grid",
 				"placeItems": "center",
-				"inlineSize": "3rem",
-				"blockSize": "3rem",
-				"marginBlockEnd": "var(--space-tight)",
-				"borderRadius": "var(--radius-full)",
-				"border": "1px solid var(--color-border-soft)",
-				"background": "var(--color-muted)",
-				"color": "var(--color-foreground-soft)",
-				"overflow": "hidden"
+				"inlineSize": "4rem",
+				"blockSize": "4rem",
+				"marginBlockEnd": "var(--space-loose)",
+				"borderRadius": "1rem",
+				"background": "var(--color-primary)",
+				"color": "var(--color-primary-foreground)",
+				"boxShadow": "var(--shadow-floating)",
+				"overflow": "hidden",
+				"& svg": {
+					"inlineSize": "1.75rem",
+					"blockSize": "1.75rem",
+					"strokeWidth": "1.7"
+				},
+				"& img": {
+					"inlineSize": "1.75rem",
+					"blockSize": "1.75rem"
+				}
 			},
 			"status": {
 				"$description": "The answer, in one word, at the size the eye lands on first — `taken`, `free`, `expired`. On checkout this was a bare `.status` with `.taken` and `.free` beside it, which is colour carrying the meaning; the WORD carries it here and the colour agrees with it.",

@@ -854,6 +854,11 @@
 			"$value": "1.75rem",
 			"$description": "A panel, a modal, a sheet. 28px."
 		},
+		"radius-2xl": {
+			"$type": "dimension",
+			"$value": "2rem",
+			"$description": "A SHEET — a card that floats on the page rather than sitting in a column of them. The identity and checkout flow cards are the only things this big, and they were 2rem by hand before the scale had a name for it."
+		},
 		"radius-full": {
 			"$type": "dimension",
 			"$value": "9999px",
@@ -1039,6 +1044,11 @@
 			"shadow-overlay": {
 				"$type": "shadow",
 				"$value": "0 12px 40px rgba(30, 41, 59, 0.18)"
+			},
+			"shadow-ambient": {
+				"$type": "shadow",
+				"$value": "0 2rem 6rem rgba(30, 41, 59, 0.12)",
+				"$description": "The lift a single floating card gets: very wide, very soft, and lower in contrast than `overlay`. `overlay` is the drop a menu casts over content it covers; this is a card sitting above a page nothing else competes with."
 			}
 		},
 		"radius": {
@@ -1201,6 +1211,11 @@
 				"$type": "dimension",
 				"$value": "16px",
 				"$description": "The ground is texture, not context — a modal over a dense page."
+			},
+			"blur-glass": {
+				"$type": "dimension",
+				"$value": "1.25rem",
+				"$description": "Frosted glass — a translucent card that lets the page ground read through it. Deeper than `veil` because the card is the subject, not a scrim over one."
 			}
 		}
 	},
