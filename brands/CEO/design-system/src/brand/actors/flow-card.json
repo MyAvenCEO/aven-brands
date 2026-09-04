@@ -220,24 +220,24 @@
 		},
 		"variants": {
 			"status": {
-				"$description": "Where the flow is. It dresses the CREST and nothing else — a whole card turning green says the page succeeded, when what succeeded is one step.",
+				"$description": "How the crest reads. SOLID FILLS, like the default — the original set `.device-flow__icon.success { background: paradise-water }` and `.error { background: terracotta }`, both keeping the light glyph. The first pass made these light surface tints with dark ink, which inverts the tile: a status crest that goes PALER when something fails is the wrong direction, and it stopped matching the marine default sitting beside it in the same flow.",
 				"success": {
 					"$part": "crest",
-					"background": "var(--color-success-surface)",
-					"borderColor": "var(--color-success-border)",
-					"color": "var(--color-success-ink)"
+					"background": "var(--color-success)",
+					"borderColor": "transparent",
+					"color": "var(--color-success-foreground)"
 				},
 				"error": {
 					"$part": "crest",
-					"background": "var(--color-error-surface)",
-					"borderColor": "var(--color-error-border)",
-					"color": "var(--color-error-ink)"
+					"background": "var(--color-error)",
+					"borderColor": "transparent",
+					"color": "var(--color-error-foreground)"
 				},
 				"waiting": {
 					"$part": "crest",
-					"background": "var(--color-progress-surface)",
-					"borderColor": "var(--color-progress-border)",
-					"color": "var(--color-progress-ink)"
+					"background": "var(--color-progress)",
+					"borderColor": "transparent",
+					"color": "var(--color-progress-foreground)"
 				}
 			},
 			"crest": {
